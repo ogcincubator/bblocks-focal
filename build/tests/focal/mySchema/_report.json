@@ -2,7 +2,7 @@
   "title": "Validation report for ogc.focal.mySchema - My Schema",
   "bblockName": "My Schema",
   "bblockId": "ogc.focal.mySchema",
-  "generated": "2026-04-21T13:16:49.641007+00:00",
+  "generated": "2026-04-23T10:47:26.362984+00:00",
   "result": true,
   "items": [
     {
@@ -10,7 +10,7 @@
         "type": "EXAMPLE",
         "requireFail": false,
         "filename": "build/tests/focal/mySchema/example_1_1.json",
-        "url": "https://markuswilhelmjahn.github.io/bblock-systems/build/tests/focal/mySchema/example_1_1.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/mySchema/example_1_1.json",
         "exampleIndex": 1,
         "snippetIndex": 1,
         "language": "application/json"

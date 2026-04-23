@@ -20,6 +20,6 @@ Defines a set of properties for a forest typology uploaded directly to an offici
 
 The source code for this Building Block can be found in the following repository:
 
-* URL: [https://github.com/MarkusWilhelmJahn/bblock-systems](https://github.com/MarkusWilhelmJahn/bblock-systems)
+* URL: [https://github.com/ogcincubator/bblocks-focal](https://github.com/ogcincubator/bblocks-focal)
 * Path: `_sources/focal-ontology`
 

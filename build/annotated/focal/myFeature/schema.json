@@ -10,7 +10,7 @@
         {
           "properties": {
             "properties": {
-              "$ref": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.json"
+              "$ref": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.json"
             }
           }
         }

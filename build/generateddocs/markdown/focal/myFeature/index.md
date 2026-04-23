@@ -137,7 +137,7 @@ This examples shows how to define a customised schema based on an existing build
     {
       "mynamespace": "http://example.com/mythings/"
     },
-    "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeature/context.jsonld"
+    "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/context.jsonld"
   ],
   "type": "Feature",
   "crs": {
@@ -277,7 +277,7 @@ $defs:
     - $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/geo/features/feature/schema.yaml
     - properties:
         properties:
-          $ref: https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
+          $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml
 anyOf:
 - $ref: '#/$defs/MyFeature'
 
@@ -285,8 +285,8 @@ anyOf:
 
 Links to the schema:
 
-* YAML version: [schema.yaml](https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeature/schema.json)
-* JSON version: [schema.json](https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeature/schema.yaml)
+* YAML version: [schema.yaml](https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/schema.json)
+* JSON version: [schema.json](https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/schema.yaml)
 
 
 # JSON-LD Context
@@ -374,7 +374,7 @@ Links to the schema:
 ```
 
 You can find the full JSON-LD context here:
-[context.jsonld](https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeature/context.jsonld)
+[context.jsonld](https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/context.jsonld)
 
 ## Sources
 
@@ -384,6 +384,6 @@ You can find the full JSON-LD context here:
 
 The source code for this Building Block can be found in the following repository:
 
-* URL: [https://github.com/MarkusWilhelmJahn/bblock-systems](https://github.com/MarkusWilhelmJahn/bblock-systems)
+* URL: [https://github.com/ogcincubator/bblocks-focal](https://github.com/ogcincubator/bblocks-focal)
 * Path: `_sources/myFeature`
 

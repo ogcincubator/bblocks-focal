@@ -1,7 +1,7 @@
 {
   "@context": [
     {
-      "@base": "https://markuswilhelmjahn.github.io/bblock-systems"
+      "@base": "https://ogcincubator.github.io/bblocks-focal"
     },
     {
       "bblocks": "https://www.opengis.net/def/bblocks/",
@@ -161,6 +161,33 @@
       "rdfType": {
         "@id": "rdfs:subClassOf",
         "@type": "@id"
+      },
+      "resources": {
+        "@id": "prof:hasResource",
+        "@context": {
+          "role": {
+            "@id": "prof:hasRole",
+            "@type": "@id"
+          },
+          "constraints": "role:constraints",
+          "example": "role:example",
+          "guidance": "role:guidance",
+          "mapping": "role:mapping",
+          "schema": "role:schema",
+          "specification": "role:specification",
+          "validation": "role:validation",
+          "vocabulary": "role:vocabulary",
+          "data": "role:data",
+          "ref": {
+            "@id": "prof:hasArtifact",
+            "@type": "@id"
+          },
+          "format": "dct:format",
+          "conformsTo": {
+            "@id": "dct:conformsTo",
+            "@type": "@id"
+          }
+        }
       }
     }
   ],
@@ -168,40 +195,40 @@
   "abstract": "This is an example which uses OGC Smart Blocks to define the ontology for forest typology multilingual.\n",
   "description": "### The Story\nAs a Forest Data Provider (e.g. a forestry researcher), I want to provide my \"normal GIS\" data (e.g. typology derived by photogrammetry and remote sensing) in a way that my data is conform to my domain (multilingual) and can be integrate with data from another domain (e.g. climate projections) by defining clear input/output contracts. As a platform operator who follows the OGC Smart concepts, I know that domain specific profiles can be provided by public registers to ensure public consistency of distributed digital twins. Using those profiles turns the local typology data of the data provider into machine-interpretable knowledge that can be used to extend the distributed digital twin of forest typologies or can be automatically integrated into more complex distributed digital twins like climate-resilient reforestation simulations or processed by AI tools to generate climate-resilient reforestation recommendations.\n\nThis story illustrates the transition from \"normal GIS\" (manual overlays and scripts) to a standards-mediated geo-data supply chain. By implementing the Forest Typology OGC Block, the data provider removes the need for bespoke engineering. Instead of rebuilding a pipeline for every new forest, the provider publishes the Forest Typology OGC Block definitions as the \"input/output contract\" of a consistent distributed digital twin for forest typologies, allowing AI agents to navigate semantic gaps automatically and provide validated decision support. \n",
   "sparqlEndpoint": "http://defs-hosted.opengis.net/fuseki-hosted/query",
-  "modified": "2026-04-21T13:16:48.345660",
+  "modified": "2026-04-23T10:47:24.459684",
   "tooling": {
     "bblocks-postprocess": {
-      "commitId": "\"d9ddc99e7b570299b5d416f5a878a0842df97cca",
-      "shortCommitId": "\"d9ddc9",
-      "date": "2026-04-20T17:40:16+00:00\""
+      "commitId": "\"a45f3f710418bc91a1b2148677a2104cfc43e7d8",
+      "shortCommitId": "\"a45f3f",
+      "date": "2026-04-23T10:40:45+00:00\""
     }
   },
-  "gitRepository": "https://github.com/MarkusWilhelmJahn/bblock-systems",
-  "gitHubRepository": "https://github.com/MarkusWilhelmJahn/bblock-systems/blob/master/",
-  "baseURL": "https://markuswilhelmjahn.github.io/bblock-systems/",
-  "viewerURL": "https://markuswilhelmjahn.github.io/bblock-systems/",
-  "validationReport": "https://markuswilhelmjahn.github.io/bblock-systems/build/tests/report.html",
-  "validationReportJson": "https://markuswilhelmjahn.github.io/bblock-systems/build/tests/report.json",
+  "gitRepository": "https://github.com/ogcincubator/bblocks-focal",
+  "gitHubRepository": "https://github.com/ogcincubator/bblocks-focal/blob/master/",
+  "baseURL": "https://ogcincubator.github.io/bblocks-focal/",
+  "viewerURL": "https://ogcincubator.github.io/bblocks-focal/",
+  "validationReport": "https://ogcincubator.github.io/bblocks-focal/build/tests/report.html",
+  "validationReportJson": "https://ogcincubator.github.io/bblocks-focal/build/tests/report.json",
   "imports": [
     "https://opengeospatial.github.io/bblocks/register.json"
   ],
-  "remoteCacheDir": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/_cache",
+  "remoteCacheDir": "https://ogcincubator.github.io/bblocks-focal/build/annotated/_cache",
   "links": [
     {
       "rel": "self",
-      "href": "https://markuswilhelmjahn.github.io/bblock-systems/build/register.json",
+      "href": "https://ogcincubator.github.io/bblocks-focal/build/register.json",
       "type": "application/json",
       "title": "This Building Blocks Register in JSON format"
     },
     {
       "rel": "self",
-      "href": "https://markuswilhelmjahn.github.io/bblock-systems/build/bblocks.ttl",
+      "href": "https://ogcincubator.github.io/bblocks-focal/build/bblocks.ttl",
       "type": "text/turtle",
       "title": "This Building Blocks Register in RDF Turtle format"
     },
     {
       "rel": "self",
-      "href": "https://markuswilhelmjahn.github.io/bblock-systems/build/bblocks.jsonld",
+      "href": "https://ogcincubator.github.io/bblocks-focal/build/bblocks.jsonld",
       "type": "application/ld+json",
       "title": "This Building Blocks Register in JSON-LD format"
     }
@@ -222,7 +249,7 @@
       "itemClass": "model",
       "register": "ogc-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-04-21",
+      "dateOfLastChange": "2023-04-05",
       "tags": [
         "focal",
         "ontology",
@@ -230,26 +257,25 @@
       ],
       "shaclShapes": null,
       "ontology": {
-        "prof:hasArtifact": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/focal-ontology/ontology.ttl",
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/focal-ontology/ontology.ttl",
         "prof:hasRole": "role:specification",
         "dct:format": "text/turtle",
         "dct:conformsTo": "http://www.w3.org/2002/07/owl#Ontology"
       },
-      "sourceFiles": "https://markuswilhelmjahn.github.io/bblock-systems/_sources/focal-ontology/",
-      "rdfData": [],
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/focal-ontology/",
       "validationPassed": true,
       "documentation": {
         "json-full": {
           "mediatype": "application/json",
-          "url": "https://markuswilhelmjahn.github.io/bblock-systems/build/generateddocs/json-full/focal/focal-ontology/index.json"
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/focal-ontology/index.json"
         },
         "markdown": {
           "mediatype": "text/markdown",
-          "url": "https://markuswilhelmjahn.github.io/bblock-systems/build/generateddocs/markdown/focal/focal-ontology/index.md"
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/focal-ontology/index.md"
         },
         "bblocks-viewer": {
           "mediatype": "text/html",
-          "url": "https://markuswilhelmjahn.github.io/bblock-systems/bblock/ogc.focal.focal-ontology"
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.focal-ontology"
         }
       },
       "@id": "bblocks://ogc.focal.focal-ontology",
@@ -263,10 +289,11 @@
       "ldContext": null,
       "schema": null,
       "openAPIDocument": null,
+      "rdfData": [],
       "dependsOn": null,
       "isProfileOf": null,
       "skos:topConceptOf": {
-        "@id": "https://markuswilhelmjahn.github.io/bblock-systems/"
+        "@id": "https://ogcincubator.github.io/bblocks-focal/"
       }
     },
     {
@@ -279,7 +306,7 @@
       "itemClass": "schema",
       "register": "ogc-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-04-21",
+      "dateOfLastChange": "2023-04-05",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -294,44 +321,43 @@
       ],
       "shaclShapes": null,
       "ldContext": {
-        "prof:hasArtifact": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/context.jsonld",
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/context.jsonld",
         "prof:hasRole": "role:mapping",
         "dct:format": "application/ld+json",
         "dct:conformsTo": "https://www.w3.org/TR/json-ld11/"
       },
       "schema": [
         {
-          "prof:hasArtifact": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml",
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml",
           "prof:hasRole": "role:schema",
           "dct:format": "application/yaml",
           "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
         },
         {
-          "prof:hasArtifact": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.json",
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.json",
           "prof:hasRole": "role:schema",
           "dct:format": "application/json",
           "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
         }
       ],
-      "sourceSchema": "https://markuswilhelmjahn.github.io/bblock-systems/_sources/mySchema/schema.yaml",
-      "sourceLdContext": "https://markuswilhelmjahn.github.io/bblock-systems/_sources/mySchema/context.jsonld",
-      "resolvedSchemaProperties": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/resolvedProperties.json",
-      "sourceFiles": "https://markuswilhelmjahn.github.io/bblock-systems/_sources/mySchema/",
-      "rdfData": [],
+      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/mySchema/schema.yaml",
+      "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/mySchema/context.jsonld",
+      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/resolvedProperties.json",
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/mySchema/",
       "validationPassed": true,
-      "testOutputs": "https://github.com/MarkusWilhelmJahn/bblock-systems/blob/master/build/tests/focal/mySchema/",
+      "testOutputs": "https://github.com/ogcincubator/bblocks-focal/blob/master/build/tests/focal/mySchema/",
       "documentation": {
         "json-full": {
           "mediatype": "application/json",
-          "url": "https://markuswilhelmjahn.github.io/bblock-systems/build/generateddocs/json-full/focal/mySchema/index.json"
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/mySchema/index.json"
         },
         "markdown": {
           "mediatype": "text/markdown",
-          "url": "https://markuswilhelmjahn.github.io/bblock-systems/build/generateddocs/markdown/focal/mySchema/index.md"
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/mySchema/index.md"
         },
         "bblocks-viewer": {
           "mediatype": "text/html",
-          "url": "https://markuswilhelmjahn.github.io/bblock-systems/bblock/ogc.focal.mySchema"
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.mySchema"
         }
       },
       "@id": "bblocks://ogc.focal.mySchema",
@@ -344,10 +370,11 @@
       "skos:prefLabel": "My Schema",
       "openAPIDocument": null,
       "ontology": null,
+      "rdfData": [],
       "dependsOn": null,
       "isProfileOf": null,
       "skos:topConceptOf": {
-        "@id": "https://markuswilhelmjahn.github.io/bblock-systems/"
+        "@id": "https://ogcincubator.github.io/bblocks-focal/"
       }
     },
     {
@@ -359,7 +386,7 @@
       "itemClass": "schema",
       "register": "ogc-building-block-examples",
       "version": "1.0",
-      "dateOfLastChange": "2026-04-21",
+      "dateOfLastChange": "2023-05-19",
       "sources": [
         {
           "title": "OGC API - Features, Part 1, 7.16.2: Feature Response",
@@ -381,7 +408,7 @@
       "shaclShapes": [
         {
           "prof:hasArtifact": [
-            "https://markuswilhelmjahn.github.io/bblock-systems/_sources/myFeature/shapes.shacl"
+            "https://ogcincubator.github.io/bblocks-focal/_sources/myFeature/shapes.shacl"
           ],
           "rdfs:seeAlso": "bblocks://ogc.focal.myFeature",
           "prof:hasRole": "role:validation",
@@ -400,42 +427,41 @@
       ],
       "schema": [
         {
-          "prof:hasArtifact": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeature/schema.yaml",
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/schema.yaml",
           "prof:hasRole": "role:schema",
           "dct:format": "application/yaml",
           "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
         },
         {
-          "prof:hasArtifact": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeature/schema.json",
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/schema.json",
           "prof:hasRole": "role:schema",
           "dct:format": "application/json",
           "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
         }
       ],
-      "sourceSchema": "https://markuswilhelmjahn.github.io/bblock-systems/_sources/myFeature/schema.yaml",
+      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/myFeature/schema.yaml",
       "ldContext": {
-        "prof:hasArtifact": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeature/context.jsonld",
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/context.jsonld",
         "prof:hasRole": "role:mapping",
         "dct:format": "application/ld+json",
         "dct:conformsTo": "https://www.w3.org/TR/json-ld11/"
       },
-      "resolvedSchemaProperties": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeature/resolvedProperties.json",
-      "sourceFiles": "https://markuswilhelmjahn.github.io/bblock-systems/_sources/myFeature/",
-      "rdfData": [],
+      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/resolvedProperties.json",
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/myFeature/",
       "validationPassed": true,
-      "testOutputs": "https://github.com/MarkusWilhelmJahn/bblock-systems/blob/master/build/tests/focal/myFeature/",
+      "testOutputs": "https://github.com/ogcincubator/bblocks-focal/blob/master/build/tests/focal/myFeature/",
       "documentation": {
         "json-full": {
           "mediatype": "application/json",
-          "url": "https://markuswilhelmjahn.github.io/bblock-systems/build/generateddocs/json-full/focal/myFeature/index.json"
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/myFeature/index.json"
         },
         "markdown": {
           "mediatype": "text/markdown",
-          "url": "https://markuswilhelmjahn.github.io/bblock-systems/build/generateddocs/markdown/focal/myFeature/index.md"
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/myFeature/index.md"
         },
         "bblocks-viewer": {
           "mediatype": "text/html",
-          "url": "https://markuswilhelmjahn.github.io/bblock-systems/bblock/ogc.focal.myFeature"
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.myFeature"
         }
       },
       "@id": "bblocks://ogc.focal.myFeature",
@@ -448,9 +474,10 @@
       "skos:prefLabel": "Custom Feature",
       "openAPIDocument": null,
       "ontology": null,
+      "rdfData": [],
       "isProfileOf": null,
       "skos:topConceptOf": {
-        "@id": "https://markuswilhelmjahn.github.io/bblock-systems/"
+        "@id": "https://ogcincubator.github.io/bblocks-focal/"
       }
     },
     {
@@ -462,7 +489,7 @@
       "itemClass": "schema",
       "register": "ogc-building-block-examples",
       "version": "1.0",
-      "dateOfLastChange": "2026-04-21",
+      "dateOfLastChange": "2023-05-19",
       "sources": [
         {
           "title": "OGC API - Features, Part 1, 7.16.2: Feature Response",
@@ -502,7 +529,7 @@
         },
         {
           "prof:hasArtifact": [
-            "https://markuswilhelmjahn.github.io/bblock-systems/_sources/myFeature/shapes.shacl"
+            "https://ogcincubator.github.io/bblocks-focal/_sources/myFeature/shapes.shacl"
           ],
           "rdfs:seeAlso": "bblocks://ogc.focal.myFeature",
           "prof:hasRole": "role:validation",
@@ -512,30 +539,29 @@
       ],
       "schema": [
         {
-          "prof:hasArtifact": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeatureCollection/schema.yaml",
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeatureCollection/schema.yaml",
           "prof:hasRole": "role:schema",
           "dct:format": "application/yaml",
           "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
         },
         {
-          "prof:hasArtifact": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeatureCollection/schema.json",
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeatureCollection/schema.json",
           "prof:hasRole": "role:schema",
           "dct:format": "application/json",
           "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
         }
       ],
-      "sourceSchema": "https://markuswilhelmjahn.github.io/bblock-systems/_sources/myFeatureCollection/schema.yaml",
+      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/myFeatureCollection/schema.yaml",
       "ldContext": {
-        "prof:hasArtifact": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeatureCollection/context.jsonld",
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeatureCollection/context.jsonld",
         "prof:hasRole": "role:mapping",
         "dct:format": "application/ld+json",
         "dct:conformsTo": "https://www.w3.org/TR/json-ld11/"
       },
-      "resolvedSchemaProperties": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeatureCollection/resolvedProperties.json",
-      "sourceFiles": "https://markuswilhelmjahn.github.io/bblock-systems/_sources/myFeatureCollection/",
-      "rdfData": [],
+      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeatureCollection/resolvedProperties.json",
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/myFeatureCollection/",
       "validationPassed": true,
-      "testOutputs": "https://github.com/MarkusWilhelmJahn/bblock-systems/blob/master/build/tests/focal/myFeatureCollection/",
+      "testOutputs": "https://github.com/ogcincubator/bblocks-focal/blob/master/build/tests/focal/myFeatureCollection/",
       "transforms": [
         {
           "id": "to-crs5555-geopandas",
@@ -567,7 +593,7 @@
               "mynamespace": "http://example.com/mythings/"
             }
           },
-          "ref": "https://markuswilhelmjahn.github.io/bblock-systems/_sources/myFeatureCollection/transforms/to-crs-5555-geopandas.py",
+          "ref": "https://ogcincubator.github.io/bblocks-focal/_sources/myFeatureCollection/transforms/to-crs-5555-geopandas.py",
           "code": "import json, geopandas as gpd\n\ndata = json.loads(input_data)\n\n# Normalize: wrap a single Feature into a FeatureCollection\nis_feature = data.get(\"type\") == \"Feature\"\nif is_feature:\n    data = {\"type\": \"FeatureCollection\", \"features\": [data], \"crs\": data.get(\"crs\")}\n\n# Extract CRS\ncrs_name = data.get(\"crs\", {}).get(\"properties\", {}).get(\"name\")\nepsg_code = crs_name.split(\":\")[-1] if crs_name else None\n\n# Create GeoDataFrame from GeoJSON-like dict\ngdf = gpd.GeoDataFrame.from_features(data[\"features\"])\n\n# Set CRS dynamically\nif epsg_code:\n    gdf.set_crs(epsg=int(epsg_code), inplace=True)\n\n# Print current CRS\nprint(\"Transform from CRS\" + str(gdf.crs))\n\n# Transform to another CRS (example: ETRS89)\ngdf = gdf.to_crs(epsg=5555)\n\n# Print current CRS\nprint(\"            to CRS\" + str(gdf.crs))\n\n# Convert back to GeoJSON \u2014 unwrap back to a single Feature if input was one\nresult = json.loads(gdf.to_json())\nif is_feature == 1:\n    output_data = json.dumps(result[\"features\"][0], indent=2)\nelse:\n    output_data = gdf.to_json(indent=2)\n"
         },
         {
@@ -600,22 +626,22 @@
               "mynamespace": "http://example.com/mythings/"
             }
           },
-          "ref": "https://markuswilhelmjahn.github.io/bblock-systems/_sources/myFeatureCollection/transforms/to-crs-5555-math.py",
+          "ref": "https://ogcincubator.github.io/bblocks-focal/_sources/myFeatureCollection/transforms/to-crs-5555-math.py",
           "code": "\n\"\"\"\nPure-Python GeoJSON transformer: EPSG:5514 \u2192 EPSG:5555\nStdlib only: json + math\n\nPipeline for each coordinate pair [E, N]:\n  1. Inverse Krovak       EPSG:5514 (E, N m)     \u2192 S-JTSK / Bessel geographic (\u00b0)\n  2. Helmert datum shift  Bessel / S-JTSK         \u2192 GRS80 / ETRS89 (7-parameter)\n  3. UTM-32N forward      ETRS89 geographic (\u00b0)   \u2192 EPSG:5555 (E, N m)\n\"\"\"\n\nimport json\nimport math\n\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n# Ellipsoid parameters\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\n# Bessel 1841 (S-JTSK datum)\n_a_B  = 6_377_397.155\n_f_B  = 1.0 / 299.1528128\n_e2_B = 2 * _f_B - _f_B ** 2\n_e_B  = math.sqrt(_e2_B)\n\n# GRS80 (ETRS89 / EPSG:5555)\n_a_G  = 6_378_137.0\n_f_G  = 1.0 / 298.257_222_101\n_e2_G = 2 * _f_G - _f_G ** 2\n\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n# Krovak projection constants  (EPSG method 9819 / S-JTSK)\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\n_PHI_C = math.radians(49 + 30 / 60.0)                       # 49\u00b030' N  \u2013 projection centre\n_LAM_0 = math.radians(24 + 50 / 60.0)                       # 24\u00b050' E  \u2013 longitude of origin\n_ALPHA = math.radians(30 + 17 / 60.0 + 17.30311 / 3600.0)  # 30\u00b017'17.30311\" \u2013 azimuth\n_PHI_P = math.radians(78 + 30 / 60.0)                       # 78\u00b030'    \u2013 pseudo-std parallel\n_K_P   = 0.9999                                              # scale factor\n\n# Derived Krovak constants (computed once at import time)\n_BK   = math.sqrt(1 + _e2_B * math.cos(_PHI_C) ** 4 / (1 - _e2_B))\n_AK   = _a_B * math.sqrt(1 - _e2_B) / (1 - _e2_B * math.sin(_PHI_C) ** 2)\n_GAM0 = math.asin(math.sin(_PHI_C) / _BK)                  # \u03b3\u2080\n\n_t_phC = (math.tan(math.pi / 4 + _PHI_C / 2) *\n           ((1 - _e_B * math.sin(_PHI_C)) / (1 + _e_B * math.sin(_PHI_C))) ** (_e_B / 2))\n_T0   = math.tan(math.pi / 4 + _GAM0 / 2) / _t_phC ** _BK  # mapping constant T\u2080\n\n_NK   = math.sin(_PHI_P)                                     # cone constant  n = sin(\u03c6_P)\n_RF   = _K_P * _AK * math.cos(_PHI_P) / _NK                 # \u03c1 scale factor (constant part)\n_TP   = math.tan(math.pi / 4 + _PHI_P / 2)                  # tan(\u03c0/4 + \u03c6_P / 2)\n\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n# 7-parameter Helmert: S-JTSK / Bessel \u2192 GRS80 / WGS84\n# Source: PROJ towgs84 for EPSG:4156  \u2014 Coordinate Frame rotation convention\n#         tx=570.8  ty=85.7  tz=462.8  rx=4.998  ry=1.587  rz=5.261  ds=3.56\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\n_HLM = (570.8, 85.7, 462.8, 4.998, 1.587, 5.261, 3.56)\n\n\ndef _geo2ecef(lat_d, lon_d, a, e2, h=0.0):\n    \"\"\"Geographic (\u00b0) \u2192 ECEF (X, Y, Z) metres.\"\"\"\n    \u03c6, \u03bb = math.radians(lat_d), math.radians(lon_d)\n    N = a / math.sqrt(1 - e2 * math.sin(\u03c6) ** 2)\n    return ((N + h) * math.cos(\u03c6) * math.cos(\u03bb),\n            (N + h) * math.cos(\u03c6) * math.sin(\u03bb),\n            (N * (1 - e2) + h) * math.sin(\u03c6))\n\n\ndef _ecef2geo(X, Y, Z, a, e2):\n    \"\"\"ECEF (X, Y, Z) \u2192 geographic (lat\u00b0, lon\u00b0, h m) \u2014 Bowring iteration.\"\"\"\n    \u03bb = math.atan2(Y, X)\n    p = math.hypot(X, Y)\n    \u03c6 = math.atan2(Z, p * (1 - e2))          # initial estimate\n    for _ in range(15):\n        N   = a / math.sqrt(1 - e2 * math.sin(\u03c6) ** 2)\n        \u03c6_n = math.atan2(Z + e2 * N * math.sin(\u03c6), p)\n        if abs(\u03c6_n - \u03c6) < 1e-12:\n            \u03c6 = \u03c6_n\n            break\n        \u03c6 = \u03c6_n\n    N = a / math.sqrt(1 - e2 * math.sin(\u03c6) ** 2)\n    h = (p / math.cos(\u03c6) - N) if abs(math.cos(\u03c6)) > 1e-10 else abs(Z) / math.sin(\u03c6) - N * (1 - e2)\n    return math.degrees(\u03c6), math.degrees(\u03bb), h\n\n\ndef _helmert(X, Y, Z, tx, ty, tz, rx, ry, rz, ds):\n    \"\"\"Coordinate Frame rotation (Bursa-Wolf) Helmert.\n    rx / ry / rz in arc-seconds; ds in ppm.\"\"\"\n    s  = ds * 1e-6\n    rx = math.radians(rx / 3600)\n    ry = math.radians(ry / 3600)\n    rz = math.radians(rz / 3600)\n    return (tx + (1 + s) * ( X + rz * Y - ry * Z),\n            ty + (1 + s) * (-rz * X + Y  + rx * Z),\n            tz + (1 + s) * ( ry * X - rx * Y + Z ))\n\n\ndef _bessel_to_etrs89(lat_d, lon_d):\n    \"\"\"S-JTSK / Bessel geographic (\u00b0) \u2192 ETRS89 / GRS80 geographic (\u00b0).\"\"\"\n    X, Y, Z = _geo2ecef(lat_d, lon_d, _a_B, _e2_B)\n    X, Y, Z = _helmert(X, Y, Z, *_HLM)\n    \u03c6, \u03bb, _ = _ecef2geo(X, Y, Z, _a_G, _e2_G)\n    return \u03c6, \u03bb\n\n\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n# Krovak inverse:  EPSG:5514 (E, N) metres \u2192 Bessel geographic (lat\u00b0, lon\u00b0)\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\ndef _krovak_inv(E, N):\n    \"\"\"Inverse Krovak \u2014 converts EPSG:5514 metres to Bessel geographic degrees.\"\"\"\n\n    # 1. Undo EPSG:5514 axis convention \u2192 standard Krovak (Xs south+, Ys west+)\n    Xs, Ys = -N, -E\n\n    # 2. Cartesian \u2192 polar on the cone\n    \u03c1 = math.hypot(Xs, Ys)\n    \u03b8 = math.atan2(Ys, Xs)\n    D = \u03b8 / _NK\n\n    # 3. Recover spherical latitude S from \u03c1\n    #    Forward: \u03c1 = _RF * (_TP / tan(\u03c0/4 + S/2))^_NK\n    #    Inverse: tan(\u03c0/4 + S/2) = _TP * (_RF / \u03c1)^(1/_NK)\n    t_S = _TP * (_RF / \u03c1) ** (1.0 / _NK)\n    S   = 2 * math.atan(t_S) - math.pi / 2\n\n    # 4. Inverse oblique rotation \u2014 from conic (S, D) back to Gaussian sphere (U, V)\n    U = math.asin(math.cos(_ALPHA) * math.sin(S)\n                  - math.sin(_ALPHA) * math.cos(S) * math.cos(D))\n    V = math.asin(math.cos(S) * math.sin(D) / math.cos(U))\n\n    # 5. Recover geodetic longitude (direct)\n    \u03bb = _LAM_0 - V / _BK\n\n    # 6. Iterative recovery of geodetic latitude \u03c6 on Bessel ellipsoid\n    #    Forward: tan(\u03c0/4 + U/2) = _T0 \u00b7 (tan(\u03c0/4 + \u03c6/2) \u00b7 ec(\u03c6))^_BK\n    #    \u2192 rhs = (tan(\u03c0/4 + U/2) / _T0)^(1/_BK)  [constant per point]\n    #    \u2192 iterate: \u03c6_new = 2\u00b7atan(rhs / ec(\u03c6)) - \u03c0/2\n    \u03c6 = U   # starting estimate\n    for _ in range(20):\n        ec    = ((1 - _e_B * math.sin(\u03c6)) / (1 + _e_B * math.sin(\u03c6))) ** (_e_B / 2)\n        rhs   = (math.tan(math.pi / 4 + U / 2) / _T0) ** (1.0 / _BK)\n        \u03c6_new = 2 * math.atan(rhs / ec) - math.pi / 2\n        if abs(\u03c6_new - \u03c6) < 1e-13:\n            \u03c6 = \u03c6_new\n            break\n        \u03c6 = \u03c6_new\n\n    return math.degrees(\u03c6), math.degrees(\u03bb)\n\n\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n# UTM zone 32N forward:  ETRS89 geographic \u2192 EPSG:5555\n# (2-D horizontal component; identical to EPSG:25832)\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\ndef _meridional_arc(lat):\n    a, e2 = _a_G, _e2_G\n    return a * (\n        (1 - e2 / 4   - 3 * e2**2 / 64  - 5 * e2**3 / 256)  * lat\n      - (3 * e2 / 8   + 3 * e2**2 / 32  + 45 * e2**3 / 1024) * math.sin(2 * lat)\n      + (15 * e2**2 / 256 + 45 * e2**3 / 1024)                * math.sin(4 * lat)\n      -  35 * e2**3 / 3072                                     * math.sin(6 * lat)\n    )\n\n\ndef _utm32_fwd(lat_d, lon_d):\n    \"\"\"ETRS89 geographic (\u00b0) \u2192 ETRS89 / UTM-32N metres  (EPSG:25832 / 5555).\"\"\"\n    a, e2 = _a_G, _e2_G\n    ep2   = e2 / (1 - e2)\n    \u03c6     = math.radians(lat_d)\n    \u0394\u03bb    = math.radians(lon_d - 9.0)          # offset from central meridian 9\u00b0 E\n    s\u03c6, c\u03c6, t\u03c6 = math.sin(\u03c6), math.cos(\u03c6), math.tan(\u03c6)\n    N  = a / math.sqrt(1 - e2 * s\u03c6 ** 2)\n    T, C, A_ = t\u03c6**2, ep2 * c\u03c6**2, c\u03c6 * \u0394\u03bb\n    M  = _meridional_arc(\u03c6)\n    k0 = 0.9996\n    E  = 500_000.0 + k0 * N * (\n            A_\n          + A_**3 / 6   * (1 - T + C)\n          + A_**5 / 120 * (5 - 18*T + T**2 + 72*C - 58*ep2)\n    )\n    Nn = k0 * (\n            M + N * t\u03c6 * (\n                A_**2 / 2\n              + A_**4 / 24  * (5  - T + 9*C + 4*C**2)\n              + A_**6 / 720 * (61 - 58*T + T**2 + 600*C - 330*ep2)\n            )\n    )\n    return E, Nn\n\n\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n# GeoJSON geometry recursion\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\ndef _transform_xy(xy):\n    \"\"\"Single EPSG:5514 coordinate pair \u2192 EPSG:5555.\"\"\"\n    lat_b, lon_b = _krovak_inv(xy[0], xy[1])           # Krovak\u207b\u00b9  \u2192 Bessel \u00b0\n    lat_g, lon_g = _bessel_to_etrs89(lat_b, lon_b)     # Helmert   \u2192 ETRS89 \u00b0\n    E, N         = _utm32_fwd(lat_g, lon_g)             # UTM-32N   \u2192 metres\n    return [E, N] + list(xy[2:])                        # keep Z / M if present\n\n\ndef _xform_coords(c):\n    if not c:\n        return c\n    if isinstance(c[0], (int, float)):\n        return _transform_xy(c)\n    return [_xform_coords(ring) for ring in c]\n\n\ndef _xform_geom(g):\n    if g is None:\n        return None\n    if g[\"type\"] == \"GeometryCollection\":\n        return {\"type\": \"GeometryCollection\",\n                \"geometries\": [_xform_geom(s) for s in g[\"geometries\"]]}\n    return {\"type\": g[\"type\"], \"coordinates\": _xform_coords(g[\"coordinates\"])}\n\n\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n# Transform\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\n\ndata = json.loads(input_data)\n\n# \u2500\u2500 Transform every feature \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nout_features = []\nfor feat in data[\"features\"]:\n    nf = {\n        \"type\":       \"Feature\",\n        \"geometry\":   _xform_geom(feat.get(\"geometry\")),\n        \"properties\": feat.get(\"properties\"),\n    }\n    if \"id\" in feat:\n        nf[\"id\"] = feat[\"id\"]\n    out_features.append(nf)\n\nresult = {\n    \"type\":     \"FeatureCollection\",\n    \"features\": out_features,\n    \"crs\": {\"type\": \"name\",\n            \"properties\": {\"name\": \"urn:ogc:def:crs:EPSG::5555\"}},\n}\n\noutput_data = json.dumps(result, indent=2)\n"
         }
       ],
       "documentation": {
         "json-full": {
           "mediatype": "application/json",
-          "url": "https://markuswilhelmjahn.github.io/bblock-systems/build/generateddocs/json-full/focal/myFeatureCollection/index.json"
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/myFeatureCollection/index.json"
         },
         "markdown": {
           "mediatype": "text/markdown",
-          "url": "https://markuswilhelmjahn.github.io/bblock-systems/build/generateddocs/markdown/focal/myFeatureCollection/index.md"
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/myFeatureCollection/index.md"
         },
         "bblocks-viewer": {
           "mediatype": "text/html",
-          "url": "https://markuswilhelmjahn.github.io/bblock-systems/bblock/ogc.focal.myFeatureCollection"
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.myFeatureCollection"
         }
       },
       "@id": "bblocks://ogc.focal.myFeatureCollection",
@@ -628,9 +654,10 @@
       "skos:prefLabel": "Feature Collection for forest type",
       "openAPIDocument": null,
       "ontology": null,
+      "rdfData": [],
       "isProfileOf": null,
       "skos:topConceptOf": {
-        "@id": "https://markuswilhelmjahn.github.io/bblock-systems/"
+        "@id": "https://ogcincubator.github.io/bblocks-focal/"
       }
     }
   ],

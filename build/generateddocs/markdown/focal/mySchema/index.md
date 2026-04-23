@@ -48,7 +48,7 @@ In **Markdown** format.
     {
       "mynamespace": "http://example.com/mythings/"
     },
-    "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/context.jsonld"
+    "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/context.jsonld"
   ],
   "LT": "2S1",
   "LES_OBL": 8,
@@ -150,8 +150,8 @@ x-jsonld-prefixes:
 
 Links to the schema:
 
-* YAML version: [schema.yaml](https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.json)
-* JSON version: [schema.json](https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml)
+* YAML version: [schema.yaml](https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.json)
+* JSON version: [schema.json](https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml)
 
 
 # JSON-LD Context
@@ -186,7 +186,7 @@ Links to the schema:
 ```
 
 You can find the full JSON-LD context here:
-[context.jsonld](https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/context.jsonld)
+[context.jsonld](https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/context.jsonld)
 
 ## Sources
 
@@ -196,6 +196,6 @@ You can find the full JSON-LD context here:
 
 The source code for this Building Block can be found in the following repository:
 
-* URL: [https://github.com/MarkusWilhelmJahn/bblock-systems](https://github.com/MarkusWilhelmJahn/bblock-systems)
+* URL: [https://github.com/ogcincubator/bblocks-focal](https://github.com/ogcincubator/bblocks-focal)
 * Path: `_sources/mySchema`
 

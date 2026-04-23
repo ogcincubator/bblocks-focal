@@ -58,17 +58,17 @@ path	@id	schema
 /numberMatched		https://opengeospatial.github.io/bblocks/annotated-schemas/geo/features/featureCollection/schema.yaml
 /numberReturned		https://opengeospatial.github.io/bblocks/annotated-schemas/geo/features/featureCollection/schema.yaml
 /features/links	http://www.w3.org/2000/01/rdf-schema#seeAlso	https://opengeospatial.github.io/bblocks/annotated-schemas/geo/features/feature/schema.yaml
-/features/properties/LT	https://w3id.org/ogc/hosted/focal/properties/lesniTyp	https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
-/features/properties/LES_OBL	https://w3id.org/ogc/hosted/focal/properties/lesniOblast	https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
-/features/properties/LO_CAST	https://w3id.org/ogc/hosted/focal/properties/lesniOblastCast	https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
-/features/properties/UDRZBA	https://w3id.org/ogc/hosted/focal/properties/lesniUDRZBA	https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
-/features/properties/ZMENA	https://w3id.org/ogc/hosted/focal/properties/lesniZMENA	https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
-/features/properties/ZADOST	https://w3id.org/ogc/hosted/focal/properties/lesniZADOST	https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
-/features/properties/CHS	https://w3id.org/ogc/hosted/focal/properties/lesniCHS	https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
-/features/properties/PCHS	https://w3id.org/ogc/hosted/focal/properties/lesniPCHS	https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
-/features/properties/OVER_T	https://w3id.org/ogc/hosted/focal/properties/lesniOVERT	https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
-/features/properties/ROK_MAP	https://w3id.org/ogc/hosted/focal/properties/lesniROKMAP	https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
-/features/properties/ID1	https://w3id.org/ogc/hosted/focal/properties/lesniID1	https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
-/features/properties/SLT	https://w3id.org/ogc/hosted/focal/properties/lesniSLT	https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
-/features/properties/PLOCHA	https://w3id.org/ogc/hosted/focal/properties/lesniPLOCHA	https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
-/features/properties/DS_OPRL	https://w3id.org/ogc/hosted/focal/properties/lesniDSOPRL	https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/mySchema/schema.yaml
+/features/properties/LT	https://w3id.org/ogc/hosted/focal/properties/lesniTyp	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml
+/features/properties/LES_OBL	https://w3id.org/ogc/hosted/focal/properties/lesniOblast	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml
+/features/properties/LO_CAST	https://w3id.org/ogc/hosted/focal/properties/lesniOblastCast	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml
+/features/properties/UDRZBA	https://w3id.org/ogc/hosted/focal/properties/lesniUDRZBA	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml
+/features/properties/ZMENA	https://w3id.org/ogc/hosted/focal/properties/lesniZMENA	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml
+/features/properties/ZADOST	https://w3id.org/ogc/hosted/focal/properties/lesniZADOST	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml
+/features/properties/CHS	https://w3id.org/ogc/hosted/focal/properties/lesniCHS	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml
+/features/properties/PCHS	https://w3id.org/ogc/hosted/focal/properties/lesniPCHS	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml
+/features/properties/OVER_T	https://w3id.org/ogc/hosted/focal/properties/lesniOVERT	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml
+/features/properties/ROK_MAP	https://w3id.org/ogc/hosted/focal/properties/lesniROKMAP	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml
+/features/properties/ID1	https://w3id.org/ogc/hosted/focal/properties/lesniID1	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml
+/features/properties/SLT	https://w3id.org/ogc/hosted/focal/properties/lesniSLT	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml
+/features/properties/PLOCHA	https://w3id.org/ogc/hosted/focal/properties/lesniPLOCHA	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml
+/features/properties/DS_OPRL	https://w3id.org/ogc/hosted/focal/properties/lesniDSOPRL	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml

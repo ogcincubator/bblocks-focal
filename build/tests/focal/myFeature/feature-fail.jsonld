@@ -1,5 +1,5 @@
 {
-  "@context": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeature/context.jsonld",
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/context.jsonld",
   "type": "Feature",
   "crs": {
     "type": "name",

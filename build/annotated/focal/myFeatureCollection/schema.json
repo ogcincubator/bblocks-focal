@@ -8,7 +8,7 @@
       "properties": {
         "features": {
           "items": {
-            "$ref": "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeature/schema.json"
+            "$ref": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/schema.json"
           }
         }
       }

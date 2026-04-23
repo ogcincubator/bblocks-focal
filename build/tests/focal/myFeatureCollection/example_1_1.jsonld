@@ -3,7 +3,7 @@
     {
       "mynamespace": "http://example.com/mythings/"
     },
-    "https://markuswilhelmjahn.github.io/bblock-systems/build/annotated/focal/myFeatureCollection/context.jsonld"
+    "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeatureCollection/context.jsonld"
   ],
   "type": "FeatureCollection",
   "name": "example_data",
