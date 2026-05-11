@@ -1,5 +1,5 @@
 # A short, descriptive name of this Block collection
-name: FOCAL Register
+name: FOCAL Forest Typology Czech OGC Blocks
 
 # Short abstract for this collection (optional)
 abstract: |
@@ -7,14 +7,14 @@ abstract: |
 
 # Description for this collection (optional)
 description: |
-  ## The Short Story
+  ## About this Register: FOCAL Forest Typology Czech OGC Blocks
+
   As a Forest Data Provider (e.g. a forestry researcher), I want to provide my "normal GIS" data (e.g. typology derived by photogrammetry and remote sensing) in a way that my data is conform to my domain (multilingual) and can be integrate with data from another domain (e.g. climate projections) by defining clear input/output contracts. As a platform operator who follows the OGC Smart concepts, I know that domain specific profiles can be provided by public registers to ensure public consistency of distributed digital twins. Using those profiles turns the local typology data of the data provider into machine-interpretable knowledge that can be used to extend the distributed digital twin of forest typologies or can be automatically integrated into more complex distributed digital twins like climate-resilient reforestation simulations or processed by AI tools to generate climate-resilient reforestation recommendations.
 
   This story illustrates the transition from "normal GIS" (manual overlays and scripts) to a standards-mediated geo-data supply chain. By implementing the Forest Typology OGC Block, the data provider removes the need for bespoke engineering. Instead of rebuilding a pipeline for every new forest, the provider publishes the Forest Typology OGC Block definitions as the "input/output contract" of a consistent distributed digital twin for forest typologies, allowing AI agents to navigate semantic gaps automatically and provide validated decision support. 
 
   This register provides the machine-readable foundation for the **FOCAL project**, establishing a standards-mediated pipeline to bridge the gap between global climate science and local decision-making. It implements the **OGC Blocks** framework to deliver a "system of systems" approach for **Distributed Digital Twins** in forestry and urban planning.
 
-  ## The long Story
   ### **Who is this register for?**
   This register supports a multi-actor ecosystem:
   *   **Data Providers:** Forestry researchers and municipal GIS departments who need to transform **"normal GIS"** data (e.g., typology from photogrammetry) into machine-interpretable knowledge.
@@ -37,7 +37,7 @@ description: |
   ### **Where does this register fit?**
   *   **Federated Register Infrastructure:** It acts as a domain-specific node analogous to the Domain Name System (DNS), inheriting foundational patterns from the root OGC register.
   *   **Domain Profiling:** It implements the **European Climate Assessment Profile**, binding global standards to regional conventions like **ETRS89** and the European forest inventory.
-  *   **Pilot Integration:** It connects scientific repositories (ESGF) with local implementation registers in the **Czech Republic** and **Spain (Aragón)**.
+  *   **Pilot Integration:** It connects scientific repositories (ESGF) with local implementation registers**.
 
   ### **Why does this register exist?**
   *   **Closing the Semantic Gap:** It addresses the "semantic disconnection" where scientific variables (e.g., "tas" for temperature) are opaque to local planning software.
