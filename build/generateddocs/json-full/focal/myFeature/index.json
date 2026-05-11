@@ -9,7 +9,7 @@
   "itemClass": "schema",
   "register": "ogc-building-block-examples",
   "version": "1.0",
-  "dateOfLastChange": "2026-05-06",
+  "dateOfLastChange": "2026-05-11",
   "sources": [
     {
       "title": "OGC API - Features, Part 1, 7.16.2: Feature Response",
@@ -19,8 +19,8 @@
   "maturity": "development",
   "scope": "unstable",
   "dependsOn": [
-    "ogc.geo.features.feature",
-    "ogc.focal.mySchema"
+    "ogc.focal.mySchema",
+    "ogc.geo.features.feature"
   ],
   "tags": [
     "feature",
