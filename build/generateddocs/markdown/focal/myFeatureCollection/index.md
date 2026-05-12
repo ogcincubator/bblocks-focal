@@ -3296,6 +3296,23 @@ This examples shows how to define a customised schema based on an existing build
 [] a geojson:FeatureCollection ;
     geojson:features [ a geojson:Feature ;
             geojson:geometry [ a geojson:MultiPolygon ;
+                    geojson:coordinates ( ( ( ( -7.853114e+05 -1.062864e+06 ) ( -7.853043e+05 -1.06285e+06 ) ( -7.852884e+05 -1.062835e+06 ) ( -7.852691e+05 -1.062816e+06 ) ( -7.852656e+05 -1.062811e+06 ) ( -7.852572e+05 -1.062797e+06 ) ( -7.852459e+05 -1.062773e+06 ) ( -7.852434e+05 -1.062751e+06 ) ( -7.852468e+05 -1.062727e+06 ) ( -7.85268e+05 -1.06269e+06 ) ( -7.85285e+05 -1.062655e+06 ) ( -7.852943e+05 -1.062642e+06 ) ( -7.852827e+05 -1.062652e+06 ) ( -7.852503e+05 -1.062684e+06 ) ( -7.852456e+05 -1.062689e+06 ) ( -7.852155e+05 -1.062732e+06 ) ( -7.852055e+05 -1.062768e+06 ) ( -7.852084e+05 -1.062802e+06 ) ( -7.852155e+05 -1.062825e+06 ) ( -7.852313e+05 -1.062843e+06 ) ( -7.852383e+05 -1.062848e+06 ) ( -7.852437e+05 -1.062852e+06 ) ( -7.852542e+05 -1.062859e+06 ) ( -7.852771e+05 -1.062863e+06 ) ( -7.852849e+05 -1.062863e+06 ) ( -7.853058e+05 -1.062863e+06 ) ( -7.853114e+05 -1.062864e+06 ) ) ) ) ] ;
+            focal-prop:lesniCHS 19 ;
+            focal-prop:lesniDSOPRL 2025 ;
+            focal-prop:lesniID1 137154 ;
+            focal-prop:lesniOVERT "NE" ;
+            focal-prop:lesniOblast 8 ;
+            focal-prop:lesniOblastCast "a" ;
+            focal-prop:lesniPCHS "19c" ;
+            focal-prop:lesniPLOCHA 8.035373e+03 ;
+            focal-prop:lesniROKMAP 2000 ;
+            focal-prop:lesniSLT "2L" ;
+            focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/2L1> ;
+            focal-prop:lesniUDRZBA 2022 ;
+            focal-prop:lesniZADOST "-" ;
+            focal-prop:lesniZMENA "-" ],
+        [ a geojson:Feature ;
+            geojson:geometry [ a geojson:MultiPolygon ;
                     geojson:coordinates ( ( ( ( -7.853718e+05 -1.06251e+06 ) ( -7.85367e+05 -1.062497e+06 ) ( -7.853317e+05 -1.062485e+06 ) ( -7.85329e+05 -1.062484e+06 ) ( -7.853274e+05 -1.062483e+06 ) ( -7.853231e+05 -1.062482e+06 ) ( -7.853213e+05 -1.062483e+06 ) ( -7.853197e+05 -1.062484e+06 ) ( -7.853125e+05 -1.062482e+06 ) ( -7.853041e+05 -1.062479e+06 ) ( -7.852979e+05 -1.062471e+06 ) ( -7.852925e+05 -1.062477e+06 ) ( -7.852825e+05 -1.062489e+06 ) ( -7.852842e+05 -1.062489e+06 ) ( -7.853399e+05 -1.062503e+06 ) ( -7.853718e+05 -1.06251e+06 ) ) ) ) ] ;
             focal-prop:lesniCHS 25 ;
             focal-prop:lesniDSOPRL 2025 ;
@@ -3313,15 +3330,15 @@ This examples shows how to define a customised schema based on an existing build
             focal-prop:lesniZMENA "Uvedení do souladu s KN" ],
         [ a geojson:Feature ;
             geojson:geometry [ a geojson:MultiPolygon ;
-                    geojson:coordinates ( ( ( ( -7.851847e+05 -1.06297e+06 ) ( -7.851668e+05 -1.062946e+06 ) ( -7.851555e+05 -1.062932e+06 ) ( -7.85124e+05 -1.062916e+06 ) ( -7.851191e+05 -1.062915e+06 ) ( -7.851181e+05 -1.062916e+06 ) ( -7.851308e+05 -1.062925e+06 ) ( -7.851415e+05 -1.062945e+06 ) ( -7.851694e+05 -1.06296e+06 ) ( -7.851796e+05 -1.062967e+06 ) ( -7.851847e+05 -1.06297e+06 ) ) ) ) ] ;
+                    geojson:coordinates ( ( ( ( -7.850417e+05 -1.062852e+06 ) ( -7.850382e+05 -1.062848e+06 ) ( -7.850317e+05 -1.062844e+06 ) ( -7.849634e+05 -1.0628e+06 ) ( -7.849389e+05 -1.062783e+06 ) ( -7.849336e+05 -1.062777e+06 ) ( -7.84923e+05 -1.062766e+06 ) ( -7.849011e+05 -1.062739e+06 ) ( -7.848954e+05 -1.062733e+06 ) ( -7.848934e+05 -1.062736e+06 ) ( -7.848974e+05 -1.062739e+06 ) ( -7.849039e+05 -1.062749e+06 ) ( -7.849079e+05 -1.062755e+06 ) ( -7.849175e+05 -1.06277e+06 ) ( -7.849298e+05 -1.062783e+06 ) ( -7.850092e+05 -1.062832e+06 ) ( -7.850417e+05 -1.062852e+06 ) ) ) ) ] ;
             focal-prop:lesniCHS 25 ;
             focal-prop:lesniDSOPRL 2025 ;
-            focal-prop:lesniID1 128305 ;
+            focal-prop:lesniID1 128303 ;
             focal-prop:lesniOVERT "NE" ;
             focal-prop:lesniOblast 8 ;
             focal-prop:lesniOblastCast "a" ;
             focal-prop:lesniPCHS "25a" ;
-            focal-prop:lesniPLOCHA 7.783466e+02 ;
+            focal-prop:lesniPLOCHA 6.830785e+02 ;
             focal-prop:lesniROKMAP 2015 ;
             focal-prop:lesniSLT "2S" ;
             focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/2S1> ;
@@ -3347,21 +3364,38 @@ This examples shows how to define a customised schema based on an existing build
             focal-prop:lesniZMENA "Uvedení do souladu s KN" ],
         [ a geojson:Feature ;
             geojson:geometry [ a geojson:MultiPolygon ;
-                    geojson:coordinates ( ( ( ( -7.851267e+05 -1.062905e+06 ) ( -7.851161e+05 -1.062896e+06 ) ( -7.85018e+05 -1.062825e+06 ) ( -7.85e+05 -1.062815e+06 ) ( -7.849996e+05 -1.06281e+06 ) ( -7.84969e+05 -1.062756e+06 ) ( -7.849616e+05 -1.062737e+06 ) ( -7.849494e+05 -1.062701e+06 ) ( -7.849474e+05 -1.062705e+06 ) ( -7.849502e+05 -1.06271e+06 ) ( -7.849673e+05 -1.062758e+06 ) ( -7.849962e+05 -1.062808e+06 ) ( -7.849958e+05 -1.062814e+06 ) ( -7.850414e+05 -1.062844e+06 ) ( -7.851124e+05 -1.062896e+06 ) ( -7.851267e+05 -1.062905e+06 ) ) ) ) ] ;
-            focal-prop:lesniCHS 0 ;
+                    geojson:coordinates ( ( ( ( -7.85329e+05 -1.062678e+06 ) ( -7.853513e+05 -1.062635e+06 ) ( -7.853522e+05 -1.062633e+06 ) ( -7.853533e+05 -1.062631e+06 ) ( -7.853382e+05 -1.062627e+06 ) ( -7.853265e+05 -1.062617e+06 ) ( -7.853177e+05 -1.062619e+06 ) ( -7.853035e+05 -1.062634e+06 ) ( -7.853054e+05 -1.06264e+06 ) ( -7.853045e+05 -1.062648e+06 ) ( -7.853063e+05 -1.062647e+06 ) ( -7.853078e+05 -1.062647e+06 ) ( -7.853147e+05 -1.062648e+06 ) ( -7.853241e+05 -1.062654e+06 ) ( -7.853226e+05 -1.062663e+06 ) ( -7.85329e+05 -1.062678e+06 ) ) ) ) ] ;
+            focal-prop:lesniCHS 19 ;
             focal-prop:lesniDSOPRL 2025 ;
-            focal-prop:lesniID1 146028 ;
+            focal-prop:lesniID1 137155 ;
             focal-prop:lesniOVERT "NE" ;
             focal-prop:lesniOblast 8 ;
             focal-prop:lesniOblastCast "a" ;
-            focal-prop:lesniPCHS "0" ;
-            focal-prop:lesniPLOCHA 5.410461e+02 ;
+            focal-prop:lesniPCHS "19c" ;
+            focal-prop:lesniPLOCHA 1.454863e+03 ;
             focal-prop:lesniROKMAP 2000 ;
-            focal-prop:lesniSLT "NE" ;
-            focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/NE> ;
-            focal-prop:lesniUDRZBA 2000 ;
+            focal-prop:lesniSLT "2L" ;
+            focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/2L1> ;
+            focal-prop:lesniUDRZBA 2022 ;
             focal-prop:lesniZADOST "-" ;
             focal-prop:lesniZMENA "-" ],
+        [ a geojson:Feature ;
+            geojson:geometry [ a geojson:MultiPolygon ;
+                    geojson:coordinates ( ( ( ( -7.851847e+05 -1.06297e+06 ) ( -7.851668e+05 -1.062946e+06 ) ( -7.851555e+05 -1.062932e+06 ) ( -7.85124e+05 -1.062916e+06 ) ( -7.851191e+05 -1.062915e+06 ) ( -7.851181e+05 -1.062916e+06 ) ( -7.851308e+05 -1.062925e+06 ) ( -7.851415e+05 -1.062945e+06 ) ( -7.851694e+05 -1.06296e+06 ) ( -7.851796e+05 -1.062967e+06 ) ( -7.851847e+05 -1.06297e+06 ) ) ) ) ] ;
+            focal-prop:lesniCHS 25 ;
+            focal-prop:lesniDSOPRL 2025 ;
+            focal-prop:lesniID1 128305 ;
+            focal-prop:lesniOVERT "NE" ;
+            focal-prop:lesniOblast 8 ;
+            focal-prop:lesniOblastCast "a" ;
+            focal-prop:lesniPCHS "25a" ;
+            focal-prop:lesniPLOCHA 7.783466e+02 ;
+            focal-prop:lesniROKMAP 2015 ;
+            focal-prop:lesniSLT "2S" ;
+            focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/2S1> ;
+            focal-prop:lesniUDRZBA 2022 ;
+            focal-prop:lesniZADOST "-" ;
+            focal-prop:lesniZMENA "Uvedení do souladu s KN" ],
         [ a geojson:Feature ;
             geojson:geometry [ a geojson:MultiPolygon ;
                     geojson:coordinates ( ( ( ( -7.849211e+05 -1.06279e+06 ) ( -7.849099e+05 -1.062779e+06 ) ( -7.849025e+05 -1.062768e+06 ) ( -7.848952e+05 -1.062756e+06 ) ( -7.848866e+05 -1.062745e+06 ) ( -7.848789e+05 -1.062755e+06 ) ( -7.849178e+05 -1.062788e+06 ) ( -7.849211e+05 -1.06279e+06 ) ) ) ) ] ;
@@ -3381,74 +3415,6 @@ This examples shows how to define a customised schema based on an existing build
             focal-prop:lesniZMENA "Uvedení do souladu s KN" ],
         [ a geojson:Feature ;
             geojson:geometry [ a geojson:MultiPolygon ;
-                    geojson:coordinates ( ( ( ( -7.85329e+05 -1.062678e+06 ) ( -7.853513e+05 -1.062635e+06 ) ( -7.853522e+05 -1.062633e+06 ) ( -7.853533e+05 -1.062631e+06 ) ( -7.853382e+05 -1.062627e+06 ) ( -7.853265e+05 -1.062617e+06 ) ( -7.853177e+05 -1.062619e+06 ) ( -7.853035e+05 -1.062634e+06 ) ( -7.853054e+05 -1.06264e+06 ) ( -7.853045e+05 -1.062648e+06 ) ( -7.853063e+05 -1.062647e+06 ) ( -7.853078e+05 -1.062647e+06 ) ( -7.853147e+05 -1.062648e+06 ) ( -7.853241e+05 -1.062654e+06 ) ( -7.853226e+05 -1.062663e+06 ) ( -7.85329e+05 -1.062678e+06 ) ) ) ) ] ;
-            focal-prop:lesniCHS 19 ;
-            focal-prop:lesniDSOPRL 2025 ;
-            focal-prop:lesniID1 137155 ;
-            focal-prop:lesniOVERT "NE" ;
-            focal-prop:lesniOblast 8 ;
-            focal-prop:lesniOblastCast "a" ;
-            focal-prop:lesniPCHS "19c" ;
-            focal-prop:lesniPLOCHA 1.454863e+03 ;
-            focal-prop:lesniROKMAP 2000 ;
-            focal-prop:lesniSLT "2L" ;
-            focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/2L1> ;
-            focal-prop:lesniUDRZBA 2022 ;
-            focal-prop:lesniZADOST "-" ;
-            focal-prop:lesniZMENA "-" ],
-        [ a geojson:Feature ;
-            geojson:geometry [ a geojson:MultiPolygon ;
-                    geojson:coordinates ( ( ( ( -7.852825e+05 -1.062489e+06 ) ( -7.852925e+05 -1.062477e+06 ) ( -7.852979e+05 -1.062471e+06 ) ( -7.852931e+05 -1.062465e+06 ) ( -7.852957e+05 -1.062454e+06 ) ( -7.852943e+05 -1.062437e+06 ) ( -7.852942e+05 -1.062436e+06 ) ( -7.85294e+05 -1.062434e+06 ) ( -7.852853e+05 -1.062432e+06 ) ( -7.852832e+05 -1.062436e+06 ) ( -7.852714e+05 -1.062454e+06 ) ( -7.852571e+05 -1.062479e+06 ) ( -7.852825e+05 -1.062489e+06 ) ) ) ) ] ;
-            focal-prop:lesniCHS 19 ;
-            focal-prop:lesniDSOPRL 2025 ;
-            focal-prop:lesniID1 137153 ;
-            focal-prop:lesniOVERT "NE" ;
-            focal-prop:lesniOblast 8 ;
-            focal-prop:lesniOblastCast "a" ;
-            focal-prop:lesniPCHS "19c" ;
-            focal-prop:lesniPLOCHA 1.273825e+03 ;
-            focal-prop:lesniROKMAP 2000 ;
-            focal-prop:lesniSLT "2L" ;
-            focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/2L1> ;
-            focal-prop:lesniUDRZBA 2022 ;
-            focal-prop:lesniZADOST "-" ;
-            focal-prop:lesniZMENA "-" ],
-        [ a geojson:Feature ;
-            geojson:geometry [ a geojson:MultiPolygon ;
-                    geojson:coordinates ( ( ( ( -7.852251e+05 -1.062529e+06 ) ( -7.852342e+05 -1.062528e+06 ) ( -7.852528e+05 -1.062518e+06 ) ( -7.852801e+05 -1.062491e+06 ) ( -7.852568e+05 -1.062483e+06 ) ( -7.85222e+05 -1.062474e+06 ) ( -7.852125e+05 -1.062512e+06 ) ( -7.852139e+05 -1.062522e+06 ) ( -7.852174e+05 -1.062527e+06 ) ( -7.852251e+05 -1.062529e+06 ) ) ) ) ] ;
-            focal-prop:lesniCHS 19 ;
-            focal-prop:lesniDSOPRL 2025 ;
-            focal-prop:lesniID1 137152 ;
-            focal-prop:lesniOVERT "NE" ;
-            focal-prop:lesniOblast 8 ;
-            focal-prop:lesniOblastCast "a" ;
-            focal-prop:lesniPCHS "19c" ;
-            focal-prop:lesniPLOCHA 2.25212e+03 ;
-            focal-prop:lesniROKMAP 2000 ;
-            focal-prop:lesniSLT "2L" ;
-            focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/2L1> ;
-            focal-prop:lesniUDRZBA 2022 ;
-            focal-prop:lesniZADOST "-" ;
-            focal-prop:lesniZMENA "-" ],
-        [ a geojson:Feature ;
-            geojson:geometry [ a geojson:MultiPolygon ;
-                    geojson:coordinates ( ( ( ( -7.853114e+05 -1.062864e+06 ) ( -7.853043e+05 -1.06285e+06 ) ( -7.852884e+05 -1.062835e+06 ) ( -7.852691e+05 -1.062816e+06 ) ( -7.852656e+05 -1.062811e+06 ) ( -7.852572e+05 -1.062797e+06 ) ( -7.852459e+05 -1.062773e+06 ) ( -7.852434e+05 -1.062751e+06 ) ( -7.852468e+05 -1.062727e+06 ) ( -7.85268e+05 -1.06269e+06 ) ( -7.85285e+05 -1.062655e+06 ) ( -7.852943e+05 -1.062642e+06 ) ( -7.852827e+05 -1.062652e+06 ) ( -7.852503e+05 -1.062684e+06 ) ( -7.852456e+05 -1.062689e+06 ) ( -7.852155e+05 -1.062732e+06 ) ( -7.852055e+05 -1.062768e+06 ) ( -7.852084e+05 -1.062802e+06 ) ( -7.852155e+05 -1.062825e+06 ) ( -7.852313e+05 -1.062843e+06 ) ( -7.852383e+05 -1.062848e+06 ) ( -7.852437e+05 -1.062852e+06 ) ( -7.852542e+05 -1.062859e+06 ) ( -7.852771e+05 -1.062863e+06 ) ( -7.852849e+05 -1.062863e+06 ) ( -7.853058e+05 -1.062863e+06 ) ( -7.853114e+05 -1.062864e+06 ) ) ) ) ] ;
-            focal-prop:lesniCHS 19 ;
-            focal-prop:lesniDSOPRL 2025 ;
-            focal-prop:lesniID1 137154 ;
-            focal-prop:lesniOVERT "NE" ;
-            focal-prop:lesniOblast 8 ;
-            focal-prop:lesniOblastCast "a" ;
-            focal-prop:lesniPCHS "19c" ;
-            focal-prop:lesniPLOCHA 8.035373e+03 ;
-            focal-prop:lesniROKMAP 2000 ;
-            focal-prop:lesniSLT "2L" ;
-            focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/2L1> ;
-            focal-prop:lesniUDRZBA 2022 ;
-            focal-prop:lesniZADOST "-" ;
-            focal-prop:lesniZMENA "-" ],
-        [ a geojson:Feature ;
-            geojson:geometry [ a geojson:MultiPolygon ;
                     geojson:coordinates ( ( ( ( -7.853684e+05 -1.063078e+06 ) ( -7.853734e+05 -1.063074e+06 ) ( -7.853504e+05 -1.06304e+06 ) ( -7.853397e+05 -1.06303e+06 ) ( -7.852374e+05 -1.062974e+06 ) ( -7.851726e+05 -1.062941e+06 ) ( -7.851925e+05 -1.062971e+06 ) ( -7.851975e+05 -1.06298e+06 ) ( -7.85202e+05 -1.062983e+06 ) ( -7.852089e+05 -1.062988e+06 ) ( -7.852325e+05 -1.063003e+06 ) ( -7.852494e+05 -1.063014e+06 ) ( -7.852669e+05 -1.063023e+06 ) ( -7.85299e+05 -1.063039e+06 ) ( -7.853232e+05 -1.063053e+06 ) ( -7.853301e+05 -1.063057e+06 ) ( -7.853407e+05 -1.063062e+06 ) ( -7.853509e+05 -1.063068e+06 ) ( -7.853645e+05 -1.063077e+06 ) ( -7.853684e+05 -1.063078e+06 ) ) ) ) ] ;
             focal-prop:lesniCHS 25 ;
             focal-prop:lesniDSOPRL 2025 ;
@@ -3466,21 +3432,21 @@ This examples shows how to define a customised schema based on an existing build
             focal-prop:lesniZMENA "Uvedení do souladu s KN" ],
         [ a geojson:Feature ;
             geojson:geometry [ a geojson:MultiPolygon ;
-                    geojson:coordinates ( ( ( ( -7.850417e+05 -1.062852e+06 ) ( -7.850382e+05 -1.062848e+06 ) ( -7.850317e+05 -1.062844e+06 ) ( -7.849634e+05 -1.0628e+06 ) ( -7.849389e+05 -1.062783e+06 ) ( -7.849336e+05 -1.062777e+06 ) ( -7.84923e+05 -1.062766e+06 ) ( -7.849011e+05 -1.062739e+06 ) ( -7.848954e+05 -1.062733e+06 ) ( -7.848934e+05 -1.062736e+06 ) ( -7.848974e+05 -1.062739e+06 ) ( -7.849039e+05 -1.062749e+06 ) ( -7.849079e+05 -1.062755e+06 ) ( -7.849175e+05 -1.06277e+06 ) ( -7.849298e+05 -1.062783e+06 ) ( -7.850092e+05 -1.062832e+06 ) ( -7.850417e+05 -1.062852e+06 ) ) ) ) ] ;
-            focal-prop:lesniCHS 25 ;
+                    geojson:coordinates ( ( ( ( -7.851267e+05 -1.062905e+06 ) ( -7.851161e+05 -1.062896e+06 ) ( -7.85018e+05 -1.062825e+06 ) ( -7.85e+05 -1.062815e+06 ) ( -7.849996e+05 -1.06281e+06 ) ( -7.84969e+05 -1.062756e+06 ) ( -7.849616e+05 -1.062737e+06 ) ( -7.849494e+05 -1.062701e+06 ) ( -7.849474e+05 -1.062705e+06 ) ( -7.849502e+05 -1.06271e+06 ) ( -7.849673e+05 -1.062758e+06 ) ( -7.849962e+05 -1.062808e+06 ) ( -7.849958e+05 -1.062814e+06 ) ( -7.850414e+05 -1.062844e+06 ) ( -7.851124e+05 -1.062896e+06 ) ( -7.851267e+05 -1.062905e+06 ) ) ) ) ] ;
+            focal-prop:lesniCHS 0 ;
             focal-prop:lesniDSOPRL 2025 ;
-            focal-prop:lesniID1 128303 ;
+            focal-prop:lesniID1 146028 ;
             focal-prop:lesniOVERT "NE" ;
             focal-prop:lesniOblast 8 ;
             focal-prop:lesniOblastCast "a" ;
-            focal-prop:lesniPCHS "25a" ;
-            focal-prop:lesniPLOCHA 6.830785e+02 ;
-            focal-prop:lesniROKMAP 2015 ;
-            focal-prop:lesniSLT "2S" ;
-            focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/2S1> ;
-            focal-prop:lesniUDRZBA 2022 ;
+            focal-prop:lesniPCHS "0" ;
+            focal-prop:lesniPLOCHA 5.410461e+02 ;
+            focal-prop:lesniROKMAP 2000 ;
+            focal-prop:lesniSLT "NE" ;
+            focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/NE> ;
+            focal-prop:lesniUDRZBA 2000 ;
             focal-prop:lesniZADOST "-" ;
-            focal-prop:lesniZMENA "Uvedení do souladu s KN" ],
+            focal-prop:lesniZMENA "-" ],
         [ a geojson:Feature ;
             geojson:geometry [ a geojson:MultiPolygon ;
                     geojson:coordinates ( ( ( ( -7.850657e+05 -1.062492e+06 ) ( -7.850305e+05 -1.062521e+06 ) ( -7.850089e+05 -1.062573e+06 ) ( -7.850196e+05 -1.062576e+06 ) ( -7.850452e+05 -1.062544e+06 ) ( -7.850675e+05 -1.062528e+06 ) ( -7.85078e+05 -1.062531e+06 ) ( -7.850913e+05 -1.062537e+06 ) ( -7.850998e+05 -1.062544e+06 ) ( -7.851111e+05 -1.062554e+06 ) ( -7.851145e+05 -1.062567e+06 ) ( -7.850959e+05 -1.062601e+06 ) ( -7.851117e+05 -1.062612e+06 ) ( -7.85117e+05 -1.062602e+06 ) ( -7.85127e+05 -1.062609e+06 ) ( -7.851318e+05 -1.062599e+06 ) ( -7.851355e+05 -1.062586e+06 ) ( -7.851451e+05 -1.062593e+06 ) ( -7.851615e+05 -1.062585e+06 ) ( -7.851848e+05 -1.062563e+06 ) ( -7.852106e+05 -1.062569e+06 ) ( -7.85195e+05 -1.062619e+06 ) ( -7.851694e+05 -1.062642e+06 ) ( -7.851522e+05 -1.062684e+06 ) ( -7.851314e+05 -1.062735e+06 ) ( -7.851313e+05 -1.062744e+06 ) ( -7.851521e+05 -1.06273e+06 ) ( -7.851597e+05 -1.062722e+06 ) ( -7.852027e+05 -1.062679e+06 ) ( -7.852342e+05 -1.062636e+06 ) ( -7.852628e+05 -1.062607e+06 ) ( -7.852943e+05 -1.06258e+06 ) ( -7.853129e+05 -1.062558e+06 ) ( -7.853172e+05 -1.062553e+06 ) ( -7.853211e+05 -1.062543e+06 ) ( -7.853201e+05 -1.062534e+06 ) ( -7.85317e+05 -1.062527e+06 ) ( -7.853116e+05 -1.062522e+06 ) ( -7.853029e+05 -1.062517e+06 ) ( -7.852955e+05 -1.062517e+06 ) ( -7.85282e+05 -1.062521e+06 ) ( -7.85247e+05 -1.062546e+06 ) ( -7.85227e+05 -1.06255e+06 ) ( -7.852085e+05 -1.062548e+06 ) ( -7.851636e+05 -1.062535e+06 ) ( -7.851222e+05 -1.062522e+06 ) ( -7.850976e+05 -1.062511e+06 ) ( -7.850657e+05 -1.062492e+06 ) ) ) ) ] ;
@@ -3514,7 +3480,41 @@ This examples shows how to define a customised schema based on an existing build
             focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/2S1> ;
             focal-prop:lesniUDRZBA 2022 ;
             focal-prop:lesniZADOST "-" ;
-            focal-prop:lesniZMENA "Uvedení do souladu s KN" ] .
+            focal-prop:lesniZMENA "Uvedení do souladu s KN" ],
+        [ a geojson:Feature ;
+            geojson:geometry [ a geojson:MultiPolygon ;
+                    geojson:coordinates ( ( ( ( -7.852825e+05 -1.062489e+06 ) ( -7.852925e+05 -1.062477e+06 ) ( -7.852979e+05 -1.062471e+06 ) ( -7.852931e+05 -1.062465e+06 ) ( -7.852957e+05 -1.062454e+06 ) ( -7.852943e+05 -1.062437e+06 ) ( -7.852942e+05 -1.062436e+06 ) ( -7.85294e+05 -1.062434e+06 ) ( -7.852853e+05 -1.062432e+06 ) ( -7.852832e+05 -1.062436e+06 ) ( -7.852714e+05 -1.062454e+06 ) ( -7.852571e+05 -1.062479e+06 ) ( -7.852825e+05 -1.062489e+06 ) ) ) ) ] ;
+            focal-prop:lesniCHS 19 ;
+            focal-prop:lesniDSOPRL 2025 ;
+            focal-prop:lesniID1 137153 ;
+            focal-prop:lesniOVERT "NE" ;
+            focal-prop:lesniOblast 8 ;
+            focal-prop:lesniOblastCast "a" ;
+            focal-prop:lesniPCHS "19c" ;
+            focal-prop:lesniPLOCHA 1.273825e+03 ;
+            focal-prop:lesniROKMAP 2000 ;
+            focal-prop:lesniSLT "2L" ;
+            focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/2L1> ;
+            focal-prop:lesniUDRZBA 2022 ;
+            focal-prop:lesniZADOST "-" ;
+            focal-prop:lesniZMENA "-" ],
+        [ a geojson:Feature ;
+            geojson:geometry [ a geojson:MultiPolygon ;
+                    geojson:coordinates ( ( ( ( -7.852251e+05 -1.062529e+06 ) ( -7.852342e+05 -1.062528e+06 ) ( -7.852528e+05 -1.062518e+06 ) ( -7.852801e+05 -1.062491e+06 ) ( -7.852568e+05 -1.062483e+06 ) ( -7.85222e+05 -1.062474e+06 ) ( -7.852125e+05 -1.062512e+06 ) ( -7.852139e+05 -1.062522e+06 ) ( -7.852174e+05 -1.062527e+06 ) ( -7.852251e+05 -1.062529e+06 ) ) ) ) ] ;
+            focal-prop:lesniCHS 19 ;
+            focal-prop:lesniDSOPRL 2025 ;
+            focal-prop:lesniID1 137152 ;
+            focal-prop:lesniOVERT "NE" ;
+            focal-prop:lesniOblast 8 ;
+            focal-prop:lesniOblastCast "a" ;
+            focal-prop:lesniPCHS "19c" ;
+            focal-prop:lesniPLOCHA 2.25212e+03 ;
+            focal-prop:lesniROKMAP 2000 ;
+            focal-prop:lesniSLT "2L" ;
+            focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/2L1> ;
+            focal-prop:lesniUDRZBA 2022 ;
+            focal-prop:lesniZADOST "-" ;
+            focal-prop:lesniZMENA "-" ] .
 
 
 ```
