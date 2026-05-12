@@ -1,58 +1,50 @@
-````markdown
-# User Story
+# Highlights of this Repository
 
-## Publishing Machine-Interpretable Forest Typology Data
+1. Howto publish vector data with a custom schema
+2. Howto add CRS transformations
+3. Howto validate vector data with a custom schema
 
-As a Forest Data Provider (e.g. a forestry researcher), I want to provide my "normal GIS" data (e.g. typology derived by photogrammetry and remote sensing) in a way that my data conforms to my domain (multilingual) and can be integrated with data from another domain (e.g. climate projections) by defining clear input/output contracts.
+# Steps
 
-As a platform operator who follows the OGC Smart concepts, I know that domain-specific profiles can be provided by public registers to ensure public consistency of distributed digital twins. Using those profiles turns the local typology data of the data provider into machine-interpretable knowledge that can be used to extend the distributed digital twin of forest typologies or can be automatically integrated into more complex distributed digital twins like climate-resilient reforestation simulations or processed by AI tools to generate climate-resilient reforestation recommendations.
-
----
-
-# Context
-
-This story illustrates the transition from "normal GIS" (manual overlays and scripts) to a standards-mediated geo-data supply chain.
-
-By implementing the Forest Typology OGC Block, the data provider removes the need for bespoke engineering. Instead of rebuilding a pipeline for every new forest, the provider publishes the Forest Typology OGC Block definitions as the "input/output contract" of a consistent distributed digital twin for forest typologies, allowing AI agents to navigate semantic gaps automatically and provide validated decision support.
-
----
-
-# Steps taken
-
-1. Implemented a Forest Typology OGC Block for "Features with geometry and typology" with a suitable ontology.
-2. Extended the ontology with the forest type code attribute (`LT`) which needs to be mapped to a URI that an AI agent (like JackDaw) can use to retrieve ecological properties in multiple languages.
-   - *(Map View – displaying code description)*
-3. Added an example GeoJSON `FeatureCollection` conform to the new Forest Site Assessment schema.
-4. Added a transform to produce only CRS 5555 output data.
-5. Added tests for validation purposes.
+1. Read the [OGC Building Blocks Documentation](https://ogcincubator.github.io/bblocks-docs/)
+2. Create the repo by following the [instructions](https://github.com/opengeospatial/bblock-template/blob/master/USAGE.md) from the [template](https://github.com/opengeospatial/bblock-template/)
+3. Implement the Forest Typology OGC Blocks for "Features with geometry and typology" with a suitable [ontology](_sources/focal-ontology).
+4. Extend the [`ontology.ttl`](_sources/focal-ontology/ontology.ttl) with the forest type code attribute (`LT`) which needs to be mapped to proper URIs which in turn can be used to retrieve ecological properties in multiple languages for the forest type code attribute (`LT`).
+5. Add an example GeoJSON [`FeatureCollection`](_sources/myFeatureCollection/examples/feature.json) conform to the new Forest Site Assessment schema.
+6. Add a [`transforms.yaml`](_sources/myFeatureCollection/transforms.yaml) to produce only CRS 5555 output data.
+7. Add a test for validation purposes using [shacl shapes](_sources/myFeature/shapes.shacl).
 
 ---
 
-# Step in detail
+# Steps in detail
 
-Model the forest typology as a "Feature with geometry" that carries a well-defined domain model (the Forest Typology schema). This schema provides the "input/output contract" for your data and maps "normal GIS" attributes to standardized types.
+## 1. Read the Docs
 
-Look at the provided Forest Typology OGC Block (Webpage).
+[OGC Building Blocks Documentation](https://ogcincubator.github.io/bblocks-docs/)
 
----
+## 2. Create the Repo
 
-# 1. OGC Block Composition
+See the [instructions](https://github.com/opengeospatial/bblock-template/blob/master/USAGE.md) to create this repo from the [template](https://github.com/opengeospatial/bblock-template/).
 
-Look at the different folders in `_sources`:
+## 3. OGC Blocks Composition
 
-- `focal-ontology`
-  - Provides the semantics and gets automatically uploaded to the official register.
+### The folder structure 
 
-- `mySchema`
-  - A Property Set with the domain-specific Forest Typology attributes mapped to the semantics.
+Look at the different folders in [`_sources`](_sources). Each folder contains a [`bblock.json`](_sources/mySchema/bblock.json) to define a OGC Block.
 
-- `myFeature`
-  - A Feature OGC Block (inherited from Feature OGC Block) combining geometry with the domain-specific schema.
+- [`focal-ontology`](_sources/focal-ontology)
+  - The ontology OGC Block provides the semantics and gets automatically uploaded to an official register.
 
-- `myFeatureCollection`
-  - A FeatureCollection OGC Block (inherited from FeatureCollection OGC Block) describing the whole dataset.
+- [`mySchema`](_sources/mySchema)
+  - The domain-specific Forest Typology OGC Block which maps the attributes of the dataset to the semantics.
 
-## The Property Set (Czech meta-data description)
+- [`myFeature`](_sources/myFeature)
+  - A Feature OGC Block inherited from the Feature OGC Block combining geometry with the domain-specific schema.
+
+- [`myFeatureCollection`](_sources/myFeatureCollection)
+  - A FeatureCollection OGC Block inherited from the FeatureCollection OGC Block describing the whole dataset.
+
+### The Property Set (Czech meta-data description)
 
 ```txt
 F_A_Lesni_typ
@@ -79,30 +71,30 @@ Platnost dat k 1.1.2025
 Souřadnicový systém: S-JTSK
 ```
 
-## Important files
+### Important files
 
-1. `ontology.ttl`
+1. [`ontology.ttl`](_sources/focal-ontology/ontology.ttl)
    - Semantics
 
-2. `schema.yaml`
+2. [`schema.yaml`](_sources/mySchema/schema.yaml) within [`mySchema`](_sources/mySchema)
    - Typology type definitions
 
-3. `context.jsonld`
+3. [`context.jsonld`](_sources/mySchema/context.jsonld) within [`mySchema`](_sources/mySchema)
    - Maps the type definitions to the URIs from the ontology
 
-4. `schema.yaml`
+4. [`schema.yaml`](_sources/myFeature/schema.yaml) within [`myFeature`](_sources/myFeature)
    - Feature definition
 
-5. `schema.yaml`
+5. [`schema.yaml`](_sources/myFeatureCollection/schema.yaml) within [`myFeatureCollection`](_sources/myFeatureCollection)
    - Feature collection definition
 
 ---
 
-# 2. Forest Type Codes
+## 4. Forest Type Codes
 
 Adds the forest type code definitions (Czech meta-data descriptions) to the ontology and makes them multilingual.
 
-See within the `ontology.ttl` for the semantics:
+See within the [`ontology.ttl`](_sources/focal-ontology/ontology.ttl) for the semantics:
 
 ```ttl
 focal-lt:LT a skos:ConceptScheme, owl:Class ;
@@ -123,40 +115,27 @@ focal-lt:2S1 a skos:Concept, focal-lt:LT ;
 .
 ```
 
----
 
-# 3. Examples
+## 5. Examples
 
 Look at the example data for a feature collection. This example data has been created by QGIS as an export from a shapefile.
 
-The example data for feature collections can be integrated by providing an `examples.yaml` within the `myFeatureCollection` definitions.
+The example data for feature collections can be integrated by providing an [`GeoJSON`](_sources/myFeatureCollection/examples/feature.json) and an [`examples.yaml`](_sources/myFeatureCollection/examples.yaml) within the [`myFeatureCollection`](_sources/myFeatureCollection) definitions and a .
 
-The example data for a feature can be defined by linking back to the feature collection using the `examples.yaml` within the `myFeature` definitions.
+The example data for a feature can be defined by linking back to the feature collection using the [`examples.yaml`](_sources/myFeature/examples.yaml) within the [`myFeature`](_sources/myFeature) definitions.
 
-The first feature within the feature collection carries the coordinate reference system as an extra property. Without this definition, the example feature could not be viewed within the "map view" of the feature example.
+The first feature within the feature collection carries the coordinate reference system as an extra property. Without this definition, the example feature could not be viewed within the ["map view"](https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.myFeature/examples) of the feature example.
 
-The example data for the domain-specific schema can also be defined by linking to the feature collection example using its `examples.yaml` within the `mySchema` definitions.
-
----
-
-# 4. Transform to Match CRS 5555
-
-A transform can be added by creating a `transforms.yaml`.
-
-It is possible to provide the code snippet directly within this file, but for reasons of clarity the code can be linked as shown in the `transforms.yaml`.
-
----
-
-# 5. Validation
-
-Validation and testing can be carried out using SHACL rules.
-
-The example checks if the `focal-prop:lesniTyp` exists.
-
-By providing failure examples (`FeatureCollection`, `Feature`), the SHACL rules can be tested further.
-````
+The example data for the domain-specific schema can also be defined by linking to the feature collection example using its [`examples.yaml`](_sources/mySchema/examples.yaml) within the [`mySchema`](_sources/mySchema) definitions.
 
 
-[General information on design and usage](https://github.com/opengeospatial/bblock-template/blob/master/USAGE.md)
+## 6. Transform to Match CRS 5555
+
+A transform can be added by creating a [`transforms.yaml`](_sources/myFeatureCollection/transforms.yaml). It is possible to provide the code snippet directly within this file, but for reasons of clarity the code has been outsourced to the [`transforms`](_sources/myFeatureCollection/transforms) folder can be linked as shown in the [`transforms.yaml`](_sources/myFeatureCollection/transforms.yaml).
+
+
+## 7. Validation
+
+Validation and testing can be carried out using [SHACL shapes](_sources/myFeature/shapes.shacl). The provided example checks if the `focal-prop:lesniTyp` exists for the given examples. By providing failure examples ([`FeatureCollection`](_sources/myFeatureCollection/tests/feature-fail.json), [`Feature`](_sources/myFeature/tests/feature-fail.json)), the SHACL shapes can be tested further.
 
 
