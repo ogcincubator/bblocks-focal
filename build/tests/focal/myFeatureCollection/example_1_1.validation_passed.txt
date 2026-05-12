@@ -1,5 +1,5 @@
 Validation report for ogc.focal.myFeatureCollection - Feature Collection for forest type
-Generated 2026-05-12T07:18:59.566180+00:00
+Generated 2026-05-12T11:00:06.602923+00:00
 === Files ===
 Using examples/feature.json from examples
 JSON-LD context is present - uplifting
@@ -12,12 +12,17 @@ Validation passed
 === End JSON Schema ===
 
 === SHACL ===
-Validation result for _sources/myFeature/shapes.shacl:
+Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:
   Validation Report
   Conforms: True
   
-Focus nodes for _sources/myFeature/shapes.shacl:
- - Shape <https://example.com/focal/feature-lesniTyp>: _:N21b1a58f03ef4faeb018bbfca71db7b0,_:N43df256a5b2445ac8b8c8565b4e000db,_:N3073e879fa4c45afa497b5152e91b22d,_:N63adf8878c8b47ad8f1da979ebb7e4d6,_:Ne719a5e30bc14763be58ee57d7149911,_:N6513fa1452504758b395d20e5e068d0d,_:Nacd3366438174cf3a8e819994e579c31,_:Ne25ea18d469a40ad906b31afe807d62a,_:Nc01ca966f2ea44eaa26e959f51a97e2e,_:N56dbea6dc7eb427f8e192b0364aa798b,_:N349fccbe831d45bf89ce44386bbc05b4,_:N466bb8b0dfe94e40b068e72d41f98a11,_:Nc1d1d3ec75984e16a70734d5158363f8
+Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:
+ - Shape geojson:GeometryShape: *none*
+ - Shape geojson:FeatureCollectionShape: _:Naa9ed98766b74be8a74449f300d327cc
+ - Shape geojson:LinkShape: *none*
+ - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
+ - Shape geojson:FeatureShape: *none*
 
 Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
   Validation Report
@@ -26,21 +31,16 @@ Validation result for https://opengeospatial.github.io/bblocks/registereditems/g
 Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
  - Shape geojson:GeometryShape: *none*
  - Shape geojson:LinkShape: *none*
- - Shape geojson:FeatureShape: _:N21b1a58f03ef4faeb018bbfca71db7b0,_:N43df256a5b2445ac8b8c8565b4e000db,_:N3073e879fa4c45afa497b5152e91b22d,_:N63adf8878c8b47ad8f1da979ebb7e4d6,_:Ne719a5e30bc14763be58ee57d7149911,_:N6513fa1452504758b395d20e5e068d0d,_:Nacd3366438174cf3a8e819994e579c31,_:Ne25ea18d469a40ad906b31afe807d62a,_:Nc01ca966f2ea44eaa26e959f51a97e2e,_:N56dbea6dc7eb427f8e192b0364aa798b,_:N349fccbe831d45bf89ce44386bbc05b4,_:N466bb8b0dfe94e40b068e72d41f98a11,_:Nc1d1d3ec75984e16a70734d5158363f8
  - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
  - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape geojson:FeatureShape: _:N3160f5aa0d7b4857a9fcce439c093945,_:N659c11a32c404d1b8c696d8dd2b39ad8,_:N13e84609af104e6e9830d38689e0e9c1,_:N49a893786da846fd953ce6ef259941ea,_:N9ea6ea91a1914353b589eb6ad117cd69,_:N9069e14e3abf434ab814111291d555b7,_:N3932eba80f954b76a81ba373280eff85,_:N85d3696d48cb4766adb11de162cdc7d2,_:N9258fc7125bd408a8452aeefedf524a5,_:Ne3acb8f6a439446e84f741b481e0e522,_:N73960b994b5045a6b8ce40d052027e05,_:Nbbaebdb2fa234c609512aeeb64bb34ad,_:N0138601644bc4cde9956117729771fc9
 
-Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:
+Validation result for _sources/myFeature/shapes.shacl:
   Validation Report
   Conforms: True
   
-Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:
- - Shape geojson:GeometryShape: *none*
- - Shape geojson:FeatureCollectionShape: _:Nb7235ffb8a1640aaabf9805000c35dc3
- - Shape geojson:LinkShape: *none*
- - Shape geojson:FeatureShape: *none*
- - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
+Focus nodes for _sources/myFeature/shapes.shacl:
+ - Shape <https://example.com/focal/feature-lesniTyp>: _:N3160f5aa0d7b4857a9fcce439c093945,_:N659c11a32c404d1b8c696d8dd2b39ad8,_:N13e84609af104e6e9830d38689e0e9c1,_:N49a893786da846fd953ce6ef259941ea,_:N9ea6ea91a1914353b589eb6ad117cd69,_:N9069e14e3abf434ab814111291d555b7,_:N3932eba80f954b76a81ba373280eff85,_:N85d3696d48cb4766adb11de162cdc7d2,_:N9258fc7125bd408a8452aeefedf524a5,_:Ne3acb8f6a439446e84f741b481e0e522,_:N73960b994b5045a6b8ce40d052027e05,_:Nbbaebdb2fa234c609512aeeb64bb34ad,_:N0138601644bc4cde9956117729771fc9
 
 === End SHACL ===
 
