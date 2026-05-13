@@ -19,8 +19,8 @@
   "maturity": "development",
   "scope": "unstable",
   "dependsOn": [
-    "ogc.focal.mySchema",
-    "ogc.geo.features.feature"
+    "ogc.geo.features.feature",
+    "ogc.focal.mySchema"
   ],
   "tags": [
     "feature",

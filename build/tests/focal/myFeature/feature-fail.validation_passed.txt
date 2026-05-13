@@ -1,5 +1,5 @@
 Validation report for ogc.focal.myFeature - Custom Feature
-Generated 2026-05-13T07:13:22.019810+00:00
+Generated 2026-05-13T07:19:34.167822+00:00
 === General ===
 Test was expected to fail and it did.
 === End General ===
@@ -84,17 +84,17 @@ Validation result for _sources/myFeature/shapes.shacl:
   	Message: Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.
   
 Focus nodes for _sources/myFeature/shapes.shacl:
- - Shape <https://example.com/focal/feature-lesniTyp>: _:Ne8c1745171c94cecaa51e4f14ff4fe36
+ - Shape <https://example.com/focal/feature-lesniTyp>: _:N9ebf1f8db3244234a634c51dfeb9a2ae
 
 Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
   Validation Report
   Conforms: True
   
 Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
+ - Shape geojson:FeatureShape: _:N9ebf1f8db3244234a634c51dfeb9a2ae
  - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape geojson:GeometryShape: *none*
  - Shape geojson:LinkShape: *none*
- - Shape geojson:FeatureShape: _:Ne8c1745171c94cecaa51e4f14ff4fe36
+ - Shape geojson:GeometryShape: *none*
  - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
 
 === End SHACL ===

@@ -1,5 +1,5 @@
 Validation report for ogc.focal.myFeatureCollection - Feature Collection for forest type
-Generated 2026-05-13T07:13:22.707530+00:00
+Generated 2026-05-13T07:19:35.019915+00:00
 === General ===
 Test was expected to fail and it did.
 === End General ===
@@ -84,30 +84,30 @@ Validation result for _sources/myFeature/shapes.shacl:
   	Message: Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.
   
 Focus nodes for _sources/myFeature/shapes.shacl:
- - Shape <https://example.com/focal/feature-lesniTyp>: _:N77d2d2e3bc9942b088c0fd7c95d9fac4,_:Nf3b89c495ba147e698d9dd987f08d670,_:N84214ab6e5c24d4ea41c37fc250f0dda,_:Nf02c61767222481e87814a583305ae0b,_:N523c80ab014d4f3d8ccf539bac5d0e32,_:Ncafe4cbbf1d04ce8a87534af143ae50c,_:N4e818c078b4a4b8b84908030ba3795dc,_:N6a26ed8f296c403091a39101966c56e9,_:N88008151dfa644eaba4a20d714b3ee55,_:N36ed70455f014eab8249725253de50c1,_:N51b7785117bd4c4babdafbaf574fe604,_:N585628d538544bb2949abbfd6171d71a,_:Na702f300ad1140928bf0a59ffa38e65b
+ - Shape <https://example.com/focal/feature-lesniTyp>: _:Nfe223548845f455186d5d6e468c22d11,_:N8a6f1f52a455472a91bb2460aa82639a,_:N2e8c2f6fa8034cbe919df0ce6cf8fc75,_:Nf02813dfa91e47a9bff10bc374eb0666,_:N3f39ee28f05a42bc9d09fb647e9a2538,_:Nabed72260c124942aae615eeae81fee5,_:N7e7b91f5d42a417081947ae3c6e28f39,_:Nb52704490e0d4c89885ac55b6530e24b,_:Nbdb1e4645cb34f979db65d1525fa31b9,_:Nedd83cd5bdde4943bab1fa93659e5696,_:N8940adc3898c4acfa733b7e73159d382,_:N986ac2aeede04f5bb77ed090f965a7ca,_:N2a1be2012e22417c89ddac043c2d1997
 
 Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
   Validation Report
   Conforms: True
   
 Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
- - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape geojson:GeometryShape: *none*
- - Shape geojson:LinkShape: *none*
- - Shape geojson:FeatureShape: _:N77d2d2e3bc9942b088c0fd7c95d9fac4,_:Nf3b89c495ba147e698d9dd987f08d670,_:N84214ab6e5c24d4ea41c37fc250f0dda,_:Nf02c61767222481e87814a583305ae0b,_:N523c80ab014d4f3d8ccf539bac5d0e32,_:Ncafe4cbbf1d04ce8a87534af143ae50c,_:N4e818c078b4a4b8b84908030ba3795dc,_:N6a26ed8f296c403091a39101966c56e9,_:N88008151dfa644eaba4a20d714b3ee55,_:N36ed70455f014eab8249725253de50c1,_:N51b7785117bd4c4babdafbaf574fe604,_:N585628d538544bb2949abbfd6171d71a,_:Na702f300ad1140928bf0a59ffa38e65b
+ - Shape geojson:FeatureShape: _:Nfe223548845f455186d5d6e468c22d11,_:N8a6f1f52a455472a91bb2460aa82639a,_:N2e8c2f6fa8034cbe919df0ce6cf8fc75,_:Nf02813dfa91e47a9bff10bc374eb0666,_:N3f39ee28f05a42bc9d09fb647e9a2538,_:Nabed72260c124942aae615eeae81fee5,_:N7e7b91f5d42a417081947ae3c6e28f39,_:Nb52704490e0d4c89885ac55b6530e24b,_:Nbdb1e4645cb34f979db65d1525fa31b9,_:Nedd83cd5bdde4943bab1fa93659e5696,_:N8940adc3898c4acfa733b7e73159d382,_:N986ac2aeede04f5bb77ed090f965a7ca,_:N2a1be2012e22417c89ddac043c2d1997
  - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
+ - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape geojson:LinkShape: *none*
+ - Shape geojson:GeometryShape: *none*
 
 Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:
   Validation Report
   Conforms: True
   
 Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:
- - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
- - Shape geojson:GeometryShape: *none*
- - Shape geojson:LinkShape: *none*
  - Shape geojson:FeatureShape: *none*
- - Shape geojson:FeatureCollectionShape: _:Ne26fa4be93c7422a946bfb6854ffe424
+ - Shape geojson:LinkShape: *none*
+ - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
  - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape geojson:GeometryShape: *none*
+ - Shape geojson:FeatureCollectionShape: _:Naa1559f26f6f47b98a06ef845d3d9f3e
 
 === End SHACL ===
 
