@@ -4,11 +4,11 @@
 2. Howto add CRS transformations
 3. Howto validate vector data with a custom schema
 
-# Steps
+# Development steps
 
 1. Read the [OGC Building Blocks Documentation](https://ogcincubator.github.io/bblocks-docs/)
 2. Create the repo by following the [instructions](https://github.com/opengeospatial/bblock-template/blob/master/USAGE.md) from the [template](https://github.com/opengeospatial/bblock-template/)
-3. Implement the Forest Typology OGC Blocks for "Features with geometry and typology" with a suitable [ontology](_sources/focal-ontology).
+3. Implement the necessary OGC Blocks for "Features with geometry and typology" with a suitable [ontology](_sources/focal-ontology).
 4. Extend the [`ontology.ttl`](_sources/focal-ontology/ontology.ttl) with the forest type code attribute (`LT`) which needs to be mapped to proper URIs which in turn can be used to retrieve ecological properties in multiple languages for the forest type code attribute (`LT`).
 5. Add an example GeoJSON [`FeatureCollection`](_sources/myFeatureCollection/examples/feature.json) conform to the new Forest Site Assessment schema.
 6. Add a [`transforms.yaml`](_sources/myFeatureCollection/transforms.yaml) to produce only CRS 5555 output data.
@@ -16,7 +16,7 @@
 
 ---
 
-# Steps in detail
+# Development steps in detail
 
 ## 1. Read the Docs
 
@@ -73,7 +73,7 @@ Souřadnicový systém: S-JTSK
 
 ### Important files
 
-1. [`ontology.ttl`](_sources/focal-ontology/ontology.ttl)
+1. [`ontology.ttl`](_sources/focal-ontology/ontology.ttl) within [`focal-ontology`](_sources/focal-ontology)
    - Semantics
 
 2. [`schema.yaml`](_sources/mySchema/schema.yaml) within [`mySchema`](_sources/mySchema)
