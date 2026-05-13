@@ -47,8 +47,7 @@ description: |
   ### **How is this register structured and implemented?**
   *   **Implementation:** Developed using the **GitHub bblock-template** with a test-driven CI/CD pipeline where every example must pass validation.
   *   **Recursive Composition:** Each block aggregates a `schema.yaml` for structure, a `context.jsonld` for semantic uplift, and `shacl.ttl` for executable constraints.
-  *   **Profile Layering:** It utilizes hierarchical profiling, allowing local specializations to inherit and extend base standards without breaking interoperability. The myFeature block inherits from the base OGC Feature block and aggregates the mySchema property set
-  
+  *   **Profile Layering:** It utilizes hierarchical profiling, allowing local specializations to inherit and extend base standards without breaking interoperability. The myFeature block inherits from the base OGC Feature block and aggregates the mySchema property set.
   
   ### **For Developers**
   *   **[GitHub Repository](https://github.com/ogcincubator/bblocks-focal)**
