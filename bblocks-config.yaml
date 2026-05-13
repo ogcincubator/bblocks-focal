@@ -49,6 +49,13 @@ description: |
   *   **Recursive Composition:** Each block aggregates a `schema.yaml` for structure, a `context.jsonld` for semantic uplift, and `shacl.ttl` for executable constraints.
   *   **Profile Layering:** It utilizes hierarchical profiling, allowing local specializations to inherit and extend base standards without breaking interoperability. The myFeature block inherits from the base OGC Feature block and aggregates the mySchema property set
   
+  
+  ### **For Developers**
+  *   **[GitHub Repository](https://github.com/ogcincubator/bblocks-focal)**
+  *   **[OGC Blocks Documentation](https://ogcincubator.github.io/bblocks-docs/)**
+  *   **[OGC Blocks Tutorials](https://ogcincubator.github.io/bblocks-tutorial/)**
+  *   **[OGC Blocks Examples](https://ogcincubator.github.io/bblocks-examples/)**
+  
 # Customize the following prefix (will be prepended to the path of the Blocks):
 identifier-prefix: ogc.focal.
 
