@@ -1,0 +1,15 @@
+path	@id	schema
+/LT	https://w3id.org/ogc/hosted/focal/properties/lesniTyp	/github/workspace/build/annotated/focal/forestStandProperties/schema.yaml
+/LES_OBL	https://w3id.org/ogc/hosted/focal/properties/lesniOblast	/github/workspace/build/annotated/focal/forestStandProperties/schema.yaml
+/LO_CAST	https://w3id.org/ogc/hosted/focal/properties/lesniOblastCast	/github/workspace/build/annotated/focal/forestStandProperties/schema.yaml
+/UDRZBA	https://w3id.org/ogc/hosted/focal/properties/lesniUDRZBA	/github/workspace/build/annotated/focal/forestStandProperties/schema.yaml
+/ZMENA	https://w3id.org/ogc/hosted/focal/properties/lesniZMENA	/github/workspace/build/annotated/focal/forestStandProperties/schema.yaml
+/ZADOST	https://w3id.org/ogc/hosted/focal/properties/lesniZADOST	/github/workspace/build/annotated/focal/forestStandProperties/schema.yaml
+/CHS	https://w3id.org/ogc/hosted/focal/properties/lesniCHS	/github/workspace/build/annotated/focal/forestStandProperties/schema.yaml
+/PCHS	https://w3id.org/ogc/hosted/focal/properties/lesniPCHS	/github/workspace/build/annotated/focal/forestStandProperties/schema.yaml
+/OVER_T	https://w3id.org/ogc/hosted/focal/properties/lesniOVERT	/github/workspace/build/annotated/focal/forestStandProperties/schema.yaml
+/ROK_MAP	https://w3id.org/ogc/hosted/focal/properties/lesniROKMAP	/github/workspace/build/annotated/focal/forestStandProperties/schema.yaml
+/ID1	https://w3id.org/ogc/hosted/focal/properties/lesniID1	/github/workspace/build/annotated/focal/forestStandProperties/schema.yaml
+/SLT	https://w3id.org/ogc/hosted/focal/properties/lesniSLT	/github/workspace/build/annotated/focal/forestStandProperties/schema.yaml
+/PLOCHA	https://w3id.org/ogc/hosted/focal/properties/lesniPLOCHA	/github/workspace/build/annotated/focal/forestStandProperties/schema.yaml
+/DS_OPRL	https://w3id.org/ogc/hosted/focal/properties/lesniDSOPRL	/github/workspace/build/annotated/focal/forestStandProperties/schema.yaml

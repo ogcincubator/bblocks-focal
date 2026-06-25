@@ -1,0 +1,101 @@
+Validation report for ogc.focal.forestStandFeature - FOCAL Forest Stand Feature
+Generated 2026-06-25T14:22:03.585550+00:00
+=== General ===
+Test was expected to fail and it did.
+=== End General ===
+
+=== Files ===
+Using feature-fail.json from test resources
+JSON-LD context is present - uplifting
+Output JSON-LD feature-fail.jsonld created
+Output Turtle feature-fail.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+
+** Validation error **
+ValidationError: 'LT' is a required property
+
+Failed validating 'required' in schema[0]['allOf'][1]['properties']['properties']:
+    {'$schema': 'https://json-schema.org/draft/2020-12/schema',
+     'description': 'My example schema',
+     'properties': {'CHS': {'type': 'number',
+                            'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniCHS'},
+                    'DS_OPRL': {'type': 'number',
+                                'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniDSOPRL'},
+                    'ID1': {'type': 'number',
+                            'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniID1'},
+                    'LES_OBL': {'type': 'number',
+                                'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniOblast'},
+                    'LO_CAST': {'type': 'string',
+                                'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniOblastCast'},
+                    'LT': {'type': 'string',
+                           'x-jsonld-base': 'https://w3id.org/ogc/hosted/focal/lt/',
+                           'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniTyp',
+                           'x-jsonld-type': '@id'},
+                    'OVER_T': {'type': 'string',
+                               'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniOVERT'},
+                    'PCHS': {'type': 'string',
+                             'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniPCHS'},
+                    'PLOCHA': {'type': 'number',
+                               'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniPLOCHA'},
+                    'ROK_MAP': {'type': 'number',
+                                'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniROKMAP'},
+                    'SLT': {'type': 'string',
+                            'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniSLT'},
+                    'UDRZBA': {'type': 'number',
+                               'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniUDRZBA'},
+                    'ZADOST': {'type': 'string',
+                               'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniZADOST'},
+                    'ZMENA': {'type': 'string',
+                              'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniZMENA'}},
+     'required': ['LT'],
+     'type': 'object',
+     'x-jsonld-prefixes': {'focal-prop': 'https://w3id.org/ogc/hosted/focal/properties/'}}
+
+On instance['properties']:
+    {'CHS': 25,
+     'DS_OPRL': 2025,
+     'ID1': 128301,
+     'LES_OBL': 8,
+     'LO_CAST': 'a',
+     'OVER_T': 'NE',
+     'PCHS': '25a',
+     'PLOCHA': 1224.24963,
+     'ROK_MAP': 2015,
+     'SLT': '2S',
+     'UDRZBA': 2022,
+     'ZADOST': '-',
+     'ZMENA': 'Uvedení do souladu s KN'}
+=== End JSON Schema ===
+
+=== SHACL ===
+
+** Validation error **
+Validation result for _sources/forestStandFeature/shapes.shacl:
+  Validation Report
+  Conforms: False
+  Results (1):
+  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
+  	Severity: sh:Violation
+  	Source Shape: [ sh:message Literal("Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:name Literal("lesniTyp") ; sh:nodeKind sh:IRI ; sh:path focal-prop:lesniTyp ]
+  	Focus Node: [ focal-prop:lesniCHS Literal("25", datatype=xsd:integer) ; focal-prop:lesniDSOPRL Literal("2025", datatype=xsd:integer) ; focal-prop:lesniID1 Literal("128301", datatype=xsd:integer) ; focal-prop:lesniOVERT Literal("NE") ; focal-prop:lesniOblast Literal("8", datatype=xsd:integer) ; focal-prop:lesniOblastCast Literal("a") ; focal-prop:lesniPCHS Literal("25a") ; focal-prop:lesniPLOCHA Literal("1224.24963", datatype=xsd:double) ; focal-prop:lesniROKMAP Literal("2015", datatype=xsd:integer) ; focal-prop:lesniSLT Literal("2S") ; focal-prop:lesniUDRZBA Literal("2022", datatype=xsd:integer) ; focal-prop:lesniZADOST Literal("-") ; focal-prop:lesniZMENA Literal("Uvedení do souladu s KN") ; geojson:geometry [ geojson:coordinates ( ( <http://recursion.too.deep> ) ) ; rdf:type geojson:MultiPolygon ] ; rdf:type geojson:Feature ]
+  	Result Path: focal-prop:lesniTyp
+  	Message: Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.
+  
+Focus nodes for _sources/forestStandFeature/shapes.shacl:
+ - Shape <https://example.com/focal/feature-lesniTyp>: _:N0e394377ad284c5f8a19c5dbdd0fa955
+
+Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
+ - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
+ - Shape geojson:GeometryShape: *none*
+ - Shape geojson:FeatureShape: _:N0e394377ad284c5f8a19c5dbdd0fa955
+ - Shape geojson:LinkShape: *none*
+ - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
+
+=== End SHACL ===
+

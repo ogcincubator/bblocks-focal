@@ -1,0 +1,22 @@
+{
+  "@context": [
+    {
+      "mynamespace": "http://example.com/mythings/"
+    },
+    "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandProperties/context.jsonld"
+  ],
+  "LT": "2S1",
+  "LES_OBL": 8,
+  "LO_CAST": "a",
+  "UDRZBA": 2022,
+  "ZMENA": "Uveden\u00ed do souladu s KN",
+  "ZADOST": "-",
+  "CHS": 25,
+  "PCHS": "25a",
+  "OVER_T": "NE",
+  "ROK_MAP": 2015,
+  "ID1": 128301,
+  "SLT": "2S",
+  "PLOCHA": 1224.24963,
+  "DS_OPRL": 2025
+}

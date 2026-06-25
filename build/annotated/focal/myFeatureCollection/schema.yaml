@@ -1,7 +1,0 @@
-$schema: https://json-schema.org/draft/2020-12/schema
-allOf:
-- $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/geo/features/featureCollection/schema.yaml
-- properties:
-    features:
-      items:
-        $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/schema.yaml

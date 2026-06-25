@@ -1,0 +1,72 @@
+
+
+{
+  "itemIdentifier": "ogc.focal.forestStandProperties",
+  "$schema": "metaschema.yaml",
+  "name": "FOCAL Forest Stand Properties",
+  "abstract": "Schema defining the properties of a FOCAL forest stand, including forest type classification, forest region, target management unit, field verification status, area, and data provenance.",
+  "status": "under-development",
+  "dateTimeAddition": "2023-04-05T00:00:00Z",
+  "itemClass": "schema",
+  "register": "ogc-building-block-register",
+  "version": "0.1",
+  "dateOfLastChange": "2026-06-25",
+  "link": "https://github.com/opengeospatial/bblock-template",
+  "sources": [
+    {
+      "title": "Sample source document",
+      "link": "https://example.com/sources/1"
+    }
+  ],
+  "maturity": "mature",
+  "scope": "unstable",
+  "tags": [
+    "focal",
+    "forestry",
+    "schema"
+  ],
+  "shaclShapes": {},
+  "ldContext": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandProperties/context.jsonld",
+  "schema": {
+    "application/yaml": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandProperties/schema.yaml",
+    "application/json": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandProperties/schema.json"
+  },
+  "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandProperties/schema.yaml",
+  "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandProperties/context.jsonld",
+  "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandProperties/resolvedProperties.json",
+  "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandProperties/",
+  "validationPassed": true,
+  "testOutputs": "https://github.com/ogcincubator/bblocks-focal/blob/master/build/tests/focal/forestStandProperties/",
+  "description": "## My Schema\n\nDefines a set of properties that may be used in **any** JSON schema.\n\n> Note these properties may be used in the \"properties\" sub-component of a GeoJSON object, as a simple object\n",
+  "examples": [
+    {
+      "title": "This is an example with just a description and no code snippets.",
+      "content": "This an example.\n\nIn **Markdown** format.",
+      "prefixes": {
+        "mynamespace": "http://example.com/mythings/"
+      },
+      "snippets": [
+        {
+          "language": "json",
+          "ref": "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandCollection/examples/feature.json",
+          "json-path": "$.features[0].properties",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/forestStandProperties/example_1_1.json",
+          "code": "{\n  \"LT\": \"2S1\",\n  \"LES_OBL\": 8,\n  \"LO_CAST\": \"a\",\n  \"UDRZBA\": 2022,\n  \"ZMENA\": \"Uveden\\u00ed do souladu s KN\",\n  \"ZADOST\": \"-\",\n  \"CHS\": 25,\n  \"PCHS\": \"25a\",\n  \"OVER_T\": \"NE\",\n  \"ROK_MAP\": 2015,\n  \"ID1\": 128301,\n  \"SLT\": \"2S\",\n  \"PLOCHA\": 1224.24963,\n  \"DS_OPRL\": 2025\n}"
+        },
+        {
+          "language": "jsonld",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/forestStandProperties/example_1_1.jsonld",
+          "code": "{\n  \"@context\": [\n    {\n      \"mynamespace\": \"http://example.com/mythings/\"\n    },\n    \"https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandProperties/context.jsonld\"\n  ],\n  \"LT\": \"2S1\",\n  \"LES_OBL\": 8,\n  \"LO_CAST\": \"a\",\n  \"UDRZBA\": 2022,\n  \"ZMENA\": \"Uveden\\u00ed do souladu s KN\",\n  \"ZADOST\": \"-\",\n  \"CHS\": 25,\n  \"PCHS\": \"25a\",\n  \"OVER_T\": \"NE\",\n  \"ROK_MAP\": 2015,\n  \"ID1\": 128301,\n  \"SLT\": \"2S\",\n  \"PLOCHA\": 1224.24963,\n  \"DS_OPRL\": 2025\n}"
+        },
+        {
+          "language": "ttl",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/forestStandProperties/example_1_1.ttl",
+          "code": "@prefix focal-prop: <https://w3id.org/ogc/hosted/focal/properties/> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] focal-prop:lesniCHS 25 ;\n    focal-prop:lesniDSOPRL 2025 ;\n    focal-prop:lesniID1 128301 ;\n    focal-prop:lesniOVERT \"NE\" ;\n    focal-prop:lesniOblast 8 ;\n    focal-prop:lesniOblastCast \"a\" ;\n    focal-prop:lesniPCHS \"25a\" ;\n    focal-prop:lesniPLOCHA 1.22425e+03 ;\n    focal-prop:lesniROKMAP 2015 ;\n    focal-prop:lesniSLT \"2S\" ;\n    focal-prop:lesniTyp <https://w3id.org/ogc/hosted/focal/lt/2S1> ;\n    focal-prop:lesniUDRZBA 2022 ;\n    focal-prop:lesniZADOST \"-\" ;\n    focal-prop:lesniZMENA \"Uveden\u00ed do souladu s KN\" .\n\n"
+        }
+      ]
+    }
+  ],
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ndescription: My example schema\ntype: object\nproperties:\n  LT:\n    type: string\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/properties/lesniTyp\n    x-jsonld-type: '@id'\n    x-jsonld-base: https://w3id.org/ogc/hosted/focal/lt/\n  LES_OBL:\n    type: number\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/properties/lesniOblast\n  LO_CAST:\n    type: string\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/properties/lesniOblastCast\n  UDRZBA:\n    type: number\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/properties/lesniUDRZBA\n  ZMENA:\n    type: string\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/properties/lesniZMENA\n  ZADOST:\n    type: string\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/properties/lesniZADOST\n  CHS:\n    type: number\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/properties/lesniCHS\n  PCHS:\n    type: string\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/properties/lesniPCHS\n  OVER_T:\n    type: string\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/properties/lesniOVERT\n  ROK_MAP:\n    type: number\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/properties/lesniROKMAP\n  ID1:\n    type: number\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/properties/lesniID1\n  SLT:\n    type: string\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/properties/lesniSLT\n  PLOCHA:\n    type: number\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/properties/lesniPLOCHA\n  DS_OPRL:\n    type: number\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/properties/lesniDSOPRL\nrequired:\n- LT\nx-jsonld-prefixes:\n  focal-prop: https://w3id.org/ogc/hosted/focal/properties/\n",
+  "gitRepository": "https://github.com/ogcincubator/bblocks-focal",
+  "gitPath": "_sources/forestStandProperties"
+}

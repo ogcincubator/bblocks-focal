@@ -1,0 +1,13 @@
+Validation report for ogc.focal.forestStandProperties - FOCAL Forest Stand Properties
+Generated 2026-06-25T14:22:03.361492+00:00
+=== Files ===
+Using ../forestStandCollection/examples/feature.json from examples
+JSON-LD context is present - uplifting
+Output JSON-LD example_1_1.jsonld created
+Output Turtle example_1_1.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+Validation passed
+=== End JSON Schema ===
+

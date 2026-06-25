@@ -193,14 +193,14 @@
   ],
   "name": "Building Blocks - FOCAL Forest Typology Czech OGC Blocks",
   "abstract": "This is an example which uses OGC Blocks to define the ontology for forest typology multilingual.\n",
-  "description": "## About this Register: FOCAL Forest Typology Czech OGC Blocks\n\nAs a Forest Data Provider (e.g. a forestry researcher), I want to provide my \"normal GIS\" data (e.g. typology derived by photogrammetry and remote sensing) in a way that my data is conform to my domain (multilingual) and can be integrate with data from another domain (e.g. climate projections) by defining clear input/output contracts. As a platform operator who follows the OGC Smart concepts, I know that domain specific profiles can be provided by public registers to ensure public consistency of distributed digital twins. Using those profiles turns the local typology data of the data provider into machine-interpretable knowledge that can be used to extend the distributed digital twin of forest typologies or can be automatically integrated into more complex distributed digital twins like climate-resilient reforestation simulations or processed by AI tools to generate climate-resilient reforestation recommendations.\n\nThis story illustrates the transition from \"normal GIS\" (manual overlays and scripts) to a standards-mediated geo-data supply chain. By implementing the Forest Typology OGC Block, the data provider removes the need for bespoke engineering. Instead of rebuilding a pipeline for every new forest, the provider publishes the Forest Typology OGC Block definitions as the \"input/output contract\" of a consistent distributed digital twin for forest typologies, allowing AI agents to navigate semantic gaps automatically and provide validated decision support. \n\nThis register provides the machine-readable foundation for the **FOCAL project**, establishing a standards-mediated pipeline to bridge the gap between global climate science and local decision-making. It implements the **OGC Blocks** framework to deliver a \"system of systems\" approach for **Distributed Digital Twins** in forestry and urban planning.\n\n### **Who is this register for?**\nThis register supports a multi-actor ecosystem:\n*   **Data Providers:** Forestry researchers and municipal GIS departments who need to transform **\"normal GIS\"** data (e.g., typology from photogrammetry) into machine-interpretable knowledge.\n*   **Developers:** Engineers building climate services who require stable API contracts, versioned schemas, and reusable data models for **Digital Twins**.\n*   **Domain Experts:** Foresters and urban planners, such as those in **Constance** or the **Czech Forestry Institute**, looking for validated, climate-resilient recommendations.\n*   **AI Agents:** Automated systems like the **JackDaw** assistant that require explicit semantics to programmatically process data without human intervention.\n\n### **What does this register contain?**\nIt hosts reusable **OGC Blocks** that move from document-centric descriptions to actionable components:\n*   **Forest Site Assessment:** Schemas mapping management units to soil types (FAO World Reference Base) and growth records. It includes target mixtures for specific codes, such as **5K1** (Acidic fir-beech modal site).\n*   **Urban Climate Vulnerability:** Models for urban morphology (building density, sealed surfaces) and demographics linked to heat and flood risk.\n*   **focal-ontology:** A core module providing the machine-readable semantics (SKOS/OWL) for forest type codes (e.g., **2S1**) with **multi-lingual support** in Czech, English, and German.\n*   **Custom Features:** Implementation of the **\"Feature with geometry\"** pattern, where attributes are managed in a standardized **Property Set** independently of the spatial packaging.\n\n### **When should this register be used?**\n*   **Standardized Ingestion:** During the conversion of static shapefiles or **CF-NetCDF** scientific data into planning-ready formats via the **CF-to-Planning Transform**.\n*   **Data Validation:** To enforce **Integrity, Provenance, and Trust (IPT)** via **SHACL shapes**, ensuring data meets mandatory Coordinate Reference System (**S-JTSK / EPSG:5514**) and unit contracts.\n*   **Workflow Composition:** When building containerized workflows in systems like **Steep** that require consistent input/output contracts between scientific and local domains.\n\n### **Where does this register fit?**\n*   **Federated Register Infrastructure:** It acts as a domain-specific node analogous to the Domain Name System (DNS), inheriting foundational patterns from the root OGC register.\n*   **Domain Profiling:** It implements the **European Climate Assessment Profile**, binding global standards to regional conventions like **ETRS89** and the European forest inventory.\n*   **Pilot Integration:** It connects scientific repositories (ESGF) with local implementation registers**.\n\n### **Why does this register exist?**\n*   **Closing the Semantic Gap:** It addresses the \"semantic disconnection\" where scientific variables (e.g., \"tas\" for temperature) are opaque to local planning software.\n*   **Scalability:** It replaces bespoke data engineering for every city with a **\"recipe-based\" pipeline**, allowing new municipalities to onboard by creating a local profile rather than custom scripts.\n*   **Trust and Reproducibility:** It provides an auditable framework where every recommendation is backed by a **machine-readable manifest (JSON)** recording lineage, code versions, and processing history.\n\n### **How is this register structured and implemented?**\n*   **Implementation:** Developed using the **GitHub bblock-template** with a test-driven CI/CD pipeline where every example must pass validation.\n*   **Recursive Composition:** Each block aggregates a `schema.yaml` for structure, a `context.jsonld` for semantic uplift, and `shacl.ttl` for executable constraints.\n*   **Profile Layering:** It utilizes hierarchical profiling, allowing local specializations to inherit and extend base standards without breaking interoperability. The myFeature block inherits from the base OGC Feature block and aggregates the mySchema property set.\n\n### **For Developers**\n*   **[GitHub Repository](https://github.com/ogcincubator/bblocks-focal)**\n*   **[OGC Blocks Documentation](https://ogcincubator.github.io/bblocks-docs/)**\n*   **[OGC Blocks Tutorials](https://ogcincubator.github.io/bblocks-tutorial/)**\n*   **[OGC Blocks Examples](https://ogcincubator.github.io/bblocks-examples/)**\n",
+  "description": "## About this Register: FOCAL Forest Typology Czech OGC Blocks\n\nAs a Forest Data Provider (e.g. a forestry researcher), I want to provide my \"normal GIS\" data (e.g. typology derived by photogrammetry and remote sensing) in a way that my data is conform to my domain (multilingual) and can be integrate with data from another domain (e.g. climate projections) by defining clear input/output contracts. As a platform operator who follows the OGC Smart concepts, I know that domain specific profiles can be provided by public registers to ensure public consistency of distributed digital twins. Using those profiles turns the local typology data of the data provider into machine-interpretable knowledge that can be used to extend the distributed digital twin of forest typologies or can be automatically integrated into more complex distributed digital twins like climate-resilient reforestation simulations or processed by AI tools to generate climate-resilient reforestation recommendations.\n\nThis story illustrates the transition from \"normal GIS\" (manual overlays and scripts) to a standards-mediated geo-data supply chain. By implementing the Forest Typology OGC Block, the data provider removes the need for bespoke engineering. Instead of rebuilding a pipeline for every new forest, the provider publishes the Forest Typology OGC Block definitions as the \"input/output contract\" of a consistent distributed digital twin for forest typologies, allowing AI agents to navigate semantic gaps automatically and provide validated decision support. \n\nThis register provides the machine-readable foundation for the **FOCAL project**, establishing a standards-mediated pipeline to bridge the gap between global climate science and local decision-making. It implements the **OGC Blocks** framework to deliver a \"system of systems\" approach for **Distributed Digital Twins** in forestry and urban planning.\n\n### **Who is this register for?**\nThis register supports a multi-actor ecosystem:\n*   **Data Providers:** Forestry researchers and municipal GIS departments who need to transform **\"normal GIS\"** data (e.g., typology from photogrammetry) into machine-interpretable knowledge.\n*   **Developers:** Engineers building climate services who require stable API contracts, versioned schemas, and reusable data models for **Digital Twins**.\n*   **Domain Experts:** Foresters and urban planners, such as those in **Constance** or the **Czech Forestry Institute**, looking for validated, climate-resilient recommendations.\n*   **AI Agents:** Automated systems like the **JackDaw** assistant that require explicit semantics to programmatically process data without human intervention.\n\n### **What does this register contain?**\nIt hosts reusable **OGC Blocks** that move from document-centric descriptions to actionable components:\n*   **Forest Site Assessment:** Schemas mapping management units to soil types (FAO World Reference Base) and growth records. It includes target mixtures for specific codes, such as **5K1** (Acidic fir-beech modal site).\n*   **Urban Climate Vulnerability:** Models for urban morphology (building density, sealed surfaces) and demographics linked to heat and flood risk.\n*   **focal-ontology:** A core module providing the machine-readable semantics (SKOS/OWL) for forest type codes (e.g., **2S1**) with **multi-lingual support** in Czech, English, and German.\n*   **Custom Features:** Implementation of the **\"Feature with geometry\"** pattern, where attributes are managed in a standardized **Property Set** independently of the spatial packaging.\n\n### **When should this register be used?**\n*   **Standardized Ingestion:** During the conversion of static shapefiles or **CF-NetCDF** scientific data into planning-ready formats via the **CF-to-Planning Transform**.\n*   **Data Validation:** To enforce **Integrity, Provenance, and Trust (IPT)** via **SHACL shapes**, ensuring data meets mandatory Coordinate Reference System (**S-JTSK / EPSG:5514**) and unit contracts.\n*   **Workflow Composition:** When building containerized workflows in systems like **Steep** that require consistent input/output contracts between scientific and local domains.\n\n### **Where does this register fit?**\n*   **Federated Register Infrastructure:** It acts as a domain-specific node analogous to the Domain Name System (DNS), inheriting foundational patterns from the root OGC register.\n*   **Domain Profiling:** It implements the **European Climate Assessment Profile**, binding global standards to regional conventions like **ETRS89** and the European forest inventory.\n*   **Pilot Integration:** It connects scientific repositories (ESGF) with local implementation registers**.\n\n### **Why does this register exist?**\n*   **Closing the Semantic Gap:** It addresses the \"semantic disconnection\" where scientific variables (e.g., \"tas\" for temperature) are opaque to local planning software.\n*   **Scalability:** It replaces bespoke data engineering for every city with a **\"recipe-based\" pipeline**, allowing new municipalities to onboard by creating a local profile rather than custom scripts.\n*   **Trust and Reproducibility:** It provides an auditable framework where every recommendation is backed by a **machine-readable manifest (JSON)** recording lineage, code versions, and processing history.\n\n### **How is this register structured and implemented?**\n*   **Implementation:** Developed using the **GitHub bblock-template** with a test-driven CI/CD pipeline where every example must pass validation.\n*   **Recursive Composition:** Each block aggregates a `schema.yaml` for structure, a `context.jsonld` for semantic uplift, and `shacl.ttl` for executable constraints.\n*   **Profile Layering:** It utilizes hierarchical profiling, allowing local specializations to inherit and extend base standards without breaking interoperability. The forestStandFeature block inherits from the base OGC Feature block and aggregates the forestStandProperties property set.\n\n### **For Developers**\n*   **[GitHub Repository](https://github.com/ogcincubator/bblocks-focal)**\n*   **[OGC Blocks Documentation](https://ogcincubator.github.io/bblocks-docs/)**\n*   **[OGC Blocks Tutorials](https://ogcincubator.github.io/bblocks-tutorial/)**\n*   **[OGC Blocks Examples](https://ogcincubator.github.io/bblocks-examples/)**\n",
   "sparqlEndpoint": "http://defs-hosted.opengis.net/fuseki-hosted/query",
-  "modified": "2026-05-13T07:33:56.841855",
+  "modified": "2026-06-25T14:22:01.880738",
   "tooling": {
     "bblocks-postprocess": {
-      "commitId": "\"6b01f188cc614cc2e65f4bf86a2623f98f101dfd",
-      "shortCommitId": "\"6b01f1",
-      "date": "2026-05-12T22:31:51+00:00\""
+      "commitId": "\"63a70437bf8124dfddbdd444f28013fb2c0ecb1f",
+      "shortCommitId": "\"63a704",
+      "date": "2026-06-25T13:38:32+00:00\""
     }
   },
   "gitRepository": "https://github.com/ogcincubator/bblocks-focal",
@@ -249,7 +249,7 @@
       "itemClass": "model",
       "register": "ogc-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-05-13",
+      "dateOfLastChange": "2026-06-25",
       "tags": [
         "focal",
         "ontology",
@@ -265,13 +265,13 @@
       "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/focal-ontology/",
       "validationPassed": true,
       "documentation": {
-        "json-full": {
-          "mediatype": "application/json",
-          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/focal-ontology/index.json"
-        },
         "markdown": {
           "mediatype": "text/markdown",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/focal-ontology/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/focal-ontology/index.json"
         },
         "bblocks-viewer": {
           "mediatype": "text/html",
@@ -297,16 +297,16 @@
       }
     },
     {
-      "itemIdentifier": "ogc.focal.mySchema",
+      "itemIdentifier": "ogc.focal.forestStandProperties",
       "$schema": "metaschema.yaml",
-      "name": "My Schema",
-      "abstract": "An example schema defining the set of properties of any type of object.",
+      "name": "FOCAL Forest Stand Properties",
+      "abstract": "Schema defining the properties of a FOCAL forest stand, including forest type classification, forest region, target management unit, field verification status, area, and data provenance.",
       "status": "under-development",
       "dateTimeAddition": "2023-04-05T00:00:00Z",
       "itemClass": "schema",
       "register": "ogc-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-05-13",
+      "dateOfLastChange": "2026-06-25",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -317,57 +317,59 @@
       "maturity": "mature",
       "scope": "unstable",
       "tags": [
-        "templates"
+        "focal",
+        "forestry",
+        "schema"
       ],
       "shaclShapes": null,
       "ldContext": {
-        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/context.jsonld",
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandProperties/context.jsonld",
         "prof:hasRole": "role:mapping",
         "dct:format": "application/ld+json",
         "dct:conformsTo": "https://www.w3.org/TR/json-ld11/"
       },
       "schema": [
         {
-          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.yaml",
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandProperties/schema.yaml",
           "prof:hasRole": "role:schema",
           "dct:format": "application/yaml",
           "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
         },
         {
-          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/schema.json",
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandProperties/schema.json",
           "prof:hasRole": "role:schema",
           "dct:format": "application/json",
           "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
         }
       ],
-      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/mySchema/schema.yaml",
-      "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/mySchema/context.jsonld",
-      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/mySchema/resolvedProperties.json",
-      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/mySchema/",
+      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandProperties/schema.yaml",
+      "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandProperties/context.jsonld",
+      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandProperties/resolvedProperties.json",
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandProperties/",
       "validationPassed": true,
-      "testOutputs": "https://github.com/ogcincubator/bblocks-focal/blob/master/build/tests/focal/mySchema/",
+      "testOutputs": "https://github.com/ogcincubator/bblocks-focal/blob/master/build/tests/focal/forestStandProperties/",
       "documentation": {
-        "json-full": {
-          "mediatype": "application/json",
-          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/mySchema/index.json"
-        },
         "markdown": {
           "mediatype": "text/markdown",
-          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/mySchema/index.md"
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/forestStandProperties/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/forestStandProperties/index.json"
         },
         "bblocks-viewer": {
           "mediatype": "text/html",
-          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.mySchema"
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.forestStandProperties"
         }
       },
-      "@id": "bblocks://ogc.focal.mySchema",
+      "@id": "bblocks://ogc.focal.forestStandProperties",
       "@type": [
         "bblocks:Schema",
         "skos:Concept",
         "dcat:Dataset",
         "bblocks:BBlock"
       ],
-      "skos:prefLabel": "My Schema",
+      "skos:prefLabel": "FOCAL Forest Stand Properties",
       "openAPIDocument": null,
       "ontology": null,
       "rdfData": [],
@@ -378,15 +380,15 @@
       }
     },
     {
-      "itemIdentifier": "ogc.focal.myFeature",
-      "name": "Custom Feature",
-      "abstract": "This examples shows a simple customisation for OGC API Feature schemas",
+      "itemIdentifier": "ogc.focal.forestStandFeature",
+      "name": "FOCAL Forest Stand Feature",
+      "abstract": "GeoJSON Feature representing a spatially delineated forest stand classified according to the FOCAL forest typology system, with properties describing forest type, region, management unit, area, and data provenance.",
       "status": "under-development",
       "dateTimeAddition": "2023-05-19T00:00:00Z",
       "itemClass": "schema",
       "register": "ogc-building-block-examples",
       "version": "1.0",
-      "dateOfLastChange": "2026-05-13",
+      "dateOfLastChange": "2026-06-25",
       "sources": [
         {
           "title": "OGC API - Features, Part 1, 7.16.2: Feature Response",
@@ -396,21 +398,22 @@
       "maturity": "development",
       "scope": "unstable",
       "dependsOn": [
-        "bblocks://ogc.geo.features.feature",
-        "bblocks://ogc.focal.mySchema"
+        "bblocks://ogc.focal.forestStandProperties",
+        "bblocks://ogc.geo.features.feature"
       ],
       "tags": [
-        "feature",
-        "examples"
+        "focal",
+        "forestry",
+        "feature"
       ],
-      "group": "Examples",
+      "group": "FOCAL",
       "highlighted": true,
       "shaclShapes": [
         {
           "prof:hasArtifact": [
-            "https://ogcincubator.github.io/bblocks-focal/_sources/myFeature/shapes.shacl"
+            "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandFeature/shapes.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://ogc.focal.myFeature",
+          "rdfs:seeAlso": "bblocks://ogc.focal.forestStandFeature",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -427,51 +430,51 @@
       ],
       "schema": [
         {
-          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/schema.yaml",
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandFeature/schema.yaml",
           "prof:hasRole": "role:schema",
           "dct:format": "application/yaml",
           "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
         },
         {
-          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/schema.json",
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandFeature/schema.json",
           "prof:hasRole": "role:schema",
           "dct:format": "application/json",
           "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
         }
       ],
-      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/myFeature/schema.yaml",
+      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandFeature/schema.yaml",
       "ldContext": {
-        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/context.jsonld",
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandFeature/context.jsonld",
         "prof:hasRole": "role:mapping",
         "dct:format": "application/ld+json",
         "dct:conformsTo": "https://www.w3.org/TR/json-ld11/"
       },
-      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeature/resolvedProperties.json",
-      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/myFeature/",
+      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandFeature/resolvedProperties.json",
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandFeature/",
       "validationPassed": true,
-      "testOutputs": "https://github.com/ogcincubator/bblocks-focal/blob/master/build/tests/focal/myFeature/",
+      "testOutputs": "https://github.com/ogcincubator/bblocks-focal/blob/master/build/tests/focal/forestStandFeature/",
       "documentation": {
-        "json-full": {
-          "mediatype": "application/json",
-          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/myFeature/index.json"
-        },
         "markdown": {
           "mediatype": "text/markdown",
-          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/myFeature/index.md"
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/forestStandFeature/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/forestStandFeature/index.json"
         },
         "bblocks-viewer": {
           "mediatype": "text/html",
-          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.myFeature"
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.forestStandFeature"
         }
       },
-      "@id": "bblocks://ogc.focal.myFeature",
+      "@id": "bblocks://ogc.focal.forestStandFeature",
       "@type": [
         "bblocks:Schema",
         "skos:Concept",
         "dcat:Dataset",
         "bblocks:BBlock"
       ],
-      "skos:prefLabel": "Custom Feature",
+      "skos:prefLabel": "FOCAL Forest Stand Feature",
       "openAPIDocument": null,
       "ontology": null,
       "rdfData": [],
@@ -481,15 +484,15 @@
       }
     },
     {
-      "itemIdentifier": "ogc.focal.myFeatureCollection",
-      "name": "Feature Collection for forest type",
-      "abstract": "This examples shows a simple customisation for OGC API Feature schemas",
+      "itemIdentifier": "ogc.focal.forestStandCollection",
+      "name": "FOCAL Forest Stand Feature Collection",
+      "abstract": "GeoJSON FeatureCollection of FOCAL forest stands, providing a spatial dataset of forest units classified by forest type, region, and management unit.",
       "status": "under-development",
       "dateTimeAddition": "2023-05-19T00:00:00Z",
       "itemClass": "schema",
       "register": "ogc-building-block-examples",
       "version": "1.0",
-      "dateOfLastChange": "2026-05-13",
+      "dateOfLastChange": "2026-06-25",
       "sources": [
         {
           "title": "OGC API - Features, Part 1, 7.16.2: Feature Response",
@@ -499,21 +502,23 @@
       "maturity": "development",
       "scope": "unstable",
       "dependsOn": [
-        "bblocks://ogc.focal.myFeature",
-        "bblocks://ogc.geo.features.featureCollection"
+        "bblocks://ogc.geo.features.featureCollection",
+        "bblocks://ogc.focal.forestStandFeature"
       ],
       "tags": [
+        "focal",
+        "forestry",
         "feature",
-        "examples"
+        "collection"
       ],
-      "group": "Examples",
+      "group": "FOCAL",
       "highlighted": true,
       "shaclShapes": [
         {
           "prof:hasArtifact": [
-            "https://ogcincubator.github.io/bblocks-focal/_sources/myFeature/shapes.shacl"
+            "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://ogc.focal.myFeature",
+          "rdfs:seeAlso": "bblocks://ogc.geo.features.featureCollection",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -529,9 +534,9 @@
         },
         {
           "prof:hasArtifact": [
-            "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl"
+            "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandFeature/shapes.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://ogc.geo.features.featureCollection",
+          "rdfs:seeAlso": "bblocks://ogc.focal.forestStandFeature",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -539,29 +544,29 @@
       ],
       "schema": [
         {
-          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeatureCollection/schema.yaml",
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandCollection/schema.yaml",
           "prof:hasRole": "role:schema",
           "dct:format": "application/yaml",
           "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
         },
         {
-          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeatureCollection/schema.json",
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandCollection/schema.json",
           "prof:hasRole": "role:schema",
           "dct:format": "application/json",
           "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
         }
       ],
-      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/myFeatureCollection/schema.yaml",
+      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandCollection/schema.yaml",
       "ldContext": {
-        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeatureCollection/context.jsonld",
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandCollection/context.jsonld",
         "prof:hasRole": "role:mapping",
         "dct:format": "application/ld+json",
         "dct:conformsTo": "https://www.w3.org/TR/json-ld11/"
       },
-      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/myFeatureCollection/resolvedProperties.json",
-      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/myFeatureCollection/",
+      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandCollection/resolvedProperties.json",
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandCollection/",
       "validationPassed": true,
-      "testOutputs": "https://github.com/ogcincubator/bblocks-focal/blob/master/build/tests/focal/myFeatureCollection/",
+      "testOutputs": "https://github.com/ogcincubator/bblocks-focal/blob/master/build/tests/focal/forestStandCollection/",
       "transforms": [
         {
           "id": "to-crs5555-geopandas",
@@ -593,7 +598,7 @@
               "mynamespace": "http://example.com/mythings/"
             }
           },
-          "ref": "https://ogcincubator.github.io/bblocks-focal/_sources/myFeatureCollection/transforms/to-crs-5555-geopandas.py",
+          "ref": "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandCollection/transforms/to-crs-5555-geopandas.py",
           "code": "import json, geopandas as gpd\n\ndata = json.loads(input_data)\n\n# Normalize: wrap a single Feature into a FeatureCollection\nis_feature = data.get(\"type\") == \"Feature\"\nif is_feature:\n    data = {\"type\": \"FeatureCollection\", \"features\": [data], \"crs\": data.get(\"crs\")}\n\n# Extract CRS\ncrs_name = data.get(\"crs\", {}).get(\"properties\", {}).get(\"name\")\nepsg_code = crs_name.split(\":\")[-1] if crs_name else None\n\n# Create GeoDataFrame from GeoJSON-like dict\ngdf = gpd.GeoDataFrame.from_features(data[\"features\"])\n\n# Set CRS dynamically\nif epsg_code:\n    gdf.set_crs(epsg=int(epsg_code), inplace=True)\n\n# Print current CRS\nprint(\"Transform from CRS\" + str(gdf.crs))\n\n# Transform to another CRS (example: ETRS89)\ngdf = gdf.to_crs(epsg=5555)\n\n# Print current CRS\nprint(\"            to CRS\" + str(gdf.crs))\n\n# Convert back to GeoJSON \u2014 unwrap back to a single Feature if input was one\nresult = json.loads(gdf.to_json())\nif is_feature == 1:\n    output_data = json.dumps(result[\"features\"][0], indent=2)\nelse:\n    output_data = gdf.to_json(indent=2)\n"
         },
         {
@@ -626,32 +631,32 @@
               "mynamespace": "http://example.com/mythings/"
             }
           },
-          "ref": "https://ogcincubator.github.io/bblocks-focal/_sources/myFeatureCollection/transforms/to-crs-5555-math.py",
+          "ref": "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandCollection/transforms/to-crs-5555-math.py",
           "code": "\n\"\"\"\nPure-Python GeoJSON transformer: EPSG:5514 \u2192 EPSG:5555\nStdlib only: json + math\n\nPipeline for each coordinate pair [E, N]:\n  1. Inverse Krovak       EPSG:5514 (E, N m)     \u2192 S-JTSK / Bessel geographic (\u00b0)\n  2. Helmert datum shift  Bessel / S-JTSK         \u2192 GRS80 / ETRS89 (7-parameter)\n  3. UTM-32N forward      ETRS89 geographic (\u00b0)   \u2192 EPSG:5555 (E, N m)\n\"\"\"\n\nimport json\nimport math\n\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n# Ellipsoid parameters\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\n# Bessel 1841 (S-JTSK datum)\n_a_B  = 6_377_397.155\n_f_B  = 1.0 / 299.1528128\n_e2_B = 2 * _f_B - _f_B ** 2\n_e_B  = math.sqrt(_e2_B)\n\n# GRS80 (ETRS89 / EPSG:5555)\n_a_G  = 6_378_137.0\n_f_G  = 1.0 / 298.257_222_101\n_e2_G = 2 * _f_G - _f_G ** 2\n\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n# Krovak projection constants  (EPSG method 9819 / S-JTSK)\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\n_PHI_C = math.radians(49 + 30 / 60.0)                       # 49\u00b030' N  \u2013 projection centre\n_LAM_0 = math.radians(24 + 50 / 60.0)                       # 24\u00b050' E  \u2013 longitude of origin\n_ALPHA = math.radians(30 + 17 / 60.0 + 17.30311 / 3600.0)  # 30\u00b017'17.30311\" \u2013 azimuth\n_PHI_P = math.radians(78 + 30 / 60.0)                       # 78\u00b030'    \u2013 pseudo-std parallel\n_K_P   = 0.9999                                              # scale factor\n\n# Derived Krovak constants (computed once at import time)\n_BK   = math.sqrt(1 + _e2_B * math.cos(_PHI_C) ** 4 / (1 - _e2_B))\n_AK   = _a_B * math.sqrt(1 - _e2_B) / (1 - _e2_B * math.sin(_PHI_C) ** 2)\n_GAM0 = math.asin(math.sin(_PHI_C) / _BK)                  # \u03b3\u2080\n\n_t_phC = (math.tan(math.pi / 4 + _PHI_C / 2) *\n           ((1 - _e_B * math.sin(_PHI_C)) / (1 + _e_B * math.sin(_PHI_C))) ** (_e_B / 2))\n_T0   = math.tan(math.pi / 4 + _GAM0 / 2) / _t_phC ** _BK  # mapping constant T\u2080\n\n_NK   = math.sin(_PHI_P)                                     # cone constant  n = sin(\u03c6_P)\n_RF   = _K_P * _AK * math.cos(_PHI_P) / _NK                 # \u03c1 scale factor (constant part)\n_TP   = math.tan(math.pi / 4 + _PHI_P / 2)                  # tan(\u03c0/4 + \u03c6_P / 2)\n\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n# 7-parameter Helmert: S-JTSK / Bessel \u2192 GRS80 / WGS84\n# Source: PROJ towgs84 for EPSG:4156  \u2014 Coordinate Frame rotation convention\n#         tx=570.8  ty=85.7  tz=462.8  rx=4.998  ry=1.587  rz=5.261  ds=3.56\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\n_HLM = (570.8, 85.7, 462.8, 4.998, 1.587, 5.261, 3.56)\n\n\ndef _geo2ecef(lat_d, lon_d, a, e2, h=0.0):\n    \"\"\"Geographic (\u00b0) \u2192 ECEF (X, Y, Z) metres.\"\"\"\n    \u03c6, \u03bb = math.radians(lat_d), math.radians(lon_d)\n    N = a / math.sqrt(1 - e2 * math.sin(\u03c6) ** 2)\n    return ((N + h) * math.cos(\u03c6) * math.cos(\u03bb),\n            (N + h) * math.cos(\u03c6) * math.sin(\u03bb),\n            (N * (1 - e2) + h) * math.sin(\u03c6))\n\n\ndef _ecef2geo(X, Y, Z, a, e2):\n    \"\"\"ECEF (X, Y, Z) \u2192 geographic (lat\u00b0, lon\u00b0, h m) \u2014 Bowring iteration.\"\"\"\n    \u03bb = math.atan2(Y, X)\n    p = math.hypot(X, Y)\n    \u03c6 = math.atan2(Z, p * (1 - e2))          # initial estimate\n    for _ in range(15):\n        N   = a / math.sqrt(1 - e2 * math.sin(\u03c6) ** 2)\n        \u03c6_n = math.atan2(Z + e2 * N * math.sin(\u03c6), p)\n        if abs(\u03c6_n - \u03c6) < 1e-12:\n            \u03c6 = \u03c6_n\n            break\n        \u03c6 = \u03c6_n\n    N = a / math.sqrt(1 - e2 * math.sin(\u03c6) ** 2)\n    h = (p / math.cos(\u03c6) - N) if abs(math.cos(\u03c6)) > 1e-10 else abs(Z) / math.sin(\u03c6) - N * (1 - e2)\n    return math.degrees(\u03c6), math.degrees(\u03bb), h\n\n\ndef _helmert(X, Y, Z, tx, ty, tz, rx, ry, rz, ds):\n    \"\"\"Coordinate Frame rotation (Bursa-Wolf) Helmert.\n    rx / ry / rz in arc-seconds; ds in ppm.\"\"\"\n    s  = ds * 1e-6\n    rx = math.radians(rx / 3600)\n    ry = math.radians(ry / 3600)\n    rz = math.radians(rz / 3600)\n    return (tx + (1 + s) * ( X + rz * Y - ry * Z),\n            ty + (1 + s) * (-rz * X + Y  + rx * Z),\n            tz + (1 + s) * ( ry * X - rx * Y + Z ))\n\n\ndef _bessel_to_etrs89(lat_d, lon_d):\n    \"\"\"S-JTSK / Bessel geographic (\u00b0) \u2192 ETRS89 / GRS80 geographic (\u00b0).\"\"\"\n    X, Y, Z = _geo2ecef(lat_d, lon_d, _a_B, _e2_B)\n    X, Y, Z = _helmert(X, Y, Z, *_HLM)\n    \u03c6, \u03bb, _ = _ecef2geo(X, Y, Z, _a_G, _e2_G)\n    return \u03c6, \u03bb\n\n\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n# Krovak inverse:  EPSG:5514 (E, N) metres \u2192 Bessel geographic (lat\u00b0, lon\u00b0)\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\ndef _krovak_inv(E, N):\n    \"\"\"Inverse Krovak \u2014 converts EPSG:5514 metres to Bessel geographic degrees.\"\"\"\n\n    # 1. Undo EPSG:5514 axis convention \u2192 standard Krovak (Xs south+, Ys west+)\n    Xs, Ys = -N, -E\n\n    # 2. Cartesian \u2192 polar on the cone\n    \u03c1 = math.hypot(Xs, Ys)\n    \u03b8 = math.atan2(Ys, Xs)\n    D = \u03b8 / _NK\n\n    # 3. Recover spherical latitude S from \u03c1\n    #    Forward: \u03c1 = _RF * (_TP / tan(\u03c0/4 + S/2))^_NK\n    #    Inverse: tan(\u03c0/4 + S/2) = _TP * (_RF / \u03c1)^(1/_NK)\n    t_S = _TP * (_RF / \u03c1) ** (1.0 / _NK)\n    S   = 2 * math.atan(t_S) - math.pi / 2\n\n    # 4. Inverse oblique rotation \u2014 from conic (S, D) back to Gaussian sphere (U, V)\n    U = math.asin(math.cos(_ALPHA) * math.sin(S)\n                  - math.sin(_ALPHA) * math.cos(S) * math.cos(D))\n    V = math.asin(math.cos(S) * math.sin(D) / math.cos(U))\n\n    # 5. Recover geodetic longitude (direct)\n    \u03bb = _LAM_0 - V / _BK\n\n    # 6. Iterative recovery of geodetic latitude \u03c6 on Bessel ellipsoid\n    #    Forward: tan(\u03c0/4 + U/2) = _T0 \u00b7 (tan(\u03c0/4 + \u03c6/2) \u00b7 ec(\u03c6))^_BK\n    #    \u2192 rhs = (tan(\u03c0/4 + U/2) / _T0)^(1/_BK)  [constant per point]\n    #    \u2192 iterate: \u03c6_new = 2\u00b7atan(rhs / ec(\u03c6)) - \u03c0/2\n    \u03c6 = U   # starting estimate\n    for _ in range(20):\n        ec    = ((1 - _e_B * math.sin(\u03c6)) / (1 + _e_B * math.sin(\u03c6))) ** (_e_B / 2)\n        rhs   = (math.tan(math.pi / 4 + U / 2) / _T0) ** (1.0 / _BK)\n        \u03c6_new = 2 * math.atan(rhs / ec) - math.pi / 2\n        if abs(\u03c6_new - \u03c6) < 1e-13:\n            \u03c6 = \u03c6_new\n            break\n        \u03c6 = \u03c6_new\n\n    return math.degrees(\u03c6), math.degrees(\u03bb)\n\n\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n# UTM zone 32N forward:  ETRS89 geographic \u2192 EPSG:5555\n# (2-D horizontal component; identical to EPSG:25832)\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\ndef _meridional_arc(lat):\n    a, e2 = _a_G, _e2_G\n    return a * (\n        (1 - e2 / 4   - 3 * e2**2 / 64  - 5 * e2**3 / 256)  * lat\n      - (3 * e2 / 8   + 3 * e2**2 / 32  + 45 * e2**3 / 1024) * math.sin(2 * lat)\n      + (15 * e2**2 / 256 + 45 * e2**3 / 1024)                * math.sin(4 * lat)\n      -  35 * e2**3 / 3072                                     * math.sin(6 * lat)\n    )\n\n\ndef _utm32_fwd(lat_d, lon_d):\n    \"\"\"ETRS89 geographic (\u00b0) \u2192 ETRS89 / UTM-32N metres  (EPSG:25832 / 5555).\"\"\"\n    a, e2 = _a_G, _e2_G\n    ep2   = e2 / (1 - e2)\n    \u03c6     = math.radians(lat_d)\n    \u0394\u03bb    = math.radians(lon_d - 9.0)          # offset from central meridian 9\u00b0 E\n    s\u03c6, c\u03c6, t\u03c6 = math.sin(\u03c6), math.cos(\u03c6), math.tan(\u03c6)\n    N  = a / math.sqrt(1 - e2 * s\u03c6 ** 2)\n    T, C, A_ = t\u03c6**2, ep2 * c\u03c6**2, c\u03c6 * \u0394\u03bb\n    M  = _meridional_arc(\u03c6)\n    k0 = 0.9996\n    E  = 500_000.0 + k0 * N * (\n            A_\n          + A_**3 / 6   * (1 - T + C)\n          + A_**5 / 120 * (5 - 18*T + T**2 + 72*C - 58*ep2)\n    )\n    Nn = k0 * (\n            M + N * t\u03c6 * (\n                A_**2 / 2\n              + A_**4 / 24  * (5  - T + 9*C + 4*C**2)\n              + A_**6 / 720 * (61 - 58*T + T**2 + 600*C - 330*ep2)\n            )\n    )\n    return E, Nn\n\n\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n# GeoJSON geometry recursion\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\ndef _transform_xy(xy):\n    \"\"\"Single EPSG:5514 coordinate pair \u2192 EPSG:5555.\"\"\"\n    lat_b, lon_b = _krovak_inv(xy[0], xy[1])           # Krovak\u207b\u00b9  \u2192 Bessel \u00b0\n    lat_g, lon_g = _bessel_to_etrs89(lat_b, lon_b)     # Helmert   \u2192 ETRS89 \u00b0\n    E, N         = _utm32_fwd(lat_g, lon_g)             # UTM-32N   \u2192 metres\n    return [E, N] + list(xy[2:])                        # keep Z / M if present\n\n\ndef _xform_coords(c):\n    if not c:\n        return c\n    if isinstance(c[0], (int, float)):\n        return _transform_xy(c)\n    return [_xform_coords(ring) for ring in c]\n\n\ndef _xform_geom(g):\n    if g is None:\n        return None\n    if g[\"type\"] == \"GeometryCollection\":\n        return {\"type\": \"GeometryCollection\",\n                \"geometries\": [_xform_geom(s) for s in g[\"geometries\"]]}\n    return {\"type\": g[\"type\"], \"coordinates\": _xform_coords(g[\"coordinates\"])}\n\n\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n# Transform\n# \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\n\ndata = json.loads(input_data)\n\n# \u2500\u2500 Transform every feature \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nout_features = []\nfor feat in data[\"features\"]:\n    nf = {\n        \"type\":       \"Feature\",\n        \"geometry\":   _xform_geom(feat.get(\"geometry\")),\n        \"properties\": feat.get(\"properties\"),\n    }\n    if \"id\" in feat:\n        nf[\"id\"] = feat[\"id\"]\n    out_features.append(nf)\n\nresult = {\n    \"type\":     \"FeatureCollection\",\n    \"features\": out_features,\n    \"crs\": {\"type\": \"name\",\n            \"properties\": {\"name\": \"urn:ogc:def:crs:EPSG::5555\"}},\n}\n\noutput_data = json.dumps(result, indent=2)\n"
         }
       ],
       "documentation": {
-        "json-full": {
-          "mediatype": "application/json",
-          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/myFeatureCollection/index.json"
-        },
         "markdown": {
           "mediatype": "text/markdown",
-          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/myFeatureCollection/index.md"
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/forestStandCollection/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/forestStandCollection/index.json"
         },
         "bblocks-viewer": {
           "mediatype": "text/html",
-          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.myFeatureCollection"
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.forestStandCollection"
         }
       },
-      "@id": "bblocks://ogc.focal.myFeatureCollection",
+      "@id": "bblocks://ogc.focal.forestStandCollection",
       "@type": [
         "bblocks:Schema",
         "skos:Concept",
         "dcat:Dataset",
         "bblocks:BBlock"
       ],
-      "skos:prefLabel": "Feature Collection for forest type",
+      "skos:prefLabel": "FOCAL Forest Stand Feature Collection",
       "openAPIDocument": null,
       "ontology": null,
       "rdfData": [],
@@ -666,13 +671,13 @@
       "@id": "bblocks://ogc.focal.focal-ontology"
     },
     {
-      "@id": "bblocks://ogc.focal.mySchema"
+      "@id": "bblocks://ogc.focal.forestStandProperties"
     },
     {
-      "@id": "bblocks://ogc.focal.myFeature"
+      "@id": "bblocks://ogc.focal.forestStandFeature"
     },
     {
-      "@id": "bblocks://ogc.focal.myFeatureCollection"
+      "@id": "bblocks://ogc.focal.forestStandCollection"
     }
   ]
 }
