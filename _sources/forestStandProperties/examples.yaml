@@ -7,5 +7,5 @@
     mynamespace: http://example.com/mythings/
   snippets:
     - language: json
-      ref: ../myFeatureCollection/examples/feature.json
+      ref: ../forestStandCollection/examples/feature.json
       json-path: $.features[0].properties

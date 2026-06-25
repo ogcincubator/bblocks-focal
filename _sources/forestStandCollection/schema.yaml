@@ -4,4 +4,4 @@ allOf:
   - properties:
       features:
         items:
-          $ref: ../myFeature/schema.yaml
+          $ref: ../forestStandFeature/schema.yaml

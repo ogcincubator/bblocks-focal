@@ -1,6 +1,6 @@
 {
-  "name": "Custom Feature",
-  "abstract": "This examples shows a simple customisation for OGC API Feature schemas",
+  "name": "FOCAL Forest Stand Feature Collection",
+  "abstract": "GeoJSON FeatureCollection of FOCAL forest stands, providing a spatial dataset of forest units classified by forest type, region, and management unit.",
   "status": "under-development",
   "dateTimeAddition": "2023-05-19T00:00:00Z",
   "itemClass": "schema",
@@ -18,9 +18,11 @@
   "dependsOn": [
   ],
   "tags": [
+    "focal",
+    "forestry",
     "feature",
-    "examples"
+    "collection"
   ],
-  "group": "Examples",
+  "group": "FOCAL",
   "highlighted": true
 }

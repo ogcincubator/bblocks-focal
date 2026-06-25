@@ -1,7 +1,7 @@
 {
   "$schema": "metaschema.yaml",
-  "name": "My Schema",
-  "abstract": "An example schema defining the set of properties of any type of object.",
+  "name": "FOCAL Forest Stand Properties",
+  "abstract": "Schema defining the properties of a FOCAL forest stand, including forest type classification, forest region, target management unit, field verification status, area, and data provenance.",
   "status": "under-development",
   "dateTimeAddition": "2023-04-05T00:00:00Z",
   "itemClass": "schema",
@@ -17,5 +17,5 @@
   ],
   "maturity": "mature",
   "scope": "unstable",
-  "tags": ["templates"]
+  "tags": ["focal", "forestry", "schema"]
 }

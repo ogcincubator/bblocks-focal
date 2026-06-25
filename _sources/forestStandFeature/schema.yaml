@@ -6,6 +6,6 @@ $defs:
       - $ref: bblocks://ogc.geo.features.feature
       - properties:
           properties:
-            $ref: ../mySchema/schema.yaml
+            $ref: ../forestStandProperties/schema.yaml
 anyOf:
   - $ref: "#/$defs/MyFeature"
