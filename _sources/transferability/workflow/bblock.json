@@ -4,14 +4,15 @@
   "status": "under-development",
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "schema",
-  "version": "0.2",
+  "version": "0.4",
   "dateOfLastChange": "2026-09-03",
   "isProfileOf": "bblocks://ogc.cwl.v1_2_1.CWLWorkflow",
   "dependsOn": [
     "bblocks://ogc.focal.transferability.transferabilityStatement",
     "bblocks://ogc.focal.transferability.computationType",
     "bblocks://ogc.focal.transferability.maturityStatus",
-    "bblocks://ogc.focal.transferability.qualityAnnotation"
+    "bblocks://ogc.focal.transferability.qualityAnnotation",
+    "bblocks://ogc.ogc-utils.iri-or-curie"
   ],
   "tags": [
     "focal",

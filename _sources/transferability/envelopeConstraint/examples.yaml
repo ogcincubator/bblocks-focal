@@ -123,3 +123,29 @@ examples:
             "dimension": "grid-structure",
             "value": "inputs on a rotated-pole EUR-11 grid; a regular lat/lon grid requires resampling first"
           }
+
+  - title: A shared constraint, identified globally
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/
+    content: |
+      The EURO-CORDEX EUR-11 domain is the same extent for every workflow driven by that ensemble.
+      Given a bare local name in each of them, nothing can tell that they are the same boundary —
+      a consumer holding two workflows sees two unrelated polygons that happen to coincide.
+
+      Declaring it under an IRI says they are one boundary. `id` accepts an IRI, a CURIE, or a bare
+      local name via [`ogc.ogc-utils.iri-or-curie`](bblocks://ogc.ogc-utils.iri-or-curie), so this
+      is the same field used three ways rather than a separate mechanism.
+
+      A global identifier makes the boundary **shareable, not fetchable**: the constraint is still
+      declared in full in every statement that cites it, so a reader always has the extent in front
+      of them. What the IRI adds is the ability to ask "which workflows are bounded by this exact
+      domain?" and get an answer.
+    snippets:
+      - language: json
+        code: |
+          {
+            "id": "https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11",
+            "role": "valid-for",
+            "dimension": "spatial",
+            "value": { "asWKT": "POLYGON((-22 27,45 27,45 72,-22 72,-22 27))" },
+            "transferabilityNotes": "The EUR-11 domain's published approximate rectangular extent. Shared across every FOCAL workflow driven by the EURO-CORDEX ensemble, which is why it carries a global identifier rather than a name local to one workflow."
+          }

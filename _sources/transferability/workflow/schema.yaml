@@ -27,8 +27,7 @@ allOf:
       - transferability
     properties:
       id:
-        type: string
-        format: uri-reference
+        "$ref": "bblocks://ogc.ogc-utils.iri-or-curie"
         description: >
           Identifier for the workflow, resolved against the document's base URI. Optional, but
           worth setting: without it the workflow is an anonymous node in RDF, and its envelope

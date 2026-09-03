@@ -72,11 +72,13 @@ properties:
       - artifactRole
     properties:
       id:
-        type: string
-        pattern: "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+        "$ref": "bblocks://ogc.ogc-utils.iri-or-curie"
         description: >
-          Identifier for this artifact, unique within the statement, cited by
-          `rules[].appliesTo`.
+          Identifier for this artifact, cited by `rules[].appliesTo`. An IRI, a CURIE, or a bare
+          local name resolved against the document base (see
+          bblocks://ogc.ogc-utils.iri-or-curie). A shared reference dataset that several workflows
+          depend on is worth identifying globally, for the same reason a shared envelope
+          constraint is.
       artifact:
         type: string
         description: >

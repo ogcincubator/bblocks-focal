@@ -37,8 +37,7 @@ allOf:
         type: array
         minItems: 1
         items:
-          type: string
-          pattern: "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+          "$ref": "bblocks://ogc.ogc-utils.iri-or-curie"
         description: >
           Identifiers of the artifacts this rule governs, from the enclosing statement's
           `artifacts`. Several artifacts may share one rule — FP-WF2's four Czechia-specific
@@ -95,10 +94,13 @@ allOf:
     additionalProperties: false
     properties:
       constraint:
-        type: string
-        pattern: "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+        "$ref": "bblocks://ogc.ogc-utils.iri-or-curie"
         description: >
-          The `id` of an envelope constraint in the enclosing statement's `envelope`.
+          The `id` of an envelope constraint in the enclosing statement's `envelope`, written the
+          same way it is declared there — an IRI, a CURIE, or a bare local name. Whichever form is
+          used, the constraint must still be declared in the statement, so a reader has the extent
+          in front of them rather than a bare identifier: a global identifier makes a boundary
+          shareable, it does not make it fetchable.
       test:
         type: string
         examples:

@@ -4,7 +4,7 @@
   "status": "under-development",
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "schema",
-  "version": "0.3",
+  "version": "0.4",
   "dateOfLastChange": "2026-09-03",
   "concept": [
     "https://w3id.org/ogc/hosted/focal/transferability/actions/scheme",
@@ -16,7 +16,8 @@
   ],
   "dependsOn": [
     "bblocks://ogc.focal.transferability.vocab",
-    "bblocks://ogc.focal.transferability.notes"
+    "bblocks://ogc.focal.transferability.notes",
+    "bblocks://ogc.ogc-utils.iri-or-curie"
   ],
   "tags": [
     "focal",
