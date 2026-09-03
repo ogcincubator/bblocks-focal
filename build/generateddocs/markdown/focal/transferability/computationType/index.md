@@ -1,0 +1,75 @@
+
+# FOCAL Computation Type (mixin) (Schema)
+
+`ogc.focal.transferability.computationType` *v0.1*
+
+Reusable mixin adding computationType, an open-vocabulary classification of how a workflow computes its results (statistical/ML, deterministic/rule-based, precomputed data delivery). Optional at the workflow level.
+
+[*Status*](http://www.opengis.net/def/status): Under development
+
+## Schema
+
+```yaml
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Computation Type (mixin)
+description: "Reusable mixin adding `computationType`, an open-vocabulary classification
+  of how a workflow computes its results \u2014 see bblocks://ogc.focal.transferability.vocab
+  for the seeded values (`statistical-ml`, `deterministic-rule-based`, `precomputed-delivery`).
+  Evidenced 8/8 across FOCAL's pilot workflows, but not universal by design: **optional**,
+  omitted entirely for a workflow that isn't an executable Application/ApplicationPackage
+  at all (e.g. FP-WF4, an `ogcapi-sosa` observing system) \u2014 not a fourth \"not
+  applicable\" value, the same way JSON Schema already handles a property that simply
+  doesn't apply.\n"
+type: object
+properties:
+  computationType:
+    type: string
+    examples:
+    - statistical-ml
+    - deterministic-rule-based
+    - precomputed-delivery
+    description: "How the workflow computes its results. Open vocabulary (SKOS), not
+      a closed enum \u2014 new values may be added without a schema change.\n"
+    x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/computationType
+    x-jsonld-type: '@id'
+    x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/computation-types/
+x-jsonld-prefixes:
+  focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/
+
+```
+
+Links to the schema:
+
+* YAML version: [schema.yaml](https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/schema.json)
+* JSON version: [schema.json](https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/schema.yaml)
+
+
+# JSON-LD Context
+
+```jsonld
+{
+  "@context": {
+    "computationType": {
+      "@context": {
+        "@base": "https://w3id.org/ogc/hosted/focal/transferability/computation-types/"
+      },
+      "@id": "focal-transf-prop:computationType",
+      "@type": "@id"
+    },
+    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "@version": 1.1
+  }
+}
+```
+
+You can find the full JSON-LD context here:
+[context.jsonld](https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/context.jsonld)
+
+
+# For developers
+
+The source code for this Building Block can be found in the following repository:
+
+* URL: [https://github.com/ogcincubator/bblocks-focal](https://github.com/ogcincubator/bblocks-focal)
+* Path: `_sources/transferability/computationType`
+

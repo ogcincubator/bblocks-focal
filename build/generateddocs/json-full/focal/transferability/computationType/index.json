@@ -1,0 +1,35 @@
+
+
+{
+  "itemIdentifier": "ogc.focal.transferability.computationType",
+  "name": "FOCAL Computation Type (mixin)",
+  "abstract": "Reusable mixin adding computationType, an open-vocabulary classification of how a workflow computes its results (statistical/ML, deterministic/rule-based, precomputed data delivery). Optional at the workflow level.",
+  "status": "under-development",
+  "dateTimeAddition": "2026-09-02T00:00:00Z",
+  "itemClass": "schema",
+  "version": "0.1",
+  "dateOfLastChange": "2026-09-03",
+  "concept": [
+    "https://w3id.org/ogc/hosted/focal/transferability/computation-types/scheme"
+  ],
+  "tags": [
+    "focal",
+    "transferability",
+    "mixin"
+  ],
+  "group": "FOCAL Transferability",
+  "shaclShapes": {},
+  "ldContext": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/context.jsonld",
+  "schema": {
+    "application/yaml": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/schema.yaml",
+    "application/json": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/schema.json"
+  },
+  "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/computationType/schema.yaml",
+  "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/computationType/context.jsonld",
+  "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/resolvedProperties.json",
+  "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/computationType/",
+  "validationPassed": true,
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntitle: Computation Type (mixin)\ndescription: \"Reusable mixin adding `computationType`, an open-vocabulary classification\n  of how a workflow computes its results \\u2014 see bblocks://ogc.focal.transferability.vocab\n  for the seeded values (`statistical-ml`, `deterministic-rule-based`, `precomputed-delivery`).\n  Evidenced 8/8 across FOCAL's pilot workflows, but not universal by design: **optional**,\n  omitted entirely for a workflow that isn't an executable Application/ApplicationPackage\n  at all (e.g. FP-WF4, an `ogcapi-sosa` observing system) \\u2014 not a fourth \\\"not\n  applicable\\\" value, the same way JSON Schema already handles a property that simply\n  doesn't apply.\\n\"\ntype: object\nproperties:\n  computationType:\n    type: string\n    examples:\n    - statistical-ml\n    - deterministic-rule-based\n    - precomputed-delivery\n    description: \"How the workflow computes its results. Open vocabulary (SKOS), not\n      a closed enum \\u2014 new values may be added without a schema change.\\n\"\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/computationType\n    x-jsonld-type: '@id'\n    x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/computation-types/\nx-jsonld-prefixes:\n  focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/\n",
+  "gitRepository": "https://github.com/ogcincubator/bblocks-focal",
+  "gitPath": "_sources/transferability/computationType"
+}

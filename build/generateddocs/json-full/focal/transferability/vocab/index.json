@@ -1,0 +1,27 @@
+
+
+{
+  "itemIdentifier": "ogc.focal.transferability.vocab",
+  "name": "FOCAL Transferability Vocabulary",
+  "abstract": "SKOS concept schemes for FOCAL workflow transferability: transferabilityAction, triggeredBy, envelope dimensions, and envelope roles.",
+  "status": "under-development",
+  "dateTimeAddition": "2026-09-02T00:00:00Z",
+  "itemClass": "model",
+  "version": "0.1",
+  "dateOfLastChange": "2026-09-03",
+  "tags": [
+    "focal",
+    "transferability",
+    "vocabulary",
+    "skos"
+  ],
+  "group": "FOCAL Transferability",
+  "shaclShapes": {},
+  "ontology": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/vocab/ontology.ttl",
+  "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/vocab/",
+  "validationPassed": true,
+  "description": "## FOCAL Transferability Vocabulary\n\nOpen SKOS concept schemes backing the FOCAL workflow transferability model (Task 10.3):\n\n- **`transferabilityAction`** \u2014 what must be done to a reference/calibration artifact to make it\n  valid outside a workflow's original validity envelope (e.g. `retrain`, `replace-with-local-equivalent`).\n- **`triggeredBy`** \u2014 the condition that triggers a transferability rule (e.g. `different-ecological-range`).\n- **dimensions** \u2014 the axes a workflow's validity envelope is stated along (spatial, ecological, ...).\n  Seeded deliberately small; expected to grow as more workflows are reviewed.\n- **roles** \u2014 `trained-on` / `valid-for` / `can-run-on`, independent of dimension. A workflow can\n  state more than one role for the same dimension at once (see FP-WF1 in the mapping-extraction doc).\n\nAll four schemes are **open**, not closed enums \u2014 new concepts may be added by extending this\nontology, without a schema change on the blocks that reference it\n([`transferability/rule`](bblocks://ogc.focal.transferability.rule),\n[`transferability/envelopeConstraint`](bblocks://ogc.focal.transferability.envelopeConstraint)).\n\n**Status: draft/WIP.** This is a first pass seeded from `20260817-workflow-transferability-mapping-extraction.md`\nand `20260902-condition-action-expressivity.md` (FOCAL WP10 project directory) \u2014 circulated to workflow\nowners for review, not locked.\n",
+  "annotatedSchema": null,
+  "gitRepository": "https://github.com/ogcincubator/bblocks-focal",
+  "gitPath": "_sources/transferability/vocab"
+}

@@ -1,0 +1,40 @@
+
+
+{
+  "itemIdentifier": "ogc.focal.transferability.rule",
+  "name": "FOCAL Transferability Rule",
+  "abstract": "A single condition/action rule (triggeredBy + actions + required) describing how a reference or calibration artifact must be adapted outside its workflow's original validity envelope.",
+  "status": "under-development",
+  "dateTimeAddition": "2026-09-02T00:00:00Z",
+  "itemClass": "schema",
+  "version": "0.1",
+  "dateOfLastChange": "2026-09-03",
+  "concept": [
+    "https://w3id.org/ogc/hosted/focal/transferability/actions/scheme",
+    "https://w3id.org/ogc/hosted/focal/transferability/triggers/scheme"
+  ],
+  "tags": [
+    "focal",
+    "transferability",
+    "schema"
+  ],
+  "group": "FOCAL Transferability",
+  "shaclShapes": {},
+  "dependsOn": [
+    "ogc.focal.transferability.notes"
+  ],
+  "ldContext": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld",
+  "schema": {
+    "application/yaml": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/schema.yaml",
+    "application/json": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/schema.json"
+  },
+  "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/schema.yaml",
+  "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/context.jsonld",
+  "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/resolvedProperties.json",
+  "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/",
+  "validationPassed": true,
+  "description": "## FOCAL Transferability Rule\n\nOne condition/action rule attached to a reference or calibration artifact.\n\n- `triggeredBy` \u2014 the condition that fires this rule (open vocabulary, see\n  [`transferability/vocab`](bblocks://ogc.focal.transferability.vocab)).\n- `actions` \u2014 an **OR-set**: any one of these actions resolves the rule. FP-WF1's growth model\n  needs this \u2014 it offers both `retrain` and `replace-with-alternative-published-model` for the\n  same artifact and the same trigger.\n- `required` \u2014 whether applying one of `actions` is mandatory once `triggeredBy` holds. Defaults\n  to `true`. `false` means the workflow still runs without it, but result quality/trust degrades \u2014\n  describe how in `transferabilityNotes` (mixed in from\n  [`transferability/notes`](bblocks://ogc.focal.transferability.notes)). Example: FP-WF3's\n  disturbance-detection workflow runs without local training labels, but results should then be\n  treated as exploratory rather than authoritative.\n\n**Known simplification (flagged for WF-owner review):** a small number of artifacts (UP-WF2's LST/\nCLMS/Eurostat datasets) have a richer three-way condition \u2014 reuse inside a coverage boundary,\nreplace if a substitute exists outside it, hard-fail if none exists \u2014 than a flat rule list can\nexpress without an explicit \"only if a substitute is obtainable\" branch condition. For now these\nare represented as two separate flat rules (`reuse-as-is` / `replace-with-local-equivalent`),\ndropping that connecting condition. See `20260902-condition-action-expressivity.md` in the FOCAL\nWP10 project directory for the full pattern inventory this was decided against.\n\n**Status: draft/WIP**, circulated for review, not locked.\n",
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntitle: Transferability Rule\ndescription: \"A single condition/action rule attached to a reference or calibration\n  artifact: the condition that triggers it (`triggeredBy`), the action(s) that resolve\n  it (`actions` \\u2014 an OR-set, any one action satisfies the rule), and whether\n  applying one is mandatory (`required`). `triggeredBy` and `actions` draw from the\n  open SKOS vocabulary in bblocks://ogc.focal.transferability.vocab \\u2014 the values\n  listed in `examples` below are the core, evidenced set from FOCAL's pilot workflows,\n  not an exhaustive enum; new terms may be added to the vocabulary without a schema\n  change.\\n\"\nallOf:\n- $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml\n- type: object\n  required:\n  - triggeredBy\n  - actions\n  properties:\n    triggeredBy:\n      type: string\n      examples:\n      - different-geographic-coverage\n      - different-ecological-range\n      - different-climate-regime\n      - different-dataset\n      description: The condition that triggers this rule.\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/triggeredBy\n      x-jsonld-type: '@id'\n      x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/triggers/\n    actions:\n      type: array\n      minItems: 1\n      items:\n        type: string\n        examples:\n        - reuse-as-is\n        - replace-with-local-equivalent\n        - retrain\n        - replace-with-alternative-published-model\n        - component-not-executable\n      description: \"One or more actions, any of which resolves `triggeredBy` \\u2014\n        an OR-set, not a required combination (no evidenced case needs more than one\n        action applied simultaneously).\\n\"\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/actions\n      x-jsonld-type: '@id'\n      x-jsonld-container: '@set'\n      x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/actions/\n    required:\n      type: boolean\n      default: true\n      description: \"Whether applying one of `actions` is mandatory once `triggeredBy`\n        holds. Defaults to true. When false, skipping is allowed but degrades result\n        quality/trust rather than blocking execution \\u2014 describe the consequence\n        in `transferabilityNotes`.\\n\"\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/required\nx-jsonld-prefixes:\n  focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/\n",
+  "gitRepository": "https://github.com/ogcincubator/bblocks-focal",
+  "gitPath": "_sources/transferability/rule"
+}

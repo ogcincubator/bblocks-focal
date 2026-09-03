@@ -1,0 +1,14 @@
+{
+  "title": "Validation report for ogc.focal.transferability.rule - FOCAL Transferability Rule",
+  "bblockName": "FOCAL Transferability Rule",
+  "bblockId": "ogc.focal.transferability.rule",
+  "generated": "2026-09-03T10:16:12.283542+00:00",
+  "result": true,
+  "items": [],
+  "globalErrors": {},
+  "counts": {
+    "total": 0,
+    "passed": 0,
+    "failed": 0
+  }
+}

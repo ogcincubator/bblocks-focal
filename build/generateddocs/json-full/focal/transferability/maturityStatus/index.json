@@ -1,0 +1,35 @@
+
+
+{
+  "itemIdentifier": "ogc.focal.transferability.maturityStatus",
+  "name": "FOCAL Workflow Maturity Status (mixin)",
+  "abstract": "Reusable mixin adding maturityStatus, an open-vocabulary classification of a workflow's operational maturity (prototype, pre-operational, operational). Deliberately a separate vocabulary from a bblock's own authoring-lifecycle status field.",
+  "status": "under-development",
+  "dateTimeAddition": "2026-09-02T00:00:00Z",
+  "itemClass": "schema",
+  "version": "0.1",
+  "dateOfLastChange": "2026-09-03",
+  "concept": [
+    "https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/scheme"
+  ],
+  "tags": [
+    "focal",
+    "transferability",
+    "mixin"
+  ],
+  "group": "FOCAL Transferability",
+  "shaclShapes": {},
+  "ldContext": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/maturityStatus/context.jsonld",
+  "schema": {
+    "application/yaml": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/maturityStatus/schema.yaml",
+    "application/json": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/maturityStatus/schema.json"
+  },
+  "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/maturityStatus/schema.yaml",
+  "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/maturityStatus/context.jsonld",
+  "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/maturityStatus/resolvedProperties.json",
+  "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/maturityStatus/",
+  "validationPassed": true,
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntitle: Workflow Maturity Status (mixin)\ndescription: \"Reusable mixin adding `maturityStatus`, an open-vocabulary classification\n  of a FOCAL pilot workflow's operational maturity \\u2014 see bblocks://ogc.focal.transferability.vocab\n  for the seeded 3-stage progression (`prototype` -> `pre-operational` -> `operational`).\n  Evidenced 8/8 across FOCAL's pilot workflows.\\n**Deliberately distinct from a bblock's\n  own `bblock.json` `status` field** (`under-development` / `experimental` / `stable`\n  / ...), which describes the *block's own authoring lifecycle*, not the operational\n  maturity of the FOCAL workflow it describes \\u2014 reusing those words here would\n  put two unrelated axes on the same object graph under identical strings.\\nA caveat\n  about result confidence (e.g. FP-WF1's \\\"AI model and validation are still being\n  finalised, results are decision-support not exact\\\") is a separate fact from maturity\n  stage \\u2014 see bblocks://ogc.focal.transferability.qualityAnnotation, not a `maturityStatus`\n  value or note.\\n\"\ntype: object\nrequired:\n- maturityStatus\nproperties:\n  maturityStatus:\n    type: string\n    examples:\n    - prototype\n    - pre-operational\n    - operational\n    description: 'The workflow''s operational maturity stage. Open vocabulary (SKOS),\n      not a closed enum.\n\n      '\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/maturityStatus\n    x-jsonld-type: '@id'\n    x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/\nx-jsonld-prefixes:\n  focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/\n",
+  "gitRepository": "https://github.com/ogcincubator/bblocks-focal",
+  "gitPath": "_sources/transferability/maturityStatus"
+}

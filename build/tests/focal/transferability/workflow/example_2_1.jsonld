@@ -1,0 +1,92 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/workflow/context.jsonld",
+  "class": "Workflow",
+  "cwlVersion": "v1.2",
+  "label": "FP-WF2 \u2014 Heat stress",
+  "envelope": [
+    {
+      "role": "trained-on",
+      "dimension": "jurisdictional",
+      "value": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              12.09,
+              48.55
+            ],
+            [
+              18.87,
+              48.55
+            ],
+            [
+              18.87,
+              51.06
+            ],
+            [
+              12.09,
+              51.06
+            ],
+            [
+              12.09,
+              48.55
+            ]
+          ]
+        ]
+      }
+    }
+  ],
+  "referenceArtifact": [
+    {
+      "artifact": "species tolerance thresholds (species_tolerances.json)",
+      "rules": [
+        {
+          "triggeredBy": "different-geographic-coverage",
+          "actions": [
+            "replace-with-local-equivalent"
+          ],
+          "required": true,
+          "transferabilityNotes": "Users may also override thresholds directly, even within the source region \u2014 a separate user-configurability fact, not modeled here."
+        }
+      ]
+    },
+    {
+      "artifact": "SLT/T5 forest classification context (Czechia-specific)",
+      "rules": [
+        {
+          "triggeredBy": "different-geographic-coverage",
+          "actions": [
+            "replace-with-local-equivalent"
+          ],
+          "required": true
+        }
+      ]
+    },
+    {
+      "artifact": "species codes catalogue (species_codes.json)",
+      "rules": [
+        {
+          "triggeredBy": "different-geographic-coverage",
+          "actions": [
+            "replace-with-local-equivalent"
+          ],
+          "required": true
+        }
+      ]
+    },
+    {
+      "artifact": "Rasdaman climate registry / source catalogue",
+      "rules": [
+        {
+          "triggeredBy": "different-geographic-coverage",
+          "actions": [
+            "replace-with-local-equivalent"
+          ],
+          "required": true
+        }
+      ]
+    }
+  ],
+  "computationType": "deterministic-rule-based",
+  "maturityStatus": "operational"
+}

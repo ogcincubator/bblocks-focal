@@ -1,0 +1,210 @@
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix focal-action: <https://w3id.org/ogc/hosted/focal/transferability/actions/> .
+@prefix focal-compute: <https://w3id.org/ogc/hosted/focal/transferability/computation-types/> .
+@prefix focal-dim: <https://w3id.org/ogc/hosted/focal/transferability/dimensions/> .
+@prefix focal-maturity: <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/> .
+@prefix focal-qdim: <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/> .
+@prefix focal-role: <https://w3id.org/ogc/hosted/focal/transferability/roles/> .
+@prefix focal-trigger: <https://w3id.org/ogc/hosted/focal/transferability/triggers/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+focal-action:component-not-executable a skos:Concept ;
+    skos:definition "No substitute is available for the target; the affected workflow component cannot currently be run outside its original footprint. A terminal, non-actionable outcome."@en ;
+    skos:inScheme focal-action:scheme ;
+    skos:prefLabel "component not executable"@en ;
+    skos:topConceptOf focal-action:scheme .
+
+focal-action:replace-with-alternative-published-model a skos:Concept ;
+    skos:definition "Substitute a different, already-published model with parameters valid for the target, as an alternative to retraining the original."@en ;
+    skos:inScheme focal-action:scheme ;
+    skos:prefLabel "replace with alternative published model"@en ;
+    skos:topConceptOf focal-action:scheme .
+
+focal-action:replace-with-local-equivalent a skos:Concept ;
+    skos:definition "Swap the artifact for an equivalent one representative of the target (e.g. local reference data, a local classification scheme)."@en ;
+    skos:inScheme focal-action:scheme ;
+    skos:prefLabel "replace with local equivalent"@en ;
+    skos:topConceptOf focal-action:scheme .
+
+focal-action:retrain a skos:Concept ;
+    skos:definition "Retrain or recalibrate a machine-learning artifact against data representative of the target. Mandatoriness is not implied by the term itself — see the `required` property on transferability/rule."@en ;
+    skos:inScheme focal-action:scheme ;
+    skos:prefLabel "retrain"@en ;
+    skos:topConceptOf focal-action:scheme .
+
+focal-action:reuse-as-is a skos:Concept ;
+    skos:definition "The artifact is valid unchanged for the target; no adaptation needed."@en ;
+    skos:inScheme focal-action:scheme ;
+    skos:prefLabel "reuse as-is"@en ;
+    skos:topConceptOf focal-action:scheme .
+
+focal-compute:deterministic-rule-based a skos:Concept ;
+    skos:definition "Results come from a fixed deterministic calculation or rule set (e.g. threshold exceedance, rolling accumulation), with no learned parameters."@en ;
+    skos:inScheme focal-compute:scheme ;
+    skos:prefLabel "deterministic/rule-based"@en ;
+    skos:topConceptOf focal-compute:scheme .
+
+focal-compute:precomputed-delivery a skos:Concept ;
+    skos:definition "The workflow delivers a dataset computed elsewhere in advance; there is no re-executable process, only data access. The motivating case is UP-WF1's NUKLEUS ensemble delivery."@en ;
+    skos:inScheme focal-compute:scheme ;
+    skos:prefLabel "precomputed data delivery"@en ;
+    skos:topConceptOf focal-compute:scheme .
+
+focal-compute:statistical-ml a skos:Concept ;
+    skos:definition "Results come from a statistical or machine-learning model (e.g. a trained regression, LightGBM, an EO time-series classifier)."@en ;
+    skos:inScheme focal-compute:scheme ;
+    skos:prefLabel "statistical/ML"@en ;
+    skos:topConceptOf focal-compute:scheme .
+
+focal-dim:climatic a skos:Concept ;
+    skos:definition "Climate regime or classification (e.g. Köppen-Geiger, Quitt zones)."@en ;
+    skos:inScheme focal-dim:scheme ;
+    skos:prefLabel "climatic"@en ;
+    skos:topConceptOf focal-dim:scheme .
+
+focal-dim:ecological a skos:Concept ;
+    skos:definition "Ecological range: forest type, species composition, phenology, and similar."@en ;
+    skos:inScheme focal-dim:scheme ;
+    skos:prefLabel "ecological"@en ;
+    skos:topConceptOf focal-dim:scheme .
+
+focal-dim:jurisdictional a skos:Concept ;
+    skos:definition "Administrative or licensing boundary (e.g. data only licensed for use in one country)."@en ;
+    skos:inScheme focal-dim:scheme ;
+    skos:prefLabel "jurisdictional"@en ;
+    skos:topConceptOf focal-dim:scheme .
+
+focal-dim:spatial a skos:Concept ;
+    skos:definition "Geographic location or extent."@en ;
+    skos:inScheme focal-dim:scheme ;
+    skos:prefLabel "spatial"@en ;
+    skos:topConceptOf focal-dim:scheme .
+
+focal-maturity:operational a skos:Concept ;
+    skos:definition "Running and integrated. Says nothing about result confidence on its own — see transferability/qualityAnnotation for caveats such as FP-WF1's 'decision-support, not exact' note, which does not change a workflow's maturity stage."@en ;
+    skos:inScheme focal-maturity:scheme ;
+    skos:prefLabel "operational"@en ;
+    skos:topConceptOf focal-maturity:scheme .
+
+focal-maturity:pre-operational a skos:Concept ;
+    skos:definition "Shared for integration testing but not yet integrated into the operational platform — a genuine intermediate state between prototype and operational (e.g. UP-WF3)."@en ;
+    skos:inScheme focal-maturity:scheme ;
+    skos:prefLabel "pre-operational"@en ;
+    skos:topConceptOf focal-maturity:scheme .
+
+focal-maturity:prototype a skos:Concept ;
+    skos:definition "Not yet operationally mature; full regression testing/validation is not complete (e.g. FP-WF3)."@en ;
+    skos:inScheme focal-maturity:scheme ;
+    skos:prefLabel "prototype"@en ;
+    skos:topConceptOf focal-maturity:scheme .
+
+focal-qdim:decision-support-only a skos:Concept,
+        dqv:Dimension ;
+    skos:definition "Results are intended to inform a decision rather than stand as an exact forecast or measurement (e.g. FP-WF1's AI model output)."@en ;
+    skos:inScheme focal-qdim:scheme ;
+    skos:prefLabel "decision-support only"@en ;
+    skos:topConceptOf focal-qdim:scheme ;
+    dqv:inCategory focal-qdim:scheme .
+
+focal-qdim:validation-incomplete a skos:Concept,
+        dqv:Dimension ;
+    skos:definition "Model or validation work is still being finalised at the time of the statement."@en ;
+    skos:inScheme focal-qdim:scheme ;
+    skos:prefLabel "validation incomplete"@en ;
+    skos:topConceptOf focal-qdim:scheme ;
+    dqv:inCategory focal-qdim:scheme .
+
+focal-role:can-run-on a skos:Concept ;
+    skos:definition "Where the workflow can technically be executed, independent of whether its outputs are valid there."@en ;
+    skos:inScheme focal-role:scheme ;
+    skos:prefLabel "can run on"@en ;
+    skos:topConceptOf focal-role:scheme .
+
+focal-role:trained-on a skos:Concept ;
+    skos:definition "What the artifact was trained or calibrated on."@en ;
+    skos:inScheme focal-role:scheme ;
+    skos:prefLabel "trained on"@en ;
+    skos:topConceptOf focal-role:scheme .
+
+focal-role:valid-for a skos:Concept ;
+    skos:definition "The range within which the artifact's outputs are considered valid. Often not a geometry at all — may be expressed in a non-spatial dimension (e.g. an ecological range)."@en ;
+    skos:inScheme focal-role:scheme ;
+    skos:prefLabel "valid for"@en ;
+    skos:topConceptOf focal-role:scheme .
+
+focal-trigger:different-climate-regime a skos:Concept ;
+    skos:definition "The target has a different climate regime (e.g. Köppen-Geiger class) than the artifact was derived for."@en ;
+    skos:inScheme focal-trigger:scheme ;
+    skos:prefLabel "different climate regime"@en ;
+    skos:topConceptOf focal-trigger:scheme .
+
+focal-trigger:different-dataset a skos:Concept ;
+    skos:definition "The target requires a structurally different source dataset (e.g. different variable, unit, time axis, or grid) than the one the artifact was built against."@en ;
+    skos:inScheme focal-trigger:scheme ;
+    skos:prefLabel "different dataset"@en ;
+    skos:topConceptOf focal-trigger:scheme .
+
+focal-trigger:different-ecological-range a skos:Concept ;
+    skos:definition "The target falls outside the ecological range (e.g. forest type, species composition, phenology) the artifact was calibrated for."@en ;
+    skos:inScheme focal-trigger:scheme ;
+    skos:prefLabel "different ecological range"@en ;
+    skos:topConceptOf focal-trigger:scheme .
+
+focal-trigger:different-geographic-coverage a skos:Concept ;
+    skos:definition "The target falls outside the geographic/administrative coverage the artifact was built or is available for — including a hard dataset-footprint boundary (e.g. a pan-European dataset outside Europe). Whether this is resolvable is carried by the paired action (replace-with-local-equivalent vs. component-not-executable), not by a separate trigger value."@en ;
+    skos:inScheme focal-trigger:scheme ;
+    skos:prefLabel "different geographic coverage"@en ;
+    skos:topConceptOf focal-trigger:scheme .
+
+focal-compute:scheme a skos:ConceptScheme ;
+    skos:definition "How a workflow computes its results. Optional at the workflow level — omitted entirely for workflows that aren't an executable Application/ApplicationPackage at all (e.g. an observing system), not a fourth 'not applicable' value."@en ;
+    skos:hasTopConcept focal-compute:deterministic-rule-based,
+        focal-compute:precomputed-delivery,
+        focal-compute:statistical-ml ;
+    skos:prefLabel "FOCAL Computation Types"@en .
+
+focal-maturity:scheme a skos:ConceptScheme ;
+    skos:definition "The operational maturity of a FOCAL pilot workflow itself, as distinct from a bblock's own authoring-lifecycle status (bblock.json's `status` field: under-development/experimental/stable/...). Deliberately a separate vocabulary in different words to avoid two unrelated axes sharing identical string values on the same object graph."@en ;
+    skos:hasTopConcept focal-maturity:operational,
+        focal-maturity:pre-operational,
+        focal-maturity:prototype ;
+    skos:prefLabel "FOCAL Workflow Maturity Statuses"@en .
+
+focal-qdim:scheme a skos:ConceptScheme ;
+    skos:definition "Dimensions along which a qualityAnnotation statement expresses uncertainty or confidence about a workflow's results, independent of its maturityStatus. Deliberately seeded small from a single workflow (FP-WF1) and open to growth."@en ;
+    skos:hasTopConcept focal-qdim:decision-support-only,
+        focal-qdim:validation-incomplete ;
+    skos:prefLabel "FOCAL Quality Annotation Dimensions"@en .
+
+focal-role:scheme a skos:ConceptScheme ;
+    skos:definition "The role an envelope statement plays, independent of which dimension it concerns. A workflow can carry more than one role for the same or different dimensions at once — e.g. trained-on/spatial, valid-for/ecological, and can-run-on/climatic can all apply simultaneously to one workflow."@en ;
+    skos:hasTopConcept focal-role:can-run-on,
+        focal-role:trained-on,
+        focal-role:valid-for ;
+    skos:prefLabel "FOCAL Transferability Envelope Roles"@en .
+
+focal-dim:scheme a skos:ConceptScheme ;
+    skos:definition "The axes along which a workflow's validity envelope is stated. Deliberately seeded small and open to growth — not a closed set."@en ;
+    skos:hasTopConcept focal-dim:climatic,
+        focal-dim:ecological,
+        focal-dim:jurisdictional,
+        focal-dim:spatial ;
+    skos:prefLabel "FOCAL Transferability Envelope Dimensions"@en .
+
+focal-trigger:scheme a skos:ConceptScheme ;
+    skos:definition "The condition, evaluated against a workflow's validity envelope, that triggers a transferability rule."@en ;
+    skos:hasTopConcept focal-trigger:different-climate-regime,
+        focal-trigger:different-dataset,
+        focal-trigger:different-ecological-range,
+        focal-trigger:different-geographic-coverage ;
+    skos:prefLabel "FOCAL Transferability Triggers"@en .
+
+focal-action:scheme a skos:ConceptScheme ;
+    skos:definition "What must be done to a reference or calibration artifact to make it valid outside a workflow's original validity envelope."@en ;
+    skos:hasTopConcept focal-action:component-not-executable,
+        focal-action:replace-with-alternative-published-model,
+        focal-action:replace-with-local-equivalent,
+        focal-action:retrain,
+        focal-action:reuse-as-is ;
+    skos:prefLabel "FOCAL Transferability Actions"@en .
+

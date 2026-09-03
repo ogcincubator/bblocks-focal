@@ -1,0 +1,13 @@
+{
+  "@context": {
+    "computationType": {
+      "@context": {
+        "@base": "https://w3id.org/ogc/hosted/focal/transferability/computation-types/"
+      },
+      "@id": "focal-transf-prop:computationType",
+      "@type": "@id"
+    },
+    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "@version": 1.1
+  }
+}

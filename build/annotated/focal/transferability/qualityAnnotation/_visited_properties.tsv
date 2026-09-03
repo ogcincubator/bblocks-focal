@@ -1,0 +1,4 @@
+path	@id	schema
+/dimension	http://www.w3.org/ns/dqv#inDimension	/github/workspace/build/annotated/focal/transferability/qualityAnnotation/schema.yaml
+/note	https://w3id.org/ogc/hosted/focal/transferability/properties/note	/github/workspace/build/annotated/focal/transferability/qualityAnnotation/schema.yaml
+/measurement		/github/workspace/build/annotated/focal/transferability/qualityAnnotation/schema.yaml

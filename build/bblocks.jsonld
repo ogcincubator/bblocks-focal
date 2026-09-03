@@ -195,12 +195,12 @@
   "abstract": "This is an example which uses OGC Blocks to define the ontology for forest typology multilingual.\n",
   "description": "## About this Register: FOCAL Forest Typology Czech OGC Blocks\n\nAs a Forest Data Provider (e.g. a forestry researcher), I want to provide my \"normal GIS\" data (e.g. typology derived by photogrammetry and remote sensing) in a way that my data is conform to my domain (multilingual) and can be integrate with data from another domain (e.g. climate projections) by defining clear input/output contracts. As a platform operator who follows the OGC Smart concepts, I know that domain specific profiles can be provided by public registers to ensure public consistency of distributed digital twins. Using those profiles turns the local typology data of the data provider into machine-interpretable knowledge that can be used to extend the distributed digital twin of forest typologies or can be automatically integrated into more complex distributed digital twins like climate-resilient reforestation simulations or processed by AI tools to generate climate-resilient reforestation recommendations.\n\nThis story illustrates the transition from \"normal GIS\" (manual overlays and scripts) to a standards-mediated geo-data supply chain. By implementing the Forest Typology OGC Block, the data provider removes the need for bespoke engineering. Instead of rebuilding a pipeline for every new forest, the provider publishes the Forest Typology OGC Block definitions as the \"input/output contract\" of a consistent distributed digital twin for forest typologies, allowing AI agents to navigate semantic gaps automatically and provide validated decision support. \n\nThis register provides the machine-readable foundation for the **FOCAL project**, establishing a standards-mediated pipeline to bridge the gap between global climate science and local decision-making. It implements the **OGC Blocks** framework to deliver a \"system of systems\" approach for **Distributed Digital Twins** in forestry and urban planning.\n\n### **Who is this register for?**\nThis register supports a multi-actor ecosystem:\n*   **Data Providers:** Forestry researchers and municipal GIS departments who need to transform **\"normal GIS\"** data (e.g., typology from photogrammetry) into machine-interpretable knowledge.\n*   **Developers:** Engineers building climate services who require stable API contracts, versioned schemas, and reusable data models for **Digital Twins**.\n*   **Domain Experts:** Foresters and urban planners, such as those in **Constance** or the **Czech Forestry Institute**, looking for validated, climate-resilient recommendations.\n*   **AI Agents:** Automated systems like the **JackDaw** assistant that require explicit semantics to programmatically process data without human intervention.\n\n### **What does this register contain?**\nIt hosts reusable **OGC Blocks** that move from document-centric descriptions to actionable components:\n*   **Forest Site Assessment:** Schemas mapping management units to soil types (FAO World Reference Base) and growth records. It includes target mixtures for specific codes, such as **5K1** (Acidic fir-beech modal site).\n*   **Urban Climate Vulnerability:** Models for urban morphology (building density, sealed surfaces) and demographics linked to heat and flood risk.\n*   **focal-ontology:** A core module providing the machine-readable semantics (SKOS/OWL) for forest type codes (e.g., **2S1**) with **multi-lingual support** in Czech, English, and German.\n*   **Custom Features:** Implementation of the **\"Feature with geometry\"** pattern, where attributes are managed in a standardized **Property Set** independently of the spatial packaging.\n\n### **When should this register be used?**\n*   **Standardized Ingestion:** During the conversion of static shapefiles or **CF-NetCDF** scientific data into planning-ready formats via the **CF-to-Planning Transform**.\n*   **Data Validation:** To enforce **Integrity, Provenance, and Trust (IPT)** via **SHACL shapes**, ensuring data meets mandatory Coordinate Reference System (**S-JTSK / EPSG:5514**) and unit contracts.\n*   **Workflow Composition:** When building containerized workflows in systems like **Steep** that require consistent input/output contracts between scientific and local domains.\n\n### **Where does this register fit?**\n*   **Federated Register Infrastructure:** It acts as a domain-specific node analogous to the Domain Name System (DNS), inheriting foundational patterns from the root OGC register.\n*   **Domain Profiling:** It implements the **European Climate Assessment Profile**, binding global standards to regional conventions like **ETRS89** and the European forest inventory.\n*   **Pilot Integration:** It connects scientific repositories (ESGF) with local implementation registers**.\n\n### **Why does this register exist?**\n*   **Closing the Semantic Gap:** It addresses the \"semantic disconnection\" where scientific variables (e.g., \"tas\" for temperature) are opaque to local planning software.\n*   **Scalability:** It replaces bespoke data engineering for every city with a **\"recipe-based\" pipeline**, allowing new municipalities to onboard by creating a local profile rather than custom scripts.\n*   **Trust and Reproducibility:** It provides an auditable framework where every recommendation is backed by a **machine-readable manifest (JSON)** recording lineage, code versions, and processing history.\n\n### **How is this register structured and implemented?**\n*   **Implementation:** Developed using the **GitHub bblock-template** with a test-driven CI/CD pipeline where every example must pass validation.\n*   **Recursive Composition:** Each block aggregates a `schema.yaml` for structure, a `context.jsonld` for semantic uplift, and `shacl.ttl` for executable constraints.\n*   **Profile Layering:** It utilizes hierarchical profiling, allowing local specializations to inherit and extend base standards without breaking interoperability. The forestStandFeature block inherits from the base OGC Feature block and aggregates the forestStandProperties property set.\n\n### **For Developers**\n*   **[GitHub Repository](https://github.com/ogcincubator/bblocks-focal)**\n*   **[OGC Blocks Documentation](https://ogcincubator.github.io/bblocks-docs/)**\n*   **[OGC Blocks Tutorials](https://ogcincubator.github.io/bblocks-tutorial/)**\n*   **[OGC Blocks Examples](https://ogcincubator.github.io/bblocks-examples/)**\n",
   "sparqlEndpoint": "http://defs-hosted.opengis.net/fuseki-hosted/query",
-  "modified": "2026-06-25T14:22:01.880738",
+  "modified": "2026-09-03T10:16:06.083986",
   "tooling": {
     "bblocks-postprocess": {
-      "commitId": "\"63a70437bf8124dfddbdd444f28013fb2c0ecb1f",
-      "shortCommitId": "\"63a704",
-      "date": "2026-06-25T13:38:32+00:00\""
+      "commitId": "\"b9092dd001978102ed9608ad3cfda4864c630bc6",
+      "shortCommitId": "\"b9092d",
+      "date": "2026-09-03T07:46:57+00:00\""
     }
   },
   "gitRepository": "https://github.com/ogcincubator/bblocks-focal",
@@ -210,7 +210,8 @@
   "validationReport": "https://ogcincubator.github.io/bblocks-focal/build/tests/report.html",
   "validationReportJson": "https://ogcincubator.github.io/bblocks-focal/build/tests/report.json",
   "imports": [
-    "https://opengeospatial.github.io/bblocks/register.json"
+    "https://opengeospatial.github.io/bblocks/register.json",
+    "https://ogcincubator.github.io/bblocks-cwl/build/register.json"
   ],
   "remoteCacheDir": "https://ogcincubator.github.io/bblocks-focal/build/annotated/_cache",
   "links": [
@@ -249,7 +250,7 @@
       "itemClass": "model",
       "register": "ogc-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-06-25",
+      "dateOfLastChange": "2026-09-03",
       "tags": [
         "focal",
         "ontology",
@@ -306,7 +307,7 @@
       "itemClass": "schema",
       "register": "ogc-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-06-25",
+      "dateOfLastChange": "2026-09-03",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -380,6 +381,587 @@
       }
     },
     {
+      "itemIdentifier": "ogc.focal.transferability.computationType",
+      "name": "FOCAL Computation Type (mixin)",
+      "abstract": "Reusable mixin adding computationType, an open-vocabulary classification of how a workflow computes its results (statistical/ML, deterministic/rule-based, precomputed data delivery). Optional at the workflow level.",
+      "status": "under-development",
+      "dateTimeAddition": "2026-09-02T00:00:00Z",
+      "itemClass": "schema",
+      "version": "0.1",
+      "dateOfLastChange": "2026-09-03",
+      "concept": [
+        "https://w3id.org/ogc/hosted/focal/transferability/computation-types/scheme"
+      ],
+      "tags": [
+        "focal",
+        "transferability",
+        "mixin"
+      ],
+      "group": "FOCAL Transferability",
+      "shaclShapes": null,
+      "ldContext": {
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/context.jsonld",
+        "prof:hasRole": "role:mapping",
+        "dct:format": "application/ld+json",
+        "dct:conformsTo": "https://www.w3.org/TR/json-ld11/"
+      },
+      "schema": [
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/schema.yaml",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/yaml",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        },
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/schema.json",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/json",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        }
+      ],
+      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/computationType/schema.yaml",
+      "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/computationType/context.jsonld",
+      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/resolvedProperties.json",
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/computationType/",
+      "validationPassed": true,
+      "documentation": {
+        "markdown": {
+          "mediatype": "text/markdown",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/computationType/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/computationType/index.json"
+        },
+        "bblocks-viewer": {
+          "mediatype": "text/html",
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.computationType"
+        }
+      },
+      "@id": "bblocks://ogc.focal.transferability.computationType",
+      "@type": [
+        "bblocks:Schema",
+        "skos:Concept",
+        "dcat:Dataset",
+        "bblocks:BBlock"
+      ],
+      "skos:prefLabel": "FOCAL Computation Type (mixin)",
+      "openAPIDocument": null,
+      "ontology": null,
+      "rdfData": [],
+      "dependsOn": null,
+      "isProfileOf": null,
+      "skos:topConceptOf": {
+        "@id": "https://ogcincubator.github.io/bblocks-focal/"
+      }
+    },
+    {
+      "itemIdentifier": "ogc.focal.transferability.envelopeConstraint",
+      "name": "FOCAL Transferability Envelope Constraint",
+      "abstract": "A single {role, dimension, value} statement describing part of a workflow's validity envelope, repeatable so multiple roles/dimensions can apply to one workflow at once.",
+      "status": "under-development",
+      "dateTimeAddition": "2026-09-02T00:00:00Z",
+      "itemClass": "schema",
+      "version": "0.1",
+      "dateOfLastChange": "2026-09-03",
+      "concept": [
+        "https://w3id.org/ogc/hosted/focal/transferability/roles/scheme",
+        "https://w3id.org/ogc/hosted/focal/transferability/dimensions/scheme"
+      ],
+      "tags": [
+        "focal",
+        "transferability",
+        "schema"
+      ],
+      "group": "FOCAL Transferability",
+      "shaclShapes": null,
+      "ldContext": {
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld",
+        "prof:hasRole": "role:mapping",
+        "dct:format": "application/ld+json",
+        "dct:conformsTo": "https://www.w3.org/TR/json-ld11/"
+      },
+      "schema": [
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/schema.yaml",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/yaml",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        },
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/schema.json",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/json",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        }
+      ],
+      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/envelopeConstraint/schema.yaml",
+      "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/envelopeConstraint/context.jsonld",
+      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/resolvedProperties.json",
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/envelopeConstraint/",
+      "validationPassed": true,
+      "documentation": {
+        "markdown": {
+          "mediatype": "text/markdown",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/envelopeConstraint/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/envelopeConstraint/index.json"
+        },
+        "bblocks-viewer": {
+          "mediatype": "text/html",
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.envelopeConstraint"
+        }
+      },
+      "@id": "bblocks://ogc.focal.transferability.envelopeConstraint",
+      "@type": [
+        "bblocks:Schema",
+        "skos:Concept",
+        "dcat:Dataset",
+        "bblocks:BBlock"
+      ],
+      "skos:prefLabel": "FOCAL Transferability Envelope Constraint",
+      "openAPIDocument": null,
+      "ontology": null,
+      "rdfData": [],
+      "dependsOn": null,
+      "isProfileOf": null,
+      "skos:topConceptOf": {
+        "@id": "https://ogcincubator.github.io/bblocks-focal/"
+      }
+    },
+    {
+      "itemIdentifier": "ogc.focal.transferability.maturityStatus",
+      "name": "FOCAL Workflow Maturity Status (mixin)",
+      "abstract": "Reusable mixin adding maturityStatus, an open-vocabulary classification of a workflow's operational maturity (prototype, pre-operational, operational). Deliberately a separate vocabulary from a bblock's own authoring-lifecycle status field.",
+      "status": "under-development",
+      "dateTimeAddition": "2026-09-02T00:00:00Z",
+      "itemClass": "schema",
+      "version": "0.1",
+      "dateOfLastChange": "2026-09-03",
+      "concept": [
+        "https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/scheme"
+      ],
+      "tags": [
+        "focal",
+        "transferability",
+        "mixin"
+      ],
+      "group": "FOCAL Transferability",
+      "shaclShapes": null,
+      "ldContext": {
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/maturityStatus/context.jsonld",
+        "prof:hasRole": "role:mapping",
+        "dct:format": "application/ld+json",
+        "dct:conformsTo": "https://www.w3.org/TR/json-ld11/"
+      },
+      "schema": [
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/maturityStatus/schema.yaml",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/yaml",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        },
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/maturityStatus/schema.json",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/json",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        }
+      ],
+      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/maturityStatus/schema.yaml",
+      "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/maturityStatus/context.jsonld",
+      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/maturityStatus/resolvedProperties.json",
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/maturityStatus/",
+      "validationPassed": true,
+      "documentation": {
+        "markdown": {
+          "mediatype": "text/markdown",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/maturityStatus/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/maturityStatus/index.json"
+        },
+        "bblocks-viewer": {
+          "mediatype": "text/html",
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.maturityStatus"
+        }
+      },
+      "@id": "bblocks://ogc.focal.transferability.maturityStatus",
+      "@type": [
+        "bblocks:Schema",
+        "skos:Concept",
+        "dcat:Dataset",
+        "bblocks:BBlock"
+      ],
+      "skos:prefLabel": "FOCAL Workflow Maturity Status (mixin)",
+      "openAPIDocument": null,
+      "ontology": null,
+      "rdfData": [],
+      "dependsOn": null,
+      "isProfileOf": null,
+      "skos:topConceptOf": {
+        "@id": "https://ogcincubator.github.io/bblocks-focal/"
+      }
+    },
+    {
+      "itemIdentifier": "ogc.focal.transferability.notes",
+      "name": "FOCAL Transferability Notes (mixin)",
+      "abstract": "Reusable mixin adding a free-text escape hatch for transferability facts that don't reduce to the controlled transferabilityAction/triggeredBy vocabulary.",
+      "status": "under-development",
+      "dateTimeAddition": "2026-09-02T00:00:00Z",
+      "itemClass": "schema",
+      "version": "0.1",
+      "dateOfLastChange": "2026-09-03",
+      "tags": [
+        "focal",
+        "transferability",
+        "mixin"
+      ],
+      "group": "FOCAL Transferability",
+      "shaclShapes": null,
+      "ldContext": {
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/context.jsonld",
+        "prof:hasRole": "role:mapping",
+        "dct:format": "application/ld+json",
+        "dct:conformsTo": "https://www.w3.org/TR/json-ld11/"
+      },
+      "schema": [
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/yaml",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        },
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.json",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/json",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        }
+      ],
+      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/notes/schema.yaml",
+      "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/notes/context.jsonld",
+      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/resolvedProperties.json",
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/notes/",
+      "validationPassed": true,
+      "documentation": {
+        "markdown": {
+          "mediatype": "text/markdown",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/notes/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/notes/index.json"
+        },
+        "bblocks-viewer": {
+          "mediatype": "text/html",
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.notes"
+        }
+      },
+      "@id": "bblocks://ogc.focal.transferability.notes",
+      "@type": [
+        "bblocks:Schema",
+        "skos:Concept",
+        "dcat:Dataset",
+        "bblocks:BBlock"
+      ],
+      "skos:prefLabel": "FOCAL Transferability Notes (mixin)",
+      "openAPIDocument": null,
+      "ontology": null,
+      "rdfData": [],
+      "dependsOn": null,
+      "isProfileOf": null,
+      "skos:topConceptOf": {
+        "@id": "https://ogcincubator.github.io/bblocks-focal/"
+      }
+    },
+    {
+      "itemIdentifier": "ogc.focal.transferability.qualityAnnotation",
+      "name": "FOCAL Quality Annotation",
+      "abstract": "A single statement of uncertainty or confidence about a workflow's results, independent of its maturityStatus. Binds to the W3C Data Quality Vocabulary (DQV) directly, since no OGC Block wraps DQV.",
+      "status": "under-development",
+      "dateTimeAddition": "2026-09-02T00:00:00Z",
+      "itemClass": "schema",
+      "version": "0.1",
+      "dateOfLastChange": "2026-09-03",
+      "concept": [
+        "https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/scheme"
+      ],
+      "tags": [
+        "focal",
+        "transferability",
+        "schema",
+        "dqv"
+      ],
+      "group": "FOCAL Transferability",
+      "shaclShapes": null,
+      "ldContext": {
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/qualityAnnotation/context.jsonld",
+        "prof:hasRole": "role:mapping",
+        "dct:format": "application/ld+json",
+        "dct:conformsTo": "https://www.w3.org/TR/json-ld11/"
+      },
+      "schema": [
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/qualityAnnotation/schema.yaml",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/yaml",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        },
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/qualityAnnotation/schema.json",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/json",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        }
+      ],
+      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/qualityAnnotation/schema.yaml",
+      "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/qualityAnnotation/context.jsonld",
+      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/qualityAnnotation/resolvedProperties.json",
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/qualityAnnotation/",
+      "validationPassed": true,
+      "documentation": {
+        "markdown": {
+          "mediatype": "text/markdown",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/qualityAnnotation/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/qualityAnnotation/index.json"
+        },
+        "bblocks-viewer": {
+          "mediatype": "text/html",
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.qualityAnnotation"
+        }
+      },
+      "@id": "bblocks://ogc.focal.transferability.qualityAnnotation",
+      "@type": [
+        "bblocks:Schema",
+        "skos:Concept",
+        "dcat:Dataset",
+        "bblocks:BBlock"
+      ],
+      "skos:prefLabel": "FOCAL Quality Annotation",
+      "openAPIDocument": null,
+      "ontology": null,
+      "rdfData": [],
+      "dependsOn": null,
+      "isProfileOf": null,
+      "skos:topConceptOf": {
+        "@id": "https://ogcincubator.github.io/bblocks-focal/"
+      }
+    },
+    {
+      "itemIdentifier": "ogc.focal.transferability.temporalExtent",
+      "name": "FOCAL Temporal Extent",
+      "abstract": "A single statement of the calendar span (or, for scenario-indexed cases, non-calendar marker) a workflow's results are valid over. Repeatable at the workflow level so more than one window can apply at once.",
+      "status": "under-development",
+      "dateTimeAddition": "2026-09-02T00:00:00Z",
+      "itemClass": "schema",
+      "version": "0.1",
+      "dateOfLastChange": "2026-09-03",
+      "tags": [
+        "focal",
+        "transferability",
+        "schema"
+      ],
+      "group": "FOCAL Transferability",
+      "shaclShapes": null,
+      "ldContext": {
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/temporalExtent/context.jsonld",
+        "prof:hasRole": "role:mapping",
+        "dct:format": "application/ld+json",
+        "dct:conformsTo": "https://www.w3.org/TR/json-ld11/"
+      },
+      "schema": [
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/temporalExtent/schema.yaml",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/yaml",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        },
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/temporalExtent/schema.json",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/json",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        }
+      ],
+      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/temporalExtent/schema.yaml",
+      "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/temporalExtent/context.jsonld",
+      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/temporalExtent/resolvedProperties.json",
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/temporalExtent/",
+      "validationPassed": true,
+      "documentation": {
+        "markdown": {
+          "mediatype": "text/markdown",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/temporalExtent/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/temporalExtent/index.json"
+        },
+        "bblocks-viewer": {
+          "mediatype": "text/html",
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.temporalExtent"
+        }
+      },
+      "@id": "bblocks://ogc.focal.transferability.temporalExtent",
+      "@type": [
+        "bblocks:Schema",
+        "skos:Concept",
+        "dcat:Dataset",
+        "bblocks:BBlock"
+      ],
+      "skos:prefLabel": "FOCAL Temporal Extent",
+      "openAPIDocument": null,
+      "ontology": null,
+      "rdfData": [],
+      "dependsOn": null,
+      "isProfileOf": null,
+      "skos:topConceptOf": {
+        "@id": "https://ogcincubator.github.io/bblocks-focal/"
+      }
+    },
+    {
+      "itemIdentifier": "ogc.focal.transferability.vocab",
+      "name": "FOCAL Transferability Vocabulary",
+      "abstract": "SKOS concept schemes for FOCAL workflow transferability: transferabilityAction, triggeredBy, envelope dimensions, and envelope roles.",
+      "status": "under-development",
+      "dateTimeAddition": "2026-09-02T00:00:00Z",
+      "itemClass": "model",
+      "version": "0.1",
+      "dateOfLastChange": "2026-09-03",
+      "tags": [
+        "focal",
+        "transferability",
+        "vocabulary",
+        "skos"
+      ],
+      "group": "FOCAL Transferability",
+      "shaclShapes": null,
+      "ontology": {
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/vocab/ontology.ttl",
+        "prof:hasRole": "role:specification",
+        "dct:format": "text/turtle",
+        "dct:conformsTo": "http://www.w3.org/2002/07/owl#Ontology"
+      },
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/vocab/",
+      "validationPassed": true,
+      "documentation": {
+        "markdown": {
+          "mediatype": "text/markdown",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/vocab/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/vocab/index.json"
+        },
+        "bblocks-viewer": {
+          "mediatype": "text/html",
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.vocab"
+        }
+      },
+      "@id": "bblocks://ogc.focal.transferability.vocab",
+      "@type": [
+        "bblocks:Model",
+        "skos:Concept",
+        "dcat:Dataset",
+        "bblocks:BBlock"
+      ],
+      "skos:prefLabel": "FOCAL Transferability Vocabulary",
+      "ldContext": null,
+      "schema": null,
+      "openAPIDocument": null,
+      "rdfData": [],
+      "dependsOn": null,
+      "isProfileOf": null,
+      "skos:topConceptOf": {
+        "@id": "https://ogcincubator.github.io/bblocks-focal/"
+      }
+    },
+    {
+      "itemIdentifier": "ogc.focal.transferability.rule",
+      "name": "FOCAL Transferability Rule",
+      "abstract": "A single condition/action rule (triggeredBy + actions + required) describing how a reference or calibration artifact must be adapted outside its workflow's original validity envelope.",
+      "status": "under-development",
+      "dateTimeAddition": "2026-09-02T00:00:00Z",
+      "itemClass": "schema",
+      "version": "0.1",
+      "dateOfLastChange": "2026-09-03",
+      "concept": [
+        "https://w3id.org/ogc/hosted/focal/transferability/actions/scheme",
+        "https://w3id.org/ogc/hosted/focal/transferability/triggers/scheme"
+      ],
+      "tags": [
+        "focal",
+        "transferability",
+        "schema"
+      ],
+      "group": "FOCAL Transferability",
+      "shaclShapes": null,
+      "dependsOn": [
+        "bblocks://ogc.focal.transferability.notes"
+      ],
+      "ldContext": {
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld",
+        "prof:hasRole": "role:mapping",
+        "dct:format": "application/ld+json",
+        "dct:conformsTo": "https://www.w3.org/TR/json-ld11/"
+      },
+      "schema": [
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/schema.yaml",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/yaml",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        },
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/schema.json",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/json",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        }
+      ],
+      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/schema.yaml",
+      "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/context.jsonld",
+      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/resolvedProperties.json",
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/",
+      "validationPassed": true,
+      "documentation": {
+        "markdown": {
+          "mediatype": "text/markdown",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/rule/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/rule/index.json"
+        },
+        "bblocks-viewer": {
+          "mediatype": "text/html",
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.rule"
+        }
+      },
+      "@id": "bblocks://ogc.focal.transferability.rule",
+      "@type": [
+        "bblocks:Schema",
+        "skos:Concept",
+        "dcat:Dataset",
+        "bblocks:BBlock"
+      ],
+      "skos:prefLabel": "FOCAL Transferability Rule",
+      "openAPIDocument": null,
+      "ontology": null,
+      "rdfData": [],
+      "isProfileOf": null,
+      "skos:topConceptOf": {
+        "@id": "https://ogcincubator.github.io/bblocks-focal/"
+      }
+    },
+    {
       "itemIdentifier": "ogc.focal.forestStandFeature",
       "name": "FOCAL Forest Stand Feature",
       "abstract": "GeoJSON Feature representing a spatially delineated forest stand classified according to the FOCAL forest typology system, with properties describing forest type, region, management unit, area, and data provenance.",
@@ -388,7 +970,7 @@
       "itemClass": "schema",
       "register": "ogc-building-block-examples",
       "version": "1.0",
-      "dateOfLastChange": "2026-06-25",
+      "dateOfLastChange": "2026-09-03",
       "sources": [
         {
           "title": "OGC API - Features, Part 1, 7.16.2: Feature Response",
@@ -398,8 +980,8 @@
       "maturity": "development",
       "scope": "unstable",
       "dependsOn": [
-        "bblocks://ogc.focal.forestStandProperties",
-        "bblocks://ogc.geo.features.feature"
+        "bblocks://ogc.geo.features.feature",
+        "bblocks://ogc.focal.forestStandProperties"
       ],
       "tags": [
         "focal",
@@ -492,7 +1074,7 @@
       "itemClass": "schema",
       "register": "ogc-building-block-examples",
       "version": "1.0",
-      "dateOfLastChange": "2026-06-25",
+      "dateOfLastChange": "2026-09-03",
       "sources": [
         {
           "title": "OGC API - Features, Part 1, 7.16.2: Feature Response",
@@ -664,6 +1246,90 @@
       "skos:topConceptOf": {
         "@id": "https://ogcincubator.github.io/bblocks-focal/"
       }
+    },
+    {
+      "itemIdentifier": "ogc.focal.transferability.workflow",
+      "name": "FOCAL Transferability Workflow",
+      "abstract": "Profile of a CWL Workflow adding FOCAL's machine-readable transferability facts: validity envelope, reference/calibration-artifact adaptation rules, computation type, maturity status, temporal extent, and quality annotations.",
+      "status": "under-development",
+      "dateTimeAddition": "2026-09-02T00:00:00Z",
+      "itemClass": "schema",
+      "version": "0.1",
+      "dateOfLastChange": "2026-09-03",
+      "isProfileOf": [
+        "bblocks://ogc.cwl.v1_2_1.CWLWorkflow"
+      ],
+      "dependsOn": [
+        "bblocks://ogc.focal.transferability.qualityAnnotation",
+        "bblocks://ogc.focal.transferability.maturityStatus",
+        "bblocks://ogc.focal.transferability.rule",
+        "bblocks://ogc.cwl.v1_2_1.CWLWorkflow",
+        "bblocks://ogc.focal.transferability.envelopeConstraint",
+        "bblocks://ogc.focal.transferability.temporalExtent",
+        "bblocks://ogc.focal.transferability.computationType"
+      ],
+      "tags": [
+        "focal",
+        "transferability",
+        "workflow",
+        "cwl"
+      ],
+      "group": "FOCAL Transferability",
+      "shaclShapes": null,
+      "ldContext": {
+        "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/workflow/context.jsonld",
+        "prof:hasRole": "role:mapping",
+        "dct:format": "application/ld+json",
+        "dct:conformsTo": "https://www.w3.org/TR/json-ld11/"
+      },
+      "schema": [
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/workflow/schema.yaml",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/yaml",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        },
+        {
+          "prof:hasArtifact": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/workflow/schema.json",
+          "prof:hasRole": "role:schema",
+          "dct:format": "application/json",
+          "dct:conformsTo": "https://json-schema.org/draft/2020-12/schema"
+        }
+      ],
+      "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/workflow/schema.yaml",
+      "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/workflow/context.jsonld",
+      "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/workflow/resolvedProperties.json",
+      "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/workflow/",
+      "validationPassed": true,
+      "testOutputs": "https://github.com/ogcincubator/bblocks-focal/blob/master/build/tests/focal/transferability/workflow/",
+      "documentation": {
+        "markdown": {
+          "mediatype": "text/markdown",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/workflow/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/workflow/index.json"
+        },
+        "bblocks-viewer": {
+          "mediatype": "text/html",
+          "url": "https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.workflow"
+        }
+      },
+      "@id": "bblocks://ogc.focal.transferability.workflow",
+      "@type": [
+        "bblocks:Schema",
+        "skos:Concept",
+        "dcat:Dataset",
+        "bblocks:BBlock"
+      ],
+      "skos:prefLabel": "FOCAL Transferability Workflow",
+      "openAPIDocument": null,
+      "ontology": null,
+      "rdfData": [],
+      "skos:topConceptOf": {
+        "@id": "https://ogcincubator.github.io/bblocks-focal/"
+      }
     }
   ],
   "skos:hasTopConcept": [
@@ -674,10 +1340,37 @@
       "@id": "bblocks://ogc.focal.forestStandProperties"
     },
     {
+      "@id": "bblocks://ogc.focal.transferability.computationType"
+    },
+    {
+      "@id": "bblocks://ogc.focal.transferability.envelopeConstraint"
+    },
+    {
+      "@id": "bblocks://ogc.focal.transferability.maturityStatus"
+    },
+    {
+      "@id": "bblocks://ogc.focal.transferability.notes"
+    },
+    {
+      "@id": "bblocks://ogc.focal.transferability.qualityAnnotation"
+    },
+    {
+      "@id": "bblocks://ogc.focal.transferability.temporalExtent"
+    },
+    {
+      "@id": "bblocks://ogc.focal.transferability.vocab"
+    },
+    {
+      "@id": "bblocks://ogc.focal.transferability.rule"
+    },
+    {
       "@id": "bblocks://ogc.focal.forestStandFeature"
     },
     {
       "@id": "bblocks://ogc.focal.forestStandCollection"
+    },
+    {
+      "@id": "bblocks://ogc.focal.transferability.workflow"
     }
   ]
 }

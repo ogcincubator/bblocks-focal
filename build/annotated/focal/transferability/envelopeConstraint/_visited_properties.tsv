@@ -1,0 +1,10 @@
+path	@id	schema
+/_oneOf/0/dimension	https://w3id.org/ogc/hosted/focal/transferability/properties/dimension	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/_oneOf/0/value	https://w3id.org/ogc/hosted/focal/transferability/properties/value	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/_oneOf/0/value/type	@type	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/_oneOf/0/value/coordinates	https://purl.org/geojson/vocab#coordinates	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/_oneOf/1/dimension	https://w3id.org/ogc/hosted/focal/transferability/properties/dimension	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/_oneOf/1/value	https://w3id.org/ogc/hosted/focal/transferability/properties/value	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/role	https://w3id.org/ogc/hosted/focal/transferability/properties/role	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/dimension	https://w3id.org/ogc/hosted/focal/transferability/properties/dimension	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/value	https://w3id.org/ogc/hosted/focal/transferability/properties/value	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml

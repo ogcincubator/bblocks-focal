@@ -1,0 +1,117 @@
+{
+  "@context": {
+    "version": "cwl:SoftwarePackage/version",
+    "label": "http://www.w3.org/2000/01/rdf-schema#label",
+    "computationType": {
+      "@context": {
+        "@base": "https://w3id.org/ogc/hosted/focal/transferability/computation-types/"
+      },
+      "@id": "focal-transf-prop:computationType",
+      "@type": "@id"
+    },
+    "maturityStatus": {
+      "@context": {
+        "@base": "https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/"
+      },
+      "@id": "focal-transf-prop:maturityStatus",
+      "@type": "@id"
+    },
+    "envelope": {
+      "@context": {
+        "dimension": {
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/"
+          },
+          "@id": "focal-transf-prop:dimension",
+          "@type": "@id"
+        },
+        "value": {
+          "@context": {
+            "coordinates": {
+              "@container": "@list",
+              "@id": "geojson:coordinates"
+            }
+          },
+          "@id": "focal-transf-prop:value"
+        },
+        "role": {
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/roles/"
+          },
+          "@id": "focal-transf-prop:role",
+          "@type": "@id"
+        }
+      },
+      "@id": "focal-transf-prop:envelope",
+      "@container": "@set"
+    },
+    "referenceArtifact": {
+      "@context": {
+        "artifact": "focal-transf-prop:artifact",
+        "rules": {
+          "@context": {
+            "transferabilityNotes": "focal-transf-prop:transferabilityNotes",
+            "triggeredBy": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/triggers/"
+              },
+              "@id": "focal-transf-prop:triggeredBy",
+              "@type": "@id"
+            },
+            "actions": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/actions/"
+              },
+              "@id": "focal-transf-prop:actions",
+              "@type": "@id",
+              "@container": "@set"
+            },
+            "required": "focal-transf-prop:required"
+          },
+          "@id": "focal-transf-prop:rules",
+          "@container": "@set"
+        }
+      },
+      "@id": "focal-transf-prop:referenceArtifact",
+      "@container": "@set"
+    },
+    "temporalExtent": {
+      "@context": {
+        "start": "focal-transf-prop:start",
+        "end": "focal-transf-prop:end",
+        "scenarioMarker": "focal-transf-prop:scenarioMarker"
+      },
+      "@id": "focal-transf-prop:temporalExtent",
+      "@container": "@set"
+    },
+    "qualityAnnotation": {
+      "@context": {
+        "dimension": {
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/"
+          },
+          "@id": "dqv:inDimension",
+          "@type": "@id"
+        },
+        "note": "focal-transf-prop:note"
+      },
+      "@id": "focal-transf-prop:qualityAnnotation",
+      "@container": "@set"
+    },
+    "writable": "cwl:Dirent/writable",
+    "checksum": "cwl:File/checksum",
+    "size": "cwl:File/size",
+    "loadContents": "cwl:loadContents",
+    "streamable": "cwl:FieldBase/streamable",
+    "loadListing": "cwl:loadListing",
+    "Point": "geojson:Point",
+    "MultiPoint": "geojson:MultiPoint",
+    "Polygon": "geojson:Polygon",
+    "MultiPolygon": "geojson:MultiPolygon",
+    "cwl": "https://w3id.org/cwl/cwl#",
+    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "geojson": "https://purl.org/geojson/vocab#",
+    "dqv": "http://www.w3.org/ns/dqv#",
+    "@version": 1.1
+  }
+}

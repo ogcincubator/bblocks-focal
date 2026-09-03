@@ -1,0 +1,14 @@
+{
+  "title": "Validation report for ogc.focal.transferability.vocab - FOCAL Transferability Vocabulary",
+  "bblockName": "FOCAL Transferability Vocabulary",
+  "bblockId": "ogc.focal.transferability.vocab",
+  "generated": "2026-09-03T10:16:12.276200+00:00",
+  "result": true,
+  "items": [],
+  "globalErrors": {},
+  "counts": {
+    "total": 0,
+    "passed": 0,
+    "failed": 0
+  }
+}

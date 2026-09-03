@@ -1,0 +1,13 @@
+Validation report for ogc.focal.transferability.workflow - FOCAL Transferability Workflow
+Generated 2026-09-03T10:16:14.077081+00:00
+=== Files ===
+Using examples/up-wf2.json from examples
+JSON-LD context is present - uplifting
+Output JSON-LD example_4_1.jsonld created
+Output Turtle example_4_1.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+Validation passed
+=== End JSON Schema ===
+

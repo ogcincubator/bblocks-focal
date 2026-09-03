@@ -66,6 +66,54 @@ RDF contents for the FOCAL ontology
 
 Schema defining the properties of a FOCAL forest stand, including forest type classification, forest region, target management unit, field verification status, area, and data provenance.
 
+### `ogc.focal.transferability.computationType` — FOCAL Computation Type (mixin)
+
+**Type:** schema
+
+Reusable mixin adding computationType, an open-vocabulary classification of how a workflow computes its results (statistical/ML, deterministic/rule-based, precomputed data delivery). Optional at the workflow level.
+
+### `ogc.focal.transferability.envelopeConstraint` — FOCAL Transferability Envelope Constraint
+
+**Type:** schema
+
+A single {role, dimension, value} statement describing part of a workflow's validity envelope, repeatable so multiple roles/dimensions can apply to one workflow at once.
+
+### `ogc.focal.transferability.maturityStatus` — FOCAL Workflow Maturity Status (mixin)
+
+**Type:** schema
+
+Reusable mixin adding maturityStatus, an open-vocabulary classification of a workflow's operational maturity (prototype, pre-operational, operational). Deliberately a separate vocabulary from a bblock's own authoring-lifecycle status field.
+
+### `ogc.focal.transferability.notes` — FOCAL Transferability Notes (mixin)
+
+**Type:** schema
+
+Reusable mixin adding a free-text escape hatch for transferability facts that don't reduce to the controlled transferabilityAction/triggeredBy vocabulary.
+
+### `ogc.focal.transferability.qualityAnnotation` — FOCAL Quality Annotation
+
+**Type:** schema
+
+A single statement of uncertainty or confidence about a workflow's results, independent of its maturityStatus. Binds to the W3C Data Quality Vocabulary (DQV) directly, since no OGC Block wraps DQV.
+
+### `ogc.focal.transferability.temporalExtent` — FOCAL Temporal Extent
+
+**Type:** schema
+
+A single statement of the calendar span (or, for scenario-indexed cases, non-calendar marker) a workflow's results are valid over. Repeatable at the workflow level so more than one window can apply at once.
+
+### `ogc.focal.transferability.vocab` — FOCAL Transferability Vocabulary
+
+**Type:** model
+
+SKOS concept schemes for FOCAL workflow transferability: transferabilityAction, triggeredBy, envelope dimensions, and envelope roles.
+
+### `ogc.focal.transferability.rule` — FOCAL Transferability Rule
+
+**Type:** schema
+
+A single condition/action rule (triggeredBy + actions + required) describing how a reference or calibration artifact must be adapted outside its workflow's original validity envelope.
+
 ### `ogc.focal.forestStandFeature` — FOCAL Forest Stand Feature
 
 **Type:** schema
@@ -77,4 +125,10 @@ GeoJSON Feature representing a spatially delineated forest stand classified acco
 **Type:** schema
 
 GeoJSON FeatureCollection of FOCAL forest stands, providing a spatial dataset of forest units classified by forest type, region, and management unit.
+
+### `ogc.focal.transferability.workflow` — FOCAL Transferability Workflow
+
+**Type:** schema
+
+Profile of a CWL Workflow adding FOCAL's machine-readable transferability facts: validity envelope, reference/calibration-artifact adaptation rules, computation type, maturity status, temporal extent, and quality annotations.
 

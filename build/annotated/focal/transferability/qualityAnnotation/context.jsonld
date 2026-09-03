@@ -1,0 +1,15 @@
+{
+  "@context": {
+    "dimension": {
+      "@context": {
+        "@base": "https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/"
+      },
+      "@id": "dqv:inDimension",
+      "@type": "@id"
+    },
+    "note": "focal-transf-prop:note",
+    "dqv": "http://www.w3.org/ns/dqv#",
+    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "@version": 1.1
+  }
+}

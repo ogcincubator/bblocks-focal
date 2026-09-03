@@ -1,0 +1,14 @@
+{
+  "title": "Validation report for ogc.focal.transferability.envelopeConstraint - FOCAL Transferability Envelope Constraint",
+  "bblockName": "FOCAL Transferability Envelope Constraint",
+  "bblockId": "ogc.focal.transferability.envelopeConstraint",
+  "generated": "2026-09-03T10:16:12.248618+00:00",
+  "result": true,
+  "items": [],
+  "globalErrors": {},
+  "counts": {
+    "total": 0,
+    "passed": 0,
+    "failed": 0
+  }
+}

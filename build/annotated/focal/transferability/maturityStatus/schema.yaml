@@ -1,0 +1,33 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Workflow Maturity Status (mixin)
+description: "Reusable mixin adding `maturityStatus`, an open-vocabulary classification
+  of a FOCAL pilot workflow's operational maturity \u2014 see bblocks://ogc.focal.transferability.vocab
+  for the seeded 3-stage progression (`prototype` -> `pre-operational` -> `operational`).
+  Evidenced 8/8 across FOCAL's pilot workflows.\n**Deliberately distinct from a bblock's
+  own `bblock.json` `status` field** (`under-development` / `experimental` / `stable`
+  / ...), which describes the *block's own authoring lifecycle*, not the operational
+  maturity of the FOCAL workflow it describes \u2014 reusing those words here would
+  put two unrelated axes on the same object graph under identical strings.\nA caveat
+  about result confidence (e.g. FP-WF1's \"AI model and validation are still being
+  finalised, results are decision-support not exact\") is a separate fact from maturity
+  stage \u2014 see bblocks://ogc.focal.transferability.qualityAnnotation, not a `maturityStatus`
+  value or note.\n"
+type: object
+required:
+- maturityStatus
+properties:
+  maturityStatus:
+    type: string
+    examples:
+    - prototype
+    - pre-operational
+    - operational
+    description: 'The workflow''s operational maturity stage. Open vocabulary (SKOS),
+      not a closed enum.
+
+      '
+    x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/maturityStatus
+    x-jsonld-type: '@id'
+    x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/
+x-jsonld-prefixes:
+  focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/

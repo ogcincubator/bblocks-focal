@@ -1,0 +1,14 @@
+{
+  "title": "Validation report for ogc.focal.transferability.temporalExtent - FOCAL Temporal Extent",
+  "bblockName": "FOCAL Temporal Extent",
+  "bblockId": "ogc.focal.transferability.temporalExtent",
+  "generated": "2026-09-03T10:16:12.273039+00:00",
+  "result": true,
+  "items": [],
+  "globalErrors": {},
+  "counts": {
+    "total": 0,
+    "passed": 0,
+    "failed": 0
+  }
+}

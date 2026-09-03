@@ -1,0 +1,2 @@
+path	@id	schema
+/maturityStatus	https://w3id.org/ogc/hosted/focal/transferability/properties/maturityStatus	/github/workspace/build/annotated/focal/transferability/maturityStatus/schema.yaml
