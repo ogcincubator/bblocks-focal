@@ -1,7 +1,11 @@
 {
   "@context": {
     "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
-    "geojson": "https://purl.org/geojson/vocab#",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "id": "@id",
     "role": {
       "@id": "focal-transf-prop:role",
       "@type": "@id",
@@ -15,15 +19,16 @@
     "value": {
       "@id": "focal-transf-prop:value",
       "@context": {
-        "type": "geojson:type",
-        "coordinates": {
-          "@id": "geojson:coordinates",
-          "@type": "@json"
-        },
-        "start": "focal-transf-prop:start",
-        "end": "focal-transf-prop:end",
-        "scenarioMarker": "focal-transf-prop:scenarioMarker"
+        "asWKT": { "@id": "geo:asWKT", "@type": "geo:wktLiteral" },
+        "startDate": "dcat:startDate",
+        "endDate": "dcat:endDate",
+        "scenarioMarker": {
+          "@id": "focal-transf-prop:scenarioMarker",
+          "@type": "@id",
+          "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/scenario-markers/" }
+        }
       }
-    }
+    },
+    "transferabilityNotes": "rdfs:comment"
   }
 }

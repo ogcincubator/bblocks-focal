@@ -1,12 +1,19 @@
 @prefix sh:          <http://www.w3.org/ns/shacl#> .
 @prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:     <http://purl.org/dc/terms/> .
 @prefix focal-prop:  <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix focal-shape: <https://w3id.org/ogc/hosted/focal/transferability/shapes/> .
 
 #################################################################
-# Shapes for the FOCAL transferability statement and its artifact-rule wrappers.
+# Shapes for the FOCAL transferability statement and its artifacts.
 # Scoped strictly to FOCAL's own properties -- the CWL half of a workflow is not touched here.
+#
+# The referential-integrity shapes below are the ones that only became possible once envelope
+# constraints and artifacts carry ids. They are what stops the id indirection from being a way to
+# write dangling references: a rule that cites a constraint nobody declared used to be
+# inexpressible because rules could not cite anything at all, and would now be silently ignored.
 #################################################################
 
 focal-shape:TransferabilityStatement
@@ -17,22 +24,22 @@ focal-shape:TransferabilityStatement
     sh:path focal-prop:envelope ;
     sh:name "envelope" ;
     sh:minCount 1 ;
-    sh:message "a transferability statement carries at least one envelope constraint. Something with no stated validity boundary at all is not yet a portability statement, and inventing one to satisfy the schema would be worse than leaving the workflow unmodelled." ;
+    sh:message "a transferability statement carries at least one envelope constraint. Something with no stated validity boundary is not yet a portability statement, and inventing one to satisfy the schema would be worse than leaving the workflow unmodelled." ;
   ] ;
 .
 
-focal-shape:ArtifactRule
+focal-shape:ArtifactDependency
   a sh:NodeShape ;
-  sh:targetObjectsOf focal-prop:artifactRules ;
+  sh:targetObjectsOf focal-prop:artifacts ;
 
   sh:property [
-    sh:path focal-prop:artifact ;
+    sh:path dcterms:title ;
     sh:name "artifact" ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
     sh:datatype xsd:string ;
     sh:minLength 1 ;
-    sh:message "every artifact rule names its artifact, in the same words the source questionnaire used." ;
+    sh:message "every artifact carries a label, in the words the source questionnaire used." ;
   ] ;
 
   sh:property [
@@ -41,7 +48,7 @@ focal-shape:ArtifactRule
     sh:minCount 1 ;
     sh:maxCount 1 ;
     sh:nodeKind sh:IRI ;
-    sh:message "every artifact rule classifies its artifact with exactly one role." ;
+    sh:message "every artifact is classified with exactly one role." ;
   ] ;
 
   sh:property [
@@ -57,28 +64,21 @@ focal-shape:ArtifactRule
     sh:maxCount 1 ;
     sh:datatype xsd:string ;
     sh:pattern "^/" ;
-    sh:message "artifactRef is a JSON Pointer (RFC 6901) and therefore starts with '/'. The earlier dotted form (inputs.foo) was not resolvable by standard tooling." ;
-  ] ;
-
-  sh:property [
-    sh:path focal-prop:rules ;
-    sh:name "rules" ;
-    sh:minCount 1 ;
-    sh:message "an artifact appears in artifactRules only because something has to happen to it. An entry with no rules says nothing; leave the artifact out instead." ;
+    sh:message "artifactRef is a JSON Pointer (RFC 6901) and therefore starts with '/'." ;
   ] ;
 .
 
 #################################################################
-# A pointer only means something for an artifact that lives in the document being annotated.
+# A pointer only means something for an artifact inside the annotated document.
 #
-# external-resource and infrastructure are, by definition, outside it: an optional validation
-# dataset the workflow only mentions, or a sensor network that has to be physically re-deployed.
-# A pointer on either is either a mistake about the role or a mistake about the pointer.
+# external-resource and infrastructure are by definition outside it: an optional validation dataset
+# the workflow only mentions, or a sensor network that has to be physically re-deployed. A pointer
+# on either is a mistake about the role or a mistake about the pointer.
 #################################################################
 
 focal-shape:ArtifactRefOnlyForInternalRoles
   a sh:NodeShape ;
-  sh:targetObjectsOf focal-prop:artifactRules ;
+  sh:targetObjectsOf focal-prop:artifacts ;
   sh:sparql [
     a sh:SPARQLConstraint ;
     sh:message "artifactRef is only meaningful for the workflow-input and workflow-output roles; an external-resource or infrastructure artifact has nothing in the annotated document to point at." ;
@@ -90,6 +90,74 @@ focal-shape:ArtifactRefOnlyForInternalRoles
           <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/external-resource>,
           <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/infrastructure>
         ))
+      }
+    """ ;
+  ] ;
+.
+
+#################################################################
+# Referential integrity: rules may only cite what the statement declares.
+#################################################################
+
+focal-shape:RuleCitesDeclaredConstraint
+  a sh:NodeShape ;
+  sh:targetSubjectsOf focal-prop:envelope ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "a rule cites an envelope constraint id that this statement does not declare in `envelope`. A dangling citation is silently unevaluable: nothing can test the target against a constraint that is not there." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/rules> ?rule .
+        ?rule <https://w3id.org/ogc/hosted/focal/transferability/properties/when> ?cond .
+        ?cond <https://w3id.org/ogc/hosted/focal/transferability/properties/constraint> ?cited .
+        FILTER NOT EXISTS {
+          $this <https://w3id.org/ogc/hosted/focal/transferability/properties/envelope> ?cited .
+        }
+      }
+    """ ;
+  ] ;
+.
+
+focal-shape:RuleCitesDeclaredArtifact
+  a sh:NodeShape ;
+  sh:targetSubjectsOf focal-prop:envelope ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "a rule applies to an artifact id that this statement does not declare in `artifacts`." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/rules> ?rule .
+        ?rule <https://w3id.org/ogc/hosted/focal/transferability/properties/appliesTo> ?cited .
+        FILTER NOT EXISTS {
+          $this <https://w3id.org/ogc/hosted/focal/transferability/properties/artifacts> ?cited .
+        }
+      }
+    """ ;
+  ] ;
+.
+
+#################################################################
+# An artifact nothing governs is probably an omission.
+#
+# Artifacts are listed because rules act on them. One that no rule cites either needs a rule, or
+# does not belong in the statement -- but it may legitimately be waiting for one, so this is
+# advisory rather than a violation.
+#################################################################
+
+focal-shape:ArtifactIsGovernedByARule
+  a sh:NodeShape ;
+  sh:targetSubjectsOf focal-prop:envelope ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:severity sh:Warning ;
+    sh:message "an artifact is declared that no rule applies to. Either it needs a rule, or it does not need to be in the statement at all: only artifacts with an evidenced transferability fact belong here." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/artifacts> ?artifact .
+        FILTER NOT EXISTS {
+          $this <https://w3id.org/ogc/hosted/focal/transferability/properties/rules> ?rule .
+          ?rule <https://w3id.org/ogc/hosted/focal/transferability/properties/appliesTo> ?artifact .
+        }
       }
     """ ;
   ] ;

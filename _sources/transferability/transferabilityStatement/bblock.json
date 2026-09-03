@@ -1,10 +1,10 @@
 {
   "name": "FOCAL Transferability Statement",
-  "abstract": "Groups the core facts that describe a workflow's portability: where and when its results are valid (envelope, including its temporal dimension) and what has to happen to each reference/calibration artifact to make them valid elsewhere (artifactRules).",
+  "abstract": "Where something's results are valid (envelope), which reference/calibration artifacts it depends on (artifacts), and what must happen to each under which conditions (rules) - three id-addressable lists joined by reference rather than nesting.",
   "status": "under-development",
   "dateTimeAddition": "2026-09-03T00:00:00Z",
   "itemClass": "schema",
-  "version": "0.2",
+  "version": "0.3",
   "dateOfLastChange": "2026-09-03",
   "concept": [
     "https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/scheme"

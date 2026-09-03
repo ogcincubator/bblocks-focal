@@ -1,6 +1,26 @@
 {
   "@context": {
     "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "appliesTo": {
+      "@id": "focal-transf-prop:appliesTo",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "when": {
+      "@id": "focal-transf-prop:when",
+      "@container": "@set",
+      "@context": {
+        "constraint": {
+          "@id": "focal-transf-prop:constraint",
+          "@type": "@id"
+        },
+        "test": {
+          "@id": "focal-transf-prop:test",
+          "@type": "@id",
+          "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/tests/" }
+        }
+      }
+    },
     "triggeredBy": {
       "@id": "focal-transf-prop:triggeredBy",
       "@type": "@id",

@@ -7,7 +7,7 @@ description: >
 
   - `transferability` — the workflow's portability boundary, one
     [`transferabilityStatement`](bblocks://ogc.focal.transferability.transferabilityStatement)
-    (its `envelope` and `artifactRules`). Required: every evidenced workflow states one.
+    (its `envelope`, `artifacts` and `rules`). Required: every evidenced workflow states one.
   - `computationType`, `maturityStatus` — the two workflow-level classification mixins (see
     [`computationType`](bblocks://ogc.focal.transferability.computationType) and
     [`maturityStatus`](bblocks://ogc.focal.transferability.maturityStatus) for which is optional
@@ -29,9 +29,9 @@ allOf:
       transferability:
         "$ref": "bblocks://ogc.focal.transferability.transferabilityStatement"
         description: >
-          The workflow's portability boundary: where its results are valid (`envelope`) and what
-          must happen to each reference/calibration artifact outside it (`artifactRules`). See
-          `transferabilityStatement` for both properties' shapes.
+          The workflow's portability boundary: where its results are valid (`envelope`) and which
+          artifacts it depends on, and what must happen to each outside it. See
+          `transferabilityStatement` for the three lists and how they reference each other.
       qualityAnnotation:
         type: array
         items:

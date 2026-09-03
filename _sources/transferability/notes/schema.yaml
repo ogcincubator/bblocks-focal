@@ -3,21 +3,22 @@ title: Transferability Notes (mixin)
 x-jsonld-context: context.jsonld
 description: >
   Reusable mixin adding a free-text escape hatch for transferability facts that don't reduce
-  cleanly to the controlled `transferabilityAction`/`triggeredBy` vocabulary (see
-  bblocks://ogc.focal.transferability.vocab) — e.g. UP-WF2's "the classification algorithm is
-  more portable than its current input dataset."
+  cleanly to the controlled vocabularies — e.g. UP-WF2's "the classification algorithm is more
+  portable than its current input dataset."
 
-  Mixed in via `allOf` at both attachment points the model currently has:
-  bblocks://ogc.focal.transferability.rule (why an optional action may be skipped, and what
-  degrades if it is) and bblocks://ogc.focal.transferability.envelopeConstraint (why a value is
-  approximate, inferred rather than stated, or coarser than the source implies). Not restricted to
-  those two — mix it in wherever such a note may apply.
+  **Uplifts to `rdfs:comment`**, not to a FOCAL-specific property: a human-readable note about a
+  resource is exactly what `rdfs:comment` is for, every RDF consumer already renders it, and
+  minting a FOCAL term for it would have bought nothing. This is the general rule across the
+  model — a FOCAL term only where nothing published says the same thing.
+
+  Mixed in wherever such a note may apply: on
+  bblocks://ogc.focal.transferability.envelopeConstraint (why a value is approximate or inferred)
+  and on bblocks://ogc.focal.transferability.rule (what degrades when an optional action is
+  skipped).
 type: object
 properties:
   transferabilityNotes:
     type: string
     description: >
-      Free-text elaboration of a transferability fact the controlled vocabulary can't capture: the
-      consequence of an optional action being skipped (see transferability/rule's `mandatory`), or
-      the provenance of an envelope value that is an approximation or an inference rather than a
-      statement from the source.
+      Free-text elaboration of a transferability fact the controlled vocabularies can't capture.
+      Uplifts to `rdfs:comment` on whatever it is attached to.

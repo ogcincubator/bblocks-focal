@@ -1,25 +1,29 @@
 ## FOCAL Transferability Rule
 
-One condition/action rule attached to a reference or calibration artifact.
+What must happen, to which artifacts, under which envelope conditions.
 
-- `triggeredBy` — the condition that fires this rule (open vocabulary, see
-  [`transferability/vocab`](bblocks://ogc.focal.transferability.vocab)).
-- `actions` — an **OR-set**: any one of these actions resolves the rule. FP-WF1's growth model
-  needs this — it offers both `retrain` and `replace-with-alternative-published-model` for the
-  same artifact and the same trigger.
-- `required` — whether applying one of `actions` is mandatory once `triggeredBy` holds. Defaults
-  to `true`. `false` means the workflow still runs without it, but result quality/trust degrades —
-  describe how in `transferabilityNotes` (mixed in from
-  [`transferability/notes`](bblocks://ogc.focal.transferability.notes)). Example: FP-WF3's
-  disturbance-detection workflow runs without local training labels, but results should then be
-  treated as exploratory rather than authoritative.
+- `appliesTo` — the artifacts this rule governs, by `id`. FP-WF2's four Czechia-specific reference
+  files share one rule rather than carrying four copies of the same condition.
+- `when` — the conditions, each citing an envelope constraint by `id` plus how the target is
+  tested against it. **Conjunctive: all must hold.**
+- `triggeredBy` — a coarse alternative for cases where no constraint can be cited without
+  inventing one. At least one of `when` or `triggeredBy` is required; prefer `when`.
+- `actions` — an **OR-set**: any one resolves the rule, never a sequence or a combination.
+- `mandatory` — whether applying one is required once the conditions hold. `false` means the
+  workflow still runs with degraded trust, and `transferabilityNotes` must then say what degrades;
+  `shapes.shacl` enforces that, because a skippable rule with no stated consequence tells a
+  consumer nothing they can act on.
 
-**Known simplification (flagged for WF-owner review):** a small number of artifacts (UP-WF2's LST/
-CLMS/Eurostat datasets) have a richer three-way condition — reuse inside a coverage boundary,
-replace if a substitute exists outside it, hard-fail if none exists — than a flat rule list can
-express without an explicit "only if a substitute is obtainable" branch condition. For now these
-are represented as two separate flat rules (`reuse-as-is` / `replace-with-local-equivalent`),
-dropping that connecting condition. See `20260902-condition-action-expressivity.md` in the FOCAL
-WP10 project directory for the full pattern inventory this was decided against.
+**AND, OR, and why there is no boolean expression language.** `when` is an AND and `actions` is an
+OR. A disjunction of *conditions* is written as two rules. That is a deliberate limit: two
+conditions leading to the same action really are two statements, and keeping them apart keeps each
+traceable to the sentence in a questionnaire it came from, which a nested expression does not.
+UP-WF2's three-way logic — reuse inside the domain, substitute or fail outside it — is two rules
+over one constraint, `inside` then `outside`, with nothing dropped.
+
+**What this replaced.** Rules used to be nested inside artifacts and carried only a vocabulary term
+for their condition, so nothing connected a rule to the boundary it tested. UP-WF2 had two
+footprints, three artifacts and three rules all saying "different geographic coverage", and no way
+to record which was which.
 
 **Status: draft/WIP**, circulated for review, not locked.

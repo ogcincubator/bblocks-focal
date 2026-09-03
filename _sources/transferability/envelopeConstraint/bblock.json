@@ -1,10 +1,10 @@
 {
   "name": "FOCAL Transferability Envelope Constraint",
-  "abstract": "A single {role, dimension, value} statement describing part of a workflow's validity envelope (spatial, temporal, ecological, climatic, jurisdictional, ...), repeatable so multiple roles/dimensions can apply to one workflow at once.",
+  "abstract": "A single {role, dimension, value} statement bounding where a workflow's results are valid, addressable by id so rules can cite which boundary they are evaluated against. Spatial values are GeoSPARQL geometries and temporal values DCAT periods, so a consumer can evaluate them without knowing FOCAL.",
   "status": "under-development",
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "schema",
-  "version": "0.2",
+  "version": "0.3",
   "dateOfLastChange": "2026-09-03",
   "concept": [
     "https://w3id.org/ogc/hosted/focal/transferability/roles/scheme",

@@ -1,14 +1,15 @@
 {
   "name": "FOCAL Transferability Rule",
-  "abstract": "A single condition/action rule (triggeredBy + actions + mandatory) describing how a reference or calibration artifact must be adapted outside its workflow's original validity envelope.",
+  "abstract": "What must happen, to which artifacts, under which envelope conditions. Conditions cite envelope constraints by id and are conjunctive; actions are an OR-set.",
   "status": "under-development",
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "schema",
-  "version": "0.2",
+  "version": "0.3",
   "dateOfLastChange": "2026-09-03",
   "concept": [
     "https://w3id.org/ogc/hosted/focal/transferability/actions/scheme",
-    "https://w3id.org/ogc/hosted/focal/transferability/triggers/scheme"
+    "https://w3id.org/ogc/hosted/focal/transferability/triggers/scheme",
+    "https://w3id.org/ogc/hosted/focal/transferability/tests/scheme"
   ],
   "rdfType": [
     "https://w3id.org/ogc/hosted/focal/transferability/Rule"

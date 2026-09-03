@@ -1,26 +1,32 @@
 {
   "@context": {
     "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "focal-transf": "https://w3id.org/ogc/hosted/focal/transferability/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "envelope": {
       "@id": "focal-transf-prop:envelope",
       "@container": "@set"
     },
-    "artifactRules": {
-      "@id": "focal-transf-prop:artifactRules",
+    "artifacts": {
+      "@id": "focal-transf-prop:artifacts",
       "@container": "@set",
       "@context": {
-        "artifact": "focal-transf-prop:artifact",
+        "id": "@id",
+        "artifact": "dcterms:title",
         "artifactRole": {
           "@id": "focal-transf-prop:artifactRole",
           "@type": "@id",
           "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/" }
         },
         "artifactRef": "focal-transf-prop:artifactRef",
-        "rules": {
-          "@id": "focal-transf-prop:rules",
-          "@container": "@set"
-        }
+        "transferabilityNotes": "rdfs:comment"
       }
+    },
+    "rules": {
+      "@id": "focal-transf-prop:rules",
+      "@container": "@set"
     }
   }
 }

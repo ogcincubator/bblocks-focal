@@ -1,62 +1,110 @@
 examples:
-  - title: Mandatory rule with an OR-set of actions
+  - title: Rule citing an envelope constraint
     content: |
-      FP-WF1's trained growth model outside the ecological range it was calibrated for. Two
-      actions are offered and either one resolves the rule: retrain against local data, or drop in
-      a different already-published model with parameters valid for the target. `actions` is an
-      OR-set, never a sequence and never a combination to apply together.
+      FP-WF1's trained growth model outside the ecological range it was calibrated for. Two actions
+      are offered and either resolves the rule: retrain against local data, or substitute a
+      different already-published model. `actions` is an OR-set, never a sequence.
+
+      `when` names the constraint this is evaluated against, by the `id` it carries in the
+      enclosing statement's `envelope`. That is the difference between a rule a person reads and
+      one a consumer can act on: it says *which* boundary, and if that boundary is spatial its
+      value is a GeoSPARQL geometry.
     snippets:
       - language: json
         code: |
           {
-            "triggeredBy": "different-ecological-range",
-            "actions": [
-              "retrain",
-              "replace-with-alternative-published-model"
+            "appliesTo": ["growth-model"],
+            "when": [{ "constraint": "ecological-range", "test": "outside" }],
+            "actions": ["retrain", "replace-with-alternative-published-model"],
+            "mandatory": true
+          }
+
+  - title: One rule over several artifacts
+    content: |
+      FP-WF2's four Czechia-specific reference artifacts share one boundary and one action, so
+      they share one rule. Previously this was the same condition copied four times with nothing
+      recording that they were the same fact.
+    snippets:
+      - language: json
+        code: |
+          {
+            "appliesTo": ["tolerances", "slt-t5", "species-codes", "rasdaman"],
+            "when": [{ "constraint": "czechia", "test": "outside" }],
+            "actions": ["replace-with-local-equivalent"],
+            "mandatory": true
+          }
+
+  - title: Conjunctive conditions (AND)
+    content: |
+      Two conditions in one `when` mean both must hold. This is the case nesting rules under
+      artifacts could not express: an artifact bounded on two axes at once, needing adaptation only
+      when the target falls outside both.
+
+      A disjunction is written as two rules instead. That is deliberate: two conditions leading to
+      the same action really are two statements, and keeping them separate keeps each traceable to
+      the sentence it came from, which a nested boolean expression does not.
+    snippets:
+      - language: json
+        code: |
+          {
+            "appliesTo": ["lst"],
+            "when": [
+              { "constraint": "eur11-domain", "test": "outside" },
+              { "constraint": "eur11-grid", "test": "outside" }
             ],
+            "actions": ["replace-with-local-equivalent"],
+            "mandatory": true
+          }
+
+  - title: The complementary case (inside), completing a cascade
+    content: |
+      `inside` is what lets UP-WF2's three-way logic be stated without losing its connecting
+      condition. Reuse within the domain is this rule; substitute-or-fail outside it is a second
+      rule over the same constraint. Previously the model had two flat rules and dropped the link
+      between them.
+    snippets:
+      - language: json
+        code: |
+          {
+            "appliesTo": ["lst"],
+            "when": [{ "constraint": "eur11-domain", "test": "inside" }],
+            "actions": ["reuse-as-is"],
             "mandatory": true
           }
 
   - title: Non-mandatory rule (runs anyway, with degraded trust)
     content: |
       FP-WF3's disturbance detection without local training labels. The workflow still produces
-      output, so this is not a hard requirement, but the output means something weaker than it
-      otherwise would.
+      output, so this is not a hard requirement, but the output means something weaker.
 
-      `mandatory: false` obliges `transferabilityNotes` to say what is lost. A skippable rule with
-      no stated consequence tells a consumer nothing they can act on, so `shapes.shacl` rejects
-      that combination.
+      `mandatory: false` obliges `transferabilityNotes` to say what is lost; `shapes.shacl` rejects
+      the pairing without it, because a skippable rule with no stated consequence tells a consumer
+      nothing they can act on.
     snippets:
       - language: json
         code: |
           {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "retrain"
-            ],
+            "appliesTo": ["labels"],
+            "when": [{ "constraint": "label-extent", "test": "outside" }],
+            "actions": ["retrain"],
             "mandatory": false,
             "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement."
           }
 
-  - title: Terminal outcome offered alongside a substitution
+  - title: Coarse fallback when no constraint can be cited
     content: |
-      UP-WF2's CLMS-dependent component outside the product's footprint. Either a local equivalent
-      is found, or the component cannot be executed for that target at all. Which one applies
-      depends on whether a substitute exists, and this model does not resolve that any further:
-      the OR-set is the honest representation of what the source actually states.
+      UP-WF2's planned Eurostat input is not implemented yet, so there is no envelope fact to point
+      at. `triggeredBy` states the condition coarsely rather than forcing an invented boundary.
 
-      `component-not-executable` is terminal, so it cannot appear in an OR-set with `reuse-as-is`
-      (that pairing would claim the artifact both works unchanged and cannot run). Pairing it with
-      `replace-with-local-equivalent`, as here, is the evidenced and intended use.
+      At least one of `when` or `triggeredBy` is required, so no rule is left with no stated
+      condition at all. Prefer `when` wherever a constraint exists to cite.
     snippets:
       - language: json
         code: |
           {
+            "appliesTo": ["eurostat"],
             "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent",
-              "component-not-executable"
-            ],
+            "actions": ["replace-with-local-equivalent", "component-not-executable"],
             "mandatory": true,
-            "transferabilityNotes": "CLMS product coverage is generally limited to Europe, except Ukraine; outside it, no substitute is currently defined."
+            "transferabilityNotes": "Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it."
           }

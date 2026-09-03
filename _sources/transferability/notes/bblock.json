@@ -1,11 +1,11 @@
 {
   "name": "FOCAL Transferability Notes (mixin)",
-  "abstract": "Reusable mixin adding a free-text escape hatch for transferability facts that don't reduce to the controlled transferabilityAction/triggeredBy vocabulary.",
+  "abstract": "Reusable mixin adding a free-text escape hatch for transferability facts the controlled vocabularies cannot capture. Uplifts to rdfs:comment rather than a FOCAL-specific property.",
   "status": "under-development",
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "schema",
-  "version": "0.1",
-  "dateOfLastChange": "2026-09-02",
+  "version": "0.3",
+  "dateOfLastChange": "2026-09-03",
   "tags": [
     "focal",
     "transferability",

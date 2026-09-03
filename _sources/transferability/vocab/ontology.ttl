@@ -14,7 +14,13 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix geojson: <https://purl.org/geojson/vocab#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix geof: <http://www.opengis.net/def/function/geosparql/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix focal-test: <https://w3id.org/ogc/hosted/focal/transferability/tests/> .
+@prefix focal-marker: <https://w3id.org/ogc/hosted/focal/transferability/scenario-markers/> .
 
 #################################################################
 # transferabilityAction
@@ -338,51 +344,128 @@ focal-arole:infrastructure a skos:Concept ;
 .
 
 #################################################################
-# Classes and properties
+# condition tests
 #
-# The `.../transferability/properties/` namespace is used by every context.jsonld in this group
-# and, until now, was defined nowhere: a consumer dereferencing focal-prop:envelope from published
-# data got nothing back, and SHACL had no vocabulary to check against. These declarations close
-# that gap. They are deliberately loose (rdfs:range only where the shape is genuinely fixed) --
-# the constraints that actually bite live in each block's shapes.shacl, not here.
+# How a target is compared against an envelope constraint. Two terms, because the only question a
+# rule ever asks of a constraint is whether the target falls within it or not -- but they are
+# concepts rather than a JSON enum, so each can say how it is actually evaluated per dimension.
+#
+# That is what makes the model assessable rather than merely readable: for a spatial constraint,
+# `inside` is geof:sfWithin against the constraint's geometry, and a GeoSPARQL engine can compute
+# it. For an ecological constraint whose value is prose, the same term means a human judgement.
+# Same rule structure either way; the dimension decides whether a machine can settle it.
+#################################################################
+
+focal-test:scheme a skos:ConceptScheme ;
+  skos:prefLabel "FOCAL Envelope Condition Tests"@en ;
+  skos:definition "How a target is tested against an envelope constraint when deciding whether a transferability rule fires."@en ;
+  skos:hasTopConcept focal-test:inside, focal-test:outside ;
+.
+
+focal-test:inside a skos:Concept ;
+  skos:prefLabel "inside"@en ;
+  skos:definition "The target falls within the constraint. For a spatial or jurisdictional constraint this is evaluable as geof:sfWithin against the constraint's geometry; for a temporal constraint, containment in the stated period; for a prose-valued dimension it is a human judgement stated in the same terms."@en ;
+  skos:relatedMatch geo:sfWithin ;
+  rdfs:seeAlso geof:sfWithin ;
+  skos:topConceptOf focal-test:scheme ;
+  skos:inScheme focal-test:scheme ;
+.
+
+focal-test:outside a skos:Concept ;
+  skos:prefLabel "outside"@en ;
+  skos:definition "The target falls outside the constraint: the negation of focal-test:inside, and the condition under which almost every evidenced FOCAL rule fires."@en ;
+  skos:relatedMatch geo:sfDisjoint ;
+  skos:topConceptOf focal-test:scheme ;
+  skos:inScheme focal-test:scheme ;
+.
+
+#################################################################
+# scenario markers
+#
+# Previously a free string. Global Warming Levels are a small, well-known, enumerable set, and
+# "non-free-text value" is exactly the case that should be a term: GWL+1.5 written two different
+# ways by two pilots is two incomparable strings but one concept.
+#################################################################
+
+focal-marker:scheme a skos:ConceptScheme ;
+  skos:prefLabel "FOCAL Scenario Markers"@en ;
+  skos:definition "Non-calendar, scenario-indexed temporal positions. Seeded with the Global Warming Levels used in FOCAL's climate workflows; open, since other scenario indices (emissions pathways, SSP/RCP combinations) may follow."@en ;
+  skos:hasTopConcept focal-marker:gwl-1.5, focal-marker:gwl-2.0, focal-marker:gwl-3.0 ;
+.
+
+focal-marker:gwl-1.5 a skos:Concept ;
+  skos:prefLabel "Global Warming Level +1.5 °C"@en ;
+  skos:notation "GWL+1.5" ;
+  skos:definition "The point at which global mean surface temperature reaches 1.5 °C above pre-industrial levels. Not a calendar date: it is reached in different years under different emissions scenarios and ensemble members, which is why it cannot be expressed as a period."@en ;
+  skos:topConceptOf focal-marker:scheme ;
+  skos:inScheme focal-marker:scheme ;
+.
+
+focal-marker:gwl-2.0 a skos:Concept ;
+  skos:prefLabel "Global Warming Level +2.0 °C"@en ;
+  skos:notation "GWL+2.0" ;
+  skos:topConceptOf focal-marker:scheme ;
+  skos:inScheme focal-marker:scheme ;
+.
+
+focal-marker:gwl-3.0 a skos:Concept ;
+  skos:prefLabel "Global Warming Level +3.0 °C"@en ;
+  skos:notation "GWL+3.0" ;
+  skos:topConceptOf focal-marker:scheme ;
+  skos:inScheme focal-marker:scheme ;
+.
+
+#################################################################
+# Classes
+#
+# FOCAL mints a class only where nothing published says the same thing. Everything that has a
+# well-known equivalent uses it directly instead: geometry is geo:Geometry, a period is
+# dcterms:PeriodOfTime, an artifact is a prov:Entity, a quality annotation is a
+# dqv:QualityAnnotation. Those are not FOCAL terms with mappings bolted on; they are the terms
+# used, so a consumer that already understands GeoSPARQL, DCAT, PROV or DQV needs to learn
+# nothing about FOCAL to act on that part of the graph.
 #################################################################
 
 focal-transf:TransferabilityStatement a owl:Class ;
   rdfs:label "Transferability Statement"@en ;
-  rdfs:comment "The portability boundary of something: where its results are valid, and what must happen to each reference or calibration artifact to make them valid elsewhere."@en ;
+  rdfs:comment "The portability boundary of something: where its results are valid, which reference or calibration artifacts it depends on, and what must happen to each to make the results valid elsewhere."@en ;
 .
 
 focal-transf:EnvelopeConstraint a owl:Class ;
   rdfs:label "Envelope Constraint"@en ;
-  rdfs:comment "A single role/dimension/value statement describing part of a validity envelope."@en ;
+  rdfs:comment "One role/dimension/value statement bounding where results are valid. No published vocabulary carries this: dcterms:spatial and dcterms:temporal state a single coverage, whereas the distinction that matters here is between what a workflow was trained on, what its outputs are valid for, and where it can technically run -- three different extents that come apart in practice."@en ;
 .
 
-focal-transf:ArtifactRule a owl:Class ;
-  rdfs:label "Artifact Rule"@en ;
-  rdfs:comment "A reference or calibration artifact together with the rules governing how it must be adapted outside the validity envelope."@en ;
+focal-transf:ArtifactDependency a owl:Class ;
+  rdfs:label "Artifact Dependency"@en ;
+  rdfs:comment "A reference or calibration artifact a workflow depends on, as it is described for transferability purposes."@en ;
+  rdfs:subClassOf prov:Entity ;
 .
 
 focal-transf:Rule a owl:Class ;
   rdfs:label "Transferability Rule"@en ;
-  rdfs:comment "One condition/action rule: the condition that triggers it, the actions that resolve it, and whether applying one is mandatory."@en ;
+  rdfs:comment "A condition/action rule: which artifacts it governs, the envelope conditions under which it fires, the actions that resolve it, and whether applying one is mandatory."@en ;
 .
 
-focal-transf:QualityAnnotation a owl:Class ;
-  rdfs:label "Quality Annotation"@en ;
-  rdfs:comment "A statement of uncertainty or confidence about results, independent of operational maturity."@en ;
+focal-transf:Condition a owl:Class ;
+  rdfs:label "Envelope Condition"@en ;
+  rdfs:comment "One test of a target against one envelope constraint. Conditions on a rule are conjunctive: all of them must hold for the rule to fire."@en ;
 .
 
-focal-transf:CalendarInterval a owl:Class ;
-  rdfs:label "Calendar Interval"@en ;
-  rdfs:comment "A start/end calendar span of workflow-specific granularity."@en ;
-.
-
-focal-transf:ScenarioMarker a owl:Class ;
-  rdfs:label "Scenario Marker"@en ;
-  rdfs:comment "A non-calendar, scenario-indexed temporal position, such as a Global Warming Level label."@en ;
-.
-
-# -- structural properties --
+#################################################################
+# Properties
+#
+# The `.../transferability/properties/` namespace is used by every context.jsonld in this group.
+# Each property below either is declared here as genuinely FOCAL-specific, or is absent because
+# the model uses a published property directly. The reused ones, for reference:
+#
+#   artifact label      -> dcterms:title
+#   free-text notes     -> rdfs:comment
+#   geometry            -> geo:Geometry / geo:asWKT
+#   calendar period     -> dcterms:PeriodOfTime / dcat:startDate / dcat:endDate
+#   quality annotation  -> dqv:hasQualityAnnotation / dqv:QualityAnnotation / dqv:inDimension
+#   artifact entity     -> prov:Entity
+#################################################################
 
 focal-prop:transferability a owl:ObjectProperty ;
   rdfs:label "transferability"@en ;
@@ -397,29 +480,23 @@ focal-prop:envelope a owl:ObjectProperty ;
   rdfs:range focal-transf:EnvelopeConstraint ;
 .
 
-focal-prop:artifactRules a owl:ObjectProperty ;
-  rdfs:label "artifact rules"@en ;
-  rdfs:comment "A reference or calibration artifact and the rules governing it. An empty set is a positive statement -- assessed, nothing needs adapting -- and is not the same as the property being absent."@en ;
+focal-prop:artifacts a owl:ObjectProperty ;
+  rdfs:label "artifacts"@en ;
+  rdfs:comment "A reference or calibration artifact this statement's rules may govern. Declared once and cited by rules, so an artifact constrained on two axes, or four artifacts sharing one boundary, are both expressible without repetition."@en ;
   rdfs:domain focal-transf:TransferabilityStatement ;
-  rdfs:range focal-transf:ArtifactRule ;
+  rdfs:range focal-transf:ArtifactDependency ;
 .
 
 focal-prop:rules a owl:ObjectProperty ;
   rdfs:label "rules"@en ;
-  rdfs:domain focal-transf:ArtifactRule ;
+  rdfs:comment "A condition/action rule. An empty set is a positive statement -- assessed, nothing needs adapting -- and is not the same as the property being absent, which says nobody has looked."@en ;
+  rdfs:domain focal-transf:TransferabilityStatement ;
   rdfs:range focal-transf:Rule ;
 .
 
-focal-prop:qualityAnnotation a owl:ObjectProperty ;
-  rdfs:label "quality annotation"@en ;
-  rdfs:range focal-transf:QualityAnnotation ;
-.
-
-# -- envelope constraint properties --
-
 focal-prop:role a owl:ObjectProperty ;
   rdfs:label "role"@en ;
-  rdfs:comment "Which aspect of the envelope this statement describes: what the workflow was trained on, what it is valid for, or where it can run."@en ;
+  rdfs:comment "Which aspect of the envelope this statement describes: what the workflow was trained on, what its results are valid for, or where it can technically run."@en ;
   rdfs:domain focal-transf:EnvelopeConstraint ;
   rdfs:range skos:Concept ;
   skos:inScheme focal-role:scheme ;
@@ -427,7 +504,7 @@ focal-prop:role a owl:ObjectProperty ;
 
 focal-prop:dimension a owl:ObjectProperty ;
   rdfs:label "dimension"@en ;
-  rdfs:comment "Which axis of variation this statement constrains."@en ;
+  rdfs:comment "Which axis of variation this statement constrains. Also decides the shape of the value, and therefore whether a machine can evaluate a condition against it."@en ;
   rdfs:domain focal-transf:EnvelopeConstraint ;
   rdfs:range skos:Concept ;
   skos:inScheme focal-dim:scheme ;
@@ -435,41 +512,21 @@ focal-prop:dimension a owl:ObjectProperty ;
 
 focal-prop:value a rdf:Property ;
   rdfs:label "value"@en ;
-  rdfs:comment "The constraint value: a GeoJSON geometry, a calendar interval, a scenario marker, or a plain string, shaped by the dimension. No fixed range -- see each block's shapes.shacl for the per-dimension constraints."@en ;
+  rdfs:comment "The constraint value. A geo:Geometry for spatial and jurisdictional dimensions, a dcterms:PeriodOfTime or a scenario-marker concept for temporal, a plain string otherwise. Per-dimension constraints are in the block's shapes.shacl."@en ;
   rdfs:domain focal-transf:EnvelopeConstraint ;
 .
 
-focal-prop:start a owl:DatatypeProperty ;
-  rdfs:label "start"@en ;
-  rdfs:domain focal-transf:CalendarInterval ;
-  rdfs:range xsd:string ;
-.
-
-focal-prop:end a owl:DatatypeProperty ;
-  rdfs:label "end"@en ;
-  rdfs:domain focal-transf:CalendarInterval ;
-  rdfs:range xsd:string ;
-.
-
-focal-prop:scenarioMarker a owl:DatatypeProperty ;
+focal-prop:scenarioMarker a owl:ObjectProperty ;
   rdfs:label "scenario marker"@en ;
-  rdfs:domain focal-transf:ScenarioMarker ;
-  rdfs:range xsd:string ;
-.
-
-# -- artifact properties --
-
-focal-prop:artifact a owl:DatatypeProperty ;
-  rdfs:label "artifact"@en ;
-  rdfs:comment "Free-text label identifying the reference or calibration artifact."@en ;
-  rdfs:domain focal-transf:ArtifactRule ;
-  rdfs:range xsd:string ;
+  rdfs:comment "A non-calendar, scenario-indexed temporal position, for results that are not calendar-indexed at all."@en ;
+  rdfs:range skos:Concept ;
+  skos:inScheme focal-marker:scheme ;
 .
 
 focal-prop:artifactRole a owl:ObjectProperty ;
   rdfs:label "artifact role"@en ;
-  rdfs:comment "What kind of thing the artifact is."@en ;
-  rdfs:domain focal-transf:ArtifactRule ;
+  rdfs:comment "What kind of thing the artifact is, independent of whether an executable workflow description exists that could give it an identifier yet."@en ;
+  rdfs:domain focal-transf:ArtifactDependency ;
   rdfs:range skos:Concept ;
   skos:inScheme focal-arole:scheme ;
 .
@@ -477,15 +534,42 @@ focal-prop:artifactRole a owl:ObjectProperty ;
 focal-prop:artifactRef a owl:DatatypeProperty ;
   rdfs:label "artifact reference"@en ;
   rdfs:comment "JSON Pointer (RFC 6901) locating the artifact within the document this statement annotates."@en ;
-  rdfs:domain focal-transf:ArtifactRule ;
+  rdfs:domain focal-transf:ArtifactDependency ;
   rdfs:range xsd:string ;
 .
 
-# -- rule properties --
+focal-prop:appliesTo a owl:ObjectProperty ;
+  rdfs:label "applies to"@en ;
+  rdfs:comment "An artifact this rule governs. A rule with no artifact applies to the workflow as a whole."@en ;
+  rdfs:domain focal-transf:Rule ;
+  rdfs:range focal-transf:ArtifactDependency ;
+.
+
+focal-prop:when a owl:ObjectProperty ;
+  rdfs:label "when"@en ;
+  rdfs:comment "A condition that must hold for this rule to fire. Conditions are conjunctive: all of them must hold. A disjunction is written as separate rules, which keeps each one traceable to the statement it came from."@en ;
+  rdfs:domain focal-transf:Rule ;
+  rdfs:range focal-transf:Condition ;
+.
+
+focal-prop:constraint a owl:ObjectProperty ;
+  rdfs:label "constraint"@en ;
+  rdfs:comment "The envelope constraint this condition tests the target against."@en ;
+  rdfs:domain focal-transf:Condition ;
+  rdfs:range focal-transf:EnvelopeConstraint ;
+.
+
+focal-prop:test a owl:ObjectProperty ;
+  rdfs:label "test"@en ;
+  rdfs:comment "How the target is compared against the constraint."@en ;
+  rdfs:domain focal-transf:Condition ;
+  rdfs:range skos:Concept ;
+  skos:inScheme focal-test:scheme ;
+.
 
 focal-prop:triggeredBy a owl:ObjectProperty ;
   rdfs:label "triggered by"@en ;
-  rdfs:comment "The condition, evaluated against the validity envelope, that fires this rule."@en ;
+  rdfs:comment "A coarse, human-readable statement of what fires this rule, for cases where no envelope constraint can be cited. Where one can, focal-prop:when says the same thing precisely and machine-evaluably."@en ;
   rdfs:domain focal-transf:Rule ;
   rdfs:range skos:Concept ;
   skos:inScheme focal-trigger:scheme ;
@@ -493,7 +577,7 @@ focal-prop:triggeredBy a owl:ObjectProperty ;
 
 focal-prop:actions a owl:ObjectProperty ;
   rdfs:label "actions"@en ;
-  rdfs:comment "An OR-set: any one of these actions resolves the rule."@en ;
+  rdfs:comment "An OR-set: any one of these actions resolves the rule. Never a sequence, and never a combination to apply together."@en ;
   rdfs:domain focal-transf:Rule ;
   rdfs:range skos:Concept ;
   skos:inScheme focal-action:scheme ;
@@ -501,18 +585,10 @@ focal-prop:actions a owl:ObjectProperty ;
 
 focal-prop:mandatory a owl:DatatypeProperty ;
   rdfs:label "mandatory"@en ;
-  rdfs:comment "Whether applying one of the rule's actions is mandatory once its condition holds. False means the workflow still runs, with degraded result quality or trust described in the transferability notes."@en ;
+  rdfs:comment "Whether applying one of the rule's actions is mandatory once its conditions hold. False means the workflow still runs, with degraded result quality or trust described in the rule's rdfs:comment."@en ;
   rdfs:domain focal-transf:Rule ;
   rdfs:range xsd:boolean ;
 .
-
-focal-prop:transferabilityNotes a owl:DatatypeProperty ;
-  rdfs:label "transferability notes"@en ;
-  rdfs:comment "Free-text elaboration of a transferability fact the controlled vocabularies cannot capture."@en ;
-  rdfs:range xsd:string ;
-.
-
-# -- workflow-level classification properties --
 
 focal-prop:computationType a owl:ObjectProperty ;
   rdfs:label "computation type"@en ;
@@ -523,14 +599,7 @@ focal-prop:computationType a owl:ObjectProperty ;
 
 focal-prop:maturityStatus a owl:ObjectProperty ;
   rdfs:label "maturity status"@en ;
-  rdfs:comment "The workflow's operational maturity stage. Distinct from a Block's own authoring-lifecycle status."@en ;
+  rdfs:comment "The workflow's operational maturity stage. Distinct from a Block's own authoring-lifecycle status, and from dqv quality: a workflow can be operational and still carry a result-confidence caveat."@en ;
   rdfs:range skos:Concept ;
   skos:inScheme focal-maturity:scheme ;
-.
-
-focal-prop:note a owl:DatatypeProperty ;
-  rdfs:label "note"@en ;
-  rdfs:comment "The quality statement itself, in free text. DQV carries an annotation body via oa:hasBody, which is heavier machinery than this needs, so this stays a plain FOCAL property."@en ;
-  rdfs:domain focal-transf:QualityAnnotation ;
-  rdfs:range xsd:string ;
 .

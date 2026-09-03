@@ -1,30 +1,29 @@
 ## FOCAL Transferability Statement
 
-Groups the two facts that actually describe a portability boundary — everything else FOCAL's
-model tracks about a workflow (`computationType`, `maturityStatus`, `qualityAnnotation`) describes
-its implementation or result quality generally, not where it can go.
+Where something's results are valid, which artifacts it depends on, and what must happen to each.
+Three id-addressable lists joined by reference rather than by nesting:
 
 | Property | Cardinality | Source block |
 |---|---|---|
 | `envelope` | required, repeatable | [`envelopeConstraint`](bblocks://ogc.focal.transferability.envelopeConstraint) |
-| `artifactRules` | required, repeatable (own wrapper, see below) | wraps [`rule`](bblocks://ogc.focal.transferability.rule) |
+| `artifacts` | required, may be empty | own shape, a `prov:Entity` with a `dcterms:title` |
+| `rules` | required, may be empty | [`rule`](bblocks://ogc.focal.transferability.rule) |
 
-**`envelope`** covers the calendar/scenario dimension too: a `dimension: temporal` entry, `value`
-shaped `{start, end}` or `{scenarioMarker}` — see `envelopeConstraint` for the full four-branch
-`value` shape. There's no separate temporal-extent property here; it's one more envelope entry,
-same as `spatial`/`ecological`/`climatic`/`jurisdictional`.
+**An empty `rules` array is a meaningful value**: assessed, nothing needs adapting. That is a
+positive portability fact, and quite different from the property being absent, which says nobody
+has looked. Requiring at least one entry forced anyone in the first situation to invent a rule.
 
-**`artifactRules` wrapper.** Each entry is `{artifact, artifactRole, artifactRef?, rules}`:
-`artifact` is a free-text label identifying the reference/calibration artifact (e.g. "Rasdaman
-climate registry / catalogue"), `artifactRole` classifies what kind of thing it is
-(`workflow-input`, `workflow-output`, `external-resource`, or `infrastructure` — see
-`schema.yaml` for the full distinction), `artifactRef` optionally gives its actual
-`inputs.<id>`/`outputs.<id>` in whatever `CWLWorkflow` this statement is attached to once a real
-CWL id exists to bind against, and `rules` is one or more
-[`rule`](bblocks://ogc.focal.transferability.rule) statements governing it. Not every artifact a
-workflow depends on needs an entry — only those with an evidenced transferability fact.
+**Why reference rather than nesting.** Nesting rules under artifacts connects each rule to one
+artifact but not to the envelope boundary it is evaluated against, and cannot express an artifact
+bounded on two axes at once, or four artifacts sharing one boundary. Citing ids costs one
+indirection and expresses all three. `shapes.shacl` enforces referential integrity, so a rule
+cannot cite a constraint or artifact the statement does not declare.
 
-**Status: draft/WIP**, circulated for review, not locked. Factored out of
-[`ogc.focal.transferability.workflow`](bblocks://ogc.focal.transferability.workflow), which
-attaches one `transferability` property of this shape to a profiled `CWLWorkflow`, alongside its
-own `computationType`/`maturityStatus`/`qualityAnnotation` properties.
+**Reused vocabularies.** An artifact is a `prov:Entity` labelled with `dcterms:title`; notes are
+`rdfs:comment`. FOCAL mints a term only where nothing published says the same thing — see
+[`transferability/vocab`](bblocks://ogc.focal.transferability.vocab).
+
+**Status: draft/WIP**, circulated for review, not locked. Carries no CWL assumption:
+[`ogc.focal.transferability.workflow`](bblocks://ogc.focal.transferability.workflow) attaches one
+statement of this shape to a profiled `CWLWorkflow`, but the same bundle can attach to a step, a
+process, or a delivered dataset.
