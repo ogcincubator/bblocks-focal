@@ -13,12 +13,11 @@ growth model needs three simultaneously —
 | `valid-for` | `ecological` | `"a comparable ecological range"` (string — not a place) |
 | `can-run-on` | `climatic` | `"wherever downscaled climate data is available"` (string — not a place) |
 
-**`value` (resolved 2026-09-03, tightened same day):** `dimension: spatial` or `jurisdictional`
-**requires** a GeoJSON Geometry (RFC 7946 — `Point`/`MultiPoint`/`Polygon`/`MultiPolygon`),
-enforced by a `oneOf` with two branches keyed on `dimension` — not merely permitted alongside string.
-Every other dimension (`ecological`/`climatic`, like the two rows above) stays plain `string`,
-since those facts genuinely aren't a place. A `spatial`/`jurisdictional` fact with no resolvable
-source location should be omitted from `envelope` rather than filled with a placeholder string —
-`value` no longer accepts one there at all.
+**`value`:** `dimension: spatial` or `jurisdictional` **requires** a GeoJSON Geometry (RFC 7946 —
+`Point`/`MultiPoint`/`Polygon`/`MultiPolygon`), enforced by a `oneOf` with two branches keyed on
+`dimension` — a string is not a valid alternative there. Every other dimension
+(`ecological`/`climatic`, like the two rows above) stays plain `string`, since those facts
+genuinely aren't a place. A `spatial`/`jurisdictional` fact with no resolvable source location
+should be omitted from `envelope` rather than filled with a placeholder string.
 
 **Status: draft/WIP**, circulated for review, not locked.

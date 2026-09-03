@@ -13,12 +13,18 @@ model, tying together every other `transferability/*` block onto one workflow in
 | `temporalExtent` | optional, repeatable | [`temporalExtent`](bblocks://ogc.focal.transferability.temporalExtent) |
 | `qualityAnnotation` | optional, repeatable | [`qualityAnnotation`](bblocks://ogc.focal.transferability.qualityAnnotation) |
 
-**`referenceArtifact` wrapper.** Each entry is `{artifact, rules}`: `artifact` is a free-text label
-identifying the reference/calibration artifact (e.g. "Rasdaman climate registry / catalogue"),
-`rules` is one or more [`rule`](bblocks://ogc.focal.transferability.rule) statements governing it.
-`artifact` is deliberately a free-text label, not a `$ref` to a `steps`/`inputs` entry of the
-profiled `CWLWorkflow` — the source questionnaires name artifacts this way, and a real CWL id to
-bind against doesn't exist yet for most of these workflows. Revisit once Application Packages exist.
+**`referenceArtifact` wrapper.** Each entry is `{artifact, artifactRole, rules}`: `artifact` is a
+free-text label identifying the reference/calibration artifact (e.g. "Rasdaman climate registry /
+catalogue"), `artifactRole` classifies what kind of thing it is (`workflow-input`,
+`workflow-output`, `external-resource`, or `infrastructure` — see `schema.yaml` for the full
+distinction), and `rules` is one or more [`rule`](bblocks://ogc.focal.transferability.rule)
+statements governing it. An optional fourth field, `artifactRef`, gives the artifact's actual
+`inputs.<id>`/`outputs.<id>` in the profiled `CWLWorkflow` once a real CWL id exists to bind
+against — most of these workflows don't have an Application Package yet, so `artifactRef` stays
+absent for them, and is only meaningful for the `workflow-input`/`workflow-output` roles in the
+first place. `artifact` itself stays free text regardless: not every artifact these questionnaires
+describe is a CWL input or output at all (a physical sensor network that must be re-deployed, an
+optional validation dataset), so the label can't simply be replaced by an id.
 
 **Decision (2026-09-02, per `20260902-condition-action-expressivity.md`):** kept the simpler flat
 `{artifact, rules}` shape rather than a decision-table structure, even though at least one artifact

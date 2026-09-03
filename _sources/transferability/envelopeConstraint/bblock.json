@@ -5,7 +5,7 @@
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "schema",
   "version": "0.1",
-  "dateOfLastChange": "2026-09-02",
+  "dateOfLastChange": "2026-09-03",
   "concept": [
     "https://w3id.org/ogc/hosted/focal/transferability/roles/scheme",
     "https://w3id.org/ogc/hosted/focal/transferability/dimensions/scheme"

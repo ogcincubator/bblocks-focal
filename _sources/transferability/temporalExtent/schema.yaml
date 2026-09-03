@@ -8,8 +8,7 @@ description: >
   FP-WF4, an ongoing sensor observation with no fixed window — omit the property entirely there,
   same "optional, not a value" treatment as computationType).
 
-  Two shapes, resolved 2026-09-02 after re-reading the source questionnaires — no `kind`
-  discriminator is needed:
+  Two shapes, no `kind` discriminator needed:
 
   - `{start, end}` is the default: a plain calendar interval, covering 6 of the 7 evidenced
     workflows (FP-WF1, FP-WF2, FP-WF5, UP-WF2, UP-WF3, and FP-WF3 twice).
@@ -20,11 +19,11 @@ description: >
     the UP-WF1 workflow owner** — see the mapping-extraction doc's UP-WF1 section — asking whether
     a time interval can be declared per GWL slice at all.
 
-  Two facts initially proposed for this property were reclassified out of it after re-reading the
-  source: UP-WF3's accumulation-window (6h/12h/1d/7d) and temporal-aggregation-period
+  UP-WF3's accumulation-window (6h/12h/1d/7d) and temporal-aggregation-period
   (daily/weekly/monthly) values are workflow computation *parameters* (rolling-window length,
   output grouping), naturally expressed as CWL `CommandLineTool`/`Workflow` input parameters via
-  `ogc.cwl.*` — not statements about the calendar span the workflow is valid over.
+  `ogc.cwl.*` — not statements about the calendar span the workflow is valid over, so they belong
+  there rather than in this property.
 oneOf:
   - type: object
     title: Calendar interval

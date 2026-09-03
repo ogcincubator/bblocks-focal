@@ -10,6 +10,8 @@
       "@container": "@set"
     },
     "artifact": "focal-transf-prop:artifact",
+    "artifactRole": "focal-transf-prop:artifactRole",
+    "artifactRef": "focal-transf-prop:artifactRef",
     "rules": {
       "@id": "focal-transf-prop:rules",
       "@container": "@set"

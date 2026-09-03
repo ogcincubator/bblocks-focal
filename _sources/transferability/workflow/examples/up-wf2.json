@@ -1228,9 +1228,15 @@
       }
     }
   ],
+  "inputs": {
+    "lst_datasets": "File",
+    "clms_tcd_imd": "File"
+  },
   "referenceArtifact": [
     {
       "artifact": "median summer LST datasets (FOCAL STAC, Landsat 5/7/8/9-derived)",
+      "artifactRole": "workflow-input",
+      "artifactRef": "inputs.lst_datasets",
       "rules": [
         {
           "triggeredBy": "different-geographic-coverage",
@@ -1245,6 +1251,8 @@
     },
     {
       "artifact": "CLMS Tree Cover Density / Imperviousness Density",
+      "artifactRole": "workflow-input",
+      "artifactRef": "inputs.clms_tcd_imd",
       "rules": [
         {
           "triggeredBy": "different-geographic-coverage",
@@ -1259,6 +1267,7 @@
     },
     {
       "artifact": "Eurostat census / socio-economic data (planned Heat Risk Indicator)",
+      "artifactRole": "external-resource",
       "rules": [
         {
           "triggeredBy": "different-geographic-coverage",

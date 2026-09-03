@@ -6,12 +6,11 @@ examples:
       only workflow with an evidenced `qualityAnnotation` so far. Drawn from
       `20260817-workflow-transferability-mapping-extraction.md`'s FP-WF1 section.
 
-      **`envelope[0].value` (2026-09-03):** now a real GeoJSON `Polygon` — Czechia's country
-      bounding box (12.09–18.87°E, 48.55–51.06°N, per OpenStreetMap Wiki's published bbox) —
-      rather than the free-text label this example originally carried, per the
-      `envelopeConstraint` design resolved 2026-09-03: a `spatial`/`jurisdictional` fact is a real
-      extent, and text can't support an automated "is my AOI inside this envelope?" check. This is
-      a **known approximation, not the actual sample-plot network**: the source says "Czech
+      **`envelope[0].value`** is a real GeoJSON `Polygon` — Czechia's country bounding box
+      (12.09–18.87°E, 48.55–51.06°N, per OpenStreetMap Wiki's published bbox): a
+      `spatial`/`jurisdictional` fact is a real extent, and text can't support an automated "is my
+      AOI inside this envelope?" check. This is a **known approximation, not the actual sample-plot
+      network**: the source says "Czech
       long-term permanent sample plots," a scattered set of specific monitoring locations, not the
       whole country — the real plot coordinates (likely the Czech National Forest Inventory or
       ÚHÚL long-term research plot network) are a genuine data gap, not sourced here. The country
@@ -19,8 +18,14 @@ examples:
 
       `temporalExtent` is deliberately omitted here: the source states a user-selected "prediction
       period" with unspecified bound/granularity — no interval is fabricated for this example.
-      `steps`/`inputs`/`outputs` (inherited from `CWLWorkflow`) are likewise omitted; no
-      Application Package exists yet for this workflow to describe them from.
+      `steps` (inherited from `CWLWorkflow`) is omitted; no Application Package exists yet for this
+      workflow to describe it from.
+
+      `inputs`/`outputs` carry two **proto entries** — `climate_data`, an `inputs` entry, and
+      `trained_growth_model`, an `outputs` entry — added so `referenceArtifact`'s `artifactRef`
+      field has a real CWL id to point at. These are placeholder ids invented for this example, not
+      FP-WF1's actual Application Package, which doesn't exist yet; treat them as illustrating the
+      binding mechanism, not as a claim about the workflow's real interface.
     snippets:
       - language: json
         code: |
@@ -28,6 +33,12 @@ examples:
             "class": "Workflow",
             "cwlVersion": "v1.2",
             "label": "FP-WF1 — Tree species suitability",
+            "inputs": {
+              "climate_data": "File"
+            },
+            "outputs": {
+              "trained_growth_model": "File"
+            },
             "envelope": [
               {
                 "role": "trained-on",
@@ -59,6 +70,8 @@ examples:
             "referenceArtifact": [
               {
                 "artifact": "trained tree growth model (LightGBM, Czech permanent sample plot data)",
+                "artifactRole": "workflow-output",
+                "artifactRef": "outputs.trained_growth_model",
                 "rules": [
                   {
                     "triggeredBy": "different-ecological-range",
@@ -72,6 +85,8 @@ examples:
               },
               {
                 "artifact": "downscaled FOCAL climate data (current + future)",
+                "artifactRole": "workflow-input",
+                "artifactRef": "inputs.climate_data",
                 "rules": [
                   {
                     "triggeredBy": "different-geographic-coverage",
@@ -106,12 +121,15 @@ examples:
       questionnaire never states an envelope fact directly for this workflow, only that four
       separate artifacts are Czechia-bound. Flag for owner confirmation before treating it as
       settled. Its `value` is Czechia's country bounding box (same source and same
-      bbox-vs-precise-border caveat as FP-WF1's), not the free-text `"Czechia"` this example
-      originally carried.
+      bbox-vs-precise-border caveat as FP-WF1's).
 
       `temporalExtent` is omitted for the same reason as FP-WF1: the source states a required
-      "time period" input with no stated bound or granularity. `steps`/`inputs`/`outputs` are
-      likewise omitted, pending an Application Package for this workflow.
+      "time period" input with no stated bound or granularity. `steps` is likewise omitted, pending
+      an Application Package for this workflow.
+
+      `inputs` carries four **proto entries**, one per artifact below — invented placeholder ids so
+      each `referenceArtifact` entry's `artifactRef` has a concrete `inputs.<id>` to point at, not
+      FP-WF2's real Application Package, which doesn't exist yet.
     snippets:
       - language: json
         code: |
@@ -119,6 +137,12 @@ examples:
             "class": "Workflow",
             "cwlVersion": "v1.2",
             "label": "FP-WF2 — Heat stress",
+            "inputs": {
+              "species_tolerances": "File",
+              "forest_classification_context": "File",
+              "species_codes": "File",
+              "climate_registry_endpoint": "string"
+            },
             "envelope": [
               {
                 "role": "trained-on",
@@ -140,6 +164,8 @@ examples:
             "referenceArtifact": [
               {
                 "artifact": "species tolerance thresholds (species_tolerances.json)",
+                "artifactRole": "workflow-input",
+                "artifactRef": "inputs.species_tolerances",
                 "rules": [
                   {
                     "triggeredBy": "different-geographic-coverage",
@@ -153,6 +179,8 @@ examples:
               },
               {
                 "artifact": "SLT/T5 forest classification context (Czechia-specific)",
+                "artifactRole": "workflow-input",
+                "artifactRef": "inputs.forest_classification_context",
                 "rules": [
                   {
                     "triggeredBy": "different-geographic-coverage",
@@ -165,6 +193,8 @@ examples:
               },
               {
                 "artifact": "species codes catalogue (species_codes.json)",
+                "artifactRole": "workflow-input",
+                "artifactRef": "inputs.species_codes",
                 "rules": [
                   {
                     "triggeredBy": "different-geographic-coverage",
@@ -177,6 +207,8 @@ examples:
               },
               {
                 "artifact": "Rasdaman climate registry / source catalogue",
+                "artifactRole": "workflow-input",
+                "artifactRef": "inputs.climate_registry_endpoint",
                 "rules": [
                   {
                     "triggeredBy": "different-geographic-coverage",
@@ -213,9 +245,13 @@ examples:
       facts.
 
       `temporalExtent` is omitted: source states an EO time-series "time period" with unspecified
-      bound. `steps`/`inputs`/`outputs` are omitted — this workflow's own questionnaire says its
-      "final container, API and regression-test packaging are still to be completed," so there is
-      no Application Package yet to describe them from, more so than for any other example here.
+      bound. `steps` is omitted — this workflow's own questionnaire says its "final container, API
+      and regression-test packaging are still to be completed," so there is no Application Package
+      yet to describe it from, more so than for any other example here.
+
+      `inputs` carries three **proto entries**, one per artifact below, for the same reason as
+      FP-WF1/FP-WF2 — invented placeholder ids giving `artifactRef` something concrete to bind to,
+      not a claim about this (not-yet-packaged) workflow's real interface.
     snippets:
       - language: json
         code: |
@@ -223,6 +259,11 @@ examples:
             "class": "Workflow",
             "cwlVersion": "v1.2",
             "label": "FP-WF3 — Prediction of threatened stands",
+            "inputs": {
+              "disturbance_labels": "File",
+              "eo_compositing_strategy": "string",
+              "phenology_normalization_assumptions": "string"
+            },
             "envelope": [
               {
                 "role": "trained-on",
@@ -249,6 +290,8 @@ examples:
             "referenceArtifact": [
               {
                 "artifact": "historical forest disturbance/damage labels (ground truth training data)",
+                "artifactRole": "workflow-input",
+                "artifactRef": "inputs.disturbance_labels",
                 "rules": [
                   {
                     "triggeredBy": "different-geographic-coverage",
@@ -262,6 +305,8 @@ examples:
               },
               {
                 "artifact": "EO sensor selection, cloud masking, temporal compositing strategy",
+                "artifactRole": "workflow-input",
+                "artifactRef": "inputs.eo_compositing_strategy",
                 "rules": [
                   {
                     "triggeredBy": "different-geographic-coverage",
@@ -274,6 +319,8 @@ examples:
               },
               {
                 "artifact": "regional phenology normalisation assumptions",
+                "artifactRole": "workflow-input",
+                "artifactRef": "inputs.phenology_normalization_assumptions",
                 "rules": [
                   {
                     "triggeredBy": "different-ecological-range",
@@ -306,9 +353,8 @@ examples:
       `envelope`'s two entries reflect the two distinct dataset footprints named in the source
       (EURO-CORDEX for the LST datasets, Europe-except-Ukraine for CLMS) rather than one shared
       boundary — unlike FP-WF2/FP-WF3, these particular coverage facts *are* stated directly in
-      the source, not inferred, and (2026-09-03) both are now real geometry, not string, per
-      `envelopeConstraint`'s tightened rule that `spatial`/`jurisdictional` **must** be a GeoJSON
-      Geometry:
+      the source, not inferred. Both are real GeoJSON geometry, per `envelopeConstraint`'s rule
+      that `spatial`/`jurisdictional` **must** be a GeoJSON Geometry:
 
       - `valid-for`/`spatial` is the EUR-11 EURO-CORDEX domain's published geographic bounding box,
         approximately 22°W–45°E, 27°N–72°N (per EURO-CORDEX/CLM-Community's own domain description)
@@ -316,20 +362,18 @@ examples:
         footprint (which isn't a plain rectangle in true lat/lon at all), a deliberate
         simplification, not a hidden loss of precision.
       - `valid-for`/`jurisdictional` (Europe, except Ukraine, per the CLMS product coverage note)
-        is now a real, computed `MultiPolygon` rather than the placeholder string this example
-        carried until 2026-09-03. Computed as: `union(38 of the 39 country polygons in the
+        is a computed `MultiPolygon`. Computed as: `union(38 of the 39 country polygons in the
         user-supplied Europe FeatureCollection, Russia excluded) − Ukraine (from
         datahub.io/core/geo-countries' `datasets/geo-countries` GitHub source, fetched directly)`,
         using Shapely 2.1 (`unary_union`, `make_valid`, `difference`). **Russia is excluded
-        entirely** (2026-09-03, on request) rather than clipped to "European Russia" — that line is
-        itself a contested, unsettled one, and CLMS (the dataset this envelope entry actually
-        describes) never covered Russia to begin with, so full exclusion is more accurate as well
-        as avoiding a needless political judgment call embedded in example data. The same pass also
-        drops **French Guiana**, found only once this computation was actually run: the
-        user-supplied file's `France` feature is France's full multi-part territory, including its
-        South American département, which the original free-text `"Europe, except Ukraine"` string
-        silently carried along unnoticed — dropped by excluding any of France's sub-polygons west of
-        -20° longitude, well clear of continental France/Corsica. After unioning and differencing,
+        entirely**, rather than clipped to "European Russia" — that line is itself a contested,
+        unsettled one, and CLMS (the dataset this envelope entry actually describes) never covered
+        Russia to begin with, so full exclusion is more accurate as well as avoiding a needless
+        political judgment call embedded in example data. The same computation also drops **French
+        Guiana**: the user-supplied file's `France` feature is France's full multi-part territory,
+        including its South American département — dropped by excluding any of France's
+        sub-polygons west of -20° longitude, well clear of continental France/Corsica. After
+        unioning and differencing,
         52 small (< 0.15 deg², all border-mismatch artifacts between the two independently-sourced
         Ukraine/neighbor boundaries, confirmed by centroid clustering exclusively in the
         28–41°E/44–53°N Ukraine-border band — not real geography) sliver polygons were dropped,
@@ -344,7 +388,16 @@ examples:
       referenced via `ref` rather than inlined here, unlike the other three examples — a computed
       geometry this size isn't practical to keep reviewable inline in this file.
 
-      `steps`/`inputs`/`outputs` are omitted, as in every other example here.
+      **`referenceArtifact`**'s three entries split across all three `artifactRole` values that
+      actually take a CWL binding or lack one, unlike the other three examples here (all
+      `workflow-input`): the LST and CLMS datasets get **proto** `inputs` entries
+      (`lst_datasets`, `clms_tcd_imd` — invented placeholder ids, not UP-WF2's real Application
+      Package, which doesn't exist yet) and `artifactRef` pointing at them, while the Eurostat
+      entry is `external-resource` with no `artifactRef` at all — the source itself says this data
+      "not yet implemented," so there is nothing in the CWL graph yet for any id to point at, proto
+      or otherwise.
+
+      `steps`/`outputs` are omitted, as in every other example here.
     snippets:
       - language: json
         ref: examples/up-wf2.json
