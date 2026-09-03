@@ -1,0 +1,10 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld",
+  "id": "https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11",
+  "role": "valid-for",
+  "dimension": "spatial",
+  "value": {
+    "asWKT": "POLYGON((-22 27,45 27,45 72,-22 72,-22 27))"
+  },
+  "transferabilityNotes": "The EUR-11 domain's published approximate rectangular extent. Shared across every FOCAL workflow driven by the EURO-CORDEX ensemble, which is why it carries a global identifier rather than a name local to one workflow."
+}

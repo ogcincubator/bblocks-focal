@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Statement (Schema)
 
-`ogc.focal.transferability.transferabilityStatement` *v0.3*
+`ogc.focal.transferability.transferabilityStatement` *v0.4*
 
 Where something's results are valid (envelope), which reference/calibration artifacts it depends on (artifacts), and what must happen to each under which conditions (rules) - three id-addressable lists joined by reference rather than nesting.
 
@@ -123,10 +123,12 @@ $defs:
     - artifactRole
     properties:
       id:
-        type: string
-        pattern: ^[A-Za-z0-9][A-Za-z0-9_-]*$
-        description: 'Identifier for this artifact, unique within the statement, cited
-          by `rules[].appliesTo`.
+        $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.yaml
+        description: 'Identifier for this artifact, cited by `rules[].appliesTo`.
+          An IRI, a CURIE, or a bare local name resolved against the document base
+          (see bblocks://ogc.ogc-utils.iri-or-curie). A shared reference dataset that
+          several workflows depend on is worth identifying globally, for the same
+          reason a shared envelope constraint is.
 
           '
         x-jsonld-id: '@id'

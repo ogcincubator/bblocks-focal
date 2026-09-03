@@ -23,8 +23,7 @@ allOf:
   - transferability
   properties:
     id:
-      type: string
-      format: uri-reference
+      $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.yaml
       description: 'Identifier for the workflow, resolved against the document''s
         base URI. Optional, but worth setting: without it the workflow is an anonymous
         node in RDF, and its envelope constraints and artifacts end up as named resources

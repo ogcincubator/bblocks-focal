@@ -19,8 +19,7 @@
       ],
       "properties": {
         "id": {
-          "type": "string",
-          "format": "uri-reference",
+          "$ref": "https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.json",
           "description": "Identifier for the workflow, resolved against the document's base URI. Optional, but worth setting: without it the workflow is an anonymous node in RDF, and its envelope constraints and artifacts end up as named resources hanging off a subject nothing can refer to. An empty string resolves to the base URI itself, i.e. \"the workflow this document describes\".\n",
           "x-jsonld-id": "@id"
         },

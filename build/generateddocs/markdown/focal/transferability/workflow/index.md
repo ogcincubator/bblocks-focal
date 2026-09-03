@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Workflow (Schema)
 
-`ogc.focal.transferability.workflow` *v0.2*
+`ogc.focal.transferability.workflow` *v0.4*
 
 Profile of a CWL Workflow adding FOCAL's machine-readable transferability facts: a transferability statement (validity envelope, reference/calibration-artifact adaptation rules), computation type, maturity status, and quality annotations.
 
@@ -253,16 +253,16 @@ point at; they are not FP-WF1's real interface.
             focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range> ;
-            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate-data> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-alternative-published-model>,
+            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-alternative-published-model>,
                         <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate-data> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/climatic> ;
@@ -679,21 +679,21 @@ an Application Package here than anywhere else. `inputs` ids are placeholders.
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology> ;
             focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime> ;
-            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime> ;
+            focal-transf-prop:rules [ rdfs:comment "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels> ;
+                    focal-transf-prop:mandatory false ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
                 [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels> ;
-                    focal-transf-prop:mandatory false ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent> ;
+                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy> dcterms:title "EO sensor selection, cloud masking, temporal compositing strategy" ;
@@ -1020,12 +1020,12 @@ Geometries are coarse extents, not cadastral boundaries, and say so on the const
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain> ;
-            focal-transf-prop:rules [ rdfs:comment "Outside CLMS coverage no substitute is currently defined, and hot-spot characterization, which uses this dataset, cannot be executed." ;
+            focal-transf-prop:rules [ rdfs:comment "Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target. Which of the two applies depends on whether a substitute is obtainable, which the source does not resolve." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
                         <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst> ;
                     focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent> ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
                 [ rdfs:comment "Stated with triggeredBy rather than a cited constraint: this data is not yet implemented, so there is no envelope fact to point at. Once built, the planned Heat Risk Indicator would not be executable without it." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
@@ -1033,24 +1033,24 @@ Geometries are coarse extents, not cadastral boundaries, and say so on the const
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eurostat> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ],
-                [ rdfs:comment "Within the CLMS bounding extent but inside the area the product excludes: no Tree Cover Density or Imperviousness Density data exists, and no substitute is defined, so hot-spot characterization cannot be executed. A terminal outcome with no alternative offered, unlike the coverage rule above." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] ],
-                [ rdfs:comment "Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target. Which of the two applies depends on whether a substitute is obtainable, which the source does not resolve." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
                 [ rdfs:comment "Inside the EURO-CORDEX domain the datasets are reused unchanged, by changing the area of interest." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/reuse-as-is> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] ],
+                [ rdfs:comment "Outside CLMS coverage no substitute is currently defined, and hot-spot characterization, which uses this dataset, cannot be executed." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ rdfs:comment "Within the CLMS bounding extent but inside the area the product excludes: no Tree Cover Density or Imperviousness Density data exists, and no substitute is defined, so hot-spot characterization cannot be executed. A terminal outcome with no alternative offered, unlike the coverage rule above." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] ] ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs> rdfs:comment "Discrete temporal epochs, explicitly not a time series: one timestep per epoch. 2022–2025 available at time of writing." ;
@@ -1117,8 +1117,7 @@ allOf:
   - transferability
   properties:
     id:
-      type: string
-      format: uri-reference
+      $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.yaml
       description: 'Identifier for the workflow, resolved against the document''s
         base URI. Optional, but worth setting: without it the workflow is an anonymous
         node in RDF, and its envelope constraints and artifacts end up as named resources

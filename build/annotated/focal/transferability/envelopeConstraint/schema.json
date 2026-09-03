@@ -15,9 +15,8 @@
       ],
       "properties": {
         "id": {
-          "type": "string",
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
-          "description": "Identifier for this constraint, unique within its transferability statement, so a rule can cite it in `when[].constraint`. Optional only for a constraint no rule refers to.\n",
+          "$ref": "https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.json",
+          "description": "Identifier for this constraint, so a rule can cite it in `when[].constraint`. Optional only for a constraint no rule refers to.\nAn **IRI, a CURIE, or a bare local name** (see bblocks://ogc.ogc-utils.iri-or-curie). A local name is resolved against the document's base URI and is right for a constraint specific to one workflow. An IRI or CURIE gives the constraint a **global identity**, which is what makes a boundary shareable: the EURO-CORDEX EUR-11 domain is the same extent for several FOCAL workflows, and each restating it as a private local name leaves nothing able to tell that they are the same boundary. Declaring it here under its global identifier says so.\nA CURIE expands only if its prefix is declared in the JSON-LD context (via `x-jsonld-prefixes` or an imported block); an undeclared prefix is read as a URI scheme and `acme:eur11` stays `acme:eur11`, which validates and means nothing. Use a full IRI unless the prefix is known to be in scope.\nGiving a constraint a global identifier makes the boundary shareable, not fetchable: it is still declared in full in every statement that cites it, so a reader always has the extent in front of them. What the identifier buys is being able to ask which workflows are bounded by this exact domain.\n",
           "x-jsonld-id": "@id"
         },
         "role": {

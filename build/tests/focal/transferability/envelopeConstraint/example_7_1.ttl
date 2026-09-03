@@ -1,0 +1,9 @@
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11> rdfs:comment "The EUR-11 domain's published approximate rectangular extent. Shared across every FOCAL workflow driven by the EURO-CORDEX ensemble, which is why it carries a global identifier rather than a name local to one workflow." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value [ geo:asWKT "POLYGON((-22 27,45 27,45 72,-22 72,-22 27))"^^geo:wktLiteral ] .
+

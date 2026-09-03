@@ -1,0 +1,29 @@
+Validation report for ogc.focal.transferability.envelopeConstraint - FOCAL Transferability Envelope Constraint
+Generated 2026-09-03T16:21:46.367608+00:00
+=== Files ===
+Using example_7_1.json from examples
+JSON-LD context is present - uplifting
+Output JSON-LD example_7_1.jsonld created
+Output Turtle example_7_1.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+Validation passed
+=== End JSON Schema ===
+
+=== SHACL ===
+Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):
+ - /github/workspace/_sources/transferability/vocab/ontology.ttl
+Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
+ - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>
+ - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>
+ - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>
+ - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>
+ - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>/focal-transf-prop:value
+
+=== End SHACL ===
+

@@ -3,12 +3,12 @@
   "abstract": "This is an example which uses OGC Blocks to define the ontology for forest typology multilingual.\n",
   "description": "## About this Register: FOCAL Forest Typology Czech OGC Blocks\n\nAs a Forest Data Provider (e.g. a forestry researcher), I want to provide my \"normal GIS\" data (e.g. typology derived by photogrammetry and remote sensing) in a way that my data is conform to my domain (multilingual) and can be integrate with data from another domain (e.g. climate projections) by defining clear input/output contracts. As a platform operator who follows the OGC Smart concepts, I know that domain specific profiles can be provided by public registers to ensure public consistency of distributed digital twins. Using those profiles turns the local typology data of the data provider into machine-interpretable knowledge that can be used to extend the distributed digital twin of forest typologies or can be automatically integrated into more complex distributed digital twins like climate-resilient reforestation simulations or processed by AI tools to generate climate-resilient reforestation recommendations.\n\nThis story illustrates the transition from \"normal GIS\" (manual overlays and scripts) to a standards-mediated geo-data supply chain. By implementing the Forest Typology OGC Block, the data provider removes the need for bespoke engineering. Instead of rebuilding a pipeline for every new forest, the provider publishes the Forest Typology OGC Block definitions as the \"input/output contract\" of a consistent distributed digital twin for forest typologies, allowing AI agents to navigate semantic gaps automatically and provide validated decision support. \n\nThis register provides the machine-readable foundation for the **FOCAL project**, establishing a standards-mediated pipeline to bridge the gap between global climate science and local decision-making. It implements the **OGC Blocks** framework to deliver a \"system of systems\" approach for **Distributed Digital Twins** in forestry and urban planning.\n\n### **Who is this register for?**\nThis register supports a multi-actor ecosystem:\n*   **Data Providers:** Forestry researchers and municipal GIS departments who need to transform **\"normal GIS\"** data (e.g., typology from photogrammetry) into machine-interpretable knowledge.\n*   **Developers:** Engineers building climate services who require stable API contracts, versioned schemas, and reusable data models for **Digital Twins**.\n*   **Domain Experts:** Foresters and urban planners, such as those in **Constance** or the **Czech Forestry Institute**, looking for validated, climate-resilient recommendations.\n*   **AI Agents:** Automated systems like the **JackDaw** assistant that require explicit semantics to programmatically process data without human intervention.\n\n### **What does this register contain?**\nIt hosts reusable **OGC Blocks** that move from document-centric descriptions to actionable components:\n*   **Forest Site Assessment:** Schemas mapping management units to soil types (FAO World Reference Base) and growth records. It includes target mixtures for specific codes, such as **5K1** (Acidic fir-beech modal site).\n*   **Urban Climate Vulnerability:** Models for urban morphology (building density, sealed surfaces) and demographics linked to heat and flood risk.\n*   **focal-ontology:** A core module providing the machine-readable semantics (SKOS/OWL) for forest type codes (e.g., **2S1**) with **multi-lingual support** in Czech, English, and German.\n*   **Custom Features:** Implementation of the **\"Feature with geometry\"** pattern, where attributes are managed in a standardized **Property Set** independently of the spatial packaging.\n\n### **When should this register be used?**\n*   **Standardized Ingestion:** During the conversion of static shapefiles or **CF-NetCDF** scientific data into planning-ready formats via the **CF-to-Planning Transform**.\n*   **Data Validation:** To enforce **Integrity, Provenance, and Trust (IPT)** via **SHACL shapes**, ensuring data meets mandatory Coordinate Reference System (**S-JTSK / EPSG:5514**) and unit contracts.\n*   **Workflow Composition:** When building containerized workflows in systems like **Steep** that require consistent input/output contracts between scientific and local domains.\n\n### **Where does this register fit?**\n*   **Federated Register Infrastructure:** It acts as a domain-specific node analogous to the Domain Name System (DNS), inheriting foundational patterns from the root OGC register.\n*   **Domain Profiling:** It implements the **European Climate Assessment Profile**, binding global standards to regional conventions like **ETRS89** and the European forest inventory.\n*   **Pilot Integration:** It connects scientific repositories (ESGF) with local implementation registers**.\n\n### **Why does this register exist?**\n*   **Closing the Semantic Gap:** It addresses the \"semantic disconnection\" where scientific variables (e.g., \"tas\" for temperature) are opaque to local planning software.\n*   **Scalability:** It replaces bespoke data engineering for every city with a **\"recipe-based\" pipeline**, allowing new municipalities to onboard by creating a local profile rather than custom scripts.\n*   **Trust and Reproducibility:** It provides an auditable framework where every recommendation is backed by a **machine-readable manifest (JSON)** recording lineage, code versions, and processing history.\n\n### **How is this register structured and implemented?**\n*   **Implementation:** Developed using the **GitHub bblock-template** with a test-driven CI/CD pipeline where every example must pass validation.\n*   **Recursive Composition:** Each block aggregates a `schema.yaml` for structure, a `context.jsonld` for semantic uplift, and `shacl.ttl` for executable constraints.\n*   **Profile Layering:** It utilizes hierarchical profiling, allowing local specializations to inherit and extend base standards without breaking interoperability. The forestStandFeature block inherits from the base OGC Feature block and aggregates the forestStandProperties property set.\n\n### **For Developers**\n*   **[GitHub Repository](https://github.com/ogcincubator/bblocks-focal)**\n*   **[OGC Blocks Documentation](https://ogcincubator.github.io/bblocks-docs/)**\n*   **[OGC Blocks Tutorials](https://ogcincubator.github.io/bblocks-tutorial/)**\n*   **[OGC Blocks Examples](https://ogcincubator.github.io/bblocks-examples/)**\n",
   "sparqlEndpoint": "http://defs-hosted.opengis.net/fuseki-hosted/query",
-  "modified": "2026-09-03T16:14:06.484510",
+  "modified": "2026-09-03T16:21:34.976887",
   "tooling": {
     "bblocks-postprocess": {
-      "commitId": "\"b9092dd001978102ed9608ad3cfda4864c630bc6",
-      "shortCommitId": "\"b9092d",
-      "date": "2026-09-03T07:46:57+00:00\""
+      "commitId": "\"865a527f37dc271186cb8dd7d0386365bf1486d3",
+      "shortCommitId": "\"865a52",
+      "date": "2026-09-03T16:12:25+00:00\""
     }
   },
   "gitRepository": "https://github.com/ogcincubator/bblocks-focal",
@@ -351,7 +351,7 @@
       "status": "under-development",
       "dateTimeAddition": "2026-09-02T00:00:00Z",
       "itemClass": "schema",
-      "version": "0.3",
+      "version": "0.4",
       "dateOfLastChange": "2026-09-03",
       "concept": [
         "https://w3id.org/ogc/hosted/focal/transferability/roles/scheme",
@@ -361,8 +361,9 @@
         "https://w3id.org/ogc/hosted/focal/transferability/EnvelopeConstraint"
       ],
       "dependsOn": [
-        "bblocks://ogc.focal.transferability.notes",
-        "bblocks://ogc.focal.transferability.vocab"
+        "bblocks://ogc.focal.transferability.vocab",
+        "bblocks://ogc.ogc-utils.iri-or-curie",
+        "bblocks://ogc.focal.transferability.notes"
       ],
       "tags": [
         "focal",
@@ -408,7 +409,7 @@
       "status": "under-development",
       "dateTimeAddition": "2026-09-02T00:00:00Z",
       "itemClass": "schema",
-      "version": "0.3",
+      "version": "0.4",
       "dateOfLastChange": "2026-09-03",
       "concept": [
         "https://w3id.org/ogc/hosted/focal/transferability/actions/scheme",
@@ -419,8 +420,9 @@
         "https://w3id.org/ogc/hosted/focal/transferability/Rule"
       ],
       "dependsOn": [
-        "bblocks://ogc.focal.transferability.notes",
-        "bblocks://ogc.focal.transferability.vocab"
+        "bblocks://ogc.focal.transferability.vocab",
+        "bblocks://ogc.ogc-utils.iri-or-curie",
+        "bblocks://ogc.focal.transferability.notes"
       ],
       "tags": [
         "focal",
@@ -528,7 +530,7 @@
       "status": "under-development",
       "dateTimeAddition": "2026-09-03T00:00:00Z",
       "itemClass": "schema",
-      "version": "0.3",
+      "version": "0.4",
       "dateOfLastChange": "2026-09-03",
       "concept": [
         "https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/scheme"
@@ -537,9 +539,10 @@
         "https://w3id.org/ogc/hosted/focal/transferability/TransferabilityStatement"
       ],
       "dependsOn": [
-        "bblocks://ogc.focal.transferability.envelopeConstraint",
         "bblocks://ogc.focal.transferability.rule",
-        "bblocks://ogc.focal.transferability.vocab"
+        "bblocks://ogc.focal.transferability.vocab",
+        "bblocks://ogc.focal.transferability.envelopeConstraint",
+        "bblocks://ogc.ogc-utils.iri-or-curie"
       ],
       "tags": [
         "focal",
@@ -551,11 +554,11 @@
         "ogc.focal.transferability.transferabilityStatement": [
           "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/transferabilityStatement/shapes.shacl"
         ],
-        "ogc.focal.transferability.envelopeConstraint": [
-          "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/envelopeConstraint/shapes.shacl"
-        ],
         "ogc.focal.transferability.rule": [
           "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/shapes.shacl"
+        ],
+        "ogc.focal.transferability.envelopeConstraint": [
+          "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/envelopeConstraint/shapes.shacl"
         ]
       },
       "ldContext": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/context.jsonld",
@@ -602,8 +605,8 @@
       "maturity": "development",
       "scope": "unstable",
       "dependsOn": [
-        "bblocks://ogc.focal.forestStandFeature",
-        "bblocks://ogc.geo.features.featureCollection"
+        "bblocks://ogc.geo.features.featureCollection",
+        "bblocks://ogc.focal.forestStandFeature"
       ],
       "tags": [
         "focal",
@@ -614,14 +617,14 @@
       "group": "FOCAL",
       "highlighted": true,
       "shaclShapes": {
-        "ogc.focal.forestStandFeature": [
-          "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandFeature/shapes.shacl"
+        "ogc.geo.features.featureCollection": [
+          "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl"
         ],
         "ogc.geo.features.feature": [
           "https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl"
         ],
-        "ogc.geo.features.featureCollection": [
-          "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl"
+        "ogc.focal.forestStandFeature": [
+          "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandFeature/shapes.shacl"
         ]
       },
       "schema": {
@@ -724,17 +727,18 @@
       "status": "under-development",
       "dateTimeAddition": "2026-09-02T00:00:00Z",
       "itemClass": "schema",
-      "version": "0.2",
+      "version": "0.4",
       "dateOfLastChange": "2026-09-03",
       "isProfileOf": [
         "bblocks://ogc.cwl.v1_2_1.CWLWorkflow"
       ],
       "dependsOn": [
         "bblocks://ogc.focal.transferability.maturityStatus",
-        "bblocks://ogc.focal.transferability.qualityAnnotation",
-        "bblocks://ogc.focal.transferability.computationType",
         "bblocks://ogc.cwl.v1_2_1.CWLWorkflow",
-        "bblocks://ogc.focal.transferability.transferabilityStatement"
+        "bblocks://ogc.focal.transferability.computationType",
+        "bblocks://ogc.focal.transferability.qualityAnnotation",
+        "bblocks://ogc.focal.transferability.transferabilityStatement",
+        "bblocks://ogc.ogc-utils.iri-or-curie"
       ],
       "tags": [
         "focal",
@@ -750,20 +754,20 @@
         "ogc.focal.transferability.maturityStatus": [
           "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/maturityStatus/shapes.shacl"
         ],
-        "ogc.focal.transferability.qualityAnnotation": [
-          "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/qualityAnnotation/shapes.shacl"
-        ],
         "ogc.focal.transferability.computationType": [
           "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/computationType/shapes.shacl"
+        ],
+        "ogc.focal.transferability.qualityAnnotation": [
+          "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/qualityAnnotation/shapes.shacl"
         ],
         "ogc.focal.transferability.transferabilityStatement": [
           "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/transferabilityStatement/shapes.shacl"
         ],
-        "ogc.focal.transferability.envelopeConstraint": [
-          "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/envelopeConstraint/shapes.shacl"
-        ],
         "ogc.focal.transferability.rule": [
           "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/shapes.shacl"
+        ],
+        "ogc.focal.transferability.envelopeConstraint": [
+          "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/envelopeConstraint/shapes.shacl"
         ]
       },
       "ldContext": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/workflow/context.jsonld",

@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Rule (Schema)
 
-`ogc.focal.transferability.rule` *v0.3*
+`ogc.focal.transferability.rule` *v0.4*
 
 What must happen, to which artifacts, under which envelope conditions. Conditions cite envelope constraints by id and are conjunctive; actions are an OR-set.
 
@@ -421,8 +421,7 @@ allOf:
       type: array
       minItems: 1
       items:
-        type: string
-        pattern: ^[A-Za-z0-9][A-Za-z0-9_-]*$
+        $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.yaml
       description: "Identifiers of the artifacts this rule governs, from the enclosing
         statement's `artifacts`. Several artifacts may share one rule \u2014 FP-WF2's
         four Czechia-specific reference files do. Omit for a rule that applies to
@@ -490,12 +489,13 @@ $defs:
     additionalProperties: false
     properties:
       constraint:
-        type: string
-        pattern: ^[A-Za-z0-9][A-Za-z0-9_-]*$
-        description: 'The `id` of an envelope constraint in the enclosing statement''s
-          `envelope`.
-
-          '
+        $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.yaml
+        description: "The `id` of an envelope constraint in the enclosing statement's
+          `envelope`, written the same way it is declared there \u2014 an IRI, a CURIE,
+          or a bare local name. Whichever form is used, the constraint must still
+          be declared in the statement, so a reader has the extent in front of them
+          rather than a bare identifier: a global identifier makes a boundary shareable,
+          it does not make it fetchable.\n"
         x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/constraint
         x-jsonld-type: '@id'
       test:

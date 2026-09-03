@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Envelope Constraint (Schema)
 
-`ogc.focal.transferability.envelopeConstraint` *v0.3*
+`ogc.focal.transferability.envelopeConstraint` *v0.4*
 
 A single {role, dimension, value} statement bounding where a workflow's results are valid, addressable by id so rules can cite which boundary they are evaluated against. Spatial values are GeoSPARQL geometries and temporal values DCAT periods, so a consumer can evaluate them without knowing FOCAL.
 
@@ -326,6 +326,61 @@ regular lat/lon split.
 
 ```
 
+
+### A shared constraint, identified globally
+The EURO-CORDEX EUR-11 domain is the same extent for every workflow driven by that ensemble.
+Given a bare local name in each of them, nothing can tell that they are the same boundary —
+a consumer holding two workflows sees two unrelated polygons that happen to coincide.
+
+Declaring it under an IRI says they are one boundary. `id` accepts an IRI, a CURIE, or a bare
+local name via [`ogc.ogc-utils.iri-or-curie`](bblocks://ogc.ogc-utils.iri-or-curie), so this
+is the same field used three ways rather than a separate mechanism.
+
+A global identifier makes the boundary **shareable, not fetchable**: the constraint is still
+declared in full in every statement that cites it, so a reader always has the extent in front
+of them. What the IRI adds is the ability to ask "which workflows are bounded by this exact
+domain?" and get an answer.
+
+#### json
+```json
+{
+  "id": "https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11",
+  "role": "valid-for",
+  "dimension": "spatial",
+  "value": { "asWKT": "POLYGON((-22 27,45 27,45 72,-22 72,-22 27))" },
+  "transferabilityNotes": "The EUR-11 domain's published approximate rectangular extent. Shared across every FOCAL workflow driven by the EURO-CORDEX ensemble, which is why it carries a global identifier rather than a name local to one workflow."
+}
+
+```
+
+#### jsonld
+```jsonld
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld",
+  "id": "https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11",
+  "role": "valid-for",
+  "dimension": "spatial",
+  "value": {
+    "asWKT": "POLYGON((-22 27,45 27,45 72,-22 72,-22 27))"
+  },
+  "transferabilityNotes": "The EUR-11 domain's published approximate rectangular extent. Shared across every FOCAL workflow driven by the EURO-CORDEX ensemble, which is why it carries a global identifier rather than a name local to one workflow."
+}
+```
+
+#### ttl
+```ttl
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11> rdfs:comment "The EUR-11 domain's published approximate rectangular extent. Shared across every FOCAL workflow driven by the EURO-CORDEX ensemble, which is why it carries a global identifier rather than a name local to one workflow." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value [ geo:asWKT "POLYGON((-22 27,45 27,45 72,-22 72,-22 27))"^^geo:wktLiteral ] .
+
+
+```
+
 ## Schema
 
 ```yaml
@@ -356,11 +411,27 @@ allOf:
   - value
   properties:
     id:
-      type: string
-      pattern: ^[A-Za-z0-9][A-Za-z0-9_-]*$
-      description: 'Identifier for this constraint, unique within its transferability
-        statement, so a rule can cite it in `when[].constraint`. Optional only for
-        a constraint no rule refers to.
+      $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.yaml
+      description: 'Identifier for this constraint, so a rule can cite it in `when[].constraint`.
+        Optional only for a constraint no rule refers to.
+
+        An **IRI, a CURIE, or a bare local name** (see bblocks://ogc.ogc-utils.iri-or-curie).
+        A local name is resolved against the document''s base URI and is right for
+        a constraint specific to one workflow. An IRI or CURIE gives the constraint
+        a **global identity**, which is what makes a boundary shareable: the EURO-CORDEX
+        EUR-11 domain is the same extent for several FOCAL workflows, and each restating
+        it as a private local name leaves nothing able to tell that they are the same
+        boundary. Declaring it here under its global identifier says so.
+
+        A CURIE expands only if its prefix is declared in the JSON-LD context (via
+        `x-jsonld-prefixes` or an imported block); an undeclared prefix is read as
+        a URI scheme and `acme:eur11` stays `acme:eur11`, which validates and means
+        nothing. Use a full IRI unless the prefix is known to be in scope.
+
+        Giving a constraint a global identifier makes the boundary shareable, not
+        fetchable: it is still declared in full in every statement that cites it,
+        so a reader always has the extent in front of them. What the identifier buys
+        is being able to ask which workflows are bounded by this exact domain.
 
         '
       x-jsonld-id: '@id'

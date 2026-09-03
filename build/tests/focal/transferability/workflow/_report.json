@@ -2,7 +2,7 @@
   "title": "Validation report for ogc.focal.transferability.workflow - FOCAL Transferability Workflow",
   "bblockName": "FOCAL Transferability Workflow",
   "bblockId": "ogc.focal.transferability.workflow",
-  "generated": "2026-09-03T16:14:23.476662+00:00",
+  "generated": "2026-09-03T16:21:51.053817+00:00",
   "result": true,
   "items": [
     {
@@ -106,30 +106,6 @@
             },
             {
               "op": "shacl-report",
-              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
-              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-              "isError": false,
-              "message": "Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
-            },
-            {
-              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
-              "focusNodes": {
-                "focal-shape:QualityAnnotation": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:qualityAnnotation"
-                  ]
-                },
-                "focal-shape:QualityAnnotationHasNote": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:qualityAnnotation"
-                  ]
-                }
-              },
-              "isError": false,
-              "message": "Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:\n - Shape focal-shape:QualityAnnotation: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:qualityAnnotation\n - Shape focal-shape:QualityAnnotationHasNote: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:qualityAnnotation\n"
-            },
-            {
-              "op": "shacl-report",
               "shaclFile": "_sources/transferability/computationType/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
@@ -149,6 +125,30 @@
             },
             {
               "op": "shacl-report",
+              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:QualityAnnotationHasNote": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:qualityAnnotation"
+                  ]
+                },
+                "focal-shape:QualityAnnotation": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:qualityAnnotation"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:\n - Shape focal-shape:QualityAnnotationHasNote: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:qualityAnnotation\n - Shape focal-shape:QualityAnnotation: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:qualityAnnotation\n"
+            },
+            {
+              "op": "shacl-report",
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
@@ -157,7 +157,23 @@
             {
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "focusNodes": {
+                "focal-shape:ArtifactDependency": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate-data>"
+                  ]
+                },
                 "focal-shape:ArtifactIsGovernedByARule": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredArtifact": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability"
                   ]
@@ -172,75 +188,10 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model>",
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate-data>"
                   ]
-                },
-                "focal-shape:RuleCitesDeclaredConstraint": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability"
-                  ]
-                },
-                "focal-shape:ArtifactDependency": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate-data>"
-                  ]
-                },
-                "focal-shape:RuleCitesDeclaredArtifact": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability"
-                  ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate-data>\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate-data>\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability\n"
-            },
-            {
-              "op": "shacl-report",
-              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
-              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-              "isError": false,
-              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
-            },
-            {
-              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
-              "focusNodes": {
-                "focal-shape:SpatialEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>"
-                  ]
-                },
-                "focal-shape:ScenarioMarkerIsAConcept": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>/focal-transf-prop:value",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>/focal-transf-prop:value",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>/focal-transf-prop:value"
-                  ]
-                },
-                "focal-shape:TemporalEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>"
-                  ]
-                },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>"
-                  ]
-                },
-                "focal-shape:EnvelopeConstraint": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>"
-                  ]
-                }
-              },
-              "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>/focal-transf-prop:value\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>\n"
+              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate-data>\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate-data>\n"
             },
             {
               "op": "shacl-report",
@@ -252,7 +203,19 @@
             {
               "shaclFile": "_sources/transferability/rule/shapes.shacl",
               "focusNodes": {
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when"
+                  ]
+                },
                 "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules"
+                  ]
+                },
+                "focal-shape:TransferabilityRule": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules",
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules"
@@ -269,22 +232,59 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules",
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules"
                   ]
-                },
-                "focal-shape:EnvelopeCondition": {
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:EnvelopeCondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when\n - Shape focal-shape:TerminalActionNotAlongsideReuse: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:TransferabilityRule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:RuleHasACondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:OptionalRuleHasConsequence: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:EnvelopeConstraint": {
                   "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when"
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>"
                   ]
                 },
-                "focal-shape:TransferabilityRule": {
+                "focal-shape:TemporalEnvelopeValue": {
                   "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules"
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>"
+                  ]
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>"
+                  ]
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>"
+                  ]
+                },
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>/focal-transf-prop:value",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>/focal-transf-prop:value",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>/focal-transf-prop:value"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNotAlongsideReuse: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:RuleHasACondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:OptionalRuleHasConsequence: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:EnvelopeCondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when\n - Shape focal-shape:TransferabilityRule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/>/focal-transf-prop:transferability/focal-transf-prop:rules\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>/focal-transf-prop:value\n"
             }
           ]
         }
@@ -391,26 +391,6 @@
             },
             {
               "op": "shacl-report",
-              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
-              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-              "isError": false,
-              "message": "Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
-            },
-            {
-              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
-              "focusNodes": {
-                "focal-shape:QualityAnnotation": {
-                  "nodes": []
-                },
-                "focal-shape:QualityAnnotationHasNote": {
-                  "nodes": []
-                }
-              },
-              "isError": false,
-              "message": "Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:\n - Shape focal-shape:QualityAnnotation: *none*\n - Shape focal-shape:QualityAnnotationHasNote: *none*\n"
-            },
-            {
-              "op": "shacl-report",
               "shaclFile": "_sources/transferability/computationType/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
@@ -430,6 +410,26 @@
             },
             {
               "op": "shacl-report",
+              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:QualityAnnotationHasNote": {
+                  "nodes": []
+                },
+                "focal-shape:QualityAnnotation": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:\n - Shape focal-shape:QualityAnnotationHasNote: *none*\n - Shape focal-shape:QualityAnnotation: *none*\n"
+            },
+            {
+              "op": "shacl-report",
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
@@ -438,7 +438,25 @@
             {
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "focusNodes": {
+                "focal-shape:ArtifactDependency": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>"
+                  ]
+                },
                 "focal-shape:ArtifactIsGovernedByARule": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredArtifact": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability"
                   ]
@@ -450,72 +468,15 @@
                 },
                 "focal-shape:ArtifactRefOnlyForInternalRoles": {
                   "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes>",
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances>",
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes>"
-                  ]
-                },
-                "focal-shape:RuleCitesDeclaredConstraint": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability"
-                  ]
-                },
-                "focal-shape:ArtifactDependency": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes>"
-                  ]
-                },
-                "focal-shape:RuleCitesDeclaredArtifact": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability"
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes>\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes>\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability\n"
-            },
-            {
-              "op": "shacl-report",
-              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
-              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-              "isError": false,
-              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
-            },
-            {
-              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
-              "focusNodes": {
-                "focal-shape:SpatialEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>"
-                  ]
-                },
-                "focal-shape:ScenarioMarkerIsAConcept": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>/focal-transf-prop:value"
-                  ]
-                },
-                "focal-shape:TemporalEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>"
-                  ]
-                },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>"
-                  ]
-                },
-                "focal-shape:EnvelopeConstraint": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>"
-                  ]
-                }
-              },
-              "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>/focal-transf-prop:value\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>\n"
+              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>\n"
             },
             {
               "op": "shacl-report",
@@ -527,7 +488,17 @@
             {
               "shaclFile": "_sources/transferability/rule/shapes.shacl",
               "focusNodes": {
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when"
+                  ]
+                },
                 "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules"
+                  ]
+                },
+                "focal-shape:TransferabilityRule": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules"
                   ]
@@ -541,20 +512,49 @@
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules"
                   ]
-                },
-                "focal-shape:EnvelopeCondition": {
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:EnvelopeCondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when\n - Shape focal-shape:TerminalActionNotAlongsideReuse: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:TransferabilityRule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:RuleHasACondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:OptionalRuleHasConsequence: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:EnvelopeConstraint": {
                   "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when"
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>"
                   ]
                 },
-                "focal-shape:TransferabilityRule": {
+                "focal-shape:TemporalEnvelopeValue": {
                   "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules"
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>"
+                  ]
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>"
+                  ]
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>"
+                  ]
+                },
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>/focal-transf-prop:value"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNotAlongsideReuse: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:RuleHasACondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:OptionalRuleHasConsequence: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:EnvelopeCondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when\n - Shape focal-shape:TransferabilityRule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>/focal-transf-prop:value\n"
             }
           ]
         }
@@ -661,26 +661,6 @@
             },
             {
               "op": "shacl-report",
-              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
-              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-              "isError": false,
-              "message": "Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
-            },
-            {
-              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
-              "focusNodes": {
-                "focal-shape:QualityAnnotation": {
-                  "nodes": []
-                },
-                "focal-shape:QualityAnnotationHasNote": {
-                  "nodes": []
-                }
-              },
-              "isError": false,
-              "message": "Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:\n - Shape focal-shape:QualityAnnotation: *none*\n - Shape focal-shape:QualityAnnotationHasNote: *none*\n"
-            },
-            {
-              "op": "shacl-report",
               "shaclFile": "_sources/transferability/computationType/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
@@ -700,6 +680,26 @@
             },
             {
               "op": "shacl-report",
+              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:QualityAnnotationHasNote": {
+                  "nodes": []
+                },
+                "focal-shape:QualityAnnotation": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:\n - Shape focal-shape:QualityAnnotationHasNote: *none*\n - Shape focal-shape:QualityAnnotation: *none*\n"
+            },
+            {
+              "op": "shacl-report",
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
@@ -708,7 +708,24 @@
             {
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "focusNodes": {
+                "focal-shape:ArtifactDependency": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels>"
+                  ]
+                },
                 "focal-shape:ArtifactIsGovernedByARule": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredArtifact": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability"
                   ]
@@ -721,74 +738,13 @@
                 "focal-shape:ArtifactRefOnlyForInternalRoles": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy>"
-                  ]
-                },
-                "focal-shape:RuleCitesDeclaredConstraint": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability"
-                  ]
-                },
-                "focal-shape:ArtifactDependency": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy>"
-                  ]
-                },
-                "focal-shape:RuleCitesDeclaredArtifact": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability"
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels>"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy>\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy>\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability\n"
-            },
-            {
-              "op": "shacl-report",
-              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
-              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-              "isError": false,
-              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
-            },
-            {
-              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
-              "focusNodes": {
-                "focal-shape:SpatialEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>"
-                  ]
-                },
-                "focal-shape:ScenarioMarkerIsAConcept": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>/focal-transf-prop:value",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>/focal-transf-prop:value"
-                  ]
-                },
-                "focal-shape:TemporalEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>"
-                  ]
-                },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>"
-                  ]
-                },
-                "focal-shape:EnvelopeConstraint": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>"
-                  ]
-                }
-              },
-              "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>/focal-transf-prop:value\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>\n"
+              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels>\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels>\n"
             },
             {
               "op": "shacl-report",
@@ -800,7 +756,21 @@
             {
               "shaclFile": "_sources/transferability/rule/shapes.shacl",
               "focusNodes": {
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when"
+                  ]
+                },
                 "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules"
+                  ]
+                },
+                "focal-shape:TransferabilityRule": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules",
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules",
@@ -820,24 +790,54 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules",
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules"
                   ]
-                },
-                "focal-shape:EnvelopeCondition": {
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:EnvelopeCondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when\n - Shape focal-shape:TerminalActionNotAlongsideReuse: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:TransferabilityRule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:RuleHasACondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:OptionalRuleHasConsequence: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:EnvelopeConstraint": {
                   "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when"
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>"
                   ]
                 },
-                "focal-shape:TransferabilityRule": {
+                "focal-shape:TemporalEnvelopeValue": {
                   "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules"
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>"
+                  ]
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>"
+                  ]
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>"
+                  ]
+                },
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>/focal-transf-prop:value",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>/focal-transf-prop:value"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNotAlongsideReuse: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:RuleHasACondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:OptionalRuleHasConsequence: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:EnvelopeCondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when\n - Shape focal-shape:TransferabilityRule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>/focal-transf-prop:value\n"
             }
           ]
         }
@@ -944,26 +944,6 @@
             },
             {
               "op": "shacl-report",
-              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
-              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-              "isError": false,
-              "message": "Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
-            },
-            {
-              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
-              "focusNodes": {
-                "focal-shape:QualityAnnotation": {
-                  "nodes": []
-                },
-                "focal-shape:QualityAnnotationHasNote": {
-                  "nodes": []
-                }
-              },
-              "isError": false,
-              "message": "Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:\n - Shape focal-shape:QualityAnnotation: *none*\n - Shape focal-shape:QualityAnnotationHasNote: *none*\n"
-            },
-            {
-              "op": "shacl-report",
               "shaclFile": "_sources/transferability/computationType/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
@@ -983,6 +963,26 @@
             },
             {
               "op": "shacl-report",
+              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:QualityAnnotationHasNote": {
+                  "nodes": []
+                },
+                "focal-shape:QualityAnnotation": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:\n - Shape focal-shape:QualityAnnotationHasNote: *none*\n - Shape focal-shape:QualityAnnotation: *none*\n"
+            },
+            {
+              "op": "shacl-report",
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
@@ -991,7 +991,24 @@
             {
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "focusNodes": {
+                "focal-shape:ArtifactDependency": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eurostat>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms>"
+                  ]
+                },
                 "focal-shape:ArtifactIsGovernedByARule": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredArtifact": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability"
                   ]
@@ -1003,85 +1020,14 @@
                 },
                 "focal-shape:ArtifactRefOnlyForInternalRoles": {
                   "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms>",
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eurostat>"
-                  ]
-                },
-                "focal-shape:RuleCitesDeclaredConstraint": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability"
-                  ]
-                },
-                "focal-shape:ArtifactDependency": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eurostat>"
-                  ]
-                },
-                "focal-shape:RuleCitesDeclaredArtifact": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability"
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eurostat>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms>"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eurostat>\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eurostat>\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability\n"
-            },
-            {
-              "op": "shacl-report",
-              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
-              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-              "isError": false,
-              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
-            },
-            {
-              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
-              "focusNodes": {
-                "focal-shape:SpatialEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>"
-                  ]
-                },
-                "focal-shape:ScenarioMarkerIsAConcept": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>/focal-transf-prop:value",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>/focal-transf-prop:value",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>/focal-transf-prop:value",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>/focal-transf-prop:value"
-                  ]
-                },
-                "focal-shape:TemporalEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>"
-                  ]
-                },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>"
-                  ]
-                },
-                "focal-shape:EnvelopeConstraint": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>"
-                  ]
-                }
-              },
-              "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>/focal-transf-prop:value\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>\n"
+              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eurostat>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms>\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eurostat>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms>\n"
             },
             {
               "op": "shacl-report",
@@ -1093,7 +1039,24 @@
             {
               "shaclFile": "_sources/transferability/rule/shapes.shacl",
               "focusNodes": {
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when"
+                  ]
+                },
                 "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules"
+                  ]
+                },
+                "focal-shape:TransferabilityRule": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules",
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules",
@@ -1119,27 +1082,64 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules",
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules"
                   ]
-                },
-                "focal-shape:EnvelopeCondition": {
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:EnvelopeCondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when\n - Shape focal-shape:TerminalActionNotAlongsideReuse: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:TransferabilityRule: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:RuleHasACondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:OptionalRuleHasConsequence: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:EnvelopeConstraint": {
                   "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when"
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>"
                   ]
                 },
-                "focal-shape:TransferabilityRule": {
+                "focal-shape:TemporalEnvelopeValue": {
                   "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules"
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>"
+                  ]
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>"
+                  ]
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>"
+                  ]
+                },
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>/focal-transf-prop:value",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>/focal-transf-prop:value",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>/focal-transf-prop:value",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>/focal-transf-prop:value"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNotAlongsideReuse: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:RuleHasACondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:OptionalRuleHasConsequence: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:EnvelopeCondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when\n - Shape focal-shape:TransferabilityRule: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain>/focal-transf-prop:value\n"
             }
           ]
         }
