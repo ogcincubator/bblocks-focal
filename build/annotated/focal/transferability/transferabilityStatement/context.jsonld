@@ -1,0 +1,75 @@
+{
+  "@context": {
+    "envelope": {
+      "@context": {
+        "dimension": {
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/"
+          },
+          "@id": "focal-transf-prop:dimension",
+          "@type": "@id"
+        },
+        "value": {
+          "@context": {
+            "coordinates": {
+              "@container": "@list",
+              "@id": "geojson:coordinates"
+            },
+            "start": "focal-transf-prop:start",
+            "end": "focal-transf-prop:end",
+            "scenarioMarker": "focal-transf-prop:scenarioMarker"
+          },
+          "@id": "focal-transf-prop:value"
+        },
+        "role": {
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/roles/"
+          },
+          "@id": "focal-transf-prop:role",
+          "@type": "@id"
+        }
+      },
+      "@id": "focal-transf-prop:envelope",
+      "@container": "@set"
+    },
+    "artifactRules": {
+      "@context": {
+        "artifact": "focal-transf-prop:artifact",
+        "artifactRole": "focal-transf-prop:artifactRole",
+        "artifactRef": "focal-transf-prop:artifactRef",
+        "rules": {
+          "@context": {
+            "transferabilityNotes": "focal-transf-prop:transferabilityNotes",
+            "triggeredBy": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/triggers/"
+              },
+              "@id": "focal-transf-prop:triggeredBy",
+              "@type": "@id"
+            },
+            "actions": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/actions/"
+              },
+              "@id": "focal-transf-prop:actions",
+              "@type": "@id",
+              "@container": "@set"
+            },
+            "required": "focal-transf-prop:required"
+          },
+          "@id": "focal-transf-prop:rules",
+          "@container": "@set"
+        }
+      },
+      "@id": "focal-transf-prop:artifactRules",
+      "@container": "@set"
+    },
+    "Point": "geojson:Point",
+    "MultiPoint": "geojson:MultiPoint",
+    "Polygon": "geojson:Polygon",
+    "MultiPolygon": "geojson:MultiPolygon",
+    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "geojson": "https://purl.org/geojson/vocab#",
+    "@version": 1.1
+  }
+}

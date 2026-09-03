@@ -1,0 +1,19 @@
+Validation report for ogc.focal.forestStandFeature - FOCAL Forest Stand Feature
+Generated 2026-09-03T12:19:50.221021+00:00
+=== Files ===
+Using ../forestStandCollection/examples/feature.json from examples
+JSON-LD context is present - uplifting
+Output JSON-LD example_1_1.jsonld created
+Output Turtle example_1_1.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+Validation passed
+=== End JSON Schema ===
+
+=== SHACL ===
+
+** Validation error **
+Error retrieving https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl: HTTP Error 503: Service Unavailable
+=== End SHACL ===
+

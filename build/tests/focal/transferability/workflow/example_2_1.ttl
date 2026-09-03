@@ -6,25 +6,33 @@
 
 [] rdfs:label "FP-WF2 — Heat stress" ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
-    focal-transf-prop:envelope [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/jurisdictional> ;
-            focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
-            focal-transf-prop:value [ geojson:coordinates ( ( ( 1.209e+01 4.855e+01 ) ( 1.887e+01 4.855e+01 ) ( 1.887e+01 5.106e+01 ) ( 1.209e+01 5.106e+01 ) ( 1.209e+01 4.855e+01 ) ) ) ] ] ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
-    focal-transf-prop:referenceArtifact [ focal-transf-prop:artifact "Rasdaman climate registry / source catalogue" ;
-            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:required true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
-        [ focal-transf-prop:artifact "species tolerance thresholds (species_tolerances.json)" ;
-            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:required true ;
-                    focal-transf-prop:transferabilityNotes "Users may also override thresholds directly, even within the source region — a separate user-configurability fact, not modeled here." ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
-        [ focal-transf-prop:artifact "SLT/T5 forest classification context (Czechia-specific)" ;
-            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:required true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
-        [ focal-transf-prop:artifact "species codes catalogue (species_codes.json)" ;
-            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:required true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ] .
+    focal-transf-prop:transferability [ focal-transf-prop:artifactRules [ focal-transf-prop:artifact "species tolerance thresholds (species_tolerances.json)" ;
+                    focal-transf-prop:artifactRef "inputs.species_tolerances" ;
+                    focal-transf-prop:artifactRole "workflow-input" ;
+                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                            focal-transf-prop:required true ;
+                            focal-transf-prop:transferabilityNotes "Users may also override thresholds directly, even within the source region — a separate user-configurability fact, not modeled here." ;
+                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
+                [ focal-transf-prop:artifact "Rasdaman climate registry / source catalogue" ;
+                    focal-transf-prop:artifactRef "inputs.climate_registry_endpoint" ;
+                    focal-transf-prop:artifactRole "workflow-input" ;
+                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                            focal-transf-prop:required true ;
+                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
+                [ focal-transf-prop:artifact "species codes catalogue (species_codes.json)" ;
+                    focal-transf-prop:artifactRef "inputs.species_codes" ;
+                    focal-transf-prop:artifactRole "workflow-input" ;
+                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                            focal-transf-prop:required true ;
+                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
+                [ focal-transf-prop:artifact "SLT/T5 forest classification context (Czechia-specific)" ;
+                    focal-transf-prop:artifactRef "inputs.forest_classification_context" ;
+                    focal-transf-prop:artifactRole "workflow-input" ;
+                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                            focal-transf-prop:required true ;
+                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ] ;
+            focal-transf-prop:envelope [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/jurisdictional> ;
+                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
+                    focal-transf-prop:value [ geojson:coordinates ( ( ( 1.209e+01 4.855e+01 ) ( 1.887e+01 4.855e+01 ) ( 1.887e+01 5.106e+01 ) ( 1.209e+01 5.106e+01 ) ( 1.209e+01 4.855e+01 ) ) ) ] ] ] .
 

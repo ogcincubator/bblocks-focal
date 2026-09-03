@@ -80,6 +80,12 @@ focal-dim:spatial a skos:Concept ;
     skos:prefLabel "spatial"@en ;
     skos:topConceptOf focal-dim:scheme .
 
+focal-dim:temporal a skos:Concept ;
+    skos:definition "The calendar span, or non-calendar scenario marker (e.g. a Global Warming Level), over which results are valid."@en ;
+    skos:inScheme focal-dim:scheme ;
+    skos:prefLabel "temporal"@en ;
+    skos:topConceptOf focal-dim:scheme .
+
 focal-maturity:operational a skos:Concept ;
     skos:definition "Running and integrated. Says nothing about result confidence on its own — see transferability/qualityAnnotation for caveats such as FP-WF1's 'decision-support, not exact' note, which does not change a workflow's maturity stage."@en ;
     skos:inScheme focal-maturity:scheme ;
@@ -183,14 +189,6 @@ focal-role:scheme a skos:ConceptScheme ;
         focal-role:valid-for ;
     skos:prefLabel "FOCAL Transferability Envelope Roles"@en .
 
-focal-dim:scheme a skos:ConceptScheme ;
-    skos:definition "The axes along which a workflow's validity envelope is stated. Deliberately seeded small and open to growth — not a closed set."@en ;
-    skos:hasTopConcept focal-dim:climatic,
-        focal-dim:ecological,
-        focal-dim:jurisdictional,
-        focal-dim:spatial ;
-    skos:prefLabel "FOCAL Transferability Envelope Dimensions"@en .
-
 focal-trigger:scheme a skos:ConceptScheme ;
     skos:definition "The condition, evaluated against a workflow's validity envelope, that triggers a transferability rule."@en ;
     skos:hasTopConcept focal-trigger:different-climate-regime,
@@ -207,4 +205,13 @@ focal-action:scheme a skos:ConceptScheme ;
         focal-action:retrain,
         focal-action:reuse-as-is ;
     skos:prefLabel "FOCAL Transferability Actions"@en .
+
+focal-dim:scheme a skos:ConceptScheme ;
+    skos:definition "The axes along which a workflow's validity envelope is stated. Deliberately seeded small and open to growth — not a closed set."@en ;
+    skos:hasTopConcept focal-dim:climatic,
+        focal-dim:ecological,
+        focal-dim:jurisdictional,
+        focal-dim:spatial,
+        focal-dim:temporal ;
+    skos:prefLabel "FOCAL Transferability Envelope Dimensions"@en .
 

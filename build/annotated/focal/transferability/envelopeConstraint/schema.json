@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Transferability Envelope Constraint",
-  "description": "A single statement describing part of a workflow's validity envelope: which `role` this fact plays (what the workflow was trained on vs. what it's valid for vs. what it can run on), which `dimension` it concerns (spatial, ecological, climatic, jurisdictional, ... \u2014 an open vocabulary, seeded small and expected to grow), and the `value` itself. Repeatable per workflow: FP-WF1 alone needs three of these at once (trained-on/spatial, valid-for/ecological, can-run-on/climatic) \u2014 role and dimension are independent axes, not a single enum choice, precisely so a new constraint axis can be added later as a new vocabulary term rather than a schema change.\n",
+  "description": "A single statement describing part of a workflow's validity envelope: which `role` this fact plays (what the workflow was trained on vs. what it's valid for vs. what it can run on), which `dimension` it concerns (spatial, ecological, climatic, jurisdictional, temporal, ... \u2014 an open vocabulary, seeded small and expected to grow), and the `value` itself. Repeatable per workflow: FP-WF1 alone needs three of these at once (trained-on/spatial, valid-for/ecological, can-run-on/climatic) \u2014 role and dimension are independent axes, not a single enum choice, precisely so a new constraint axis can be added later as a new vocabulary term rather than a schema change.\n",
   "type": "object",
   "required": [
     "role",
@@ -27,7 +27,8 @@
         "spatial",
         "ecological",
         "climatic",
-        "jurisdictional"
+        "jurisdictional",
+        "temporal"
       ],
       "description": "Which axis of variation this statement constrains. Open vocabulary, seeded deliberately small \u2014 expect WF-owner review to surface dimensions not yet listed here.\n",
       "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/dimension",
@@ -35,13 +36,16 @@
       "x-jsonld-base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/"
     },
     "value": {
-      "description": "The constraint value itself. **Resolved 2026-09-03, tightened 2026-09-03:** a `spatial` or `jurisdictional` fact is a real geographic/administrative extent, and text throws away exactly the thing this envelope model exists to support \u2014 an automated check like \"does my AOI fall inside this workflow's `valid-for` area?\" cannot be answered against a free-text label. So for those two dimensions, `value` **must** be a GeoJSON Geometry (RFC 7946 \u00a73.1: `Point`, `MultiPoint`, `Polygon`, or `MultiPolygon` \u2014 the shapes evidenced so far; `LineString`/`MultiLineString`/`GeometryCollection` can be added later if evidence needs them), even an approximate one (e.g. UP-WF2's EURO-CORDEX domain, rendered as its published bounding box) \u2014 not just permitted, since text is not a fallback for \"haven't looked up the coordinates yet.\" A workflow with a genuinely unlocatable `spatial`/`jurisdictional` fact (no resolvable source location at all) should omit that envelope entry, or use `transferability/notes`' `transferabilityNotes` on a sibling fact to record the caveat in prose, rather than smuggling free text into `value`.\nFor every other dimension (`ecological`, `climatic`, and any future open-vocabulary term not itself a literal extent), `value` stays plain `string` \u2014 \"a comparable ecological range\" doesn't become more machine-readable by wrapping it in coordinates it doesn't have. This `oneOf` is keyed on today's two known geographic dimension terms; a future dimension term that is *also* a literal extent should be added to the geometry branch's `enum`, not solved by loosening `value` back to accepting a free-text geometry escape hatch.\nNo existing OGC Block carries a bare GeoJSON Geometry union standalone (checked 2026-09-03): `ogc.geo.common.data_types.geojson` (the main OGC register's stable GeoJSON block) only exposes this shape nested inside a full `Feature` wrapper (`type`/`properties`/`geometry`), no `$defs` fragment for just the geometry union \u2014 checked its actual schema, not assumed \u2014 which is heavier than a constraint value needs and isn't `$ref`-able as a bare fragment. This repo's own `forestStandFeature` hits the same wall (wraps the full `ogc.geo.features.feature` Feature shape, not a bare geometry), and no other register has one either (checked broadly). So, same posture as `qualityAnnotation` binding straight to DQV with no wrapping OGC Block to depend on, this binds directly to RFC 7946 rather than to a Feature-shaped block.\n",
+      "description": "The constraint value itself, shaped by `dimension`:\n- `spatial`/`jurisdictional` \u2014 a real geographic/administrative extent, since text throws\n  away exactly the thing this envelope model exists to support: an automated check like\n  \"does my AOI fall inside this workflow's `valid-for` area?\" cannot be answered against a\n  free-text label. `value` **must** be a GeoJSON Geometry (RFC 7946 \u00a73.1: `Point`,\n  `MultiPoint`, `Polygon`, or `MultiPolygon` \u2014 the shapes evidenced so far;\n  `LineString`/`MultiLineString`/`GeometryCollection` can be added later if evidence needs\n  them), even an approximate one (e.g. UP-WF2's EURO-CORDEX domain, rendered as its published\n  bounding box) \u2014 not just permitted, since text is not a fallback for \"haven't looked up the\n  coordinates yet.\" A workflow with a genuinely unlocatable `spatial`/`jurisdictional` fact\n  (no resolvable source location at all) should omit that envelope entry, or use\n  `transferability/notes`' `transferabilityNotes` on a sibling fact to record the caveat in\n  prose, rather than smuggling free text into `value`.\n- `temporal` \u2014 the calendar span, or non-calendar scenario marker, results are valid over.\n  `value` is either `{start, end}` (a plain calendar interval; granularity is\n  workflow-specific \u2014 a date, a year, a multi-year period \u2014 and not constrained here) or\n  `{scenarioMarker}` (a non-calendar, scenario-indexed position, e.g. a Global Warming Level\n  label like `GWL+1.5`, for results that genuinely aren't calendar-indexed \u2014 a warming level\n  is reached at different years depending on emissions scenario/ensemble member). A workflow\n  with no fixed window at all (e.g. an ongoing sensor observation) should omit the entry\n  rather than fabricate one.\n- `ecological`/`climatic` \u2014 the vocabulary's other two seeded dimension terms, neither a\n  literal extent or interval \u2014 `value` stays plain `string`, since \"a comparable ecological\n  range\" doesn't become more machine-readable by wrapping it in coordinates it doesn't have.\n- Any dimension term outside all four above \u2014 the vocabulary is open, so a term not yet\n  seeded here is still allowed \u2014 falls back to plain `string` too, until evidence shows it\n  needs its own structured shape.\n\nFour `oneOf` branches, not three: `ecological`/`climatic` get their own branch, listed by name, distinct from the catch-all for a genuinely new, not-yet-seeded dimension term \u2014 even though both branches currently validate `value` the same way (`string`). Keeping them apart makes each currently-known dimension term traceable to an explicit branch instead of only being defined by negation, and means that if a future known term (`ecological`, say) turns out to need its own structured `value` shape, it moves to a new named branch without disturbing what \"not yet classified\" means for everything else.\nNo existing OGC Block carries a bare GeoJSON Geometry union standalone: `ogc.geo.common.data_types.geojson` (the main OGC register's stable GeoJSON block) only exposes this shape nested inside a full `Feature` wrapper (`type`/`properties`/`geometry`), no `$defs` fragment for just the geometry union \u2014 checked its actual schema, not assumed \u2014 which is heavier than a constraint value needs and isn't `$ref`-able as a bare fragment. This repo's own `forestStandFeature` hits the same wall (wraps the full `ogc.geo.features.feature` Feature shape, not a bare geometry), and no other register has one either. So, same posture as `qualityAnnotation` binding straight to DQV with no wrapping OGC Block to depend on, this binds directly to RFC 7946 rather than to a Feature-shaped block.\n",
       "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/value",
       "x-jsonld-extra-terms": {
         "coordinates": {
           "x-jsonld-container": "@list",
           "x-jsonld-id": "https://purl.org/geojson/vocab#coordinates"
-        }
+        },
+        "start": "https://w3id.org/ogc/hosted/focal/transferability/properties/start",
+        "end": "https://w3id.org/ogc/hosted/focal/transferability/properties/end",
+        "scenarioMarker": "https://w3id.org/ogc/hosted/focal/transferability/properties/scenarioMarker"
       }
     }
   },
@@ -69,13 +73,66 @@
       ]
     },
     {
-      "title": "Other envelope dimension (string-valued)",
+      "title": "Temporal extent (interval- or marker-valued)",
+      "properties": {
+        "dimension": {
+          "enum": [
+            "temporal"
+          ],
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/dimension",
+          "x-jsonld-type": "@id",
+          "x-jsonld-base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/"
+        },
+        "value": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/calendarInterval"
+            },
+            {
+              "$ref": "#/$defs/scenarioMarker"
+            }
+          ],
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/value"
+        }
+      },
+      "required": [
+        "dimension",
+        "value"
+      ]
+    },
+    {
+      "title": "Other seeded dimension (string-valued)",
+      "properties": {
+        "dimension": {
+          "enum": [
+            "ecological",
+            "climatic"
+          ],
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/dimension",
+          "x-jsonld-type": "@id",
+          "x-jsonld-base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/"
+        },
+        "value": {
+          "type": "string",
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/value"
+        }
+      },
+      "required": [
+        "dimension",
+        "value"
+      ]
+    },
+    {
+      "title": "Not-yet-seeded dimension (string-valued, open vocabulary)",
       "properties": {
         "dimension": {
           "not": {
             "enum": [
               "spatial",
-              "jurisdictional"
+              "jurisdictional",
+              "temporal",
+              "ecological",
+              "climatic"
             ]
           },
           "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/dimension",
@@ -117,6 +174,46 @@
           "type": "array",
           "x-jsonld-container": "@list",
           "x-jsonld-id": "https://purl.org/geojson/vocab#coordinates"
+        }
+      }
+    },
+    "calendarInterval": {
+      "title": "Calendar interval",
+      "type": "object",
+      "required": [
+        "start",
+        "end"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "type": "string",
+          "description": "Start of the interval. Granularity is workflow-specific (a date, a year, a multi-year period) and not constrained here.\n",
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/start"
+        },
+        "end": {
+          "type": "string",
+          "description": "End of the interval, same granularity as `start`.",
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/end"
+        }
+      }
+    },
+    "scenarioMarker": {
+      "title": "Scenario-indexed marker",
+      "type": "object",
+      "required": [
+        "scenarioMarker"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "scenarioMarker": {
+          "type": "string",
+          "examples": [
+            "GWL+1.5",
+            "GWL+2.0"
+          ],
+          "description": "A non-calendar, scenario-indexed temporal position (e.g. a Global Warming Level label) where no calendar interval can be stated.\n",
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/scenarioMarker"
         }
       }
     }

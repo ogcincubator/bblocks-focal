@@ -1,4 +1,0 @@
-path	@id	schema
-/_oneOf/0/start	https://w3id.org/ogc/hosted/focal/transferability/properties/start	/github/workspace/build/annotated/focal/transferability/temporalExtent/schema.yaml
-/_oneOf/0/end	https://w3id.org/ogc/hosted/focal/transferability/properties/end	/github/workspace/build/annotated/focal/transferability/temporalExtent/schema.yaml
-/_oneOf/1/scenarioMarker	https://w3id.org/ogc/hosted/focal/transferability/properties/scenarioMarker	/github/workspace/build/annotated/focal/transferability/temporalExtent/schema.yaml

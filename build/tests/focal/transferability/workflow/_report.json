@@ -2,7 +2,7 @@
   "title": "Validation report for ogc.focal.transferability.workflow - FOCAL Transferability Workflow",
   "bblockName": "FOCAL Transferability Workflow",
   "bblockId": "ogc.focal.transferability.workflow",
-  "generated": "2026-09-03T10:16:14.077186+00:00",
+  "generated": "2026-09-03T12:19:52.776802+00:00",
   "result": true,
   "items": [
     {
@@ -40,7 +40,7 @@
               "op": "ttl-create",
               "empty": false,
               "filename": "example_1_1.ttl",
-              "size": 64,
+              "size": 69,
               "isError": false,
               "message": "Output Turtle example_1_1.ttl created"
             }
@@ -95,7 +95,7 @@
               "op": "ttl-create",
               "empty": false,
               "filename": "example_2_1.ttl",
-              "size": 65,
+              "size": 74,
               "isError": false,
               "message": "Output Turtle example_2_1.ttl created"
             }
@@ -150,7 +150,7 @@
               "op": "ttl-create",
               "empty": false,
               "filename": "example_3_1.ttl",
-              "size": 63,
+              "size": 70,
               "isError": false,
               "message": "Output Turtle example_3_1.ttl created"
             }
@@ -205,7 +205,7 @@
               "op": "ttl-create",
               "empty": false,
               "filename": "example_4_1.ttl",
-              "size": 1822,
+              "size": 1831,
               "isError": false,
               "message": "Output Turtle example_4_1.ttl created"
             }

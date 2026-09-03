@@ -2,83 +2,96 @@
   "class": "Workflow",
   "cwlVersion": "v1.2",
   "label": "FP-WF3 \u2014 Prediction of threatened stands",
-  "envelope": [
-    {
-      "role": "trained-on",
-      "dimension": "spatial",
-      "value": {
-        "type": "Polygon",
-        "coordinates": [
-          [
+  "inputs": {
+    "disturbance_labels": "File",
+    "eo_compositing_strategy": "string",
+    "phenology_normalization_assumptions": "string"
+  },
+  "transferability": {
+    "envelope": [
+      {
+        "role": "trained-on",
+        "dimension": "spatial",
+        "value": {
+          "type": "Polygon",
+          "coordinates": [
             [
-              12.09,
-              48.55
-            ],
-            [
-              18.87,
-              48.55
-            ],
-            [
-              18.87,
-              51.06
-            ],
-            [
-              12.09,
-              51.06
-            ],
-            [
-              12.09,
-              48.55
+              [
+                12.09,
+                48.55
+              ],
+              [
+                18.87,
+                48.55
+              ],
+              [
+                18.87,
+                51.06
+              ],
+              [
+                12.09,
+                51.06
+              ],
+              [
+                12.09,
+                48.55
+              ]
             ]
           ]
+        }
+      },
+      {
+        "role": "valid-for",
+        "dimension": "ecological",
+        "value": "a comparable phenological regime"
+      }
+    ],
+    "artifactRules": [
+      {
+        "artifact": "historical forest disturbance/damage labels (ground truth training data)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "inputs.disturbance_labels",
+        "rules": [
+          {
+            "triggeredBy": "different-geographic-coverage",
+            "actions": [
+              "retrain"
+            ],
+            "required": false,
+            "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright \u2014 a degraded-mode caveat, not a hard requirement."
+          }
+        ]
+      },
+      {
+        "artifact": "EO sensor selection, cloud masking, temporal compositing strategy",
+        "artifactRole": "workflow-input",
+        "artifactRef": "inputs.eo_compositing_strategy",
+        "rules": [
+          {
+            "triggeredBy": "different-geographic-coverage",
+            "actions": [
+              "replace-with-local-equivalent"
+            ],
+            "required": true
+          }
+        ]
+      },
+      {
+        "artifact": "regional phenology normalisation assumptions",
+        "artifactRole": "workflow-input",
+        "artifactRef": "inputs.phenology_normalization_assumptions",
+        "rules": [
+          {
+            "triggeredBy": "different-ecological-range",
+            "actions": [
+              "replace-with-local-equivalent"
+            ],
+            "required": true
+          }
         ]
       }
-    },
-    {
-      "role": "valid-for",
-      "dimension": "ecological",
-      "value": "a comparable phenological regime"
-    }
-  ],
-  "referenceArtifact": [
-    {
-      "artifact": "historical forest disturbance/damage labels (ground truth training data)",
-      "rules": [
-        {
-          "triggeredBy": "different-geographic-coverage",
-          "actions": [
-            "retrain"
-          ],
-          "required": false,
-          "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright \u2014 a degraded-mode caveat, not a hard requirement."
-        }
-      ]
-    },
-    {
-      "artifact": "EO sensor selection, cloud masking, temporal compositing strategy",
-      "rules": [
-        {
-          "triggeredBy": "different-geographic-coverage",
-          "actions": [
-            "replace-with-local-equivalent"
-          ],
-          "required": true
-        }
-      ]
-    },
-    {
-      "artifact": "regional phenology normalisation assumptions",
-      "rules": [
-        {
-          "triggeredBy": "different-ecological-range",
-          "actions": [
-            "replace-with-local-equivalent"
-          ],
-          "required": true
-        }
-      ]
-    }
-  ],
+    ]
+  },
   "computationType": "statistical-ml",
   "maturityStatus": "prototype"
 }

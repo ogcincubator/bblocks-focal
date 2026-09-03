@@ -3,76 +3,88 @@
   "class": "Workflow",
   "cwlVersion": "v1.2",
   "label": "FP-WF1 \u2014 Tree species suitability",
-  "envelope": [
-    {
-      "role": "trained-on",
-      "dimension": "spatial",
-      "value": {
-        "type": "Polygon",
-        "coordinates": [
-          [
+  "inputs": {
+    "climate_data": "File"
+  },
+  "outputs": {
+    "trained_growth_model": "File"
+  },
+  "transferability": {
+    "envelope": [
+      {
+        "role": "trained-on",
+        "dimension": "spatial",
+        "value": {
+          "type": "Polygon",
+          "coordinates": [
             [
-              12.09,
-              48.55
-            ],
-            [
-              18.87,
-              48.55
-            ],
-            [
-              18.87,
-              51.06
-            ],
-            [
-              12.09,
-              51.06
-            ],
-            [
-              12.09,
-              48.55
+              [
+                12.09,
+                48.55
+              ],
+              [
+                18.87,
+                48.55
+              ],
+              [
+                18.87,
+                51.06
+              ],
+              [
+                12.09,
+                51.06
+              ],
+              [
+                12.09,
+                48.55
+              ]
             ]
           ]
+        }
+      },
+      {
+        "role": "valid-for",
+        "dimension": "ecological",
+        "value": "a comparable ecological range"
+      },
+      {
+        "role": "can-run-on",
+        "dimension": "climatic",
+        "value": "wherever downscaled climate data is available"
+      }
+    ],
+    "artifactRules": [
+      {
+        "artifact": "trained tree growth model (LightGBM, Czech permanent sample plot data)",
+        "artifactRole": "workflow-output",
+        "artifactRef": "outputs.trained_growth_model",
+        "rules": [
+          {
+            "triggeredBy": "different-ecological-range",
+            "actions": [
+              "retrain",
+              "replace-with-alternative-published-model"
+            ],
+            "required": true
+          }
+        ]
+      },
+      {
+        "artifact": "downscaled FOCAL climate data (current + future)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "inputs.climate_data",
+        "rules": [
+          {
+            "triggeredBy": "different-geographic-coverage",
+            "actions": [
+              "replace-with-local-equivalent"
+            ],
+            "required": true
+          }
         ]
       }
-    },
-    {
-      "role": "valid-for",
-      "dimension": "ecological",
-      "value": "a comparable ecological range"
-    },
-    {
-      "role": "can-run-on",
-      "dimension": "climatic",
-      "value": "wherever downscaled climate data is available"
-    }
-  ],
-  "referenceArtifact": [
-    {
-      "artifact": "trained tree growth model (LightGBM, Czech permanent sample plot data)",
-      "rules": [
-        {
-          "triggeredBy": "different-ecological-range",
-          "actions": [
-            "retrain",
-            "replace-with-alternative-published-model"
-          ],
-          "required": true
-        }
-      ]
-    },
-    {
-      "artifact": "downscaled FOCAL climate data (current + future)",
-      "rules": [
-        {
-          "triggeredBy": "different-geographic-coverage",
-          "actions": [
-            "replace-with-local-equivalent"
-          ],
-          "required": true
-        }
-      ]
-    }
-  ],
+    ]
+  },
   "computationType": "statistical-ml",
   "maturityStatus": "operational",
   "qualityAnnotation": [

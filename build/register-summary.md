@@ -76,7 +76,7 @@ Reusable mixin adding computationType, an open-vocabulary classification of how 
 
 **Type:** schema
 
-A single {role, dimension, value} statement describing part of a workflow's validity envelope, repeatable so multiple roles/dimensions can apply to one workflow at once.
+A single {role, dimension, value} statement describing part of a workflow's validity envelope (spatial, temporal, ecological, climatic, jurisdictional, ...), repeatable so multiple roles/dimensions can apply to one workflow at once.
 
 ### `ogc.focal.transferability.maturityStatus` — FOCAL Workflow Maturity Status (mixin)
 
@@ -96,12 +96,6 @@ Reusable mixin adding a free-text escape hatch for transferability facts that do
 
 A single statement of uncertainty or confidence about a workflow's results, independent of its maturityStatus. Binds to the W3C Data Quality Vocabulary (DQV) directly, since no OGC Block wraps DQV.
 
-### `ogc.focal.transferability.temporalExtent` — FOCAL Temporal Extent
-
-**Type:** schema
-
-A single statement of the calendar span (or, for scenario-indexed cases, non-calendar marker) a workflow's results are valid over. Repeatable at the workflow level so more than one window can apply at once.
-
 ### `ogc.focal.transferability.vocab` — FOCAL Transferability Vocabulary
 
 **Type:** model
@@ -120,6 +114,12 @@ A single condition/action rule (triggeredBy + actions + required) describing how
 
 GeoJSON Feature representing a spatially delineated forest stand classified according to the FOCAL forest typology system, with properties describing forest type, region, management unit, area, and data provenance.
 
+### `ogc.focal.transferability.transferabilityStatement` — FOCAL Transferability Statement
+
+**Type:** schema
+
+Groups the core facts that describe a workflow's portability: where and when its results are valid (envelope, including its temporal dimension) and what has to happen to each reference/calibration artifact to make them valid elsewhere (artifactRules).
+
 ### `ogc.focal.forestStandCollection` — FOCAL Forest Stand Feature Collection
 
 **Type:** schema
@@ -130,5 +130,5 @@ GeoJSON FeatureCollection of FOCAL forest stands, providing a spatial dataset of
 
 **Type:** schema
 
-Profile of a CWL Workflow adding FOCAL's machine-readable transferability facts: validity envelope, reference/calibration-artifact adaptation rules, computation type, maturity status, temporal extent, and quality annotations.
+Profile of a CWL Workflow adding FOCAL's machine-readable transferability facts: a transferability statement (validity envelope, reference/calibration-artifact adaptation rules), computation type, maturity status, and quality annotations.
 

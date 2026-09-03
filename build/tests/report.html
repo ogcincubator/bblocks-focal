@@ -64,9 +64,9 @@
     <body>
         <div class="container">
             <h1 class="title">Building blocks validation report</h1>
-            <small class="datetime">Generated at 2026-09-03T10:16:38.875044+00:00</small>
-                <p class="summary fw-semibold text-success">
-                    Number of passing building blocks: 13 / 13 (100%)
+            <small class="datetime">Generated at 2026-09-03T12:19:54.297085+00:00</small>
+                <p class="summary fw-semibold text-danger">
+                    Number of passing building blocks: 12 / 13 (92.31%)
                 </p>
             <div class="text-end small" id="expand-collapse">
                 <a href="#" class="expand-all">Expand all</a>
@@ -273,29 +273,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion-item bblock-report" data-bblock-id="ogc.focal.transferability.temporalExtent" id="bblock-ogc.focal.transferability.temporalExtent">
-                            <h2 class="accordion-header bblock-title anchor-container">
-                                <button class="accordion-button collapsed" type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#bblock-collapse-ogc\.focal\.transferability\.temporalExtent">
-                                    <div class="flex-fill">
-                                        FOCAL Temporal Extent
-                                        <small class="ms-2 bblock-id">ogc.focal.transferability.temporalExtent</small>
-                                        <a class="anchor" href="#bblock-ogc.focal.transferability.temporalExtent">¶</a>
-                                    </div>
-
-                                    <span class="badge text-bg-success me-2">
-                                            Passed
-                                            (no tests)
-                                    </span>
-                                </button>
-                            </h2>
-                            <div class="accordion-collapse collapse " id="bblock-collapse-ogc.focal.transferability.temporalExtent">
-                                <div class="accordion-body">
-                                        <div class="alert alert-info mb-0">No tests were found for this building block.</div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="accordion-item bblock-report" data-bblock-id="ogc.focal.transferability.vocab" id="bblock-ogc.focal.transferability.vocab">
                             <h2 class="accordion-header bblock-title anchor-container">
                                 <button class="accordion-button collapsed" type="button"
@@ -344,7 +321,7 @@
                         </div>
                         <div class="accordion-item bblock-report" data-bblock-id="ogc.focal.forestStandFeature" id="bblock-ogc.focal.forestStandFeature">
                             <h2 class="accordion-header bblock-title anchor-container">
-                                <button class="accordion-button collapsed" type="button"
+                                <button class="accordion-button " type="button"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#bblock-collapse-ogc\.focal\.forestStandFeature">
                                     <div class="flex-fill">
@@ -353,17 +330,30 @@
                                         <a class="anchor" href="#bblock-ogc.focal.forestStandFeature">¶</a>
                                     </div>
 
-                                    <span class="badge text-bg-success me-2">
-                                            Passed
-                                            (100% passed)
+                                    <span class="badge text-bg-danger me-2">
+                                            Tests Failed
+                                            (0% passed)
                                     </span>
                                 </button>
                             </h2>
-                            <div class="accordion-collapse collapse " id="bblock-collapse-ogc.focal.forestStandFeature">
+                            <div class="accordion-collapse collapse show" id="bblock-collapse-ogc.focal.forestStandFeature">
                                 <div class="accordion-body">
-                                        <p class="summary fw-semibold text-success">
-                                            Test passed: 2 / 2
+                                        <p class="summary fw-semibold text-danger">
+                                            Test passed: 0 / 2
                                         </p>
+                                        <div class="card mb-2 global-validation-item validation-item">
+                                            <div class="card-body">
+                                                <div class="card-title">
+                                                    Building block global validation errors
+                                                    <div class="float-end">
+                                                        <span class="badge text-bg-danger me-2">Failed</span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-text text-danger">
+                                                        <div class="font-monospace entry-message section-shacl">Error retrieving https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl: HTTP Error 503: Service Unavailable</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="card mb-2 validation-item require-fail" id="item-ogc.focal.forestStandFeature-1">
                                             <div class="card-body">
                                                 <div class="card-title mb-0 anchor-container">
@@ -379,15 +369,12 @@
                                                         <span class="badge text-bg-info">Requires fail</span>
                                                     <a class="anchor" href="#item-ogc.focal.forestStandFeature-1">¶</a>
                                                     <div class="float-end">
-                                                            <span class="badge text-bg-success me-2">Passed</span>
+                                                            <span class="badge text-bg-danger me-2">Failed</span>
                                                     </div>
                                                 </div>
                                                 <div class="card-text mt-2 validation-text collapse" id="uid-2">
                                                     <div class="validation-text-inner">
-                                                                    <div class="font-monospace subsection-title mt-2">General</div>
-                                                                
-                                                                    
-                                                                    <div class="font-monospace entry-message section-general ">Test was expected to fail and it did.</div>
+                                                            <div class="font-monospace entry-message text-danger">Note: Test failed because there are global validation errors.</div>
                                                                     <div class="font-monospace subsection-title mt-2">Files</div>
                                                                 
                                                                     
@@ -454,37 +441,6 @@ On instance[&#x27;properties&#x27;]:
      &#x27;UDRZBA&#x27;: 2022,
      &#x27;ZADOST&#x27;: &#x27;-&#x27;,
      &#x27;ZMENA&#x27;: &#x27;Uvedení do souladu s KN&#x27;}</div>
-                                                                    <div class="font-monospace subsection-title mt-2">SHACL</div>
-                                                                
-                                                                    
-                                                                    <div class="font-monospace entry-message section-shacl text-danger">Validation result for _sources/forestStandFeature/shapes.shacl:
-  Validation Report
-  Conforms: False
-  Results (1):
-  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
-  	Severity: sh:Violation
-  	Source Shape: [ sh:message Literal(&quot;Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.&quot;) ; sh:minCount Literal(&quot;1&quot;, datatype=xsd:integer) ; sh:name Literal(&quot;lesniTyp&quot;) ; sh:nodeKind sh:IRI ; sh:path focal-prop:lesniTyp ]
-  	Focus Node: [ focal-prop:lesniCHS Literal(&quot;25&quot;, datatype=xsd:integer) ; focal-prop:lesniDSOPRL Literal(&quot;2025&quot;, datatype=xsd:integer) ; focal-prop:lesniID1 Literal(&quot;128301&quot;, datatype=xsd:integer) ; focal-prop:lesniOVERT Literal(&quot;NE&quot;) ; focal-prop:lesniOblast Literal(&quot;8&quot;, datatype=xsd:integer) ; focal-prop:lesniOblastCast Literal(&quot;a&quot;) ; focal-prop:lesniPCHS Literal(&quot;25a&quot;) ; focal-prop:lesniPLOCHA Literal(&quot;1224.24963&quot;, datatype=xsd:double) ; focal-prop:lesniROKMAP Literal(&quot;2015&quot;, datatype=xsd:integer) ; focal-prop:lesniSLT Literal(&quot;2S&quot;) ; focal-prop:lesniUDRZBA Literal(&quot;2022&quot;, datatype=xsd:integer) ; focal-prop:lesniZADOST Literal(&quot;-&quot;) ; focal-prop:lesniZMENA Literal(&quot;Uvedení do souladu s KN&quot;) ; geojson:geometry [ geojson:coordinates ( ( &lt;http://recursion.too.deep&gt; ) ) ; rdf:type geojson:MultiPolygon ] ; rdf:type geojson:Feature ]
-  	Result Path: focal-prop:lesniTyp
-  	Message: Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.
-  </div>
-                                                                    
-                                                                    <div class="font-monospace entry-message section-shacl ">Focus nodes for _sources/forestStandFeature/shapes.shacl:
- - Shape &lt;https://example.com/focal/feature-lesniTyp&gt;: _:Na3b75dd35f984999ac8436b49178fcb9
-</div>
-                                                                    
-                                                                    <div class="font-monospace entry-message section-shacl ">Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
-  Validation Report
-  Conforms: True
-  </div>
-                                                                    
-                                                                    <div class="font-monospace entry-message section-shacl ">Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
- - Shape geojson:GeometryShape: *none*
- - Shape geojson:LinkShape: *none*
- - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape geojson:FeatureShape: _:Na3b75dd35f984999ac8436b49178fcb9
- - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
-</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -503,11 +459,12 @@ On instance[&#x27;properties&#x27;]:
                                                     <span class="badge bg-secondary example">Example</span>
                                                     <a class="anchor" href="#item-ogc.focal.forestStandFeature-2">¶</a>
                                                     <div class="float-end">
-                                                            <span class="badge text-bg-success me-2">Passed</span>
+                                                            <span class="badge text-bg-danger me-2">Failed</span>
                                                     </div>
                                                 </div>
                                                 <div class="card-text mt-2 validation-text collapse" id="uid-3">
                                                     <div class="validation-text-inner">
+                                                            <div class="font-monospace entry-message text-danger">Note: Test failed because there are global validation errors.</div>
                                                                     <div class="font-monospace subsection-title mt-2">Files</div>
                                                                 
                                                                     
@@ -522,34 +479,33 @@ On instance[&#x27;properties&#x27;]:
                                                                 
                                                                     
                                                                     <div class="font-monospace entry-message section-json_schema ">Validation passed</div>
-                                                                    <div class="font-monospace subsection-title mt-2">SHACL</div>
-                                                                
-                                                                    
-                                                                    <div class="font-monospace entry-message section-shacl ">Validation result for _sources/forestStandFeature/shapes.shacl:
-  Validation Report
-  Conforms: True
-  </div>
-                                                                    
-                                                                    <div class="font-monospace entry-message section-shacl ">Focus nodes for _sources/forestStandFeature/shapes.shacl:
- - Shape &lt;https://example.com/focal/feature-lesniTyp&gt;: _:N6f93e66384604dc99d5bc2929bc87d30
-</div>
-                                                                    
-                                                                    <div class="font-monospace entry-message section-shacl ">Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
-  Validation Report
-  Conforms: True
-  </div>
-                                                                    
-                                                                    <div class="font-monospace entry-message section-shacl ">Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
- - Shape geojson:GeometryShape: *none*
- - Shape geojson:LinkShape: *none*
- - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape geojson:FeatureShape: _:N6f93e66384604dc99d5bc2929bc87d30
- - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
-</div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item bblock-report" data-bblock-id="ogc.focal.transferability.transferabilityStatement" id="bblock-ogc.focal.transferability.transferabilityStatement">
+                            <h2 class="accordion-header bblock-title anchor-container">
+                                <button class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#bblock-collapse-ogc\.focal\.transferability\.transferabilityStatement">
+                                    <div class="flex-fill">
+                                        FOCAL Transferability Statement
+                                        <small class="ms-2 bblock-id">ogc.focal.transferability.transferabilityStatement</small>
+                                        <a class="anchor" href="#bblock-ogc.focal.transferability.transferabilityStatement">¶</a>
+                                    </div>
+
+                                    <span class="badge text-bg-success me-2">
+                                            Passed
+                                            (no tests)
+                                    </span>
+                                </button>
+                            </h2>
+                            <div class="accordion-collapse collapse " id="bblock-collapse-ogc.focal.transferability.transferabilityStatement">
+                                <div class="accordion-body">
+                                        <div class="alert alert-info mb-0">No tests were found for this building block.</div>
                                 </div>
                             </div>
                         </div>
@@ -674,12 +630,12 @@ On instance[&#x27;properties&#x27;]:
   </div>
                                                                     
                                                                     <div class="font-monospace entry-message section-shacl ">Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:
- - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape geojson:GeometryShape: *none*
- - Shape geojson:FeatureCollectionShape: _:N46dc7802f2394949a001458dce59dc39
- - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
  - Shape geojson:LinkShape: *none*
+ - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
  - Shape geojson:FeatureShape: *none*
+ - Shape geojson:FeatureCollectionShape: _:N1e88047c67de467c9db3f49e0cd23762
+ - Shape geojson:GeometryShape: *none*
 </div>
                                                                     
                                                                     <div class="font-monospace entry-message section-shacl ">Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
@@ -688,11 +644,11 @@ On instance[&#x27;properties&#x27;]:
   </div>
                                                                     
                                                                     <div class="font-monospace entry-message section-shacl ">Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
- - Shape geojson:GeometryShape: *none*
- - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
  - Shape geojson:LinkShape: *none*
- - Shape geojson:FeatureShape: _:Nb05f63861d82423bbc39824c625c3f3b,_:Nc5c1fa2c1083423baf83a415243b0920,_:Nd6b508e63cf44e1b962ddcb09ab46c48,_:N5f4896c06bd3439ca8bc7688a3c6781d,_:N57030063ed3b42c384c4272fd09ef07a,_:N3d430ab723d748a89df5577f74267bba,_:Ndb656f5855dd4253b5d45ee766ae2db1,_:Na7b8f4c8213f476893f8210a05b5fc68,_:Nf629f06353cc49108eb67d443a30a2cc,_:N73fbdfb3d1bf4c87b438c8235155af0c,_:N0a2260e7a76a45d59d1d6b29a5f11391,_:N4f25f56d419e4a418b63bcf7753e59bd,_:N7638962f127b42d1a8dd7123923a4082
+ - Shape geojson:FeatureShape: _:N3a918d1ab0e049dba820870d9c8575d3,_:N2fff1f36062d49c3a36a9b4e9406be33,_:N07932c1ab30a4a07baf130b017cb1810,_:Naaa1573577f149039d863daba9d4a368,_:N993cece426714b2c98c9965e653b6d63,_:N2d986ef5c7ad4084994aecd17fdf3273,_:N5e37b30578044f5ba8009ce8f220ba3e,_:Nc20fecc407ab4a5eb50e59248bf3b319,_:N9d5e0da3c23a46bc8196232f3a2664ca,_:Neda3bbbe3ef843009fc7a9b3da287ff0,_:N88c591d2e3244c0991dd7e664be8f9fb,_:N51fdc79938434c659eb8f1bb13b6f6a8,_:Ne976f49717eb41d4b4649b1b0d4db312
+ - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
  - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape geojson:GeometryShape: *none*
 </div>
                                                                     
                                                                     <div class="font-monospace entry-message section-shacl text-danger">Validation result for _sources/forestStandFeature/shapes.shacl:
@@ -708,7 +664,7 @@ On instance[&#x27;properties&#x27;]:
   </div>
                                                                     
                                                                     <div class="font-monospace entry-message section-shacl ">Focus nodes for _sources/forestStandFeature/shapes.shacl:
- - Shape &lt;https://example.com/focal/feature-lesniTyp&gt;: _:Nb05f63861d82423bbc39824c625c3f3b,_:Nc5c1fa2c1083423baf83a415243b0920,_:Nd6b508e63cf44e1b962ddcb09ab46c48,_:N5f4896c06bd3439ca8bc7688a3c6781d,_:N57030063ed3b42c384c4272fd09ef07a,_:N3d430ab723d748a89df5577f74267bba,_:Ndb656f5855dd4253b5d45ee766ae2db1,_:Na7b8f4c8213f476893f8210a05b5fc68,_:Nf629f06353cc49108eb67d443a30a2cc,_:N73fbdfb3d1bf4c87b438c8235155af0c,_:N0a2260e7a76a45d59d1d6b29a5f11391,_:N4f25f56d419e4a418b63bcf7753e59bd,_:N7638962f127b42d1a8dd7123923a4082
+ - Shape &lt;https://example.com/focal/feature-lesniTyp&gt;: _:N3a918d1ab0e049dba820870d9c8575d3,_:N2fff1f36062d49c3a36a9b4e9406be33,_:N07932c1ab30a4a07baf130b017cb1810,_:Naaa1573577f149039d863daba9d4a368,_:N993cece426714b2c98c9965e653b6d63,_:N2d986ef5c7ad4084994aecd17fdf3273,_:N5e37b30578044f5ba8009ce8f220ba3e,_:Nc20fecc407ab4a5eb50e59248bf3b319,_:N9d5e0da3c23a46bc8196232f3a2664ca,_:Neda3bbbe3ef843009fc7a9b3da287ff0,_:N88c591d2e3244c0991dd7e664be8f9fb,_:N51fdc79938434c659eb8f1bb13b6f6a8,_:Ne976f49717eb41d4b4649b1b0d4db312
 </div>
                                                     </div>
                                                 </div>
@@ -756,12 +712,12 @@ On instance[&#x27;properties&#x27;]:
   </div>
                                                                     
                                                                     <div class="font-monospace entry-message section-shacl ">Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:
- - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape geojson:GeometryShape: *none*
- - Shape geojson:FeatureCollectionShape: _:N1e8f030e1acf452f8a8310fac4cce7e5
- - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
  - Shape geojson:LinkShape: *none*
+ - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
  - Shape geojson:FeatureShape: *none*
+ - Shape geojson:FeatureCollectionShape: _:Na778009ca6034287959a22b3ac98a073
+ - Shape geojson:GeometryShape: *none*
 </div>
                                                                     
                                                                     <div class="font-monospace entry-message section-shacl ">Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
@@ -770,11 +726,11 @@ On instance[&#x27;properties&#x27;]:
   </div>
                                                                     
                                                                     <div class="font-monospace entry-message section-shacl ">Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
- - Shape geojson:GeometryShape: *none*
- - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
  - Shape geojson:LinkShape: *none*
- - Shape geojson:FeatureShape: _:N52a4a8ad1d5c4c099d09af2ad22ddb61,_:N6ee8e7e169ae4bd181ffcb7e885443e9,_:N8b8d4b4a8cfa49c28422013db369c26c,_:N6ff1cff59f3e46c6b3d1ba07b0a21cde,_:N230fb23cda9d4fba9b0ec7dde00427e3,_:N6ae1712aa7ea4cef896b40f9d33686b9,_:Nd9a1cc5d2a4f4887a6a9b8bbc337f23a,_:Ne7c90e9b7c054661884f954036728b74,_:N6d17510440bb499282ff826385c8fc88,_:N8a56d3f6c0ee4fd0b7ee05199886bec4,_:N44d594af11964c81b50b1d7359cb6a0a,_:N5be8a704f0c94e37a28e93cc026a2cb7,_:Naaba7c0bef2142b2bded89589bcf4691
+ - Shape geojson:FeatureShape: _:N2f70f33806b74a59a24edad173602e84,_:N553507c929114e08a25d618988fc77a8,_:Ncc7cc333dd934adab693e2b1513a2866,_:N2e49fecc491746bb90a49c6c77b7c26b,_:N9c1fffac43c545188ff1ac4b9a6689de,_:Ne27bf49d4fba4b77b5b701b5eb0c9973,_:N60c1c70bf2664609ac3f5d319c259078,_:N8f27deaa03f146baa71a3d655c02c8b5,_:N1bbe6330f061490eab40515e1e743ad7,_:N5785766891f845aea2083a7e57064eeb,_:Nbf164013440a41a9a886997e9ab5d43e,_:N276b172472904018954b6f2f457a993b,_:Nac0aadcd2d2d4e088fdce4e3314dd6fc
+ - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
  - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape geojson:GeometryShape: *none*
 </div>
                                                                     
                                                                     <div class="font-monospace entry-message section-shacl ">Validation result for _sources/forestStandFeature/shapes.shacl:
@@ -783,7 +739,7 @@ On instance[&#x27;properties&#x27;]:
   </div>
                                                                     
                                                                     <div class="font-monospace entry-message section-shacl ">Focus nodes for _sources/forestStandFeature/shapes.shacl:
- - Shape &lt;https://example.com/focal/feature-lesniTyp&gt;: _:N52a4a8ad1d5c4c099d09af2ad22ddb61,_:N6ee8e7e169ae4bd181ffcb7e885443e9,_:N8b8d4b4a8cfa49c28422013db369c26c,_:N6ff1cff59f3e46c6b3d1ba07b0a21cde,_:N230fb23cda9d4fba9b0ec7dde00427e3,_:N6ae1712aa7ea4cef896b40f9d33686b9,_:Nd9a1cc5d2a4f4887a6a9b8bbc337f23a,_:Ne7c90e9b7c054661884f954036728b74,_:N6d17510440bb499282ff826385c8fc88,_:N8a56d3f6c0ee4fd0b7ee05199886bec4,_:N44d594af11964c81b50b1d7359cb6a0a,_:N5be8a704f0c94e37a28e93cc026a2cb7,_:Naaba7c0bef2142b2bded89589bcf4691
+ - Shape &lt;https://example.com/focal/feature-lesniTyp&gt;: _:N2f70f33806b74a59a24edad173602e84,_:N553507c929114e08a25d618988fc77a8,_:Ncc7cc333dd934adab693e2b1513a2866,_:N2e49fecc491746bb90a49c6c77b7c26b,_:N9c1fffac43c545188ff1ac4b9a6689de,_:Ne27bf49d4fba4b77b5b701b5eb0c9973,_:N60c1c70bf2664609ac3f5d319c259078,_:N8f27deaa03f146baa71a3d655c02c8b5,_:N1bbe6330f061490eab40515e1e743ad7,_:N5785766891f845aea2083a7e57064eeb,_:Nbf164013440a41a9a886997e9ab5d43e,_:N276b172472904018954b6f2f457a993b,_:Nac0aadcd2d2d4e088fdce4e3314dd6fc
 </div>
                                                     </div>
                                                 </div>

@@ -1,5 +1,5 @@
 Validation report for ogc.focal.transferability.workflow - FOCAL Transferability Workflow
-Generated 2026-09-03T10:16:13.938817+00:00
+Generated 2026-09-03T12:19:52.628546+00:00
 === Files ===
 Using example_1_1.json from examples
 JSON-LD context is present - uplifting

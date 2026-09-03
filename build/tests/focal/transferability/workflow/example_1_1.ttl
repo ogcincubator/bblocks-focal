@@ -7,25 +7,29 @@
 
 [] rdfs:label "FP-WF1 — Tree species suitability" ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/statistical-ml> ;
-    focal-transf-prop:envelope [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
-            focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
-            focal-transf-prop:value [ geojson:coordinates ( ( ( 1.209e+01 4.855e+01 ) ( 1.887e+01 4.855e+01 ) ( 1.887e+01 5.106e+01 ) ( 1.209e+01 5.106e+01 ) ( 1.209e+01 4.855e+01 ) ) ) ] ],
-        [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/climatic> ;
-            focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/can-run-on> ;
-            focal-transf-prop:value "wherever downscaled climate data is available" ],
-        [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;
-            focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
-            focal-transf-prop:value "a comparable ecological range" ] ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
     focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/decision-support-only> ;
             focal-transf-prop:note "AI model and validation are still being finalised; results are decision-support, not exact forecasts." ] ;
-    focal-transf-prop:referenceArtifact [ focal-transf-prop:artifact "trained tree growth model (LightGBM, Czech permanent sample plot data)" ;
-            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-alternative-published-model>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
-                    focal-transf-prop:required true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-ecological-range> ] ],
-        [ focal-transf-prop:artifact "downscaled FOCAL climate data (current + future)" ;
-            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:required true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ] .
+    focal-transf-prop:transferability [ focal-transf-prop:artifactRules [ focal-transf-prop:artifact "trained tree growth model (LightGBM, Czech permanent sample plot data)" ;
+                    focal-transf-prop:artifactRef "outputs.trained_growth_model" ;
+                    focal-transf-prop:artifactRole "workflow-output" ;
+                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-alternative-published-model>,
+                                <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
+                            focal-transf-prop:required true ;
+                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-ecological-range> ] ],
+                [ focal-transf-prop:artifact "downscaled FOCAL climate data (current + future)" ;
+                    focal-transf-prop:artifactRef "inputs.climate_data" ;
+                    focal-transf-prop:artifactRole "workflow-input" ;
+                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                            focal-transf-prop:required true ;
+                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ] ;
+            focal-transf-prop:envelope [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
+                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
+                    focal-transf-prop:value [ geojson:coordinates ( ( ( 1.209e+01 4.855e+01 ) ( 1.887e+01 4.855e+01 ) ( 1.887e+01 5.106e+01 ) ( 1.209e+01 5.106e+01 ) ( 1.209e+01 4.855e+01 ) ) ) ] ],
+                [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;
+                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+                    focal-transf-prop:value "a comparable ecological range" ],
+                [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/climatic> ;
+                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/can-run-on> ;
+                    focal-transf-prop:value "wherever downscaled climate data is available" ] ] .
 

@@ -12,7 +12,10 @@
         "coordinates": {
           "@container": "@list",
           "@id": "geojson:coordinates"
-        }
+        },
+        "start": "focal-transf-prop:start",
+        "end": "focal-transf-prop:end",
+        "scenarioMarker": "focal-transf-prop:scenarioMarker"
       },
       "@id": "focal-transf-prop:value"
     },

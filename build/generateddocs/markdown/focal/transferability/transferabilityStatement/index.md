@@ -1,0 +1,249 @@
+
+# FOCAL Transferability Statement (Schema)
+
+`ogc.focal.transferability.transferabilityStatement` *v0.1*
+
+Groups the core facts that describe a workflow's portability: where and when its results are valid (envelope, including its temporal dimension) and what has to happen to each reference/calibration artifact to make them valid elsewhere (artifactRules).
+
+[*Status*](http://www.opengis.net/def/status): Under development
+
+## Description
+
+## FOCAL Transferability Statement
+
+Groups the two facts that actually describe a portability boundary — everything else FOCAL's
+model tracks about a workflow (`computationType`, `maturityStatus`, `qualityAnnotation`) describes
+its implementation or result quality generally, not where it can go.
+
+| Property | Cardinality | Source block |
+|---|---|---|
+| `envelope` | required, repeatable | [`envelopeConstraint`](bblocks://ogc.focal.transferability.envelopeConstraint) |
+| `artifactRules` | required, repeatable (own wrapper, see below) | wraps [`rule`](bblocks://ogc.focal.transferability.rule) |
+
+**`envelope`** covers the calendar/scenario dimension too: a `dimension: temporal` entry, `value`
+shaped `{start, end}` or `{scenarioMarker}` — see `envelopeConstraint` for the full four-branch
+`value` shape. There's no separate temporal-extent property here; it's one more envelope entry,
+same as `spatial`/`ecological`/`climatic`/`jurisdictional`.
+
+**`artifactRules` wrapper.** Each entry is `{artifact, artifactRole, artifactRef?, rules}`:
+`artifact` is a free-text label identifying the reference/calibration artifact (e.g. "Rasdaman
+climate registry / catalogue"), `artifactRole` classifies what kind of thing it is
+(`workflow-input`, `workflow-output`, `external-resource`, or `infrastructure` — see
+`schema.yaml` for the full distinction), `artifactRef` optionally gives its actual
+`inputs.<id>`/`outputs.<id>` in whatever `CWLWorkflow` this statement is attached to once a real
+CWL id exists to bind against, and `rules` is one or more
+[`rule`](bblocks://ogc.focal.transferability.rule) statements governing it. Not every artifact a
+workflow depends on needs an entry — only those with an evidenced transferability fact.
+
+**Status: draft/WIP**, circulated for review, not locked. Factored out of
+[`ogc.focal.transferability.workflow`](bblocks://ogc.focal.transferability.workflow), which
+attaches one `transferability` property of this shape to a profiled `CWLWorkflow`, alongside its
+own `computationType`/`maturityStatus`/`qualityAnnotation` properties.
+
+## Schema
+
+```yaml
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Transferability Statement
+description: "The core, portable facts about where something's results are valid and
+  what it takes to make them valid elsewhere \u2014 factored out of `ogc.focal.transferability.workflow`
+  so the same bundle can eventually attach to something other than a CWL Workflow
+  (a step, a process, a delivered dataset). Two properties:\n- `envelope` \u2014 the
+  validity envelope, one or more\n  [`envelopeConstraint`](bblocks://ogc.focal.transferability.envelopeConstraint)
+  statements\n  (`{role, dimension, value}`). Required: every evidenced case states
+  at least one. This is also\n  where a calendar span or scenario marker (a Global
+  Warming Level, say) results are valid over\n  belongs, as a `dimension: temporal`
+  entry \u2014 see `envelopeConstraint` for its `{start, end}`/\n  `{scenarioMarker}`
+  shapes.\n- `artifactRules` \u2014 the reference/calibration artifacts and what must
+  happen to each outside the\n  envelope, each entry wrapping one or more\n  [`rule`](bblocks://ogc.focal.transferability.rule)
+  statements. Required for the same reason.\n\n`computationType`, `maturityStatus`,
+  and `qualityAnnotation` deliberately stay outside this bundle: they describe a workflow's
+  implementation and result quality generally, not its portability boundary, so `ogc.focal.transferability.workflow`
+  attaches them directly rather than through here.\n**`artifactRules`' wrapper shape**
+  identifies the artifact by a free-text `artifact` label (e.g. \"trained tree growth
+  model (LightGBM, Czech PSP data)\") plus an `artifactRole` classifying what kind
+  of thing it is. The 8 FOCAL pilot-workflow questionnaires' artifacts turn out not
+  to be uniformly CWL inputs: some are workflow inputs (config/reference-data files),
+  some are workflow outputs later reused as another run's input (a trained model),
+  and some never appear in a CWL graph at all (physical infrastructure that must be
+  re-deployed, not replaced as data; an optional validation reference that isn't a
+  required artifact). `artifactRole` records which, and is always fillable from source
+  text alone. `artifactRef` then gives the actual CWL id \u2014 `inputs.<id>` or `outputs.<id>`
+  of whatever `CWLWorkflow` this statement is attached to \u2014 but only once a real
+  Application Package exists to bind against; it's optional and meaningless for the
+  `external-resource`/`infrastructure` roles, which have no CWL id to point at.\n"
+type: object
+required:
+- envelope
+- artifactRules
+properties:
+  envelope:
+    type: array
+    minItems: 1
+    items:
+      $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+    description: "The validity envelope, as one or more role/dimension/value statements.
+      FP-WF1 alone needs three at once (trained-on/spatial, valid-for/ecological,
+      can-run-on/climatic) \u2014 see `envelopeConstraint` for why role and dimension
+      are independent axes.\n"
+    x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/envelope
+    x-jsonld-container: '@set'
+  artifactRules:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      required:
+      - artifact
+      - artifactRole
+      - rules
+      properties:
+        artifact:
+          type: string
+          description: 'Free-text label identifying the reference or calibration artifact
+            these rules apply to (e.g. "downscaled FOCAL climate data", "Quitt climate-zone
+            thresholds/limits").
+
+            '
+          x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/artifact
+        artifactRole:
+          type: string
+          enum:
+          - workflow-input
+          - workflow-output
+          - external-resource
+          - infrastructure
+          description: "What kind of thing this artifact is, independent of whether
+            a CWL id exists for it yet: `workflow-input` \u2014 consumed as a workflow
+            input (a config file, parameter, or reference dataset); `workflow-output`
+            \u2014 produced by (a step of) the workflow and reused as an input elsewhere,
+            e.g. a trained model; `external-resource` \u2014 referenced by the workflow's
+            documentation but not wired into its CWL graph, e.g. an optional validation
+            dataset; `infrastructure` \u2014 physical or operational, not data at
+            all, e.g. a sensor network that must be re-deployed rather than replaced.\n"
+          x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRole
+        artifactRef:
+          type: string
+          pattern: ^(inputs|outputs)\.[A-Za-z0-9_-]+$
+          description: "The artifact's CWL id, as `inputs.<id>` or `outputs.<id>`
+            of whatever `CWLWorkflow` this statement is attached to. Optional: only
+            meaningful when `artifactRole` is `workflow-input` or `workflow-output`,
+            and only fillable once a real CWL Application Package exists to bind against
+            \u2014 omit otherwise rather than guess an id.\n"
+          x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRef
+        rules:
+          type: array
+          minItems: 1
+          items:
+            $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/schema.yaml
+          description: One or more condition/action rules governing this artifact.
+          x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/rules
+          x-jsonld-container: '@set'
+    description: "The reference/calibration artifacts and the rules governing how
+      each must be adapted outside the validity envelope. Not every artifact a workflow
+      depends on needs an entry here \u2014 only those with an evidenced transferability
+      fact.\n"
+    x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRules
+    x-jsonld-container: '@set'
+x-jsonld-prefixes:
+  focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/
+
+```
+
+Links to the schema:
+
+* YAML version: [schema.yaml](https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/schema.json)
+* JSON version: [schema.json](https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/schema.yaml)
+
+
+# JSON-LD Context
+
+```jsonld
+{
+  "@context": {
+    "envelope": {
+      "@context": {
+        "dimension": {
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/"
+          },
+          "@id": "focal-transf-prop:dimension",
+          "@type": "@id"
+        },
+        "value": {
+          "@context": {
+            "coordinates": {
+              "@container": "@list",
+              "@id": "geojson:coordinates"
+            },
+            "start": "focal-transf-prop:start",
+            "end": "focal-transf-prop:end",
+            "scenarioMarker": "focal-transf-prop:scenarioMarker"
+          },
+          "@id": "focal-transf-prop:value"
+        },
+        "role": {
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/roles/"
+          },
+          "@id": "focal-transf-prop:role",
+          "@type": "@id"
+        }
+      },
+      "@id": "focal-transf-prop:envelope",
+      "@container": "@set"
+    },
+    "artifactRules": {
+      "@context": {
+        "artifact": "focal-transf-prop:artifact",
+        "artifactRole": "focal-transf-prop:artifactRole",
+        "artifactRef": "focal-transf-prop:artifactRef",
+        "rules": {
+          "@context": {
+            "transferabilityNotes": "focal-transf-prop:transferabilityNotes",
+            "triggeredBy": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/triggers/"
+              },
+              "@id": "focal-transf-prop:triggeredBy",
+              "@type": "@id"
+            },
+            "actions": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/actions/"
+              },
+              "@id": "focal-transf-prop:actions",
+              "@type": "@id",
+              "@container": "@set"
+            },
+            "required": "focal-transf-prop:required"
+          },
+          "@id": "focal-transf-prop:rules",
+          "@container": "@set"
+        }
+      },
+      "@id": "focal-transf-prop:artifactRules",
+      "@container": "@set"
+    },
+    "Point": "geojson:Point",
+    "MultiPoint": "geojson:MultiPoint",
+    "Polygon": "geojson:Polygon",
+    "MultiPolygon": "geojson:MultiPolygon",
+    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "geojson": "https://purl.org/geojson/vocab#",
+    "@version": 1.1
+  }
+}
+```
+
+You can find the full JSON-LD context here:
+[context.jsonld](https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/context.jsonld)
+
+
+# For developers
+
+The source code for this Building Block can be found in the following repository:
+
+* URL: [https://github.com/ogcincubator/bblocks-focal](https://github.com/ogcincubator/bblocks-focal)
+* Path: `_sources/transferability/transferabilityStatement`
+
