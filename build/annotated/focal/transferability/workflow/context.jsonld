@@ -16,12 +16,12 @@
       "@id": "focal-transf-prop:maturityStatus",
       "@type": "@id"
     },
+    "id": "@id",
     "transferability": {
       "@context": {
         "envelope": {
           "@context": {
             "transferabilityNotes": "rdfs:comment",
-            "id": "@id",
             "role": {
               "@context": {
                 "@base": "https://w3id.org/ogc/hosted/focal/transferability/roles/"
@@ -60,7 +60,6 @@
         },
         "artifacts": {
           "@context": {
-            "id": "@id",
             "artifact": "dcterms:title",
             "artifactRole": {
               "@context": {

@@ -92,7 +92,7 @@ approximation travels with the value.
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-<file:///github/workspace/czech-plots> rdfs:comment "Country bounding box, standing in for the actual permanent sample plot network; an honest upper bound pending the real plot coordinates." ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots> rdfs:comment "Country bounding box, standing in for the actual permanent sample plot network; an honest upper bound pending the real plot coordinates." ;
     focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
     focal-transf-prop:value [ geo:asWKT "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"^^geo:wktLiteral ] .
@@ -136,7 +136,7 @@ Forest Pilot's S-JTSK (EPSG:5514) is the case to watch.
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
 
-<file:///github/workspace/prague-point> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
     focal-transf-prop:value [ geo:asWKT "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POINT(14.42 50.09)"^^geo:wktLiteral ] .
 
@@ -184,7 +184,7 @@ string ordering. Previously these were unconstrained strings.
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 
-<file:///github/workspace/epochs> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal> ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal> ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
     focal-transf-prop:value [ dcat:endDate "2025" ;
             dcat:startDate "2022" ] .
@@ -231,7 +231,7 @@ exercised by any example anywhere in the register before, so it had never been v
 ```ttl
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 
-<file:///github/workspace/gwl-15> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal> ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal> ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
     focal-transf-prop:value [ focal-transf-prop:scenarioMarker <https://w3id.org/ogc/hosted/focal/transferability/scenario-markers/gwl-1.5> ] .
 
@@ -275,7 +275,7 @@ is decidable.
 ```ttl
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 
-<file:///github/workspace/ecological-range> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
     focal-transf-prop:value "a comparable ecological range" .
 
@@ -319,7 +319,7 @@ regular lat/lon split.
 ```ttl
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 
-<file:///github/workspace/eur11-grid> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/grid-structure> ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/grid-structure> ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/can-run-on> ;
     focal-transf-prop:value "inputs on a rotated-pole EUR-11 grid; a regular lat/lon grid requires resampling first" .
 

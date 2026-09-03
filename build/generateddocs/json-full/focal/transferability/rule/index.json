@@ -47,6 +47,7 @@
   "examples": [
     {
       "title": "Rule citing an envelope constraint",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/rule/",
       "content": "FP-WF1's trained growth model outside the ecological range it was calibrated for. Two actions\nare offered and either resolves the rule: retrain against local data, or substitute a\ndifferent already-published model. `actions` is an OR-set, never a sequence.\n\n`when` names the constraint this is evaluated against, by the `id` it carries in the\nenclosing statement's `envelope`. That is the difference between a rule a person reads and\none a consumer can act on: it says *which* boundary, and if that boundary is spatial its\nvalue is a GeoSPARQL geometry.\n",
       "snippets": [
         {
@@ -64,13 +65,14 @@
         {
           "language": "ttl",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_1_1.ttl",
-          "sizeBytes": 677,
-          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-alternative-published-model>,\n        <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;\n    focal-transf-prop:appliesTo <file:///github/workspace/growth-model> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/ecological-range> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .\n\n"
+          "sizeBytes": 755,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-alternative-published-model>,\n        <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;\n    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/growth-model> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/ecological-range> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .\n\n"
         }
       ]
     },
     {
       "title": "One rule over several artifacts",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/rule/",
       "content": "FP-WF2's four Czechia-specific reference artifacts share one boundary and one action, so\nthey share one rule. Previously this was the same condition copied four times with nothing\nrecording that they were the same fact.\n",
       "snippets": [
         {
@@ -88,13 +90,14 @@
         {
           "language": "ttl",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_2_1.ttl",
-          "sizeBytes": 716,
-          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;\n    focal-transf-prop:appliesTo <file:///github/workspace/rasdaman>,\n        <file:///github/workspace/slt-t5>,\n        <file:///github/workspace/species-codes>,\n        <file:///github/workspace/tolerances> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/czechia> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .\n\n"
+          "sizeBytes": 911,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;\n    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/rasdaman>,\n        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/slt-t5>,\n        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/species-codes>,\n        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/tolerances> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/czechia> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .\n\n"
         }
       ]
     },
     {
       "title": "Conjunctive conditions (AND)",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/rule/",
       "content": "Two conditions in one `when` mean both must hold. This is the case nesting rules under\nartifacts could not express: an artifact bounded on two axes at once, needing adaptation only\nwhen the target falls outside both.\n\nA disjunction is written as two rules instead. That is deliberate: two conditions leading to\nthe same action really are two statements, and keeping them separate keeps each traceable to\nthe sentence it came from, which a nested boolean expression does not.\n",
       "snippets": [
         {
@@ -112,13 +115,14 @@
         {
           "language": "ttl",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_3_1.ttl",
-          "sizeBytes": 759,
-          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;\n    focal-transf-prop:appliesTo <file:///github/workspace/lst> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/eur11-domain> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ],\n        [ focal-transf-prop:constraint <file:///github/workspace/eur11-grid> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .\n\n"
+          "sizeBytes": 876,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;\n    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/lst> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-grid> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ],\n        [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-domain> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .\n\n"
         }
       ]
     },
     {
       "title": "The complementary case (inside), completing a cascade",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/rule/",
       "content": "`inside` is what lets UP-WF2's three-way logic be stated without losing its connecting\ncondition. Reuse within the domain is this rule; substitute-or-fail outside it is a second\nrule over the same constraint. Previously the model had two flat rules and dropped the link\nbetween them.\n",
       "snippets": [
         {
@@ -136,13 +140,14 @@
         {
           "language": "ttl",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_4_1.ttl",
-          "sizeBytes": 557,
-          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/reuse-as-is> ;\n    focal-transf-prop:appliesTo <file:///github/workspace/lst> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/eur11-domain> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] .\n\n"
+          "sizeBytes": 635,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/reuse-as-is> ;\n    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/lst> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-domain> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] .\n\n"
         }
       ]
     },
     {
       "title": "Non-mandatory rule (runs anyway, with degraded trust)",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/rule/",
       "content": "FP-WF3's disturbance detection without local training labels. The workflow still produces\noutput, so this is not a hard requirement, but the output means something weaker.\n\n`mandatory: false` obliges `transferabilityNotes` to say what is lost; `shapes.shacl` rejects\nthe pairing without it, because a skippable rule with no stated consequence tells a consumer\nnothing they can act on.\n",
       "snippets": [
         {
@@ -160,13 +165,14 @@
         {
           "language": "ttl",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_5_1.ttl",
-          "sizeBytes": 788,
-          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] rdfs:comment \"Without local training labels, results should be treated as exploratory rather than blocked outright \u2014 a degraded-mode caveat, not a hard requirement.\" ;\n    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;\n    focal-transf-prop:appliesTo <file:///github/workspace/labels> ;\n    focal-transf-prop:mandatory false ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/label-extent> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .\n\n"
+          "sizeBytes": 866,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] rdfs:comment \"Without local training labels, results should be treated as exploratory rather than blocked outright \u2014 a degraded-mode caveat, not a hard requirement.\" ;\n    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;\n    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/labels> ;\n    focal-transf-prop:mandatory false ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/label-extent> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .\n\n"
         }
       ]
     },
     {
       "title": "Coarse fallback when no constraint can be cited",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/rule/",
       "content": "UP-WF2's planned Eurostat input is not implemented yet, so there is no envelope fact to point\nat. `triggeredBy` states the condition coarsely rather than forcing an invented boundary.\n\nAt least one of `when` or `triggeredBy` is required, so no rule is left with no stated\ncondition at all. Prefer `when` wherever a constraint exists to cite.\n",
       "snippets": [
         {
@@ -184,8 +190,8 @@
         {
           "language": "ttl",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_6_1.ttl",
-          "sizeBytes": 775,
-          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] rdfs:comment \"Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it.\" ;\n    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,\n        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;\n    focal-transf-prop:appliesTo <file:///github/workspace/eurostat> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> .\n\n"
+          "sizeBytes": 814,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] rdfs:comment \"Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it.\" ;\n    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,\n        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;\n    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eurostat> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> .\n\n"
         }
       ]
     }

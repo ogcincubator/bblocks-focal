@@ -2,8 +2,8 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/reuse-as-is> ;
-    focal-transf-prop:appliesTo <file:///github/workspace/lst> ;
+    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/lst> ;
     focal-transf-prop:mandatory true ;
-    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/eur11-domain> ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-domain> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] .
 

@@ -1,6 +1,6 @@
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 
-<file:///github/workspace/eur11-grid> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/grid-structure> ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/grid-structure> ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/can-run-on> ;
     focal-transf-prop:value "inputs on a rotated-pole EUR-11 grid; a regular lat/lon grid requires resampling first" .
 

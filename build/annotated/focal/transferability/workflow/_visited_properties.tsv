@@ -170,6 +170,7 @@ path	@id	schema
 /steps/_oneOf/0/scatterMethod		https://ogcincubator.github.io/bblocks-cwl/build/annotated/cwl/v1_2_1/CWLWorkflowStepObject/schema.yaml
 /computationType	https://w3id.org/ogc/hosted/focal/transferability/properties/computationType	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/schema.yaml
 /maturityStatus	https://w3id.org/ogc/hosted/focal/transferability/properties/maturityStatus	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/maturityStatus/schema.yaml
+/id	@id	/github/workspace/build/annotated/focal/transferability/workflow/schema.yaml
 /transferability	https://w3id.org/ogc/hosted/focal/transferability/properties/transferability	/github/workspace/build/annotated/focal/transferability/workflow/schema.yaml
 /transferability/envelope	https://w3id.org/ogc/hosted/focal/transferability/properties/envelope	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/schema.yaml
 /transferability/envelope/transferabilityNotes	http://www.w3.org/2000/01/rdf-schema#comment	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/schema.yaml

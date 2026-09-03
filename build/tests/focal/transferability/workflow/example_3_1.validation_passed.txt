@@ -1,5 +1,5 @@
 Validation report for ogc.focal.transferability.workflow - FOCAL Transferability Workflow
-Generated 2026-09-03T16:01:16.490301+00:00
+Generated 2026-09-03T16:14:23.258236+00:00
 === Files ===
 Using example_3_1.json from examples
 JSON-LD context is present - uplifting
@@ -19,48 +19,14 @@ Validation result for _sources/transferability/workflow/shapes.shacl:
   Conforms: True
   
 Focus nodes for _sources/transferability/workflow/shapes.shacl:
- - Shape focal-shape:TransferabilityWorkflow: _:Ndace26334953424799e24afccffcf8a4
-
-Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:
- - Shape focal-shape:RuleCitesDeclaredConstraint: _:Na30faf64b2af4a61a00c17faacc40483
- - Shape focal-shape:RuleCitesDeclaredArtifact: _:Na30faf64b2af4a61a00c17faacc40483
- - Shape focal-shape:ArtifactIsGovernedByARule: _:Na30faf64b2af4a61a00c17faacc40483
- - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <file:///github/workspace/eo-strategy>,<file:///github/workspace/labels>,<file:///github/workspace/phenology>
- - Shape focal-shape:TransferabilityStatement: _:Na30faf64b2af4a61a00c17faacc40483
- - Shape focal-shape:ArtifactDependency: <file:///github/workspace/eo-strategy>,<file:///github/workspace/labels>,<file:///github/workspace/phenology>
-
-Validation result for _sources/transferability/rule/shapes.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/transferability/rule/shapes.shacl:
- - Shape focal-shape:OptionalRuleHasConsequence: _:N654faf1b68f948108b318a8dfbcc7341,_:N6a054d321d70481aa431f021139edaa5,_:N089a1b0f7f5d47f985c7d36840b63b2e
- - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N654faf1b68f948108b318a8dfbcc7341,_:N6a054d321d70481aa431f021139edaa5,_:N089a1b0f7f5d47f985c7d36840b63b2e
- - Shape focal-shape:EnvelopeCondition: _:Nf03fd3792300450487a96eaffe0333fa,_:Nc0fbc774844549978770938c81086798,_:Na2a0aa0f9d2044678e1df3a7ba2cc1d9
- - Shape focal-shape:RuleHasACondition: _:N654faf1b68f948108b318a8dfbcc7341,_:N6a054d321d70481aa431f021139edaa5,_:N089a1b0f7f5d47f985c7d36840b63b2e
- - Shape focal-shape:TransferabilityRule: _:N654faf1b68f948108b318a8dfbcc7341,_:N6a054d321d70481aa431f021139edaa5,_:N089a1b0f7f5d47f985c7d36840b63b2e
-
-Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
- - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/phenological-regime>,<file:///github/workspace/label-extent>
- - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/phenological-regime>/focal-transf-prop:value,<file:///github/workspace/label-extent>/focal-transf-prop:value
- - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/phenological-regime>,<file:///github/workspace/label-extent>
- - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/phenological-regime>,<file:///github/workspace/label-extent>
- - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/phenological-regime>,<file:///github/workspace/label-extent>
+ - Shape focal-shape:TransferabilityWorkflow: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>
 
 Validation result for _sources/transferability/maturityStatus/shapes.shacl:
   Validation Report
   Conforms: True
   
 Focus nodes for _sources/transferability/maturityStatus/shapes.shacl:
- - Shape focal-shape:MaturityStatus: _:Ndace26334953424799e24afccffcf8a4
+ - Shape focal-shape:MaturityStatus: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>
 
 Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:
   Validation Report
@@ -75,7 +41,41 @@ Validation result for _sources/transferability/computationType/shapes.shacl:
   Conforms: True
   
 Focus nodes for _sources/transferability/computationType/shapes.shacl:
- - Shape focal-shape:ComputationType: _:Ndace26334953424799e24afccffcf8a4
+ - Shape focal-shape:ComputationType: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>
+
+Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:
+ - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability
+ - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability
+ - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy>
+ - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability
+ - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy>
+ - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability
+
+Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
+ - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>
+ - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>/focal-transf-prop:value
+ - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>
+ - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>
+ - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime>
+
+Validation result for _sources/transferability/rule/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/rule/shapes.shacl:
+ - Shape focal-shape:TerminalActionNotAlongsideReuse: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules
+ - Shape focal-shape:RuleHasACondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules
+ - Shape focal-shape:OptionalRuleHasConsequence: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules
+ - Shape focal-shape:EnvelopeCondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when
+ - Shape focal-shape:TransferabilityRule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/>/focal-transf-prop:transferability/focal-transf-prop:rules
 
 === End SHACL ===
 

@@ -1,5 +1,5 @@
 Validation report for ogc.focal.transferability.workflow - FOCAL Transferability Workflow
-Generated 2026-09-03T16:01:16.239938+00:00
+Generated 2026-09-03T16:14:23.128186+00:00
 === Files ===
 Using example_2_1.json from examples
 JSON-LD context is present - uplifting
@@ -19,48 +19,14 @@ Validation result for _sources/transferability/workflow/shapes.shacl:
   Conforms: True
   
 Focus nodes for _sources/transferability/workflow/shapes.shacl:
- - Shape focal-shape:TransferabilityWorkflow: _:N23b99b98ea8247f2b5b2c0355a583997
-
-Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:
- - Shape focal-shape:RuleCitesDeclaredConstraint: _:Nf5ced8a9677f49c6bec9b02fabede1d3
- - Shape focal-shape:RuleCitesDeclaredArtifact: _:Nf5ced8a9677f49c6bec9b02fabede1d3
- - Shape focal-shape:ArtifactIsGovernedByARule: _:Nf5ced8a9677f49c6bec9b02fabede1d3
- - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <file:///github/workspace/slt-t5>,<file:///github/workspace/rasdaman>,<file:///github/workspace/species-codes>,<file:///github/workspace/tolerances>
- - Shape focal-shape:TransferabilityStatement: _:Nf5ced8a9677f49c6bec9b02fabede1d3
- - Shape focal-shape:ArtifactDependency: <file:///github/workspace/slt-t5>,<file:///github/workspace/rasdaman>,<file:///github/workspace/species-codes>,<file:///github/workspace/tolerances>
-
-Validation result for _sources/transferability/rule/shapes.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/transferability/rule/shapes.shacl:
- - Shape focal-shape:OptionalRuleHasConsequence: _:Naac712331b254d159f0da7001082c1a8
- - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Naac712331b254d159f0da7001082c1a8
- - Shape focal-shape:EnvelopeCondition: _:Nc5fae584ebb3447d88fbf2d1a83c5be8
- - Shape focal-shape:RuleHasACondition: _:Naac712331b254d159f0da7001082c1a8
- - Shape focal-shape:TransferabilityRule: _:Naac712331b254d159f0da7001082c1a8
-
-Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
- - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/czechia>
- - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/czechia>/focal-transf-prop:value
- - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/czechia>
- - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/czechia>
- - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/czechia>
+ - Shape focal-shape:TransferabilityWorkflow: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>
 
 Validation result for _sources/transferability/maturityStatus/shapes.shacl:
   Validation Report
   Conforms: True
   
 Focus nodes for _sources/transferability/maturityStatus/shapes.shacl:
- - Shape focal-shape:MaturityStatus: _:N23b99b98ea8247f2b5b2c0355a583997
+ - Shape focal-shape:MaturityStatus: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>
 
 Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:
   Validation Report
@@ -75,7 +41,41 @@ Validation result for _sources/transferability/computationType/shapes.shacl:
   Conforms: True
   
 Focus nodes for _sources/transferability/computationType/shapes.shacl:
- - Shape focal-shape:ComputationType: _:N23b99b98ea8247f2b5b2c0355a583997
+ - Shape focal-shape:ComputationType: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>
+
+Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:
+ - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability
+ - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability
+ - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes>
+ - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability
+ - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes>
+ - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability
+
+Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
+ - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>
+ - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>/focal-transf-prop:value
+ - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>
+ - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>
+ - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>
+
+Validation result for _sources/transferability/rule/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/rule/shapes.shacl:
+ - Shape focal-shape:TerminalActionNotAlongsideReuse: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules
+ - Shape focal-shape:RuleHasACondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules
+ - Shape focal-shape:OptionalRuleHasConsequence: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules
+ - Shape focal-shape:EnvelopeCondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when
+ - Shape focal-shape:TransferabilityRule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/>/focal-transf-prop:transferability/focal-transf-prop:rules
 
 === End SHACL ===
 

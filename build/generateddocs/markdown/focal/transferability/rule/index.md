@@ -90,9 +90,9 @@ value is a GeoSPARQL geometry.
 
 [] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-alternative-published-model>,
         <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
-    focal-transf-prop:appliesTo <file:///github/workspace/growth-model> ;
+    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/growth-model> ;
     focal-transf-prop:mandatory true ;
-    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/ecological-range> ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/ecological-range> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
 
 
@@ -144,12 +144,12 @@ recording that they were the same fact.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-    focal-transf-prop:appliesTo <file:///github/workspace/rasdaman>,
-        <file:///github/workspace/slt-t5>,
-        <file:///github/workspace/species-codes>,
-        <file:///github/workspace/tolerances> ;
+    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/rasdaman>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/slt-t5>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/species-codes>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/tolerances> ;
     focal-transf-prop:mandatory true ;
-    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/czechia> ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/czechia> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
 
 
@@ -209,11 +209,11 @@ the sentence it came from, which a nested boolean expression does not.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-    focal-transf-prop:appliesTo <file:///github/workspace/lst> ;
+    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/lst> ;
     focal-transf-prop:mandatory true ;
-    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/eur11-domain> ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-grid> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ],
-        [ focal-transf-prop:constraint <file:///github/workspace/eur11-grid> ;
+        [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-domain> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
 
 
@@ -263,9 +263,9 @@ between them.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/reuse-as-is> ;
-    focal-transf-prop:appliesTo <file:///github/workspace/lst> ;
+    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/lst> ;
     focal-transf-prop:mandatory true ;
-    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/eur11-domain> ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-domain> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] .
 
 
@@ -321,9 +321,9 @@ nothing they can act on.
 
 [] rdfs:comment "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement." ;
     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
-    focal-transf-prop:appliesTo <file:///github/workspace/labels> ;
+    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/labels> ;
     focal-transf-prop:mandatory false ;
-    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/label-extent> ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/label-extent> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
 
 
@@ -375,7 +375,7 @@ condition at all. Prefer `when` wherever a constraint exists to cite.
 [] rdfs:comment "Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it." ;
     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
         <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-    focal-transf-prop:appliesTo <file:///github/workspace/eurostat> ;
+    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eurostat> ;
     focal-transf-prop:mandatory true ;
     focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> .
 

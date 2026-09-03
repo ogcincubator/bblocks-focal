@@ -1,5 +1,6 @@
 {
   "class": "Workflow",
+  "id": "",
   "cwlVersion": "v1.2",
   "label": "FP-WF1 \u2014 Tree species suitability",
   "inputs": {

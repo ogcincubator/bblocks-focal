@@ -4,42 +4,42 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<file:///github/workspace/czechia> rdfs:comment "Inferred, not stated: the questionnaire gives no envelope fact directly, only that four separate reference artifacts are Czechia-specific. Value is Czechia's country bounding box. Needs owner confirmation." ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/> rdfs:label "FP-WF2 — Heat stress" ;
+    focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
+    focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
+    focal-transf-prop:transferability [ focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>,
+                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>,
+                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes>,
+                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances> ;
+            focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia> ;
+            focal-transf-prop:rules [ rdfs:comment "Users may also override the tolerance thresholds directly, even within the source region — a separate user-configurability fact, not modelled here." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia> rdfs:comment "Inferred, not stated: the questionnaire gives no envelope fact directly, only that four separate reference artifacts are Czechia-specific. Value is Czechia's country bounding box. Needs owner confirmation." ;
     focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/jurisdictional> ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
     focal-transf-prop:value [ geo:asWKT "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"^^geo:wktLiteral ] .
 
-<file:///github/workspace/rasdaman> dcterms:title "Rasdaman climate registry / source catalogue" ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman> dcterms:title "Rasdaman climate registry / source catalogue" ;
     focal-transf-prop:artifactRef "/inputs/climate_registry_endpoint" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
-<file:///github/workspace/slt-t5> dcterms:title "SLT/T5 forest classification context (Czechia-specific)" ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5> dcterms:title "SLT/T5 forest classification context (Czechia-specific)" ;
     focal-transf-prop:artifactRef "/inputs/forest_classification_context" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
-<file:///github/workspace/species-codes> dcterms:title "species codes catalogue (species_codes.json)" ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes> dcterms:title "species codes catalogue (species_codes.json)" ;
     focal-transf-prop:artifactRef "/inputs/species_codes" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
-<file:///github/workspace/tolerances> dcterms:title "species tolerance thresholds (species_tolerances.json)" ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances> dcterms:title "species tolerance thresholds (species_tolerances.json)" ;
     focal-transf-prop:artifactRef "/inputs/species_tolerances" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
-
-[] rdfs:label "FP-WF2 — Heat stress" ;
-    focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
-    focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
-    focal-transf-prop:transferability [ focal-transf-prop:artifacts <file:///github/workspace/rasdaman>,
-                <file:///github/workspace/slt-t5>,
-                <file:///github/workspace/species-codes>,
-                <file:///github/workspace/tolerances> ;
-            focal-transf-prop:envelope <file:///github/workspace/czechia> ;
-            focal-transf-prop:rules [ rdfs:comment "Users may also override the tolerance thresholds directly, even within the source region — a separate user-configurability fact, not modelled here." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <file:///github/workspace/rasdaman>,
-                        <file:///github/workspace/slt-t5>,
-                        <file:///github/workspace/species-codes>,
-                        <file:///github/workspace/tolerances> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/czechia> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
 

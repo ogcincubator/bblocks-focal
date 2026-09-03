@@ -1,5 +1,5 @@
 Validation report for ogc.focal.transferability.envelopeConstraint - FOCAL Transferability Envelope Constraint
-Generated 2026-09-03T16:01:13.094205+00:00
+Generated 2026-09-03T16:14:19.305648+00:00
 === Files ===
 Using example_6_1.json from examples
 JSON-LD context is present - uplifting
@@ -19,11 +19,11 @@ Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:
   Conforms: True
   
 Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
- - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/eur11-grid>
- - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/eur11-grid>/focal-transf-prop:value
- - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/eur11-grid>
- - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/eur11-grid>
- - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/eur11-grid>
+ - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>
+ - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>/focal-transf-prop:value
+ - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>
+ - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>
+ - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>
 
 === End SHACL ===
 

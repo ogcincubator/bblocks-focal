@@ -46,6 +46,7 @@
   "examples": [
     {
       "title": "Spatial extent (GeoSPARQL geometry)",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/",
       "content": "A `trained-on`/`spatial` constraint carrying an `id` so rules can cite it.\n\n`value.asWKT` uplifts to `geo:asWKT` with datatype `geo:wktLiteral`, which is the form\nGeoSPARQL's topological functions operate on: a consumer answers \"is my area of interest\ninside this?\" with `geof:sfWithin` and no knowledge of FOCAL.\n\nThe geometry is Czechia's country bounding box standing in for FP-WF1's actual sample plot\nnetwork, which is a scattered set of monitoring locations rather than a rectangle.\n`transferabilityNotes` is where that gets said, in the data rather than in prose, so the\napproximation travels with the value.\n",
       "snippets": [
         {
@@ -63,13 +64,14 @@
         {
           "language": "ttl",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_1_1.ttl",
-          "sizeBytes": 735,
-          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix geo: <http://www.opengis.net/ont/geosparql#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n<file:///github/workspace/czech-plots> rdfs:comment \"Country bounding box, standing in for the actual permanent sample plot network; an honest upper bound pending the real plot coordinates.\" ;\n    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;\n    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;\n    focal-transf-prop:value [ geo:asWKT \"POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))\"^^geo:wktLiteral ] .\n\n"
+          "sizeBytes": 789,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix geo: <http://www.opengis.net/ont/geosparql#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots> rdfs:comment \"Country bounding box, standing in for the actual permanent sample plot network; an honest upper bound pending the real plot coordinates.\" ;\n    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;\n    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;\n    focal-transf-prop:value [ geo:asWKT \"POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))\"^^geo:wktLiteral ] .\n\n"
         }
       ]
     },
     {
       "title": "Spatial extent with an explicit CRS",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/",
       "content": "GeoSPARQL permits a leading CRS URI on a WKT literal. Without one, CRS84\n(longitude/latitude in degrees) is assumed, which is what every other example here relies on.\nStating it explicitly matters for a workflow calibrated in a projected national grid \u2014 the\nForest Pilot's S-JTSK (EPSG:5514) is the case to watch.\n",
       "snippets": [
         {
@@ -87,13 +89,14 @@
         {
           "language": "ttl",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_2_1.ttl",
-          "sizeBytes": 517,
-          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix geo: <http://www.opengis.net/ont/geosparql#> .\n\n<file:///github/workspace/prague-point> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;\n    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;\n    focal-transf-prop:value [ geo:asWKT \"<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POINT(14.42 50.09)\"^^geo:wktLiteral ] .\n\n"
+          "sizeBytes": 571,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix geo: <http://www.opengis.net/ont/geosparql#> .\n\n<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;\n    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;\n    focal-transf-prop:value [ geo:asWKT \"<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POINT(14.42 50.09)\"^^geo:wktLiteral ] .\n\n"
         }
       ]
     },
     {
       "title": "Temporal extent, calendar period (DCAT)",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/",
       "content": "A `valid-for`/`temporal` constraint using the period branch. `startDate`/`endDate` uplift to\n`dcat:startDate`/`dcat:endDate`, the DCAT terms every catalogue already understands for\ntemporal coverage.\n\nGranularity is workflow-specific and deliberately not fixed \u2014 this one is year-level\n(UP-WF2's discrete epochs), a date or year-month is equally valid \u2014 but the *format* is\nfixed to ISO 8601, so two periods stated at the same granularity compare correctly as plain\nstring ordering. Previously these were unconstrained strings.\n",
       "snippets": [
         {
@@ -111,13 +114,14 @@
         {
           "language": "ttl",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_3_1.ttl",
-          "sizeBytes": 463,
-          "code": "@prefix dcat: <http://www.w3.org/ns/dcat#> .\n@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n\n<file:///github/workspace/epochs> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal> ;\n    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;\n    focal-transf-prop:value [ dcat:endDate \"2025\" ;\n            dcat:startDate \"2022\" ] .\n\n"
+          "sizeBytes": 517,
+          "code": "@prefix dcat: <http://www.w3.org/ns/dcat#> .\n@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n\n<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal> ;\n    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;\n    focal-transf-prop:value [ dcat:endDate \"2025\" ;\n            dcat:startDate \"2022\" ] .\n\n"
         }
       ]
     },
     {
       "title": "Temporal extent, scenario marker (non-calendar)",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/",
       "content": "The other temporal branch, for results that are not calendar-indexed at all. UP-WF1's\nNUKLEUS output is positioned by Global Warming Level, and a warming level is reached in\ndifferent years depending on emissions scenario and ensemble member, so a calendar period\nwould be a fabrication rather than a simplification.\n\nThe marker is a **concept**, not a free string: `GWL+1.5` written two ways by two pilots\nwould otherwise be two incomparable strings but one thing. This branch had never been\nexercised by any example anywhere in the register before, so it had never been validated.\n",
       "snippets": [
         {
@@ -135,13 +139,14 @@
         {
           "language": "ttl",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_4_1.ttl",
-          "sizeBytes": 472,
-          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n\n<file:///github/workspace/gwl-15> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal> ;\n    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;\n    focal-transf-prop:value [ focal-transf-prop:scenarioMarker <https://w3id.org/ogc/hosted/focal/transferability/scenario-markers/gwl-1.5> ] .\n\n"
+          "sizeBytes": 526,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n\n<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal> ;\n    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;\n    focal-transf-prop:value [ focal-transf-prop:scenarioMarker <https://w3id.org/ogc/hosted/focal/transferability/scenario-markers/gwl-1.5> ] .\n\n"
         }
       ]
     },
     {
       "title": "Non-geometric dimension (string-valued)",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/",
       "content": "A `valid-for`/`ecological` constraint. \"A comparable ecological range\" is not a place and\ndoes not become machine-checkable by being wrapped in coordinates it does not have, so this\nbranch keeps `value` a plain string.\n\nA rule may still cite this constraint by `id` and test `outside` against it. The condition\nis then a judgement a person makes, recorded in the same structure as one a machine can\nsettle \u2014 which is honest about where automation stops rather than pretending the whole model\nis decidable.\n",
       "snippets": [
         {
@@ -159,13 +164,14 @@
         {
           "language": "ttl",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_5_1.ttl",
-          "sizeBytes": 402,
-          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n\n<file:///github/workspace/ecological-range> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;\n    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;\n    focal-transf-prop:value \"a comparable ecological range\" .\n\n"
+          "sizeBytes": 456,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n\n<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;\n    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;\n    focal-transf-prop:value \"a comparable ecological range\" .\n\n"
         }
       ]
     },
     {
       "title": "Dimension outside the schema's structured set (open vocabulary)",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/",
       "content": "`grid-structure` \u2014 how a workflow's inputs must be gridded, as opposed to where results are\nvalid \u2014 is a real concept in the dimensions scheme but not one the schema gives a structured\n`value` shape to, so it lands in the string branch.\n\nThat is the open-vocabulary claim working: the SKOS scheme grew by one term with no schema\nchange. Only a dimension needing a `value` shape other than a string, the way `spatial` needs\na geometry, forces the schema to be touched. Evidenced by UP-WF3's rotated-pole versus\nregular lat/lon split.\n",
       "snippets": [
         {
@@ -183,8 +189,8 @@
         {
           "language": "ttl",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_6_1.ttl",
-          "sizeBytes": 458,
-          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n\n<file:///github/workspace/eur11-grid> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/grid-structure> ;\n    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/can-run-on> ;\n    focal-transf-prop:value \"inputs on a rotated-pole EUR-11 grid; a regular lat/lon grid requires resampling first\" .\n\n"
+          "sizeBytes": 512,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n\n<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/grid-structure> ;\n    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/can-run-on> ;\n    focal-transf-prop:value \"inputs on a rotated-pole EUR-11 grid; a regular lat/lon grid requires resampling first\" .\n\n"
         }
       ]
     }

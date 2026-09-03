@@ -2,11 +2,11 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-    focal-transf-prop:appliesTo <file:///github/workspace/rasdaman>,
-        <file:///github/workspace/slt-t5>,
-        <file:///github/workspace/species-codes>,
-        <file:///github/workspace/tolerances> ;
+    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/rasdaman>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/slt-t5>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/species-codes>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/tolerances> ;
     focal-transf-prop:mandatory true ;
-    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/czechia> ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/czechia> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
 

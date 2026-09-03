@@ -1,5 +1,6 @@
 {
   "class": "Workflow",
+  "id": "",
   "cwlVersion": "v1.2",
   "label": "FP-WF2 \u2014 Heat stress",
   "inputs": {

@@ -1,5 +1,6 @@
 {
   "class": "Workflow",
+  "id": "",
   "cwlVersion": "v1.2",
   "label": "UP-WF2 \u2014 Urban hot/cool spot",
   "inputs": {

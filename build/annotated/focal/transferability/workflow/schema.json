@@ -18,6 +18,12 @@
         "transferability"
       ],
       "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri-reference",
+          "description": "Identifier for the workflow, resolved against the document's base URI. Optional, but worth setting: without it the workflow is an anonymous node in RDF, and its envelope constraints and artifacts end up as named resources hanging off a subject nothing can refer to. An empty string resolves to the base URI itself, i.e. \"the workflow this document describes\".\n",
+          "x-jsonld-id": "@id"
+        },
         "transferability": {
           "$ref": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/schema.json",
           "description": "The workflow's portability boundary: where its results are valid (`envelope`) and which artifacts it depends on, and what must happen to each outside it. See `transferabilityStatement` for the three lists and how they reference each other.\n",

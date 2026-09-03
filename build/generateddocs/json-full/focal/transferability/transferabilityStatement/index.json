@@ -16,8 +16,8 @@
     "https://w3id.org/ogc/hosted/focal/transferability/TransferabilityStatement"
   ],
   "dependsOn": [
-    "ogc.focal.transferability.rule",
     "ogc.focal.transferability.envelopeConstraint",
+    "ogc.focal.transferability.rule",
     "ogc.focal.transferability.vocab"
   ],
   "tags": [
@@ -30,11 +30,11 @@
     "ogc.focal.transferability.transferabilityStatement": [
       "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/transferabilityStatement/shapes.shacl"
     ],
-    "ogc.focal.transferability.rule": [
-      "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/shapes.shacl"
-    ],
     "ogc.focal.transferability.envelopeConstraint": [
       "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/envelopeConstraint/shapes.shacl"
+    ],
+    "ogc.focal.transferability.rule": [
+      "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/shapes.shacl"
     ]
   },
   "ldContext": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/context.jsonld",
