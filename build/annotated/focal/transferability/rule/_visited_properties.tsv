@@ -1,5 +1,9 @@
 path	@id	schema
-/transferabilityNotes	https://w3id.org/ogc/hosted/focal/transferability/properties/transferabilityNotes	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml
+/transferabilityNotes	http://www.w3.org/2000/01/rdf-schema#comment	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml
+/appliesTo	https://w3id.org/ogc/hosted/focal/transferability/properties/appliesTo	/github/workspace/build/annotated/focal/transferability/rule/schema.yaml
+/when	https://w3id.org/ogc/hosted/focal/transferability/properties/when	/github/workspace/build/annotated/focal/transferability/rule/schema.yaml
+/when/constraint	https://w3id.org/ogc/hosted/focal/transferability/properties/constraint	/github/workspace/build/annotated/focal/transferability/rule/schema.yaml
+/when/test	https://w3id.org/ogc/hosted/focal/transferability/properties/test	/github/workspace/build/annotated/focal/transferability/rule/schema.yaml
 /triggeredBy	https://w3id.org/ogc/hosted/focal/transferability/properties/triggeredBy	/github/workspace/build/annotated/focal/transferability/rule/schema.yaml
 /actions	https://w3id.org/ogc/hosted/focal/transferability/properties/actions	/github/workspace/build/annotated/focal/transferability/rule/schema.yaml
-/required	https://w3id.org/ogc/hosted/focal/transferability/properties/required	/github/workspace/build/annotated/focal/transferability/rule/schema.yaml
+/mandatory	https://w3id.org/ogc/hosted/focal/transferability/properties/mandatory	/github/workspace/build/annotated/focal/transferability/rule/schema.yaml

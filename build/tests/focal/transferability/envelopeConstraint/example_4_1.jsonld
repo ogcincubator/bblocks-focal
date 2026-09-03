@@ -1,0 +1,9 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld",
+  "id": "gwl-15",
+  "role": "valid-for",
+  "dimension": "temporal",
+  "value": {
+    "scenarioMarker": "gwl-1.5"
+  }
+}

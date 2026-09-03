@@ -1,0 +1,13 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld",
+  "appliesTo": [
+    "eurostat"
+  ],
+  "triggeredBy": "different-geographic-coverage",
+  "actions": [
+    "replace-with-local-equivalent",
+    "component-not-executable"
+  ],
+  "mandatory": true,
+  "transferabilityNotes": "Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it."
+}

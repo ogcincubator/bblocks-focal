@@ -2,13 +2,638 @@
   "title": "Validation report for ogc.focal.transferability.envelopeConstraint - FOCAL Transferability Envelope Constraint",
   "bblockName": "FOCAL Transferability Envelope Constraint",
   "bblockId": "ogc.focal.transferability.envelopeConstraint",
-  "generated": "2026-09-03T12:19:49.914085+00:00",
+  "generated": "2026-09-03T16:01:13.094283+00:00",
   "result": true,
-  "items": [],
+  "items": [
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/focal/transferability/envelopeConstraint/example_1_1.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_1_1.json",
+        "exampleIndex": 1,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": true,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using example_1_1.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_1_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_1_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_1_1.ttl",
+              "size": 5,
+              "isError": false,
+              "message": "Output Turtle example_1_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/czech-plots>"
+                  ]
+                },
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<file:///github/workspace/czech-plots>/focal-transf-prop:value"
+                  ]
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/czech-plots>"
+                  ]
+                },
+                "focal-shape:EnvelopeConstraint": {
+                  "nodes": [
+                    "<file:///github/workspace/czech-plots>"
+                  ]
+                },
+                "focal-shape:TemporalEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/czech-plots>"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/czech-plots>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/czech-plots>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/czech-plots>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/czech-plots>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/czech-plots>\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/focal/transferability/envelopeConstraint/example_2_1.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_2_1.json",
+        "exampleIndex": 2,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": true,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using example_2_1.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_2_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_2_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_2_1.ttl",
+              "size": 4,
+              "isError": false,
+              "message": "Output Turtle example_2_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/prague-point>"
+                  ]
+                },
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<file:///github/workspace/prague-point>/focal-transf-prop:value"
+                  ]
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/prague-point>"
+                  ]
+                },
+                "focal-shape:EnvelopeConstraint": {
+                  "nodes": [
+                    "<file:///github/workspace/prague-point>"
+                  ]
+                },
+                "focal-shape:TemporalEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/prague-point>"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/prague-point>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/prague-point>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/prague-point>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/prague-point>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/prague-point>\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/focal/transferability/envelopeConstraint/example_3_1.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_3_1.json",
+        "exampleIndex": 3,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": true,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using example_3_1.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_3_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_3_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_3_1.ttl",
+              "size": 5,
+              "isError": false,
+              "message": "Output Turtle example_3_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/epochs>"
+                  ]
+                },
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<file:///github/workspace/epochs>/focal-transf-prop:value"
+                  ]
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/epochs>"
+                  ]
+                },
+                "focal-shape:EnvelopeConstraint": {
+                  "nodes": [
+                    "<file:///github/workspace/epochs>"
+                  ]
+                },
+                "focal-shape:TemporalEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/epochs>"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/epochs>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/epochs>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/epochs>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/epochs>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/epochs>\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/focal/transferability/envelopeConstraint/example_4_1.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_4_1.json",
+        "exampleIndex": 4,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": true,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using example_4_1.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_4_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_4_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_4_1.ttl",
+              "size": 4,
+              "isError": false,
+              "message": "Output Turtle example_4_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/gwl-15>"
+                  ]
+                },
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<file:///github/workspace/gwl-15>/focal-transf-prop:value"
+                  ]
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/gwl-15>"
+                  ]
+                },
+                "focal-shape:EnvelopeConstraint": {
+                  "nodes": [
+                    "<file:///github/workspace/gwl-15>"
+                  ]
+                },
+                "focal-shape:TemporalEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/gwl-15>"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/gwl-15>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/gwl-15>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/gwl-15>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/gwl-15>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/gwl-15>\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/focal/transferability/envelopeConstraint/example_5_1.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_5_1.json",
+        "exampleIndex": 5,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": true,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using example_5_1.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_5_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_5_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_5_1.ttl",
+              "size": 3,
+              "isError": false,
+              "message": "Output Turtle example_5_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/ecological-range>"
+                  ]
+                },
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<file:///github/workspace/ecological-range>/focal-transf-prop:value"
+                  ]
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/ecological-range>"
+                  ]
+                },
+                "focal-shape:EnvelopeConstraint": {
+                  "nodes": [
+                    "<file:///github/workspace/ecological-range>"
+                  ]
+                },
+                "focal-shape:TemporalEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/ecological-range>"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/ecological-range>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/ecological-range>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/ecological-range>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/ecological-range>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/ecological-range>\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/focal/transferability/envelopeConstraint/example_6_1.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_6_1.json",
+        "exampleIndex": 6,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": true,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using example_6_1.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_6_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_6_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_6_1.ttl",
+              "size": 3,
+              "isError": false,
+              "message": "Output Turtle example_6_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/eur11-grid>"
+                  ]
+                },
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<file:///github/workspace/eur11-grid>/focal-transf-prop:value"
+                  ]
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/eur11-grid>"
+                  ]
+                },
+                "focal-shape:EnvelopeConstraint": {
+                  "nodes": [
+                    "<file:///github/workspace/eur11-grid>"
+                  ]
+                },
+                "focal-shape:TemporalEnvelopeValue": {
+                  "nodes": [
+                    "<file:///github/workspace/eur11-grid>"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/eur11-grid>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/eur11-grid>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/eur11-grid>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/eur11-grid>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/eur11-grid>\n"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "globalErrors": {},
   "counts": {
-    "total": 0,
-    "passed": 0,
+    "total": 6,
+    "passed": 6,
     "failed": 0
   }
 }

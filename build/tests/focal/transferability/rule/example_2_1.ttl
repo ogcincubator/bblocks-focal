@@ -1,0 +1,12 @@
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+    focal-transf-prop:appliesTo <file:///github/workspace/rasdaman>,
+        <file:///github/workspace/slt-t5>,
+        <file:///github/workspace/species-codes>,
+        <file:///github/workspace/tolerances> ;
+    focal-transf-prop:mandatory true ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/czechia> ;
+            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
+

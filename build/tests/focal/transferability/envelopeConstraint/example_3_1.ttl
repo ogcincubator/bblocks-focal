@@ -1,0 +1,8 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+
+<file:///github/workspace/epochs> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value [ dcat:endDate "2025" ;
+            dcat:startDate "2022" ] .
+

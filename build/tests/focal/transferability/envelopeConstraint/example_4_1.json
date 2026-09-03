@@ -1,0 +1,8 @@
+{
+  "id": "gwl-15",
+  "role": "valid-for",
+  "dimension": "temporal",
+  "value": {
+    "scenarioMarker": "gwl-1.5"
+  }
+}

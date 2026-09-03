@@ -1,7 +1,7 @@
 
 # FOCAL Computation Type (mixin) (Schema)
 
-`ogc.focal.transferability.computationType` *v0.1*
+`ogc.focal.transferability.computationType` *v0.2*
 
 Reusable mixin adding computationType, an open-vocabulary classification of how a workflow computes its results (statistical/ML, deterministic/rule-based, precomputed data delivery). Optional at the workflow level.
 

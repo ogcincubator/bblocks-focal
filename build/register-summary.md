@@ -66,17 +66,23 @@ RDF contents for the FOCAL ontology
 
 Schema defining the properties of a FOCAL forest stand, including forest type classification, forest region, target management unit, field verification status, area, and data provenance.
 
+### `ogc.focal.transferability.vocab` — FOCAL Transferability Vocabulary and Model Ontology
+
+**Type:** model
+
+The RDF vocabulary behind the FOCAL workflow transferability model: ten open SKOS concept schemes (actions, triggers, condition tests, envelope dimensions, envelope roles, artifact roles, scenario markers, computation types, maturity statuses, quality dimensions) plus the classes and properties FOCAL mints where no published vocabulary says the same thing.
+
+### `ogc.focal.transferability.notes` — FOCAL Transferability Notes (mixin)
+
+**Type:** schema
+
+Reusable mixin adding a free-text escape hatch for transferability facts the controlled vocabularies cannot capture. Uplifts to rdfs:comment rather than a FOCAL-specific property.
+
 ### `ogc.focal.transferability.computationType` — FOCAL Computation Type (mixin)
 
 **Type:** schema
 
 Reusable mixin adding computationType, an open-vocabulary classification of how a workflow computes its results (statistical/ML, deterministic/rule-based, precomputed data delivery). Optional at the workflow level.
-
-### `ogc.focal.transferability.envelopeConstraint` — FOCAL Transferability Envelope Constraint
-
-**Type:** schema
-
-A single {role, dimension, value} statement describing part of a workflow's validity envelope (spatial, temporal, ecological, climatic, jurisdictional, ...), repeatable so multiple roles/dimensions can apply to one workflow at once.
 
 ### `ogc.focal.transferability.maturityStatus` — FOCAL Workflow Maturity Status (mixin)
 
@@ -84,29 +90,23 @@ A single {role, dimension, value} statement describing part of a workflow's vali
 
 Reusable mixin adding maturityStatus, an open-vocabulary classification of a workflow's operational maturity (prototype, pre-operational, operational). Deliberately a separate vocabulary from a bblock's own authoring-lifecycle status field.
 
-### `ogc.focal.transferability.notes` — FOCAL Transferability Notes (mixin)
-
-**Type:** schema
-
-Reusable mixin adding a free-text escape hatch for transferability facts that don't reduce to the controlled transferabilityAction/triggeredBy vocabulary.
-
 ### `ogc.focal.transferability.qualityAnnotation` — FOCAL Quality Annotation
 
 **Type:** schema
 
 A single statement of uncertainty or confidence about a workflow's results, independent of its maturityStatus. Binds to the W3C Data Quality Vocabulary (DQV) directly, since no OGC Block wraps DQV.
 
-### `ogc.focal.transferability.vocab` — FOCAL Transferability Vocabulary
+### `ogc.focal.transferability.envelopeConstraint` — FOCAL Transferability Envelope Constraint
 
-**Type:** model
+**Type:** schema
 
-SKOS concept schemes for FOCAL workflow transferability: transferabilityAction, triggeredBy, envelope dimensions, and envelope roles.
+A single {role, dimension, value} statement bounding where a workflow's results are valid, addressable by id so rules can cite which boundary they are evaluated against. Spatial values are GeoSPARQL geometries and temporal values DCAT periods, so a consumer can evaluate them without knowing FOCAL.
 
 ### `ogc.focal.transferability.rule` — FOCAL Transferability Rule
 
 **Type:** schema
 
-A single condition/action rule (triggeredBy + actions + required) describing how a reference or calibration artifact must be adapted outside its workflow's original validity envelope.
+What must happen, to which artifacts, under which envelope conditions. Conditions cite envelope constraints by id and are conjunctive; actions are an OR-set.
 
 ### `ogc.focal.forestStandFeature` — FOCAL Forest Stand Feature
 
@@ -118,7 +118,7 @@ GeoJSON Feature representing a spatially delineated forest stand classified acco
 
 **Type:** schema
 
-Groups the core facts that describe a workflow's portability: where and when its results are valid (envelope, including its temporal dimension) and what has to happen to each reference/calibration artifact to make them valid elsewhere (artifactRules).
+Where something's results are valid (envelope), which reference/calibration artifacts it depends on (artifacts), and what must happen to each under which conditions (rules) - three id-addressable lists joined by reference rather than nesting.
 
 ### `ogc.focal.forestStandCollection` — FOCAL Forest Stand Feature Collection
 

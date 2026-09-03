@@ -11,94 +11,60 @@
   "transferability": {
     "envelope": [
       {
+        "id": "czechia",
         "role": "trained-on",
         "dimension": "jurisdictional",
         "value": {
-          "type": "Polygon",
-          "coordinates": [
-            [
-              [
-                12.09,
-                48.55
-              ],
-              [
-                18.87,
-                48.55
-              ],
-              [
-                18.87,
-                51.06
-              ],
-              [
-                12.09,
-                51.06
-              ],
-              [
-                12.09,
-                48.55
-              ]
-            ]
-          ]
-        }
+          "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"
+        },
+        "transferabilityNotes": "Inferred, not stated: the questionnaire gives no envelope fact directly, only that four separate reference artifacts are Czechia-specific. Value is Czechia's country bounding box. Needs owner confirmation."
       }
     ],
-    "artifactRules": [
+    "artifacts": [
       {
+        "id": "tolerances",
         "artifact": "species tolerance thresholds (species_tolerances.json)",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.species_tolerances",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true,
-            "transferabilityNotes": "Users may also override thresholds directly, even within the source region \u2014 a separate user-configurability fact, not modeled here."
-          }
-        ]
+        "artifactRef": "/inputs/species_tolerances"
       },
       {
+        "id": "slt-t5",
         "artifact": "SLT/T5 forest classification context (Czechia-specific)",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.forest_classification_context",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
-          }
-        ]
+        "artifactRef": "/inputs/forest_classification_context"
       },
       {
+        "id": "species-codes",
         "artifact": "species codes catalogue (species_codes.json)",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.species_codes",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
-          }
-        ]
+        "artifactRef": "/inputs/species_codes"
       },
       {
+        "id": "rasdaman",
         "artifact": "Rasdaman climate registry / source catalogue",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.climate_registry_endpoint",
-        "rules": [
+        "artifactRef": "/inputs/climate_registry_endpoint"
+      }
+    ],
+    "rules": [
+      {
+        "appliesTo": [
+          "tolerances",
+          "slt-t5",
+          "species-codes",
+          "rasdaman"
+        ],
+        "when": [
           {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
+            "constraint": "czechia",
+            "test": "outside"
           }
-        ]
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Users may also override the tolerance thresholds directly, even within the source region \u2014 a separate user-configurability fact, not modelled here."
       }
     ]
   },

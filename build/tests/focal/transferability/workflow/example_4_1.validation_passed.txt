@@ -1,7 +1,7 @@
 Validation report for ogc.focal.transferability.workflow - FOCAL Transferability Workflow
-Generated 2026-09-03T12:19:52.776697+00:00
+Generated 2026-09-03T16:01:16.769061+00:00
 === Files ===
-Using examples/up-wf2.json from examples
+Using example_4_1.json from examples
 JSON-LD context is present - uplifting
 Output JSON-LD example_4_1.jsonld created
 Output Turtle example_4_1.ttl created
@@ -10,4 +10,72 @@ Output Turtle example_4_1.ttl created
 === JSON Schema ===
 Validation passed
 === End JSON Schema ===
+
+=== SHACL ===
+Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):
+ - /github/workspace/_sources/transferability/vocab/ontology.ttl
+Validation result for _sources/transferability/workflow/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/workflow/shapes.shacl:
+ - Shape focal-shape:TransferabilityWorkflow: _:Nea16db9aa4924c239902f72435c29925
+
+Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:
+ - Shape focal-shape:RuleCitesDeclaredConstraint: _:N688ba5440c534f2b94a39b45613b2195
+ - Shape focal-shape:RuleCitesDeclaredArtifact: _:N688ba5440c534f2b94a39b45613b2195
+ - Shape focal-shape:ArtifactIsGovernedByARule: _:N688ba5440c534f2b94a39b45613b2195
+ - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <file:///github/workspace/lst>,<file:///github/workspace/clms>,<file:///github/workspace/eurostat>
+ - Shape focal-shape:TransferabilityStatement: _:N688ba5440c534f2b94a39b45613b2195
+ - Shape focal-shape:ArtifactDependency: <file:///github/workspace/lst>,<file:///github/workspace/clms>,<file:///github/workspace/eurostat>
+
+Validation result for _sources/transferability/rule/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/rule/shapes.shacl:
+ - Shape focal-shape:OptionalRuleHasConsequence: _:Nc75b61fc58104dee871098de5f4817ee,_:N3fd628daaa1c4139b5207bf7872e7b26,_:Na878907edba54504883eb9985801128b,_:N4e0005b8ac8342c4a9f9ac71657c7632,_:N1f508603ff9b4cee8ae187a98172cd59
+ - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Nc75b61fc58104dee871098de5f4817ee,_:N3fd628daaa1c4139b5207bf7872e7b26,_:Na878907edba54504883eb9985801128b,_:N4e0005b8ac8342c4a9f9ac71657c7632,_:N1f508603ff9b4cee8ae187a98172cd59
+ - Shape focal-shape:EnvelopeCondition: _:Ne6e7eea7035a4bf08a25e1e491e8f9a6,_:Ned51fe554d33468c9ddf2e40b9c0b214,_:N58e4cc453b86413faea072d24bd084c2,_:Ne0b6f1cbceab45409235cdf4617957cc
+ - Shape focal-shape:RuleHasACondition: _:Nc75b61fc58104dee871098de5f4817ee,_:N3fd628daaa1c4139b5207bf7872e7b26,_:Na878907edba54504883eb9985801128b,_:N4e0005b8ac8342c4a9f9ac71657c7632,_:N1f508603ff9b4cee8ae187a98172cd59
+ - Shape focal-shape:TransferabilityRule: _:Nc75b61fc58104dee871098de5f4817ee,_:Na878907edba54504883eb9985801128b,_:N4e0005b8ac8342c4a9f9ac71657c7632,_:N3fd628daaa1c4139b5207bf7872e7b26,_:N1f508603ff9b4cee8ae187a98172cd59
+
+Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
+ - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/epochs>,<file:///github/workspace/clms-extent>,<file:///github/workspace/eur11-domain>,<file:///github/workspace/clms-excluded-ukraine>
+ - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/epochs>/focal-transf-prop:value,<file:///github/workspace/clms-excluded-ukraine>/focal-transf-prop:value,<file:///github/workspace/clms-extent>/focal-transf-prop:value,<file:///github/workspace/eur11-domain>/focal-transf-prop:value
+ - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/epochs>,<file:///github/workspace/clms-extent>,<file:///github/workspace/eur11-domain>,<file:///github/workspace/clms-excluded-ukraine>
+ - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/clms-excluded-ukraine>,<file:///github/workspace/clms-extent>,<file:///github/workspace/epochs>,<file:///github/workspace/eur11-domain>
+ - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/epochs>,<file:///github/workspace/clms-extent>,<file:///github/workspace/eur11-domain>,<file:///github/workspace/clms-excluded-ukraine>
+
+Validation result for _sources/transferability/maturityStatus/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/maturityStatus/shapes.shacl:
+ - Shape focal-shape:MaturityStatus: _:Nea16db9aa4924c239902f72435c29925
+
+Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:
+ - Shape focal-shape:QualityAnnotation: *none*
+ - Shape focal-shape:QualityAnnotationHasNote: *none*
+
+Validation result for _sources/transferability/computationType/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/computationType/shapes.shacl:
+ - Shape focal-shape:ComputationType: _:Nea16db9aa4924c239902f72435c29925
+
+=== End SHACL ===
 

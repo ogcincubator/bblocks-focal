@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Workflow (Schema)
 
-`ogc.focal.transferability.workflow` *v0.1*
+`ogc.focal.transferability.workflow` *v0.2*
 
 Profile of a CWL Workflow adding FOCAL's machine-readable transferability facts: a transferability statement (validity envelope, reference/calibration-artifact adaptation rules), computation type, maturity status, and quality annotations.
 
@@ -22,8 +22,8 @@ model.
 | `maturityStatus` | required | [`maturityStatus`](bblocks://ogc.focal.transferability.maturityStatus) |
 | `qualityAnnotation` | optional, repeatable | [`qualityAnnotation`](bblocks://ogc.focal.transferability.qualityAnnotation) |
 
-**Why `transferability` is its own nested object, not flattened here.** `envelope` and
-`artifactRules` — the actual portability boundary — live in
+**Why `transferability` is its own nested object, not flattened here.** `envelope`, `artifacts`
+and `rules` — the actual portability boundary — live in
 [`transferabilityStatement`](bblocks://ogc.focal.transferability.transferabilityStatement), a
 standalone bundle this block attaches under one `transferability` property, rather than merging
 those properties directly onto the CWL Workflow profile. `computationType`, `maturityStatus`, and
@@ -32,42 +32,38 @@ portability boundary, so they stay outside that bundle and attach here directly 
 
 **Status: draft/WIP**, four worked examples (FP-WF1, FP-WF2, FP-WF3, UP-WF2) — chosen to cover the
 model's main branch points: multiple simultaneous envelope roles, OR-set actions, an
-optional/degrading rule (`required: false`), the `component-not-executable` terminal outcome, and
-a directly evidenced temporal envelope entry. The remaining 4 pilot workflows (FP-WF4, FP-WF5,
+optional/degrading rule (`mandatory: false`), the `component-not-executable` terminal outcome, one
+rule shared across four artifacts, a two-rule cascade over a single constraint, and a directly
+evidenced temporal envelope entry. The remaining 4 pilot workflows (FP-WF4, FP-WF5,
 UP-WF1, UP-WF3) aren't yet worked as examples — UP-WF1 in particular can't be, without fabricating
-values: its source states no assignable `envelope` or `artifactRules` fact at all (see the
+values: its source states no assignable `envelope` fact at all (see the
 mapping-extraction doc's UP-WF1 section), so it fails this schema's `required` properties outright
 until its owner is consulted. Not yet circulated to WF owners generally — that circulation will
 happen through this repo (PR review on `bblocks-focal`, not a separate document).
 
 ## Examples
 
-### FP-WF1 — Tree species suitability (worked example)
-FP-WF1 (Tree species suitability), the richest of the 8 FOCAL pilot workflows for this
-model: three simultaneous envelope roles, an OR-set of actions on one artifact, and the
-only workflow with an evidenced `qualityAnnotation` so far. Drawn from
-`20260817-workflow-transferability-mapping-extraction.md`'s FP-WF1 section.
+### FP-WF1 — Tree species suitability
+The richest of the eight FOCAL pilot workflows for this model: three simultaneous envelope
+roles, an OR-set of actions on one artifact, and the only workflow with an evidenced quality
+caveat so far. Drawn from `20260817-workflow-transferability-mapping-extraction.md`.
 
-**`transferability.envelope[0].value`** is a real GeoJSON `Polygon` — Czechia's country
-bounding box (12.09–18.87°E, 48.55–51.06°N, per OpenStreetMap Wiki's published bbox): a
-`spatial`/`jurisdictional` fact is a real extent, and text can't support an automated "is my
-AOI inside this envelope?" check. This is a **known approximation, not the actual sample-plot
-network**: the source says "Czech long-term permanent sample plots," a scattered set of
-specific monitoring locations, not the whole country — the real plot coordinates (likely the
-Czech National Forest Inventory or ÚHÚL long-term research plot network) are a genuine data
-gap, not sourced here. The country bbox is an honest upper bound pending that data, not a
-fabricated precise answer.
+**What the rules now say that they could not before.** The trained model must be retrained or
+replaced when the target is outside `ecological-range`; the climate data must be swapped when
+the target is outside `czech-plots`. Two artifacts, two different boundaries, each rule
+naming its own — previously both said only "different geographic coverage" and nothing
+recorded which extent that referred to.
 
-A temporal envelope entry is deliberately omitted here: the source states a user-selected
-"prediction period" with unspecified bound/granularity — no interval is fabricated for this
-example. `steps` (inherited from `CWLWorkflow`) is omitted; no Application Package exists yet
-for this workflow to describe it from.
+**`czech-plots` is an approximation and says so in the data.** The source says "Czech
+long-term permanent sample plots", a scattered set of monitoring locations; the value here is
+Czechia's country bounding box, an honest upper bound. That caveat is a
+`transferabilityNotes` on the constraint (uplifting to `rdfs:comment`), not a remark in this
+prose, so a consumer weighing the envelope can see it.
 
-`inputs`/`outputs` carry two **proto entries** — `climate_data`, an `inputs` entry, and
-`trained_growth_model`, an `outputs` entry — added so `artifactRules`' `artifactRef` field
-has a real CWL id to point at. These are placeholder ids invented for this example, not
-FP-WF1's actual Application Package, which doesn't exist yet; treat them as illustrating the
-binding mechanism, not as a claim about the workflow's real interface.
+No temporal constraint: the source states a user-selected "prediction period" with no bound
+or granularity, and none is invented. `steps` is omitted — no Application Package exists yet.
+The `inputs`/`outputs` ids are **placeholders** invented so `artifactRef` has something to
+point at; they are not FP-WF1's real interface.
 
 #### json
 ```json
@@ -75,70 +71,56 @@ binding mechanism, not as a claim about the workflow's real interface.
   "class": "Workflow",
   "cwlVersion": "v1.2",
   "label": "FP-WF1 — Tree species suitability",
-  "inputs": {
-    "climate_data": "File"
-  },
-  "outputs": {
-    "trained_growth_model": "File"
-  },
+  "inputs": { "climate_data": "File" },
+  "outputs": { "trained_growth_model": "File" },
   "transferability": {
     "envelope": [
       {
+        "id": "czech-plots",
         "role": "trained-on",
         "dimension": "spatial",
-        "value": {
-          "type": "Polygon",
-          "coordinates": [
-            [
-              [12.09, 48.55],
-              [18.87, 48.55],
-              [18.87, 51.06],
-              [12.09, 51.06],
-              [12.09, 48.55]
-            ]
-          ]
-        }
+        "value": { "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))" },
+        "transferabilityNotes": "Czechia's country bounding box, standing in for the actual Czech long-term permanent sample plot network — a scattered set of monitoring locations, not a rectangle. An honest upper bound pending the real plot coordinates from the workflow owner."
       },
       {
+        "id": "ecological-range",
         "role": "valid-for",
         "dimension": "ecological",
         "value": "a comparable ecological range"
       },
       {
+        "id": "downscaled-climate-available",
         "role": "can-run-on",
         "dimension": "climatic",
         "value": "wherever downscaled climate data is available"
       }
     ],
-    "artifactRules": [
+    "artifacts": [
       {
+        "id": "growth-model",
         "artifact": "trained tree growth model (LightGBM, Czech permanent sample plot data)",
         "artifactRole": "workflow-output",
-        "artifactRef": "outputs.trained_growth_model",
-        "rules": [
-          {
-            "triggeredBy": "different-ecological-range",
-            "actions": [
-              "retrain",
-              "replace-with-alternative-published-model"
-            ],
-            "required": true
-          }
-        ]
+        "artifactRef": "/outputs/trained_growth_model"
       },
       {
+        "id": "climate-data",
         "artifact": "downscaled FOCAL climate data (current + future)",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.climate_data",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
-          }
-        ]
+        "artifactRef": "/inputs/climate_data"
+      }
+    ],
+    "rules": [
+      {
+        "appliesTo": ["growth-model"],
+        "when": [{ "constraint": "ecological-range", "test": "outside" }],
+        "actions": ["retrain", "replace-with-alternative-published-model"],
+        "mandatory": true
+      },
+      {
+        "appliesTo": ["climate-data"],
+        "when": [{ "constraint": "czech-plots", "test": "outside" }],
+        "actions": ["replace-with-local-equivalent"],
+        "mandatory": true
       }
     ]
   },
@@ -170,76 +152,72 @@ binding mechanism, not as a claim about the workflow's real interface.
   "transferability": {
     "envelope": [
       {
+        "id": "czech-plots",
         "role": "trained-on",
         "dimension": "spatial",
         "value": {
-          "type": "Polygon",
-          "coordinates": [
-            [
-              [
-                12.09,
-                48.55
-              ],
-              [
-                18.87,
-                48.55
-              ],
-              [
-                18.87,
-                51.06
-              ],
-              [
-                12.09,
-                51.06
-              ],
-              [
-                12.09,
-                48.55
-              ]
-            ]
-          ]
-        }
+          "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"
+        },
+        "transferabilityNotes": "Czechia's country bounding box, standing in for the actual Czech long-term permanent sample plot network \u2014 a scattered set of monitoring locations, not a rectangle. An honest upper bound pending the real plot coordinates from the workflow owner."
       },
       {
+        "id": "ecological-range",
         "role": "valid-for",
         "dimension": "ecological",
         "value": "a comparable ecological range"
       },
       {
+        "id": "downscaled-climate-available",
         "role": "can-run-on",
         "dimension": "climatic",
         "value": "wherever downscaled climate data is available"
       }
     ],
-    "artifactRules": [
+    "artifacts": [
       {
+        "id": "growth-model",
         "artifact": "trained tree growth model (LightGBM, Czech permanent sample plot data)",
         "artifactRole": "workflow-output",
-        "artifactRef": "outputs.trained_growth_model",
-        "rules": [
-          {
-            "triggeredBy": "different-ecological-range",
-            "actions": [
-              "retrain",
-              "replace-with-alternative-published-model"
-            ],
-            "required": true
-          }
-        ]
+        "artifactRef": "/outputs/trained_growth_model"
       },
       {
+        "id": "climate-data",
         "artifact": "downscaled FOCAL climate data (current + future)",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.climate_data",
-        "rules": [
+        "artifactRef": "/inputs/climate_data"
+      }
+    ],
+    "rules": [
+      {
+        "appliesTo": [
+          "growth-model"
+        ],
+        "when": [
           {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
+            "constraint": "ecological-range",
+            "test": "outside"
           }
-        ]
+        ],
+        "actions": [
+          "retrain",
+          "replace-with-alternative-published-model"
+        ],
+        "mandatory": true
+      },
+      {
+        "appliesTo": [
+          "climate-data"
+        ],
+        "when": [
+          {
+            "constraint": "czech-plots",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true
       }
     ]
   },
@@ -256,66 +234,76 @@ binding mechanism, not as a claim about the workflow's real interface.
 
 #### ttl
 ```ttl
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
-@prefix geojson: <https://purl.org/geojson/vocab#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<file:///github/workspace/downscaled-climate-available> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/climatic> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/can-run-on> ;
+    focal-transf-prop:value "wherever downscaled climate data is available" .
+
+<file:///github/workspace/climate-data> dcterms:title "downscaled FOCAL climate data (current + future)" ;
+    focal-transf-prop:artifactRef "/inputs/climate_data" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<file:///github/workspace/czech-plots> rdfs:comment "Czechia's country bounding box, standing in for the actual Czech long-term permanent sample plot network — a scattered set of monitoring locations, not a rectangle. An honest upper bound pending the real plot coordinates from the workflow owner." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
+    focal-transf-prop:value [ geo:asWKT "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"^^geo:wktLiteral ] .
+
+<file:///github/workspace/ecological-range> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value "a comparable ecological range" .
+
+<file:///github/workspace/growth-model> dcterms:title "trained tree growth model (LightGBM, Czech permanent sample plot data)" ;
+    focal-transf-prop:artifactRef "/outputs/trained_growth_model" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-output> .
 
 [] rdfs:label "FP-WF1 — Tree species suitability" ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/statistical-ml> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
     focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/decision-support-only> ;
             focal-transf-prop:note "AI model and validation are still being finalised; results are decision-support, not exact forecasts." ] ;
-    focal-transf-prop:transferability [ focal-transf-prop:artifactRules [ focal-transf-prop:artifact "trained tree growth model (LightGBM, Czech permanent sample plot data)" ;
-                    focal-transf-prop:artifactRef "outputs.trained_growth_model" ;
-                    focal-transf-prop:artifactRole "workflow-output" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-alternative-published-model>,
-                                <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
-                            focal-transf-prop:required true ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-ecological-range> ] ],
-                [ focal-transf-prop:artifact "downscaled FOCAL climate data (current + future)" ;
-                    focal-transf-prop:artifactRef "inputs.climate_data" ;
-                    focal-transf-prop:artifactRole "workflow-input" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                            focal-transf-prop:required true ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ] ;
-            focal-transf-prop:envelope [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
-                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
-                    focal-transf-prop:value [ geojson:coordinates ( ( ( 1.209e+01 4.855e+01 ) ( 1.887e+01 4.855e+01 ) ( 1.887e+01 5.106e+01 ) ( 1.209e+01 5.106e+01 ) ( 1.209e+01 4.855e+01 ) ) ) ] ],
-                [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;
-                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
-                    focal-transf-prop:value "a comparable ecological range" ],
-                [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/climatic> ;
-                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/can-run-on> ;
-                    focal-transf-prop:value "wherever downscaled climate data is available" ] ] .
+    focal-transf-prop:transferability [ focal-transf-prop:artifacts <file:///github/workspace/climate-data>,
+                <file:///github/workspace/growth-model> ;
+            focal-transf-prop:envelope <file:///github/workspace/czech-plots>,
+                <file:///github/workspace/downscaled-climate-available>,
+                <file:///github/workspace/ecological-range> ;
+            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-alternative-published-model>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
+                    focal-transf-prop:appliesTo <file:///github/workspace/growth-model> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/ecological-range> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <file:///github/workspace/climate-data> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/czech-plots> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
 
 
 ```
 
 
-### FP-WF2 — Heat stress (deterministic, jurisdiction-bound reference data)
-FP-WF2 (Heat stress), a deterministic/rule-based workflow whose reference data — species
-tolerance thresholds, SLT/T5 forest classification, species codes, and the Rasdaman climate
-registry — is uniformly Czechia-specific. Drawn from the mapping-extraction doc's FP-WF2
-section, all four artifacts share the same `replace-with-local-equivalent` /
-`different-geographic-coverage` pair.
+### FP-WF2 — Heat stress (four artifacts, one shared boundary)
+A deterministic/rule-based workflow whose reference data — species tolerance thresholds,
+SLT/T5 forest classification, species codes, and the Rasdaman climate registry — is uniformly
+Czechia-specific.
 
-The `envelope` entry below (`trained-on`/`jurisdictional`) is an inference from that shared
-pattern, not a verbatim source statement the way FP-WF1's envelope entries are — the
-questionnaire never states an envelope fact directly for this workflow, only that four
-separate artifacts are Czechia-bound. Flag for owner confirmation before treating it as
-settled. Its `value` is Czechia's country bounding box (same source and same
-bbox-vs-precise-border caveat as FP-WF1's).
+**This is the case that motivated declaring artifacts separately from rules.** All four share
+one boundary and one action, so this is a single rule naming four artifacts in `appliesTo`,
+rather than the same condition repeated four times. Previously each artifact carried its own
+copy of an identical rule, and nothing said they were the same fact.
 
-A temporal envelope entry is omitted for the same reason as FP-WF1: the source states a
-required "time period" input with no stated bound or granularity. `steps` is likewise
-omitted, pending an Application Package for this workflow.
+The envelope entry is **inferred, not stated**: the questionnaire never gives an envelope
+fact directly, only that four artifacts are Czechia-specific. That inference is recorded on
+the constraint itself and needs owner confirmation.
 
-`inputs` carries four **proto entries**, one per artifact below — invented placeholder ids so
-each `artifactRules` entry's `artifactRef` has a concrete `inputs.<id>` to point at, not
-FP-WF2's real Application Package, which doesn't exist yet.
+No temporal constraint (the source states a "time period" input with no bound). `steps`
+omitted, no Application Package yet. `inputs` ids are placeholders.
 
 #### json
 ```json
@@ -332,79 +320,26 @@ FP-WF2's real Application Package, which doesn't exist yet.
   "transferability": {
     "envelope": [
       {
+        "id": "czechia",
         "role": "trained-on",
         "dimension": "jurisdictional",
-        "value": {
-          "type": "Polygon",
-          "coordinates": [
-            [
-              [12.09, 48.55],
-              [18.87, 48.55],
-              [18.87, 51.06],
-              [12.09, 51.06],
-              [12.09, 48.55]
-            ]
-          ]
-        }
+        "value": { "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))" },
+        "transferabilityNotes": "Inferred, not stated: the questionnaire gives no envelope fact directly, only that four separate reference artifacts are Czechia-specific. Value is Czechia's country bounding box. Needs owner confirmation."
       }
     ],
-    "artifactRules": [
+    "artifacts": [
+      { "id": "tolerances", "artifact": "species tolerance thresholds (species_tolerances.json)", "artifactRole": "workflow-input", "artifactRef": "/inputs/species_tolerances" },
+      { "id": "slt-t5", "artifact": "SLT/T5 forest classification context (Czechia-specific)", "artifactRole": "workflow-input", "artifactRef": "/inputs/forest_classification_context" },
+      { "id": "species-codes", "artifact": "species codes catalogue (species_codes.json)", "artifactRole": "workflow-input", "artifactRef": "/inputs/species_codes" },
+      { "id": "rasdaman", "artifact": "Rasdaman climate registry / source catalogue", "artifactRole": "workflow-input", "artifactRef": "/inputs/climate_registry_endpoint" }
+    ],
+    "rules": [
       {
-        "artifact": "species tolerance thresholds (species_tolerances.json)",
-        "artifactRole": "workflow-input",
-        "artifactRef": "inputs.species_tolerances",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true,
-            "transferabilityNotes": "Users may also override thresholds directly, even within the source region — a separate user-configurability fact, not modeled here."
-          }
-        ]
-      },
-      {
-        "artifact": "SLT/T5 forest classification context (Czechia-specific)",
-        "artifactRole": "workflow-input",
-        "artifactRef": "inputs.forest_classification_context",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
-          }
-        ]
-      },
-      {
-        "artifact": "species codes catalogue (species_codes.json)",
-        "artifactRole": "workflow-input",
-        "artifactRef": "inputs.species_codes",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
-          }
-        ]
-      },
-      {
-        "artifact": "Rasdaman climate registry / source catalogue",
-        "artifactRole": "workflow-input",
-        "artifactRef": "inputs.climate_registry_endpoint",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
-          }
-        ]
+        "appliesTo": ["tolerances", "slt-t5", "species-codes", "rasdaman"],
+        "when": [{ "constraint": "czechia", "test": "outside" }],
+        "actions": ["replace-with-local-equivalent"],
+        "mandatory": true,
+        "transferabilityNotes": "Users may also override the tolerance thresholds directly, even within the source region — a separate user-configurability fact, not modelled here."
       }
     ]
   },
@@ -430,94 +365,60 @@ FP-WF2's real Application Package, which doesn't exist yet.
   "transferability": {
     "envelope": [
       {
+        "id": "czechia",
         "role": "trained-on",
         "dimension": "jurisdictional",
         "value": {
-          "type": "Polygon",
-          "coordinates": [
-            [
-              [
-                12.09,
-                48.55
-              ],
-              [
-                18.87,
-                48.55
-              ],
-              [
-                18.87,
-                51.06
-              ],
-              [
-                12.09,
-                51.06
-              ],
-              [
-                12.09,
-                48.55
-              ]
-            ]
-          ]
-        }
+          "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"
+        },
+        "transferabilityNotes": "Inferred, not stated: the questionnaire gives no envelope fact directly, only that four separate reference artifacts are Czechia-specific. Value is Czechia's country bounding box. Needs owner confirmation."
       }
     ],
-    "artifactRules": [
+    "artifacts": [
       {
+        "id": "tolerances",
         "artifact": "species tolerance thresholds (species_tolerances.json)",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.species_tolerances",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true,
-            "transferabilityNotes": "Users may also override thresholds directly, even within the source region \u2014 a separate user-configurability fact, not modeled here."
-          }
-        ]
+        "artifactRef": "/inputs/species_tolerances"
       },
       {
+        "id": "slt-t5",
         "artifact": "SLT/T5 forest classification context (Czechia-specific)",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.forest_classification_context",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
-          }
-        ]
+        "artifactRef": "/inputs/forest_classification_context"
       },
       {
+        "id": "species-codes",
         "artifact": "species codes catalogue (species_codes.json)",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.species_codes",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
-          }
-        ]
+        "artifactRef": "/inputs/species_codes"
       },
       {
+        "id": "rasdaman",
         "artifact": "Rasdaman climate registry / source catalogue",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.climate_registry_endpoint",
-        "rules": [
+        "artifactRef": "/inputs/climate_registry_endpoint"
+      }
+    ],
+    "rules": [
+      {
+        "appliesTo": [
+          "tolerances",
+          "slt-t5",
+          "species-codes",
+          "rasdaman"
+        ],
+        "when": [
           {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
+            "constraint": "czechia",
+            "test": "outside"
           }
-        ]
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Users may also override the tolerance thresholds directly, even within the source region \u2014 a separate user-configurability fact, not modelled here."
       }
     ]
   },
@@ -528,75 +429,69 @@ FP-WF2's real Application Package, which doesn't exist yet.
 
 #### ttl
 ```ttl
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
-@prefix geojson: <https://purl.org/geojson/vocab#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<file:///github/workspace/czechia> rdfs:comment "Inferred, not stated: the questionnaire gives no envelope fact directly, only that four separate reference artifacts are Czechia-specific. Value is Czechia's country bounding box. Needs owner confirmation." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/jurisdictional> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
+    focal-transf-prop:value [ geo:asWKT "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"^^geo:wktLiteral ] .
+
+<file:///github/workspace/rasdaman> dcterms:title "Rasdaman climate registry / source catalogue" ;
+    focal-transf-prop:artifactRef "/inputs/climate_registry_endpoint" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<file:///github/workspace/slt-t5> dcterms:title "SLT/T5 forest classification context (Czechia-specific)" ;
+    focal-transf-prop:artifactRef "/inputs/forest_classification_context" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<file:///github/workspace/species-codes> dcterms:title "species codes catalogue (species_codes.json)" ;
+    focal-transf-prop:artifactRef "/inputs/species_codes" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<file:///github/workspace/tolerances> dcterms:title "species tolerance thresholds (species_tolerances.json)" ;
+    focal-transf-prop:artifactRef "/inputs/species_tolerances" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
 [] rdfs:label "FP-WF2 — Heat stress" ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
-    focal-transf-prop:transferability [ focal-transf-prop:artifactRules [ focal-transf-prop:artifact "species tolerance thresholds (species_tolerances.json)" ;
-                    focal-transf-prop:artifactRef "inputs.species_tolerances" ;
-                    focal-transf-prop:artifactRole "workflow-input" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                            focal-transf-prop:required true ;
-                            focal-transf-prop:transferabilityNotes "Users may also override thresholds directly, even within the source region — a separate user-configurability fact, not modeled here." ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
-                [ focal-transf-prop:artifact "Rasdaman climate registry / source catalogue" ;
-                    focal-transf-prop:artifactRef "inputs.climate_registry_endpoint" ;
-                    focal-transf-prop:artifactRole "workflow-input" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                            focal-transf-prop:required true ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
-                [ focal-transf-prop:artifact "species codes catalogue (species_codes.json)" ;
-                    focal-transf-prop:artifactRef "inputs.species_codes" ;
-                    focal-transf-prop:artifactRole "workflow-input" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                            focal-transf-prop:required true ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
-                [ focal-transf-prop:artifact "SLT/T5 forest classification context (Czechia-specific)" ;
-                    focal-transf-prop:artifactRef "inputs.forest_classification_context" ;
-                    focal-transf-prop:artifactRole "workflow-input" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                            focal-transf-prop:required true ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ] ;
-            focal-transf-prop:envelope [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/jurisdictional> ;
-                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
-                    focal-transf-prop:value [ geojson:coordinates ( ( ( 1.209e+01 4.855e+01 ) ( 1.887e+01 4.855e+01 ) ( 1.887e+01 5.106e+01 ) ( 1.209e+01 5.106e+01 ) ( 1.209e+01 4.855e+01 ) ) ) ] ] ] .
+    focal-transf-prop:transferability [ focal-transf-prop:artifacts <file:///github/workspace/rasdaman>,
+                <file:///github/workspace/slt-t5>,
+                <file:///github/workspace/species-codes>,
+                <file:///github/workspace/tolerances> ;
+            focal-transf-prop:envelope <file:///github/workspace/czechia> ;
+            focal-transf-prop:rules [ rdfs:comment "Users may also override the tolerance thresholds directly, even within the source region — a separate user-configurability fact, not modelled here." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <file:///github/workspace/rasdaman>,
+                        <file:///github/workspace/slt-t5>,
+                        <file:///github/workspace/species-codes>,
+                        <file:///github/workspace/tolerances> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/czechia> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
 
 
 ```
 
 
-### FP-WF3 — Prediction of threatened stands (prototype maturity, graceful degradation)
-FP-WF3 (Prediction of threatened stands), the sharpest evidenced example of a
-**non-operational** workflow (`maturityStatus: prototype` — "not yet as operationally mature
-as WF2 or WF5," full regression testing and validation still pending), and the only workflow
-whose source explicitly describes a rule as optional-but-degrading rather than mandatory:
-without local training labels, results are still produced, just "treated as exploratory."
-That's `required: false` paired with `transferabilityNotes` describing the consequence, per
-`transferability/rule`'s own guidance.
+### FP-WF3 — Prediction of threatened stands (optional rule, degraded mode)
+The sharpest evidenced example of a non-operational workflow (`maturityStatus: prototype`),
+and the only one whose source explicitly describes a rule as optional-but-degrading: without
+local training labels, results are still produced, just "treated as exploratory". That is
+`mandatory: false` with the consequence spelled out — a skippable rule with no stated
+consequence tells a consumer nothing they can act on, so `shapes.shacl` rejects that pairing.
 
-`envelope`'s `spatial` entry is inferred, not stated: the source never names a location for
-the historical disturbance/damage labels it trains on. Because FP-WF3 is, like FP-WF1/FP-WF2,
-a Forest Pilot workflow, Czechia is the same reasonable proxy used there — carried here as
-the same bounding-box `Polygon`, with the same caveat plus this extra one: unlike FP-WF1/
-FP-WF2, no sentence in this questionnaire actually names Czechia, so treat this value as
-**more speculative than FP-WF1/FP-WF2's**, pending direct owner confirmation. The `ecological`
-entry stays a string (`"a comparable phenological regime"`) — a phenological regime isn't
-itself a place, per `envelopeConstraint`'s string-fallback rule for genuinely non-spatial
-facts.
+The spatial constraint is **more speculative than FP-WF1's or FP-WF2's**: no sentence in this
+questionnaire names a location at all. Czechia is a proxy because this is a Forest Pilot
+workflow. Recorded as such on the constraint.
 
-A temporal envelope entry is omitted: source states an EO time-series "time period" with
-unspecified bound. `steps` is omitted — this workflow's own questionnaire says its "final
-container, API and regression-test packaging are still to be completed," so there is no
-Application Package yet to describe it from, more so than for any other example here.
-
-`inputs` carries three **proto entries**, one per artifact below, for the same reason as
-FP-WF1/FP-WF2 — invented placeholder ids giving `artifactRef` something concrete to bind to,
-not a claim about this (not-yet-packaged) workflow's real interface.
+No temporal constraint. `steps` omitted — this workflow's own questionnaire says its
+container, API and regression-test packaging are still to be completed, so there is less of
+an Application Package here than anywhere else. `inputs` ids are placeholders.
 
 #### json
 ```json
@@ -612,70 +507,43 @@ not a claim about this (not-yet-packaged) workflow's real interface.
   "transferability": {
     "envelope": [
       {
+        "id": "label-extent",
         "role": "trained-on",
         "dimension": "spatial",
-        "value": {
-          "type": "Polygon",
-          "coordinates": [
-            [
-              [12.09, 48.55],
-              [18.87, 48.55],
-              [18.87, 51.06],
-              [12.09, 51.06],
-              [12.09, 48.55]
-            ]
-          ]
-        }
+        "value": { "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))" },
+        "transferabilityNotes": "More speculative than FP-WF1's or FP-WF2's: no sentence in this questionnaire names a location for the historical disturbance labels. Czechia is used as a proxy because this is a Forest Pilot workflow, and its country bounding box as the value. Needs owner confirmation before being treated as fact."
       },
       {
+        "id": "phenological-regime",
         "role": "valid-for",
         "dimension": "ecological",
         "value": "a comparable phenological regime"
       }
     ],
-    "artifactRules": [
+    "artifacts": [
+      { "id": "labels", "artifact": "historical forest disturbance/damage labels (ground truth training data)", "artifactRole": "workflow-input", "artifactRef": "/inputs/disturbance_labels" },
+      { "id": "eo-strategy", "artifact": "EO sensor selection, cloud masking, temporal compositing strategy", "artifactRole": "workflow-input", "artifactRef": "/inputs/eo_compositing_strategy" },
+      { "id": "phenology", "artifact": "regional phenology normalisation assumptions", "artifactRole": "workflow-input", "artifactRef": "/inputs/phenology_normalization_assumptions" }
+    ],
+    "rules": [
       {
-        "artifact": "historical forest disturbance/damage labels (ground truth training data)",
-        "artifactRole": "workflow-input",
-        "artifactRef": "inputs.disturbance_labels",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "retrain"
-            ],
-            "required": false,
-            "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement."
-          }
-        ]
+        "appliesTo": ["labels"],
+        "when": [{ "constraint": "label-extent", "test": "outside" }],
+        "actions": ["retrain"],
+        "mandatory": false,
+        "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement."
       },
       {
-        "artifact": "EO sensor selection, cloud masking, temporal compositing strategy",
-        "artifactRole": "workflow-input",
-        "artifactRef": "inputs.eo_compositing_strategy",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
-          }
-        ]
+        "appliesTo": ["eo-strategy"],
+        "when": [{ "constraint": "label-extent", "test": "outside" }],
+        "actions": ["replace-with-local-equivalent"],
+        "mandatory": true
       },
       {
-        "artifact": "regional phenology normalisation assumptions",
-        "artifactRole": "workflow-input",
-        "artifactRef": "inputs.phenology_normalization_assumptions",
-        "rules": [
-          {
-            "triggeredBy": "different-ecological-range",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
-          }
-        ]
+        "appliesTo": ["phenology"],
+        "when": [{ "constraint": "phenological-regime", "test": "outside" }],
+        "actions": ["replace-with-local-equivalent"],
+        "mandatory": true
       }
     ]
   },
@@ -700,85 +568,87 @@ not a claim about this (not-yet-packaged) workflow's real interface.
   "transferability": {
     "envelope": [
       {
+        "id": "label-extent",
         "role": "trained-on",
         "dimension": "spatial",
         "value": {
-          "type": "Polygon",
-          "coordinates": [
-            [
-              [
-                12.09,
-                48.55
-              ],
-              [
-                18.87,
-                48.55
-              ],
-              [
-                18.87,
-                51.06
-              ],
-              [
-                12.09,
-                51.06
-              ],
-              [
-                12.09,
-                48.55
-              ]
-            ]
-          ]
-        }
+          "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"
+        },
+        "transferabilityNotes": "More speculative than FP-WF1's or FP-WF2's: no sentence in this questionnaire names a location for the historical disturbance labels. Czechia is used as a proxy because this is a Forest Pilot workflow, and its country bounding box as the value. Needs owner confirmation before being treated as fact."
       },
       {
+        "id": "phenological-regime",
         "role": "valid-for",
         "dimension": "ecological",
         "value": "a comparable phenological regime"
       }
     ],
-    "artifactRules": [
+    "artifacts": [
       {
+        "id": "labels",
         "artifact": "historical forest disturbance/damage labels (ground truth training data)",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.disturbance_labels",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "retrain"
-            ],
-            "required": false,
-            "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright \u2014 a degraded-mode caveat, not a hard requirement."
-          }
-        ]
+        "artifactRef": "/inputs/disturbance_labels"
       },
       {
+        "id": "eo-strategy",
         "artifact": "EO sensor selection, cloud masking, temporal compositing strategy",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.eo_compositing_strategy",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
-          }
-        ]
+        "artifactRef": "/inputs/eo_compositing_strategy"
       },
       {
+        "id": "phenology",
         "artifact": "regional phenology normalisation assumptions",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.phenology_normalization_assumptions",
-        "rules": [
+        "artifactRef": "/inputs/phenology_normalization_assumptions"
+      }
+    ],
+    "rules": [
+      {
+        "appliesTo": [
+          "labels"
+        ],
+        "when": [
           {
-            "triggeredBy": "different-ecological-range",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
+            "constraint": "label-extent",
+            "test": "outside"
           }
-        ]
+        ],
+        "actions": [
+          "retrain"
+        ],
+        "mandatory": false,
+        "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright \u2014 a degraded-mode caveat, not a hard requirement."
+      },
+      {
+        "appliesTo": [
+          "eo-strategy"
+        ],
+        "when": [
+          {
+            "constraint": "label-extent",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true
+      },
+      {
+        "appliesTo": [
+          "phenology"
+        ],
+        "when": [
+          {
+            "constraint": "phenological-regime",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true
       }
     ]
   },
@@ -789,107 +659,95 @@ not a claim about this (not-yet-packaged) workflow's real interface.
 
 #### ttl
 ```ttl
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
-@prefix geojson: <https://purl.org/geojson/vocab#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<file:///github/workspace/eo-strategy> dcterms:title "EO sensor selection, cloud masking, temporal compositing strategy" ;
+    focal-transf-prop:artifactRef "/inputs/eo_compositing_strategy" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<file:///github/workspace/labels> dcterms:title "historical forest disturbance/damage labels (ground truth training data)" ;
+    focal-transf-prop:artifactRef "/inputs/disturbance_labels" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<file:///github/workspace/phenological-regime> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value "a comparable phenological regime" .
+
+<file:///github/workspace/phenology> dcterms:title "regional phenology normalisation assumptions" ;
+    focal-transf-prop:artifactRef "/inputs/phenology_normalization_assumptions" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<file:///github/workspace/label-extent> rdfs:comment "More speculative than FP-WF1's or FP-WF2's: no sentence in this questionnaire names a location for the historical disturbance labels. Czechia is used as a proxy because this is a Forest Pilot workflow, and its country bounding box as the value. Needs owner confirmation before being treated as fact." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
+    focal-transf-prop:value [ geo:asWKT "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"^^geo:wktLiteral ] .
 
 [] rdfs:label "FP-WF3 — Prediction of threatened stands" ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/statistical-ml> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/prototype> ;
-    focal-transf-prop:transferability [ focal-transf-prop:artifactRules [ focal-transf-prop:artifact "historical forest disturbance/damage labels (ground truth training data)" ;
-                    focal-transf-prop:artifactRef "inputs.disturbance_labels" ;
-                    focal-transf-prop:artifactRole "workflow-input" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
-                            focal-transf-prop:required false ;
-                            focal-transf-prop:transferabilityNotes "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement." ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
-                [ focal-transf-prop:artifact "EO sensor selection, cloud masking, temporal compositing strategy" ;
-                    focal-transf-prop:artifactRef "inputs.eo_compositing_strategy" ;
-                    focal-transf-prop:artifactRole "workflow-input" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                            focal-transf-prop:required true ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
-                [ focal-transf-prop:artifact "regional phenology normalisation assumptions" ;
-                    focal-transf-prop:artifactRef "inputs.phenology_normalization_assumptions" ;
-                    focal-transf-prop:artifactRole "workflow-input" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                            focal-transf-prop:required true ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-ecological-range> ] ] ;
-            focal-transf-prop:envelope [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;
-                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
-                    focal-transf-prop:value "a comparable phenological regime" ],
-                [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
-                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
-                    focal-transf-prop:value [ geojson:coordinates ( ( ( 1.209e+01 4.855e+01 ) ( 1.887e+01 4.855e+01 ) ( 1.887e+01 5.106e+01 ) ( 1.209e+01 5.106e+01 ) ( 1.209e+01 4.855e+01 ) ) ) ] ] ] .
+    focal-transf-prop:transferability [ focal-transf-prop:artifacts <file:///github/workspace/eo-strategy>,
+                <file:///github/workspace/labels>,
+                <file:///github/workspace/phenology> ;
+            focal-transf-prop:envelope <file:///github/workspace/label-extent>,
+                <file:///github/workspace/phenological-regime> ;
+            focal-transf-prop:rules [ rdfs:comment "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
+                    focal-transf-prop:appliesTo <file:///github/workspace/labels> ;
+                    focal-transf-prop:mandatory false ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/label-extent> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <file:///github/workspace/eo-strategy> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/label-extent> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <file:///github/workspace/phenology> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/phenological-regime> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
 
 
 ```
 
 
-### UP-WF2 — Urban hot/cool spot (coverage boundaries, terminal hard-fail, discrete epochs)
-UP-WF2 (Urban hot/cool spot), the workflow whose source most explicitly names a
-**hard-fail terminal state**: outside its reference datasets' footprint, "some workflow
-components cannot be executed" at all — `component-not-executable`, alongside
-`replace-with-local-equivalent`, as an OR-set on the same rule (the actual outcome depends on
-whether a substitute is available or not, which this model doesn't resolve any further).
+### UP-WF2 — Urban hot/cool spot (two footprints, a cascade, a terminal outcome)
+The workflow this restructure was designed against, and the one the previous model could not
+state correctly.
 
-It's also the one example here with a directly evidenced temporal envelope entry: the
-workflow operates over discrete "temporal epochs" (2022–2025 available at time of writing),
-explicitly "not a time series" — a single timestep per epoch. That single-timestep framing
-itself doesn't have a dedicated property yet; captured here only as the interval's practical
-meaning, not a modeled fact. It's a `valid-for`/`temporal` entry, `value: {start, end}`, the
-same shape as any other `envelope` entry — see `envelopeConstraint` for why the calendar span
-lives there rather than in a dedicated property.
+**Two distinct coverage footprints.** The LST datasets are bounded by the EURO-CORDEX EUR-11
+domain; the CLMS layers by that product's own coverage. Previously both were workflow-level
+envelope entries told apart only by putting one under `jurisdictional` — a dimension defined
+as an administrative or licensing boundary, which a dataset footprint is not. Now both are
+`spatial`, each has an `id`, and each rule cites the one that actually governs it.
 
-`envelope`'s other two entries reflect the two distinct dataset footprints named in the
-source (EURO-CORDEX for the LST datasets, Europe-except-Ukraine for CLMS) rather than one
-shared boundary — unlike FP-WF2/FP-WF3, these particular coverage facts *are* stated directly
-in the source, not inferred. Both are real GeoJSON geometry, per `envelopeConstraint`'s rule
-that `spatial`/`jurisdictional` **must** be a GeoJSON Geometry:
+**CLMS's exclusion of Ukraine is its own constraint, not a hole in a geometry.** The previous
+model carried a computed Europe-minus-Ukraine MultiPolygon — 1,283 lines of Turtle, with the
+exclusion invisible to anyone reading it and quietly lost the moment the geometry was
+simplified. Here it is a named constraint cited by a rule with `test: inside`, so falling
+within the excluded area is what makes the component unexecutable. It is legible, it is
+separately correctable when the authoritative CLMS geometry arrives, and it survives
+simplification of the surrounding extent.
 
-- `valid-for`/`spatial` is the EUR-11 EURO-CORDEX domain's published geographic bounding box,
-  approximately 22°W–45°E, 27°N–72°N (per EURO-CORDEX/CLM-Community's own domain description)
-  — the domain's stated *approximate* rectangular extent, not its exact rotated-pole grid
-  footprint (which isn't a plain rectangle in true lat/lon at all), a deliberate
-  simplification, not a hidden loss of precision.
-- `valid-for`/`jurisdictional` (Europe, except Ukraine, per the CLMS product coverage note)
-  is a computed `MultiPolygon`. Computed as: `union(38 of the 39 country polygons in the
-  user-supplied Europe FeatureCollection, Russia excluded) − Ukraine (from
-  datahub.io/core/geo-countries' `datasets/geo-countries` GitHub source, fetched directly)`,
-  using Shapely 2.1 (`unary_union`, `make_valid`, `difference`). **Russia is excluded
-  entirely**, rather than clipped to "European Russia" — that line is itself a contested,
-  unsettled one, and CLMS (the dataset this envelope entry actually describes) never covered
-  Russia to begin with, so full exclusion is more accurate as well as avoiding a needless
-  political judgment call embedded in example data. The same computation also drops **French
-  Guiana**: the user-supplied file's `France` feature is France's full multi-part territory,
-  including its South American département — dropped by excluding any of France's
-  sub-polygons west of -20° longitude, well clear of continental France/Corsica. After
-  unioning and differencing, 52 small (< 0.15 deg², all border-mismatch artifacts between the
-  two independently-sourced Ukraine/neighbor boundaries, confirmed by centroid clustering
-  exclusively in the 28–41°E/44–53°N Ukraine-border band — not real geography) sliver
-  polygons were dropped, totaling 0.08% of the raw difference's area, leaving 13 genuine
-  parts: mainland Europe, Scandinavia, Great Britain, Ireland, Iceland, Svalbard (3 islands),
-  Sicily, Sardinia, Corsica, Zealand, and Crete. Simplified (Douglas-Peucker, tolerance 0.3°,
-  topology-preserving) to 283 vertices, coordinates rounded to 3 decimal places (~110 m) to
-  match — not survey-accurate, and not intended to be; an illustrative envelope extent, not a
-  cadastral boundary.
+Asked "can I run this in Kyiv?", a consumer now gets a per-artifact answer: the LST datasets
+are inside EURO-CORDEX and reusable, and the CLMS layers are unavailable, so hot-spot
+characterization cannot run.
 
-The full workflow JSON (including the `MultiPolygon`) is kept in `examples/up-wf2.json` and
-referenced via `ref` rather than inlined here, unlike the other three examples — a computed
-geometry this size isn't practical to keep reviewable inline in this file.
+**The cascade keeps its connecting condition.** The source describes reuse inside the domain,
+substitution if a compatible dataset can be produced outside it, and failure if none can.
+That is two rules over the same constraint — `inside` then `outside` — rather than the
+previous two flat rules that dropped the "only if a substitute exists" link. The residual
+uncertainty stays where the source leaves it: an OR-set of two actions.
 
-**`artifactRules`**' three entries split across all three `artifactRole` values that
-actually take a CWL binding or lack one, unlike the other three examples here (all
-`workflow-input`): the LST and CLMS datasets get **proto** `inputs` entries
-(`lst_datasets`, `clms_tcd_imd` — invented placeholder ids, not UP-WF2's real Application
-Package, which doesn't exist yet) and `artifactRef` pointing at them, while the Eurostat
-entry is `external-resource` with no `artifactRef` at all — the source itself says this data
-"not yet implemented," so there is nothing in the CWL graph yet for any id to point at, proto
-or otherwise.
+The **temporal constraint is directly evidenced**, unlike the omitted periods elsewhere:
+discrete epochs, 2022–2025 at time of writing.
 
-`steps`/`outputs` are omitted, as in every other example here.
+Geometries are coarse extents, not cadastral boundaries, and say so on the constraint.
+`outputs`/`steps` omitted; `inputs` ids are placeholders.
 
 #### json
 ```json
@@ -897,1292 +755,78 @@ or otherwise.
   "class": "Workflow",
   "cwlVersion": "v1.2",
   "label": "UP-WF2 — Urban hot/cool spot",
-  "inputs": {
-    "lst_datasets": "File",
-    "clms_tcd_imd": "File"
-  },
+  "inputs": { "lst_datasets": "File", "clms_tcd_imd": "File" },
   "transferability": {
     "envelope": [
       {
+        "id": "eur11-domain",
         "role": "valid-for",
         "dimension": "spatial",
-        "value": {
-          "type": "Polygon",
-          "coordinates": [
-            [
-              [
-                -22,
-                27
-              ],
-              [
-                45,
-                27
-              ],
-              [
-                45,
-                72
-              ],
-              [
-                -22,
-                72
-              ],
-              [
-                -22,
-                27
-              ]
-            ]
-          ]
-        }
+        "value": { "asWKT": "POLYGON((-22 27,45 27,45 72,-22 72,-22 27))" },
+        "transferabilityNotes": "The EUR-11 EURO-CORDEX domain's published approximate rectangular extent (about 22W–45E, 27N–72N), not its exact rotated-pole grid footprint, which is not a rectangle in true lat/lon at all. A deliberate simplification."
       },
       {
+        "id": "clms-extent",
         "role": "valid-for",
-        "dimension": "jurisdictional",
-        "value": {
-          "type": "MultiPolygon",
-          "coordinates": [
-            [
-              [
-                [
-                  -9.287,
-                  38.358
-                ],
-                [
-                  -9.447,
-                  39.392
-                ],
-                [
-                  -8.769,
-                  40.761
-                ],
-                [
-                  -9.393,
-                  43.027
-                ],
-                [
-                  -7.978,
-                  43.748
-                ],
-                [
-                  -1.901,
-                  43.423
-                ],
-                [
-                  -1.384,
-                  44.023
-                ],
-                [
-                  -1.194,
-                  46.015
-                ],
-                [
-                  -2.963,
-                  47.57
-                ],
-                [
-                  -4.492,
-                  47.955
-                ],
-                [
-                  -4.592,
-                  48.684
-                ],
-                [
-                  -1.617,
-                  48.644
-                ],
-                [
-                  -1.933,
-                  49.776
-                ],
-                [
-                  -0.989,
-                  49.347
-                ],
-                [
-                  1.339,
-                  50.127
-                ],
-                [
-                  1.639,
-                  50.947
-                ],
-                [
-                  3.83,
-                  51.621
-                ],
-                [
-                  4.706,
-                  53.092
-                ],
-                [
-                  8.122,
-                  53.528
-                ],
-                [
-                  8.801,
-                  54.021
-                ],
-                [
-                  8.12,
-                  55.518
-                ],
-                [
-                  8.543,
-                  57.11
-                ],
-                [
-                  10.58,
-                  57.73
-                ],
-                [
-                  10.25,
-                  56.89
-                ],
-                [
-                  10.912,
-                  56.459
-                ],
-                [
-                  9.65,
-                  55.47
-                ],
-                [
-                  9.94,
-                  54.597
-                ],
-                [
-                  10.95,
-                  54.364
-                ],
-                [
-                  10.939,
-                  54.009
-                ],
-                [
-                  12.518,
-                  54.47
-                ],
-                [
-                  14.12,
-                  53.757
-                ],
-                [
-                  17.623,
-                  54.852
-                ],
-                [
-                  18.696,
-                  54.439
-                ],
-                [
-                  22.731,
-                  54.328
-                ],
-                [
-                  22.758,
-                  54.857
-                ],
-                [
-                  21.268,
-                  55.19
-                ],
-                [
-                  21.09,
-                  56.784
-                ],
-                [
-                  22.524,
-                  57.753
-                ],
-                [
-                  23.318,
-                  57.006
-                ],
-                [
-                  24.121,
-                  57.026
-                ],
-                [
-                  24.429,
-                  58.383
-                ],
-                [
-                  23.427,
-                  58.613
-                ],
-                [
-                  23.34,
-                  59.187
-                ],
-                [
-                  27.981,
-                  59.475
-                ],
-                [
-                  27.42,
-                  58.725
-                ],
-                [
-                  27.717,
-                  57.792
-                ],
-                [
-                  27.288,
-                  57.475
-                ],
-                [
-                  28.177,
-                  56.169
-                ],
-                [
-                  30.874,
-                  55.551
-                ],
-                [
-                  30.758,
-                  54.812
-                ],
-                [
-                  32.694,
-                  53.351
-                ],
-                [
-                  31.305,
-                  53.074
-                ],
-                [
-                  31.786,
-                  52.102
-                ],
-                [
-                  30.919,
-                  52.059
-                ],
-                [
-                  30.551,
-                  51.237
-                ],
-                [
-                  25.768,
-                  51.929
-                ],
-                [
-                  23.594,
-                  51.605
-                ],
-                [
-                  24.108,
-                  50.541
-                ],
-                [
-                  22.666,
-                  49.567
-                ],
-                [
-                  22.867,
-                  49.01
-                ],
-                [
-                  22.133,
-                  48.405
-                ],
-                [
-                  24.897,
-                  47.71
-                ],
-                [
-                  27.752,
-                  48.452
-                ],
-                [
-                  29.136,
-                  47.968
-                ],
-                [
-                  30.132,
-                  46.423
-                ],
-                [
-                  28.946,
-                  46.455
-                ],
-                [
-                  28.202,
-                  45.469
-                ],
-                [
-                  29.653,
-                  45.341
-                ],
-                [
-                  28.838,
-                  44.914
-                ],
-                [
-                  27.674,
-                  42.578
-                ],
-                [
-                  27.997,
-                  42.007
-                ],
-                [
-                  26.117,
-                  41.827
-                ],
-                [
-                  26.604,
-                  41.562
-                ],
-                [
-                  26.057,
-                  40.824
-                ],
-                [
-                  23.715,
-                  40.687
-                ],
-                [
-                  24.408,
-                  40.125
-                ],
-                [
-                  22.626,
-                  40.257
-                ],
-                [
-                  23.35,
-                  39.19
-                ],
-                [
-                  22.973,
-                  38.971
-                ],
-                [
-                  24.025,
-                  38.22
-                ],
-                [
-                  24.04,
-                  37.655
-                ],
-                [
-                  23.115,
-                  37.92
-                ],
-                [
-                  23.41,
-                  37.41
-                ],
-                [
-                  22.775,
-                  37.305
-                ],
-                [
-                  23.154,
-                  36.423
-                ],
-                [
-                  21.67,
-                  36.845
-                ],
-                [
-                  21.12,
-                  38.31
-                ],
-                [
-                  19.406,
-                  40.251
-                ],
-                [
-                  19.372,
-                  41.878
-                ],
-                [
-                  16.015,
-                  43.507
-                ],
-                [
-                  14.902,
-                  45.076
-                ],
-                [
-                  14.259,
-                  45.234
-                ],
-                [
-                  13.952,
-                  44.802
-                ],
-                [
-                  13.938,
-                  45.591
-                ],
-                [
-                  13.142,
-                  45.737
-                ],
-                [
-                  12.329,
-                  45.382
-                ],
-                [
-                  12.589,
-                  44.091
-                ],
-                [
-                  15.143,
-                  41.955
-                ],
-                [
-                  15.926,
-                  41.961
-                ],
-                [
-                  15.889,
-                  41.541
-                ],
-                [
-                  18.48,
-                  40.169
-                ],
-                [
-                  18.293,
-                  39.811
-                ],
-                [
-                  16.87,
-                  40.442
-                ],
-                [
-                  16.449,
-                  39.795
-                ],
-                [
-                  17.171,
-                  39.425
-                ],
-                [
-                  17.053,
-                  38.903
-                ],
-                [
-                  16.101,
-                  37.986
-                ],
-                [
-                  15.684,
-                  37.909
-                ],
-                [
-                  16.109,
-                  38.965
-                ],
-                [
-                  15.414,
-                  40.048
-                ],
-                [
-                  12.107,
-                  41.705
-                ],
-                [
-                  10.512,
-                  42.931
-                ],
-                [
-                  10.2,
-                  43.92
-                ],
-                [
-                  8.889,
-                  44.366
-                ],
-                [
-                  6.529,
-                  43.129
-                ],
-                [
-                  4.557,
-                  43.4
-                ],
-                [
-                  3.1,
-                  43.075
-                ],
-                [
-                  3.039,
-                  41.892
-                ],
-                [
-                  0.811,
-                  41.015
-                ],
-                [
-                  -0.279,
-                  39.31
-                ],
-                [
-                  0.111,
-                  38.739
-                ],
-                [
-                  -2.146,
-                  36.674
-                ],
-                [
-                  -4.369,
-                  36.678
-                ],
-                [
-                  -5.866,
-                  36.03
-                ],
-                [
-                  -6.52,
-                  36.943
-                ],
-                [
-                  -8.899,
-                  36.869
-                ],
-                [
-                  -8.84,
-                  38.266
-                ],
-                [
-                  -9.287,
-                  38.358
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  8.428,
-                  39.172
-                ],
-                [
-                  8.16,
-                  40.95
-                ],
-                [
-                  9.21,
-                  41.21
-                ],
-                [
-                  9.81,
-                  40.5
-                ],
-                [
-                  9.67,
-                  39.177
-                ],
-                [
-                  8.428,
-                  39.172
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  9.39,
-                  43.01
-                ],
-                [
-                  9.56,
-                  42.152
-                ],
-                [
-                  9.23,
-                  41.38
-                ],
-                [
-                  8.544,
-                  42.257
-                ],
-                [
-                  9.39,
-                  43.01
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  -9.689,
-                  53.881
-                ],
-                [
-                  -6.734,
-                  55.173
-                ],
-                [
-                  -5.662,
-                  54.555
-                ],
-                [
-                  -6.198,
-                  53.868
-                ],
-                [
-                  -6.033,
-                  53.153
-                ],
-                [
-                  -6.789,
-                  52.26
-                ],
-                [
-                  -8.562,
-                  51.669
-                ],
-                [
-                  -9.977,
-                  51.82
-                ],
-                [
-                  -9.166,
-                  52.865
-                ],
-                [
-                  -9.689,
-                  53.881
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  -5.083,
-                  55.062
-                ],
-                [
-                  -4.719,
-                  55.508
-                ],
-                [
-                  -5.048,
-                  55.784
-                ],
-                [
-                  -5.586,
-                  55.311
-                ],
-                [
-                  -6.15,
-                  56.785
-                ],
-                [
-                  -5.787,
-                  57.819
-                ],
-                [
-                  -5.01,
-                  58.63
-                ],
-                [
-                  -3.005,
-                  58.635
-                ],
-                [
-                  -4.074,
-                  57.553
-                ],
-                [
-                  -1.959,
-                  57.685
-                ],
-                [
-                  -3.119,
-                  55.974
-                ],
-                [
-                  -2.085,
-                  55.91
-                ],
-                [
-                  -1.115,
-                  54.625
-                ],
-                [
-                  -0.43,
-                  54.464
-                ],
-                [
-                  0.47,
-                  52.93
-                ],
-                [
-                  1.682,
-                  52.74
-                ],
-                [
-                  1.051,
-                  51.807
-                ],
-                [
-                  1.45,
-                  51.289
-                ],
-                [
-                  0.55,
-                  50.766
-                ],
-                [
-                  -5.777,
-                  50.16
-                ],
-                [
-                  -3.415,
-                  51.426
-                ],
-                [
-                  -5.267,
-                  51.991
-                ],
-                [
-                  -4.222,
-                  52.301
-                ],
-                [
-                  -4.77,
-                  52.84
-                ],
-                [
-                  -4.58,
-                  53.495
-                ],
-                [
-                  -3.092,
-                  53.404
-                ],
-                [
-                  -2.945,
-                  53.985
-                ],
-                [
-                  -5.083,
-                  55.062
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  12.09,
-                  54.8
-                ],
-                [
-                  11.044,
-                  55.365
-                ],
-                [
-                  10.904,
-                  55.78
-                ],
-                [
-                  12.371,
-                  56.111
-                ],
-                [
-                  12.69,
-                  55.61
-                ],
-                [
-                  12.09,
-                  54.8
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  -22.763,
-                  63.96
-                ],
-                [
-                  -21.778,
-                  64.402
-                ],
-                [
-                  -23.955,
-                  64.891
-                ],
-                [
-                  -22.184,
-                  65.085
-                ],
-                [
-                  -24.326,
-                  65.611
-                ],
-                [
-                  -23.651,
-                  66.263
-                ],
-                [
-                  -22.135,
-                  66.41
-                ],
-                [
-                  -20.576,
-                  65.732
-                ],
-                [
-                  -19.057,
-                  66.277
-                ],
-                [
-                  -17.799,
-                  65.994
-                ],
-                [
-                  -16.168,
-                  66.527
-                ],
-                [
-                  -14.509,
-                  66.456
-                ],
-                [
-                  -14.74,
-                  65.809
-                ],
-                [
-                  -13.61,
-                  65.127
-                ],
-                [
-                  -14.91,
-                  64.364
-                ],
-                [
-                  -18.656,
-                  63.496
-                ],
-                [
-                  -22.763,
-                  63.96
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  12.431,
-                  37.613
-                ],
-                [
-                  12.571,
-                  38.126
-                ],
-                [
-                  15.52,
-                  38.231
-                ],
-                [
-                  15.1,
-                  36.62
-                ],
-                [
-                  12.431,
-                  37.613
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  21.37,
-                  64.414
-                ],
-                [
-                  17.848,
-                  62.749
-                ],
-                [
-                  17.12,
-                  61.341
-                ],
-                [
-                  18.788,
-                  60.082
-                ],
-                [
-                  17.869,
-                  58.954
-                ],
-                [
-                  16.829,
-                  58.72
-                ],
-                [
-                  15.88,
-                  56.104
-                ],
-                [
-                  14.667,
-                  56.201
-                ],
-                [
-                  14.101,
-                  55.408
-                ],
-                [
-                  12.943,
-                  55.362
-                ],
-                [
-                  10.357,
-                  59.47
-                ],
-                [
-                  8.382,
-                  58.313
-                ],
-                [
-                  7.049,
-                  58.079
-                ],
-                [
-                  5.666,
-                  58.588
-                ],
-                [
-                  4.992,
-                  61.971
-                ],
-                [
-                  10.528,
-                  64.486
-                ],
-                [
-                  14.761,
-                  67.811
-                ],
-                [
-                  19.184,
-                  69.817
-                ],
-                [
-                  23.024,
-                  70.202
-                ],
-                [
-                  24.547,
-                  71.03
-                ],
-                [
-                  28.166,
-                  71.185
-                ],
-                [
-                  31.293,
-                  70.454
-                ],
-                [
-                  30.005,
-                  70.186
-                ],
-                [
-                  31.101,
-                  69.558
-                ],
-                [
-                  28.592,
-                  69.065
-                ],
-                [
-                  28.446,
-                  68.365
-                ],
-                [
-                  29.977,
-                  67.698
-                ],
-                [
-                  29.055,
-                  66.944
-                ],
-                [
-                  30.218,
-                  65.806
-                ],
-                [
-                  29.544,
-                  64.949
-                ],
-                [
-                  30.445,
-                  64.204
-                ],
-                [
-                  30.036,
-                  63.553
-                ],
-                [
-                  31.516,
-                  62.868
-                ],
-                [
-                  30.211,
-                  61.78
-                ],
-                [
-                  28.07,
-                  60.504
-                ],
-                [
-                  22.87,
-                  59.846
-                ],
-                [
-                  21.322,
-                  60.72
-                ],
-                [
-                  21.545,
-                  61.705
-                ],
-                [
-                  21.059,
-                  62.607
-                ],
-                [
-                  22.443,
-                  63.818
-                ],
-                [
-                  25.398,
-                  65.111
-                ],
-                [
-                  25.294,
-                  65.534
-                ],
-                [
-                  23.903,
-                  66.007
-                ],
-                [
-                  22.183,
-                  65.724
-                ],
-                [
-                  21.214,
-                  65.026
-                ],
-                [
-                  21.37,
-                  64.414
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  17.594,
-                  77.638
-                ],
-                [
-                  17.118,
-                  76.809
-                ],
-                [
-                  15.913,
-                  76.77
-                ],
-                [
-                  13.763,
-                  77.38
-                ],
-                [
-                  14.67,
-                  77.736
-                ],
-                [
-                  11.222,
-                  78.869
-                ],
-                [
-                  10.445,
-                  79.652
-                ],
-                [
-                  16.991,
-                  80.051
-                ],
-                [
-                  21.544,
-                  78.956
-                ],
-                [
-                  19.027,
-                  78.563
-                ],
-                [
-                  18.472,
-                  77.827
-                ],
-                [
-                  17.594,
-                  77.638
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  23.7,
-                  35.705
-                ],
-                [
-                  25.745,
-                  35.18
-                ],
-                [
-                  26.29,
-                  35.3
-                ],
-                [
-                  24.725,
-                  34.92
-                ],
-                [
-                  23.515,
-                  35.28
-                ],
-                [
-                  23.7,
-                  35.705
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  24.724,
-                  77.854
-                ],
-                [
-                  22.49,
-                  77.445
-                ],
-                [
-                  20.726,
-                  77.677
-                ],
-                [
-                  21.416,
-                  77.935
-                ],
-                [
-                  20.812,
-                  78.255
-                ],
-                [
-                  22.884,
-                  78.455
-                ],
-                [
-                  24.724,
-                  77.854
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  17.368,
-                  80.319
-                ],
-                [
-                  22.919,
-                  80.657
-                ],
-                [
-                  27.408,
-                  80.056
-                ],
-                [
-                  25.925,
-                  79.518
-                ],
-                [
-                  23.024,
-                  79.4
-                ],
-                [
-                  20.075,
-                  79.567
-                ],
-                [
-                  17.368,
-                  80.319
-                ]
-              ]
-            ]
-          ]
-        }
+        "dimension": "spatial",
+        "value": { "asWKT": "POLYGON((-25 34,45 34,45 72,-25 72,-25 34))" },
+        "transferabilityNotes": "CLMS product coverage, as a coarse bounding extent rather than a country-by-country outline: the precise boundary is a property of the CLMS product and is better dereferenced from CLMS than restated approximately here. The product's exclusion of Ukraine is a separate constraint (`clms-excluded-ukraine`) rather than a hole in this one — an exclusion carved into a geometry is invisible to a reader and easy to lose in simplification, whereas a named constraint a rule cites is neither."
       },
       {
+        "id": "clms-excluded-ukraine",
+        "role": "valid-for",
+        "dimension": "spatial",
+        "value": { "asWKT": "POLYGON((22.1 44.4,40.2 44.4,40.2 52.4,22.1 52.4,22.1 44.4))" },
+        "transferabilityNotes": "Ukraine's approximate bounding extent, which CLMS coverage excludes. Cited by a rule with test `inside`, so falling within it is what makes the component unexecutable. Coarse: a bounding box over Ukraine also covers parts of neighbouring countries, so this errs toward flagging a target that may in fact be covered — the safe direction for a portability check, but it needs the authoritative CLMS geometry before it is relied on."
+      },
+      {
+        "id": "epochs",
         "role": "valid-for",
         "dimension": "temporal",
-        "value": {
-          "start": "2022",
-          "end": "2025"
-        }
+        "value": { "startDate": "2022", "endDate": "2025" },
+        "transferabilityNotes": "Discrete temporal epochs, explicitly not a time series: one timestep per epoch. 2022–2025 available at time of writing."
       }
     ],
-    "artifactRules": [
+    "artifacts": [
+      { "id": "lst", "artifact": "median summer LST datasets (FOCAL STAC, Landsat 5/7/8/9-derived)", "artifactRole": "workflow-input", "artifactRef": "/inputs/lst_datasets" },
+      { "id": "clms", "artifact": "CLMS Tree Cover Density / Imperviousness Density", "artifactRole": "workflow-input", "artifactRef": "/inputs/clms_tcd_imd" },
+      { "id": "eurostat", "artifact": "Eurostat census / socio-economic data (planned Heat Risk Indicator)", "artifactRole": "external-resource", "transferabilityNotes": "Not yet implemented; the envisaged replacement should follow a schema compatible with Eurostat's." }
+    ],
+    "rules": [
       {
-        "artifact": "median summer LST datasets (FOCAL STAC, Landsat 5/7/8/9-derived)",
-        "artifactRole": "workflow-input",
-        "artifactRef": "inputs.lst_datasets",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent",
-              "component-not-executable"
-            ],
-            "required": true,
-            "transferabilityNotes": "Inside the EURO-CORDEX domain, reuse as-is by changing the AOI. Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target."
-          }
-        ]
+        "appliesTo": ["lst"],
+        "when": [{ "constraint": "eur11-domain", "test": "inside" }],
+        "actions": ["reuse-as-is"],
+        "mandatory": true,
+        "transferabilityNotes": "Inside the EURO-CORDEX domain the datasets are reused unchanged, by changing the area of interest."
       },
       {
-        "artifact": "CLMS Tree Cover Density / Imperviousness Density",
-        "artifactRole": "workflow-input",
-        "artifactRef": "inputs.clms_tcd_imd",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent",
-              "component-not-executable"
-            ],
-            "required": true,
-            "transferabilityNotes": "CLMS product coverage is generally limited to Europe, except Ukraine (see this workflow's `envelope`); outside it, no substitute is currently defined, and hot-spot characterization (which uses this dataset) cannot be executed."
-          }
-        ]
+        "appliesTo": ["lst"],
+        "when": [{ "constraint": "eur11-domain", "test": "outside" }],
+        "actions": ["replace-with-local-equivalent", "component-not-executable"],
+        "mandatory": true,
+        "transferabilityNotes": "Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target. Which of the two applies depends on whether a substitute is obtainable, which the source does not resolve."
       },
       {
-        "artifact": "Eurostat census / socio-economic data (planned Heat Risk Indicator)",
-        "artifactRole": "external-resource",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent",
-              "component-not-executable"
-            ],
-            "required": true,
-            "transferabilityNotes": "Not yet implemented; the envisaged replacement should follow a schema compatible with Eurostat's. Once built, the source's stated consequence for unavailable data applies here too: the planned Heat Risk Indicator (risk assessment) component would not be executable without it."
-          }
-        ]
+        "appliesTo": ["clms"],
+        "when": [{ "constraint": "clms-extent", "test": "outside" }],
+        "actions": ["replace-with-local-equivalent", "component-not-executable"],
+        "mandatory": true,
+        "transferabilityNotes": "Outside CLMS coverage no substitute is currently defined, and hot-spot characterization, which uses this dataset, cannot be executed."
+      },
+      {
+        "appliesTo": ["clms"],
+        "when": [{ "constraint": "clms-excluded-ukraine", "test": "inside" }],
+        "actions": ["component-not-executable"],
+        "mandatory": true,
+        "transferabilityNotes": "Within the CLMS bounding extent but inside the area the product excludes: no Tree Cover Density or Imperviousness Density data exists, and no substitute is defined, so hot-spot characterization cannot be executed. A terminal outcome with no alternative offered, unlike the coverage rule above."
+      },
+      {
+        "appliesTo": ["eurostat"],
+        "triggeredBy": "different-geographic-coverage",
+        "actions": ["replace-with-local-equivalent", "component-not-executable"],
+        "mandatory": true,
+        "transferabilityNotes": "Stated with triggeredBy rather than a cited constraint: this data is not yet implemented, so there is no envelope fact to point at. Once built, the planned Heat Risk Indicator would not be executable without it."
       }
     ]
   },
@@ -2206,1285 +850,141 @@ or otherwise.
   "transferability": {
     "envelope": [
       {
+        "id": "eur11-domain",
         "role": "valid-for",
         "dimension": "spatial",
         "value": {
-          "type": "Polygon",
-          "coordinates": [
-            [
-              [
-                -22,
-                27
-              ],
-              [
-                45,
-                27
-              ],
-              [
-                45,
-                72
-              ],
-              [
-                -22,
-                72
-              ],
-              [
-                -22,
-                27
-              ]
-            ]
-          ]
-        }
+          "asWKT": "POLYGON((-22 27,45 27,45 72,-22 72,-22 27))"
+        },
+        "transferabilityNotes": "The EUR-11 EURO-CORDEX domain's published approximate rectangular extent (about 22W\u201345E, 27N\u201372N), not its exact rotated-pole grid footprint, which is not a rectangle in true lat/lon at all. A deliberate simplification."
       },
       {
+        "id": "clms-extent",
         "role": "valid-for",
-        "dimension": "jurisdictional",
+        "dimension": "spatial",
         "value": {
-          "type": "MultiPolygon",
-          "coordinates": [
-            [
-              [
-                [
-                  -9.287,
-                  38.358
-                ],
-                [
-                  -9.447,
-                  39.392
-                ],
-                [
-                  -8.769,
-                  40.761
-                ],
-                [
-                  -9.393,
-                  43.027
-                ],
-                [
-                  -7.978,
-                  43.748
-                ],
-                [
-                  -1.901,
-                  43.423
-                ],
-                [
-                  -1.384,
-                  44.023
-                ],
-                [
-                  -1.194,
-                  46.015
-                ],
-                [
-                  -2.963,
-                  47.57
-                ],
-                [
-                  -4.492,
-                  47.955
-                ],
-                [
-                  -4.592,
-                  48.684
-                ],
-                [
-                  -1.617,
-                  48.644
-                ],
-                [
-                  -1.933,
-                  49.776
-                ],
-                [
-                  -0.989,
-                  49.347
-                ],
-                [
-                  1.339,
-                  50.127
-                ],
-                [
-                  1.639,
-                  50.947
-                ],
-                [
-                  3.83,
-                  51.621
-                ],
-                [
-                  4.706,
-                  53.092
-                ],
-                [
-                  8.122,
-                  53.528
-                ],
-                [
-                  8.801,
-                  54.021
-                ],
-                [
-                  8.12,
-                  55.518
-                ],
-                [
-                  8.543,
-                  57.11
-                ],
-                [
-                  10.58,
-                  57.73
-                ],
-                [
-                  10.25,
-                  56.89
-                ],
-                [
-                  10.912,
-                  56.459
-                ],
-                [
-                  9.65,
-                  55.47
-                ],
-                [
-                  9.94,
-                  54.597
-                ],
-                [
-                  10.95,
-                  54.364
-                ],
-                [
-                  10.939,
-                  54.009
-                ],
-                [
-                  12.518,
-                  54.47
-                ],
-                [
-                  14.12,
-                  53.757
-                ],
-                [
-                  17.623,
-                  54.852
-                ],
-                [
-                  18.696,
-                  54.439
-                ],
-                [
-                  22.731,
-                  54.328
-                ],
-                [
-                  22.758,
-                  54.857
-                ],
-                [
-                  21.268,
-                  55.19
-                ],
-                [
-                  21.09,
-                  56.784
-                ],
-                [
-                  22.524,
-                  57.753
-                ],
-                [
-                  23.318,
-                  57.006
-                ],
-                [
-                  24.121,
-                  57.026
-                ],
-                [
-                  24.429,
-                  58.383
-                ],
-                [
-                  23.427,
-                  58.613
-                ],
-                [
-                  23.34,
-                  59.187
-                ],
-                [
-                  27.981,
-                  59.475
-                ],
-                [
-                  27.42,
-                  58.725
-                ],
-                [
-                  27.717,
-                  57.792
-                ],
-                [
-                  27.288,
-                  57.475
-                ],
-                [
-                  28.177,
-                  56.169
-                ],
-                [
-                  30.874,
-                  55.551
-                ],
-                [
-                  30.758,
-                  54.812
-                ],
-                [
-                  32.694,
-                  53.351
-                ],
-                [
-                  31.305,
-                  53.074
-                ],
-                [
-                  31.786,
-                  52.102
-                ],
-                [
-                  30.919,
-                  52.059
-                ],
-                [
-                  30.551,
-                  51.237
-                ],
-                [
-                  25.768,
-                  51.929
-                ],
-                [
-                  23.594,
-                  51.605
-                ],
-                [
-                  24.108,
-                  50.541
-                ],
-                [
-                  22.666,
-                  49.567
-                ],
-                [
-                  22.867,
-                  49.01
-                ],
-                [
-                  22.133,
-                  48.405
-                ],
-                [
-                  24.897,
-                  47.71
-                ],
-                [
-                  27.752,
-                  48.452
-                ],
-                [
-                  29.136,
-                  47.968
-                ],
-                [
-                  30.132,
-                  46.423
-                ],
-                [
-                  28.946,
-                  46.455
-                ],
-                [
-                  28.202,
-                  45.469
-                ],
-                [
-                  29.653,
-                  45.341
-                ],
-                [
-                  28.838,
-                  44.914
-                ],
-                [
-                  27.674,
-                  42.578
-                ],
-                [
-                  27.997,
-                  42.007
-                ],
-                [
-                  26.117,
-                  41.827
-                ],
-                [
-                  26.604,
-                  41.562
-                ],
-                [
-                  26.057,
-                  40.824
-                ],
-                [
-                  23.715,
-                  40.687
-                ],
-                [
-                  24.408,
-                  40.125
-                ],
-                [
-                  22.626,
-                  40.257
-                ],
-                [
-                  23.35,
-                  39.19
-                ],
-                [
-                  22.973,
-                  38.971
-                ],
-                [
-                  24.025,
-                  38.22
-                ],
-                [
-                  24.04,
-                  37.655
-                ],
-                [
-                  23.115,
-                  37.92
-                ],
-                [
-                  23.41,
-                  37.41
-                ],
-                [
-                  22.775,
-                  37.305
-                ],
-                [
-                  23.154,
-                  36.423
-                ],
-                [
-                  21.67,
-                  36.845
-                ],
-                [
-                  21.12,
-                  38.31
-                ],
-                [
-                  19.406,
-                  40.251
-                ],
-                [
-                  19.372,
-                  41.878
-                ],
-                [
-                  16.015,
-                  43.507
-                ],
-                [
-                  14.902,
-                  45.076
-                ],
-                [
-                  14.259,
-                  45.234
-                ],
-                [
-                  13.952,
-                  44.802
-                ],
-                [
-                  13.938,
-                  45.591
-                ],
-                [
-                  13.142,
-                  45.737
-                ],
-                [
-                  12.329,
-                  45.382
-                ],
-                [
-                  12.589,
-                  44.091
-                ],
-                [
-                  15.143,
-                  41.955
-                ],
-                [
-                  15.926,
-                  41.961
-                ],
-                [
-                  15.889,
-                  41.541
-                ],
-                [
-                  18.48,
-                  40.169
-                ],
-                [
-                  18.293,
-                  39.811
-                ],
-                [
-                  16.87,
-                  40.442
-                ],
-                [
-                  16.449,
-                  39.795
-                ],
-                [
-                  17.171,
-                  39.425
-                ],
-                [
-                  17.053,
-                  38.903
-                ],
-                [
-                  16.101,
-                  37.986
-                ],
-                [
-                  15.684,
-                  37.909
-                ],
-                [
-                  16.109,
-                  38.965
-                ],
-                [
-                  15.414,
-                  40.048
-                ],
-                [
-                  12.107,
-                  41.705
-                ],
-                [
-                  10.512,
-                  42.931
-                ],
-                [
-                  10.2,
-                  43.92
-                ],
-                [
-                  8.889,
-                  44.366
-                ],
-                [
-                  6.529,
-                  43.129
-                ],
-                [
-                  4.557,
-                  43.4
-                ],
-                [
-                  3.1,
-                  43.075
-                ],
-                [
-                  3.039,
-                  41.892
-                ],
-                [
-                  0.811,
-                  41.015
-                ],
-                [
-                  -0.279,
-                  39.31
-                ],
-                [
-                  0.111,
-                  38.739
-                ],
-                [
-                  -2.146,
-                  36.674
-                ],
-                [
-                  -4.369,
-                  36.678
-                ],
-                [
-                  -5.866,
-                  36.03
-                ],
-                [
-                  -6.52,
-                  36.943
-                ],
-                [
-                  -8.899,
-                  36.869
-                ],
-                [
-                  -8.84,
-                  38.266
-                ],
-                [
-                  -9.287,
-                  38.358
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  8.428,
-                  39.172
-                ],
-                [
-                  8.16,
-                  40.95
-                ],
-                [
-                  9.21,
-                  41.21
-                ],
-                [
-                  9.81,
-                  40.5
-                ],
-                [
-                  9.67,
-                  39.177
-                ],
-                [
-                  8.428,
-                  39.172
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  9.39,
-                  43.01
-                ],
-                [
-                  9.56,
-                  42.152
-                ],
-                [
-                  9.23,
-                  41.38
-                ],
-                [
-                  8.544,
-                  42.257
-                ],
-                [
-                  9.39,
-                  43.01
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  -9.689,
-                  53.881
-                ],
-                [
-                  -6.734,
-                  55.173
-                ],
-                [
-                  -5.662,
-                  54.555
-                ],
-                [
-                  -6.198,
-                  53.868
-                ],
-                [
-                  -6.033,
-                  53.153
-                ],
-                [
-                  -6.789,
-                  52.26
-                ],
-                [
-                  -8.562,
-                  51.669
-                ],
-                [
-                  -9.977,
-                  51.82
-                ],
-                [
-                  -9.166,
-                  52.865
-                ],
-                [
-                  -9.689,
-                  53.881
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  -5.083,
-                  55.062
-                ],
-                [
-                  -4.719,
-                  55.508
-                ],
-                [
-                  -5.048,
-                  55.784
-                ],
-                [
-                  -5.586,
-                  55.311
-                ],
-                [
-                  -6.15,
-                  56.785
-                ],
-                [
-                  -5.787,
-                  57.819
-                ],
-                [
-                  -5.01,
-                  58.63
-                ],
-                [
-                  -3.005,
-                  58.635
-                ],
-                [
-                  -4.074,
-                  57.553
-                ],
-                [
-                  -1.959,
-                  57.685
-                ],
-                [
-                  -3.119,
-                  55.974
-                ],
-                [
-                  -2.085,
-                  55.91
-                ],
-                [
-                  -1.115,
-                  54.625
-                ],
-                [
-                  -0.43,
-                  54.464
-                ],
-                [
-                  0.47,
-                  52.93
-                ],
-                [
-                  1.682,
-                  52.74
-                ],
-                [
-                  1.051,
-                  51.807
-                ],
-                [
-                  1.45,
-                  51.289
-                ],
-                [
-                  0.55,
-                  50.766
-                ],
-                [
-                  -5.777,
-                  50.16
-                ],
-                [
-                  -3.415,
-                  51.426
-                ],
-                [
-                  -5.267,
-                  51.991
-                ],
-                [
-                  -4.222,
-                  52.301
-                ],
-                [
-                  -4.77,
-                  52.84
-                ],
-                [
-                  -4.58,
-                  53.495
-                ],
-                [
-                  -3.092,
-                  53.404
-                ],
-                [
-                  -2.945,
-                  53.985
-                ],
-                [
-                  -5.083,
-                  55.062
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  12.09,
-                  54.8
-                ],
-                [
-                  11.044,
-                  55.365
-                ],
-                [
-                  10.904,
-                  55.78
-                ],
-                [
-                  12.371,
-                  56.111
-                ],
-                [
-                  12.69,
-                  55.61
-                ],
-                [
-                  12.09,
-                  54.8
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  -22.763,
-                  63.96
-                ],
-                [
-                  -21.778,
-                  64.402
-                ],
-                [
-                  -23.955,
-                  64.891
-                ],
-                [
-                  -22.184,
-                  65.085
-                ],
-                [
-                  -24.326,
-                  65.611
-                ],
-                [
-                  -23.651,
-                  66.263
-                ],
-                [
-                  -22.135,
-                  66.41
-                ],
-                [
-                  -20.576,
-                  65.732
-                ],
-                [
-                  -19.057,
-                  66.277
-                ],
-                [
-                  -17.799,
-                  65.994
-                ],
-                [
-                  -16.168,
-                  66.527
-                ],
-                [
-                  -14.509,
-                  66.456
-                ],
-                [
-                  -14.74,
-                  65.809
-                ],
-                [
-                  -13.61,
-                  65.127
-                ],
-                [
-                  -14.91,
-                  64.364
-                ],
-                [
-                  -18.656,
-                  63.496
-                ],
-                [
-                  -22.763,
-                  63.96
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  12.431,
-                  37.613
-                ],
-                [
-                  12.571,
-                  38.126
-                ],
-                [
-                  15.52,
-                  38.231
-                ],
-                [
-                  15.1,
-                  36.62
-                ],
-                [
-                  12.431,
-                  37.613
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  21.37,
-                  64.414
-                ],
-                [
-                  17.848,
-                  62.749
-                ],
-                [
-                  17.12,
-                  61.341
-                ],
-                [
-                  18.788,
-                  60.082
-                ],
-                [
-                  17.869,
-                  58.954
-                ],
-                [
-                  16.829,
-                  58.72
-                ],
-                [
-                  15.88,
-                  56.104
-                ],
-                [
-                  14.667,
-                  56.201
-                ],
-                [
-                  14.101,
-                  55.408
-                ],
-                [
-                  12.943,
-                  55.362
-                ],
-                [
-                  10.357,
-                  59.47
-                ],
-                [
-                  8.382,
-                  58.313
-                ],
-                [
-                  7.049,
-                  58.079
-                ],
-                [
-                  5.666,
-                  58.588
-                ],
-                [
-                  4.992,
-                  61.971
-                ],
-                [
-                  10.528,
-                  64.486
-                ],
-                [
-                  14.761,
-                  67.811
-                ],
-                [
-                  19.184,
-                  69.817
-                ],
-                [
-                  23.024,
-                  70.202
-                ],
-                [
-                  24.547,
-                  71.03
-                ],
-                [
-                  28.166,
-                  71.185
-                ],
-                [
-                  31.293,
-                  70.454
-                ],
-                [
-                  30.005,
-                  70.186
-                ],
-                [
-                  31.101,
-                  69.558
-                ],
-                [
-                  28.592,
-                  69.065
-                ],
-                [
-                  28.446,
-                  68.365
-                ],
-                [
-                  29.977,
-                  67.698
-                ],
-                [
-                  29.055,
-                  66.944
-                ],
-                [
-                  30.218,
-                  65.806
-                ],
-                [
-                  29.544,
-                  64.949
-                ],
-                [
-                  30.445,
-                  64.204
-                ],
-                [
-                  30.036,
-                  63.553
-                ],
-                [
-                  31.516,
-                  62.868
-                ],
-                [
-                  30.211,
-                  61.78
-                ],
-                [
-                  28.07,
-                  60.504
-                ],
-                [
-                  22.87,
-                  59.846
-                ],
-                [
-                  21.322,
-                  60.72
-                ],
-                [
-                  21.545,
-                  61.705
-                ],
-                [
-                  21.059,
-                  62.607
-                ],
-                [
-                  22.443,
-                  63.818
-                ],
-                [
-                  25.398,
-                  65.111
-                ],
-                [
-                  25.294,
-                  65.534
-                ],
-                [
-                  23.903,
-                  66.007
-                ],
-                [
-                  22.183,
-                  65.724
-                ],
-                [
-                  21.214,
-                  65.026
-                ],
-                [
-                  21.37,
-                  64.414
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  17.594,
-                  77.638
-                ],
-                [
-                  17.118,
-                  76.809
-                ],
-                [
-                  15.913,
-                  76.77
-                ],
-                [
-                  13.763,
-                  77.38
-                ],
-                [
-                  14.67,
-                  77.736
-                ],
-                [
-                  11.222,
-                  78.869
-                ],
-                [
-                  10.445,
-                  79.652
-                ],
-                [
-                  16.991,
-                  80.051
-                ],
-                [
-                  21.544,
-                  78.956
-                ],
-                [
-                  19.027,
-                  78.563
-                ],
-                [
-                  18.472,
-                  77.827
-                ],
-                [
-                  17.594,
-                  77.638
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  23.7,
-                  35.705
-                ],
-                [
-                  25.745,
-                  35.18
-                ],
-                [
-                  26.29,
-                  35.3
-                ],
-                [
-                  24.725,
-                  34.92
-                ],
-                [
-                  23.515,
-                  35.28
-                ],
-                [
-                  23.7,
-                  35.705
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  24.724,
-                  77.854
-                ],
-                [
-                  22.49,
-                  77.445
-                ],
-                [
-                  20.726,
-                  77.677
-                ],
-                [
-                  21.416,
-                  77.935
-                ],
-                [
-                  20.812,
-                  78.255
-                ],
-                [
-                  22.884,
-                  78.455
-                ],
-                [
-                  24.724,
-                  77.854
-                ]
-              ]
-            ],
-            [
-              [
-                [
-                  17.368,
-                  80.319
-                ],
-                [
-                  22.919,
-                  80.657
-                ],
-                [
-                  27.408,
-                  80.056
-                ],
-                [
-                  25.925,
-                  79.518
-                ],
-                [
-                  23.024,
-                  79.4
-                ],
-                [
-                  20.075,
-                  79.567
-                ],
-                [
-                  17.368,
-                  80.319
-                ]
-              ]
-            ]
-          ]
-        }
+          "asWKT": "POLYGON((-25 34,45 34,45 72,-25 72,-25 34))"
+        },
+        "transferabilityNotes": "CLMS product coverage, as a coarse bounding extent rather than a country-by-country outline: the precise boundary is a property of the CLMS product and is better dereferenced from CLMS than restated approximately here. The product's exclusion of Ukraine is a separate constraint (`clms-excluded-ukraine`) rather than a hole in this one \u2014 an exclusion carved into a geometry is invisible to a reader and easy to lose in simplification, whereas a named constraint a rule cites is neither."
       },
       {
+        "id": "clms-excluded-ukraine",
+        "role": "valid-for",
+        "dimension": "spatial",
+        "value": {
+          "asWKT": "POLYGON((22.1 44.4,40.2 44.4,40.2 52.4,22.1 52.4,22.1 44.4))"
+        },
+        "transferabilityNotes": "Ukraine's approximate bounding extent, which CLMS coverage excludes. Cited by a rule with test `inside`, so falling within it is what makes the component unexecutable. Coarse: a bounding box over Ukraine also covers parts of neighbouring countries, so this errs toward flagging a target that may in fact be covered \u2014 the safe direction for a portability check, but it needs the authoritative CLMS geometry before it is relied on."
+      },
+      {
+        "id": "epochs",
         "role": "valid-for",
         "dimension": "temporal",
         "value": {
-          "start": "2022",
-          "end": "2025"
-        }
+          "startDate": "2022",
+          "endDate": "2025"
+        },
+        "transferabilityNotes": "Discrete temporal epochs, explicitly not a time series: one timestep per epoch. 2022\u20132025 available at time of writing."
       }
     ],
-    "artifactRules": [
+    "artifacts": [
       {
+        "id": "lst",
         "artifact": "median summer LST datasets (FOCAL STAC, Landsat 5/7/8/9-derived)",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.lst_datasets",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent",
-              "component-not-executable"
-            ],
-            "required": true,
-            "transferabilityNotes": "Inside the EURO-CORDEX domain, reuse as-is by changing the AOI. Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target."
-          }
-        ]
+        "artifactRef": "/inputs/lst_datasets"
       },
       {
+        "id": "clms",
         "artifact": "CLMS Tree Cover Density / Imperviousness Density",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.clms_tcd_imd",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent",
-              "component-not-executable"
-            ],
-            "required": true,
-            "transferabilityNotes": "CLMS product coverage is generally limited to Europe, except Ukraine (see this workflow's `envelope`); outside it, no substitute is currently defined, and hot-spot characterization (which uses this dataset) cannot be executed."
-          }
-        ]
+        "artifactRef": "/inputs/clms_tcd_imd"
       },
       {
+        "id": "eurostat",
         "artifact": "Eurostat census / socio-economic data (planned Heat Risk Indicator)",
         "artifactRole": "external-resource",
-        "rules": [
+        "transferabilityNotes": "Not yet implemented; the envisaged replacement should follow a schema compatible with Eurostat's."
+      }
+    ],
+    "rules": [
+      {
+        "appliesTo": [
+          "lst"
+        ],
+        "when": [
           {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent",
-              "component-not-executable"
-            ],
-            "required": true,
-            "transferabilityNotes": "Not yet implemented; the envisaged replacement should follow a schema compatible with Eurostat's. Once built, the source's stated consequence for unavailable data applies here too: the planned Heat Risk Indicator (risk assessment) component would not be executable without it."
+            "constraint": "eur11-domain",
+            "test": "inside"
           }
-        ]
+        ],
+        "actions": [
+          "reuse-as-is"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Inside the EURO-CORDEX domain the datasets are reused unchanged, by changing the area of interest."
+      },
+      {
+        "appliesTo": [
+          "lst"
+        ],
+        "when": [
+          {
+            "constraint": "eur11-domain",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent",
+          "component-not-executable"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target. Which of the two applies depends on whether a substitute is obtainable, which the source does not resolve."
+      },
+      {
+        "appliesTo": [
+          "clms"
+        ],
+        "when": [
+          {
+            "constraint": "clms-extent",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent",
+          "component-not-executable"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Outside CLMS coverage no substitute is currently defined, and hot-spot characterization, which uses this dataset, cannot be executed."
+      },
+      {
+        "appliesTo": [
+          "clms"
+        ],
+        "when": [
+          {
+            "constraint": "clms-excluded-ukraine",
+            "test": "inside"
+          }
+        ],
+        "actions": [
+          "component-not-executable"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Within the CLMS bounding extent but inside the area the product excludes: no Tree Cover Density or Imperviousness Density data exists, and no substitute is defined, so hot-spot characterization cannot be executed. A terminal outcome with no alternative offered, unlike the coverage rule above."
+      },
+      {
+        "appliesTo": [
+          "eurostat"
+        ],
+        "triggeredBy": "different-geographic-coverage",
+        "actions": [
+          "replace-with-local-equivalent",
+          "component-not-executable"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Stated with triggeredBy rather than a cited constraint: this data is not yet implemented, so there is no envelope fact to point at. Once built, the planned Heat Risk Indicator would not be executable without it."
       }
     ]
   },
@@ -3495,48 +995,88 @@ or otherwise.
 
 #### ttl
 ```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
-@prefix geojson: <https://purl.org/geojson/vocab#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<file:///github/workspace/epochs> rdfs:comment "Discrete temporal epochs, explicitly not a time series: one timestep per epoch. 2022–2025 available at time of writing." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value [ dcat:endDate "2025" ;
+            dcat:startDate "2022" ] .
+
+<file:///github/workspace/clms-excluded-ukraine> rdfs:comment "Ukraine's approximate bounding extent, which CLMS coverage excludes. Cited by a rule with test `inside`, so falling within it is what makes the component unexecutable. Coarse: a bounding box over Ukraine also covers parts of neighbouring countries, so this errs toward flagging a target that may in fact be covered — the safe direction for a portability check, but it needs the authoritative CLMS geometry before it is relied on." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value [ geo:asWKT "POLYGON((22.1 44.4,40.2 44.4,40.2 52.4,22.1 52.4,22.1 44.4))"^^geo:wktLiteral ] .
+
+<file:///github/workspace/clms-extent> rdfs:comment "CLMS product coverage, as a coarse bounding extent rather than a country-by-country outline: the precise boundary is a property of the CLMS product and is better dereferenced from CLMS than restated approximately here. The product's exclusion of Ukraine is a separate constraint (`clms-excluded-ukraine`) rather than a hole in this one — an exclusion carved into a geometry is invisible to a reader and easy to lose in simplification, whereas a named constraint a rule cites is neither." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value [ geo:asWKT "POLYGON((-25 34,45 34,45 72,-25 72,-25 34))"^^geo:wktLiteral ] .
+
+<file:///github/workspace/eurostat> dcterms:title "Eurostat census / socio-economic data (planned Heat Risk Indicator)" ;
+    rdfs:comment "Not yet implemented; the envisaged replacement should follow a schema compatible with Eurostat's." ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/external-resource> .
+
+<file:///github/workspace/clms> dcterms:title "CLMS Tree Cover Density / Imperviousness Density" ;
+    focal-transf-prop:artifactRef "/inputs/clms_tcd_imd" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<file:///github/workspace/eur11-domain> rdfs:comment "The EUR-11 EURO-CORDEX domain's published approximate rectangular extent (about 22W–45E, 27N–72N), not its exact rotated-pole grid footprint, which is not a rectangle in true lat/lon at all. A deliberate simplification." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value [ geo:asWKT "POLYGON((-22 27,45 27,45 72,-22 72,-22 27))"^^geo:wktLiteral ] .
+
+<file:///github/workspace/lst> dcterms:title "median summer LST datasets (FOCAL STAC, Landsat 5/7/8/9-derived)" ;
+    focal-transf-prop:artifactRef "/inputs/lst_datasets" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
 [] rdfs:label "UP-WF2 — Urban hot/cool spot" ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
-    focal-transf-prop:transferability [ focal-transf-prop:artifactRules [ focal-transf-prop:artifact "Eurostat census / socio-economic data (planned Heat Risk Indicator)" ;
-                    focal-transf-prop:artifactRole "external-resource" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
-                                <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                            focal-transf-prop:required true ;
-                            focal-transf-prop:transferabilityNotes "Not yet implemented; the envisaged replacement should follow a schema compatible with Eurostat's. Once built, the source's stated consequence for unavailable data applies here too: the planned Heat Risk Indicator (risk assessment) component would not be executable without it." ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
-                [ focal-transf-prop:artifact "CLMS Tree Cover Density / Imperviousness Density" ;
-                    focal-transf-prop:artifactRef "inputs.clms_tcd_imd" ;
-                    focal-transf-prop:artifactRole "workflow-input" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
-                                <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                            focal-transf-prop:required true ;
-                            focal-transf-prop:transferabilityNotes "CLMS product coverage is generally limited to Europe, except Ukraine (see this workflow's `envelope`); outside it, no substitute is currently defined, and hot-spot characterization (which uses this dataset) cannot be executed." ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
-                [ focal-transf-prop:artifact "median summer LST datasets (FOCAL STAC, Landsat 5/7/8/9-derived)" ;
-                    focal-transf-prop:artifactRef "inputs.lst_datasets" ;
-                    focal-transf-prop:artifactRole "workflow-input" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
-                                <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                            focal-transf-prop:required true ;
-                            focal-transf-prop:transferabilityNotes "Inside the EURO-CORDEX domain, reuse as-is by changing the AOI. Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target." ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ] ;
-            focal-transf-prop:envelope [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/jurisdictional> ;
-                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
-                    focal-transf-prop:value [ geojson:coordinates ( ( ( ( -9.287e+00 3.8358e+01 ) ( -9.447e+00 3.9392e+01 ) ( -8.769e+00 4.0761e+01 ) ( -9.393e+00 4.3027e+01 ) ( -7.978e+00 4.3748e+01 ) ( -1.901e+00 4.3423e+01 ) ( -1.384e+00 4.4023e+01 ) ( -1.194e+00 4.6015e+01 ) ( -2.963e+00 4.757e+01 ) ( -4.492e+00 4.7955e+01 ) ( -4.592e+00 4.8684e+01 ) ( -1.617e+00 4.8644e+01 ) ( -1.933e+00 4.9776e+01 ) ( -9.89e-01 4.9347e+01 ) ( 1.339e+00 5.0127e+01 ) ( 1.639e+00 5.0947e+01 ) ( 3.83e+00 5.1621e+01 ) ( 4.706e+00 5.3092e+01 ) ( 8.122e+00 5.3528e+01 ) ( 8.801e+00 5.4021e+01 ) ( 8.12e+00 5.5518e+01 ) ( 8.543e+00 5.711e+01 ) ( 1.058e+01 5.773e+01 ) ( 1.025e+01 5.689e+01 ) ( 1.0912e+01 5.6459e+01 ) ( 9.65e+00 5.547e+01 ) ( 9.94e+00 5.4597e+01 ) ( 1.095e+01 5.4364e+01 ) ( 1.0939e+01 5.4009e+01 ) ( 1.2518e+01 5.447e+01 ) ( 1.412e+01 5.3757e+01 ) ( 1.7623e+01 5.4852e+01 ) ( 1.8696e+01 5.4439e+01 ) ( 2.2731e+01 5.4328e+01 ) ( 2.2758e+01 5.4857e+01 ) ( 2.1268e+01 5.519e+01 ) ( 2.109e+01 5.6784e+01 ) ( 2.2524e+01 5.7753e+01 ) ( 2.3318e+01 5.7006e+01 ) ( 2.4121e+01 5.7026e+01 ) ( 2.4429e+01 5.8383e+01 ) ( 2.3427e+01 5.8613e+01 ) ( 2.334e+01 5.9187e+01 ) ( 2.7981e+01 5.9475e+01 ) ( 2.742e+01 5.8725e+01 ) ( 2.7717e+01 5.7792e+01 ) ( 2.7288e+01 5.7475e+01 ) ( 2.8177e+01 5.6169e+01 ) ( 3.0874e+01 5.5551e+01 ) ( 3.0758e+01 5.4812e+01 ) ( 3.2694e+01 5.3351e+01 ) ( 3.1305e+01 5.3074e+01 ) ( 3.1786e+01 5.2102e+01 ) ( 3.0919e+01 5.2059e+01 ) ( 3.0551e+01 5.1237e+01 ) ( 2.5768e+01 5.1929e+01 ) ( 2.3594e+01 5.1605e+01 ) ( 2.4108e+01 5.0541e+01 ) ( 2.2666e+01 4.9567e+01 ) ( 2.2867e+01 4.901e+01 ) ( 2.2133e+01 4.8405e+01 ) ( 2.4897e+01 4.771e+01 ) ( 2.7752e+01 4.8452e+01 ) ( 2.9136e+01 4.7968e+01 ) ( 3.0132e+01 4.6423e+01 ) ( 2.8946e+01 4.6455e+01 ) ( 2.8202e+01 4.5469e+01 ) ( 2.9653e+01 4.5341e+01 ) ( 2.8838e+01 4.4914e+01 ) ( 2.7674e+01 4.2578e+01 ) ( 2.7997e+01 4.2007e+01 ) ( 2.6117e+01 4.1827e+01 ) ( 2.6604e+01 4.1562e+01 ) ( 2.6057e+01 4.0824e+01 ) ( 2.3715e+01 4.0687e+01 ) ( 2.4408e+01 4.0125e+01 ) ( 2.2626e+01 4.0257e+01 ) ( 2.335e+01 3.919e+01 ) ( 2.2973e+01 3.8971e+01 ) ( 2.4025e+01 3.822e+01 ) ( 2.404e+01 3.7655e+01 ) ( 2.3115e+01 3.792e+01 ) ( 2.341e+01 3.741e+01 ) ( 2.2775e+01 3.7305e+01 ) ( 2.3154e+01 3.6423e+01 ) ( 2.167e+01 3.6845e+01 ) ( 2.112e+01 3.831e+01 ) ( 1.9406e+01 4.0251e+01 ) ( 1.9372e+01 4.1878e+01 ) ( 1.6015e+01 4.3507e+01 ) ( 1.4902e+01 4.5076e+01 ) ( 1.4259e+01 4.5234e+01 ) ( 1.3952e+01 4.4802e+01 ) ( 1.3938e+01 4.5591e+01 ) ( 1.3142e+01 4.5737e+01 ) ( 1.2329e+01 4.5382e+01 ) ( 1.2589e+01 4.4091e+01 ) ( 1.5143e+01 4.1955e+01 ) ( 1.5926e+01 4.1961e+01 ) ( 1.5889e+01 4.1541e+01 ) ( 1.848e+01 4.0169e+01 ) ( 1.8293e+01 3.9811e+01 ) ( 1.687e+01 4.0442e+01 ) ( 1.6449e+01 3.9795e+01 ) ( 1.7171e+01 3.9425e+01 ) ( 1.7053e+01 3.8903e+01 ) ( 1.6101e+01 3.7986e+01 ) ( 1.5684e+01 3.7909e+01 ) ( 1.6109e+01 3.8965e+01 ) ( 1.5414e+01 4.0048e+01 ) ( 1.2107e+01 4.1705e+01 ) ( 1.0512e+01 4.2931e+01 ) ( 1.02e+01 4.392e+01 ) ( 8.889e+00 4.4366e+01 ) ( 6.529e+00 4.3129e+01 ) ( 4.557e+00 4.34e+01 ) ( 3.1e+00 4.3075e+01 ) ( 3.039e+00 4.1892e+01 ) ( 8.11e-01 4.1015e+01 ) ( -2.79e-01 3.931e+01 ) ( 1.11e-01 3.8739e+01 ) ( -2.146e+00 3.6674e+01 ) ( -4.369e+00 3.6678e+01 ) ( -5.866e+00 3.603e+01 ) ( -6.52e+00 3.6943e+01 ) ( -8.899e+00 3.6869e+01 ) ( -8.84e+00 3.8266e+01 ) ( -9.287e+00 3.8358e+01 ) ) ) ( ( ( 8.428e+00 3.9172e+01 ) ( 8.16e+00 4.095e+01 ) ( 9.21e+00 4.121e+01 ) ( 9.81e+00 4.05e+01 ) ( 9.67e+00 3.9177e+01 ) ( 8.428e+00 3.9172e+01 ) ) ) ( ( ( 9.39e+00 4.301e+01 ) ( 9.56e+00 4.2152e+01 ) ( 9.23e+00 4.138e+01 ) ( 8.544e+00 4.2257e+01 ) ( 9.39e+00 4.301e+01 ) ) ) ( ( ( -9.689e+00 5.3881e+01 ) ( -6.734e+00 5.5173e+01 ) ( -5.662e+00 5.4555e+01 ) ( -6.198e+00 5.3868e+01 ) ( -6.033e+00 5.3153e+01 ) ( -6.789e+00 5.226e+01 ) ( -8.562e+00 5.1669e+01 ) ( -9.977e+00 5.182e+01 ) ( -9.166e+00 5.2865e+01 ) ( -9.689e+00 5.3881e+01 ) ) ) ( ( ( -5.083e+00 5.5062e+01 ) ( -4.719e+00 5.5508e+01 ) ( -5.048e+00 5.5784e+01 ) ( -5.586e+00 5.5311e+01 ) ( -6.15e+00 5.6785e+01 ) ( -5.787e+00 5.7819e+01 ) ( -5.01e+00 5.863e+01 ) ( -3.005e+00 5.8635e+01 ) ( -4.074e+00 5.7553e+01 ) ( -1.959e+00 5.7685e+01 ) ( -3.119e+00 5.5974e+01 ) ( -2.085e+00 5.591e+01 ) ( -1.115e+00 5.4625e+01 ) ( -4.3e-01 5.4464e+01 ) ( 4.7e-01 5.293e+01 ) ( 1.682e+00 5.274e+01 ) ( 1.051e+00 5.1807e+01 ) ( 1.45e+00 5.1289e+01 ) ( 5.5e-01 5.0766e+01 ) ( -5.777e+00 5.016e+01 ) ( -3.415e+00 5.1426e+01 ) ( -5.267e+00 5.1991e+01 ) ( -4.222e+00 5.2301e+01 ) ( -4.77e+00 5.284e+01 ) ( -4.58e+00 5.3495e+01 ) ( -3.092e+00 5.3404e+01 ) ( -2.945e+00 5.3985e+01 ) ( -5.083e+00 5.5062e+01 ) ) ) ( ( ( 1.209e+01 5.48e+01 ) ( 1.1044e+01 5.5365e+01 ) ( 1.0904e+01 5.578e+01 ) ( 1.2371e+01 5.6111e+01 ) ( 1.269e+01 5.561e+01 ) ( 1.209e+01 5.48e+01 ) ) ) ( ( ( -2.2763e+01 6.396e+01 ) ( -2.1778e+01 6.4402e+01 ) ( -2.3955e+01 6.4891e+01 ) ( -2.2184e+01 6.5085e+01 ) ( -2.4326e+01 6.5611e+01 ) ( -2.3651e+01 6.6263e+01 ) ( -2.2135e+01 6.641e+01 ) ( -2.0576e+01 6.5732e+01 ) ( -1.9057e+01 6.6277e+01 ) ( -1.7799e+01 6.5994e+01 ) ( -1.6168e+01 6.6527e+01 ) ( -1.4509e+01 6.6456e+01 ) ( -1.474e+01 6.5809e+01 ) ( -1.361e+01 6.5127e+01 ) ( -1.491e+01 6.4364e+01 ) ( -1.8656e+01 6.3496e+01 ) ( -2.2763e+01 6.396e+01 ) ) ) ( ( ( 1.2431e+01 3.7613e+01 ) ( 1.2571e+01 3.8126e+01 ) ( 1.552e+01 3.8231e+01 ) ( 1.51e+01 3.662e+01 ) ( 1.2431e+01 3.7613e+01 ) ) ) ( ( ( 2.137e+01 6.4414e+01 ) ( 1.7848e+01 6.2749e+01 ) ( 1.712e+01 6.1341e+01 ) ( 1.8788e+01 6.0082e+01 ) ( 1.7869e+01 5.8954e+01 ) ( 1.6829e+01 5.872e+01 ) ( 1.588e+01 5.6104e+01 ) ( 1.4667e+01 5.6201e+01 ) ( 1.4101e+01 5.5408e+01 ) ( 1.2943e+01 5.5362e+01 ) ( 1.0357e+01 5.947e+01 ) ( 8.382e+00 5.8313e+01 ) ( 7.049e+00 5.8079e+01 ) ( 5.666e+00 5.8588e+01 ) ( 4.992e+00 6.1971e+01 ) ( 1.0528e+01 6.4486e+01 ) ( 1.4761e+01 6.7811e+01 ) ( 1.9184e+01 6.9817e+01 ) ( 2.3024e+01 7.0202e+01 ) ( 2.4547e+01 7.103e+01 ) ( 2.8166e+01 7.1185e+01 ) ( 3.1293e+01 7.0454e+01 ) ( 3.0005e+01 7.0186e+01 ) ( 3.1101e+01 6.9558e+01 ) ( 2.8592e+01 6.9065e+01 ) ( 2.8446e+01 6.8365e+01 ) ( 2.9977e+01 6.7698e+01 ) ( 2.9055e+01 6.6944e+01 ) ( 3.0218e+01 6.5806e+01 ) ( 2.9544e+01 6.4949e+01 ) ( 3.0445e+01 6.4204e+01 ) ( 3.0036e+01 6.3553e+01 ) ( 3.1516e+01 6.2868e+01 ) ( 3.0211e+01 6.178e+01 ) ( 2.807e+01 6.0504e+01 ) ( 2.287e+01 5.9846e+01 ) ( 2.1322e+01 6.072e+01 ) ( 2.1545e+01 6.1705e+01 ) ( 2.1059e+01 6.2607e+01 ) ( 2.2443e+01 6.3818e+01 ) ( 2.5398e+01 6.5111e+01 ) ( 2.5294e+01 6.5534e+01 ) ( 2.3903e+01 6.6007e+01 ) ( 2.2183e+01 6.5724e+01 ) ( 2.1214e+01 6.5026e+01 ) ( 2.137e+01 6.4414e+01 ) ) ) ( ( ( 1.7594e+01 7.7638e+01 ) ( 1.7118e+01 7.6809e+01 ) ( 1.5913e+01 7.677e+01 ) ( 1.3763e+01 7.738e+01 ) ( 1.467e+01 7.7736e+01 ) ( 1.1222e+01 7.8869e+01 ) ( 1.0445e+01 7.9652e+01 ) ( 1.6991e+01 8.0051e+01 ) ( 2.1544e+01 7.8956e+01 ) ( 1.9027e+01 7.8563e+01 ) ( 1.8472e+01 7.7827e+01 ) ( 1.7594e+01 7.7638e+01 ) ) ) ( ( ( 2.37e+01 3.5705e+01 ) ( 2.5745e+01 3.518e+01 ) ( 2.629e+01 3.53e+01 ) ( 2.4725e+01 3.492e+01 ) ( 2.3515e+01 3.528e+01 ) ( 2.37e+01 3.5705e+01 ) ) ) ( ( ( 2.4724e+01 7.7854e+01 ) ( 2.249e+01 7.7445e+01 ) ( 2.0726e+01 7.7677e+01 ) ( 2.1416e+01 7.7935e+01 ) ( 2.0812e+01 7.8255e+01 ) ( 2.2884e+01 7.8455e+01 ) ( 2.4724e+01 7.7854e+01 ) ) ) ( ( ( 1.7368e+01 8.0319e+01 ) ( 2.2919e+01 8.0657e+01 ) ( 2.7408e+01 8.0056e+01 ) ( 2.5925e+01 7.9518e+01 ) ( 2.3024e+01 7.94e+01 ) ( 2.0075e+01 7.9567e+01 ) ( 1.7368e+01 8.0319e+01 ) ) ) ) ] ],
-                [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
-                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
-                    focal-transf-prop:value [ geojson:coordinates ( ( ( -22 27 ) ( 45 27 ) ( 45 72 ) ( -22 72 ) ( -22 27 ) ) ) ] ],
-                [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal> ;
-                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
-                    focal-transf-prop:value [ focal-transf-prop:end "2025" ;
-                            focal-transf-prop:start "2022" ] ] ] .
+    focal-transf-prop:transferability [ focal-transf-prop:artifacts <file:///github/workspace/clms>,
+                <file:///github/workspace/eurostat>,
+                <file:///github/workspace/lst> ;
+            focal-transf-prop:envelope <file:///github/workspace/clms-excluded-ukraine>,
+                <file:///github/workspace/clms-extent>,
+                <file:///github/workspace/epochs>,
+                <file:///github/workspace/eur11-domain> ;
+            focal-transf-prop:rules [ rdfs:comment "Inside the EURO-CORDEX domain the datasets are reused unchanged, by changing the area of interest." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/reuse-as-is> ;
+                    focal-transf-prop:appliesTo <file:///github/workspace/lst> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/eur11-domain> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] ],
+                [ rdfs:comment "Stated with triggeredBy rather than a cited constraint: this data is not yet implemented, so there is no envelope fact to point at. Once built, the planned Heat Risk Indicator would not be executable without it." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <file:///github/workspace/eurostat> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ],
+                [ rdfs:comment "Within the CLMS bounding extent but inside the area the product excludes: no Tree Cover Density or Imperviousness Density data exists, and no substitute is defined, so hot-spot characterization cannot be executed. A terminal outcome with no alternative offered, unlike the coverage rule above." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable> ;
+                    focal-transf-prop:appliesTo <file:///github/workspace/clms> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/clms-excluded-ukraine> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] ],
+                [ rdfs:comment "Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target. Which of the two applies depends on whether a substitute is obtainable, which the source does not resolve." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <file:///github/workspace/lst> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/eur11-domain> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ rdfs:comment "Outside CLMS coverage no substitute is currently defined, and hot-spot characterization, which uses this dataset, cannot be executed." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <file:///github/workspace/clms> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/clms-extent> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
 
 
 ```
@@ -3550,9 +1090,9 @@ description: "A profile of a CWL Workflow (`ogc.cwl.v1_2_1.CWLWorkflow`) adding 
   machine-readable transferability facts, extracted from FOCAL's 8 pilot-workflow
   questionnaires:\n- `transferability` \u2014 the workflow's portability boundary,
   one\n  [`transferabilityStatement`](bblocks://ogc.focal.transferability.transferabilityStatement)\n
-  \ (its `envelope` and `artifactRules`). Required: every evidenced workflow states
-  one.\n- `computationType`, `maturityStatus` \u2014 the two workflow-level classification
-  mixins (see\n  [`computationType`](bblocks://ogc.focal.transferability.computationType)
+  \ (its `envelope`, `artifacts` and `rules`). Required: every evidenced workflow
+  states one.\n- `computationType`, `maturityStatus` \u2014 the two workflow-level
+  classification mixins (see\n  [`computationType`](bblocks://ogc.focal.transferability.computationType)
   and\n  [`maturityStatus`](bblocks://ogc.focal.transferability.maturityStatus) for
   which is optional\n  and which is required).\n- `qualityAnnotation` \u2014 a repeatable,
   optional workflow-level fact (see its own block for\n  evidence density and omission
@@ -3571,9 +1111,9 @@ allOf:
     transferability:
       $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/schema.yaml
       description: 'The workflow''s portability boundary: where its results are valid
-        (`envelope`) and what must happen to each reference/calibration artifact outside
-        it (`artifactRules`). See `transferabilityStatement` for both properties''
-        shapes.
+        (`envelope`) and which artifacts it depends on, and what must happen to each
+        outside it. See `transferabilityStatement` for the three lists and how they
+        reference each other.
 
         '
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/transferability
@@ -3604,7 +1144,7 @@ Links to the schema:
 {
   "@context": {
     "version": "cwl:SoftwarePackage/version",
-    "label": "http://www.w3.org/2000/01/rdf-schema#label",
+    "label": "rdfs:label",
     "computationType": {
       "@context": {
         "@base": "https://w3id.org/ogc/hosted/focal/transferability/computation-types/"
@@ -3623,6 +1163,15 @@ Links to the schema:
       "@context": {
         "envelope": {
           "@context": {
+            "transferabilityNotes": "rdfs:comment",
+            "id": "@id",
+            "role": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/roles/"
+              },
+              "@id": "focal-transf-prop:role",
+              "@type": "@id"
+            },
             "dimension": {
               "@context": {
                 "@base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/"
@@ -3632,57 +1181,86 @@ Links to the schema:
             },
             "value": {
               "@context": {
-                "coordinates": {
-                  "@container": "@list",
-                  "@id": "geojson:coordinates"
+                "asWKT": {
+                  "@id": "geo:asWKT",
+                  "@type": "geo:wktLiteral"
                 },
-                "start": "focal-transf-prop:start",
-                "end": "focal-transf-prop:end",
-                "scenarioMarker": "focal-transf-prop:scenarioMarker"
+                "startDate": "dcat:startDate",
+                "endDate": "dcat:endDate",
+                "scenarioMarker": {
+                  "@context": {
+                    "@base": "https://w3id.org/ogc/hosted/focal/transferability/scenario-markers/"
+                  },
+                  "@id": "focal-transf-prop:scenarioMarker",
+                  "@type": "@id"
+                }
               },
               "@id": "focal-transf-prop:value"
-            },
-            "role": {
-              "@context": {
-                "@base": "https://w3id.org/ogc/hosted/focal/transferability/roles/"
-              },
-              "@id": "focal-transf-prop:role",
-              "@type": "@id"
             }
           },
           "@id": "focal-transf-prop:envelope",
           "@container": "@set"
         },
-        "artifactRules": {
+        "artifacts": {
           "@context": {
-            "artifact": "focal-transf-prop:artifact",
-            "artifactRole": "focal-transf-prop:artifactRole",
-            "artifactRef": "focal-transf-prop:artifactRef",
-            "rules": {
+            "id": "@id",
+            "artifact": "dcterms:title",
+            "artifactRole": {
               "@context": {
-                "transferabilityNotes": "focal-transf-prop:transferabilityNotes",
-                "triggeredBy": {
-                  "@context": {
-                    "@base": "https://w3id.org/ogc/hosted/focal/transferability/triggers/"
-                  },
-                  "@id": "focal-transf-prop:triggeredBy",
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/"
+              },
+              "@id": "focal-transf-prop:artifactRole",
+              "@type": "@id"
+            },
+            "artifactRef": "focal-transf-prop:artifactRef",
+            "transferabilityNotes": "rdfs:comment"
+          },
+          "@id": "focal-transf-prop:artifacts",
+          "@container": "@set"
+        },
+        "rules": {
+          "@context": {
+            "transferabilityNotes": "rdfs:comment",
+            "appliesTo": {
+              "@id": "focal-transf-prop:appliesTo",
+              "@type": "@id",
+              "@container": "@set"
+            },
+            "when": {
+              "@context": {
+                "constraint": {
+                  "@id": "focal-transf-prop:constraint",
                   "@type": "@id"
                 },
-                "actions": {
+                "test": {
                   "@context": {
-                    "@base": "https://w3id.org/ogc/hosted/focal/transferability/actions/"
+                    "@base": "https://w3id.org/ogc/hosted/focal/transferability/tests/"
                   },
-                  "@id": "focal-transf-prop:actions",
-                  "@type": "@id",
-                  "@container": "@set"
-                },
-                "required": "focal-transf-prop:required"
+                  "@id": "focal-transf-prop:test",
+                  "@type": "@id"
+                }
               },
-              "@id": "focal-transf-prop:rules",
+              "@id": "focal-transf-prop:when",
               "@container": "@set"
-            }
+            },
+            "triggeredBy": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/triggers/"
+              },
+              "@id": "focal-transf-prop:triggeredBy",
+              "@type": "@id"
+            },
+            "actions": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/actions/"
+              },
+              "@id": "focal-transf-prop:actions",
+              "@type": "@id",
+              "@container": "@set"
+            },
+            "mandatory": "focal-transf-prop:mandatory"
           },
-          "@id": "focal-transf-prop:artifactRules",
+          "@id": "focal-transf-prop:rules",
           "@container": "@set"
         }
       },
@@ -3708,13 +1286,14 @@ Links to the schema:
     "loadContents": "cwl:loadContents",
     "streamable": "cwl:FieldBase/streamable",
     "loadListing": "cwl:loadListing",
-    "Point": "geojson:Point",
-    "MultiPoint": "geojson:MultiPoint",
-    "Polygon": "geojson:Polygon",
-    "MultiPolygon": "geojson:MultiPolygon",
     "cwl": "https://w3id.org/cwl/cwl#",
-    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
-    "geojson": "https://purl.org/geojson/vocab#",
+    "focal-transf-prop": "focal-transf:properties/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "focal-transf": "https://w3id.org/ogc/hosted/focal/transferability/",
+    "prov": "http://www.w3.org/ns/prov#",
     "dqv": "http://www.w3.org/ns/dqv#",
     "@version": 1.1
   }

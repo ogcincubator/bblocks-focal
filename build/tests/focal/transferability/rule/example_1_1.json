@@ -1,0 +1,16 @@
+{
+  "appliesTo": [
+    "growth-model"
+  ],
+  "when": [
+    {
+      "constraint": "ecological-range",
+      "test": "outside"
+    }
+  ],
+  "actions": [
+    "retrain",
+    "replace-with-alternative-published-model"
+  ],
+  "mandatory": true
+}

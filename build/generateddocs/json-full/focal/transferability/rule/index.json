@@ -3,15 +3,23 @@
 {
   "itemIdentifier": "ogc.focal.transferability.rule",
   "name": "FOCAL Transferability Rule",
-  "abstract": "A single condition/action rule (triggeredBy + actions + required) describing how a reference or calibration artifact must be adapted outside its workflow's original validity envelope.",
+  "abstract": "What must happen, to which artifacts, under which envelope conditions. Conditions cite envelope constraints by id and are conjunctive; actions are an OR-set.",
   "status": "under-development",
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "schema",
-  "version": "0.1",
+  "version": "0.3",
   "dateOfLastChange": "2026-09-03",
   "concept": [
     "https://w3id.org/ogc/hosted/focal/transferability/actions/scheme",
-    "https://w3id.org/ogc/hosted/focal/transferability/triggers/scheme"
+    "https://w3id.org/ogc/hosted/focal/transferability/triggers/scheme",
+    "https://w3id.org/ogc/hosted/focal/transferability/tests/scheme"
+  ],
+  "rdfType": [
+    "https://w3id.org/ogc/hosted/focal/transferability/Rule"
+  ],
+  "dependsOn": [
+    "ogc.focal.transferability.notes",
+    "ogc.focal.transferability.vocab"
   ],
   "tags": [
     "focal",
@@ -19,10 +27,11 @@
     "schema"
   ],
   "group": "FOCAL Transferability",
-  "shaclShapes": {},
-  "dependsOn": [
-    "ogc.focal.transferability.notes"
-  ],
+  "shaclShapes": {
+    "ogc.focal.transferability.rule": [
+      "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/shapes.shacl"
+    ]
+  },
   "ldContext": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld",
   "schema": {
     "application/yaml": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/schema.yaml",
@@ -33,8 +42,155 @@
   "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/resolvedProperties.json",
   "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/",
   "validationPassed": true,
-  "description": "## FOCAL Transferability Rule\n\nOne condition/action rule attached to a reference or calibration artifact.\n\n- `triggeredBy` \u2014 the condition that fires this rule (open vocabulary, see\n  [`transferability/vocab`](bblocks://ogc.focal.transferability.vocab)).\n- `actions` \u2014 an **OR-set**: any one of these actions resolves the rule. FP-WF1's growth model\n  needs this \u2014 it offers both `retrain` and `replace-with-alternative-published-model` for the\n  same artifact and the same trigger.\n- `required` \u2014 whether applying one of `actions` is mandatory once `triggeredBy` holds. Defaults\n  to `true`. `false` means the workflow still runs without it, but result quality/trust degrades \u2014\n  describe how in `transferabilityNotes` (mixed in from\n  [`transferability/notes`](bblocks://ogc.focal.transferability.notes)). Example: FP-WF3's\n  disturbance-detection workflow runs without local training labels, but results should then be\n  treated as exploratory rather than authoritative.\n\n**Known simplification (flagged for WF-owner review):** a small number of artifacts (UP-WF2's LST/\nCLMS/Eurostat datasets) have a richer three-way condition \u2014 reuse inside a coverage boundary,\nreplace if a substitute exists outside it, hard-fail if none exists \u2014 than a flat rule list can\nexpress without an explicit \"only if a substitute is obtainable\" branch condition. For now these\nare represented as two separate flat rules (`reuse-as-is` / `replace-with-local-equivalent`),\ndropping that connecting condition. See `20260902-condition-action-expressivity.md` in the FOCAL\nWP10 project directory for the full pattern inventory this was decided against.\n\n**Status: draft/WIP**, circulated for review, not locked.\n",
-  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntitle: Transferability Rule\ndescription: \"A single condition/action rule attached to a reference or calibration\n  artifact: the condition that triggers it (`triggeredBy`), the action(s) that resolve\n  it (`actions` \\u2014 an OR-set, any one action satisfies the rule), and whether\n  applying one is mandatory (`required`). `triggeredBy` and `actions` draw from the\n  open SKOS vocabulary in bblocks://ogc.focal.transferability.vocab \\u2014 the values\n  listed in `examples` below are the core, evidenced set from FOCAL's pilot workflows,\n  not an exhaustive enum; new terms may be added to the vocabulary without a schema\n  change.\\n\"\nallOf:\n- $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml\n- type: object\n  required:\n  - triggeredBy\n  - actions\n  properties:\n    triggeredBy:\n      type: string\n      examples:\n      - different-geographic-coverage\n      - different-ecological-range\n      - different-climate-regime\n      - different-dataset\n      description: The condition that triggers this rule.\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/triggeredBy\n      x-jsonld-type: '@id'\n      x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/triggers/\n    actions:\n      type: array\n      minItems: 1\n      items:\n        type: string\n        examples:\n        - reuse-as-is\n        - replace-with-local-equivalent\n        - retrain\n        - replace-with-alternative-published-model\n        - component-not-executable\n      description: \"One or more actions, any of which resolves `triggeredBy` \\u2014\n        an OR-set, not a required combination (no evidenced case needs more than one\n        action applied simultaneously).\\n\"\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/actions\n      x-jsonld-type: '@id'\n      x-jsonld-container: '@set'\n      x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/actions/\n    required:\n      type: boolean\n      default: true\n      description: \"Whether applying one of `actions` is mandatory once `triggeredBy`\n        holds. Defaults to true. When false, skipping is allowed but degrades result\n        quality/trust rather than blocking execution \\u2014 describe the consequence\n        in `transferabilityNotes`.\\n\"\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/required\nx-jsonld-prefixes:\n  focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/\n",
+  "testOutputs": "https://github.com/ogcincubator/bblocks-focal/blob/master/build/tests/focal/transferability/rule/",
+  "description": "## FOCAL Transferability Rule\n\nWhat must happen, to which artifacts, under which envelope conditions.\n\n- `appliesTo` \u2014 the artifacts this rule governs, by `id`. FP-WF2's four Czechia-specific reference\n  files share one rule rather than carrying four copies of the same condition.\n- `when` \u2014 the conditions, each citing an envelope constraint by `id` plus how the target is\n  tested against it. **Conjunctive: all must hold.**\n- `triggeredBy` \u2014 a coarse alternative for cases where no constraint can be cited without\n  inventing one. At least one of `when` or `triggeredBy` is required; prefer `when`.\n- `actions` \u2014 an **OR-set**: any one resolves the rule, never a sequence or a combination.\n- `mandatory` \u2014 whether applying one is required once the conditions hold. `false` means the\n  workflow still runs with degraded trust, and `transferabilityNotes` must then say what degrades;\n  `shapes.shacl` enforces that, because a skippable rule with no stated consequence tells a\n  consumer nothing they can act on.\n\n**AND, OR, and why there is no boolean expression language.** `when` is an AND and `actions` is an\nOR. A disjunction of *conditions* is written as two rules. That is a deliberate limit: two\nconditions leading to the same action really are two statements, and keeping them apart keeps each\ntraceable to the sentence in a questionnaire it came from, which a nested expression does not.\nUP-WF2's three-way logic \u2014 reuse inside the domain, substitute or fail outside it \u2014 is two rules\nover one constraint, `inside` then `outside`, with nothing dropped.\n\n**What this replaced.** Rules used to be nested inside artifacts and carried only a vocabulary term\nfor their condition, so nothing connected a rule to the boundary it tested. UP-WF2 had two\nfootprints, three artifacts and three rules all saying \"different geographic coverage\", and no way\nto record which was which.\n\n**Status: draft/WIP**, circulated for review, not locked.\n",
+  "examples": [
+    {
+      "title": "Rule citing an envelope constraint",
+      "content": "FP-WF1's trained growth model outside the ecological range it was calibrated for. Two actions\nare offered and either resolves the rule: retrain against local data, or substitute a\ndifferent already-published model. `actions` is an OR-set, never a sequence.\n\n`when` names the constraint this is evaluated against, by the `id` it carries in the\nenclosing statement's `envelope`. That is the difference between a rule a person reads and\none a consumer can act on: it says *which* boundary, and if that boundary is spatial its\nvalue is a GeoSPARQL geometry.\n",
+      "snippets": [
+        {
+          "language": "json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_1_1.json",
+          "sizeBytes": 196,
+          "code": "{\n  \"appliesTo\": [\"growth-model\"],\n  \"when\": [{ \"constraint\": \"ecological-range\", \"test\": \"outside\" }],\n  \"actions\": [\"retrain\", \"replace-with-alternative-published-model\"],\n  \"mandatory\": true\n}\n"
+        },
+        {
+          "language": "jsonld",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_1_1.jsonld",
+          "sizeBytes": 359,
+          "code": "{\n  \"@context\": \"https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld\",\n  \"appliesTo\": [\n    \"growth-model\"\n  ],\n  \"when\": [\n    {\n      \"constraint\": \"ecological-range\",\n      \"test\": \"outside\"\n    }\n  ],\n  \"actions\": [\n    \"retrain\",\n    \"replace-with-alternative-published-model\"\n  ],\n  \"mandatory\": true\n}"
+        },
+        {
+          "language": "ttl",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_1_1.ttl",
+          "sizeBytes": 677,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-alternative-published-model>,\n        <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;\n    focal-transf-prop:appliesTo <file:///github/workspace/growth-model> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/ecological-range> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .\n\n"
+        }
+      ]
+    },
+    {
+      "title": "One rule over several artifacts",
+      "content": "FP-WF2's four Czechia-specific reference artifacts share one boundary and one action, so\nthey share one rule. Previously this was the same condition copied four times with nothing\nrecording that they were the same fact.\n",
+      "snippets": [
+        {
+          "language": "json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_2_1.json",
+          "sizeBytes": 202,
+          "code": "{\n  \"appliesTo\": [\"tolerances\", \"slt-t5\", \"species-codes\", \"rasdaman\"],\n  \"when\": [{ \"constraint\": \"czechia\", \"test\": \"outside\" }],\n  \"actions\": [\"replace-with-local-equivalent\"],\n  \"mandatory\": true\n}\n"
+        },
+        {
+          "language": "jsonld",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_2_1.jsonld",
+          "sizeBytes": 373,
+          "code": "{\n  \"@context\": \"https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld\",\n  \"appliesTo\": [\n    \"tolerances\",\n    \"slt-t5\",\n    \"species-codes\",\n    \"rasdaman\"\n  ],\n  \"when\": [\n    {\n      \"constraint\": \"czechia\",\n      \"test\": \"outside\"\n    }\n  ],\n  \"actions\": [\n    \"replace-with-local-equivalent\"\n  ],\n  \"mandatory\": true\n}"
+        },
+        {
+          "language": "ttl",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_2_1.ttl",
+          "sizeBytes": 716,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;\n    focal-transf-prop:appliesTo <file:///github/workspace/rasdaman>,\n        <file:///github/workspace/slt-t5>,\n        <file:///github/workspace/species-codes>,\n        <file:///github/workspace/tolerances> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/czechia> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .\n\n"
+        }
+      ]
+    },
+    {
+      "title": "Conjunctive conditions (AND)",
+      "content": "Two conditions in one `when` mean both must hold. This is the case nesting rules under\nartifacts could not express: an artifact bounded on two axes at once, needing adaptation only\nwhen the target falls outside both.\n\nA disjunction is written as two rules instead. That is deliberate: two conditions leading to\nthe same action really are two statements, and keeping them separate keeps each traceable to\nthe sentence it came from, which a nested boolean expression does not.\n",
+      "snippets": [
+        {
+          "language": "json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_3_1.json",
+          "sizeBytes": 224,
+          "code": "{\n  \"appliesTo\": [\"lst\"],\n  \"when\": [\n    { \"constraint\": \"eur11-domain\", \"test\": \"outside\" },\n    { \"constraint\": \"eur11-grid\", \"test\": \"outside\" }\n  ],\n  \"actions\": [\"replace-with-local-equivalent\"],\n  \"mandatory\": true\n}\n"
+        },
+        {
+          "language": "jsonld",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_3_1.jsonld",
+          "sizeBytes": 391,
+          "code": "{\n  \"@context\": \"https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld\",\n  \"appliesTo\": [\n    \"lst\"\n  ],\n  \"when\": [\n    {\n      \"constraint\": \"eur11-domain\",\n      \"test\": \"outside\"\n    },\n    {\n      \"constraint\": \"eur11-grid\",\n      \"test\": \"outside\"\n    }\n  ],\n  \"actions\": [\n    \"replace-with-local-equivalent\"\n  ],\n  \"mandatory\": true\n}"
+        },
+        {
+          "language": "ttl",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_3_1.ttl",
+          "sizeBytes": 759,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;\n    focal-transf-prop:appliesTo <file:///github/workspace/lst> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/eur11-domain> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ],\n        [ focal-transf-prop:constraint <file:///github/workspace/eur11-grid> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .\n\n"
+        }
+      ]
+    },
+    {
+      "title": "The complementary case (inside), completing a cascade",
+      "content": "`inside` is what lets UP-WF2's three-way logic be stated without losing its connecting\ncondition. Reuse within the domain is this rule; substitute-or-fail outside it is a second\nrule over the same constraint. Previously the model had two flat rules and dropped the link\nbetween them.\n",
+      "snippets": [
+        {
+          "language": "json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_4_1.json",
+          "sizeBytes": 142,
+          "code": "{\n  \"appliesTo\": [\"lst\"],\n  \"when\": [{ \"constraint\": \"eur11-domain\", \"test\": \"inside\" }],\n  \"actions\": [\"reuse-as-is\"],\n  \"mandatory\": true\n}\n"
+        },
+        {
+          "language": "jsonld",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_4_1.jsonld",
+          "sizeBytes": 301,
+          "code": "{\n  \"@context\": \"https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld\",\n  \"appliesTo\": [\n    \"lst\"\n  ],\n  \"when\": [\n    {\n      \"constraint\": \"eur11-domain\",\n      \"test\": \"inside\"\n    }\n  ],\n  \"actions\": [\n    \"reuse-as-is\"\n  ],\n  \"mandatory\": true\n}"
+        },
+        {
+          "language": "ttl",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_4_1.ttl",
+          "sizeBytes": 557,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/reuse-as-is> ;\n    focal-transf-prop:appliesTo <file:///github/workspace/lst> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/eur11-domain> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] .\n\n"
+        }
+      ]
+    },
+    {
+      "title": "Non-mandatory rule (runs anyway, with degraded trust)",
+      "content": "FP-WF3's disturbance detection without local training labels. The workflow still produces\noutput, so this is not a hard requirement, but the output means something weaker.\n\n`mandatory: false` obliges `transferabilityNotes` to say what is lost; `shapes.shacl` rejects\nthe pairing without it, because a skippable rule with no stated consequence tells a consumer\nnothing they can act on.\n",
+      "snippets": [
+        {
+          "language": "json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_5_1.json",
+          "sizeBytes": 325,
+          "code": "{\n  \"appliesTo\": [\"labels\"],\n  \"when\": [{ \"constraint\": \"label-extent\", \"test\": \"outside\" }],\n  \"actions\": [\"retrain\"],\n  \"mandatory\": false,\n  \"transferabilityNotes\": \"Without local training labels, results should be treated as exploratory rather than blocked outright \u2014 a degraded-mode caveat, not a hard requirement.\"\n}\n"
+        },
+        {
+          "language": "jsonld",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_5_1.jsonld",
+          "sizeBytes": 487,
+          "code": "{\n  \"@context\": \"https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld\",\n  \"appliesTo\": [\n    \"labels\"\n  ],\n  \"when\": [\n    {\n      \"constraint\": \"label-extent\",\n      \"test\": \"outside\"\n    }\n  ],\n  \"actions\": [\n    \"retrain\"\n  ],\n  \"mandatory\": false,\n  \"transferabilityNotes\": \"Without local training labels, results should be treated as exploratory rather than blocked outright \\u2014 a degraded-mode caveat, not a hard requirement.\"\n}"
+        },
+        {
+          "language": "ttl",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_5_1.ttl",
+          "sizeBytes": 788,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] rdfs:comment \"Without local training labels, results should be treated as exploratory rather than blocked outright \u2014 a degraded-mode caveat, not a hard requirement.\" ;\n    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;\n    focal-transf-prop:appliesTo <file:///github/workspace/labels> ;\n    focal-transf-prop:mandatory false ;\n    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/label-extent> ;\n            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .\n\n"
+        }
+      ]
+    },
+    {
+      "title": "Coarse fallback when no constraint can be cited",
+      "content": "UP-WF2's planned Eurostat input is not implemented yet, so there is no envelope fact to point\nat. `triggeredBy` states the condition coarsely rather than forcing an invented boundary.\n\nAt least one of `when` or `triggeredBy` is required, so no rule is left with no stated\ncondition at all. Prefer `when` wherever a constraint exists to cite.\n",
+      "snippets": [
+        {
+          "language": "json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_6_1.json",
+          "sizeBytes": 309,
+          "code": "{\n  \"appliesTo\": [\"eurostat\"],\n  \"triggeredBy\": \"different-geographic-coverage\",\n  \"actions\": [\"replace-with-local-equivalent\", \"component-not-executable\"],\n  \"mandatory\": true,\n  \"transferabilityNotes\": \"Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it.\"\n}\n"
+        },
+        {
+          "language": "jsonld",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_6_1.jsonld",
+          "sizeBytes": 448,
+          "code": "{\n  \"@context\": \"https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld\",\n  \"appliesTo\": [\n    \"eurostat\"\n  ],\n  \"triggeredBy\": \"different-geographic-coverage\",\n  \"actions\": [\n    \"replace-with-local-equivalent\",\n    \"component-not-executable\"\n  ],\n  \"mandatory\": true,\n  \"transferabilityNotes\": \"Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it.\"\n}"
+        },
+        {
+          "language": "ttl",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_6_1.ttl",
+          "sizeBytes": 775,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] rdfs:comment \"Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it.\" ;\n    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,\n        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;\n    focal-transf-prop:appliesTo <file:///github/workspace/eurostat> ;\n    focal-transf-prop:mandatory true ;\n    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> .\n\n"
+        }
+      ]
+    }
+  ],
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntitle: Transferability Rule\ndescription: \"What must happen, to which artifacts, under which envelope conditions.\\n-\n  `appliesTo` \\u2014 the artifacts this rule governs, by `id`. Omit it for a rule\n  about the workflow\\n  as a whole.\\n- `when` \\u2014 the conditions, each citing an\n  envelope constraint by `id` and how the target is\\n  tested against it (`inside`/`outside`).\n  **Conjunctive: all of them must hold.** A disjunction\\n  is written as two rules.\\n-\n  `actions` \\u2014 an **OR-set**: any one resolves the rule. Never a sequence, never\n  a combination to\\n  apply together.\\n- `mandatory` \\u2014 whether applying one is\n  required once the conditions hold.\\n**`when` is what makes a rule evaluable rather\n  than merely readable.** `triggeredBy: different-geographic-coverage` is a string\n  a person reads; `when: [{constraint: clms-coverage, test: outside}]` names the boundary,\n  and if that constraint's dimension is spatial its value is a `geo:asWKT` geometry,\n  so a GeoSPARQL engine can settle the question with `geof:sfWithin`. Where the cited\n  constraint is prose-valued (a comparable ecological range), the same structure records\n  a judgement a person still has to make \\u2014 which is honest about where automation\n  stops rather than pretending the whole model is machine-decidable.\\n`triggeredBy`\n  is kept, but optional: not every evidenced FOCAL case has a constraint precise enough\n  to cite, and forcing one would mean inventing boundaries. At least one of `when`\n  or `triggeredBy` is required, so no rule is left with no stated condition at all.\n  Prefer `when`.\\n\"\nallOf:\n- $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml\n- type: object\n  required:\n  - actions\n  anyOf:\n  - required:\n    - when\n  - required:\n    - triggeredBy\n  properties:\n    appliesTo:\n      type: array\n      minItems: 1\n      items:\n        type: string\n        pattern: ^[A-Za-z0-9][A-Za-z0-9_-]*$\n      description: \"Identifiers of the artifacts this rule governs, from the enclosing\n        statement's `artifacts`. Several artifacts may share one rule \\u2014 FP-WF2's\n        four Czechia-specific reference files do. Omit for a rule that applies to\n        the workflow as a whole.\\n\"\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/appliesTo\n      x-jsonld-type: '@id'\n      x-jsonld-container: '@set'\n    when:\n      type: array\n      minItems: 1\n      items:\n        $ref: '#/$defs/condition'\n      description: 'The conditions under which this rule fires, ANDed together. Two\n        conditions here mean both must hold; two rules mean either suffices.\n\n        '\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/when\n      x-jsonld-container: '@set'\n    triggeredBy:\n      type: string\n      examples:\n      - different-geographic-coverage\n      - different-ecological-range\n      - different-climate-regime\n      - different-dataset\n      description: \"A coarse statement of what fires this rule, for cases where no\n        envelope constraint can be cited precisely. Open vocabulary \\u2014 see bblocks://ogc.focal.transferability.vocab.\\n\"\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/triggeredBy\n      x-jsonld-type: '@id'\n      x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/triggers/\n    actions:\n      type: array\n      minItems: 1\n      items:\n        type: string\n        examples:\n        - reuse-as-is\n        - replace-with-local-equivalent\n        - retrain\n        - replace-with-alternative-published-model\n        - component-not-executable\n      description: \"One or more actions, any of which resolves the rule \\u2014 an\n        OR-set, not a required combination. No evidenced case needs two applied simultaneously.\\n\"\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/actions\n      x-jsonld-type: '@id'\n      x-jsonld-container: '@set'\n      x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/actions/\n    mandatory:\n      type: boolean\n      default: true\n      description: \"Whether applying one of `actions` is mandatory once the conditions\n        hold. Defaults to true. When false, skipping is allowed but degrades result\n        quality or trust rather than blocking execution \\u2014 say what degrades in\n        `transferabilityNotes`.\\nNamed `mandatory` rather than `required`: a data\n        property spelled like a JSON Schema keyword reads as the keyword, and this\n        one sits beside real `required` lists.\\n\"\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/mandatory\n$defs:\n  condition:\n    title: Envelope condition\n    type: object\n    required:\n    - constraint\n    - test\n    additionalProperties: false\n    properties:\n      constraint:\n        type: string\n        pattern: ^[A-Za-z0-9][A-Za-z0-9_-]*$\n        description: 'The `id` of an envelope constraint in the enclosing statement''s\n          `envelope`.\n\n          '\n        x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/constraint\n        x-jsonld-type: '@id'\n      test:\n        type: string\n        examples:\n        - outside\n        - inside\n        description: \"How the target is compared against that constraint. `outside`\n          is the condition under which almost every evidenced FOCAL rule fires; `inside`\n          states the complementary case, which is what lets a cascade be written without\n          losing its connecting condition \\u2014 UP-WF2's \\\"reuse within the domain,\n          otherwise substitute or fail\\\" is two rules over the same constraint. Open\n          vocabulary \\u2014 see bblocks://ogc.focal.transferability.vocab, where each\n          term also records how it is evaluated per dimension.\\n\"\n        x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/test\n        x-jsonld-type: '@id'\n        x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/tests/\nx-jsonld-prefixes:\n  focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/\n",
   "gitRepository": "https://github.com/ogcincubator/bblocks-focal",
   "gitPath": "_sources/transferability/rule"
 }

@@ -1,0 +1,10 @@
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-alternative-published-model>,
+        <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
+    focal-transf-prop:appliesTo <file:///github/workspace/growth-model> ;
+    focal-transf-prop:mandatory true ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/ecological-range> ;
+            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
+

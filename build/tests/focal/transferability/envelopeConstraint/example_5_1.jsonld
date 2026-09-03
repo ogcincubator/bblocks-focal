@@ -1,0 +1,7 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld",
+  "id": "ecological-range",
+  "role": "valid-for",
+  "dimension": "ecological",
+  "value": "a comparable ecological range"
+}

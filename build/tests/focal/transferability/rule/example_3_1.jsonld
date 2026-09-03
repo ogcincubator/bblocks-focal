@@ -1,0 +1,20 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld",
+  "appliesTo": [
+    "lst"
+  ],
+  "when": [
+    {
+      "constraint": "eur11-domain",
+      "test": "outside"
+    },
+    {
+      "constraint": "eur11-grid",
+      "test": "outside"
+    }
+  ],
+  "actions": [
+    "replace-with-local-equivalent"
+  ],
+  "mandatory": true
+}

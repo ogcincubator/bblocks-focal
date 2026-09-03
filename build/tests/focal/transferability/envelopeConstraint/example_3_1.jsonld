@@ -1,0 +1,10 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld",
+  "id": "epochs",
+  "role": "valid-for",
+  "dimension": "temporal",
+  "value": {
+    "startDate": "2022",
+    "endDate": "2025"
+  }
+}

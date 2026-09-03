@@ -10,85 +10,87 @@
   "transferability": {
     "envelope": [
       {
+        "id": "label-extent",
         "role": "trained-on",
         "dimension": "spatial",
         "value": {
-          "type": "Polygon",
-          "coordinates": [
-            [
-              [
-                12.09,
-                48.55
-              ],
-              [
-                18.87,
-                48.55
-              ],
-              [
-                18.87,
-                51.06
-              ],
-              [
-                12.09,
-                51.06
-              ],
-              [
-                12.09,
-                48.55
-              ]
-            ]
-          ]
-        }
+          "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"
+        },
+        "transferabilityNotes": "More speculative than FP-WF1's or FP-WF2's: no sentence in this questionnaire names a location for the historical disturbance labels. Czechia is used as a proxy because this is a Forest Pilot workflow, and its country bounding box as the value. Needs owner confirmation before being treated as fact."
       },
       {
+        "id": "phenological-regime",
         "role": "valid-for",
         "dimension": "ecological",
         "value": "a comparable phenological regime"
       }
     ],
-    "artifactRules": [
+    "artifacts": [
       {
+        "id": "labels",
         "artifact": "historical forest disturbance/damage labels (ground truth training data)",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.disturbance_labels",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "retrain"
-            ],
-            "required": false,
-            "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright \u2014 a degraded-mode caveat, not a hard requirement."
-          }
-        ]
+        "artifactRef": "/inputs/disturbance_labels"
       },
       {
+        "id": "eo-strategy",
         "artifact": "EO sensor selection, cloud masking, temporal compositing strategy",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.eo_compositing_strategy",
-        "rules": [
-          {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
-          }
-        ]
+        "artifactRef": "/inputs/eo_compositing_strategy"
       },
       {
+        "id": "phenology",
         "artifact": "regional phenology normalisation assumptions",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.phenology_normalization_assumptions",
-        "rules": [
+        "artifactRef": "/inputs/phenology_normalization_assumptions"
+      }
+    ],
+    "rules": [
+      {
+        "appliesTo": [
+          "labels"
+        ],
+        "when": [
           {
-            "triggeredBy": "different-ecological-range",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
+            "constraint": "label-extent",
+            "test": "outside"
           }
-        ]
+        ],
+        "actions": [
+          "retrain"
+        ],
+        "mandatory": false,
+        "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright \u2014 a degraded-mode caveat, not a hard requirement."
+      },
+      {
+        "appliesTo": [
+          "eo-strategy"
+        ],
+        "when": [
+          {
+            "constraint": "label-extent",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true
+      },
+      {
+        "appliesTo": [
+          "phenology"
+        ],
+        "when": [
+          {
+            "constraint": "phenological-regime",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true
       }
     ]
   },

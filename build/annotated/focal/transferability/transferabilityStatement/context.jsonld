@@ -2,6 +2,15 @@
   "@context": {
     "envelope": {
       "@context": {
+        "transferabilityNotes": "rdfs:comment",
+        "id": "@id",
+        "role": {
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/roles/"
+          },
+          "@id": "focal-transf-prop:role",
+          "@type": "@id"
+        },
         "dimension": {
           "@context": {
             "@base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/"
@@ -11,65 +20,95 @@
         },
         "value": {
           "@context": {
-            "coordinates": {
-              "@container": "@list",
-              "@id": "geojson:coordinates"
+            "asWKT": {
+              "@id": "geo:asWKT",
+              "@type": "geo:wktLiteral"
             },
-            "start": "focal-transf-prop:start",
-            "end": "focal-transf-prop:end",
-            "scenarioMarker": "focal-transf-prop:scenarioMarker"
+            "startDate": "dcat:startDate",
+            "endDate": "dcat:endDate",
+            "scenarioMarker": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/scenario-markers/"
+              },
+              "@id": "focal-transf-prop:scenarioMarker",
+              "@type": "@id"
+            }
           },
           "@id": "focal-transf-prop:value"
-        },
-        "role": {
-          "@context": {
-            "@base": "https://w3id.org/ogc/hosted/focal/transferability/roles/"
-          },
-          "@id": "focal-transf-prop:role",
-          "@type": "@id"
         }
       },
       "@id": "focal-transf-prop:envelope",
       "@container": "@set"
     },
-    "artifactRules": {
+    "artifacts": {
       "@context": {
-        "artifact": "focal-transf-prop:artifact",
-        "artifactRole": "focal-transf-prop:artifactRole",
-        "artifactRef": "focal-transf-prop:artifactRef",
-        "rules": {
+        "id": "@id",
+        "artifact": "dcterms:title",
+        "artifactRole": {
           "@context": {
-            "transferabilityNotes": "focal-transf-prop:transferabilityNotes",
-            "triggeredBy": {
-              "@context": {
-                "@base": "https://w3id.org/ogc/hosted/focal/transferability/triggers/"
-              },
-              "@id": "focal-transf-prop:triggeredBy",
-              "@type": "@id"
-            },
-            "actions": {
-              "@context": {
-                "@base": "https://w3id.org/ogc/hosted/focal/transferability/actions/"
-              },
-              "@id": "focal-transf-prop:actions",
-              "@type": "@id",
-              "@container": "@set"
-            },
-            "required": "focal-transf-prop:required"
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/"
           },
-          "@id": "focal-transf-prop:rules",
-          "@container": "@set"
-        }
+          "@id": "focal-transf-prop:artifactRole",
+          "@type": "@id"
+        },
+        "artifactRef": "focal-transf-prop:artifactRef",
+        "transferabilityNotes": "rdfs:comment"
       },
-      "@id": "focal-transf-prop:artifactRules",
+      "@id": "focal-transf-prop:artifacts",
       "@container": "@set"
     },
-    "Point": "geojson:Point",
-    "MultiPoint": "geojson:MultiPoint",
-    "Polygon": "geojson:Polygon",
-    "MultiPolygon": "geojson:MultiPolygon",
-    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
-    "geojson": "https://purl.org/geojson/vocab#",
+    "rules": {
+      "@context": {
+        "transferabilityNotes": "rdfs:comment",
+        "appliesTo": {
+          "@id": "focal-transf-prop:appliesTo",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "when": {
+          "@context": {
+            "constraint": {
+              "@id": "focal-transf-prop:constraint",
+              "@type": "@id"
+            },
+            "test": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/tests/"
+              },
+              "@id": "focal-transf-prop:test",
+              "@type": "@id"
+            }
+          },
+          "@id": "focal-transf-prop:when",
+          "@container": "@set"
+        },
+        "triggeredBy": {
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/triggers/"
+          },
+          "@id": "focal-transf-prop:triggeredBy",
+          "@type": "@id"
+        },
+        "actions": {
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/actions/"
+          },
+          "@id": "focal-transf-prop:actions",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "mandatory": "focal-transf-prop:mandatory"
+      },
+      "@id": "focal-transf-prop:rules",
+      "@container": "@set"
+    },
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "focal-transf-prop": "focal-transf:properties/",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "focal-transf": "https://w3id.org/ogc/hosted/focal/transferability/",
+    "prov": "http://www.w3.org/ns/prov#",
     "@version": 1.1
   }
 }

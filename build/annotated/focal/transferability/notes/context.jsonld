@@ -1,7 +1,7 @@
 {
   "@context": {
-    "transferabilityNotes": "focal-transf-prop:transferabilityNotes",
-    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "transferabilityNotes": "rdfs:comment",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "@version": 1.1
   }
 }

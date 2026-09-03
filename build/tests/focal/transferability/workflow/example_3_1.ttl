@@ -1,35 +1,52 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
-@prefix geojson: <https://purl.org/geojson/vocab#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<file:///github/workspace/eo-strategy> dcterms:title "EO sensor selection, cloud masking, temporal compositing strategy" ;
+    focal-transf-prop:artifactRef "/inputs/eo_compositing_strategy" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<file:///github/workspace/labels> dcterms:title "historical forest disturbance/damage labels (ground truth training data)" ;
+    focal-transf-prop:artifactRef "/inputs/disturbance_labels" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<file:///github/workspace/phenological-regime> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value "a comparable phenological regime" .
+
+<file:///github/workspace/phenology> dcterms:title "regional phenology normalisation assumptions" ;
+    focal-transf-prop:artifactRef "/inputs/phenology_normalization_assumptions" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<file:///github/workspace/label-extent> rdfs:comment "More speculative than FP-WF1's or FP-WF2's: no sentence in this questionnaire names a location for the historical disturbance labels. Czechia is used as a proxy because this is a Forest Pilot workflow, and its country bounding box as the value. Needs owner confirmation before being treated as fact." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
+    focal-transf-prop:value [ geo:asWKT "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"^^geo:wktLiteral ] .
 
 [] rdfs:label "FP-WF3 — Prediction of threatened stands" ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/statistical-ml> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/prototype> ;
-    focal-transf-prop:transferability [ focal-transf-prop:artifactRules [ focal-transf-prop:artifact "historical forest disturbance/damage labels (ground truth training data)" ;
-                    focal-transf-prop:artifactRef "inputs.disturbance_labels" ;
-                    focal-transf-prop:artifactRole "workflow-input" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
-                            focal-transf-prop:required false ;
-                            focal-transf-prop:transferabilityNotes "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement." ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
-                [ focal-transf-prop:artifact "EO sensor selection, cloud masking, temporal compositing strategy" ;
-                    focal-transf-prop:artifactRef "inputs.eo_compositing_strategy" ;
-                    focal-transf-prop:artifactRole "workflow-input" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                            focal-transf-prop:required true ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ],
-                [ focal-transf-prop:artifact "regional phenology normalisation assumptions" ;
-                    focal-transf-prop:artifactRef "inputs.phenology_normalization_assumptions" ;
-                    focal-transf-prop:artifactRole "workflow-input" ;
-                    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                            focal-transf-prop:required true ;
-                            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-ecological-range> ] ] ;
-            focal-transf-prop:envelope [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;
-                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
-                    focal-transf-prop:value "a comparable phenological regime" ],
-                [ focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
-                    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
-                    focal-transf-prop:value [ geojson:coordinates ( ( ( 1.209e+01 4.855e+01 ) ( 1.887e+01 4.855e+01 ) ( 1.887e+01 5.106e+01 ) ( 1.209e+01 5.106e+01 ) ( 1.209e+01 4.855e+01 ) ) ) ] ] ] .
+    focal-transf-prop:transferability [ focal-transf-prop:artifacts <file:///github/workspace/eo-strategy>,
+                <file:///github/workspace/labels>,
+                <file:///github/workspace/phenology> ;
+            focal-transf-prop:envelope <file:///github/workspace/label-extent>,
+                <file:///github/workspace/phenological-regime> ;
+            focal-transf-prop:rules [ rdfs:comment "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
+                    focal-transf-prop:appliesTo <file:///github/workspace/labels> ;
+                    focal-transf-prop:mandatory false ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/label-extent> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <file:///github/workspace/eo-strategy> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/label-extent> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <file:///github/workspace/phenology> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/phenological-regime> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
 

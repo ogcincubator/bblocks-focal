@@ -1,0 +1,15 @@
+{
+  "appliesTo": [
+    "lst"
+  ],
+  "when": [
+    {
+      "constraint": "eur11-domain",
+      "test": "inside"
+    }
+  ],
+  "actions": [
+    "reuse-as-is"
+  ],
+  "mandatory": true
+}

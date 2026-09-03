@@ -1,8 +1,8 @@
 {
-  "title": "Validation report for ogc.focal.transferability.vocab - FOCAL Transferability Vocabulary",
-  "bblockName": "FOCAL Transferability Vocabulary",
+  "title": "Validation report for ogc.focal.transferability.vocab - FOCAL Transferability Vocabulary and Model Ontology",
+  "bblockName": "FOCAL Transferability Vocabulary and Model Ontology",
   "bblockId": "ogc.focal.transferability.vocab",
-  "generated": "2026-09-03T12:19:49.934267+00:00",
+  "generated": "2026-09-03T16:01:12.699999+00:00",
   "result": true,
   "items": [],
   "globalErrors": {},

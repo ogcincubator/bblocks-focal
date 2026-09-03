@@ -1,0 +1,11 @@
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] rdfs:comment "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement." ;
+    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
+    focal-transf-prop:appliesTo <file:///github/workspace/labels> ;
+    focal-transf-prop:mandatory false ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/label-extent> ;
+            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
+

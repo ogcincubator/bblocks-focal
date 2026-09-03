@@ -1,16 +1,16 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Transferability Notes (mixin)",
-  "description": "Reusable mixin adding a free-text escape hatch for transferability facts that don't reduce cleanly to the controlled `transferabilityAction`/`triggeredBy` vocabulary (see bblocks://ogc.focal.transferability.vocab) \u2014 e.g. UP-WF2's \"the classification algorithm is more portable than its current input dataset.\" Mix in via `allOf` wherever such a note may apply (a rule, an envelope constraint, ...); not restricted to one attachment point.\n",
+  "description": "Reusable mixin adding a free-text escape hatch for transferability facts that don't reduce cleanly to the controlled vocabularies \u2014 e.g. UP-WF2's \"the classification algorithm is more portable than its current input dataset.\"\n**Uplifts to `rdfs:comment`**, not to a FOCAL-specific property: a human-readable note about a resource is exactly what `rdfs:comment` is for, every RDF consumer already renders it, and minting a FOCAL term for it would have bought nothing. This is the general rule across the model \u2014 a FOCAL term only where nothing published says the same thing.\nMixed in wherever such a note may apply: on bblocks://ogc.focal.transferability.envelopeConstraint (why a value is approximate or inferred) and on bblocks://ogc.focal.transferability.rule (what degrades when an optional action is skipped).\n",
   "type": "object",
   "properties": {
     "transferabilityNotes": {
       "type": "string",
-      "description": "Free-text elaboration of a transferability fact the controlled vocabulary can't capture, or of the consequence of an optional action being skipped (see transferability/rule's `required`).\n",
-      "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/transferabilityNotes"
+      "description": "Free-text elaboration of a transferability fact the controlled vocabularies can't capture. Uplifts to `rdfs:comment` on whatever it is attached to.\n",
+      "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#comment"
     }
   },
   "x-jsonld-prefixes": {
-    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/"
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
   }
 }

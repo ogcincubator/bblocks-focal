@@ -1,2 +1,2 @@
 path	@id	schema
-/transferabilityNotes	https://w3id.org/ogc/hosted/focal/transferability/properties/transferabilityNotes	/github/workspace/build/annotated/focal/transferability/notes/schema.yaml
+/transferabilityNotes	http://www.w3.org/2000/01/rdf-schema#comment	/github/workspace/build/annotated/focal/transferability/notes/schema.yaml

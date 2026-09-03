@@ -2,13 +2,637 @@
   "title": "Validation report for ogc.focal.transferability.rule - FOCAL Transferability Rule",
   "bblockName": "FOCAL Transferability Rule",
   "bblockId": "ogc.focal.transferability.rule",
-  "generated": "2026-09-03T12:19:49.941625+00:00",
+  "generated": "2026-09-03T16:01:13.321528+00:00",
   "result": true,
-  "items": [],
+  "items": [
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/focal/transferability/rule/example_1_1.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_1_1.json",
+        "exampleIndex": 1,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": true,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using example_1_1.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_1_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_1_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_1_1.ttl",
+              "size": 7,
+              "isError": false,
+              "message": "Output Turtle example_1_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:OptionalRuleHasConsequence": {
+                  "nodes": [
+                    "_:Na09c81dcc9ee43efb8d58d2a9de089ca"
+                  ]
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "_:Na09c81dcc9ee43efb8d58d2a9de089ca"
+                  ]
+                },
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": [
+                    "_:N5e5c0a83b075404ea5ec3a99b28ccbc0"
+                  ]
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": [
+                    "_:Na09c81dcc9ee43efb8d58d2a9de089ca"
+                  ]
+                },
+                "focal-shape:TransferabilityRule": {
+                  "nodes": [
+                    "_:Na09c81dcc9ee43efb8d58d2a9de089ca"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:Na09c81dcc9ee43efb8d58d2a9de089ca\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Na09c81dcc9ee43efb8d58d2a9de089ca\n - Shape focal-shape:EnvelopeCondition: _:N5e5c0a83b075404ea5ec3a99b28ccbc0\n - Shape focal-shape:RuleHasACondition: _:Na09c81dcc9ee43efb8d58d2a9de089ca\n - Shape focal-shape:TransferabilityRule: _:Na09c81dcc9ee43efb8d58d2a9de089ca\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/focal/transferability/rule/example_2_1.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_2_1.json",
+        "exampleIndex": 2,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": true,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using example_2_1.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_2_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_2_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_2_1.ttl",
+              "size": 9,
+              "isError": false,
+              "message": "Output Turtle example_2_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:OptionalRuleHasConsequence": {
+                  "nodes": [
+                    "_:Ne3f8fb1674724646a8a4a4fee13a2215"
+                  ]
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "_:Ne3f8fb1674724646a8a4a4fee13a2215"
+                  ]
+                },
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": [
+                    "_:N0924f086211548b785066859cf53e1a6"
+                  ]
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": [
+                    "_:Ne3f8fb1674724646a8a4a4fee13a2215"
+                  ]
+                },
+                "focal-shape:TransferabilityRule": {
+                  "nodes": [
+                    "_:Ne3f8fb1674724646a8a4a4fee13a2215"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:Ne3f8fb1674724646a8a4a4fee13a2215\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Ne3f8fb1674724646a8a4a4fee13a2215\n - Shape focal-shape:EnvelopeCondition: _:N0924f086211548b785066859cf53e1a6\n - Shape focal-shape:RuleHasACondition: _:Ne3f8fb1674724646a8a4a4fee13a2215\n - Shape focal-shape:TransferabilityRule: _:Ne3f8fb1674724646a8a4a4fee13a2215\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/focal/transferability/rule/example_3_1.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_3_1.json",
+        "exampleIndex": 3,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": true,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using example_3_1.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_3_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_3_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_3_1.ttl",
+              "size": 9,
+              "isError": false,
+              "message": "Output Turtle example_3_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:OptionalRuleHasConsequence": {
+                  "nodes": [
+                    "_:Nb3c4094bcc924c01923053a91bed929b"
+                  ]
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "_:Nb3c4094bcc924c01923053a91bed929b"
+                  ]
+                },
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": [
+                    "_:N655f863c0a764964b99c4c47b1857b03",
+                    "_:N633b8c0117a84d99a9cbb96403440ba6"
+                  ]
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": [
+                    "_:Nb3c4094bcc924c01923053a91bed929b"
+                  ]
+                },
+                "focal-shape:TransferabilityRule": {
+                  "nodes": [
+                    "_:Nb3c4094bcc924c01923053a91bed929b"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:Nb3c4094bcc924c01923053a91bed929b\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Nb3c4094bcc924c01923053a91bed929b\n - Shape focal-shape:EnvelopeCondition: _:N655f863c0a764964b99c4c47b1857b03,_:N633b8c0117a84d99a9cbb96403440ba6\n - Shape focal-shape:RuleHasACondition: _:Nb3c4094bcc924c01923053a91bed929b\n - Shape focal-shape:TransferabilityRule: _:Nb3c4094bcc924c01923053a91bed929b\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/focal/transferability/rule/example_4_1.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_4_1.json",
+        "exampleIndex": 4,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": true,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using example_4_1.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_4_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_4_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_4_1.ttl",
+              "size": 6,
+              "isError": false,
+              "message": "Output Turtle example_4_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:OptionalRuleHasConsequence": {
+                  "nodes": [
+                    "_:N1a962f9716e34258b3fdf72d1b71ab92"
+                  ]
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "_:N1a962f9716e34258b3fdf72d1b71ab92"
+                  ]
+                },
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": [
+                    "_:N36567707d9254582b3f599c2457e6859"
+                  ]
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": [
+                    "_:N1a962f9716e34258b3fdf72d1b71ab92"
+                  ]
+                },
+                "focal-shape:TransferabilityRule": {
+                  "nodes": [
+                    "_:N1a962f9716e34258b3fdf72d1b71ab92"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:N1a962f9716e34258b3fdf72d1b71ab92\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N1a962f9716e34258b3fdf72d1b71ab92\n - Shape focal-shape:EnvelopeCondition: _:N36567707d9254582b3f599c2457e6859\n - Shape focal-shape:RuleHasACondition: _:N1a962f9716e34258b3fdf72d1b71ab92\n - Shape focal-shape:TransferabilityRule: _:N1a962f9716e34258b3fdf72d1b71ab92\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/focal/transferability/rule/example_5_1.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_5_1.json",
+        "exampleIndex": 5,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": true,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using example_5_1.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_5_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_5_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_5_1.ttl",
+              "size": 7,
+              "isError": false,
+              "message": "Output Turtle example_5_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:OptionalRuleHasConsequence": {
+                  "nodes": [
+                    "_:Nefc961f2d594405a87288a1e079cc0b9"
+                  ]
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "_:Nefc961f2d594405a87288a1e079cc0b9"
+                  ]
+                },
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": [
+                    "_:N41fc8ce1998d4ef9a5fcbbb071382e9d"
+                  ]
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": [
+                    "_:Nefc961f2d594405a87288a1e079cc0b9"
+                  ]
+                },
+                "focal-shape:TransferabilityRule": {
+                  "nodes": [
+                    "_:Nefc961f2d594405a87288a1e079cc0b9"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:Nefc961f2d594405a87288a1e079cc0b9\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Nefc961f2d594405a87288a1e079cc0b9\n - Shape focal-shape:EnvelopeCondition: _:N41fc8ce1998d4ef9a5fcbbb071382e9d\n - Shape focal-shape:RuleHasACondition: _:Nefc961f2d594405a87288a1e079cc0b9\n - Shape focal-shape:TransferabilityRule: _:Nefc961f2d594405a87288a1e079cc0b9\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/focal/transferability/rule/example_6_1.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_6_1.json",
+        "exampleIndex": 6,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": true,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using example_6_1.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_6_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_6_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_6_1.ttl",
+              "size": 6,
+              "isError": false,
+              "message": "Output Turtle example_6_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:OptionalRuleHasConsequence": {
+                  "nodes": [
+                    "_:N99d62a7c114b4f63b84751f3125557d3"
+                  ]
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "_:N99d62a7c114b4f63b84751f3125557d3"
+                  ]
+                },
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": []
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": [
+                    "_:N99d62a7c114b4f63b84751f3125557d3"
+                  ]
+                },
+                "focal-shape:TransferabilityRule": {
+                  "nodes": [
+                    "_:N99d62a7c114b4f63b84751f3125557d3"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:N99d62a7c114b4f63b84751f3125557d3\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N99d62a7c114b4f63b84751f3125557d3\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:RuleHasACondition: _:N99d62a7c114b4f63b84751f3125557d3\n - Shape focal-shape:TransferabilityRule: _:N99d62a7c114b4f63b84751f3125557d3\n"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "globalErrors": {},
   "counts": {
-    "total": 0,
-    "passed": 0,
+    "total": 6,
+    "passed": 6,
     "failed": 0
   }
 }

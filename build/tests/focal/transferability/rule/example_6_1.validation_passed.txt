@@ -1,0 +1,29 @@
+Validation report for ogc.focal.transferability.rule - FOCAL Transferability Rule
+Generated 2026-09-03T16:01:13.321459+00:00
+=== Files ===
+Using example_6_1.json from examples
+JSON-LD context is present - uplifting
+Output JSON-LD example_6_1.jsonld created
+Output Turtle example_6_1.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+Validation passed
+=== End JSON Schema ===
+
+=== SHACL ===
+Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):
+ - /github/workspace/_sources/transferability/vocab/ontology.ttl
+Validation result for _sources/transferability/rule/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/rule/shapes.shacl:
+ - Shape focal-shape:OptionalRuleHasConsequence: _:N99d62a7c114b4f63b84751f3125557d3
+ - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N99d62a7c114b4f63b84751f3125557d3
+ - Shape focal-shape:EnvelopeCondition: *none*
+ - Shape focal-shape:RuleHasACondition: _:N99d62a7c114b4f63b84751f3125557d3
+ - Shape focal-shape:TransferabilityRule: _:N99d62a7c114b4f63b84751f3125557d3
+
+=== End SHACL ===
+

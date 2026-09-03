@@ -1,0 +1,6 @@
+{
+  "id": "eur11-grid",
+  "role": "can-run-on",
+  "dimension": "grid-structure",
+  "value": "inputs on a rotated-pole EUR-11 grid; a regular lat/lon grid requires resampling first"
+}

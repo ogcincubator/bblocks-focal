@@ -4,9 +4,9 @@ description: "A profile of a CWL Workflow (`ogc.cwl.v1_2_1.CWLWorkflow`) adding 
   machine-readable transferability facts, extracted from FOCAL's 8 pilot-workflow
   questionnaires:\n- `transferability` \u2014 the workflow's portability boundary,
   one\n  [`transferabilityStatement`](bblocks://ogc.focal.transferability.transferabilityStatement)\n
-  \ (its `envelope` and `artifactRules`). Required: every evidenced workflow states
-  one.\n- `computationType`, `maturityStatus` \u2014 the two workflow-level classification
-  mixins (see\n  [`computationType`](bblocks://ogc.focal.transferability.computationType)
+  \ (its `envelope`, `artifacts` and `rules`). Required: every evidenced workflow
+  states one.\n- `computationType`, `maturityStatus` \u2014 the two workflow-level
+  classification mixins (see\n  [`computationType`](bblocks://ogc.focal.transferability.computationType)
   and\n  [`maturityStatus`](bblocks://ogc.focal.transferability.maturityStatus) for
   which is optional\n  and which is required).\n- `qualityAnnotation` \u2014 a repeatable,
   optional workflow-level fact (see its own block for\n  evidence density and omission
@@ -25,9 +25,9 @@ allOf:
     transferability:
       $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/schema.yaml
       description: 'The workflow''s portability boundary: where its results are valid
-        (`envelope`) and what must happen to each reference/calibration artifact outside
-        it (`artifactRules`). See `transferabilityStatement` for both properties''
-        shapes.
+        (`envelope`) and which artifacts it depends on, and what must happen to each
+        outside it. See `transferabilityStatement` for the three lists and how they
+        reference each other.
 
         '
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/transferability

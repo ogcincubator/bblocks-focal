@@ -7,10 +7,13 @@
   "status": "under-development",
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "schema",
-  "version": "0.1",
+  "version": "0.2",
   "dateOfLastChange": "2026-09-03",
   "concept": [
     "https://w3id.org/ogc/hosted/focal/transferability/computation-types/scheme"
+  ],
+  "dependsOn": [
+    "ogc.focal.transferability.vocab"
   ],
   "tags": [
     "focal",
@@ -18,7 +21,11 @@
     "mixin"
   ],
   "group": "FOCAL Transferability",
-  "shaclShapes": {},
+  "shaclShapes": {
+    "ogc.focal.transferability.computationType": [
+      "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/computationType/shapes.shacl"
+    ]
+  },
   "ldContext": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/context.jsonld",
   "schema": {
     "application/yaml": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/schema.yaml",

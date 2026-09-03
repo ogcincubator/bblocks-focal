@@ -1,102 +1,103 @@
 $schema: https://json-schema.org/draft/2020-12/schema
 title: Transferability Envelope Constraint
-description: "A single statement describing part of a workflow's validity envelope:
-  which `role` this fact plays (what the workflow was trained on vs. what it's valid
-  for vs. what it can run on), which `dimension` it concerns (spatial, ecological,
-  climatic, jurisdictional, temporal, ... \u2014 an open vocabulary, seeded small
-  and expected to grow), and the `value` itself. Repeatable per workflow: FP-WF1 alone
-  needs three of these at once (trained-on/spatial, valid-for/ecological, can-run-on/climatic)
-  \u2014 role and dimension are independent axes, not a single enum choice, precisely
-  so a new constraint axis can be added later as a new vocabulary term rather than
-  a schema change.\n"
-type: object
-required:
-- role
-- dimension
-- value
-properties:
-  role:
-    type: string
-    examples:
-    - trained-on
-    - valid-for
-    - can-run-on
-    description: Which aspect of the envelope this statement describes.
-    x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/role
-    x-jsonld-type: '@id'
-    x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/roles/
-  dimension:
-    type: string
-    examples:
-    - spatial
-    - ecological
-    - climatic
-    - jurisdictional
-    - temporal
-    description: "Which axis of variation this statement constrains. Open vocabulary,
-      seeded deliberately small \u2014 expect WF-owner review to surface dimensions
-      not yet listed here.\n"
-    x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/dimension
-    x-jsonld-type: '@id'
-    x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/dimensions/
-  value:
-    description: "The constraint value itself, shaped by `dimension`:\n- `spatial`/`jurisdictional`
-      \u2014 a real geographic/administrative extent, since text throws\n  away exactly
-      the thing this envelope model exists to support: an automated check like\n  \"does
-      my AOI fall inside this workflow's `valid-for` area?\" cannot be answered against
-      a\n  free-text label. `value` **must** be a GeoJSON Geometry (RFC 7946 \xA73.1:
-      `Point`,\n  `MultiPoint`, `Polygon`, or `MultiPolygon` \u2014 the shapes evidenced
-      so far;\n  `LineString`/`MultiLineString`/`GeometryCollection` can be added
-      later if evidence needs\n  them), even an approximate one (e.g. UP-WF2's EURO-CORDEX
-      domain, rendered as its published\n  bounding box) \u2014 not just permitted,
-      since text is not a fallback for \"haven't looked up the\n  coordinates yet.\"
-      A workflow with a genuinely unlocatable `spatial`/`jurisdictional` fact\n  (no
-      resolvable source location at all) should omit that envelope entry, or use\n
-      \ `transferability/notes`' `transferabilityNotes` on a sibling fact to record
-      the caveat in\n  prose, rather than smuggling free text into `value`.\n- `temporal`
-      \u2014 the calendar span, or non-calendar scenario marker, results are valid
-      over.\n  `value` is either `{start, end}` (a plain calendar interval; granularity
-      is\n  workflow-specific \u2014 a date, a year, a multi-year period \u2014 and
-      not constrained here) or\n  `{scenarioMarker}` (a non-calendar, scenario-indexed
-      position, e.g. a Global Warming Level\n  label like `GWL+1.5`, for results that
-      genuinely aren't calendar-indexed \u2014 a warming level\n  is reached at different
-      years depending on emissions scenario/ensemble member). A workflow\n  with no
-      fixed window at all (e.g. an ongoing sensor observation) should omit the entry\n
-      \ rather than fabricate one.\n- `ecological`/`climatic` \u2014 the vocabulary's
-      other two seeded dimension terms, neither a\n  literal extent or interval \u2014
-      `value` stays plain `string`, since \"a comparable ecological\n  range\" doesn't
-      become more machine-readable by wrapping it in coordinates it doesn't have.\n-
-      Any dimension term outside all four above \u2014 the vocabulary is open, so
-      a term not yet\n  seeded here is still allowed \u2014 falls back to plain `string`
-      too, until evidence shows it\n  needs its own structured shape.\n\nFour `oneOf`
-      branches, not three: `ecological`/`climatic` get their own branch, listed by
-      name, distinct from the catch-all for a genuinely new, not-yet-seeded dimension
-      term \u2014 even though both branches currently validate `value` the same way
-      (`string`). Keeping them apart makes each currently-known dimension term traceable
-      to an explicit branch instead of only being defined by negation, and means that
-      if a future known term (`ecological`, say) turns out to need its own structured
-      `value` shape, it moves to a new named branch without disturbing what \"not
-      yet classified\" means for everything else.\nNo existing OGC Block carries a
-      bare GeoJSON Geometry union standalone: `ogc.geo.common.data_types.geojson`
-      (the main OGC register's stable GeoJSON block) only exposes this shape nested
-      inside a full `Feature` wrapper (`type`/`properties`/`geometry`), no `$defs`
-      fragment for just the geometry union \u2014 checked its actual schema, not assumed
-      \u2014 which is heavier than a constraint value needs and isn't `$ref`-able
-      as a bare fragment. This repo's own `forestStandFeature` hits the same wall
-      (wraps the full `ogc.geo.features.feature` Feature shape, not a bare geometry),
-      and no other register has one either. So, same posture as `qualityAnnotation`
-      binding straight to DQV with no wrapping OGC Block to depend on, this binds
-      directly to RFC 7946 rather than to a Feature-shaped block.\n"
-    x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/value
-    x-jsonld-extra-terms:
-      coordinates:
-        x-jsonld-container: '@list'
-        x-jsonld-id: https://purl.org/geojson/vocab#coordinates
-      start: https://w3id.org/ogc/hosted/focal/transferability/properties/start
-      end: https://w3id.org/ogc/hosted/focal/transferability/properties/end
-      scenarioMarker: https://w3id.org/ogc/hosted/focal/transferability/properties/scenarioMarker
+description: "A single statement bounding where a workflow's results are valid: which
+  `role` this fact plays (what the workflow was trained on vs. what its results are
+  valid for vs. where it can technically run), which `dimension` it concerns (spatial,
+  temporal, ecological, climatic, jurisdictional, grid-structure, ... \u2014 an open
+  vocabulary), and the `value` itself.\nRepeatable, and `id`-addressable: rules cite
+  a constraint by `id` to say which boundary they are evaluated against, so a workflow
+  with two different footprints can state which artifact each one governs. FP-WF1
+  needs three constraints at once (trained-on/spatial, valid-for/ecological, can-run-on/climatic),
+  which is why role and dimension are independent axes rather than a single enum choice.\n**Values
+  bind to published vocabularies rather than to FOCAL terms wherever one exists**,
+  so a consumer that already understands GeoSPARQL or DCAT can evaluate the constraint
+  without knowing anything about FOCAL: a spatial extent is a `geo:Geometry` carrying
+  `geo:asWKT`, a calendar span is a `dcterms:PeriodOfTime` carrying `dcat:startDate`/`dcat:endDate`.
+  That is what makes \"can I run this workflow over my area of interest?\" a query
+  a GeoSPARQL engine can answer with `geof:sfWithin`, rather than a sentence a person
+  has to read.\n"
+allOf:
+- $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml
+- type: object
+  required:
+  - role
+  - dimension
+  - value
+  properties:
+    id:
+      type: string
+      pattern: ^[A-Za-z0-9][A-Za-z0-9_-]*$
+      description: 'Identifier for this constraint, unique within its transferability
+        statement, so a rule can cite it in `when[].constraint`. Optional only for
+        a constraint no rule refers to.
+
+        '
+      x-jsonld-id: '@id'
+    role:
+      type: string
+      examples:
+      - trained-on
+      - valid-for
+      - can-run-on
+      description: "Which aspect of the envelope this statement describes. Open vocabulary
+        \u2014 see bblocks://ogc.focal.transferability.vocab.\n"
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/role
+      x-jsonld-type: '@id'
+      x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/roles/
+    dimension:
+      type: string
+      examples:
+      - spatial
+      - temporal
+      - ecological
+      - climatic
+      - jurisdictional
+      - grid-structure
+      description: 'Which axis of variation this statement constrains, and therefore
+        what shape `value` takes. Open vocabulary, seeded from the eight FOCAL pilot
+        questionnaires and expected to grow; a new term needs no schema change unless
+        it also needs a new `value` shape.
+
+        '
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/dimension
+      x-jsonld-type: '@id'
+      x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/dimensions/
+    transferabilityNotes:
+      type: string
+      description: 'Why this value is what it is, where that is not self-evident:
+        an approximated geometry, a fact inferred rather than stated by the source,
+        a granularity the source left open. Uplifts to `rdfs:comment`. Mixed in from
+        bblocks://ogc.focal.transferability.notes.
+
+        '
+      x-jsonld-id: http://www.w3.org/2000/01/rdf-schema#comment
+    value:
+      description: "The constraint value, shaped by `dimension`:\n- `spatial`/`jurisdictional`
+        \u2014 a geometry, as `{\"asWKT\": \"POLYGON((...))\"}`. WKT rather\n  than
+        GeoJSON coordinate arrays: it uplifts to a real `geo:wktLiteral`, which is
+        the\n  form GeoSPARQL's topological functions actually operate on, it is one
+        value rather than\n  a nested array so nothing is lost or reshaped in uplift,
+        and it is dramatically more\n  compact (UP-WF2's European coverage MultiPolygon
+        costs a few hundred characters\n  instead of 1,283 lines of Turtle). An approximate
+        extent is expected and fine \u2014 a\n  published bounding box for a model
+        domain, say \u2014 but it must be a real extent, since a\n  free-text place
+        name cannot answer the containment question this dimension exists for.\n-
+        `temporal` \u2014 either `{\"startDate\", \"endDate\"}` (a calendar span,
+        uplifting to\n  `dcat:startDate`/`dcat:endDate` on a `dcterms:PeriodOfTime`)
+        or `{\"scenarioMarker\"}`\n  for results that are not calendar-indexed at
+        all. A Global Warming Level is the\n  evidenced case: it is reached in different
+        years under different emissions scenarios\n  and ensemble members, so a calendar
+        interval would be a fabrication rather than a\n  simplification. Markers are
+        concepts, not free text, so `GWL+1.5` written two ways by\n  two pilots is
+        one thing rather than two.\n- `ecological`/`climatic`/anything else \u2014
+        a plain string. \"A comparable ecological range\"\n  is not a place and does
+        not become machine-checkable by being wrapped in coordinates it\n  does not
+        have. A rule may still cite such a constraint; the condition is then a\n  judgement
+        a person makes, stated in the same structure, which is honest about where\n
+        \ automation stops.\n"
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/value
 oneOf:
-- title: Spatial/jurisdictional extent (geometry-valued)
+- title: Spatial or jurisdictional extent (geometry-valued)
   properties:
     dimension:
       enum:
@@ -106,12 +107,12 @@ oneOf:
       x-jsonld-type: '@id'
       x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/dimensions/
     value:
-      $ref: '#/$defs/geoJSONGeometry'
+      $ref: '#/$defs/geometry'
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/value
   required:
   - dimension
   - value
-- title: Temporal extent (interval- or marker-valued)
+- title: Temporal extent (period- or marker-valued)
   properties:
     dimension:
       enum:
@@ -121,28 +122,13 @@ oneOf:
       x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/dimensions/
     value:
       oneOf:
-      - $ref: '#/$defs/calendarInterval'
+      - $ref: '#/$defs/period'
       - $ref: '#/$defs/scenarioMarker'
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/value
   required:
   - dimension
   - value
-- title: Other seeded dimension (string-valued)
-  properties:
-    dimension:
-      enum:
-      - ecological
-      - climatic
-      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/dimension
-      x-jsonld-type: '@id'
-      x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/dimensions/
-    value:
-      type: string
-      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/value
-  required:
-  - dimension
-  - value
-- title: Not-yet-seeded dimension (string-valued, open vocabulary)
+- title: Any other dimension (string-valued)
   properties:
     dimension:
       not:
@@ -150,8 +136,6 @@ oneOf:
         - spatial
         - jurisdictional
         - temporal
-        - ecological
-        - climatic
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/dimension
       x-jsonld-type: '@id'
       x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/dimensions/
@@ -162,50 +146,57 @@ oneOf:
   - dimension
   - value
 $defs:
-  geoJSONGeometry:
-    title: GeoJSON Geometry
+  geometry:
+    title: Geometry
     type: object
     required:
-    - type
-    - coordinates
-    properties:
-      type:
-        type: string
-        enum:
-        - Point
-        - MultiPoint
-        - Polygon
-        - MultiPolygon
-        x-jsonld-id: '@type'
-      coordinates:
-        description: "Position array, nested per `type` as RFC 7946 \xA73.1 defines
-          it (e.g. a `Polygon`'s coordinates are an array of linear rings, each an
-          array of `[lon, lat]` positions). Left as `array` here rather than spelling
-          out all four `type`-specific shapes, since JSON Schema can't easily key
-          a nested shape off a sibling `enum` value without substantially more structure
-          than a small, evidence-seeded constraint value needs.\n"
-        type: array
-        x-jsonld-container: '@list'
-        x-jsonld-id: https://purl.org/geojson/vocab#coordinates
-  calendarInterval:
-    title: Calendar interval
-    type: object
-    required:
-    - start
-    - end
+    - asWKT
     additionalProperties: false
     properties:
-      start:
+      asWKT:
         type: string
-        description: 'Start of the interval. Granularity is workflow-specific (a date,
-          a year, a multi-year period) and not constrained here.
+        pattern: ^ *(<[^>]*> *)?(POINT|MULTIPOINT|LINESTRING|MULTILINESTRING|POLYGON|MULTIPOLYGON|GEOMETRYCOLLECTION)
+          *[ZM]{0,2} *\(
+        examples:
+        - POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))
+        - <http://www.opengis.net/def/crs/OGC/1.3/CRS84> POINT(14.42 50.09)
+        description: 'The extent as a WKT literal, uplifting to `geo:asWKT` with datatype
+          `geo:wktLiteral`. An optional leading CRS URI is permitted, per GeoSPARQL;
+          without one, CRS84 (longitude/latitude in degrees) is assumed, as GeoSPARQL
+          specifies.
 
           '
-        x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/start
-      end:
+        x-jsonld-id: http://www.opengis.net/ont/geosparql#asWKT
+        x-jsonld-type: http://www.opengis.net/ont/geosparql#wktLiteral
+  period:
+    title: Calendar period
+    type: object
+    required:
+    - startDate
+    - endDate
+    additionalProperties: false
+    properties:
+      startDate:
         type: string
-        description: End of the interval, same granularity as `start`.
-        x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/end
+        pattern: ^\d{4}(-\d{2}(-\d{2})?)?$
+        examples:
+        - '2022'
+        - 2022-06
+        - '2022-06-01'
+        description: 'Start of the period, as an ISO 8601 year, year-month, or date.
+          Granularity is workflow-specific and deliberately not fixed, but the format
+          is, so two periods stated at the same granularity compare correctly as plain
+          string ordering.
+
+          '
+        x-jsonld-id: http://www.w3.org/ns/dcat#startDate
+      endDate:
+        type: string
+        pattern: ^\d{4}(-\d{2}(-\d{2})?)?$
+        examples:
+        - '2025'
+        description: End of the period, in the same form as `startDate`.
+        x-jsonld-id: http://www.w3.org/ns/dcat#endDate
   scenarioMarker:
     title: Scenario-indexed marker
     type: object
@@ -216,18 +207,19 @@ $defs:
       scenarioMarker:
         type: string
         examples:
-        - GWL+1.5
-        - GWL+2.0
-        description: 'A non-calendar, scenario-indexed temporal position (e.g. a Global
-          Warming Level label) where no calendar interval can be stated.
+        - gwl-1.5
+        - gwl-2.0
+        description: 'A non-calendar, scenario-indexed temporal position, as a concept
+          from the FOCAL scenario-markers scheme (see bblocks://ogc.focal.transferability.vocab).
+          Open: other scenario indices may follow.
 
           '
         x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/scenarioMarker
-x-jsonld-extra-terms:
-  Point: https://purl.org/geojson/vocab#Point
-  MultiPoint: https://purl.org/geojson/vocab#MultiPoint
-  Polygon: https://purl.org/geojson/vocab#Polygon
-  MultiPolygon: https://purl.org/geojson/vocab#MultiPolygon
+        x-jsonld-type: '@id'
+        x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/scenario-markers/
 x-jsonld-prefixes:
   focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/
-  geojson: https://purl.org/geojson/vocab#
+  geo: http://www.opengis.net/ont/geosparql#
+  dcat: http://www.w3.org/ns/dcat#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  dcterms: http://purl.org/dc/terms/

@@ -1,16 +1,16 @@
 {
   "summary": {
     "total": 13,
-    "passed": 12,
-    "failed": 1,
-    "result": false
+    "passed": 13,
+    "failed": 0,
+    "result": true
   },
   "bblocks": {
     "ogc.focal.focal-ontology": {
       "title": "Validation report for ogc.focal.focal-ontology - FOCAL Ontology",
       "bblockName": "FOCAL Ontology",
       "bblockId": "ogc.focal.focal-ontology",
-      "generated": "2026-09-03T12:19:49.881389+00:00",
+      "generated": "2026-09-03T16:01:12.682415+00:00",
       "result": true,
       "items": [],
       "globalErrors": {},
@@ -24,7 +24,7 @@
       "title": "Validation report for ogc.focal.forestStandProperties - FOCAL Forest Stand Properties",
       "bblockName": "FOCAL Forest Stand Properties",
       "bblockId": "ogc.focal.forestStandProperties",
-      "generated": "2026-09-03T12:19:49.895395+00:00",
+      "generated": "2026-09-03T16:01:12.696021+00:00",
       "result": true,
       "items": [
         {
@@ -90,39 +90,11 @@
         "failed": 0
       }
     },
-    "ogc.focal.transferability.computationType": {
-      "title": "Validation report for ogc.focal.transferability.computationType - FOCAL Computation Type (mixin)",
-      "bblockName": "FOCAL Computation Type (mixin)",
-      "bblockId": "ogc.focal.transferability.computationType",
-      "generated": "2026-09-03T12:19:49.901928+00:00",
-      "result": true,
-      "items": [],
-      "globalErrors": {},
-      "counts": {
-        "total": 0,
-        "passed": 0,
-        "failed": 0
-      }
-    },
-    "ogc.focal.transferability.envelopeConstraint": {
-      "title": "Validation report for ogc.focal.transferability.envelopeConstraint - FOCAL Transferability Envelope Constraint",
-      "bblockName": "FOCAL Transferability Envelope Constraint",
-      "bblockId": "ogc.focal.transferability.envelopeConstraint",
-      "generated": "2026-09-03T12:19:49.914085+00:00",
-      "result": true,
-      "items": [],
-      "globalErrors": {},
-      "counts": {
-        "total": 0,
-        "passed": 0,
-        "failed": 0
-      }
-    },
-    "ogc.focal.transferability.maturityStatus": {
-      "title": "Validation report for ogc.focal.transferability.maturityStatus - FOCAL Workflow Maturity Status (mixin)",
-      "bblockName": "FOCAL Workflow Maturity Status (mixin)",
-      "bblockId": "ogc.focal.transferability.maturityStatus",
-      "generated": "2026-09-03T12:19:49.919760+00:00",
+    "ogc.focal.transferability.vocab": {
+      "title": "Validation report for ogc.focal.transferability.vocab - FOCAL Transferability Vocabulary and Model Ontology",
+      "bblockName": "FOCAL Transferability Vocabulary and Model Ontology",
+      "bblockId": "ogc.focal.transferability.vocab",
+      "generated": "2026-09-03T16:01:12.699999+00:00",
       "result": true,
       "items": [],
       "globalErrors": {},
@@ -136,7 +108,35 @@
       "title": "Validation report for ogc.focal.transferability.notes - FOCAL Transferability Notes (mixin)",
       "bblockName": "FOCAL Transferability Notes (mixin)",
       "bblockId": "ogc.focal.transferability.notes",
-      "generated": "2026-09-03T12:19:49.925026+00:00",
+      "generated": "2026-09-03T16:01:12.705310+00:00",
+      "result": true,
+      "items": [],
+      "globalErrors": {},
+      "counts": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0
+      }
+    },
+    "ogc.focal.transferability.computationType": {
+      "title": "Validation report for ogc.focal.transferability.computationType - FOCAL Computation Type (mixin)",
+      "bblockName": "FOCAL Computation Type (mixin)",
+      "bblockId": "ogc.focal.transferability.computationType",
+      "generated": "2026-09-03T16:01:12.711957+00:00",
+      "result": true,
+      "items": [],
+      "globalErrors": {},
+      "counts": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0
+      }
+    },
+    "ogc.focal.transferability.maturityStatus": {
+      "title": "Validation report for ogc.focal.transferability.maturityStatus - FOCAL Workflow Maturity Status (mixin)",
+      "bblockName": "FOCAL Workflow Maturity Status (mixin)",
+      "bblockId": "ogc.focal.transferability.maturityStatus",
+      "generated": "2026-09-03T16:01:12.718811+00:00",
       "result": true,
       "items": [],
       "globalErrors": {},
@@ -150,7 +150,7 @@
       "title": "Validation report for ogc.focal.transferability.qualityAnnotation - FOCAL Quality Annotation",
       "bblockName": "FOCAL Quality Annotation",
       "bblockId": "ogc.focal.transferability.qualityAnnotation",
-      "generated": "2026-09-03T12:19:49.931127+00:00",
+      "generated": "2026-09-03T16:01:12.726233+00:00",
       "result": true,
       "items": [],
       "globalErrors": {},
@@ -160,17 +160,642 @@
         "failed": 0
       }
     },
-    "ogc.focal.transferability.vocab": {
-      "title": "Validation report for ogc.focal.transferability.vocab - FOCAL Transferability Vocabulary",
-      "bblockName": "FOCAL Transferability Vocabulary",
-      "bblockId": "ogc.focal.transferability.vocab",
-      "generated": "2026-09-03T12:19:49.934267+00:00",
+    "ogc.focal.transferability.envelopeConstraint": {
+      "title": "Validation report for ogc.focal.transferability.envelopeConstraint - FOCAL Transferability Envelope Constraint",
+      "bblockName": "FOCAL Transferability Envelope Constraint",
+      "bblockId": "ogc.focal.transferability.envelopeConstraint",
+      "generated": "2026-09-03T16:01:13.094283+00:00",
       "result": true,
-      "items": [],
+      "items": [
+        {
+          "source": {
+            "type": "EXAMPLE",
+            "requireFail": false,
+            "filename": "build/tests/focal/transferability/envelopeConstraint/example_1_1.json",
+            "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_1_1.json",
+            "exampleIndex": 1,
+            "snippetIndex": 1,
+            "language": "application/json"
+          },
+          "result": true,
+          "sections": [
+            {
+              "name": "FILES",
+              "title": "Files",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using example_1_1.json from examples"
+                },
+                {
+                  "op": "jsonld-uplift",
+                  "isError": false,
+                  "message": "JSON-LD context is present - uplifting"
+                },
+                {
+                  "op": "jsonld-create",
+                  "filename": "example_1_1.jsonld",
+                  "isError": false,
+                  "message": "Output JSON-LD example_1_1.jsonld created"
+                },
+                {
+                  "op": "ttl-create",
+                  "empty": false,
+                  "filename": "example_1_1.ttl",
+                  "size": 5,
+                  "isError": false,
+                  "message": "Output Turtle example_1_1.ttl created"
+                }
+              ]
+            },
+            {
+              "name": "JSON_SCHEMA",
+              "title": "JSON Schema",
+              "entries": [
+                {
+                  "op": "validation",
+                  "result": true,
+                  "isError": false,
+                  "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:SpatialEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/czech-plots>"
+                      ]
+                    },
+                    "focal-shape:ScenarioMarkerIsAConcept": {
+                      "nodes": [
+                        "<file:///github/workspace/czech-plots>/focal-transf-prop:value"
+                      ]
+                    },
+                    "focal-shape:NonGeometricEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/czech-plots>"
+                      ]
+                    },
+                    "focal-shape:EnvelopeConstraint": {
+                      "nodes": [
+                        "<file:///github/workspace/czech-plots>"
+                      ]
+                    },
+                    "focal-shape:TemporalEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/czech-plots>"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/czech-plots>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/czech-plots>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/czech-plots>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/czech-plots>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/czech-plots>\n"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "source": {
+            "type": "EXAMPLE",
+            "requireFail": false,
+            "filename": "build/tests/focal/transferability/envelopeConstraint/example_2_1.json",
+            "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_2_1.json",
+            "exampleIndex": 2,
+            "snippetIndex": 1,
+            "language": "application/json"
+          },
+          "result": true,
+          "sections": [
+            {
+              "name": "FILES",
+              "title": "Files",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using example_2_1.json from examples"
+                },
+                {
+                  "op": "jsonld-uplift",
+                  "isError": false,
+                  "message": "JSON-LD context is present - uplifting"
+                },
+                {
+                  "op": "jsonld-create",
+                  "filename": "example_2_1.jsonld",
+                  "isError": false,
+                  "message": "Output JSON-LD example_2_1.jsonld created"
+                },
+                {
+                  "op": "ttl-create",
+                  "empty": false,
+                  "filename": "example_2_1.ttl",
+                  "size": 4,
+                  "isError": false,
+                  "message": "Output Turtle example_2_1.ttl created"
+                }
+              ]
+            },
+            {
+              "name": "JSON_SCHEMA",
+              "title": "JSON Schema",
+              "entries": [
+                {
+                  "op": "validation",
+                  "result": true,
+                  "isError": false,
+                  "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:SpatialEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/prague-point>"
+                      ]
+                    },
+                    "focal-shape:ScenarioMarkerIsAConcept": {
+                      "nodes": [
+                        "<file:///github/workspace/prague-point>/focal-transf-prop:value"
+                      ]
+                    },
+                    "focal-shape:NonGeometricEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/prague-point>"
+                      ]
+                    },
+                    "focal-shape:EnvelopeConstraint": {
+                      "nodes": [
+                        "<file:///github/workspace/prague-point>"
+                      ]
+                    },
+                    "focal-shape:TemporalEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/prague-point>"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/prague-point>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/prague-point>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/prague-point>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/prague-point>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/prague-point>\n"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "source": {
+            "type": "EXAMPLE",
+            "requireFail": false,
+            "filename": "build/tests/focal/transferability/envelopeConstraint/example_3_1.json",
+            "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_3_1.json",
+            "exampleIndex": 3,
+            "snippetIndex": 1,
+            "language": "application/json"
+          },
+          "result": true,
+          "sections": [
+            {
+              "name": "FILES",
+              "title": "Files",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using example_3_1.json from examples"
+                },
+                {
+                  "op": "jsonld-uplift",
+                  "isError": false,
+                  "message": "JSON-LD context is present - uplifting"
+                },
+                {
+                  "op": "jsonld-create",
+                  "filename": "example_3_1.jsonld",
+                  "isError": false,
+                  "message": "Output JSON-LD example_3_1.jsonld created"
+                },
+                {
+                  "op": "ttl-create",
+                  "empty": false,
+                  "filename": "example_3_1.ttl",
+                  "size": 5,
+                  "isError": false,
+                  "message": "Output Turtle example_3_1.ttl created"
+                }
+              ]
+            },
+            {
+              "name": "JSON_SCHEMA",
+              "title": "JSON Schema",
+              "entries": [
+                {
+                  "op": "validation",
+                  "result": true,
+                  "isError": false,
+                  "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:SpatialEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/epochs>"
+                      ]
+                    },
+                    "focal-shape:ScenarioMarkerIsAConcept": {
+                      "nodes": [
+                        "<file:///github/workspace/epochs>/focal-transf-prop:value"
+                      ]
+                    },
+                    "focal-shape:NonGeometricEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/epochs>"
+                      ]
+                    },
+                    "focal-shape:EnvelopeConstraint": {
+                      "nodes": [
+                        "<file:///github/workspace/epochs>"
+                      ]
+                    },
+                    "focal-shape:TemporalEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/epochs>"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/epochs>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/epochs>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/epochs>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/epochs>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/epochs>\n"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "source": {
+            "type": "EXAMPLE",
+            "requireFail": false,
+            "filename": "build/tests/focal/transferability/envelopeConstraint/example_4_1.json",
+            "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_4_1.json",
+            "exampleIndex": 4,
+            "snippetIndex": 1,
+            "language": "application/json"
+          },
+          "result": true,
+          "sections": [
+            {
+              "name": "FILES",
+              "title": "Files",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using example_4_1.json from examples"
+                },
+                {
+                  "op": "jsonld-uplift",
+                  "isError": false,
+                  "message": "JSON-LD context is present - uplifting"
+                },
+                {
+                  "op": "jsonld-create",
+                  "filename": "example_4_1.jsonld",
+                  "isError": false,
+                  "message": "Output JSON-LD example_4_1.jsonld created"
+                },
+                {
+                  "op": "ttl-create",
+                  "empty": false,
+                  "filename": "example_4_1.ttl",
+                  "size": 4,
+                  "isError": false,
+                  "message": "Output Turtle example_4_1.ttl created"
+                }
+              ]
+            },
+            {
+              "name": "JSON_SCHEMA",
+              "title": "JSON Schema",
+              "entries": [
+                {
+                  "op": "validation",
+                  "result": true,
+                  "isError": false,
+                  "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:SpatialEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/gwl-15>"
+                      ]
+                    },
+                    "focal-shape:ScenarioMarkerIsAConcept": {
+                      "nodes": [
+                        "<file:///github/workspace/gwl-15>/focal-transf-prop:value"
+                      ]
+                    },
+                    "focal-shape:NonGeometricEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/gwl-15>"
+                      ]
+                    },
+                    "focal-shape:EnvelopeConstraint": {
+                      "nodes": [
+                        "<file:///github/workspace/gwl-15>"
+                      ]
+                    },
+                    "focal-shape:TemporalEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/gwl-15>"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/gwl-15>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/gwl-15>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/gwl-15>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/gwl-15>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/gwl-15>\n"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "source": {
+            "type": "EXAMPLE",
+            "requireFail": false,
+            "filename": "build/tests/focal/transferability/envelopeConstraint/example_5_1.json",
+            "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_5_1.json",
+            "exampleIndex": 5,
+            "snippetIndex": 1,
+            "language": "application/json"
+          },
+          "result": true,
+          "sections": [
+            {
+              "name": "FILES",
+              "title": "Files",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using example_5_1.json from examples"
+                },
+                {
+                  "op": "jsonld-uplift",
+                  "isError": false,
+                  "message": "JSON-LD context is present - uplifting"
+                },
+                {
+                  "op": "jsonld-create",
+                  "filename": "example_5_1.jsonld",
+                  "isError": false,
+                  "message": "Output JSON-LD example_5_1.jsonld created"
+                },
+                {
+                  "op": "ttl-create",
+                  "empty": false,
+                  "filename": "example_5_1.ttl",
+                  "size": 3,
+                  "isError": false,
+                  "message": "Output Turtle example_5_1.ttl created"
+                }
+              ]
+            },
+            {
+              "name": "JSON_SCHEMA",
+              "title": "JSON Schema",
+              "entries": [
+                {
+                  "op": "validation",
+                  "result": true,
+                  "isError": false,
+                  "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:SpatialEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/ecological-range>"
+                      ]
+                    },
+                    "focal-shape:ScenarioMarkerIsAConcept": {
+                      "nodes": [
+                        "<file:///github/workspace/ecological-range>/focal-transf-prop:value"
+                      ]
+                    },
+                    "focal-shape:NonGeometricEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/ecological-range>"
+                      ]
+                    },
+                    "focal-shape:EnvelopeConstraint": {
+                      "nodes": [
+                        "<file:///github/workspace/ecological-range>"
+                      ]
+                    },
+                    "focal-shape:TemporalEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/ecological-range>"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/ecological-range>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/ecological-range>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/ecological-range>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/ecological-range>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/ecological-range>\n"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "source": {
+            "type": "EXAMPLE",
+            "requireFail": false,
+            "filename": "build/tests/focal/transferability/envelopeConstraint/example_6_1.json",
+            "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_6_1.json",
+            "exampleIndex": 6,
+            "snippetIndex": 1,
+            "language": "application/json"
+          },
+          "result": true,
+          "sections": [
+            {
+              "name": "FILES",
+              "title": "Files",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using example_6_1.json from examples"
+                },
+                {
+                  "op": "jsonld-uplift",
+                  "isError": false,
+                  "message": "JSON-LD context is present - uplifting"
+                },
+                {
+                  "op": "jsonld-create",
+                  "filename": "example_6_1.jsonld",
+                  "isError": false,
+                  "message": "Output JSON-LD example_6_1.jsonld created"
+                },
+                {
+                  "op": "ttl-create",
+                  "empty": false,
+                  "filename": "example_6_1.ttl",
+                  "size": 3,
+                  "isError": false,
+                  "message": "Output Turtle example_6_1.ttl created"
+                }
+              ]
+            },
+            {
+              "name": "JSON_SCHEMA",
+              "title": "JSON Schema",
+              "entries": [
+                {
+                  "op": "validation",
+                  "result": true,
+                  "isError": false,
+                  "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:SpatialEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/eur11-grid>"
+                      ]
+                    },
+                    "focal-shape:ScenarioMarkerIsAConcept": {
+                      "nodes": [
+                        "<file:///github/workspace/eur11-grid>/focal-transf-prop:value"
+                      ]
+                    },
+                    "focal-shape:NonGeometricEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/eur11-grid>"
+                      ]
+                    },
+                    "focal-shape:EnvelopeConstraint": {
+                      "nodes": [
+                        "<file:///github/workspace/eur11-grid>"
+                      ]
+                    },
+                    "focal-shape:TemporalEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/eur11-grid>"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/eur11-grid>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/eur11-grid>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/eur11-grid>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/eur11-grid>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/eur11-grid>\n"
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "globalErrors": {},
       "counts": {
-        "total": 0,
-        "passed": 0,
+        "total": 6,
+        "passed": 6,
         "failed": 0
       }
     },
@@ -178,13 +803,637 @@
       "title": "Validation report for ogc.focal.transferability.rule - FOCAL Transferability Rule",
       "bblockName": "FOCAL Transferability Rule",
       "bblockId": "ogc.focal.transferability.rule",
-      "generated": "2026-09-03T12:19:49.941625+00:00",
+      "generated": "2026-09-03T16:01:13.321528+00:00",
       "result": true,
-      "items": [],
+      "items": [
+        {
+          "source": {
+            "type": "EXAMPLE",
+            "requireFail": false,
+            "filename": "build/tests/focal/transferability/rule/example_1_1.json",
+            "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_1_1.json",
+            "exampleIndex": 1,
+            "snippetIndex": 1,
+            "language": "application/json"
+          },
+          "result": true,
+          "sections": [
+            {
+              "name": "FILES",
+              "title": "Files",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using example_1_1.json from examples"
+                },
+                {
+                  "op": "jsonld-uplift",
+                  "isError": false,
+                  "message": "JSON-LD context is present - uplifting"
+                },
+                {
+                  "op": "jsonld-create",
+                  "filename": "example_1_1.jsonld",
+                  "isError": false,
+                  "message": "Output JSON-LD example_1_1.jsonld created"
+                },
+                {
+                  "op": "ttl-create",
+                  "empty": false,
+                  "filename": "example_1_1.ttl",
+                  "size": 7,
+                  "isError": false,
+                  "message": "Output Turtle example_1_1.ttl created"
+                }
+              ]
+            },
+            {
+              "name": "JSON_SCHEMA",
+              "title": "JSON Schema",
+              "entries": [
+                {
+                  "op": "validation",
+                  "result": true,
+                  "isError": false,
+                  "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:OptionalRuleHasConsequence": {
+                      "nodes": [
+                        "_:Na09c81dcc9ee43efb8d58d2a9de089ca"
+                      ]
+                    },
+                    "focal-shape:TerminalActionNotAlongsideReuse": {
+                      "nodes": [
+                        "_:Na09c81dcc9ee43efb8d58d2a9de089ca"
+                      ]
+                    },
+                    "focal-shape:EnvelopeCondition": {
+                      "nodes": [
+                        "_:N5e5c0a83b075404ea5ec3a99b28ccbc0"
+                      ]
+                    },
+                    "focal-shape:RuleHasACondition": {
+                      "nodes": [
+                        "_:Na09c81dcc9ee43efb8d58d2a9de089ca"
+                      ]
+                    },
+                    "focal-shape:TransferabilityRule": {
+                      "nodes": [
+                        "_:Na09c81dcc9ee43efb8d58d2a9de089ca"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:Na09c81dcc9ee43efb8d58d2a9de089ca\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Na09c81dcc9ee43efb8d58d2a9de089ca\n - Shape focal-shape:EnvelopeCondition: _:N5e5c0a83b075404ea5ec3a99b28ccbc0\n - Shape focal-shape:RuleHasACondition: _:Na09c81dcc9ee43efb8d58d2a9de089ca\n - Shape focal-shape:TransferabilityRule: _:Na09c81dcc9ee43efb8d58d2a9de089ca\n"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "source": {
+            "type": "EXAMPLE",
+            "requireFail": false,
+            "filename": "build/tests/focal/transferability/rule/example_2_1.json",
+            "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_2_1.json",
+            "exampleIndex": 2,
+            "snippetIndex": 1,
+            "language": "application/json"
+          },
+          "result": true,
+          "sections": [
+            {
+              "name": "FILES",
+              "title": "Files",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using example_2_1.json from examples"
+                },
+                {
+                  "op": "jsonld-uplift",
+                  "isError": false,
+                  "message": "JSON-LD context is present - uplifting"
+                },
+                {
+                  "op": "jsonld-create",
+                  "filename": "example_2_1.jsonld",
+                  "isError": false,
+                  "message": "Output JSON-LD example_2_1.jsonld created"
+                },
+                {
+                  "op": "ttl-create",
+                  "empty": false,
+                  "filename": "example_2_1.ttl",
+                  "size": 9,
+                  "isError": false,
+                  "message": "Output Turtle example_2_1.ttl created"
+                }
+              ]
+            },
+            {
+              "name": "JSON_SCHEMA",
+              "title": "JSON Schema",
+              "entries": [
+                {
+                  "op": "validation",
+                  "result": true,
+                  "isError": false,
+                  "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:OptionalRuleHasConsequence": {
+                      "nodes": [
+                        "_:Ne3f8fb1674724646a8a4a4fee13a2215"
+                      ]
+                    },
+                    "focal-shape:TerminalActionNotAlongsideReuse": {
+                      "nodes": [
+                        "_:Ne3f8fb1674724646a8a4a4fee13a2215"
+                      ]
+                    },
+                    "focal-shape:EnvelopeCondition": {
+                      "nodes": [
+                        "_:N0924f086211548b785066859cf53e1a6"
+                      ]
+                    },
+                    "focal-shape:RuleHasACondition": {
+                      "nodes": [
+                        "_:Ne3f8fb1674724646a8a4a4fee13a2215"
+                      ]
+                    },
+                    "focal-shape:TransferabilityRule": {
+                      "nodes": [
+                        "_:Ne3f8fb1674724646a8a4a4fee13a2215"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:Ne3f8fb1674724646a8a4a4fee13a2215\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Ne3f8fb1674724646a8a4a4fee13a2215\n - Shape focal-shape:EnvelopeCondition: _:N0924f086211548b785066859cf53e1a6\n - Shape focal-shape:RuleHasACondition: _:Ne3f8fb1674724646a8a4a4fee13a2215\n - Shape focal-shape:TransferabilityRule: _:Ne3f8fb1674724646a8a4a4fee13a2215\n"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "source": {
+            "type": "EXAMPLE",
+            "requireFail": false,
+            "filename": "build/tests/focal/transferability/rule/example_3_1.json",
+            "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_3_1.json",
+            "exampleIndex": 3,
+            "snippetIndex": 1,
+            "language": "application/json"
+          },
+          "result": true,
+          "sections": [
+            {
+              "name": "FILES",
+              "title": "Files",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using example_3_1.json from examples"
+                },
+                {
+                  "op": "jsonld-uplift",
+                  "isError": false,
+                  "message": "JSON-LD context is present - uplifting"
+                },
+                {
+                  "op": "jsonld-create",
+                  "filename": "example_3_1.jsonld",
+                  "isError": false,
+                  "message": "Output JSON-LD example_3_1.jsonld created"
+                },
+                {
+                  "op": "ttl-create",
+                  "empty": false,
+                  "filename": "example_3_1.ttl",
+                  "size": 9,
+                  "isError": false,
+                  "message": "Output Turtle example_3_1.ttl created"
+                }
+              ]
+            },
+            {
+              "name": "JSON_SCHEMA",
+              "title": "JSON Schema",
+              "entries": [
+                {
+                  "op": "validation",
+                  "result": true,
+                  "isError": false,
+                  "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:OptionalRuleHasConsequence": {
+                      "nodes": [
+                        "_:Nb3c4094bcc924c01923053a91bed929b"
+                      ]
+                    },
+                    "focal-shape:TerminalActionNotAlongsideReuse": {
+                      "nodes": [
+                        "_:Nb3c4094bcc924c01923053a91bed929b"
+                      ]
+                    },
+                    "focal-shape:EnvelopeCondition": {
+                      "nodes": [
+                        "_:N655f863c0a764964b99c4c47b1857b03",
+                        "_:N633b8c0117a84d99a9cbb96403440ba6"
+                      ]
+                    },
+                    "focal-shape:RuleHasACondition": {
+                      "nodes": [
+                        "_:Nb3c4094bcc924c01923053a91bed929b"
+                      ]
+                    },
+                    "focal-shape:TransferabilityRule": {
+                      "nodes": [
+                        "_:Nb3c4094bcc924c01923053a91bed929b"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:Nb3c4094bcc924c01923053a91bed929b\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Nb3c4094bcc924c01923053a91bed929b\n - Shape focal-shape:EnvelopeCondition: _:N655f863c0a764964b99c4c47b1857b03,_:N633b8c0117a84d99a9cbb96403440ba6\n - Shape focal-shape:RuleHasACondition: _:Nb3c4094bcc924c01923053a91bed929b\n - Shape focal-shape:TransferabilityRule: _:Nb3c4094bcc924c01923053a91bed929b\n"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "source": {
+            "type": "EXAMPLE",
+            "requireFail": false,
+            "filename": "build/tests/focal/transferability/rule/example_4_1.json",
+            "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_4_1.json",
+            "exampleIndex": 4,
+            "snippetIndex": 1,
+            "language": "application/json"
+          },
+          "result": true,
+          "sections": [
+            {
+              "name": "FILES",
+              "title": "Files",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using example_4_1.json from examples"
+                },
+                {
+                  "op": "jsonld-uplift",
+                  "isError": false,
+                  "message": "JSON-LD context is present - uplifting"
+                },
+                {
+                  "op": "jsonld-create",
+                  "filename": "example_4_1.jsonld",
+                  "isError": false,
+                  "message": "Output JSON-LD example_4_1.jsonld created"
+                },
+                {
+                  "op": "ttl-create",
+                  "empty": false,
+                  "filename": "example_4_1.ttl",
+                  "size": 6,
+                  "isError": false,
+                  "message": "Output Turtle example_4_1.ttl created"
+                }
+              ]
+            },
+            {
+              "name": "JSON_SCHEMA",
+              "title": "JSON Schema",
+              "entries": [
+                {
+                  "op": "validation",
+                  "result": true,
+                  "isError": false,
+                  "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:OptionalRuleHasConsequence": {
+                      "nodes": [
+                        "_:N1a962f9716e34258b3fdf72d1b71ab92"
+                      ]
+                    },
+                    "focal-shape:TerminalActionNotAlongsideReuse": {
+                      "nodes": [
+                        "_:N1a962f9716e34258b3fdf72d1b71ab92"
+                      ]
+                    },
+                    "focal-shape:EnvelopeCondition": {
+                      "nodes": [
+                        "_:N36567707d9254582b3f599c2457e6859"
+                      ]
+                    },
+                    "focal-shape:RuleHasACondition": {
+                      "nodes": [
+                        "_:N1a962f9716e34258b3fdf72d1b71ab92"
+                      ]
+                    },
+                    "focal-shape:TransferabilityRule": {
+                      "nodes": [
+                        "_:N1a962f9716e34258b3fdf72d1b71ab92"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:N1a962f9716e34258b3fdf72d1b71ab92\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N1a962f9716e34258b3fdf72d1b71ab92\n - Shape focal-shape:EnvelopeCondition: _:N36567707d9254582b3f599c2457e6859\n - Shape focal-shape:RuleHasACondition: _:N1a962f9716e34258b3fdf72d1b71ab92\n - Shape focal-shape:TransferabilityRule: _:N1a962f9716e34258b3fdf72d1b71ab92\n"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "source": {
+            "type": "EXAMPLE",
+            "requireFail": false,
+            "filename": "build/tests/focal/transferability/rule/example_5_1.json",
+            "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_5_1.json",
+            "exampleIndex": 5,
+            "snippetIndex": 1,
+            "language": "application/json"
+          },
+          "result": true,
+          "sections": [
+            {
+              "name": "FILES",
+              "title": "Files",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using example_5_1.json from examples"
+                },
+                {
+                  "op": "jsonld-uplift",
+                  "isError": false,
+                  "message": "JSON-LD context is present - uplifting"
+                },
+                {
+                  "op": "jsonld-create",
+                  "filename": "example_5_1.jsonld",
+                  "isError": false,
+                  "message": "Output JSON-LD example_5_1.jsonld created"
+                },
+                {
+                  "op": "ttl-create",
+                  "empty": false,
+                  "filename": "example_5_1.ttl",
+                  "size": 7,
+                  "isError": false,
+                  "message": "Output Turtle example_5_1.ttl created"
+                }
+              ]
+            },
+            {
+              "name": "JSON_SCHEMA",
+              "title": "JSON Schema",
+              "entries": [
+                {
+                  "op": "validation",
+                  "result": true,
+                  "isError": false,
+                  "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:OptionalRuleHasConsequence": {
+                      "nodes": [
+                        "_:Nefc961f2d594405a87288a1e079cc0b9"
+                      ]
+                    },
+                    "focal-shape:TerminalActionNotAlongsideReuse": {
+                      "nodes": [
+                        "_:Nefc961f2d594405a87288a1e079cc0b9"
+                      ]
+                    },
+                    "focal-shape:EnvelopeCondition": {
+                      "nodes": [
+                        "_:N41fc8ce1998d4ef9a5fcbbb071382e9d"
+                      ]
+                    },
+                    "focal-shape:RuleHasACondition": {
+                      "nodes": [
+                        "_:Nefc961f2d594405a87288a1e079cc0b9"
+                      ]
+                    },
+                    "focal-shape:TransferabilityRule": {
+                      "nodes": [
+                        "_:Nefc961f2d594405a87288a1e079cc0b9"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:Nefc961f2d594405a87288a1e079cc0b9\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Nefc961f2d594405a87288a1e079cc0b9\n - Shape focal-shape:EnvelopeCondition: _:N41fc8ce1998d4ef9a5fcbbb071382e9d\n - Shape focal-shape:RuleHasACondition: _:Nefc961f2d594405a87288a1e079cc0b9\n - Shape focal-shape:TransferabilityRule: _:Nefc961f2d594405a87288a1e079cc0b9\n"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "source": {
+            "type": "EXAMPLE",
+            "requireFail": false,
+            "filename": "build/tests/focal/transferability/rule/example_6_1.json",
+            "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/rule/example_6_1.json",
+            "exampleIndex": 6,
+            "snippetIndex": 1,
+            "language": "application/json"
+          },
+          "result": true,
+          "sections": [
+            {
+              "name": "FILES",
+              "title": "Files",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using example_6_1.json from examples"
+                },
+                {
+                  "op": "jsonld-uplift",
+                  "isError": false,
+                  "message": "JSON-LD context is present - uplifting"
+                },
+                {
+                  "op": "jsonld-create",
+                  "filename": "example_6_1.jsonld",
+                  "isError": false,
+                  "message": "Output JSON-LD example_6_1.jsonld created"
+                },
+                {
+                  "op": "ttl-create",
+                  "empty": false,
+                  "filename": "example_6_1.ttl",
+                  "size": 6,
+                  "isError": false,
+                  "message": "Output Turtle example_6_1.ttl created"
+                }
+              ]
+            },
+            {
+              "name": "JSON_SCHEMA",
+              "title": "JSON Schema",
+              "entries": [
+                {
+                  "op": "validation",
+                  "result": true,
+                  "isError": false,
+                  "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:OptionalRuleHasConsequence": {
+                      "nodes": [
+                        "_:N99d62a7c114b4f63b84751f3125557d3"
+                      ]
+                    },
+                    "focal-shape:TerminalActionNotAlongsideReuse": {
+                      "nodes": [
+                        "_:N99d62a7c114b4f63b84751f3125557d3"
+                      ]
+                    },
+                    "focal-shape:EnvelopeCondition": {
+                      "nodes": []
+                    },
+                    "focal-shape:RuleHasACondition": {
+                      "nodes": [
+                        "_:N99d62a7c114b4f63b84751f3125557d3"
+                      ]
+                    },
+                    "focal-shape:TransferabilityRule": {
+                      "nodes": [
+                        "_:N99d62a7c114b4f63b84751f3125557d3"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:N99d62a7c114b4f63b84751f3125557d3\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N99d62a7c114b4f63b84751f3125557d3\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:RuleHasACondition: _:N99d62a7c114b4f63b84751f3125557d3\n - Shape focal-shape:TransferabilityRule: _:N99d62a7c114b4f63b84751f3125557d3\n"
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "globalErrors": {},
       "counts": {
-        "total": 0,
-        "passed": 0,
+        "total": 6,
+        "passed": 6,
         "failed": 0
       }
     },
@@ -192,8 +1441,8 @@
       "title": "Validation report for ogc.focal.forestStandFeature - FOCAL Forest Stand Feature",
       "bblockName": "FOCAL Forest Stand Feature",
       "bblockId": "ogc.focal.forestStandFeature",
-      "generated": "2026-09-03T12:19:50.221100+00:00",
-      "result": false,
+      "generated": "2026-09-03T16:01:13.562898+00:00",
+      "result": true,
       "items": [
         {
           "source": {
@@ -203,8 +1452,19 @@
             "url": "https://ogcincubator.github.io/bblocks-focal/_sources/forestStandFeature/tests/feature-fail.json",
             "language": "json"
           },
-          "result": false,
+          "result": true,
           "sections": [
+            {
+              "name": "GENERAL",
+              "title": "General",
+              "entries": [
+                {
+                  "op": "require-fail",
+                  "isError": false,
+                  "message": "Test was expected to fail and it did."
+                }
+              ]
+            },
             {
               "name": "FILES",
               "title": "Files",
@@ -251,7 +1511,58 @@
             {
               "name": "SHACL",
               "title": "SHACL",
-              "entries": []
+              "entries": [
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/forestStandFeature/shapes.shacl",
+                  "graph": "@prefix focal-prop: <https://w3id.org/ogc/hosted/focal/properties/> .\n@prefix geojson: <https://purl.org/geojson/vocab#> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode [ a geojson:Feature ;\n                    geojson:geometry [ a geojson:MultiPolygon ;\n                            geojson:coordinates ( ( ( [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] ) ) ) ] ;\n                    focal-prop:lesniCHS 25 ;\n                    focal-prop:lesniDSOPRL 2025 ;\n                    focal-prop:lesniID1 128301 ;\n                    focal-prop:lesniOVERT \"NE\" ;\n                    focal-prop:lesniOblast 8 ;\n                    focal-prop:lesniOblastCast \"a\" ;\n                    focal-prop:lesniPCHS \"25a\" ;\n                    focal-prop:lesniPLOCHA 1.22425e+03 ;\n                    focal-prop:lesniROKMAP 2015 ;\n                    focal-prop:lesniSLT \"2S\" ;\n                    focal-prop:lesniUDRZBA 2022 ;\n                    focal-prop:lesniZADOST \"-\" ;\n                    focal-prop:lesniZMENA \"Uveden\u00ed do souladu s KN\" ] ;\n            sh:resultMessage \"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\" ;\n            sh:resultPath focal-prop:lesniTyp ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraintComponent sh:MinCountConstraintComponent ;\n            sh:sourceShape [ sh:message \"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\" ;\n                    sh:minCount 1 ;\n                    sh:name \"lesniTyp\" ;\n                    sh:nodeKind sh:IRI ;\n                    sh:path focal-prop:lesniTyp ] ] .\n\n",
+                  "isError": true,
+                  "message": "Validation result for _sources/forestStandFeature/shapes.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):\n  \tSeverity: sh:Violation\n  \tSource Shape: [ sh:message Literal(\"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\") ; sh:minCount Literal(\"1\", datatype=xsd:integer) ; sh:name Literal(\"lesniTyp\") ; sh:nodeKind sh:IRI ; sh:path focal-prop:lesniTyp ]\n  \tFocus Node: [ focal-prop:lesniCHS Literal(\"25\", datatype=xsd:integer) ; focal-prop:lesniDSOPRL Literal(\"2025\", datatype=xsd:integer) ; focal-prop:lesniID1 Literal(\"128301\", datatype=xsd:integer) ; focal-prop:lesniOVERT Literal(\"NE\") ; focal-prop:lesniOblast Literal(\"8\", datatype=xsd:integer) ; focal-prop:lesniOblastCast Literal(\"a\") ; focal-prop:lesniPCHS Literal(\"25a\") ; focal-prop:lesniPLOCHA Literal(\"1224.24963\", datatype=xsd:double) ; focal-prop:lesniROKMAP Literal(\"2015\", datatype=xsd:integer) ; focal-prop:lesniSLT Literal(\"2S\") ; focal-prop:lesniUDRZBA Literal(\"2022\", datatype=xsd:integer) ; focal-prop:lesniZADOST Literal(\"-\") ; focal-prop:lesniZMENA Literal(\"Uveden\u00ed do souladu s KN\") ; geojson:geometry [ geojson:coordinates ( ( <http://recursion.too.deep> ) ) ; rdf:type geojson:MultiPolygon ] ; rdf:type geojson:Feature ]\n  \tResult Path: focal-prop:lesniTyp\n  \tMessage: Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\n  "
+                },
+                {
+                  "shaclFile": "_sources/forestStandFeature/shapes.shacl",
+                  "focusNodes": {
+                    "<https://example.com/focal/feature-lesniTyp>": {
+                      "nodes": [
+                        "_:N5b2ae6a86e87400b8a2fde37f5631ff0"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/forestStandFeature/shapes.shacl:\n - Shape <https://example.com/focal/feature-lesniTyp>: _:N5b2ae6a86e87400b8a2fde37f5631ff0\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl",
+                  "focusNodes": {
+                    "geojson:LinkShape": {
+                      "nodes": []
+                    },
+                    "geojson:GeometryShape": {
+                      "nodes": []
+                    },
+                    "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
+                      "nodes": []
+                    },
+                    "geojson:FeatureShape": {
+                      "nodes": [
+                        "_:N5b2ae6a86e87400b8a2fde37f5631ff0"
+                      ]
+                    },
+                    "geojson:GeometryShape/sh:or/rdf:first": {
+                      "nodes": []
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:FeatureShape: _:N5b2ae6a86e87400b8a2fde37f5631ff0\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n"
+                }
+              ]
             }
           ]
         },
@@ -265,7 +1576,7 @@
             "snippetIndex": 1,
             "language": "application/json"
           },
-          "result": false,
+          "result": true,
           "sections": [
             {
               "name": "FILES",
@@ -311,28 +1622,74 @@
             {
               "name": "SHACL",
               "title": "SHACL",
-              "entries": []
+              "entries": [
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/forestStandFeature/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/forestStandFeature/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/forestStandFeature/shapes.shacl",
+                  "focusNodes": {
+                    "<https://example.com/focal/feature-lesniTyp>": {
+                      "nodes": [
+                        "_:N9ea0748eee9e493da656867542b4e3c9"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/forestStandFeature/shapes.shacl:\n - Shape <https://example.com/focal/feature-lesniTyp>: _:N9ea0748eee9e493da656867542b4e3c9\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl",
+                  "focusNodes": {
+                    "geojson:LinkShape": {
+                      "nodes": []
+                    },
+                    "geojson:GeometryShape": {
+                      "nodes": []
+                    },
+                    "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
+                      "nodes": []
+                    },
+                    "geojson:FeatureShape": {
+                      "nodes": [
+                        "_:N9ea0748eee9e493da656867542b4e3c9"
+                      ]
+                    },
+                    "geojson:GeometryShape/sh:or/rdf:first": {
+                      "nodes": []
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:FeatureShape: _:N9ea0748eee9e493da656867542b4e3c9\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n"
+                }
+              ]
             }
           ]
         }
       ],
-      "globalErrors": {
-        "SHACL": {
-          "isError": true,
-          "message": "Error retrieving https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl: HTTP Error 503: Service Unavailable"
-        }
-      },
+      "globalErrors": {},
       "counts": {
         "total": 2,
-        "passed": 0,
-        "failed": 2
+        "passed": 2,
+        "failed": 0
       }
     },
     "ogc.focal.transferability.transferabilityStatement": {
       "title": "Validation report for ogc.focal.transferability.transferabilityStatement - FOCAL Transferability Statement",
       "bblockName": "FOCAL Transferability Statement",
       "bblockId": "ogc.focal.transferability.transferabilityStatement",
-      "generated": "2026-09-03T12:19:50.231338+00:00",
+      "generated": "2026-09-03T16:01:13.583220+00:00",
       "result": true,
       "items": [],
       "globalErrors": {},
@@ -346,7 +1703,7 @@
       "title": "Validation report for ogc.focal.forestStandCollection - FOCAL Forest Stand Feature Collection",
       "bblockName": "FOCAL Forest Stand Feature Collection",
       "bblockId": "ogc.focal.forestStandCollection",
-      "generated": "2026-09-03T12:19:51.529722+00:00",
+      "generated": "2026-09-03T16:01:14.856987+00:00",
       "result": true,
       "items": [
         {
@@ -419,37 +1776,34 @@
               "entries": [
                 {
                   "op": "shacl-report",
-                  "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
-                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-                  "isError": false,
-                  "message": "Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                  "shaclFile": "_sources/forestStandFeature/shapes.shacl",
+                  "graph": "@prefix focal-prop: <https://w3id.org/ogc/hosted/focal/properties/> .\n@prefix geojson: <https://purl.org/geojson/vocab#> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode [ a geojson:Feature ;\n                    geojson:geometry [ a geojson:MultiPolygon ;\n                            geojson:coordinates ( ( ( [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] ) ) ) ] ;\n                    focal-prop:lesniCHS 25 ;\n                    focal-prop:lesniDSOPRL 2025 ;\n                    focal-prop:lesniID1 128301 ;\n                    focal-prop:lesniOVERT \"NE\" ;\n                    focal-prop:lesniOblast 8 ;\n                    focal-prop:lesniOblastCast \"a\" ;\n                    focal-prop:lesniPCHS \"25a\" ;\n                    focal-prop:lesniPLOCHA 1.22425e+03 ;\n                    focal-prop:lesniROKMAP 2015 ;\n                    focal-prop:lesniSLT \"2S\" ;\n                    focal-prop:lesniUDRZBA 2022 ;\n                    focal-prop:lesniZADOST \"-\" ;\n                    focal-prop:lesniZMENA \"Uveden\u00ed do souladu s KN\" ] ;\n            sh:resultMessage \"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\" ;\n            sh:resultPath focal-prop:lesniTyp ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraintComponent sh:MinCountConstraintComponent ;\n            sh:sourceShape [ sh:message \"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\" ;\n                    sh:minCount 1 ;\n                    sh:name \"lesniTyp\" ;\n                    sh:nodeKind sh:IRI ;\n                    sh:path focal-prop:lesniTyp ] ] .\n\n",
+                  "isError": true,
+                  "message": "Validation result for _sources/forestStandFeature/shapes.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):\n  \tSeverity: sh:Violation\n  \tSource Shape: [ sh:message Literal(\"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\") ; sh:minCount Literal(\"1\", datatype=xsd:integer) ; sh:name Literal(\"lesniTyp\") ; sh:nodeKind sh:IRI ; sh:path focal-prop:lesniTyp ]\n  \tFocus Node: [ focal-prop:lesniCHS Literal(\"25\", datatype=xsd:integer) ; focal-prop:lesniDSOPRL Literal(\"2025\", datatype=xsd:integer) ; focal-prop:lesniID1 Literal(\"128301\", datatype=xsd:integer) ; focal-prop:lesniOVERT Literal(\"NE\") ; focal-prop:lesniOblast Literal(\"8\", datatype=xsd:integer) ; focal-prop:lesniOblastCast Literal(\"a\") ; focal-prop:lesniPCHS Literal(\"25a\") ; focal-prop:lesniPLOCHA Literal(\"1224.24963\", datatype=xsd:double) ; focal-prop:lesniROKMAP Literal(\"2015\", datatype=xsd:integer) ; focal-prop:lesniSLT Literal(\"2S\") ; focal-prop:lesniUDRZBA Literal(\"2022\", datatype=xsd:integer) ; focal-prop:lesniZADOST Literal(\"-\") ; focal-prop:lesniZMENA Literal(\"Uveden\u00ed do souladu s KN\") ; geojson:geometry [ geojson:coordinates ( ( <http://recursion.too.deep> ) ) ; rdf:type geojson:MultiPolygon ] ; rdf:type geojson:Feature ]\n  \tResult Path: focal-prop:lesniTyp\n  \tMessage: Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\n  "
                 },
                 {
-                  "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
+                  "shaclFile": "_sources/forestStandFeature/shapes.shacl",
                   "focusNodes": {
-                    "geojson:LinkShape": {
-                      "nodes": []
-                    },
-                    "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
-                      "nodes": []
-                    },
-                    "geojson:GeometryShape/sh:or/rdf:first": {
-                      "nodes": []
-                    },
-                    "geojson:FeatureShape": {
-                      "nodes": []
-                    },
-                    "geojson:FeatureCollectionShape": {
+                    "<https://example.com/focal/feature-lesniTyp>": {
                       "nodes": [
-                        "_:N1e88047c67de467c9db3f49e0cd23762"
+                        "_:N67cedee37f814b9cbf150e091af98e7d",
+                        "_:Ne98142cf50f1483b94f6f8dcd114e8d0",
+                        "_:N1b531f557f764fc0a3c02d0a313aa9ed",
+                        "_:N156ee3d6738e4db1910c4791d7050f2b",
+                        "_:N1303b118cebf44b799756889e1bd908f",
+                        "_:Nd8970136fa07413e8c21f300b71fadee",
+                        "_:Ncdb6344a61224a328f061dd5fa522b96",
+                        "_:Naf624c2cd6b74307a9884182732f1848",
+                        "_:Nf0c7cda1d1bc435f9df0aeec70c12f50",
+                        "_:N115d30ba00da4288b59a717f4df4ecce",
+                        "_:Ncf742ee6f6dd429b87cb82505514ba81",
+                        "_:N825e0170aae444adae60b16ee064ee8e",
+                        "_:N07205ab86dbc49eb867f03cc47de6780"
                       ]
-                    },
-                    "geojson:GeometryShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:FeatureShape: *none*\n - Shape geojson:FeatureCollectionShape: _:N1e88047c67de467c9db3f49e0cd23762\n - Shape geojson:GeometryShape: *none*\n"
+                  "message": "Focus nodes for _sources/forestStandFeature/shapes.shacl:\n - Shape <https://example.com/focal/feature-lesniTyp>: _:N67cedee37f814b9cbf150e091af98e7d,_:Ne98142cf50f1483b94f6f8dcd114e8d0,_:N1b531f557f764fc0a3c02d0a313aa9ed,_:N156ee3d6738e4db1910c4791d7050f2b,_:N1303b118cebf44b799756889e1bd908f,_:Nd8970136fa07413e8c21f300b71fadee,_:Ncdb6344a61224a328f061dd5fa522b96,_:Naf624c2cd6b74307a9884182732f1848,_:Nf0c7cda1d1bc435f9df0aeec70c12f50,_:N115d30ba00da4288b59a717f4df4ecce,_:Ncf742ee6f6dd429b87cb82505514ba81,_:N825e0170aae444adae60b16ee064ee8e,_:N07205ab86dbc49eb867f03cc47de6780\n"
                 },
                 {
                   "op": "shacl-report",
@@ -464,22 +1818,8 @@
                     "geojson:LinkShape": {
                       "nodes": []
                     },
-                    "geojson:FeatureShape": {
-                      "nodes": [
-                        "_:N3a918d1ab0e049dba820870d9c8575d3",
-                        "_:N2fff1f36062d49c3a36a9b4e9406be33",
-                        "_:N07932c1ab30a4a07baf130b017cb1810",
-                        "_:Naaa1573577f149039d863daba9d4a368",
-                        "_:N993cece426714b2c98c9965e653b6d63",
-                        "_:N2d986ef5c7ad4084994aecd17fdf3273",
-                        "_:N5e37b30578044f5ba8009ce8f220ba3e",
-                        "_:Nc20fecc407ab4a5eb50e59248bf3b319",
-                        "_:N9d5e0da3c23a46bc8196232f3a2664ca",
-                        "_:Neda3bbbe3ef843009fc7a9b3da287ff0",
-                        "_:N88c591d2e3244c0991dd7e664be8f9fb",
-                        "_:N51fdc79938434c659eb8f1bb13b6f6a8",
-                        "_:Ne976f49717eb41d4b4649b1b0d4db312"
-                      ]
+                    "geojson:GeometryShape": {
+                      "nodes": []
                     },
                     "geojson:GeometryShape/sh:or/rdf:first": {
                       "nodes": []
@@ -487,43 +1827,60 @@
                     "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
                       "nodes": []
                     },
-                    "geojson:GeometryShape": {
-                      "nodes": []
-                    }
-                  },
-                  "isError": false,
-                  "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:FeatureShape: _:N3a918d1ab0e049dba820870d9c8575d3,_:N2fff1f36062d49c3a36a9b4e9406be33,_:N07932c1ab30a4a07baf130b017cb1810,_:Naaa1573577f149039d863daba9d4a368,_:N993cece426714b2c98c9965e653b6d63,_:N2d986ef5c7ad4084994aecd17fdf3273,_:N5e37b30578044f5ba8009ce8f220ba3e,_:Nc20fecc407ab4a5eb50e59248bf3b319,_:N9d5e0da3c23a46bc8196232f3a2664ca,_:Neda3bbbe3ef843009fc7a9b3da287ff0,_:N88c591d2e3244c0991dd7e664be8f9fb,_:N51fdc79938434c659eb8f1bb13b6f6a8,_:Ne976f49717eb41d4b4649b1b0d4db312\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:GeometryShape: *none*\n"
-                },
-                {
-                  "op": "shacl-report",
-                  "shaclFile": "_sources/forestStandFeature/shapes.shacl",
-                  "graph": "@prefix focal-prop: <https://w3id.org/ogc/hosted/focal/properties/> .\n@prefix geojson: <https://purl.org/geojson/vocab#> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode [ a geojson:Feature ;\n                    geojson:geometry [ a geojson:MultiPolygon ;\n                            geojson:coordinates ( ( ( [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] ) ) ) ] ;\n                    focal-prop:lesniCHS 25 ;\n                    focal-prop:lesniDSOPRL 2025 ;\n                    focal-prop:lesniID1 128301 ;\n                    focal-prop:lesniOVERT \"NE\" ;\n                    focal-prop:lesniOblast 8 ;\n                    focal-prop:lesniOblastCast \"a\" ;\n                    focal-prop:lesniPCHS \"25a\" ;\n                    focal-prop:lesniPLOCHA 1.22425e+03 ;\n                    focal-prop:lesniROKMAP 2015 ;\n                    focal-prop:lesniSLT \"2S\" ;\n                    focal-prop:lesniUDRZBA 2022 ;\n                    focal-prop:lesniZADOST \"-\" ;\n                    focal-prop:lesniZMENA \"Uveden\u00ed do souladu s KN\" ] ;\n            sh:resultMessage \"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\" ;\n            sh:resultPath focal-prop:lesniTyp ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraintComponent sh:MinCountConstraintComponent ;\n            sh:sourceShape [ sh:message \"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\" ;\n                    sh:minCount 1 ;\n                    sh:name \"lesniTyp\" ;\n                    sh:nodeKind sh:IRI ;\n                    sh:path focal-prop:lesniTyp ] ] .\n\n",
-                  "isError": true,
-                  "message": "Validation result for _sources/forestStandFeature/shapes.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):\n  \tSeverity: sh:Violation\n  \tSource Shape: [ sh:message Literal(\"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\") ; sh:minCount Literal(\"1\", datatype=xsd:integer) ; sh:name Literal(\"lesniTyp\") ; sh:nodeKind sh:IRI ; sh:path focal-prop:lesniTyp ]\n  \tFocus Node: [ focal-prop:lesniCHS Literal(\"25\", datatype=xsd:integer) ; focal-prop:lesniDSOPRL Literal(\"2025\", datatype=xsd:integer) ; focal-prop:lesniID1 Literal(\"128301\", datatype=xsd:integer) ; focal-prop:lesniOVERT Literal(\"NE\") ; focal-prop:lesniOblast Literal(\"8\", datatype=xsd:integer) ; focal-prop:lesniOblastCast Literal(\"a\") ; focal-prop:lesniPCHS Literal(\"25a\") ; focal-prop:lesniPLOCHA Literal(\"1224.24963\", datatype=xsd:double) ; focal-prop:lesniROKMAP Literal(\"2015\", datatype=xsd:integer) ; focal-prop:lesniSLT Literal(\"2S\") ; focal-prop:lesniUDRZBA Literal(\"2022\", datatype=xsd:integer) ; focal-prop:lesniZADOST Literal(\"-\") ; focal-prop:lesniZMENA Literal(\"Uveden\u00ed do souladu s KN\") ; geojson:geometry [ geojson:coordinates ( ( <http://recursion.too.deep> ) ) ; rdf:type geojson:MultiPolygon ] ; rdf:type geojson:Feature ]\n  \tResult Path: focal-prop:lesniTyp\n  \tMessage: Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\n  "
-                },
-                {
-                  "shaclFile": "_sources/forestStandFeature/shapes.shacl",
-                  "focusNodes": {
-                    "<https://example.com/focal/feature-lesniTyp>": {
+                    "geojson:FeatureShape": {
                       "nodes": [
-                        "_:N3a918d1ab0e049dba820870d9c8575d3",
-                        "_:N2fff1f36062d49c3a36a9b4e9406be33",
-                        "_:N07932c1ab30a4a07baf130b017cb1810",
-                        "_:Naaa1573577f149039d863daba9d4a368",
-                        "_:N993cece426714b2c98c9965e653b6d63",
-                        "_:N2d986ef5c7ad4084994aecd17fdf3273",
-                        "_:N5e37b30578044f5ba8009ce8f220ba3e",
-                        "_:Nc20fecc407ab4a5eb50e59248bf3b319",
-                        "_:N9d5e0da3c23a46bc8196232f3a2664ca",
-                        "_:Neda3bbbe3ef843009fc7a9b3da287ff0",
-                        "_:N88c591d2e3244c0991dd7e664be8f9fb",
-                        "_:N51fdc79938434c659eb8f1bb13b6f6a8",
-                        "_:Ne976f49717eb41d4b4649b1b0d4db312"
+                        "_:N67cedee37f814b9cbf150e091af98e7d",
+                        "_:Ne98142cf50f1483b94f6f8dcd114e8d0",
+                        "_:N1b531f557f764fc0a3c02d0a313aa9ed",
+                        "_:N156ee3d6738e4db1910c4791d7050f2b",
+                        "_:N1303b118cebf44b799756889e1bd908f",
+                        "_:Nd8970136fa07413e8c21f300b71fadee",
+                        "_:Ncdb6344a61224a328f061dd5fa522b96",
+                        "_:Naf624c2cd6b74307a9884182732f1848",
+                        "_:Nf0c7cda1d1bc435f9df0aeec70c12f50",
+                        "_:N115d30ba00da4288b59a717f4df4ecce",
+                        "_:Ncf742ee6f6dd429b87cb82505514ba81",
+                        "_:N825e0170aae444adae60b16ee064ee8e",
+                        "_:N07205ab86dbc49eb867f03cc47de6780"
                       ]
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/forestStandFeature/shapes.shacl:\n - Shape <https://example.com/focal/feature-lesniTyp>: _:N3a918d1ab0e049dba820870d9c8575d3,_:N2fff1f36062d49c3a36a9b4e9406be33,_:N07932c1ab30a4a07baf130b017cb1810,_:Naaa1573577f149039d863daba9d4a368,_:N993cece426714b2c98c9965e653b6d63,_:N2d986ef5c7ad4084994aecd17fdf3273,_:N5e37b30578044f5ba8009ce8f220ba3e,_:Nc20fecc407ab4a5eb50e59248bf3b319,_:N9d5e0da3c23a46bc8196232f3a2664ca,_:Neda3bbbe3ef843009fc7a9b3da287ff0,_:N88c591d2e3244c0991dd7e664be8f9fb,_:N51fdc79938434c659eb8f1bb13b6f6a8,_:Ne976f49717eb41d4b4649b1b0d4db312\n"
+                  "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:FeatureShape: _:N67cedee37f814b9cbf150e091af98e7d,_:Ne98142cf50f1483b94f6f8dcd114e8d0,_:N1b531f557f764fc0a3c02d0a313aa9ed,_:N156ee3d6738e4db1910c4791d7050f2b,_:N1303b118cebf44b799756889e1bd908f,_:Nd8970136fa07413e8c21f300b71fadee,_:Ncdb6344a61224a328f061dd5fa522b96,_:Naf624c2cd6b74307a9884182732f1848,_:Nf0c7cda1d1bc435f9df0aeec70c12f50,_:N115d30ba00da4288b59a717f4df4ecce,_:Ncf742ee6f6dd429b87cb82505514ba81,_:N825e0170aae444adae60b16ee064ee8e,_:N07205ab86dbc49eb867f03cc47de6780\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
+                  "focusNodes": {
+                    "geojson:LinkShape": {
+                      "nodes": []
+                    },
+                    "geojson:FeatureCollectionShape": {
+                      "nodes": [
+                        "_:Nb7de70e7c79b463295a321c21bd7d810"
+                      ]
+                    },
+                    "geojson:GeometryShape": {
+                      "nodes": []
+                    },
+                    "geojson:GeometryShape/sh:or/rdf:first": {
+                      "nodes": []
+                    },
+                    "geojson:FeatureShape": {
+                      "nodes": []
+                    },
+                    "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
+                      "nodes": []
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:FeatureCollectionShape: _:Nb7de70e7c79b463295a321c21bd7d810\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:FeatureShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n"
                 }
               ]
             }
@@ -588,37 +1945,34 @@
               "entries": [
                 {
                   "op": "shacl-report",
-                  "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
+                  "shaclFile": "_sources/forestStandFeature/shapes.shacl",
                   "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
                   "isError": false,
-                  "message": "Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                  "message": "Validation result for _sources/forestStandFeature/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
                 },
                 {
-                  "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
+                  "shaclFile": "_sources/forestStandFeature/shapes.shacl",
                   "focusNodes": {
-                    "geojson:LinkShape": {
-                      "nodes": []
-                    },
-                    "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
-                      "nodes": []
-                    },
-                    "geojson:GeometryShape/sh:or/rdf:first": {
-                      "nodes": []
-                    },
-                    "geojson:FeatureShape": {
-                      "nodes": []
-                    },
-                    "geojson:FeatureCollectionShape": {
+                    "<https://example.com/focal/feature-lesniTyp>": {
                       "nodes": [
-                        "_:Na778009ca6034287959a22b3ac98a073"
+                        "_:N44415d7fb214412f8a67c75ca6707288",
+                        "_:Nebb6abc1e1af4db9bb0dd7eebbe302d3",
+                        "_:N698a0c1a12974eeca2212121624d9854",
+                        "_:N46852bd07b8e42f0bb4e9072ec547996",
+                        "_:N49fe8bf9e7ed44f9b4ee2f0f8642423f",
+                        "_:N6df6a9a2637d425bb1a5a71f509e6207",
+                        "_:N8e46a118f6a94f9a9d4b2567d9b9a361",
+                        "_:Nb057407769bc46ef9173703f63ff9bcb",
+                        "_:N72dc6f31600142b5aa36b04ad6031eb2",
+                        "_:N715cc6c61f534917abba23674965dcde",
+                        "_:Nfe3b1e5016044a4e96687e332803eda5",
+                        "_:Nd49a62b26de34f18b9362c2a06da3f57",
+                        "_:Nd3391da98c614da9836ed14ba38b72f9"
                       ]
-                    },
-                    "geojson:GeometryShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:FeatureShape: *none*\n - Shape geojson:FeatureCollectionShape: _:Na778009ca6034287959a22b3ac98a073\n - Shape geojson:GeometryShape: *none*\n"
+                  "message": "Focus nodes for _sources/forestStandFeature/shapes.shacl:\n - Shape <https://example.com/focal/feature-lesniTyp>: _:N44415d7fb214412f8a67c75ca6707288,_:Nebb6abc1e1af4db9bb0dd7eebbe302d3,_:N698a0c1a12974eeca2212121624d9854,_:N46852bd07b8e42f0bb4e9072ec547996,_:N49fe8bf9e7ed44f9b4ee2f0f8642423f,_:N6df6a9a2637d425bb1a5a71f509e6207,_:N8e46a118f6a94f9a9d4b2567d9b9a361,_:Nb057407769bc46ef9173703f63ff9bcb,_:N72dc6f31600142b5aa36b04ad6031eb2,_:N715cc6c61f534917abba23674965dcde,_:Nfe3b1e5016044a4e96687e332803eda5,_:Nd49a62b26de34f18b9362c2a06da3f57,_:Nd3391da98c614da9836ed14ba38b72f9\n"
                 },
                 {
                   "op": "shacl-report",
@@ -633,22 +1987,8 @@
                     "geojson:LinkShape": {
                       "nodes": []
                     },
-                    "geojson:FeatureShape": {
-                      "nodes": [
-                        "_:N2f70f33806b74a59a24edad173602e84",
-                        "_:N553507c929114e08a25d618988fc77a8",
-                        "_:Ncc7cc333dd934adab693e2b1513a2866",
-                        "_:N2e49fecc491746bb90a49c6c77b7c26b",
-                        "_:N9c1fffac43c545188ff1ac4b9a6689de",
-                        "_:Ne27bf49d4fba4b77b5b701b5eb0c9973",
-                        "_:N60c1c70bf2664609ac3f5d319c259078",
-                        "_:N8f27deaa03f146baa71a3d655c02c8b5",
-                        "_:N1bbe6330f061490eab40515e1e743ad7",
-                        "_:N5785766891f845aea2083a7e57064eeb",
-                        "_:Nbf164013440a41a9a886997e9ab5d43e",
-                        "_:N276b172472904018954b6f2f457a993b",
-                        "_:Nac0aadcd2d2d4e088fdce4e3314dd6fc"
-                      ]
+                    "geojson:GeometryShape": {
+                      "nodes": []
                     },
                     "geojson:GeometryShape/sh:or/rdf:first": {
                       "nodes": []
@@ -656,43 +1996,60 @@
                     "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
                       "nodes": []
                     },
-                    "geojson:GeometryShape": {
-                      "nodes": []
-                    }
-                  },
-                  "isError": false,
-                  "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:FeatureShape: _:N2f70f33806b74a59a24edad173602e84,_:N553507c929114e08a25d618988fc77a8,_:Ncc7cc333dd934adab693e2b1513a2866,_:N2e49fecc491746bb90a49c6c77b7c26b,_:N9c1fffac43c545188ff1ac4b9a6689de,_:Ne27bf49d4fba4b77b5b701b5eb0c9973,_:N60c1c70bf2664609ac3f5d319c259078,_:N8f27deaa03f146baa71a3d655c02c8b5,_:N1bbe6330f061490eab40515e1e743ad7,_:N5785766891f845aea2083a7e57064eeb,_:Nbf164013440a41a9a886997e9ab5d43e,_:N276b172472904018954b6f2f457a993b,_:Nac0aadcd2d2d4e088fdce4e3314dd6fc\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:GeometryShape: *none*\n"
-                },
-                {
-                  "op": "shacl-report",
-                  "shaclFile": "_sources/forestStandFeature/shapes.shacl",
-                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-                  "isError": false,
-                  "message": "Validation result for _sources/forestStandFeature/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
-                },
-                {
-                  "shaclFile": "_sources/forestStandFeature/shapes.shacl",
-                  "focusNodes": {
-                    "<https://example.com/focal/feature-lesniTyp>": {
+                    "geojson:FeatureShape": {
                       "nodes": [
-                        "_:N2f70f33806b74a59a24edad173602e84",
-                        "_:N553507c929114e08a25d618988fc77a8",
-                        "_:Ncc7cc333dd934adab693e2b1513a2866",
-                        "_:N2e49fecc491746bb90a49c6c77b7c26b",
-                        "_:N9c1fffac43c545188ff1ac4b9a6689de",
-                        "_:Ne27bf49d4fba4b77b5b701b5eb0c9973",
-                        "_:N60c1c70bf2664609ac3f5d319c259078",
-                        "_:N8f27deaa03f146baa71a3d655c02c8b5",
-                        "_:N1bbe6330f061490eab40515e1e743ad7",
-                        "_:N5785766891f845aea2083a7e57064eeb",
-                        "_:Nbf164013440a41a9a886997e9ab5d43e",
-                        "_:N276b172472904018954b6f2f457a993b",
-                        "_:Nac0aadcd2d2d4e088fdce4e3314dd6fc"
+                        "_:N44415d7fb214412f8a67c75ca6707288",
+                        "_:Nebb6abc1e1af4db9bb0dd7eebbe302d3",
+                        "_:N698a0c1a12974eeca2212121624d9854",
+                        "_:N46852bd07b8e42f0bb4e9072ec547996",
+                        "_:N49fe8bf9e7ed44f9b4ee2f0f8642423f",
+                        "_:N6df6a9a2637d425bb1a5a71f509e6207",
+                        "_:N8e46a118f6a94f9a9d4b2567d9b9a361",
+                        "_:Nb057407769bc46ef9173703f63ff9bcb",
+                        "_:N72dc6f31600142b5aa36b04ad6031eb2",
+                        "_:N715cc6c61f534917abba23674965dcde",
+                        "_:Nfe3b1e5016044a4e96687e332803eda5",
+                        "_:Nd49a62b26de34f18b9362c2a06da3f57",
+                        "_:Nd3391da98c614da9836ed14ba38b72f9"
                       ]
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/forestStandFeature/shapes.shacl:\n - Shape <https://example.com/focal/feature-lesniTyp>: _:N2f70f33806b74a59a24edad173602e84,_:N553507c929114e08a25d618988fc77a8,_:Ncc7cc333dd934adab693e2b1513a2866,_:N2e49fecc491746bb90a49c6c77b7c26b,_:N9c1fffac43c545188ff1ac4b9a6689de,_:Ne27bf49d4fba4b77b5b701b5eb0c9973,_:N60c1c70bf2664609ac3f5d319c259078,_:N8f27deaa03f146baa71a3d655c02c8b5,_:N1bbe6330f061490eab40515e1e743ad7,_:N5785766891f845aea2083a7e57064eeb,_:Nbf164013440a41a9a886997e9ab5d43e,_:N276b172472904018954b6f2f457a993b,_:Nac0aadcd2d2d4e088fdce4e3314dd6fc\n"
+                  "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:FeatureShape: _:N44415d7fb214412f8a67c75ca6707288,_:Nebb6abc1e1af4db9bb0dd7eebbe302d3,_:N698a0c1a12974eeca2212121624d9854,_:N46852bd07b8e42f0bb4e9072ec547996,_:N49fe8bf9e7ed44f9b4ee2f0f8642423f,_:N6df6a9a2637d425bb1a5a71f509e6207,_:N8e46a118f6a94f9a9d4b2567d9b9a361,_:Nb057407769bc46ef9173703f63ff9bcb,_:N72dc6f31600142b5aa36b04ad6031eb2,_:N715cc6c61f534917abba23674965dcde,_:Nfe3b1e5016044a4e96687e332803eda5,_:Nd49a62b26de34f18b9362c2a06da3f57,_:Nd3391da98c614da9836ed14ba38b72f9\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
+                  "focusNodes": {
+                    "geojson:LinkShape": {
+                      "nodes": []
+                    },
+                    "geojson:FeatureCollectionShape": {
+                      "nodes": [
+                        "_:Na3f52b71ba2949158ae47f642a8f9047"
+                      ]
+                    },
+                    "geojson:GeometryShape": {
+                      "nodes": []
+                    },
+                    "geojson:GeometryShape/sh:or/rdf:first": {
+                      "nodes": []
+                    },
+                    "geojson:FeatureShape": {
+                      "nodes": []
+                    },
+                    "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
+                      "nodes": []
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:FeatureCollectionShape: _:Na3f52b71ba2949158ae47f642a8f9047\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:FeatureShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n"
                 }
               ]
             }
@@ -710,7 +2067,7 @@
       "title": "Validation report for ogc.focal.transferability.workflow - FOCAL Transferability Workflow",
       "bblockName": "FOCAL Transferability Workflow",
       "bblockId": "ogc.focal.transferability.workflow",
-      "generated": "2026-09-03T12:19:52.776802+00:00",
+      "generated": "2026-09-03T16:01:16.769175+00:00",
       "result": true,
       "items": [
         {
@@ -748,7 +2105,7 @@
                   "op": "ttl-create",
                   "empty": false,
                   "filename": "example_1_1.ttl",
-                  "size": 69,
+                  "size": 44,
                   "isError": false,
                   "message": "Output Turtle example_1_1.ttl created"
                 }
@@ -763,6 +2120,236 @@
                   "result": true,
                   "isError": false,
                   "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/workflow/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/workflow/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/workflow/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:TransferabilityWorkflow": {
+                      "nodes": [
+                        "_:Nf5d3fefd791c4bbb8f727b90acccd8c9"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/workflow/shapes.shacl:\n - Shape focal-shape:TransferabilityWorkflow: _:Nf5d3fefd791c4bbb8f727b90acccd8c9\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:RuleCitesDeclaredConstraint": {
+                      "nodes": [
+                        "_:N444091dba3f34923bcb5e52d2a83f50b"
+                      ]
+                    },
+                    "focal-shape:RuleCitesDeclaredArtifact": {
+                      "nodes": [
+                        "_:N444091dba3f34923bcb5e52d2a83f50b"
+                      ]
+                    },
+                    "focal-shape:ArtifactIsGovernedByARule": {
+                      "nodes": [
+                        "_:N444091dba3f34923bcb5e52d2a83f50b"
+                      ]
+                    },
+                    "focal-shape:ArtifactRefOnlyForInternalRoles": {
+                      "nodes": [
+                        "<file:///github/workspace/growth-model>",
+                        "<file:///github/workspace/climate-data>"
+                      ]
+                    },
+                    "focal-shape:TransferabilityStatement": {
+                      "nodes": [
+                        "_:N444091dba3f34923bcb5e52d2a83f50b"
+                      ]
+                    },
+                    "focal-shape:ArtifactDependency": {
+                      "nodes": [
+                        "<file:///github/workspace/growth-model>",
+                        "<file:///github/workspace/climate-data>"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:RuleCitesDeclaredConstraint: _:N444091dba3f34923bcb5e52d2a83f50b\n - Shape focal-shape:RuleCitesDeclaredArtifact: _:N444091dba3f34923bcb5e52d2a83f50b\n - Shape focal-shape:ArtifactIsGovernedByARule: _:N444091dba3f34923bcb5e52d2a83f50b\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <file:///github/workspace/growth-model>,<file:///github/workspace/climate-data>\n - Shape focal-shape:TransferabilityStatement: _:N444091dba3f34923bcb5e52d2a83f50b\n - Shape focal-shape:ArtifactDependency: <file:///github/workspace/growth-model>,<file:///github/workspace/climate-data>\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:OptionalRuleHasConsequence": {
+                      "nodes": [
+                        "_:Nfe6309bb4d004ee1bd1aeb7ad1dad931",
+                        "_:Nc0b0f801b9db4a6d8693ad2301977e2f"
+                      ]
+                    },
+                    "focal-shape:TerminalActionNotAlongsideReuse": {
+                      "nodes": [
+                        "_:Nfe6309bb4d004ee1bd1aeb7ad1dad931",
+                        "_:Nc0b0f801b9db4a6d8693ad2301977e2f"
+                      ]
+                    },
+                    "focal-shape:EnvelopeCondition": {
+                      "nodes": [
+                        "_:N93d3e44de9fb4219805c7ce3e44a1faa",
+                        "_:N5a22ce2a01a34212a0f2e839120c69a1"
+                      ]
+                    },
+                    "focal-shape:RuleHasACondition": {
+                      "nodes": [
+                        "_:Nfe6309bb4d004ee1bd1aeb7ad1dad931",
+                        "_:Nc0b0f801b9db4a6d8693ad2301977e2f"
+                      ]
+                    },
+                    "focal-shape:TransferabilityRule": {
+                      "nodes": [
+                        "_:Nfe6309bb4d004ee1bd1aeb7ad1dad931",
+                        "_:Nc0b0f801b9db4a6d8693ad2301977e2f"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:Nfe6309bb4d004ee1bd1aeb7ad1dad931,_:Nc0b0f801b9db4a6d8693ad2301977e2f\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Nfe6309bb4d004ee1bd1aeb7ad1dad931,_:Nc0b0f801b9db4a6d8693ad2301977e2f\n - Shape focal-shape:EnvelopeCondition: _:N93d3e44de9fb4219805c7ce3e44a1faa,_:N5a22ce2a01a34212a0f2e839120c69a1\n - Shape focal-shape:RuleHasACondition: _:Nfe6309bb4d004ee1bd1aeb7ad1dad931,_:Nc0b0f801b9db4a6d8693ad2301977e2f\n - Shape focal-shape:TransferabilityRule: _:Nfe6309bb4d004ee1bd1aeb7ad1dad931,_:Nc0b0f801b9db4a6d8693ad2301977e2f\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:SpatialEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/downscaled-climate-available>",
+                        "<file:///github/workspace/czech-plots>",
+                        "<file:///github/workspace/ecological-range>"
+                      ]
+                    },
+                    "focal-shape:ScenarioMarkerIsAConcept": {
+                      "nodes": [
+                        "<file:///github/workspace/czech-plots>/focal-transf-prop:value",
+                        "<file:///github/workspace/downscaled-climate-available>/focal-transf-prop:value",
+                        "<file:///github/workspace/ecological-range>/focal-transf-prop:value"
+                      ]
+                    },
+                    "focal-shape:NonGeometricEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/downscaled-climate-available>",
+                        "<file:///github/workspace/czech-plots>",
+                        "<file:///github/workspace/ecological-range>"
+                      ]
+                    },
+                    "focal-shape:EnvelopeConstraint": {
+                      "nodes": [
+                        "<file:///github/workspace/ecological-range>",
+                        "<file:///github/workspace/czech-plots>",
+                        "<file:///github/workspace/downscaled-climate-available>"
+                      ]
+                    },
+                    "focal-shape:TemporalEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/downscaled-climate-available>",
+                        "<file:///github/workspace/czech-plots>",
+                        "<file:///github/workspace/ecological-range>"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/downscaled-climate-available>,<file:///github/workspace/czech-plots>,<file:///github/workspace/ecological-range>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/czech-plots>/focal-transf-prop:value,<file:///github/workspace/downscaled-climate-available>/focal-transf-prop:value,<file:///github/workspace/ecological-range>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/downscaled-climate-available>,<file:///github/workspace/czech-plots>,<file:///github/workspace/ecological-range>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/ecological-range>,<file:///github/workspace/czech-plots>,<file:///github/workspace/downscaled-climate-available>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/downscaled-climate-available>,<file:///github/workspace/czech-plots>,<file:///github/workspace/ecological-range>\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/maturityStatus/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/maturityStatus/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/maturityStatus/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:MaturityStatus": {
+                      "nodes": [
+                        "_:Nf5d3fefd791c4bbb8f727b90acccd8c9"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/maturityStatus/shapes.shacl:\n - Shape focal-shape:MaturityStatus: _:Nf5d3fefd791c4bbb8f727b90acccd8c9\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:QualityAnnotation": {
+                      "nodes": [
+                        "_:Nd83ede8e9cf84e52b9ab24354e12a7b7"
+                      ]
+                    },
+                    "focal-shape:QualityAnnotationHasNote": {
+                      "nodes": [
+                        "_:Nd83ede8e9cf84e52b9ab24354e12a7b7"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:\n - Shape focal-shape:QualityAnnotation: _:Nd83ede8e9cf84e52b9ab24354e12a7b7\n - Shape focal-shape:QualityAnnotationHasNote: _:Nd83ede8e9cf84e52b9ab24354e12a7b7\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/computationType/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/computationType/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/computationType/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:ComputationType": {
+                      "nodes": [
+                        "_:Nf5d3fefd791c4bbb8f727b90acccd8c9"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/computationType/shapes.shacl:\n - Shape focal-shape:ComputationType: _:Nf5d3fefd791c4bbb8f727b90acccd8c9\n"
                 }
               ]
             }
@@ -803,7 +2390,7 @@
                   "op": "ttl-create",
                   "empty": false,
                   "filename": "example_2_1.ttl",
-                  "size": 74,
+                  "size": 37,
                   "isError": false,
                   "message": "Output Turtle example_2_1.ttl created"
                 }
@@ -818,6 +2405,221 @@
                   "result": true,
                   "isError": false,
                   "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/workflow/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/workflow/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/workflow/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:TransferabilityWorkflow": {
+                      "nodes": [
+                        "_:N23b99b98ea8247f2b5b2c0355a583997"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/workflow/shapes.shacl:\n - Shape focal-shape:TransferabilityWorkflow: _:N23b99b98ea8247f2b5b2c0355a583997\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:RuleCitesDeclaredConstraint": {
+                      "nodes": [
+                        "_:Nf5ced8a9677f49c6bec9b02fabede1d3"
+                      ]
+                    },
+                    "focal-shape:RuleCitesDeclaredArtifact": {
+                      "nodes": [
+                        "_:Nf5ced8a9677f49c6bec9b02fabede1d3"
+                      ]
+                    },
+                    "focal-shape:ArtifactIsGovernedByARule": {
+                      "nodes": [
+                        "_:Nf5ced8a9677f49c6bec9b02fabede1d3"
+                      ]
+                    },
+                    "focal-shape:ArtifactRefOnlyForInternalRoles": {
+                      "nodes": [
+                        "<file:///github/workspace/slt-t5>",
+                        "<file:///github/workspace/rasdaman>",
+                        "<file:///github/workspace/species-codes>",
+                        "<file:///github/workspace/tolerances>"
+                      ]
+                    },
+                    "focal-shape:TransferabilityStatement": {
+                      "nodes": [
+                        "_:Nf5ced8a9677f49c6bec9b02fabede1d3"
+                      ]
+                    },
+                    "focal-shape:ArtifactDependency": {
+                      "nodes": [
+                        "<file:///github/workspace/slt-t5>",
+                        "<file:///github/workspace/rasdaman>",
+                        "<file:///github/workspace/species-codes>",
+                        "<file:///github/workspace/tolerances>"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:RuleCitesDeclaredConstraint: _:Nf5ced8a9677f49c6bec9b02fabede1d3\n - Shape focal-shape:RuleCitesDeclaredArtifact: _:Nf5ced8a9677f49c6bec9b02fabede1d3\n - Shape focal-shape:ArtifactIsGovernedByARule: _:Nf5ced8a9677f49c6bec9b02fabede1d3\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <file:///github/workspace/slt-t5>,<file:///github/workspace/rasdaman>,<file:///github/workspace/species-codes>,<file:///github/workspace/tolerances>\n - Shape focal-shape:TransferabilityStatement: _:Nf5ced8a9677f49c6bec9b02fabede1d3\n - Shape focal-shape:ArtifactDependency: <file:///github/workspace/slt-t5>,<file:///github/workspace/rasdaman>,<file:///github/workspace/species-codes>,<file:///github/workspace/tolerances>\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:OptionalRuleHasConsequence": {
+                      "nodes": [
+                        "_:Naac712331b254d159f0da7001082c1a8"
+                      ]
+                    },
+                    "focal-shape:TerminalActionNotAlongsideReuse": {
+                      "nodes": [
+                        "_:Naac712331b254d159f0da7001082c1a8"
+                      ]
+                    },
+                    "focal-shape:EnvelopeCondition": {
+                      "nodes": [
+                        "_:Nc5fae584ebb3447d88fbf2d1a83c5be8"
+                      ]
+                    },
+                    "focal-shape:RuleHasACondition": {
+                      "nodes": [
+                        "_:Naac712331b254d159f0da7001082c1a8"
+                      ]
+                    },
+                    "focal-shape:TransferabilityRule": {
+                      "nodes": [
+                        "_:Naac712331b254d159f0da7001082c1a8"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:Naac712331b254d159f0da7001082c1a8\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Naac712331b254d159f0da7001082c1a8\n - Shape focal-shape:EnvelopeCondition: _:Nc5fae584ebb3447d88fbf2d1a83c5be8\n - Shape focal-shape:RuleHasACondition: _:Naac712331b254d159f0da7001082c1a8\n - Shape focal-shape:TransferabilityRule: _:Naac712331b254d159f0da7001082c1a8\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:SpatialEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/czechia>"
+                      ]
+                    },
+                    "focal-shape:ScenarioMarkerIsAConcept": {
+                      "nodes": [
+                        "<file:///github/workspace/czechia>/focal-transf-prop:value"
+                      ]
+                    },
+                    "focal-shape:NonGeometricEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/czechia>"
+                      ]
+                    },
+                    "focal-shape:EnvelopeConstraint": {
+                      "nodes": [
+                        "<file:///github/workspace/czechia>"
+                      ]
+                    },
+                    "focal-shape:TemporalEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/czechia>"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/czechia>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/czechia>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/czechia>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/czechia>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/czechia>\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/maturityStatus/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/maturityStatus/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/maturityStatus/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:MaturityStatus": {
+                      "nodes": [
+                        "_:N23b99b98ea8247f2b5b2c0355a583997"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/maturityStatus/shapes.shacl:\n - Shape focal-shape:MaturityStatus: _:N23b99b98ea8247f2b5b2c0355a583997\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:QualityAnnotation": {
+                      "nodes": []
+                    },
+                    "focal-shape:QualityAnnotationHasNote": {
+                      "nodes": []
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:\n - Shape focal-shape:QualityAnnotation: *none*\n - Shape focal-shape:QualityAnnotationHasNote: *none*\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/computationType/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/computationType/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/computationType/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:ComputationType": {
+                      "nodes": [
+                        "_:N23b99b98ea8247f2b5b2c0355a583997"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/computationType/shapes.shacl:\n - Shape focal-shape:ComputationType: _:N23b99b98ea8247f2b5b2c0355a583997\n"
                 }
               ]
             }
@@ -858,7 +2660,7 @@
                   "op": "ttl-create",
                   "empty": false,
                   "filename": "example_3_1.ttl",
-                  "size": 70,
+                  "size": 48,
                   "isError": false,
                   "message": "Output Turtle example_3_1.ttl created"
                 }
@@ -873,6 +2675,234 @@
                   "result": true,
                   "isError": false,
                   "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/workflow/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/workflow/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/workflow/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:TransferabilityWorkflow": {
+                      "nodes": [
+                        "_:Ndace26334953424799e24afccffcf8a4"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/workflow/shapes.shacl:\n - Shape focal-shape:TransferabilityWorkflow: _:Ndace26334953424799e24afccffcf8a4\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:RuleCitesDeclaredConstraint": {
+                      "nodes": [
+                        "_:Na30faf64b2af4a61a00c17faacc40483"
+                      ]
+                    },
+                    "focal-shape:RuleCitesDeclaredArtifact": {
+                      "nodes": [
+                        "_:Na30faf64b2af4a61a00c17faacc40483"
+                      ]
+                    },
+                    "focal-shape:ArtifactIsGovernedByARule": {
+                      "nodes": [
+                        "_:Na30faf64b2af4a61a00c17faacc40483"
+                      ]
+                    },
+                    "focal-shape:ArtifactRefOnlyForInternalRoles": {
+                      "nodes": [
+                        "<file:///github/workspace/eo-strategy>",
+                        "<file:///github/workspace/labels>",
+                        "<file:///github/workspace/phenology>"
+                      ]
+                    },
+                    "focal-shape:TransferabilityStatement": {
+                      "nodes": [
+                        "_:Na30faf64b2af4a61a00c17faacc40483"
+                      ]
+                    },
+                    "focal-shape:ArtifactDependency": {
+                      "nodes": [
+                        "<file:///github/workspace/eo-strategy>",
+                        "<file:///github/workspace/labels>",
+                        "<file:///github/workspace/phenology>"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:RuleCitesDeclaredConstraint: _:Na30faf64b2af4a61a00c17faacc40483\n - Shape focal-shape:RuleCitesDeclaredArtifact: _:Na30faf64b2af4a61a00c17faacc40483\n - Shape focal-shape:ArtifactIsGovernedByARule: _:Na30faf64b2af4a61a00c17faacc40483\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <file:///github/workspace/eo-strategy>,<file:///github/workspace/labels>,<file:///github/workspace/phenology>\n - Shape focal-shape:TransferabilityStatement: _:Na30faf64b2af4a61a00c17faacc40483\n - Shape focal-shape:ArtifactDependency: <file:///github/workspace/eo-strategy>,<file:///github/workspace/labels>,<file:///github/workspace/phenology>\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:OptionalRuleHasConsequence": {
+                      "nodes": [
+                        "_:N654faf1b68f948108b318a8dfbcc7341",
+                        "_:N6a054d321d70481aa431f021139edaa5",
+                        "_:N089a1b0f7f5d47f985c7d36840b63b2e"
+                      ]
+                    },
+                    "focal-shape:TerminalActionNotAlongsideReuse": {
+                      "nodes": [
+                        "_:N654faf1b68f948108b318a8dfbcc7341",
+                        "_:N6a054d321d70481aa431f021139edaa5",
+                        "_:N089a1b0f7f5d47f985c7d36840b63b2e"
+                      ]
+                    },
+                    "focal-shape:EnvelopeCondition": {
+                      "nodes": [
+                        "_:Nf03fd3792300450487a96eaffe0333fa",
+                        "_:Nc0fbc774844549978770938c81086798",
+                        "_:Na2a0aa0f9d2044678e1df3a7ba2cc1d9"
+                      ]
+                    },
+                    "focal-shape:RuleHasACondition": {
+                      "nodes": [
+                        "_:N654faf1b68f948108b318a8dfbcc7341",
+                        "_:N6a054d321d70481aa431f021139edaa5",
+                        "_:N089a1b0f7f5d47f985c7d36840b63b2e"
+                      ]
+                    },
+                    "focal-shape:TransferabilityRule": {
+                      "nodes": [
+                        "_:N654faf1b68f948108b318a8dfbcc7341",
+                        "_:N6a054d321d70481aa431f021139edaa5",
+                        "_:N089a1b0f7f5d47f985c7d36840b63b2e"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:N654faf1b68f948108b318a8dfbcc7341,_:N6a054d321d70481aa431f021139edaa5,_:N089a1b0f7f5d47f985c7d36840b63b2e\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N654faf1b68f948108b318a8dfbcc7341,_:N6a054d321d70481aa431f021139edaa5,_:N089a1b0f7f5d47f985c7d36840b63b2e\n - Shape focal-shape:EnvelopeCondition: _:Nf03fd3792300450487a96eaffe0333fa,_:Nc0fbc774844549978770938c81086798,_:Na2a0aa0f9d2044678e1df3a7ba2cc1d9\n - Shape focal-shape:RuleHasACondition: _:N654faf1b68f948108b318a8dfbcc7341,_:N6a054d321d70481aa431f021139edaa5,_:N089a1b0f7f5d47f985c7d36840b63b2e\n - Shape focal-shape:TransferabilityRule: _:N654faf1b68f948108b318a8dfbcc7341,_:N6a054d321d70481aa431f021139edaa5,_:N089a1b0f7f5d47f985c7d36840b63b2e\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:SpatialEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/phenological-regime>",
+                        "<file:///github/workspace/label-extent>"
+                      ]
+                    },
+                    "focal-shape:ScenarioMarkerIsAConcept": {
+                      "nodes": [
+                        "<file:///github/workspace/phenological-regime>/focal-transf-prop:value",
+                        "<file:///github/workspace/label-extent>/focal-transf-prop:value"
+                      ]
+                    },
+                    "focal-shape:NonGeometricEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/phenological-regime>",
+                        "<file:///github/workspace/label-extent>"
+                      ]
+                    },
+                    "focal-shape:EnvelopeConstraint": {
+                      "nodes": [
+                        "<file:///github/workspace/phenological-regime>",
+                        "<file:///github/workspace/label-extent>"
+                      ]
+                    },
+                    "focal-shape:TemporalEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/phenological-regime>",
+                        "<file:///github/workspace/label-extent>"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/phenological-regime>,<file:///github/workspace/label-extent>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/phenological-regime>/focal-transf-prop:value,<file:///github/workspace/label-extent>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/phenological-regime>,<file:///github/workspace/label-extent>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/phenological-regime>,<file:///github/workspace/label-extent>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/phenological-regime>,<file:///github/workspace/label-extent>\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/maturityStatus/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/maturityStatus/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/maturityStatus/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:MaturityStatus": {
+                      "nodes": [
+                        "_:Ndace26334953424799e24afccffcf8a4"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/maturityStatus/shapes.shacl:\n - Shape focal-shape:MaturityStatus: _:Ndace26334953424799e24afccffcf8a4\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:QualityAnnotation": {
+                      "nodes": []
+                    },
+                    "focal-shape:QualityAnnotationHasNote": {
+                      "nodes": []
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:\n - Shape focal-shape:QualityAnnotation: *none*\n - Shape focal-shape:QualityAnnotationHasNote: *none*\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/computationType/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/computationType/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/computationType/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:ComputationType": {
+                      "nodes": [
+                        "_:Ndace26334953424799e24afccffcf8a4"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/computationType/shapes.shacl:\n - Shape focal-shape:ComputationType: _:Ndace26334953424799e24afccffcf8a4\n"
                 }
               ]
             }
@@ -896,7 +2926,7 @@
               "entries": [
                 {
                   "isError": false,
-                  "message": "Using examples/up-wf2.json from examples"
+                  "message": "Using example_4_1.json from examples"
                 },
                 {
                   "op": "jsonld-uplift",
@@ -913,7 +2943,7 @@
                   "op": "ttl-create",
                   "empty": false,
                   "filename": "example_4_1.ttl",
-                  "size": 1831,
+                  "size": 82,
                   "isError": false,
                   "message": "Output Turtle example_4_1.ttl created"
                 }
@@ -928,6 +2958,253 @@
                   "result": true,
                   "isError": false,
                   "message": "Validation passed"
+                }
+              ]
+            },
+            {
+              "name": "SHACL",
+              "title": "SHACL",
+              "entries": [
+                {
+                  "isError": false,
+                  "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/workflow/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/workflow/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/workflow/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:TransferabilityWorkflow": {
+                      "nodes": [
+                        "_:Nea16db9aa4924c239902f72435c29925"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/workflow/shapes.shacl:\n - Shape focal-shape:TransferabilityWorkflow: _:Nea16db9aa4924c239902f72435c29925\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:RuleCitesDeclaredConstraint": {
+                      "nodes": [
+                        "_:N688ba5440c534f2b94a39b45613b2195"
+                      ]
+                    },
+                    "focal-shape:RuleCitesDeclaredArtifact": {
+                      "nodes": [
+                        "_:N688ba5440c534f2b94a39b45613b2195"
+                      ]
+                    },
+                    "focal-shape:ArtifactIsGovernedByARule": {
+                      "nodes": [
+                        "_:N688ba5440c534f2b94a39b45613b2195"
+                      ]
+                    },
+                    "focal-shape:ArtifactRefOnlyForInternalRoles": {
+                      "nodes": [
+                        "<file:///github/workspace/lst>",
+                        "<file:///github/workspace/clms>",
+                        "<file:///github/workspace/eurostat>"
+                      ]
+                    },
+                    "focal-shape:TransferabilityStatement": {
+                      "nodes": [
+                        "_:N688ba5440c534f2b94a39b45613b2195"
+                      ]
+                    },
+                    "focal-shape:ArtifactDependency": {
+                      "nodes": [
+                        "<file:///github/workspace/lst>",
+                        "<file:///github/workspace/clms>",
+                        "<file:///github/workspace/eurostat>"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:RuleCitesDeclaredConstraint: _:N688ba5440c534f2b94a39b45613b2195\n - Shape focal-shape:RuleCitesDeclaredArtifact: _:N688ba5440c534f2b94a39b45613b2195\n - Shape focal-shape:ArtifactIsGovernedByARule: _:N688ba5440c534f2b94a39b45613b2195\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <file:///github/workspace/lst>,<file:///github/workspace/clms>,<file:///github/workspace/eurostat>\n - Shape focal-shape:TransferabilityStatement: _:N688ba5440c534f2b94a39b45613b2195\n - Shape focal-shape:ArtifactDependency: <file:///github/workspace/lst>,<file:///github/workspace/clms>,<file:///github/workspace/eurostat>\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/rule/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:OptionalRuleHasConsequence": {
+                      "nodes": [
+                        "_:Nc75b61fc58104dee871098de5f4817ee",
+                        "_:N3fd628daaa1c4139b5207bf7872e7b26",
+                        "_:Na878907edba54504883eb9985801128b",
+                        "_:N4e0005b8ac8342c4a9f9ac71657c7632",
+                        "_:N1f508603ff9b4cee8ae187a98172cd59"
+                      ]
+                    },
+                    "focal-shape:TerminalActionNotAlongsideReuse": {
+                      "nodes": [
+                        "_:Nc75b61fc58104dee871098de5f4817ee",
+                        "_:N3fd628daaa1c4139b5207bf7872e7b26",
+                        "_:Na878907edba54504883eb9985801128b",
+                        "_:N4e0005b8ac8342c4a9f9ac71657c7632",
+                        "_:N1f508603ff9b4cee8ae187a98172cd59"
+                      ]
+                    },
+                    "focal-shape:EnvelopeCondition": {
+                      "nodes": [
+                        "_:Ne6e7eea7035a4bf08a25e1e491e8f9a6",
+                        "_:Ned51fe554d33468c9ddf2e40b9c0b214",
+                        "_:N58e4cc453b86413faea072d24bd084c2",
+                        "_:Ne0b6f1cbceab45409235cdf4617957cc"
+                      ]
+                    },
+                    "focal-shape:RuleHasACondition": {
+                      "nodes": [
+                        "_:Nc75b61fc58104dee871098de5f4817ee",
+                        "_:N3fd628daaa1c4139b5207bf7872e7b26",
+                        "_:Na878907edba54504883eb9985801128b",
+                        "_:N4e0005b8ac8342c4a9f9ac71657c7632",
+                        "_:N1f508603ff9b4cee8ae187a98172cd59"
+                      ]
+                    },
+                    "focal-shape:TransferabilityRule": {
+                      "nodes": [
+                        "_:Nc75b61fc58104dee871098de5f4817ee",
+                        "_:Na878907edba54504883eb9985801128b",
+                        "_:N4e0005b8ac8342c4a9f9ac71657c7632",
+                        "_:N3fd628daaa1c4139b5207bf7872e7b26",
+                        "_:N1f508603ff9b4cee8ae187a98172cd59"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:OptionalRuleHasConsequence: _:Nc75b61fc58104dee871098de5f4817ee,_:N3fd628daaa1c4139b5207bf7872e7b26,_:Na878907edba54504883eb9985801128b,_:N4e0005b8ac8342c4a9f9ac71657c7632,_:N1f508603ff9b4cee8ae187a98172cd59\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Nc75b61fc58104dee871098de5f4817ee,_:N3fd628daaa1c4139b5207bf7872e7b26,_:Na878907edba54504883eb9985801128b,_:N4e0005b8ac8342c4a9f9ac71657c7632,_:N1f508603ff9b4cee8ae187a98172cd59\n - Shape focal-shape:EnvelopeCondition: _:Ne6e7eea7035a4bf08a25e1e491e8f9a6,_:Ned51fe554d33468c9ddf2e40b9c0b214,_:N58e4cc453b86413faea072d24bd084c2,_:Ne0b6f1cbceab45409235cdf4617957cc\n - Shape focal-shape:RuleHasACondition: _:Nc75b61fc58104dee871098de5f4817ee,_:N3fd628daaa1c4139b5207bf7872e7b26,_:Na878907edba54504883eb9985801128b,_:N4e0005b8ac8342c4a9f9ac71657c7632,_:N1f508603ff9b4cee8ae187a98172cd59\n - Shape focal-shape:TransferabilityRule: _:Nc75b61fc58104dee871098de5f4817ee,_:Na878907edba54504883eb9985801128b,_:N4e0005b8ac8342c4a9f9ac71657c7632,_:N3fd628daaa1c4139b5207bf7872e7b26,_:N1f508603ff9b4cee8ae187a98172cd59\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:SpatialEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/epochs>",
+                        "<file:///github/workspace/clms-extent>",
+                        "<file:///github/workspace/eur11-domain>",
+                        "<file:///github/workspace/clms-excluded-ukraine>"
+                      ]
+                    },
+                    "focal-shape:ScenarioMarkerIsAConcept": {
+                      "nodes": [
+                        "<file:///github/workspace/epochs>/focal-transf-prop:value",
+                        "<file:///github/workspace/clms-excluded-ukraine>/focal-transf-prop:value",
+                        "<file:///github/workspace/clms-extent>/focal-transf-prop:value",
+                        "<file:///github/workspace/eur11-domain>/focal-transf-prop:value"
+                      ]
+                    },
+                    "focal-shape:NonGeometricEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/epochs>",
+                        "<file:///github/workspace/clms-extent>",
+                        "<file:///github/workspace/eur11-domain>",
+                        "<file:///github/workspace/clms-excluded-ukraine>"
+                      ]
+                    },
+                    "focal-shape:EnvelopeConstraint": {
+                      "nodes": [
+                        "<file:///github/workspace/clms-excluded-ukraine>",
+                        "<file:///github/workspace/clms-extent>",
+                        "<file:///github/workspace/epochs>",
+                        "<file:///github/workspace/eur11-domain>"
+                      ]
+                    },
+                    "focal-shape:TemporalEnvelopeValue": {
+                      "nodes": [
+                        "<file:///github/workspace/epochs>",
+                        "<file:///github/workspace/clms-extent>",
+                        "<file:///github/workspace/eur11-domain>",
+                        "<file:///github/workspace/clms-excluded-ukraine>"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/epochs>,<file:///github/workspace/clms-extent>,<file:///github/workspace/eur11-domain>,<file:///github/workspace/clms-excluded-ukraine>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/epochs>/focal-transf-prop:value,<file:///github/workspace/clms-excluded-ukraine>/focal-transf-prop:value,<file:///github/workspace/clms-extent>/focal-transf-prop:value,<file:///github/workspace/eur11-domain>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/epochs>,<file:///github/workspace/clms-extent>,<file:///github/workspace/eur11-domain>,<file:///github/workspace/clms-excluded-ukraine>\n - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/clms-excluded-ukraine>,<file:///github/workspace/clms-extent>,<file:///github/workspace/epochs>,<file:///github/workspace/eur11-domain>\n - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/epochs>,<file:///github/workspace/clms-extent>,<file:///github/workspace/eur11-domain>,<file:///github/workspace/clms-excluded-ukraine>\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/maturityStatus/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/maturityStatus/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/maturityStatus/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:MaturityStatus": {
+                      "nodes": [
+                        "_:Nea16db9aa4924c239902f72435c29925"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/maturityStatus/shapes.shacl:\n - Shape focal-shape:MaturityStatus: _:Nea16db9aa4924c239902f72435c29925\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/qualityAnnotation/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:QualityAnnotation": {
+                      "nodes": []
+                    },
+                    "focal-shape:QualityAnnotationHasNote": {
+                      "nodes": []
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:\n - Shape focal-shape:QualityAnnotation: *none*\n - Shape focal-shape:QualityAnnotationHasNote: *none*\n"
+                },
+                {
+                  "op": "shacl-report",
+                  "shaclFile": "_sources/transferability/computationType/shapes.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/transferability/computationType/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/transferability/computationType/shapes.shacl",
+                  "focusNodes": {
+                    "focal-shape:ComputationType": {
+                      "nodes": [
+                        "_:Nea16db9aa4924c239902f72435c29925"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/transferability/computationType/shapes.shacl:\n - Shape focal-shape:ComputationType: _:Nea16db9aa4924c239902f72435c29925\n"
                 }
               ]
             }

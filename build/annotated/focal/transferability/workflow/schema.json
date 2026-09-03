@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Transferability Workflow",
-  "description": "A profile of a CWL Workflow (`ogc.cwl.v1_2_1.CWLWorkflow`) adding FOCAL's machine-readable transferability facts, extracted from FOCAL's 8 pilot-workflow questionnaires:\n- `transferability` \u2014 the workflow's portability boundary, one\n  [`transferabilityStatement`](bblocks://ogc.focal.transferability.transferabilityStatement)\n  (its `envelope` and `artifactRules`). Required: every evidenced workflow states one.\n- `computationType`, `maturityStatus` \u2014 the two workflow-level classification mixins (see\n  [`computationType`](bblocks://ogc.focal.transferability.computationType) and\n  [`maturityStatus`](bblocks://ogc.focal.transferability.maturityStatus) for which is optional\n  and which is required).\n- `qualityAnnotation` \u2014 a repeatable, optional workflow-level fact (see its own block for\n  evidence density and omission rules).\n\n`computationType`/`maturityStatus`/`qualityAnnotation` stay outside `transferability` on purpose: they describe the workflow's implementation and result quality generally, not its portability boundary \u2014 see `transferabilityStatement` for the same distinction from its side.\n",
+  "description": "A profile of a CWL Workflow (`ogc.cwl.v1_2_1.CWLWorkflow`) adding FOCAL's machine-readable transferability facts, extracted from FOCAL's 8 pilot-workflow questionnaires:\n- `transferability` \u2014 the workflow's portability boundary, one\n  [`transferabilityStatement`](bblocks://ogc.focal.transferability.transferabilityStatement)\n  (its `envelope`, `artifacts` and `rules`). Required: every evidenced workflow states one.\n- `computationType`, `maturityStatus` \u2014 the two workflow-level classification mixins (see\n  [`computationType`](bblocks://ogc.focal.transferability.computationType) and\n  [`maturityStatus`](bblocks://ogc.focal.transferability.maturityStatus) for which is optional\n  and which is required).\n- `qualityAnnotation` \u2014 a repeatable, optional workflow-level fact (see its own block for\n  evidence density and omission rules).\n\n`computationType`/`maturityStatus`/`qualityAnnotation` stay outside `transferability` on purpose: they describe the workflow's implementation and result quality generally, not its portability boundary \u2014 see `transferabilityStatement` for the same distinction from its side.\n",
   "allOf": [
     {
       "$ref": "https://ogcincubator.github.io/bblocks-cwl/build/annotated/cwl/v1_2_1/CWLWorkflow/schema.json"
@@ -20,7 +20,7 @@
       "properties": {
         "transferability": {
           "$ref": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/schema.json",
-          "description": "The workflow's portability boundary: where its results are valid (`envelope`) and what must happen to each reference/calibration artifact outside it (`artifactRules`). See `transferabilityStatement` for both properties' shapes.\n",
+          "description": "The workflow's portability boundary: where its results are valid (`envelope`) and which artifacts it depends on, and what must happen to each outside it. See `transferabilityStatement` for the three lists and how they reference each other.\n",
           "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/transferability"
         },
         "qualityAnnotation": {

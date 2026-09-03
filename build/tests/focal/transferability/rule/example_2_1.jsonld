@@ -1,0 +1,19 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld",
+  "appliesTo": [
+    "tolerances",
+    "slt-t5",
+    "species-codes",
+    "rasdaman"
+  ],
+  "when": [
+    {
+      "constraint": "czechia",
+      "test": "outside"
+    }
+  ],
+  "actions": [
+    "replace-with-local-equivalent"
+  ],
+  "mandatory": true
+}

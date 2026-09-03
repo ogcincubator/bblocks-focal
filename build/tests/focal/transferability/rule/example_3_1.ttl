@@ -1,0 +1,11 @@
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+    focal-transf-prop:appliesTo <file:///github/workspace/lst> ;
+    focal-transf-prop:mandatory true ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <file:///github/workspace/eur11-domain> ;
+            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ],
+        [ focal-transf-prop:constraint <file:///github/workspace/eur11-grid> ;
+            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
+

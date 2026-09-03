@@ -1,0 +1,10 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld",
+  "id": "czech-plots",
+  "role": "trained-on",
+  "dimension": "spatial",
+  "value": {
+    "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"
+  },
+  "transferabilityNotes": "Country bounding box, standing in for the actual permanent sample plot network; an honest upper bound pending the real plot coordinates."
+}

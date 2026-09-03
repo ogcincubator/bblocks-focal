@@ -1,104 +1,139 @@
 $schema: https://json-schema.org/draft/2020-12/schema
 title: Transferability Statement
-description: "The core, portable facts about where something's results are valid and
-  what it takes to make them valid elsewhere \u2014 factored out of `ogc.focal.transferability.workflow`
-  so the same bundle can eventually attach to something other than a CWL Workflow
-  (a step, a process, a delivered dataset). Two properties:\n- `envelope` \u2014 the
-  validity envelope, one or more\n  [`envelopeConstraint`](bblocks://ogc.focal.transferability.envelopeConstraint)
-  statements\n  (`{role, dimension, value}`). Required: every evidenced case states
-  at least one. This is also\n  where a calendar span or scenario marker (a Global
-  Warming Level, say) results are valid over\n  belongs, as a `dimension: temporal`
-  entry \u2014 see `envelopeConstraint` for its `{start, end}`/\n  `{scenarioMarker}`
-  shapes.\n- `artifactRules` \u2014 the reference/calibration artifacts and what must
-  happen to each outside the\n  envelope, each entry wrapping one or more\n  [`rule`](bblocks://ogc.focal.transferability.rule)
-  statements. Required for the same reason.\n\n`computationType`, `maturityStatus`,
-  and `qualityAnnotation` deliberately stay outside this bundle: they describe a workflow's
-  implementation and result quality generally, not its portability boundary, so `ogc.focal.transferability.workflow`
-  attaches them directly rather than through here.\n**`artifactRules`' wrapper shape**
-  identifies the artifact by a free-text `artifact` label (e.g. \"trained tree growth
-  model (LightGBM, Czech PSP data)\") plus an `artifactRole` classifying what kind
-  of thing it is. The 8 FOCAL pilot-workflow questionnaires' artifacts turn out not
-  to be uniformly CWL inputs: some are workflow inputs (config/reference-data files),
-  some are workflow outputs later reused as another run's input (a trained model),
-  and some never appear in a CWL graph at all (physical infrastructure that must be
-  re-deployed, not replaced as data; an optional validation reference that isn't a
-  required artifact). `artifactRole` records which, and is always fillable from source
-  text alone. `artifactRef` then gives the actual CWL id \u2014 `inputs.<id>` or `outputs.<id>`
-  of whatever `CWLWorkflow` this statement is attached to \u2014 but only once a real
-  Application Package exists to bind against; it's optional and meaningless for the
-  `external-resource`/`infrastructure` roles, which have no CWL id to point at.\n"
+description: "Where something's results are valid, which reference or calibration
+  artifacts it depends on, and what must happen to each to make the results valid
+  elsewhere. Factored out of `ogc.focal.transferability.workflow` so the same bundle
+  can attach to something other than a CWL Workflow \u2014 a step, a process, a delivered
+  dataset \u2014 and carrying no CWL assumption of its own.\nThree lists, each addressable
+  by `id`, joined by reference rather than by nesting:\n- `envelope` \u2014 the validity
+  envelope, as\n  [`envelopeConstraint`](bblocks://ogc.focal.transferability.envelopeConstraint)
+  statements.\n- `artifacts` \u2014 the reference/calibration artifacts, declared
+  once. - `rules` \u2014 what happens to which artifacts under which envelope conditions.\n**Why
+  three lists and not nesting.** An earlier draft nested rules inside artifacts and
+  kept the envelope entirely separate, so nothing connected a rule to the boundary
+  it was evaluated against. UP-WF2 is where that breaks: it has two different coverage
+  footprints and three artifacts, every rule saying \"different geographic coverage\",
+  and no way to record that the LST datasets are bounded by one and the CLMS layers
+  by the other. Asked \"can I run this in Kyiv?\", a consumer could not tell which
+  rule fires. Nesting rules under artifacts fixes that one case and fails the next:
+  an artifact bounded on two axes at once needs a conjunction, which a tree cannot
+  express. Citing ids costs one indirection and expresses both, plus the case that
+  motivated neither \u2014 FP-WF2's four artifacts sharing a single boundary, stated
+  once rather than four times.\n**Conjunction and disjunction.** A rule's `when` is
+  an AND: every condition must hold for the rule to fire. A disjunction is written
+  as two rules. That is a deliberate limit rather than a missing feature \u2014 two
+  conditions leading to the same action really are two statements, and keeping them
+  separate keeps each traceable to the sentence in a questionnaire it came from, which
+  a nested boolean expression does not. `actions` remains an OR-set: any one resolves
+  the rule.\n"
 type: object
 required:
 - envelope
-- artifactRules
+- artifacts
+- rules
 properties:
   envelope:
     type: array
     minItems: 1
     items:
       $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
-    description: "The validity envelope, as one or more role/dimension/value statements.
-      FP-WF1 alone needs three at once (trained-on/spatial, valid-for/ecological,
-      can-run-on/climatic) \u2014 see `envelopeConstraint` for why role and dimension
-      are independent axes.\n"
+    description: 'The validity envelope, as one or more role/dimension/value statements.
+      Required: something with no stated boundary at all is not yet a portability
+      statement, and inventing one to satisfy the schema would be worse than leaving
+      the workflow unmodelled.
+
+      '
     x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/envelope
     x-jsonld-container: '@set'
-  artifactRules:
+  artifacts:
     type: array
-    minItems: 1
     items:
-      type: object
-      required:
-      - artifact
-      - artifactRole
-      - rules
-      properties:
-        artifact:
-          type: string
-          description: 'Free-text label identifying the reference or calibration artifact
-            these rules apply to (e.g. "downscaled FOCAL climate data", "Quitt climate-zone
-            thresholds/limits").
+      $ref: '#/$defs/artifact'
+    description: 'The reference and calibration artifacts this statement''s rules
+      govern, each declared once and cited by `rules[].appliesTo`. May be empty when
+      every rule is about the workflow as a whole.
 
-            '
-          x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/artifact
-        artifactRole:
-          type: string
-          enum:
-          - workflow-input
-          - workflow-output
-          - external-resource
-          - infrastructure
-          description: "What kind of thing this artifact is, independent of whether
-            a CWL id exists for it yet: `workflow-input` \u2014 consumed as a workflow
-            input (a config file, parameter, or reference dataset); `workflow-output`
-            \u2014 produced by (a step of) the workflow and reused as an input elsewhere,
-            e.g. a trained model; `external-resource` \u2014 referenced by the workflow's
-            documentation but not wired into its CWL graph, e.g. an optional validation
-            dataset; `infrastructure` \u2014 physical or operational, not data at
-            all, e.g. a sensor network that must be re-deployed rather than replaced.\n"
-          x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRole
-        artifactRef:
-          type: string
-          pattern: ^(inputs|outputs)\.[A-Za-z0-9_-]+$
-          description: "The artifact's CWL id, as `inputs.<id>` or `outputs.<id>`
-            of whatever `CWLWorkflow` this statement is attached to. Optional: only
-            meaningful when `artifactRole` is `workflow-input` or `workflow-output`,
-            and only fillable once a real CWL Application Package exists to bind against
-            \u2014 omit otherwise rather than guess an id.\n"
-          x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRef
-        rules:
-          type: array
-          minItems: 1
-          items:
-            $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/schema.yaml
-          description: One or more condition/action rules governing this artifact.
-          x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/rules
-          x-jsonld-container: '@set'
-    description: "The reference/calibration artifacts and the rules governing how
-      each must be adapted outside the validity envelope. Not every artifact a workflow
-      depends on needs an entry here \u2014 only those with an evidenced transferability
-      fact.\n"
-    x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRules
+      '
+    x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/artifacts
     x-jsonld-container: '@set'
+  rules:
+    type: array
+    items:
+      $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/schema.yaml
+    description: 'What must happen, to which artifacts, under which conditions. **An
+      empty array is a meaningful value**: it says the artifacts were assessed and
+      none needs adapting, which is a positive portability fact and quite different
+      from the property being absent, which says nobody has looked. Requiring at least
+      one entry would force anyone in the first situation to invent a rule.
+
+      '
+    x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/rules
+    x-jsonld-container: '@set'
+$defs:
+  artifact:
+    title: Artifact dependency
+    type: object
+    required:
+    - id
+    - artifact
+    - artifactRole
+    properties:
+      id:
+        type: string
+        pattern: ^[A-Za-z0-9][A-Za-z0-9_-]*$
+        description: 'Identifier for this artifact, unique within the statement, cited
+          by `rules[].appliesTo`.
+
+          '
+        x-jsonld-id: '@id'
+      artifact:
+        type: string
+        description: 'Label identifying the artifact, in the words the source used
+          (e.g. "downscaled FOCAL climate data", "Quitt climate-zone thresholds/limits").
+          Uplifts to `dcterms:title` on a `prov:Entity`.
+
+          '
+        x-jsonld-id: http://purl.org/dc/terms/title
+      artifactRole:
+        type: string
+        examples:
+        - workflow-input
+        - workflow-output
+        - external-resource
+        - infrastructure
+        description: "What kind of thing this artifact is, independent of whether
+          an executable workflow description exists that could give it an identifier
+          yet. The eight FOCAL questionnaires' artifacts are not uniformly workflow
+          inputs: some are inputs, some are outputs later reused as another run's
+          input (a trained model), and some never appear in an executable graph at
+          all (physical infrastructure to be re-deployed; an optional validation reference).
+          Open vocabulary \u2014 see bblocks://ogc.focal.transferability.vocab.\n"
+        x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRole
+        x-jsonld-type: '@id'
+        x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/
+      artifactRef:
+        type: string
+        format: json-pointer
+        pattern: ^/
+        examples:
+        - /inputs/climate_data
+        - /outputs/trained_growth_model
+        description: 'JSON Pointer (RFC 6901) locating the artifact inside the document
+          this statement annotates. For the CWL profile in bblocks://ogc.focal.transferability.workflow
+          that means `/inputs/<id>` or `/outputs/<id>`, but the pointer carries no
+          CWL assumption. Optional: meaningful only for the `workflow-input` and `workflow-output`
+          roles, and only fillable once a real Application Package exists to point
+          into. Omit it rather than guess.
+
+          '
+        x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRef
+      transferabilityNotes:
+        type: string
+        description: Free-text note about the artifact. Uplifts to `rdfs:comment`.
+        x-jsonld-id: http://www.w3.org/2000/01/rdf-schema#comment
 x-jsonld-prefixes:
   focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/
+  dcterms: http://purl.org/dc/terms/
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  focal-transf: https://w3id.org/ogc/hosted/focal/transferability/
+  prov: http://www.w3.org/ns/prov#

@@ -1,7 +1,7 @@
 
 # FOCAL Workflow Maturity Status (mixin) (Schema)
 
-`ogc.focal.transferability.maturityStatus` *v0.1*
+`ogc.focal.transferability.maturityStatus` *v0.2*
 
 Reusable mixin adding maturityStatus, an open-vocabulary classification of a workflow's operational maturity (prototype, pre-operational, operational). Deliberately a separate vocabulary from a bblock's own authoring-lifecycle status field.
 

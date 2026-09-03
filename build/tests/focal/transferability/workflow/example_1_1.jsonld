@@ -12,76 +12,72 @@
   "transferability": {
     "envelope": [
       {
+        "id": "czech-plots",
         "role": "trained-on",
         "dimension": "spatial",
         "value": {
-          "type": "Polygon",
-          "coordinates": [
-            [
-              [
-                12.09,
-                48.55
-              ],
-              [
-                18.87,
-                48.55
-              ],
-              [
-                18.87,
-                51.06
-              ],
-              [
-                12.09,
-                51.06
-              ],
-              [
-                12.09,
-                48.55
-              ]
-            ]
-          ]
-        }
+          "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"
+        },
+        "transferabilityNotes": "Czechia's country bounding box, standing in for the actual Czech long-term permanent sample plot network \u2014 a scattered set of monitoring locations, not a rectangle. An honest upper bound pending the real plot coordinates from the workflow owner."
       },
       {
+        "id": "ecological-range",
         "role": "valid-for",
         "dimension": "ecological",
         "value": "a comparable ecological range"
       },
       {
+        "id": "downscaled-climate-available",
         "role": "can-run-on",
         "dimension": "climatic",
         "value": "wherever downscaled climate data is available"
       }
     ],
-    "artifactRules": [
+    "artifacts": [
       {
+        "id": "growth-model",
         "artifact": "trained tree growth model (LightGBM, Czech permanent sample plot data)",
         "artifactRole": "workflow-output",
-        "artifactRef": "outputs.trained_growth_model",
-        "rules": [
-          {
-            "triggeredBy": "different-ecological-range",
-            "actions": [
-              "retrain",
-              "replace-with-alternative-published-model"
-            ],
-            "required": true
-          }
-        ]
+        "artifactRef": "/outputs/trained_growth_model"
       },
       {
+        "id": "climate-data",
         "artifact": "downscaled FOCAL climate data (current + future)",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.climate_data",
-        "rules": [
+        "artifactRef": "/inputs/climate_data"
+      }
+    ],
+    "rules": [
+      {
+        "appliesTo": [
+          "growth-model"
+        ],
+        "when": [
           {
-            "triggeredBy": "different-geographic-coverage",
-            "actions": [
-              "replace-with-local-equivalent"
-            ],
-            "required": true
+            "constraint": "ecological-range",
+            "test": "outside"
           }
-        ]
+        ],
+        "actions": [
+          "retrain",
+          "replace-with-alternative-published-model"
+        ],
+        "mandatory": true
+      },
+      {
+        "appliesTo": [
+          "climate-data"
+        ],
+        "when": [
+          {
+            "constraint": "czech-plots",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true
       }
     ]
   },

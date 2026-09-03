@@ -1,0 +1,17 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld",
+  "appliesTo": [
+    "labels"
+  ],
+  "when": [
+    {
+      "constraint": "label-extent",
+      "test": "outside"
+    }
+  ],
+  "actions": [
+    "retrain"
+  ],
+  "mandatory": false,
+  "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright \u2014 a degraded-mode caveat, not a hard requirement."
+}

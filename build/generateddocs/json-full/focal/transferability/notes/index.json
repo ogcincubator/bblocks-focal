@@ -3,11 +3,11 @@
 {
   "itemIdentifier": "ogc.focal.transferability.notes",
   "name": "FOCAL Transferability Notes (mixin)",
-  "abstract": "Reusable mixin adding a free-text escape hatch for transferability facts that don't reduce to the controlled transferabilityAction/triggeredBy vocabulary.",
+  "abstract": "Reusable mixin adding a free-text escape hatch for transferability facts the controlled vocabularies cannot capture. Uplifts to rdfs:comment rather than a FOCAL-specific property.",
   "status": "under-development",
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "schema",
-  "version": "0.1",
+  "version": "0.3",
   "dateOfLastChange": "2026-09-03",
   "tags": [
     "focal",
@@ -26,7 +26,7 @@
   "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/resolvedProperties.json",
   "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/notes/",
   "validationPassed": true,
-  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntitle: Transferability Notes (mixin)\ndescription: \"Reusable mixin adding a free-text escape hatch for transferability facts\n  that don't reduce cleanly to the controlled `transferabilityAction`/`triggeredBy`\n  vocabulary (see bblocks://ogc.focal.transferability.vocab) \\u2014 e.g. UP-WF2's\n  \\\"the classification algorithm is more portable than its current input dataset.\\\"\n  Mix in via `allOf` wherever such a note may apply (a rule, an envelope constraint,\n  ...); not restricted to one attachment point.\\n\"\ntype: object\nproperties:\n  transferabilityNotes:\n    type: string\n    description: 'Free-text elaboration of a transferability fact the controlled vocabulary\n      can''t capture, or of the consequence of an optional action being skipped (see\n      transferability/rule''s `required`).\n\n      '\n    x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/transferabilityNotes\nx-jsonld-prefixes:\n  focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/\n",
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntitle: Transferability Notes (mixin)\ndescription: \"Reusable mixin adding a free-text escape hatch for transferability facts\n  that don't reduce cleanly to the controlled vocabularies \\u2014 e.g. UP-WF2's \\\"the\n  classification algorithm is more portable than its current input dataset.\\\"\\n**Uplifts\n  to `rdfs:comment`**, not to a FOCAL-specific property: a human-readable note about\n  a resource is exactly what `rdfs:comment` is for, every RDF consumer already renders\n  it, and minting a FOCAL term for it would have bought nothing. This is the general\n  rule across the model \\u2014 a FOCAL term only where nothing published says the\n  same thing.\\nMixed in wherever such a note may apply: on bblocks://ogc.focal.transferability.envelopeConstraint\n  (why a value is approximate or inferred) and on bblocks://ogc.focal.transferability.rule\n  (what degrades when an optional action is skipped).\\n\"\ntype: object\nproperties:\n  transferabilityNotes:\n    type: string\n    description: 'Free-text elaboration of a transferability fact the controlled vocabularies\n      can''t capture. Uplifts to `rdfs:comment` on whatever it is attached to.\n\n      '\n    x-jsonld-id: http://www.w3.org/2000/01/rdf-schema#comment\nx-jsonld-prefixes:\n  rdfs: http://www.w3.org/2000/01/rdf-schema#\n",
   "gitRepository": "https://github.com/ogcincubator/bblocks-focal",
   "gitPath": "_sources/transferability/notes"
 }
