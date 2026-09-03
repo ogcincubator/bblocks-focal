@@ -1,0 +1,19 @@
+{
+  "name": "FOCAL Quality Annotation",
+  "abstract": "A single statement of uncertainty or confidence about a workflow's results, independent of its maturityStatus. Binds to the W3C Data Quality Vocabulary (DQV) directly, since no OGC Block wraps DQV.",
+  "status": "under-development",
+  "dateTimeAddition": "2026-09-02T00:00:00Z",
+  "itemClass": "schema",
+  "version": "0.1",
+  "dateOfLastChange": "2026-09-02",
+  "concept": [
+    "https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/scheme"
+  ],
+  "tags": [
+    "focal",
+    "transferability",
+    "schema",
+    "dqv"
+  ],
+  "group": "FOCAL Transferability"
+}

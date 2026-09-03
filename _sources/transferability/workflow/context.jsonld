@@ -1,0 +1,26 @@
+{
+  "@context": {
+    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "envelope": {
+      "@id": "focal-transf-prop:envelope",
+      "@container": "@set"
+    },
+    "referenceArtifact": {
+      "@id": "focal-transf-prop:referenceArtifact",
+      "@container": "@set"
+    },
+    "artifact": "focal-transf-prop:artifact",
+    "rules": {
+      "@id": "focal-transf-prop:rules",
+      "@container": "@set"
+    },
+    "temporalExtent": {
+      "@id": "focal-transf-prop:temporalExtent",
+      "@container": "@set"
+    },
+    "qualityAnnotation": {
+      "@id": "focal-transf-prop:qualityAnnotation",
+      "@container": "@set"
+    }
+  }
+}

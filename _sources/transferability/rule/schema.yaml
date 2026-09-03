@@ -1,0 +1,46 @@
+"$schema": https://json-schema.org/draft/2020-12/schema
+title: Transferability Rule
+x-jsonld-context: context.jsonld
+description: >
+  A single condition/action rule attached to a reference or calibration artifact: the condition
+  that triggers it (`triggeredBy`), the action(s) that resolve it (`actions` — an OR-set, any one
+  action satisfies the rule), and whether applying one is mandatory (`required`). `triggeredBy` and
+  `actions` draw from the open SKOS vocabulary in bblocks://ogc.focal.transferability.vocab —
+  the values listed in `examples` below are the core, evidenced set from FOCAL's pilot workflows,
+  not an exhaustive enum; new terms may be added to the vocabulary without a schema change.
+allOf:
+  - "$ref": "bblocks://ogc.focal.transferability.notes"
+  - type: object
+    required:
+      - triggeredBy
+      - actions
+    properties:
+      triggeredBy:
+        type: string
+        examples:
+          - different-geographic-coverage
+          - different-ecological-range
+          - different-climate-regime
+          - different-dataset
+        description: The condition that triggers this rule.
+      actions:
+        type: array
+        minItems: 1
+        items:
+          type: string
+          examples:
+            - reuse-as-is
+            - replace-with-local-equivalent
+            - retrain
+            - replace-with-alternative-published-model
+            - component-not-executable
+        description: >
+          One or more actions, any of which resolves `triggeredBy` — an OR-set, not a required
+          combination (no evidenced case needs more than one action applied simultaneously).
+      required:
+        type: boolean
+        default: true
+        description: >
+          Whether applying one of `actions` is mandatory once `triggeredBy` holds. Defaults to
+          true. When false, skipping is allowed but degrades result quality/trust rather than
+          blocking execution — describe the consequence in `transferabilityNotes`.

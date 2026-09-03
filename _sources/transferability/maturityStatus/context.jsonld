@@ -1,0 +1,10 @@
+{
+  "@context": {
+    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "maturityStatus": {
+      "@id": "focal-transf-prop:maturityStatus",
+      "@type": "@id",
+      "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/" }
+    }
+  }
+}

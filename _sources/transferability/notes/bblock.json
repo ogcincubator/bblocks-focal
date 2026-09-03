@@ -1,0 +1,15 @@
+{
+  "name": "FOCAL Transferability Notes (mixin)",
+  "abstract": "Reusable mixin adding a free-text escape hatch for transferability facts that don't reduce to the controlled transferabilityAction/triggeredBy vocabulary.",
+  "status": "under-development",
+  "dateTimeAddition": "2026-09-02T00:00:00Z",
+  "itemClass": "schema",
+  "version": "0.1",
+  "dateOfLastChange": "2026-09-02",
+  "tags": [
+    "focal",
+    "transferability",
+    "mixin"
+  ],
+  "group": "FOCAL Transferability"
+}

@@ -1,0 +1,116 @@
+"$schema": https://json-schema.org/draft/2020-12/schema
+title: Transferability Envelope Constraint
+x-jsonld-context: context.jsonld
+description: >
+  A single statement describing part of a workflow's validity envelope: which `role` this fact
+  plays (what the workflow was trained on vs. what it's valid for vs. what it can run on), which
+  `dimension` it concerns (spatial, ecological, climatic, jurisdictional, ... — an open vocabulary,
+  seeded small and expected to grow), and the `value` itself. Repeatable per workflow: FP-WF1 alone
+  needs three of these at once (trained-on/spatial, valid-for/ecological, can-run-on/climatic) —
+  role and dimension are independent axes, not a single enum choice, precisely so a new constraint
+  axis can be added later as a new vocabulary term rather than a schema change.
+type: object
+required:
+  - role
+  - dimension
+  - value
+properties:
+  role:
+    type: string
+    examples:
+      - trained-on
+      - valid-for
+      - can-run-on
+    description: Which aspect of the envelope this statement describes.
+  dimension:
+    type: string
+    examples:
+      - spatial
+      - ecological
+      - climatic
+      - jurisdictional
+    description: >
+      Which axis of variation this statement constrains. Open vocabulary, seeded deliberately
+      small — expect WF-owner review to surface dimensions not yet listed here.
+  value:
+    description: >
+      The constraint value itself. **Resolved 2026-09-03, tightened 2026-09-03:** a `spatial` or
+      `jurisdictional` fact is a real geographic/administrative extent, and text throws away
+      exactly the thing this envelope model exists to support — an automated check like "does my
+      AOI fall inside this workflow's `valid-for` area?" cannot be answered against a free-text
+      label. So for those two dimensions, `value` **must** be a GeoJSON Geometry (RFC 7946 §3.1:
+      `Point`, `MultiPoint`, `Polygon`, or `MultiPolygon` — the shapes evidenced so far;
+      `LineString`/`MultiLineString`/`GeometryCollection` can be added later if evidence needs
+      them), even an approximate one (e.g. UP-WF2's EURO-CORDEX domain, rendered as its published
+      bounding box) — not just permitted, since text is not a fallback for "haven't looked up the
+      coordinates yet." A workflow with a genuinely unlocatable `spatial`/`jurisdictional` fact
+      (no resolvable source location at all) should omit that envelope entry, or use
+      `transferability/notes`' `transferabilityNotes` on a sibling fact to record the caveat in
+      prose, rather than smuggling free text into `value`.
+
+      For every other dimension (`ecological`, `climatic`, and any future open-vocabulary term not
+      itself a literal extent), `value` stays plain `string` — "a comparable ecological range"
+      doesn't become more machine-readable by wrapping it in coordinates it doesn't have. This
+      `oneOf` is keyed on today's two known geographic dimension terms; a future dimension term
+      that is *also* a literal extent should be added to the geometry branch's `enum`, not solved
+      by loosening `value` back to accepting a free-text geometry escape hatch.
+
+      No existing OGC Block carries a bare GeoJSON Geometry union standalone (checked 2026-09-03):
+      `ogc.geo.common.data_types.geojson` (the main OGC register's stable GeoJSON block) only
+      exposes this shape nested inside a full `Feature` wrapper (`type`/`properties`/`geometry`),
+      no `$defs` fragment for just the geometry union — checked its actual schema, not assumed —
+      which is heavier than a constraint value needs and isn't `$ref`-able as a bare fragment. This
+      repo's own `forestStandFeature` hits the same wall (wraps the full `ogc.geo.features.feature`
+      Feature shape, not a bare geometry), and no other register has one either (checked broadly).
+      So, same posture as `qualityAnnotation` binding straight to DQV with no wrapping OGC Block to
+      depend on, this binds directly to RFC 7946 rather than to a Feature-shaped block.
+oneOf:
+  - title: Spatial/jurisdictional extent (geometry-valued)
+    properties:
+      dimension:
+        enum:
+          - spatial
+          - jurisdictional
+      value:
+        $ref: "#/$defs/geoJSONGeometry"
+    required:
+      - dimension
+      - value
+  - title: Other envelope dimension (string-valued)
+    properties:
+      dimension:
+        not:
+          enum:
+            - spatial
+            - jurisdictional
+      value:
+        type: string
+    required:
+      - dimension
+      - value
+"$defs":
+  geoJSONGeometry:
+    title: GeoJSON Geometry
+    type: object
+    required:
+      - type
+      - coordinates
+    properties:
+      type:
+        type: string
+        enum:
+          - Point
+          - MultiPoint
+          - Polygon
+          - MultiPolygon
+        x-jsonld-id: "@type"
+      coordinates:
+        description: >
+          Position array, nested per `type` as RFC 7946 §3.1 defines it (e.g. a `Polygon`'s
+          coordinates are an array of linear rings, each an array of `[lon, lat]` positions).
+          Left as `array` here rather than spelling out all four `type`-specific shapes, since
+          JSON Schema can't easily key a nested shape off a sibling `enum` value without
+          substantially more structure than a small, evidence-seeded constraint value needs.
+        type: array
+        x-jsonld-container: "@list"
+        x-jsonld-id: "https://purl.org/geojson/vocab#coordinates"

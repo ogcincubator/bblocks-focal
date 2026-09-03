@@ -1,0 +1,15 @@
+{
+  "name": "FOCAL Temporal Extent",
+  "abstract": "A single statement of the calendar span (or, for scenario-indexed cases, non-calendar marker) a workflow's results are valid over. Repeatable at the workflow level so more than one window can apply at once.",
+  "status": "under-development",
+  "dateTimeAddition": "2026-09-02T00:00:00Z",
+  "itemClass": "schema",
+  "version": "0.1",
+  "dateOfLastChange": "2026-09-02",
+  "tags": [
+    "focal",
+    "transferability",
+    "schema"
+  ],
+  "group": "FOCAL Transferability"
+}

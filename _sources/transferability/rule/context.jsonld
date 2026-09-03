@@ -1,0 +1,17 @@
+{
+  "@context": {
+    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "triggeredBy": {
+      "@id": "focal-transf-prop:triggeredBy",
+      "@type": "@id",
+      "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/triggers/" }
+    },
+    "actions": {
+      "@id": "focal-transf-prop:actions",
+      "@type": "@id",
+      "@container": "@set",
+      "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/actions/" }
+    },
+    "required": "focal-transf-prop:required"
+  }
+}

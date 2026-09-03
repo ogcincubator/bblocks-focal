@@ -1,0 +1,16 @@
+{
+  "name": "FOCAL Transferability Vocabulary",
+  "abstract": "SKOS concept schemes for FOCAL workflow transferability: transferabilityAction, triggeredBy, envelope dimensions, and envelope roles.",
+  "status": "under-development",
+  "dateTimeAddition": "2026-09-02T00:00:00Z",
+  "itemClass": "model",
+  "version": "0.1",
+  "dateOfLastChange": "2026-09-02",
+  "tags": [
+    "focal",
+    "transferability",
+    "vocabulary",
+    "skos"
+  ],
+  "group": "FOCAL Transferability"
+}

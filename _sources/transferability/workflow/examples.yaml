@@ -1,0 +1,350 @@
+examples:
+  - title: FP-WF1 — Tree species suitability (worked example)
+    content: |
+      FP-WF1 (Tree species suitability), the richest of the 8 FOCAL pilot workflows for this
+      model: three simultaneous envelope roles, an OR-set of actions on one artifact, and the
+      only workflow with an evidenced `qualityAnnotation` so far. Drawn from
+      `20260817-workflow-transferability-mapping-extraction.md`'s FP-WF1 section.
+
+      **`envelope[0].value` (2026-09-03):** now a real GeoJSON `Polygon` — Czechia's country
+      bounding box (12.09–18.87°E, 48.55–51.06°N, per OpenStreetMap Wiki's published bbox) —
+      rather than the free-text label this example originally carried, per the
+      `envelopeConstraint` design resolved 2026-09-03: a `spatial`/`jurisdictional` fact is a real
+      extent, and text can't support an automated "is my AOI inside this envelope?" check. This is
+      a **known approximation, not the actual sample-plot network**: the source says "Czech
+      long-term permanent sample plots," a scattered set of specific monitoring locations, not the
+      whole country — the real plot coordinates (likely the Czech National Forest Inventory or
+      ÚHÚL long-term research plot network) are a genuine data gap, not sourced here. The country
+      bbox is an honest upper bound pending that data, not a fabricated precise answer.
+
+      `temporalExtent` is deliberately omitted here: the source states a user-selected "prediction
+      period" with unspecified bound/granularity — no interval is fabricated for this example.
+      `steps`/`inputs`/`outputs` (inherited from `CWLWorkflow`) are likewise omitted; no
+      Application Package exists yet for this workflow to describe them from.
+    snippets:
+      - language: json
+        code: |
+          {
+            "class": "Workflow",
+            "cwlVersion": "v1.2",
+            "label": "FP-WF1 — Tree species suitability",
+            "envelope": [
+              {
+                "role": "trained-on",
+                "dimension": "spatial",
+                "value": {
+                  "type": "Polygon",
+                  "coordinates": [
+                    [
+                      [12.09, 48.55],
+                      [18.87, 48.55],
+                      [18.87, 51.06],
+                      [12.09, 51.06],
+                      [12.09, 48.55]
+                    ]
+                  ]
+                }
+              },
+              {
+                "role": "valid-for",
+                "dimension": "ecological",
+                "value": "a comparable ecological range"
+              },
+              {
+                "role": "can-run-on",
+                "dimension": "climatic",
+                "value": "wherever downscaled climate data is available"
+              }
+            ],
+            "referenceArtifact": [
+              {
+                "artifact": "trained tree growth model (LightGBM, Czech permanent sample plot data)",
+                "rules": [
+                  {
+                    "triggeredBy": "different-ecological-range",
+                    "actions": [
+                      "retrain",
+                      "replace-with-alternative-published-model"
+                    ],
+                    "required": true
+                  }
+                ]
+              },
+              {
+                "artifact": "downscaled FOCAL climate data (current + future)",
+                "rules": [
+                  {
+                    "triggeredBy": "different-geographic-coverage",
+                    "actions": [
+                      "replace-with-local-equivalent"
+                    ],
+                    "required": true
+                  }
+                ]
+              }
+            ],
+            "computationType": "statistical-ml",
+            "maturityStatus": "operational",
+            "qualityAnnotation": [
+              {
+                "dimension": "decision-support-only",
+                "note": "AI model and validation are still being finalised; results are decision-support, not exact forecasts."
+              }
+            ]
+          }
+
+  - title: FP-WF2 — Heat stress (deterministic, jurisdiction-bound reference data)
+    content: |
+      FP-WF2 (Heat stress), a deterministic/rule-based workflow whose reference data — species
+      tolerance thresholds, SLT/T5 forest classification, species codes, and the Rasdaman climate
+      registry — is uniformly Czechia-specific. Drawn from the mapping-extraction doc's FP-WF2
+      section, all four artifacts share the same `replace-with-local-equivalent` /
+      `different-geographic-coverage` pair.
+
+      The `envelope` entry below (`trained-on`/`jurisdictional`) is an inference from that shared
+      pattern, not a verbatim source statement the way FP-WF1's envelope entries are — the
+      questionnaire never states an envelope fact directly for this workflow, only that four
+      separate artifacts are Czechia-bound. Flag for owner confirmation before treating it as
+      settled. Its `value` is Czechia's country bounding box (same source and same
+      bbox-vs-precise-border caveat as FP-WF1's), not the free-text `"Czechia"` this example
+      originally carried.
+
+      `temporalExtent` is omitted for the same reason as FP-WF1: the source states a required
+      "time period" input with no stated bound or granularity. `steps`/`inputs`/`outputs` are
+      likewise omitted, pending an Application Package for this workflow.
+    snippets:
+      - language: json
+        code: |
+          {
+            "class": "Workflow",
+            "cwlVersion": "v1.2",
+            "label": "FP-WF2 — Heat stress",
+            "envelope": [
+              {
+                "role": "trained-on",
+                "dimension": "jurisdictional",
+                "value": {
+                  "type": "Polygon",
+                  "coordinates": [
+                    [
+                      [12.09, 48.55],
+                      [18.87, 48.55],
+                      [18.87, 51.06],
+                      [12.09, 51.06],
+                      [12.09, 48.55]
+                    ]
+                  ]
+                }
+              }
+            ],
+            "referenceArtifact": [
+              {
+                "artifact": "species tolerance thresholds (species_tolerances.json)",
+                "rules": [
+                  {
+                    "triggeredBy": "different-geographic-coverage",
+                    "actions": [
+                      "replace-with-local-equivalent"
+                    ],
+                    "required": true,
+                    "transferabilityNotes": "Users may also override thresholds directly, even within the source region — a separate user-configurability fact, not modeled here."
+                  }
+                ]
+              },
+              {
+                "artifact": "SLT/T5 forest classification context (Czechia-specific)",
+                "rules": [
+                  {
+                    "triggeredBy": "different-geographic-coverage",
+                    "actions": [
+                      "replace-with-local-equivalent"
+                    ],
+                    "required": true
+                  }
+                ]
+              },
+              {
+                "artifact": "species codes catalogue (species_codes.json)",
+                "rules": [
+                  {
+                    "triggeredBy": "different-geographic-coverage",
+                    "actions": [
+                      "replace-with-local-equivalent"
+                    ],
+                    "required": true
+                  }
+                ]
+              },
+              {
+                "artifact": "Rasdaman climate registry / source catalogue",
+                "rules": [
+                  {
+                    "triggeredBy": "different-geographic-coverage",
+                    "actions": [
+                      "replace-with-local-equivalent"
+                    ],
+                    "required": true
+                  }
+                ]
+              }
+            ],
+            "computationType": "deterministic-rule-based",
+            "maturityStatus": "operational"
+          }
+
+  - title: FP-WF3 — Prediction of threatened stands (prototype maturity, graceful degradation)
+    content: |
+      FP-WF3 (Prediction of threatened stands), the sharpest evidenced example of a
+      **non-operational** workflow (`maturityStatus: prototype` — "not yet as operationally mature
+      as WF2 or WF5," full regression testing and validation still pending), and the only workflow
+      whose source explicitly describes a rule as optional-but-degrading rather than mandatory:
+      without local training labels, results are still produced, just "treated as exploratory."
+      That's `required: false` paired with `transferabilityNotes` describing the consequence, per
+      `transferability/rule`'s own guidance.
+
+      `envelope`'s `spatial` entry is inferred, not stated: the source never names a location for
+      the historical disturbance/damage labels it trains on. Because FP-WF3 is, like FP-WF1/FP-WF2,
+      a Forest Pilot workflow, Czechia is the same reasonable proxy used there — carried here as
+      the same bounding-box `Polygon`, with the same caveat plus this extra one: unlike FP-WF1/
+      FP-WF2, no sentence in this questionnaire actually names Czechia, so treat this value as
+      **more speculative than FP-WF1/FP-WF2's**, pending direct owner confirmation. The `ecological`
+      entry stays a string (`"a comparable phenological regime"`) — a phenological regime isn't
+      itself a place, per `envelopeConstraint`'s string-fallback rule for genuinely non-spatial
+      facts.
+
+      `temporalExtent` is omitted: source states an EO time-series "time period" with unspecified
+      bound. `steps`/`inputs`/`outputs` are omitted — this workflow's own questionnaire says its
+      "final container, API and regression-test packaging are still to be completed," so there is
+      no Application Package yet to describe them from, more so than for any other example here.
+    snippets:
+      - language: json
+        code: |
+          {
+            "class": "Workflow",
+            "cwlVersion": "v1.2",
+            "label": "FP-WF3 — Prediction of threatened stands",
+            "envelope": [
+              {
+                "role": "trained-on",
+                "dimension": "spatial",
+                "value": {
+                  "type": "Polygon",
+                  "coordinates": [
+                    [
+                      [12.09, 48.55],
+                      [18.87, 48.55],
+                      [18.87, 51.06],
+                      [12.09, 51.06],
+                      [12.09, 48.55]
+                    ]
+                  ]
+                }
+              },
+              {
+                "role": "valid-for",
+                "dimension": "ecological",
+                "value": "a comparable phenological regime"
+              }
+            ],
+            "referenceArtifact": [
+              {
+                "artifact": "historical forest disturbance/damage labels (ground truth training data)",
+                "rules": [
+                  {
+                    "triggeredBy": "different-geographic-coverage",
+                    "actions": [
+                      "retrain"
+                    ],
+                    "required": false,
+                    "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement."
+                  }
+                ]
+              },
+              {
+                "artifact": "EO sensor selection, cloud masking, temporal compositing strategy",
+                "rules": [
+                  {
+                    "triggeredBy": "different-geographic-coverage",
+                    "actions": [
+                      "replace-with-local-equivalent"
+                    ],
+                    "required": true
+                  }
+                ]
+              },
+              {
+                "artifact": "regional phenology normalisation assumptions",
+                "rules": [
+                  {
+                    "triggeredBy": "different-ecological-range",
+                    "actions": [
+                      "replace-with-local-equivalent"
+                    ],
+                    "required": true
+                  }
+                ]
+              }
+            ],
+            "computationType": "statistical-ml",
+            "maturityStatus": "prototype"
+          }
+
+  - title: UP-WF2 — Urban hot/cool spot (coverage boundaries, terminal hard-fail, discrete epochs)
+    content: |
+      UP-WF2 (Urban hot/cool spot), the workflow whose source most explicitly names a
+      **hard-fail terminal state**: outside its reference datasets' footprint, "some workflow
+      components cannot be executed" at all — `component-not-executable`, alongside
+      `replace-with-local-equivalent`, as an OR-set on the same rule (the actual outcome depends on
+      whether a substitute is available or not, which this model doesn't resolve any further).
+
+      It's also the one example here with a directly evidenced, non-omitted `temporalExtent`: the
+      workflow operates over discrete "temporal epochs" (2022–2025 available at time of writing),
+      explicitly "not a time series" — a single timestep per epoch. That single-timestep framing
+      itself doesn't have a dedicated property yet; captured here only as the interval's practical
+      meaning, not a modeled fact.
+
+      `envelope`'s two entries reflect the two distinct dataset footprints named in the source
+      (EURO-CORDEX for the LST datasets, Europe-except-Ukraine for CLMS) rather than one shared
+      boundary — unlike FP-WF2/FP-WF3, these particular coverage facts *are* stated directly in
+      the source, not inferred, and (2026-09-03) both are now real geometry, not string, per
+      `envelopeConstraint`'s tightened rule that `spatial`/`jurisdictional` **must** be a GeoJSON
+      Geometry:
+
+      - `valid-for`/`spatial` is the EUR-11 EURO-CORDEX domain's published geographic bounding box,
+        approximately 22°W–45°E, 27°N–72°N (per EURO-CORDEX/CLM-Community's own domain description)
+        — the domain's stated *approximate* rectangular extent, not its exact rotated-pole grid
+        footprint (which isn't a plain rectangle in true lat/lon at all), a deliberate
+        simplification, not a hidden loss of precision.
+      - `valid-for`/`jurisdictional` (Europe, except Ukraine, per the CLMS product coverage note)
+        is now a real, computed `MultiPolygon` rather than the placeholder string this example
+        carried until 2026-09-03. Computed as: `union(38 of the 39 country polygons in the
+        user-supplied Europe FeatureCollection, Russia excluded) − Ukraine (from
+        datahub.io/core/geo-countries' `datasets/geo-countries` GitHub source, fetched directly)`,
+        using Shapely 2.1 (`unary_union`, `make_valid`, `difference`). **Russia is excluded
+        entirely** (2026-09-03, on request) rather than clipped to "European Russia" — that line is
+        itself a contested, unsettled one, and CLMS (the dataset this envelope entry actually
+        describes) never covered Russia to begin with, so full exclusion is more accurate as well
+        as avoiding a needless political judgment call embedded in example data. The same pass also
+        drops **French Guiana**, found only once this computation was actually run: the
+        user-supplied file's `France` feature is France's full multi-part territory, including its
+        South American département, which the original free-text `"Europe, except Ukraine"` string
+        silently carried along unnoticed — dropped by excluding any of France's sub-polygons west of
+        -20° longitude, well clear of continental France/Corsica. After unioning and differencing,
+        52 small (< 0.15 deg², all border-mismatch artifacts between the two independently-sourced
+        Ukraine/neighbor boundaries, confirmed by centroid clustering exclusively in the
+        28–41°E/44–53°N Ukraine-border band — not real geography) sliver polygons were dropped,
+        totaling 0.08% of the raw difference's area, leaving 13 genuine parts: mainland Europe,
+        Scandinavia, Great Britain, Ireland, Iceland, Svalbard (3 islands), Sicily, Sardinia,
+        Corsica, Zealand, and Crete. Simplified (Douglas-Peucker, tolerance 0.3°,
+        topology-preserving) to 283 vertices, coordinates rounded to 3 decimal places (~110 m) to
+        match — not survey-accurate, and not intended to be; an illustrative envelope extent, not a
+        cadastral boundary.
+
+      The full workflow JSON (including the `MultiPolygon`) is kept in `examples/up-wf2.json` and
+      referenced via `ref` rather than inlined here, unlike the other three examples — a computed
+      geometry this size isn't practical to keep reviewable inline in this file.
+
+      `steps`/`inputs`/`outputs` are omitted, as in every other example here.
+    snippets:
+      - language: json
+        ref: examples/up-wf2.json

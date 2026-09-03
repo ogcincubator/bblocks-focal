@@ -1,0 +1,30 @@
+{
+  "@context": {
+    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "role": {
+      "@id": "focal-transf-prop:role",
+      "@type": "@id",
+      "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/roles/" }
+    },
+    "dimension": {
+      "@id": "focal-transf-prop:dimension",
+      "@type": "@id",
+      "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/" }
+    },
+    "value": {
+      "@id": "focal-transf-prop:value",
+      "@context": {
+        "coordinates": {
+          "@container": "@list",
+          "@id": "geojson:coordinates"
+        }
+      }
+    },
+    "geojson": "https://purl.org/geojson/vocab#",
+    "type": "@type",
+    "Point": "geojson:Point",
+    "MultiPoint": "geojson:MultiPoint",
+    "Polygon": "geojson:Polygon",
+    "MultiPolygon": "geojson:MultiPolygon"
+  }
+}

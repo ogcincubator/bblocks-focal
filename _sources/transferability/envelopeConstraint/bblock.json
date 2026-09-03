@@ -1,0 +1,19 @@
+{
+  "name": "FOCAL Transferability Envelope Constraint",
+  "abstract": "A single {role, dimension, value} statement describing part of a workflow's validity envelope, repeatable so multiple roles/dimensions can apply to one workflow at once.",
+  "status": "under-development",
+  "dateTimeAddition": "2026-09-02T00:00:00Z",
+  "itemClass": "schema",
+  "version": "0.1",
+  "dateOfLastChange": "2026-09-02",
+  "concept": [
+    "https://w3id.org/ogc/hosted/focal/transferability/roles/scheme",
+    "https://w3id.org/ogc/hosted/focal/transferability/dimensions/scheme"
+  ],
+  "tags": [
+    "focal",
+    "transferability",
+    "schema"
+  ],
+  "group": "FOCAL Transferability"
+}
