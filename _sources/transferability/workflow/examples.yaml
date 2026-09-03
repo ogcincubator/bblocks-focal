@@ -6,24 +6,24 @@ examples:
       only workflow with an evidenced `qualityAnnotation` so far. Drawn from
       `20260817-workflow-transferability-mapping-extraction.md`'s FP-WF1 section.
 
-      **`envelope[0].value`** is a real GeoJSON `Polygon` — Czechia's country bounding box
-      (12.09–18.87°E, 48.55–51.06°N, per OpenStreetMap Wiki's published bbox): a
+      **`transferability.envelope[0].value`** is a real GeoJSON `Polygon` — Czechia's country
+      bounding box (12.09–18.87°E, 48.55–51.06°N, per OpenStreetMap Wiki's published bbox): a
       `spatial`/`jurisdictional` fact is a real extent, and text can't support an automated "is my
       AOI inside this envelope?" check. This is a **known approximation, not the actual sample-plot
-      network**: the source says "Czech
-      long-term permanent sample plots," a scattered set of specific monitoring locations, not the
-      whole country — the real plot coordinates (likely the Czech National Forest Inventory or
-      ÚHÚL long-term research plot network) are a genuine data gap, not sourced here. The country
-      bbox is an honest upper bound pending that data, not a fabricated precise answer.
+      network**: the source says "Czech long-term permanent sample plots," a scattered set of
+      specific monitoring locations, not the whole country — the real plot coordinates (likely the
+      Czech National Forest Inventory or ÚHÚL long-term research plot network) are a genuine data
+      gap, not sourced here. The country bbox is an honest upper bound pending that data, not a
+      fabricated precise answer.
 
-      `temporalExtent` is deliberately omitted here: the source states a user-selected "prediction
-      period" with unspecified bound/granularity — no interval is fabricated for this example.
-      `steps` (inherited from `CWLWorkflow`) is omitted; no Application Package exists yet for this
-      workflow to describe it from.
+      A temporal envelope entry is deliberately omitted here: the source states a user-selected
+      "prediction period" with unspecified bound/granularity — no interval is fabricated for this
+      example. `steps` (inherited from `CWLWorkflow`) is omitted; no Application Package exists yet
+      for this workflow to describe it from.
 
       `inputs`/`outputs` carry two **proto entries** — `climate_data`, an `inputs` entry, and
-      `trained_growth_model`, an `outputs` entry — added so `referenceArtifact`'s `artifactRef`
-      field has a real CWL id to point at. These are placeholder ids invented for this example, not
+      `trained_growth_model`, an `outputs` entry — added so `artifactRules`' `artifactRef` field
+      has a real CWL id to point at. These are placeholder ids invented for this example, not
       FP-WF1's actual Application Package, which doesn't exist yet; treat them as illustrating the
       binding mechanism, not as a claim about the workflow's real interface.
     snippets:
@@ -39,65 +39,67 @@ examples:
             "outputs": {
               "trained_growth_model": "File"
             },
-            "envelope": [
-              {
-                "role": "trained-on",
-                "dimension": "spatial",
-                "value": {
-                  "type": "Polygon",
-                  "coordinates": [
-                    [
-                      [12.09, 48.55],
-                      [18.87, 48.55],
-                      [18.87, 51.06],
-                      [12.09, 51.06],
-                      [12.09, 48.55]
+            "transferability": {
+              "envelope": [
+                {
+                  "role": "trained-on",
+                  "dimension": "spatial",
+                  "value": {
+                    "type": "Polygon",
+                    "coordinates": [
+                      [
+                        [12.09, 48.55],
+                        [18.87, 48.55],
+                        [18.87, 51.06],
+                        [12.09, 51.06],
+                        [12.09, 48.55]
+                      ]
                     ]
+                  }
+                },
+                {
+                  "role": "valid-for",
+                  "dimension": "ecological",
+                  "value": "a comparable ecological range"
+                },
+                {
+                  "role": "can-run-on",
+                  "dimension": "climatic",
+                  "value": "wherever downscaled climate data is available"
+                }
+              ],
+              "artifactRules": [
+                {
+                  "artifact": "trained tree growth model (LightGBM, Czech permanent sample plot data)",
+                  "artifactRole": "workflow-output",
+                  "artifactRef": "outputs.trained_growth_model",
+                  "rules": [
+                    {
+                      "triggeredBy": "different-ecological-range",
+                      "actions": [
+                        "retrain",
+                        "replace-with-alternative-published-model"
+                      ],
+                      "required": true
+                    }
+                  ]
+                },
+                {
+                  "artifact": "downscaled FOCAL climate data (current + future)",
+                  "artifactRole": "workflow-input",
+                  "artifactRef": "inputs.climate_data",
+                  "rules": [
+                    {
+                      "triggeredBy": "different-geographic-coverage",
+                      "actions": [
+                        "replace-with-local-equivalent"
+                      ],
+                      "required": true
+                    }
                   ]
                 }
-              },
-              {
-                "role": "valid-for",
-                "dimension": "ecological",
-                "value": "a comparable ecological range"
-              },
-              {
-                "role": "can-run-on",
-                "dimension": "climatic",
-                "value": "wherever downscaled climate data is available"
-              }
-            ],
-            "referenceArtifact": [
-              {
-                "artifact": "trained tree growth model (LightGBM, Czech permanent sample plot data)",
-                "artifactRole": "workflow-output",
-                "artifactRef": "outputs.trained_growth_model",
-                "rules": [
-                  {
-                    "triggeredBy": "different-ecological-range",
-                    "actions": [
-                      "retrain",
-                      "replace-with-alternative-published-model"
-                    ],
-                    "required": true
-                  }
-                ]
-              },
-              {
-                "artifact": "downscaled FOCAL climate data (current + future)",
-                "artifactRole": "workflow-input",
-                "artifactRef": "inputs.climate_data",
-                "rules": [
-                  {
-                    "triggeredBy": "different-geographic-coverage",
-                    "actions": [
-                      "replace-with-local-equivalent"
-                    ],
-                    "required": true
-                  }
-                ]
-              }
-            ],
+              ]
+            },
             "computationType": "statistical-ml",
             "maturityStatus": "operational",
             "qualityAnnotation": [
@@ -123,12 +125,12 @@ examples:
       settled. Its `value` is Czechia's country bounding box (same source and same
       bbox-vs-precise-border caveat as FP-WF1's).
 
-      `temporalExtent` is omitted for the same reason as FP-WF1: the source states a required
-      "time period" input with no stated bound or granularity. `steps` is likewise omitted, pending
-      an Application Package for this workflow.
+      A temporal envelope entry is omitted for the same reason as FP-WF1: the source states a
+      required "time period" input with no stated bound or granularity. `steps` is likewise
+      omitted, pending an Application Package for this workflow.
 
       `inputs` carries four **proto entries**, one per artifact below — invented placeholder ids so
-      each `referenceArtifact` entry's `artifactRef` has a concrete `inputs.<id>` to point at, not
+      each `artifactRules` entry's `artifactRef` has a concrete `inputs.<id>` to point at, not
       FP-WF2's real Application Package, which doesn't exist yet.
     snippets:
       - language: json
@@ -143,83 +145,85 @@ examples:
               "species_codes": "File",
               "climate_registry_endpoint": "string"
             },
-            "envelope": [
-              {
-                "role": "trained-on",
-                "dimension": "jurisdictional",
-                "value": {
-                  "type": "Polygon",
-                  "coordinates": [
-                    [
-                      [12.09, 48.55],
-                      [18.87, 48.55],
-                      [18.87, 51.06],
-                      [12.09, 51.06],
-                      [12.09, 48.55]
+            "transferability": {
+              "envelope": [
+                {
+                  "role": "trained-on",
+                  "dimension": "jurisdictional",
+                  "value": {
+                    "type": "Polygon",
+                    "coordinates": [
+                      [
+                        [12.09, 48.55],
+                        [18.87, 48.55],
+                        [18.87, 51.06],
+                        [12.09, 51.06],
+                        [12.09, 48.55]
+                      ]
                     ]
+                  }
+                }
+              ],
+              "artifactRules": [
+                {
+                  "artifact": "species tolerance thresholds (species_tolerances.json)",
+                  "artifactRole": "workflow-input",
+                  "artifactRef": "inputs.species_tolerances",
+                  "rules": [
+                    {
+                      "triggeredBy": "different-geographic-coverage",
+                      "actions": [
+                        "replace-with-local-equivalent"
+                      ],
+                      "required": true,
+                      "transferabilityNotes": "Users may also override thresholds directly, even within the source region — a separate user-configurability fact, not modeled here."
+                    }
+                  ]
+                },
+                {
+                  "artifact": "SLT/T5 forest classification context (Czechia-specific)",
+                  "artifactRole": "workflow-input",
+                  "artifactRef": "inputs.forest_classification_context",
+                  "rules": [
+                    {
+                      "triggeredBy": "different-geographic-coverage",
+                      "actions": [
+                        "replace-with-local-equivalent"
+                      ],
+                      "required": true
+                    }
+                  ]
+                },
+                {
+                  "artifact": "species codes catalogue (species_codes.json)",
+                  "artifactRole": "workflow-input",
+                  "artifactRef": "inputs.species_codes",
+                  "rules": [
+                    {
+                      "triggeredBy": "different-geographic-coverage",
+                      "actions": [
+                        "replace-with-local-equivalent"
+                      ],
+                      "required": true
+                    }
+                  ]
+                },
+                {
+                  "artifact": "Rasdaman climate registry / source catalogue",
+                  "artifactRole": "workflow-input",
+                  "artifactRef": "inputs.climate_registry_endpoint",
+                  "rules": [
+                    {
+                      "triggeredBy": "different-geographic-coverage",
+                      "actions": [
+                        "replace-with-local-equivalent"
+                      ],
+                      "required": true
+                    }
                   ]
                 }
-              }
-            ],
-            "referenceArtifact": [
-              {
-                "artifact": "species tolerance thresholds (species_tolerances.json)",
-                "artifactRole": "workflow-input",
-                "artifactRef": "inputs.species_tolerances",
-                "rules": [
-                  {
-                    "triggeredBy": "different-geographic-coverage",
-                    "actions": [
-                      "replace-with-local-equivalent"
-                    ],
-                    "required": true,
-                    "transferabilityNotes": "Users may also override thresholds directly, even within the source region — a separate user-configurability fact, not modeled here."
-                  }
-                ]
-              },
-              {
-                "artifact": "SLT/T5 forest classification context (Czechia-specific)",
-                "artifactRole": "workflow-input",
-                "artifactRef": "inputs.forest_classification_context",
-                "rules": [
-                  {
-                    "triggeredBy": "different-geographic-coverage",
-                    "actions": [
-                      "replace-with-local-equivalent"
-                    ],
-                    "required": true
-                  }
-                ]
-              },
-              {
-                "artifact": "species codes catalogue (species_codes.json)",
-                "artifactRole": "workflow-input",
-                "artifactRef": "inputs.species_codes",
-                "rules": [
-                  {
-                    "triggeredBy": "different-geographic-coverage",
-                    "actions": [
-                      "replace-with-local-equivalent"
-                    ],
-                    "required": true
-                  }
-                ]
-              },
-              {
-                "artifact": "Rasdaman climate registry / source catalogue",
-                "artifactRole": "workflow-input",
-                "artifactRef": "inputs.climate_registry_endpoint",
-                "rules": [
-                  {
-                    "triggeredBy": "different-geographic-coverage",
-                    "actions": [
-                      "replace-with-local-equivalent"
-                    ],
-                    "required": true
-                  }
-                ]
-              }
-            ],
+              ]
+            },
             "computationType": "deterministic-rule-based",
             "maturityStatus": "operational"
           }
@@ -244,10 +248,10 @@ examples:
       itself a place, per `envelopeConstraint`'s string-fallback rule for genuinely non-spatial
       facts.
 
-      `temporalExtent` is omitted: source states an EO time-series "time period" with unspecified
-      bound. `steps` is omitted — this workflow's own questionnaire says its "final container, API
-      and regression-test packaging are still to be completed," so there is no Application Package
-      yet to describe it from, more so than for any other example here.
+      A temporal envelope entry is omitted: source states an EO time-series "time period" with
+      unspecified bound. `steps` is omitted — this workflow's own questionnaire says its "final
+      container, API and regression-test packaging are still to be completed," so there is no
+      Application Package yet to describe it from, more so than for any other example here.
 
       `inputs` carries three **proto entries**, one per artifact below, for the same reason as
       FP-WF1/FP-WF2 — invented placeholder ids giving `artifactRef` something concrete to bind to,
@@ -264,74 +268,76 @@ examples:
               "eo_compositing_strategy": "string",
               "phenology_normalization_assumptions": "string"
             },
-            "envelope": [
-              {
-                "role": "trained-on",
-                "dimension": "spatial",
-                "value": {
-                  "type": "Polygon",
-                  "coordinates": [
-                    [
-                      [12.09, 48.55],
-                      [18.87, 48.55],
-                      [18.87, 51.06],
-                      [12.09, 51.06],
-                      [12.09, 48.55]
+            "transferability": {
+              "envelope": [
+                {
+                  "role": "trained-on",
+                  "dimension": "spatial",
+                  "value": {
+                    "type": "Polygon",
+                    "coordinates": [
+                      [
+                        [12.09, 48.55],
+                        [18.87, 48.55],
+                        [18.87, 51.06],
+                        [12.09, 51.06],
+                        [12.09, 48.55]
+                      ]
                     ]
+                  }
+                },
+                {
+                  "role": "valid-for",
+                  "dimension": "ecological",
+                  "value": "a comparable phenological regime"
+                }
+              ],
+              "artifactRules": [
+                {
+                  "artifact": "historical forest disturbance/damage labels (ground truth training data)",
+                  "artifactRole": "workflow-input",
+                  "artifactRef": "inputs.disturbance_labels",
+                  "rules": [
+                    {
+                      "triggeredBy": "different-geographic-coverage",
+                      "actions": [
+                        "retrain"
+                      ],
+                      "required": false,
+                      "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement."
+                    }
+                  ]
+                },
+                {
+                  "artifact": "EO sensor selection, cloud masking, temporal compositing strategy",
+                  "artifactRole": "workflow-input",
+                  "artifactRef": "inputs.eo_compositing_strategy",
+                  "rules": [
+                    {
+                      "triggeredBy": "different-geographic-coverage",
+                      "actions": [
+                        "replace-with-local-equivalent"
+                      ],
+                      "required": true
+                    }
+                  ]
+                },
+                {
+                  "artifact": "regional phenology normalisation assumptions",
+                  "artifactRole": "workflow-input",
+                  "artifactRef": "inputs.phenology_normalization_assumptions",
+                  "rules": [
+                    {
+                      "triggeredBy": "different-ecological-range",
+                      "actions": [
+                        "replace-with-local-equivalent"
+                      ],
+                      "required": true
+                    }
                   ]
                 }
-              },
-              {
-                "role": "valid-for",
-                "dimension": "ecological",
-                "value": "a comparable phenological regime"
-              }
-            ],
-            "referenceArtifact": [
-              {
-                "artifact": "historical forest disturbance/damage labels (ground truth training data)",
-                "artifactRole": "workflow-input",
-                "artifactRef": "inputs.disturbance_labels",
-                "rules": [
-                  {
-                    "triggeredBy": "different-geographic-coverage",
-                    "actions": [
-                      "retrain"
-                    ],
-                    "required": false,
-                    "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement."
-                  }
-                ]
-              },
-              {
-                "artifact": "EO sensor selection, cloud masking, temporal compositing strategy",
-                "artifactRole": "workflow-input",
-                "artifactRef": "inputs.eo_compositing_strategy",
-                "rules": [
-                  {
-                    "triggeredBy": "different-geographic-coverage",
-                    "actions": [
-                      "replace-with-local-equivalent"
-                    ],
-                    "required": true
-                  }
-                ]
-              },
-              {
-                "artifact": "regional phenology normalisation assumptions",
-                "artifactRole": "workflow-input",
-                "artifactRef": "inputs.phenology_normalization_assumptions",
-                "rules": [
-                  {
-                    "triggeredBy": "different-ecological-range",
-                    "actions": [
-                      "replace-with-local-equivalent"
-                    ],
-                    "required": true
-                  }
-                ]
-              }
-            ],
+              ]
+            },
             "computationType": "statistical-ml",
             "maturityStatus": "prototype"
           }
@@ -344,16 +350,18 @@ examples:
       `replace-with-local-equivalent`, as an OR-set on the same rule (the actual outcome depends on
       whether a substitute is available or not, which this model doesn't resolve any further).
 
-      It's also the one example here with a directly evidenced, non-omitted `temporalExtent`: the
+      It's also the one example here with a directly evidenced temporal envelope entry: the
       workflow operates over discrete "temporal epochs" (2022–2025 available at time of writing),
       explicitly "not a time series" — a single timestep per epoch. That single-timestep framing
       itself doesn't have a dedicated property yet; captured here only as the interval's practical
-      meaning, not a modeled fact.
+      meaning, not a modeled fact. It's a `valid-for`/`temporal` entry, `value: {start, end}`, the
+      same shape as any other `envelope` entry — see `envelopeConstraint` for why the calendar span
+      lives there rather than in a dedicated property.
 
-      `envelope`'s two entries reflect the two distinct dataset footprints named in the source
-      (EURO-CORDEX for the LST datasets, Europe-except-Ukraine for CLMS) rather than one shared
-      boundary — unlike FP-WF2/FP-WF3, these particular coverage facts *are* stated directly in
-      the source, not inferred. Both are real GeoJSON geometry, per `envelopeConstraint`'s rule
+      `envelope`'s other two entries reflect the two distinct dataset footprints named in the
+      source (EURO-CORDEX for the LST datasets, Europe-except-Ukraine for CLMS) rather than one
+      shared boundary — unlike FP-WF2/FP-WF3, these particular coverage facts *are* stated directly
+      in the source, not inferred. Both are real GeoJSON geometry, per `envelopeConstraint`'s rule
       that `spatial`/`jurisdictional` **must** be a GeoJSON Geometry:
 
       - `valid-for`/`spatial` is the EUR-11 EURO-CORDEX domain's published geographic bounding box,
@@ -373,13 +381,12 @@ examples:
         Guiana**: the user-supplied file's `France` feature is France's full multi-part territory,
         including its South American département — dropped by excluding any of France's
         sub-polygons west of -20° longitude, well clear of continental France/Corsica. After
-        unioning and differencing,
-        52 small (< 0.15 deg², all border-mismatch artifacts between the two independently-sourced
-        Ukraine/neighbor boundaries, confirmed by centroid clustering exclusively in the
-        28–41°E/44–53°N Ukraine-border band — not real geography) sliver polygons were dropped,
-        totaling 0.08% of the raw difference's area, leaving 13 genuine parts: mainland Europe,
-        Scandinavia, Great Britain, Ireland, Iceland, Svalbard (3 islands), Sicily, Sardinia,
-        Corsica, Zealand, and Crete. Simplified (Douglas-Peucker, tolerance 0.3°,
+        unioning and differencing, 52 small (< 0.15 deg², all border-mismatch artifacts between the
+        two independently-sourced Ukraine/neighbor boundaries, confirmed by centroid clustering
+        exclusively in the 28–41°E/44–53°N Ukraine-border band — not real geography) sliver
+        polygons were dropped, totaling 0.08% of the raw difference's area, leaving 13 genuine
+        parts: mainland Europe, Scandinavia, Great Britain, Ireland, Iceland, Svalbard (3 islands),
+        Sicily, Sardinia, Corsica, Zealand, and Crete. Simplified (Douglas-Peucker, tolerance 0.3°,
         topology-preserving) to 283 vertices, coordinates rounded to 3 decimal places (~110 m) to
         match — not survey-accurate, and not intended to be; an illustrative envelope extent, not a
         cadastral boundary.
@@ -388,7 +395,7 @@ examples:
       referenced via `ref` rather than inlined here, unlike the other three examples — a computed
       geometry this size isn't practical to keep reviewable inline in this file.
 
-      **`referenceArtifact`**'s three entries split across all three `artifactRole` values that
+      **`artifactRules`**' three entries split across all three `artifactRole` values that
       actually take a CWL binding or lack one, unlike the other three examples here (all
       `workflow-input`): the LST and CLMS datasets get **proto** `inputs` entries
       (`lst_datasets`, `clms_tcd_imd` — invented placeholder ids, not UP-WF2's real Application

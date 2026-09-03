@@ -17,7 +17,10 @@
         "coordinates": {
           "@container": "@list",
           "@id": "geojson:coordinates"
-        }
+        },
+        "start": "focal-transf-prop:start",
+        "end": "focal-transf-prop:end",
+        "scenarioMarker": "focal-transf-prop:scenarioMarker"
       }
     },
     "geojson": "https://purl.org/geojson/vocab#",

@@ -1,6 +1,6 @@
 {
   "name": "FOCAL Transferability Workflow",
-  "abstract": "Profile of a CWL Workflow adding FOCAL's machine-readable transferability facts: validity envelope, reference/calibration-artifact adaptation rules, computation type, maturity status, temporal extent, and quality annotations.",
+  "abstract": "Profile of a CWL Workflow adding FOCAL's machine-readable transferability facts: a transferability statement (validity envelope, reference/calibration-artifact adaptation rules), computation type, maturity status, and quality annotations.",
   "status": "under-development",
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "schema",
@@ -8,11 +8,9 @@
   "dateOfLastChange": "2026-09-03",
   "isProfileOf": "bblocks://ogc.cwl.v1_2_1.CWLWorkflow",
   "dependsOn": [
-    "bblocks://ogc.focal.transferability.envelopeConstraint",
-    "bblocks://ogc.focal.transferability.rule",
+    "bblocks://ogc.focal.transferability.transferabilityStatement",
     "bblocks://ogc.focal.transferability.computationType",
     "bblocks://ogc.focal.transferability.maturityStatus",
-    "bblocks://ogc.focal.transferability.temporalExtent",
     "bblocks://ogc.focal.transferability.qualityAnnotation"
   ],
   "tags": [

@@ -1,8 +1,0 @@
-{
-  "@context": {
-    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
-    "start": "focal-transf-prop:start",
-    "end": "focal-transf-prop:end",
-    "scenarioMarker": "focal-transf-prop:scenarioMarker"
-  }
-}

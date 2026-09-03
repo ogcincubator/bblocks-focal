@@ -104,7 +104,8 @@ focal-dim:scheme a skos:ConceptScheme ;
   skos:prefLabel "FOCAL Transferability Envelope Dimensions"@en ;
   skos:definition "The axes along which a workflow's validity envelope is stated. Deliberately seeded small and open to growth — not a closed set."@en ;
   skos:hasTopConcept
-    focal-dim:spatial, focal-dim:ecological, focal-dim:climatic, focal-dim:jurisdictional ;
+    focal-dim:spatial, focal-dim:ecological, focal-dim:climatic, focal-dim:jurisdictional,
+    focal-dim:temporal ;
 .
 
 focal-dim:spatial a skos:Concept ;
@@ -131,6 +132,13 @@ focal-dim:climatic a skos:Concept ;
 focal-dim:jurisdictional a skos:Concept ;
   skos:prefLabel "jurisdictional"@en ;
   skos:definition "Administrative or licensing boundary (e.g. data only licensed for use in one country)."@en ;
+  skos:topConceptOf focal-dim:scheme ;
+  skos:inScheme focal-dim:scheme ;
+.
+
+focal-dim:temporal a skos:Concept ;
+  skos:prefLabel "temporal"@en ;
+  skos:definition "The calendar span, or non-calendar scenario marker (e.g. a Global Warming Level), over which results are valid."@en ;
   skos:topConceptOf focal-dim:scheme ;
   skos:inScheme focal-dim:scheme ;
 .
