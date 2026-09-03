@@ -1,5 +1,6 @@
 {
   "@context": {
+    "id": "@id",
     "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
     "transferability": "focal-transf-prop:transferability",
     "qualityAnnotation": {

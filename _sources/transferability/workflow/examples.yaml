@@ -1,5 +1,6 @@
 examples:
   - title: FP-WF1 — Tree species suitability
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/
     content: |
       The richest of the eight FOCAL pilot workflows for this model: three simultaneous envelope
       roles, an OR-set of actions on one artifact, and the only workflow with an evidenced quality
@@ -26,6 +27,7 @@ examples:
         code: |
           {
             "class": "Workflow",
+            "id": "",
             "cwlVersion": "v1.2",
             "label": "FP-WF1 — Tree species suitability",
             "inputs": { "climate_data": "File" },
@@ -92,6 +94,7 @@ examples:
           }
 
   - title: FP-WF2 — Heat stress (four artifacts, one shared boundary)
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/
     content: |
       A deterministic/rule-based workflow whose reference data — species tolerance thresholds,
       SLT/T5 forest classification, species codes, and the Rasdaman climate registry — is uniformly
@@ -113,6 +116,7 @@ examples:
         code: |
           {
             "class": "Workflow",
+            "id": "",
             "cwlVersion": "v1.2",
             "label": "FP-WF2 — Heat stress",
             "inputs": {
@@ -152,6 +156,7 @@ examples:
           }
 
   - title: FP-WF3 — Prediction of threatened stands (optional rule, degraded mode)
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/
     content: |
       The sharpest evidenced example of a non-operational workflow (`maturityStatus: prototype`),
       and the only one whose source explicitly describes a rule as optional-but-degrading: without
@@ -171,6 +176,7 @@ examples:
         code: |
           {
             "class": "Workflow",
+            "id": "",
             "cwlVersion": "v1.2",
             "label": "FP-WF3 — Prediction of threatened stands",
             "inputs": {
@@ -226,6 +232,7 @@ examples:
           }
 
   - title: UP-WF2 — Urban hot/cool spot (two footprints, a cascade, a terminal outcome)
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/
     content: |
       The workflow this restructure was designed against, and the one the previous model could not
       state correctly.
@@ -264,6 +271,7 @@ examples:
         code: |
           {
             "class": "Workflow",
+            "id": "",
             "cwlVersion": "v1.2",
             "label": "UP-WF2 — Urban hot/cool spot",
             "inputs": { "lst_datasets": "File", "clms_tcd_imd": "File" },

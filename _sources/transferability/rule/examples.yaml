@@ -1,5 +1,6 @@
 examples:
   - title: Rule citing an envelope constraint
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/rule/
     content: |
       FP-WF1's trained growth model outside the ecological range it was calibrated for. Two actions
       are offered and either resolves the rule: retrain against local data, or substitute a
@@ -20,6 +21,7 @@ examples:
           }
 
   - title: One rule over several artifacts
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/rule/
     content: |
       FP-WF2's four Czechia-specific reference artifacts share one boundary and one action, so
       they share one rule. Previously this was the same condition copied four times with nothing
@@ -35,6 +37,7 @@ examples:
           }
 
   - title: Conjunctive conditions (AND)
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/rule/
     content: |
       Two conditions in one `when` mean both must hold. This is the case nesting rules under
       artifacts could not express: an artifact bounded on two axes at once, needing adaptation only
@@ -57,6 +60,7 @@ examples:
           }
 
   - title: The complementary case (inside), completing a cascade
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/rule/
     content: |
       `inside` is what lets UP-WF2's three-way logic be stated without losing its connecting
       condition. Reuse within the domain is this rule; substitute-or-fail outside it is a second
@@ -73,6 +77,7 @@ examples:
           }
 
   - title: Non-mandatory rule (runs anyway, with degraded trust)
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/rule/
     content: |
       FP-WF3's disturbance detection without local training labels. The workflow still produces
       output, so this is not a hard requirement, but the output means something weaker.
@@ -92,6 +97,7 @@ examples:
           }
 
   - title: Coarse fallback when no constraint can be cited
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/rule/
     content: |
       UP-WF2's planned Eurostat input is not implemented yet, so there is no envelope fact to point
       at. `triggeredBy` states the condition coarsely rather than forcing an invented boundary.

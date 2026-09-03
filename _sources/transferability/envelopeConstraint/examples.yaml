@@ -1,5 +1,6 @@
 examples:
   - title: Spatial extent (GeoSPARQL geometry)
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/
     content: |
       A `trained-on`/`spatial` constraint carrying an `id` so rules can cite it.
 
@@ -23,6 +24,7 @@ examples:
           }
 
   - title: Spatial extent with an explicit CRS
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/
     content: |
       GeoSPARQL permits a leading CRS URI on a WKT literal. Without one, CRS84
       (longitude/latitude in degrees) is assumed, which is what every other example here relies on.
@@ -39,6 +41,7 @@ examples:
           }
 
   - title: Temporal extent, calendar period (DCAT)
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/
     content: |
       A `valid-for`/`temporal` constraint using the period branch. `startDate`/`endDate` uplift to
       `dcat:startDate`/`dcat:endDate`, the DCAT terms every catalogue already understands for
@@ -59,6 +62,7 @@ examples:
           }
 
   - title: Temporal extent, scenario marker (non-calendar)
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/
     content: |
       The other temporal branch, for results that are not calendar-indexed at all. UP-WF1's
       NUKLEUS output is positioned by Global Warming Level, and a warming level is reached in
@@ -79,6 +83,7 @@ examples:
           }
 
   - title: Non-geometric dimension (string-valued)
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/
     content: |
       A `valid-for`/`ecological` constraint. "A comparable ecological range" is not a place and
       does not become machine-checkable by being wrapped in coordinates it does not have, so this
@@ -99,6 +104,7 @@ examples:
           }
 
   - title: Dimension outside the schema's structured set (open vocabulary)
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/
     content: |
       `grid-structure` — how a workflow's inputs must be gridded, as opposed to where results are
       valid — is a real concept in the dimensions scheme but not one the schema gives a structured
