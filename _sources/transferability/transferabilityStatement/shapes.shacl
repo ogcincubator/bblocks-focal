@@ -1,0 +1,96 @@
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix focal-prop:  <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix focal-shape: <https://w3id.org/ogc/hosted/focal/transferability/shapes/> .
+
+#################################################################
+# Shapes for the FOCAL transferability statement and its artifact-rule wrappers.
+# Scoped strictly to FOCAL's own properties -- the CWL half of a workflow is not touched here.
+#################################################################
+
+focal-shape:TransferabilityStatement
+  a sh:NodeShape ;
+  sh:targetSubjectsOf focal-prop:envelope ;
+
+  sh:property [
+    sh:path focal-prop:envelope ;
+    sh:name "envelope" ;
+    sh:minCount 1 ;
+    sh:message "a transferability statement carries at least one envelope constraint. Something with no stated validity boundary at all is not yet a portability statement, and inventing one to satisfy the schema would be worse than leaving the workflow unmodelled." ;
+  ] ;
+.
+
+focal-shape:ArtifactRule
+  a sh:NodeShape ;
+  sh:targetObjectsOf focal-prop:artifactRules ;
+
+  sh:property [
+    sh:path focal-prop:artifact ;
+    sh:name "artifact" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:minLength 1 ;
+    sh:message "every artifact rule names its artifact, in the same words the source questionnaire used." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:artifactRole ;
+    sh:name "artifactRole" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "every artifact rule classifies its artifact with exactly one role." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:artifactRole ;
+    sh:class skos:Concept ;
+    sh:severity sh:Warning ;
+    sh:message "artifactRole should resolve to a concept in the FOCAL artifact-roles scheme (workflow-input, workflow-output, external-resource, infrastructure, ...). The scheme is open, so a new kind of artifact is fine -- add it to transferability/vocab so it is a term rather than a string." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:artifactRef ;
+    sh:name "artifactRef" ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:pattern "^/" ;
+    sh:message "artifactRef is a JSON Pointer (RFC 6901) and therefore starts with '/'. The earlier dotted form (inputs.foo) was not resolvable by standard tooling." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:rules ;
+    sh:name "rules" ;
+    sh:minCount 1 ;
+    sh:message "an artifact appears in artifactRules only because something has to happen to it. An entry with no rules says nothing; leave the artifact out instead." ;
+  ] ;
+.
+
+#################################################################
+# A pointer only means something for an artifact that lives in the document being annotated.
+#
+# external-resource and infrastructure are, by definition, outside it: an optional validation
+# dataset the workflow only mentions, or a sensor network that has to be physically re-deployed.
+# A pointer on either is either a mistake about the role or a mistake about the pointer.
+#################################################################
+
+focal-shape:ArtifactRefOnlyForInternalRoles
+  a sh:NodeShape ;
+  sh:targetObjectsOf focal-prop:artifactRules ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "artifactRef is only meaningful for the workflow-input and workflow-output roles; an external-resource or infrastructure artifact has nothing in the annotated document to point at." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRef> ?ref .
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRole> ?role .
+        FILTER(?role IN (
+          <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/external-resource>,
+          <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/infrastructure>
+        ))
+      }
+    """ ;
+  ] ;
+.

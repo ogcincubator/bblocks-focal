@@ -1,15 +1,16 @@
 {
-  "name": "FOCAL Transferability Vocabulary",
-  "abstract": "SKOS concept schemes for FOCAL workflow transferability: transferabilityAction, triggeredBy, envelope dimensions, and envelope roles.",
+  "name": "FOCAL Transferability Vocabulary and Model Ontology",
+  "abstract": "The RDF vocabulary behind the FOCAL workflow transferability model: eight open SKOS concept schemes (actions, triggers, envelope dimensions, envelope roles, artifact roles, computation types, maturity statuses, quality dimensions) plus the classes and properties the model's JSON-LD contexts bind to.",
   "status": "under-development",
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "model",
-  "version": "0.1",
-  "dateOfLastChange": "2026-09-02",
+  "version": "0.2",
+  "dateOfLastChange": "2026-09-03",
   "tags": [
     "focal",
     "transferability",
     "vocabulary",
+    "ontology",
     "skos"
   ],
   "group": "FOCAL Transferability"

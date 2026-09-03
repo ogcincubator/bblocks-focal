@@ -4,10 +4,13 @@
   "status": "under-development",
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "schema",
-  "version": "0.1",
-  "dateOfLastChange": "2026-09-02",
+  "version": "0.2",
+  "dateOfLastChange": "2026-09-03",
   "concept": [
     "https://w3id.org/ogc/hosted/focal/transferability/computation-types/scheme"
+  ],
+  "dependsOn": [
+    "bblocks://ogc.focal.transferability.vocab"
   ],
   "tags": [
     "focal",

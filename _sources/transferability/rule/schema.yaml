@@ -4,10 +4,14 @@ x-jsonld-context: context.jsonld
 description: >
   A single condition/action rule attached to a reference or calibration artifact: the condition
   that triggers it (`triggeredBy`), the action(s) that resolve it (`actions` — an OR-set, any one
-  action satisfies the rule), and whether applying one is mandatory (`required`). `triggeredBy` and
-  `actions` draw from the open SKOS vocabulary in bblocks://ogc.focal.transferability.vocab —
+  action satisfies the rule), and whether applying one is mandatory (`mandatory`). `triggeredBy`
+  and `actions` draw from the open SKOS vocabulary in bblocks://ogc.focal.transferability.vocab —
   the values listed in `examples` below are the core, evidenced set from FOCAL's pilot workflows,
   not an exhaustive enum; new terms may be added to the vocabulary without a schema change.
+
+  The flag is named `mandatory`, not `required`: a data property spelled the same as a JSON Schema
+  keyword reads as the keyword everywhere it appears in a schema file, a code generator, or a
+  validation error message, and this one sits directly beside a real `required` list.
 allOf:
   - "$ref": "bblocks://ogc.focal.transferability.notes"
   - type: object
@@ -37,7 +41,7 @@ allOf:
         description: >
           One or more actions, any of which resolves `triggeredBy` — an OR-set, not a required
           combination (no evidenced case needs more than one action applied simultaneously).
-      required:
+      mandatory:
         type: boolean
         default: true
         description: >

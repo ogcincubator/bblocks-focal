@@ -1,6 +1,7 @@
 {
   "@context": {
     "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "geojson": "https://purl.org/geojson/vocab#",
     "role": {
       "@id": "focal-transf-prop:role",
       "@type": "@id",
@@ -14,20 +15,15 @@
     "value": {
       "@id": "focal-transf-prop:value",
       "@context": {
+        "type": "geojson:type",
         "coordinates": {
-          "@container": "@list",
-          "@id": "geojson:coordinates"
+          "@id": "geojson:coordinates",
+          "@type": "@json"
         },
         "start": "focal-transf-prop:start",
         "end": "focal-transf-prop:end",
         "scenarioMarker": "focal-transf-prop:scenarioMarker"
       }
-    },
-    "geojson": "https://purl.org/geojson/vocab#",
-    "type": "@type",
-    "Point": "geojson:Point",
-    "MultiPoint": "geojson:MultiPoint",
-    "Polygon": "geojson:Polygon",
-    "MultiPolygon": "geojson:MultiPolygon"
+    }
   }
 }

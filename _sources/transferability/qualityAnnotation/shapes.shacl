@@ -1,0 +1,64 @@
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix dqv:         <http://www.w3.org/ns/dqv#> .
+@prefix focal-prop:  <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix focal-shape: <https://w3id.org/ogc/hosted/focal/transferability/shapes/> .
+
+#################################################################
+# Shapes for FOCAL quality annotations only.
+#
+# dqv:inDimension is the discriminating property, and it is DQV's rather than FOCAL's, so it also
+# serves as the target. Note the check is sh:class skos:Concept and not sh:class dqv:Dimension:
+# the seeded concepts are double-typed as both, but the scheme is open, and a term someone adds
+# later as a plain skos:Concept is a vocabulary gap to fill, not malformed data.
+#################################################################
+
+focal-shape:QualityAnnotation
+  a sh:NodeShape ;
+  sh:targetSubjectsOf dqv:inDimension ;
+  sh:targetObjectsOf focal-prop:qualityAnnotation ;
+
+  sh:property [
+    sh:path dqv:inDimension ;
+    sh:name "dimension" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "a quality annotation states exactly one dimension: what kind of confidence or uncertainty statement it is." ;
+  ] ;
+
+  sh:property [
+    sh:path dqv:inDimension ;
+    sh:class skos:Concept ;
+    sh:severity sh:Warning ;
+    sh:message "the quality dimension should resolve to a concept in the FOCAL quality-dimensions scheme (decision-support-only, validation-incomplete, ...). Evidence for this block is thin (one workflow), so a new term here is expected -- add it to transferability/vocab rather than leaving it as a bare string." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:note ;
+    sh:name "note" ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+  ] ;
+.
+
+#################################################################
+# A dimension on its own rarely carries the caveat.
+#
+# "decision-support-only" tells a reader the category; what they need in order to act is the
+# sentence the workflow owner actually wrote. Warning rather than violation, because a dimension
+# specific enough to stand alone is conceivable and this model has one workflow's worth of
+# evidence to generalise from.
+#################################################################
+
+focal-shape:QualityAnnotationHasNote
+  a sh:NodeShape ;
+  sh:targetSubjectsOf dqv:inDimension ;
+  sh:property [
+    sh:path focal-prop:note ;
+    sh:minCount 1 ;
+    sh:severity sh:Warning ;
+    sh:message "a quality annotation is much more useful with the caveat spelled out in note, ideally in the workflow owner's own words, than with the dimension alone." ;
+  ] ;
+.

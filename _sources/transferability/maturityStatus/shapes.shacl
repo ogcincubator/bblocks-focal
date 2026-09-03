@@ -1,0 +1,28 @@
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
+@prefix focal-prop:  <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix focal-shape: <https://w3id.org/ogc/hosted/focal/transferability/shapes/> .
+
+# Scoped to FOCAL's maturityStatus only.
+#
+# This is the operational maturity of the pilot workflow, deliberately a different vocabulary from
+# a Block's own authoring-lifecycle `status`. The check below is the one that catches the confusion
+# in practice: someone writing `stable` or `under-development` here has reached for the wrong axis.
+
+focal-shape:MaturityStatus
+  a sh:NodeShape ;
+  sh:targetSubjectsOf focal-prop:maturityStatus ;
+  sh:property [
+    sh:path focal-prop:maturityStatus ;
+    sh:name "maturityStatus" ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "maturityStatus is single-valued: a workflow sits at one stage of the prototype -> pre-operational -> operational progression." ;
+  ] ;
+  sh:property [
+    sh:path focal-prop:maturityStatus ;
+    sh:class skos:Concept ;
+    sh:severity sh:Warning ;
+    sh:message "maturityStatus should resolve to a concept in the FOCAL maturity-statuses scheme (prototype, pre-operational, operational). If you reached for under-development, experimental or stable, those belong to a Block's own authoring lifecycle in bblock.json, which is a different axis from how operationally mature the workflow is." ;
+  ] ;
+.

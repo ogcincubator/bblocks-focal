@@ -1,0 +1,107 @@
+examples:
+  - title: Spatial extent (geometry-valued)
+    content: |
+      A `trained-on`/`spatial` constraint. `value` is a GeoJSON `Polygon`, which after uplift
+      carries a real `geojson:Polygon` type and an `rdf:JSON` coordinate literal.
+
+      This particular geometry is Czechia's country bounding box standing in for FP-WF1's actual
+      Czech permanent sample plot network, which is a scattered set of monitoring locations, not
+      a rectangle. `transferabilityNotes` is where that gets said: the constraint is honest about
+      being an upper bound rather than silently passing off an approximation as the real extent.
+    snippets:
+      - language: json
+        code: |
+          {
+            "role": "trained-on",
+            "dimension": "spatial",
+            "value": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [12.09, 48.55],
+                  [18.87, 48.55],
+                  [18.87, 51.06],
+                  [12.09, 51.06],
+                  [12.09, 48.55]
+                ]
+              ]
+            },
+            "transferabilityNotes": "Country bounding box, standing in for the actual permanent sample plot network; an honest upper bound pending the real plot coordinates."
+          }
+
+  - title: Temporal extent, calendar interval
+    content: |
+      A `valid-for`/`temporal` constraint using the `{start, end}` branch. Granularity is
+      deliberately unconstrained: this one is year-level (UP-WF2's discrete 2022-2025 epochs),
+      but a date or a multi-year period is equally valid, because the pilot workflows state their
+      periods at whatever granularity their sources happen to use.
+    snippets:
+      - language: json
+        code: |
+          {
+            "role": "valid-for",
+            "dimension": "temporal",
+            "value": {
+              "start": "2022",
+              "end": "2025"
+            }
+          }
+
+  - title: Temporal extent, scenario marker (non-calendar)
+    content: |
+      The other `temporal` branch, for results that are not calendar-indexed at all. UP-WF1's
+      NUKLEUS output is positioned by Global Warming Level, and a warming level is reached in
+      different years depending on the emissions scenario and ensemble member, so a `{start, end}`
+      interval would be a fabrication rather than a simplification.
+
+      Until now this branch existed in the schema but was exercised by no example anywhere in the
+      register, so it had never actually been validated.
+    snippets:
+      - language: json
+        code: |
+          {
+            "role": "valid-for",
+            "dimension": "temporal",
+            "value": {
+              "scenarioMarker": "GWL+1.5"
+            }
+          }
+
+  - title: Non-geometric dimension (string-valued)
+    content: |
+      A `valid-for`/`ecological` constraint. "A comparable ecological range" is not a place and
+      does not become machine-checkable by being wrapped in coordinates it does not have, so this
+      branch keeps `value` a plain string. The same applies to `climatic`.
+    snippets:
+      - language: json
+        code: |
+          {
+            "role": "valid-for",
+            "dimension": "ecological",
+            "value": "a comparable ecological range"
+          }
+
+  - title: Dimension outside the schema's structured set (open vocabulary)
+    content: |
+      `grid-structure` (how a workflow's inputs must be gridded, as opposed to where results are
+      valid) is a real concept in the dimensions scheme, but it is not one of the five the schema
+      gives a structured `value` shape to, so it lands in the catch-all branch as a plain string.
+
+      That is the open-vocabulary claim working as intended, and it shows where the two registries
+      part company: the SKOS scheme grew by one term with no schema change at all. Only a dimension
+      that needs a `value` shape other than a string -- the way `spatial` needs a geometry and
+      `temporal` needs an interval -- forces the schema to be touched.
+
+      What JSON Schema still cannot do is tell `grid-structure` from a misspelling of it: both are
+      strings. That check lives in `shapes.shacl`, where the value has been uplifted to an IRI and
+      can be tested for membership in the scheme. Note that the postprocessor currently fails an
+      example on any SHACL result, including `sh:Warning`, so an unrecognised term is effectively a
+      hard failure today even though the shapes classify it as advisory.
+    snippets:
+      - language: json
+        code: |
+          {
+            "role": "can-run-on",
+            "dimension": "grid-structure",
+            "value": "inputs on a rotated-pole grid; a regular lat/lon grid requires resampling first"
+          }

@@ -12,6 +12,6 @@
       "@container": "@set",
       "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/actions/" }
     },
-    "required": "focal-transf-prop:required"
+    "mandatory": "focal-transf-prop:mandatory"
   }
 }

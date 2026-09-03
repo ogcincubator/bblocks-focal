@@ -1,0 +1,45 @@
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix focal-prop:  <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix focal-shape: <https://w3id.org/ogc/hosted/focal/transferability/shapes/> .
+
+#################################################################
+# Shapes for FOCAL's additions to a CWL Workflow, and nothing else.
+#
+# Deliberately no shape targets, references or constrains anything from
+# bblocks://ogc.cwl.v1_2_1.CWLWorkflow: CWL is upstream, it has its own validation, and a profile
+# that quietly re-litigates its base's constraints is a profile nobody can safely update. Every
+# target below is one of FOCAL's own properties.
+#
+# Shapes for the individual pieces (envelope constraints, rules, artifact rules, quality
+# annotations, the two classification mixins) live in those blocks and are inherited here through
+# dependsOn, so this file only carries what is genuinely workflow-level: which of FOCAL's
+# properties must be present on a workflow, and how many times.
+#################################################################
+
+focal-shape:TransferabilityWorkflow
+  a sh:NodeShape ;
+  sh:targetSubjectsOf focal-prop:transferability ;
+
+  sh:property [
+    sh:path focal-prop:transferability ;
+    sh:name "transferability" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "a workflow carries exactly one transferability statement. Two would be two different claims about where the same workflow's results are valid." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:maturityStatus ;
+    sh:name "maturityStatus" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "maturityStatus is required on a workflow: all eight FOCAL pilot workflows state one, and 'how far along is this' is the first thing anyone considering reuse asks." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:computationType ;
+    sh:name "computationType" ;
+    sh:maxCount 1 ;
+    sh:message "computationType is optional — omitted, not given a 'not applicable' value, for anything that is not an executable Application Package — but a workflow computes its results only one way." ;
+  ] ;
+.

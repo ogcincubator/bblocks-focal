@@ -6,7 +6,7 @@ description: >
   from `maturityStatus` (see bblocks://ogc.focal.transferability.maturityStatus): FP-WF1 is
   `operational` *and* carries a caveat that its results are decision-support, not exact, and the
   two facts don't collapse into one. Repeatable at the workflow level, same discipline as
-  `temporalExtent`/`envelopeConstraint`.
+  `envelopeConstraint`.
 
   Currently evidenced 1/8 (FP-WF1 only) — thinner evidence than any other confirmed transferability
   gap; expect this to grow once other workflow owners are consulted.
@@ -21,6 +21,11 @@ description: >
   this binds straight to the published namespace rather than depending on anything. `note` has no
   exact DQV equivalent (DQV's annotation body normally comes via `oa:hasBody`, heavier machinery
   than needed here) and stays a plain FOCAL property.
+
+  A numeric quality measurement (which would map to `dqv:QualityMeasurement`) has no evidenced case
+  yet and no property here. An earlier draft reserved a `measurement` property with no type and no
+  binding, which validated literally any value and invited reviewers to fill it with anything; the
+  intent is better recorded in prose until a real measurement turns up to shape it.
 type: object
 required:
   - dimension
@@ -38,8 +43,3 @@ properties:
     description: >
       The statement itself, in free text (e.g. FP-WF1's caveat verbatim: "AI model and validation
       are still being finalised, results are decision-support not exact"). No DQV binding.
-  measurement:
-    description: >
-      Reserved for a future numeric quality measurement (would map to `dqv:QualityMeasurement`).
-      Not yet designed — no evidenced case needs it. Left untyped and unbound deliberately rather
-      than guessing a shape ahead of evidence.

@@ -1,0 +1,27 @@
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
+@prefix focal-prop:  <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix focal-shape: <https://w3id.org/ogc/hosted/focal/transferability/shapes/> .
+
+# Scoped to FOCAL's computationType only. Targeting is by that property, so a CWL Workflow
+# carrying no computationType is simply not a target here -- which is the intended behaviour:
+# the mixin is optional, and omitted entirely for anything that is not an executable Application
+# Package (FP-WF4's observing system, for instance) rather than given a "not applicable" value.
+
+focal-shape:ComputationType
+  a sh:NodeShape ;
+  sh:targetSubjectsOf focal-prop:computationType ;
+  sh:property [
+    sh:path focal-prop:computationType ;
+    sh:name "computationType" ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "a workflow computes its results one way; computationType is single-valued when present." ;
+  ] ;
+  sh:property [
+    sh:path focal-prop:computationType ;
+    sh:class skos:Concept ;
+    sh:severity sh:Warning ;
+    sh:message "computationType should resolve to a concept in the FOCAL computation-types scheme (statistical-ml, deterministic-rule-based, precomputed-delivery, ...)." ;
+  ] ;
+.

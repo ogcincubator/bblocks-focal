@@ -55,7 +55,8 @@ examples:
                         [12.09, 48.55]
                       ]
                     ]
-                  }
+                  },
+                  "transferabilityNotes": "Czechia's country bounding box, standing in for the actual Czech long-term permanent sample plot network \u2014 a scattered set of monitoring locations, not a rectangle. An honest upper bound pending the real plot coordinates from the workflow owner, not a precise extent."
                 },
                 {
                   "role": "valid-for",
@@ -72,7 +73,7 @@ examples:
                 {
                   "artifact": "trained tree growth model (LightGBM, Czech permanent sample plot data)",
                   "artifactRole": "workflow-output",
-                  "artifactRef": "outputs.trained_growth_model",
+                  "artifactRef": "/outputs/trained_growth_model",
                   "rules": [
                     {
                       "triggeredBy": "different-ecological-range",
@@ -80,21 +81,21 @@ examples:
                         "retrain",
                         "replace-with-alternative-published-model"
                       ],
-                      "required": true
+                      "mandatory": true
                     }
                   ]
                 },
                 {
                   "artifact": "downscaled FOCAL climate data (current + future)",
                   "artifactRole": "workflow-input",
-                  "artifactRef": "inputs.climate_data",
+                  "artifactRef": "/inputs/climate_data",
                   "rules": [
                     {
                       "triggeredBy": "different-geographic-coverage",
                       "actions": [
                         "replace-with-local-equivalent"
                       ],
-                      "required": true
+                      "mandatory": true
                     }
                   ]
                 }
@@ -161,21 +162,22 @@ examples:
                         [12.09, 48.55]
                       ]
                     ]
-                  }
+                  },
+                  "transferabilityNotes": "Inferred, not stated: the questionnaire never gives an envelope fact directly, only that four separate reference artifacts are Czechia-specific. Value is Czechia's country bounding box, with the same bbox-versus-precise-border caveat as FP-WF1. Needs owner confirmation."
                 }
               ],
               "artifactRules": [
                 {
                   "artifact": "species tolerance thresholds (species_tolerances.json)",
                   "artifactRole": "workflow-input",
-                  "artifactRef": "inputs.species_tolerances",
+                  "artifactRef": "/inputs/species_tolerances",
                   "rules": [
                     {
                       "triggeredBy": "different-geographic-coverage",
                       "actions": [
                         "replace-with-local-equivalent"
                       ],
-                      "required": true,
+                      "mandatory": true,
                       "transferabilityNotes": "Users may also override thresholds directly, even within the source region — a separate user-configurability fact, not modeled here."
                     }
                   ]
@@ -183,42 +185,42 @@ examples:
                 {
                   "artifact": "SLT/T5 forest classification context (Czechia-specific)",
                   "artifactRole": "workflow-input",
-                  "artifactRef": "inputs.forest_classification_context",
+                  "artifactRef": "/inputs/forest_classification_context",
                   "rules": [
                     {
                       "triggeredBy": "different-geographic-coverage",
                       "actions": [
                         "replace-with-local-equivalent"
                       ],
-                      "required": true
+                      "mandatory": true
                     }
                   ]
                 },
                 {
                   "artifact": "species codes catalogue (species_codes.json)",
                   "artifactRole": "workflow-input",
-                  "artifactRef": "inputs.species_codes",
+                  "artifactRef": "/inputs/species_codes",
                   "rules": [
                     {
                       "triggeredBy": "different-geographic-coverage",
                       "actions": [
                         "replace-with-local-equivalent"
                       ],
-                      "required": true
+                      "mandatory": true
                     }
                   ]
                 },
                 {
                   "artifact": "Rasdaman climate registry / source catalogue",
                   "artifactRole": "workflow-input",
-                  "artifactRef": "inputs.climate_registry_endpoint",
+                  "artifactRef": "/inputs/climate_registry_endpoint",
                   "rules": [
                     {
                       "triggeredBy": "different-geographic-coverage",
                       "actions": [
                         "replace-with-local-equivalent"
                       ],
-                      "required": true
+                      "mandatory": true
                     }
                   ]
                 }
@@ -284,7 +286,8 @@ examples:
                         [12.09, 48.55]
                       ]
                     ]
-                  }
+                  },
+                  "transferabilityNotes": "More speculative than FP-WF1's or FP-WF2's: no sentence in this questionnaire names a location for the historical disturbance labels at all. Czechia is used as a proxy because this is a Forest Pilot workflow, and its country bounding box as the value. Needs owner confirmation before it is treated as a fact."
                 },
                 {
                   "role": "valid-for",
@@ -296,14 +299,14 @@ examples:
                 {
                   "artifact": "historical forest disturbance/damage labels (ground truth training data)",
                   "artifactRole": "workflow-input",
-                  "artifactRef": "inputs.disturbance_labels",
+                  "artifactRef": "/inputs/disturbance_labels",
                   "rules": [
                     {
                       "triggeredBy": "different-geographic-coverage",
                       "actions": [
                         "retrain"
                       ],
-                      "required": false,
+                      "mandatory": false,
                       "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement."
                     }
                   ]
@@ -311,28 +314,28 @@ examples:
                 {
                   "artifact": "EO sensor selection, cloud masking, temporal compositing strategy",
                   "artifactRole": "workflow-input",
-                  "artifactRef": "inputs.eo_compositing_strategy",
+                  "artifactRef": "/inputs/eo_compositing_strategy",
                   "rules": [
                     {
                       "triggeredBy": "different-geographic-coverage",
                       "actions": [
                         "replace-with-local-equivalent"
                       ],
-                      "required": true
+                      "mandatory": true
                     }
                   ]
                 },
                 {
                   "artifact": "regional phenology normalisation assumptions",
                   "artifactRole": "workflow-input",
-                  "artifactRef": "inputs.phenology_normalization_assumptions",
+                  "artifactRef": "/inputs/phenology_normalization_assumptions",
                   "rules": [
                     {
                       "triggeredBy": "different-ecological-range",
                       "actions": [
                         "replace-with-local-equivalent"
                       ],
-                      "required": true
+                      "mandatory": true
                     }
                   ]
                 }

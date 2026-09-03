@@ -1,0 +1,166 @@
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix geojson:     <https://purl.org/geojson/vocab#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix focal-prop:  <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix focal-shape: <https://w3id.org/ogc/hosted/focal/transferability/shapes/> .
+
+#################################################################
+# Shapes for FOCAL's envelope constraints only.
+#
+# Targeting is by property, not by class: the uplifted graph is blank nodes with no rdf:type
+# (bblock.json's `rdfType` is register metadata, it does not inject @type into instance data), so
+# sh:targetObjectsOf is the only targeting that actually matches what the uplift emits. It also
+# keeps these shapes strictly scoped to FOCAL's own additions -- nothing here touches the CWL
+# half of a transferability workflow.
+#
+# The interesting checks are the ones JSON Schema structurally cannot do: an open vocabulary means
+# `dimension: "climatic "` or `retrian` validates fine as a string. Here the vocabulary is a real
+# graph, inherited into the SHACL closure from transferability/vocab's ontology.ttl via dependsOn,
+# so sh:class skos:Concept catches a term that is not in the scheme at all.
+#
+# Concept membership is sh:Warning, not sh:Violation, and deliberately so: these schemes are open.
+# A term nobody has added yet is a prompt to extend transferability/vocab, not malformed data --
+# but it still has to surface in the validation report, because from the data side a genuinely new
+# axis and a misspelling of an existing one look identical.
+#################################################################
+
+focal-shape:EnvelopeConstraint
+  a sh:NodeShape ;
+  sh:targetObjectsOf focal-prop:envelope ;
+  sh:targetSubjectsOf focal-prop:dimension ;
+
+  sh:property [
+    sh:path focal-prop:role ;
+    sh:name "role" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:class skos:Concept ;
+    sh:severity sh:Warning ;
+    sh:message "role must be exactly one concept from the FOCAL envelope-roles scheme (trained-on, valid-for, can-run-on, ...). An IRI that is not a known concept is usually a typo or a term that has not been added to transferability/vocab yet." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:dimension ;
+    sh:name "dimension" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:class skos:Concept ;
+    sh:severity sh:Warning ;
+    sh:message "dimension must be exactly one concept from the FOCAL envelope-dimensions scheme (spatial, temporal, ecological, climatic, jurisdictional, ...). The scheme is open, so a genuinely new axis is fine -- but it has to be added to transferability/vocab first, not just spelled into the JSON." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:value ;
+    sh:name "value" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "every envelope constraint states exactly one value." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:transferabilityNotes ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+  ] ;
+.
+
+#################################################################
+# Per-dimension value shapes.
+#
+# These are the RDF-side counterpart of schema.yaml's four `oneOf` branches. They are not
+# redundant with it: uplifted data can reach a triplestore from somewhere other than this schema,
+# and the geometry branch carries a check here that JSON Schema cannot express at all, because the
+# geometry's shape depends on a sibling property's value.
+#################################################################
+
+focal-shape:SpatialEnvelopeValue
+  a sh:NodeShape ;
+  sh:targetObjectsOf focal-prop:envelope ;
+  sh:targetSubjectsOf focal-prop:dimension ;
+  sh:message "a spatial or jurisdictional constraint's value must be a GeoJSON geometry: geojson:type one of Point, MultiPoint, Polygon or MultiPolygon, plus geojson:coordinates. A free-text place name is not an alternative: the whole point of this dimension is that a machine can test an area of interest against it." ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:select """
+      SELECT $this WHERE {
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/dimension> ?dim .
+        FILTER(?dim IN (
+          <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial>,
+          <https://w3id.org/ogc/hosted/focal/transferability/dimensions/jurisdictional>
+        ))
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/value> ?v .
+        FILTER NOT EXISTS {
+          ?v <https://purl.org/geojson/vocab#type> ?t .
+          FILTER(STR(?t) IN ("Point", "MultiPoint", "Polygon", "MultiPolygon"))
+          ?v <https://purl.org/geojson/vocab#coordinates> ?c .
+        }
+      }
+    """ ;
+  ] ;
+.
+
+focal-shape:TemporalEnvelopeValue
+  a sh:NodeShape ;
+  sh:targetObjectsOf focal-prop:envelope ;
+  sh:targetSubjectsOf focal-prop:dimension ;
+  sh:message "a temporal constraint's value must be either a calendar interval (start and end) or a scenario marker, and not both. A Global Warming Level is not a calendar date -- it is reached in different years under different scenarios -- which is why the marker shape exists instead of forcing one." ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:select """
+      SELECT $this WHERE {
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/dimension>
+              <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal> .
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/value> ?v .
+        OPTIONAL { ?v <https://w3id.org/ogc/hosted/focal/transferability/properties/start> ?s }
+        OPTIONAL { ?v <https://w3id.org/ogc/hosted/focal/transferability/properties/end> ?e }
+        OPTIONAL { ?v <https://w3id.org/ogc/hosted/focal/transferability/properties/scenarioMarker> ?m }
+        FILTER(
+          ( !BOUND(?m) && ( !BOUND(?s) || !BOUND(?e) ) )
+          || ( BOUND(?m) && ( BOUND(?s) || BOUND(?e) ) )
+        )
+      }
+    """ ;
+  ] ;
+.
+
+focal-shape:NonGeometricEnvelopeValue
+  a sh:NodeShape ;
+  sh:targetObjectsOf focal-prop:envelope ;
+  sh:targetSubjectsOf focal-prop:dimension ;
+  sh:message "an ecological or climatic constraint's value is a plain string. A phenological regime is not a place, and wrapping it in coordinates it does not have makes the data less honest, not more machine-readable." ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:select """
+      SELECT $this WHERE {
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/dimension> ?dim .
+        FILTER(?dim IN (
+          <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological>,
+          <https://w3id.org/ogc/hosted/focal/transferability/dimensions/climatic>
+        ))
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/value> ?v .
+        FILTER(!isLiteral(?v))
+      }
+    """ ;
+  ] ;
+.
+
+#################################################################
+# The geometry type is carried as a string rather than an rdf:type (see schema.yaml's `type`
+# property for why the toolchain forces that), so this is the check that would otherwise have come
+# free from the class: a value outside RFC 7946's four evidenced geometry types.
+#################################################################
+
+focal-shape:GeoJSONTypeIsKnown
+  a sh:NodeShape ;
+  sh:targetObjectsOf focal-prop:value ;
+  sh:property [
+    sh:path geojson:type ;
+    sh:name "geometry type" ;
+    sh:maxCount 1 ;
+    sh:in ( "Point" "MultiPoint" "Polygon" "MultiPolygon" ) ;
+    sh:message "geojson:type must be one of Point, MultiPoint, Polygon or MultiPolygon. LineString, MultiLineString and GeometryCollection are valid GeoJSON but no FOCAL workflow has evidenced one; add them to the schema enum and here together if a case turns up." ;
+  ] ;
+.

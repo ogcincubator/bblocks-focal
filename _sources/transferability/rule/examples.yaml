@@ -1,0 +1,62 @@
+examples:
+  - title: Mandatory rule with an OR-set of actions
+    content: |
+      FP-WF1's trained growth model outside the ecological range it was calibrated for. Two
+      actions are offered and either one resolves the rule: retrain against local data, or drop in
+      a different already-published model with parameters valid for the target. `actions` is an
+      OR-set, never a sequence and never a combination to apply together.
+    snippets:
+      - language: json
+        code: |
+          {
+            "triggeredBy": "different-ecological-range",
+            "actions": [
+              "retrain",
+              "replace-with-alternative-published-model"
+            ],
+            "mandatory": true
+          }
+
+  - title: Non-mandatory rule (runs anyway, with degraded trust)
+    content: |
+      FP-WF3's disturbance detection without local training labels. The workflow still produces
+      output, so this is not a hard requirement, but the output means something weaker than it
+      otherwise would.
+
+      `mandatory: false` obliges `transferabilityNotes` to say what is lost. A skippable rule with
+      no stated consequence tells a consumer nothing they can act on, so `shapes.shacl` rejects
+      that combination.
+    snippets:
+      - language: json
+        code: |
+          {
+            "triggeredBy": "different-geographic-coverage",
+            "actions": [
+              "retrain"
+            ],
+            "mandatory": false,
+            "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement."
+          }
+
+  - title: Terminal outcome offered alongside a substitution
+    content: |
+      UP-WF2's CLMS-dependent component outside the product's footprint. Either a local equivalent
+      is found, or the component cannot be executed for that target at all. Which one applies
+      depends on whether a substitute exists, and this model does not resolve that any further:
+      the OR-set is the honest representation of what the source actually states.
+
+      `component-not-executable` is terminal, so it cannot appear in an OR-set with `reuse-as-is`
+      (that pairing would claim the artifact both works unchanged and cannot run). Pairing it with
+      `replace-with-local-equivalent`, as here, is the evidenced and intended use.
+    snippets:
+      - language: json
+        code: |
+          {
+            "triggeredBy": "different-geographic-coverage",
+            "actions": [
+              "replace-with-local-equivalent",
+              "component-not-executable"
+            ],
+            "mandatory": true,
+            "transferabilityNotes": "CLMS product coverage is generally limited to Europe, except Ukraine; outside it, no substitute is currently defined."
+          }

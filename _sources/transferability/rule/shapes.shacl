@@ -1,0 +1,110 @@
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix focal-prop:  <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix focal-shape: <https://w3id.org/ogc/hosted/focal/transferability/shapes/> .
+
+#################################################################
+# Shapes for FOCAL transferability rules only. Nothing here touches CWL.
+#
+# Targeted by property (sh:targetSubjectsOf focal-prop:triggeredBy) rather than by class: the
+# uplift emits untyped blank nodes, and this property is unique to a rule, so it identifies one
+# whether it is nested under artifactRules or standing alone as this block's own example.
+#################################################################
+
+focal-shape:TransferabilityRule
+  a sh:NodeShape ;
+  sh:targetSubjectsOf focal-prop:triggeredBy ;
+  sh:targetObjectsOf focal-prop:rules ;
+
+  sh:property [
+    sh:path focal-prop:triggeredBy ;
+    sh:name "triggeredBy" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:class skos:Concept ;
+    sh:severity sh:Warning ;
+    sh:message "triggeredBy should resolve to a concept in the FOCAL triggers scheme. The scheme is open, so an unrecognised term may be a genuinely new condition -- but add it to transferability/vocab, because from here it is indistinguishable from a typo." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:actions ;
+    sh:name "actions" ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "a rule states at least one action. An action set is an OR-set: any one of its members resolves the rule, they are not applied together." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:actions ;
+    sh:class skos:Concept ;
+    sh:severity sh:Warning ;
+    sh:message "an action should resolve to a concept in the FOCAL actions scheme (reuse-as-is, replace-with-local-equivalent, retrain, replace-with-alternative-published-model, component-not-executable, ...)." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:mandatory ;
+    sh:name "mandatory" ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:boolean ;
+    sh:message "mandatory is a single boolean; it defaults to true when absent." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:transferabilityNotes ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+  ] ;
+.
+
+#################################################################
+# A non-mandatory rule has to say what is lost by skipping it.
+#
+# `mandatory: false` without that note is the one shape here worth enforcing hard: it is the
+# difference between "runs anyway, treat results as exploratory" and "runs anyway" full stop, and
+# only the first is a usable statement for anyone deciding whether to trust an output. FP-WF3 is
+# the evidenced case.
+#################################################################
+
+focal-shape:OptionalRuleHasConsequence
+  a sh:NodeShape ;
+  sh:targetSubjectsOf focal-prop:mandatory ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "a rule with mandatory=false must describe the consequence of skipping it in transferabilityNotes: what degrades, and how far the results can still be trusted." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/mandatory> false .
+        FILTER NOT EXISTS {
+          $this <https://w3id.org/ogc/hosted/focal/transferability/properties/transferabilityNotes> ?n .
+        }
+      }
+    """ ;
+  ] ;
+.
+
+#################################################################
+# component-not-executable is terminal.
+#
+# It means no substitute exists and the component cannot run for the target. Pairing it with
+# reuse-as-is in the same OR-set says both "it works unchanged" and "it cannot run", which is not
+# a choice a consumer can act on. Pairing it with replace-with-local-equivalent is fine and is
+# exactly UP-WF2's evidenced case: substitute if you can find one, otherwise this is where it ends.
+#################################################################
+
+focal-shape:TerminalActionNotAlongsideReuse
+  a sh:NodeShape ;
+  sh:targetSubjectsOf focal-prop:actions ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "component-not-executable and reuse-as-is contradict each other in the same OR-set: one says the artifact works unchanged, the other that the component cannot run at all." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/actions>
+              <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable> ,
+              <https://w3id.org/ogc/hosted/focal/transferability/actions/reuse-as-is> .
+      }
+    """ ;
+  ] ;
+.

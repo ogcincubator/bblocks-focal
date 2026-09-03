@@ -1,7 +1,7 @@
 {
   "class": "Workflow",
   "cwlVersion": "v1.2",
-  "label": "UP-WF2 — Urban hot/cool spot",
+  "label": "UP-WF2 \u2014 Urban hot/cool spot",
   "inputs": {
     "lst_datasets": "File",
     "clms_tcd_imd": "File"
@@ -37,7 +37,8 @@
               ]
             ]
           ]
-        }
+        },
+        "transferabilityNotes": "The EUR-11 EURO-CORDEX domain's published approximate rectangular extent (about 22W-45E, 27N-72N), not its exact rotated-pole grid footprint, which is not a rectangle in true lat/lon at all. A deliberate simplification."
       },
       {
         "role": "valid-for",
@@ -1230,7 +1231,8 @@
               ]
             ]
           ]
-        }
+        },
+        "transferabilityNotes": "This is the CLMS product's data coverage (Europe except Ukraine), which is a dataset footprint rather than the administrative or licensing boundary the jurisdictional dimension is defined for. It is recorded here only to keep it distinguishable from the EURO-CORDEX spatial entry above, since the model has no way yet to say which envelope entry a given artifact's rule is evaluated against. Revisit once envelope constraints can be scoped per artifact. Geometry is simplified to about 110 m precision: an illustrative extent, not a cadastral boundary."
       },
       {
         "role": "valid-for",
@@ -1245,7 +1247,7 @@
       {
         "artifact": "median summer LST datasets (FOCAL STAC, Landsat 5/7/8/9-derived)",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.lst_datasets",
+        "artifactRef": "/inputs/lst_datasets",
         "rules": [
           {
             "triggeredBy": "different-geographic-coverage",
@@ -1253,15 +1255,15 @@
               "replace-with-local-equivalent",
               "component-not-executable"
             ],
-            "required": true,
-            "transferabilityNotes": "Inside the EURO-CORDEX domain, reuse as-is by changing the AOI. Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target."
+            "transferabilityNotes": "Inside the EURO-CORDEX domain, reuse as-is by changing the AOI. Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target.",
+            "mandatory": true
           }
         ]
       },
       {
         "artifact": "CLMS Tree Cover Density / Imperviousness Density",
         "artifactRole": "workflow-input",
-        "artifactRef": "inputs.clms_tcd_imd",
+        "artifactRef": "/inputs/clms_tcd_imd",
         "rules": [
           {
             "triggeredBy": "different-geographic-coverage",
@@ -1269,8 +1271,8 @@
               "replace-with-local-equivalent",
               "component-not-executable"
             ],
-            "required": true,
-            "transferabilityNotes": "CLMS product coverage is generally limited to Europe, except Ukraine (see this workflow's `envelope`); outside it, no substitute is currently defined, and hot-spot characterization (which uses this dataset) cannot be executed."
+            "transferabilityNotes": "CLMS product coverage is generally limited to Europe, except Ukraine (see this workflow's `envelope`); outside it, no substitute is currently defined, and hot-spot characterization (which uses this dataset) cannot be executed.",
+            "mandatory": true
           }
         ]
       },
@@ -1284,8 +1286,8 @@
               "replace-with-local-equivalent",
               "component-not-executable"
             ],
-            "required": true,
-            "transferabilityNotes": "Not yet implemented; the envisaged replacement should follow a schema compatible with Eurostat's. Once built, the source's stated consequence for unavailable data applies here too: the planned Heat Risk Indicator (risk assessment) component would not be executable without it."
+            "transferabilityNotes": "Not yet implemented; the envisaged replacement should follow a schema compatible with Eurostat's. Once built, the source's stated consequence for unavailable data applies here too: the planned Heat Risk Indicator (risk assessment) component would not be executable without it.",
+            "mandatory": true
           }
         ]
       }
