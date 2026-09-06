@@ -255,6 +255,17 @@ examples:
       are inside EURO-CORDEX and reusable, and the CLMS layers are unavailable, so hot-spot
       characterization cannot run.
 
+      **`affects` is what makes that last clause a fact rather than a remark.** The rules naming
+      `component-not-executable` point at the step it costs, so the per-artifact answers roll up
+      into a per-workflow verdict: Kyiv loses one step, not the run. Without it the model would
+      say "a component cannot be executed" and leave a consumer no way to find out which, which is
+      the difference between a partial result and no result.
+
+      **Rules are exceptions.** The CLMS layers have no rule for the case where the target is
+      inside coverage and outside the excluded area, because none is needed: an artifact no rule
+      fires for is reused unchanged. Only the LST datasets carry an explicit `reuse-as-is`, and
+      only because pairing it with the `outside` rule is what makes that cascade readable.
+
       **The cascade keeps its connecting condition.** The source describes reuse inside the domain,
       substitution if a compatible dataset can be produced outside it, and failure if none can.
       That is two rules over the same constraint — `inside` then `outside` — rather than the
@@ -264,8 +275,17 @@ examples:
       The **temporal constraint is directly evidenced**, unlike the omitted periods elsewhere:
       discrete epochs, 2022–2025 at time of writing.
 
-      Geometries are coarse extents, not cadastral boundaries, and say so on the constraint.
-      `outputs`/`steps` omitted; `inputs` ids are placeholders.
+      Geometries are coarse extents, not cadastral boundaries, and say so on the constraint. In
+      particular `clms-extent` is a bounding box over a coverage that is really a list of
+      countries, so it answers "inside" for places CLMS does not serve at all (the whole Maghreb
+      coast, for one). The Ukraine exclusion is carved out because it was known; the others are
+      not, which is what question 3 to the workflow owners is for.
+
+      `outputs` omitted. `inputs` and `steps` ids are **placeholders** invented so `artifactRef`
+      and `affects` have something to point at; they are not UP-WF2's real interface, and the step
+      bodies are stubs. One `affects` pointer, `/steps/heat_risk_indicator`, deliberately resolves
+      to nothing: the indicator is not built yet, which is the same reason its Eurostat input has
+      no `artifactRef` and its rule uses `triggeredBy` instead of a cited constraint.
     snippets:
       - language: json
         code: |
@@ -275,6 +295,18 @@ examples:
             "cwlVersion": "v1.2",
             "label": "UP-WF2 — Urban hot/cool spot",
             "inputs": { "lst_datasets": "File", "clms_tcd_imd": "File" },
+            "steps": {
+              "lst_preparation": {
+                "run": "#lst_preparation.cwl",
+                "in": { "lst": "lst_datasets" },
+                "out": ["lst_composite"]
+              },
+              "hotspot_characterization": {
+                "run": "#hotspot_characterization.cwl",
+                "in": { "lst": "lst_preparation/lst_composite", "clms": "clms_tcd_imd" },
+                "out": ["hotspot_map"]
+              }
+            },
             "transferability": {
               "envelope": [
                 {
@@ -316,13 +348,13 @@ examples:
                   "appliesTo": ["lst"],
                   "when": [{ "constraint": "eur11-domain", "test": "inside" }],
                   "actions": ["reuse-as-is"],
-                  "mandatory": true,
                   "transferabilityNotes": "Inside the EURO-CORDEX domain the datasets are reused unchanged, by changing the area of interest."
                 },
                 {
                   "appliesTo": ["lst"],
                   "when": [{ "constraint": "eur11-domain", "test": "outside" }],
                   "actions": ["replace-with-local-equivalent", "component-not-executable"],
+                  "affects": ["/steps/lst_preparation", "/steps/hotspot_characterization"],
                   "mandatory": true,
                   "transferabilityNotes": "Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target. Which of the two applies depends on whether a substitute is obtainable, which the source does not resolve."
                 },
@@ -330,6 +362,7 @@ examples:
                   "appliesTo": ["clms"],
                   "when": [{ "constraint": "clms-extent", "test": "outside" }],
                   "actions": ["replace-with-local-equivalent", "component-not-executable"],
+                  "affects": ["/steps/hotspot_characterization"],
                   "mandatory": true,
                   "transferabilityNotes": "Outside CLMS coverage no substitute is currently defined, and hot-spot characterization, which uses this dataset, cannot be executed."
                 },
@@ -337,6 +370,7 @@ examples:
                   "appliesTo": ["clms"],
                   "when": [{ "constraint": "clms-excluded-ukraine", "test": "inside" }],
                   "actions": ["component-not-executable"],
+                  "affects": ["/steps/hotspot_characterization"],
                   "mandatory": true,
                   "transferabilityNotes": "Within the CLMS bounding extent but inside the area the product excludes: no Tree Cover Density or Imperviousness Density data exists, and no substitute is defined, so hot-spot characterization cannot be executed. A terminal outcome with no alternative offered, unlike the coverage rule above."
                 },
@@ -344,6 +378,7 @@ examples:
                   "appliesTo": ["eurostat"],
                   "triggeredBy": "different-geographic-coverage",
                   "actions": ["replace-with-local-equivalent", "component-not-executable"],
+                  "affects": ["/steps/heat_risk_indicator"],
                   "mandatory": true,
                   "transferabilityNotes": "Stated with triggeredBy rather than a cited constraint: this data is not yet implemented, so there is no envelope fact to point at. Once built, the planned Heat Risk Indicator would not be executable without it."
                 }

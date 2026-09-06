@@ -97,6 +97,14 @@ allOf:
             and ensemble members, so a calendar interval would be a fabrication rather than a
             simplification. Markers are concepts, not free text, so `GWL+1.5` written two ways by
             two pilots is one thing rather than two.
+          - `grid-structure` — the set of grid types the workflow's gridded inputs may be on, as
+            `{"gridTypes": ["regular-latlon", "rotated-pole"]}`. A whitelist rather than a
+            description: `inside` means the target data's grid is one of these, `outside` that it
+            is not. This is a structured branch and not prose because UP-WF3's constraint ("other
+            projections are not handled") is a hard interface requirement over a small enumerable
+            set — mechanically checkable, and *more* so than a bounding box, since the terms carry
+            the CF-conventions `grid_mapping_name` as their `skos:notation` and the datasets in
+            question declare exactly that.
           - `ecological`/`climatic`/anything else — a plain string. "A comparable ecological range"
             is not a place and does not become machine-checkable by being wrapped in coordinates it
             does not have. A rule may still cite such a constraint; the condition is then a
@@ -126,6 +134,16 @@ oneOf:
     required:
       - dimension
       - value
+  - title: Grid structure (set of accepted grid types)
+    properties:
+      dimension:
+        enum:
+          - grid-structure
+      value:
+        $ref: "#/$defs/gridStructure"
+    required:
+      - dimension
+      - value
   - title: Any other dimension (string-valued)
     properties:
       dimension:
@@ -134,6 +152,7 @@ oneOf:
             - spatial
             - jurisdictional
             - temporal
+            - grid-structure
       value:
         type: string
     required:
@@ -178,6 +197,27 @@ oneOf:
         pattern: "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
         examples: ["2025"]
         description: End of the period, in the same form as `startDate`.
+  gridStructure:
+    title: Accepted grid types
+    type: object
+    required:
+      - gridTypes
+    additionalProperties: false
+    properties:
+      gridTypes:
+        type: array
+        minItems: 1
+        items:
+          type: string
+          examples:
+            - regular-latlon
+            - rotated-pole
+        description: >
+          The grid types the workflow accepts, as concepts from the FOCAL grid-types scheme (see
+          bblocks://ogc.focal.transferability.vocab). The whole array is the constraint: a target
+          is `inside` it if its grid is one of these. Open vocabulary, seeded only with the two
+          terms UP-WF3 evidences and cross-walked to CF-conventions `grid_mapping_name` values, so
+          adding a projection is a lookup in the CF table rather than a judgement.
   scenarioMarker:
     title: Scenario-indexed marker
     type: object

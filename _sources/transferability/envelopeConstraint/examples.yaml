@@ -93,6 +93,11 @@ examples:
       is then a judgement a person makes, recorded in the same structure as one a machine can
       settle — which is honest about where automation stops rather than pretending the whole model
       is decidable.
+
+      This is also the catch-all branch: a dimension term nobody has added a `value` shape for
+      lands here and validates, so the SKOS scheme can grow without touching the schema. The
+      schema is only touched when a new dimension turns out to need a shape other than a string,
+      which is what `grid-structure` did.
     snippets:
       - language: json
         code: |
@@ -103,17 +108,25 @@ examples:
             "value": "a comparable ecological range"
           }
 
-  - title: Dimension outside the schema's structured set (open vocabulary)
+  - title: Grid structure (a set of accepted grid types)
     base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/
     content: |
-      `grid-structure` — how a workflow's inputs must be gridded, as opposed to where results are
-      valid — is a real concept in the dimensions scheme but not one the schema gives a structured
-      `value` shape to, so it lands in the string branch.
+      How a workflow's inputs must be gridded, as opposed to where its results are valid. UP-WF3
+      states it plainly: the precipitation source must be on a regular lat/lon or a rotated-pole
+      grid, and "other projections are not handled".
 
-      That is the open-vocabulary claim working: the SKOS scheme grew by one term with no schema
-      change. Only a dimension needing a `value` shape other than a string, the way `spatial` needs
-      a geometry, forces the schema to be touched. Evidenced by UP-WF3's rotated-pole versus
-      regular lat/lon split.
+      The whole array is the constraint. `inside` means the candidate dataset's grid is one of
+      these; `outside` that it is not, and a rule citing this constraint fires. Each term carries
+      the CF-conventions `grid_mapping_name` as its `skos:notation`
+      (`latitude_longitude`, `rotated_latitude_longitude`), which is what E-OBS, NUKLEUS and
+      EURO-CORDEX actually declare in their files — so this is a check a consumer runs against a
+      candidate NetCDF, not one a person reads.
+
+      This branch exists because prose was the wrong answer here. Most non-spatial dimensions are
+      judgements and stay strings; a grid type is a small, closed, already-standardised set, and
+      it is arguably *more* mechanically checkable than any of the approximate bounding boxes
+      elsewhere in this model. The test for whether a dimension deserves a structured shape is
+      that one, not whether it happens to be geographic.
     snippets:
       - language: json
         code: |
@@ -121,7 +134,8 @@ examples:
             "id": "eur11-grid",
             "role": "can-run-on",
             "dimension": "grid-structure",
-            "value": "inputs on a rotated-pole EUR-11 grid; a regular lat/lon grid requires resampling first"
+            "value": { "gridTypes": ["regular-latlon", "rotated-pole"] },
+            "transferabilityNotes": "UP-WF3's stated input requirement. A dataset on any other projection has to be resampled before the workflow will accept it."
           }
 
   - title: A shared constraint, identified globally

@@ -55,9 +55,46 @@ focal-shape:TransferabilityRule
   ] ;
 
   sh:property [
+    sh:path focal-prop:affects ;
+    sh:name "affects" ;
+    sh:datatype xsd:string ;
+    sh:pattern "^/" ;
+    sh:message "affects entries are JSON Pointers (RFC 6901) into the annotated document and therefore start with '/'." ;
+  ] ;
+
+  sh:property [
     sh:path focal-prop:when ;
     sh:name "when" ;
     sh:node focal-shape:EnvelopeCondition ;
+  ] ;
+.
+
+#################################################################
+# A terminal outcome has to say what stops working.
+#
+# component-not-executable without `affects` names no component. That collapses "this step cannot
+# run" into "the workflow cannot run", which are very different answers to give someone asking
+# whether they can use the workflow over their area of interest -- and the difference is exactly
+# what a per-workflow verdict has to be assembled from. UP-WF2 loses one step to CLMS, not the run.
+#
+# Warning rather than violation: a rule whose terminal outcome genuinely is the whole workflow is
+# real, and saying so by omission is defensible until there is a document with steps to point at.
+#################################################################
+
+focal-shape:TerminalActionNamesWhatItAffects
+  a sh:NodeShape ;
+  sh:targetSubjectsOf focal-prop:actions ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:severity sh:Warning ;
+    sh:message "a rule offering component-not-executable does not say which component: name the affected steps or outputs in `affects`, or state deliberately that the whole workflow is what stops." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/actions>
+              <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable> .
+        FILTER NOT EXISTS { $this <https://w3id.org/ogc/hosted/focal/transferability/properties/affects> ?a }
+      }
+    """ ;
   ] ;
 .
 

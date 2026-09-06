@@ -41,7 +41,9 @@ examples:
     content: |
       Two conditions in one `when` mean both must hold. This is the case nesting rules under
       artifacts could not express: an artifact bounded on two axes at once, needing adaptation only
-      when the target falls outside both.
+      when the target falls outside both. The two axes here are genuinely different in kind: a
+      coverage footprint (spatial, a geometry) and a grid structure (a set of accepted grid types),
+      and both are machine-evaluable.
 
       A disjunction is written as two rules instead. That is deliberate: two conditions leading to
       the same action really are two statements, and keeping them separate keeps each traceable to
@@ -66,14 +68,17 @@ examples:
       condition. Reuse within the domain is this rule; substitute-or-fail outside it is a second
       rule over the same constraint. Previously the model had two flat rules and dropped the link
       between them.
+
+      This rule restates the default (an artifact no rule fires for is reused unchanged), so it
+      adds no obligation — which is why it carries no `mandatory`: "you must do nothing" is not an
+      instruction. It earns its place by making the cascade legible, not by changing any answer.
     snippets:
       - language: json
         code: |
           {
             "appliesTo": ["lst"],
             "when": [{ "constraint": "eur11-domain", "test": "inside" }],
-            "actions": ["reuse-as-is"],
-            "mandatory": true
+            "actions": ["reuse-as-is"]
           }
 
   - title: Non-mandatory rule (runs anyway, with degraded trust)
@@ -104,6 +109,10 @@ examples:
 
       At least one of `when` or `triggeredBy` is required, so no rule is left with no stated
       condition at all. Prefer `when` wherever a constraint exists to cite.
+
+      `affects` names what stops working if the terminal branch of the OR-set is the one taken.
+      Without it `component-not-executable` has no object, and a consumer cannot tell losing one
+      step from losing the run.
     snippets:
       - language: json
         code: |
@@ -111,6 +120,7 @@ examples:
             "appliesTo": ["eurostat"],
             "triggeredBy": "different-geographic-coverage",
             "actions": ["replace-with-local-equivalent", "component-not-executable"],
+            "affects": ["/steps/heat_risk_indicator"],
             "mandatory": true,
             "transferabilityNotes": "Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it."
           }

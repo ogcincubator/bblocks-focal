@@ -1,0 +1,66 @@
+examples:
+  - title: UP-WF3's precipitation source, the fullest contract in the corpus
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/acceptance-criteria/
+    content: |
+      UP-WF3 states, of any replacement precipitation dataset: the same variable name, the same unit
+      (mm or kg m⁻²s⁻¹), a time axis, and a grid that is regular lat/lon or rotated pole. Four
+      requirements, all checkable against a candidate NetCDF, and all of which the model previously
+      threw away — the workflow got a `replace-with-local-equivalent` action and nothing else, so a
+      consumer knew a substitution was needed but not what would satisfy it.
+
+      Note the three different logics in one object. `units` is an OR-set: millimetres and
+      kg m⁻²s⁻¹ are the accumulated and flux forms of the same quantity, and either is fine.
+      `gridTypes` is an OR-set for the same reason. `axes` is an AND: every axis listed must be
+      present, and there is no useful reading of "either a time axis or something else" for a
+      rolling accumulation.
+
+      The units are QUDT IRIs, whose published symbols are exactly `mm` and `kg/(m²·s)`. That
+      matters more than it looks: `mm`, `millimetre` and `mm/day` are three incomparable strings and
+      the last is a different quantity, so a consumer checking a candidate needs the quantity kind,
+      not the spelling.
+    snippets:
+      - language: json
+        code: |
+          {
+            "variable": "rr",
+            "units": ["MilliM", "KiloGM-PER-M2-SEC"],
+            "axes": ["time"],
+            "gridTypes": ["regular-latlon", "rotated-pole"],
+            "transferabilityNotes": "From UP-WF3's questionnaire, which specifies its replacement contract more fully than any other in the set. The variable name is E-OBS's; a NUKLEUS-derived substitute uses a different one, so this is the criterion most likely to need loosening once the owner confirms which sources are actually interchangeable."
+          }
+
+  - title: A schema requirement, on data that does not exist yet
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/acceptance-criteria/
+    content: |
+      UP-WF2's planned Heat Risk Indicator needs census or socio-economic data "preferably following
+      a schema compatible with Eurostat's". `conformsTo` is `dcterms:conformsTo`, which is what
+      catalogues already use to say a resource follows a specification.
+
+      Two honesty notes travel with this one. The source says *preferably*, so stating it as a
+      criterion is firmer than the questionnaire is, and the note says so rather than smoothing it
+      over. And the identifier here names Eurostat's census hub rather than a machine-readable
+      schema document, because no such document was cited; that is a real weakness in the criterion
+      and is recorded as one.
+    snippets:
+      - language: json
+        code: |
+          {
+            "conformsTo": ["https://ec.europa.eu/eurostat/web/population-and-housing-census"],
+            "transferabilityNotes": "The source states this as a preference (\"preferably following a schema compatible with Eurostat\"), not a requirement, and cites no schema document, so the identifier names the programme rather than a schema a consumer could validate against. Both need confirmation from the workflow owner before this is treated as a check."
+          }
+
+  - title: A single criterion is a complete statement
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/acceptance-criteria/
+    content: |
+      Nothing obliges an artifact to state a full contract. One real criterion beats five invented
+      ones, and a partial contract still narrows what a consumer has to guess.
+
+      What is not allowed is criteria consisting only of a note: `shapes.shacl` rejects that. Free
+      text saying "must be a compatible climate dataset" reproduces exactly the problem this block
+      exists to solve, one level further down, while looking like it has been addressed.
+    snippets:
+      - language: json
+        code: |
+          {
+            "axes": ["time"]
+          }

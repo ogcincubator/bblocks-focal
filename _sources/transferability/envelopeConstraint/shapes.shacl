@@ -109,19 +109,50 @@ focal-shape:TemporalEnvelopeValue
   ] ;
 .
 
+focal-shape:GridStructureEnvelopeValue
+  a sh:NodeShape ;
+  sh:targetSubjectsOf focal-prop:dimension ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "a grid-structure constraint's value must list at least one accepted grid type. The set is the constraint: `inside` means the target's grid is a member of it, which is a check a consumer can run against a CF grid_mapping_name without a human in the loop -- and cannot run against a sentence describing the same requirement." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/dimension>
+              <https://w3id.org/ogc/hosted/focal/transferability/dimensions/grid-structure> .
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/value> ?v .
+        FILTER NOT EXISTS { ?v <https://w3id.org/ogc/hosted/focal/transferability/properties/gridType> ?g }
+      }
+    """ ;
+  ] ;
+.
+
+focal-shape:GridTypeIsAConcept
+  a sh:NodeShape ;
+  sh:targetObjectsOf focal-prop:value ;
+  sh:property [
+    sh:path focal-prop:gridType ;
+    sh:name "gridTypes" ;
+    sh:nodeKind sh:IRI ;
+    sh:class skos:Concept ;
+    sh:severity sh:Warning ;
+    sh:message "a grid type should resolve to a concept in the FOCAL grid-types scheme (regular-latlon, rotated-pole, ...). The scheme is open and cross-walked to CF grid_mapping_name, so a projection nobody has added yet is a vocabulary gap to fill rather than malformed data." ;
+  ] ;
+.
+
 focal-shape:NonGeometricEnvelopeValue
   a sh:NodeShape ;
   sh:targetSubjectsOf focal-prop:dimension ;
   sh:sparql [
     a sh:SPARQLConstraint ;
-    sh:message "a constraint on any dimension other than spatial, jurisdictional or temporal carries a plain string value. A phenological regime is not a place, and wrapping it in coordinates it does not have makes the data less honest, not more machine-readable." ;
+    sh:message "a constraint on any dimension the schema gives no structured shape to carries a plain string value. A phenological regime is not a place, and wrapping it in coordinates it does not have makes the data less honest, not more machine-readable." ;
     sh:select """
       SELECT $this WHERE {
         $this <https://w3id.org/ogc/hosted/focal/transferability/properties/dimension> ?dim .
         FILTER(?dim NOT IN (
           <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial>,
           <https://w3id.org/ogc/hosted/focal/transferability/dimensions/jurisdictional>,
-          <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal>
+          <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal>,
+          <https://w3id.org/ogc/hosted/focal/transferability/dimensions/grid-structure>
         ))
         $this <https://w3id.org/ogc/hosted/focal/transferability/properties/value> ?v .
         FILTER(!isLiteral(?v))

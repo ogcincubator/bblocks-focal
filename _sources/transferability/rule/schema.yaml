@@ -11,7 +11,17 @@ description: >
     is written as two rules.
   - `actions` — an **OR-set**: any one resolves the rule. Never a sequence, never a combination to
     apply together.
+  - `affects` — which parts of the annotated document stop working, or work differently, if this
+    rule's outcome is the terminal one.
   - `mandatory` — whether applying one is required once the conditions hold.
+
+  **Rules are exceptions, not a complete decision table.** A statement's rules say what has to
+  change; anything they do not mention is reusable unchanged. So an artifact with no rule firing
+  for a given target is reused as-is, and a rule stating `reuse-as-is` explicitly is documenting
+  the default rather than adding to it (worth doing where it makes a cascade legible, as UP-WF2's
+  inside/outside pair does, and redundant otherwise). See
+  bblocks://ogc.focal.transferability.transferabilityStatement for why that default is safe here:
+  a statement cannot omit `rules`, so writing none is a deliberate act rather than an oversight.
 
   **`when` is what makes a rule evaluable rather than merely readable.** `triggeredBy:
   different-geographic-coverage` is a string a person reads; `when: [{constraint: clms-coverage,
@@ -60,6 +70,28 @@ allOf:
         description: >
           A coarse statement of what fires this rule, for cases where no envelope constraint can be
           cited precisely. Open vocabulary — see bblocks://ogc.focal.transferability.vocab.
+      affects:
+        type: array
+        minItems: 1
+        items:
+          type: string
+          format: json-pointer
+          pattern: "^/"
+        description: >
+          JSON Pointers (RFC 6901) to the parts of the annotated document this rule's outcome
+          bears on — for the CWL profile in bblocks://ogc.focal.transferability.workflow, typically
+          `/steps/<id>` or `/outputs/<id>`, though the pointer carries no CWL assumption.
+
+          **This is what `component-not-executable` needs to be actionable.** Without it the action
+          names no component, so "hot-spot characterization cannot run" and "the workflow cannot
+          run" are the same statement, and per-artifact answers cannot be assembled into the
+          per-workflow verdict (*runs as is* / *runs in part* / *cannot run here*) that a
+          deployment platform actually has to produce. UP-WF2 is the evidenced case: losing CLMS
+          costs it one step, not the run.
+
+          Optional, and meaningful for any action: a `replace-with-local-equivalent` rule may
+          equally name the outputs whose quality changes. Omit it rather than guess, the same way
+          `artifactRef` is omitted where no real Application Package exists to point into.
       actions:
         type: array
         minItems: 1
@@ -81,6 +113,9 @@ allOf:
           Whether applying one of `actions` is mandatory once the conditions hold. Defaults to
           true. When false, skipping is allowed but degrades result quality or trust rather than
           blocking execution — say what degrades in `transferabilityNotes`.
+
+          Says nothing on a rule whose only action is `reuse-as-is`: "you must do nothing" and
+          "you may do nothing" are the same instruction. Omit it there.
 
           Named `mandatory` rather than `required`: a data property spelled like a JSON Schema
           keyword reads as the keyword, and this one sits beside real `required` lists.

@@ -1,0 +1,32 @@
+{
+  "@context": {
+    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "variable": "focal-transf-prop:variable",
+    "units": {
+      "@id": "focal-transf-prop:unit",
+      "@type": "@id",
+      "@container": "@set",
+      "@context": { "@base": "http://qudt.org/vocab/unit/" }
+    },
+    "axes": {
+      "@id": "focal-transf-prop:axis",
+      "@type": "@id",
+      "@container": "@set",
+      "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/axes/" }
+    },
+    "gridTypes": {
+      "@id": "focal-transf-prop:gridType",
+      "@type": "@id",
+      "@container": "@set",
+      "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/grid-types/" }
+    },
+    "conformsTo": {
+      "@id": "dcterms:conformsTo",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "transferabilityNotes": "rdfs:comment"
+  }
+}

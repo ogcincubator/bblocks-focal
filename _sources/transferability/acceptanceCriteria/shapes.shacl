@@ -1,0 +1,92 @@
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:     <http://purl.org/dc/terms/> .
+@prefix focal-prop:  <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix focal-shape: <https://w3id.org/ogc/hosted/focal/transferability/shapes/> .
+
+#################################################################
+# Shapes for FOCAL artifact acceptance criteria only.
+#
+# Targeted by the attaching property, since the uplift emits nodes with no rdf:type.
+#################################################################
+
+focal-shape:AcceptanceCriteria
+  a sh:NodeShape ;
+  sh:targetObjectsOf focal-prop:acceptanceCriteria ;
+
+  sh:property [
+    sh:path focal-prop:variable ;
+    sh:name "variable" ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:minLength 1 ;
+    sh:message "a variable name is a single string, in the words the workflow's own code uses." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:unit ;
+    sh:name "units" ;
+    sh:nodeKind sh:IRI ;
+    sh:message "units are QUDT unit IRIs, not unit strings: mm, millimetre and mm/day are three incomparable strings and one of them is a different quantity, whereas a QUDT unit carries its symbol and its quantity kind." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:axis ;
+    sh:name "axes" ;
+    sh:nodeKind sh:IRI ;
+    sh:class skos:Concept ;
+    sh:severity sh:Warning ;
+    sh:message "an axis should resolve to a concept in the FOCAL axes scheme (time, ...). The scheme is open and thinly evidenced, so a new axis is expected -- add it to transferability/vocab rather than leaving it a bare string." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:gridType ;
+    sh:name "gridTypes" ;
+    sh:nodeKind sh:IRI ;
+    sh:class skos:Concept ;
+    sh:severity sh:Warning ;
+    sh:message "a grid type should resolve to a concept in the FOCAL grid-types scheme (regular-latlon, rotated-pole, ...), the same scheme an envelope constraint's grid-structure dimension draws on." ;
+  ] ;
+
+  sh:property [
+    sh:path dcterms:conformsTo ;
+    sh:name "conformsTo" ;
+    sh:nodeKind sh:IRI ;
+    sh:message "a schema requirement identifies the schema, so that a consumer can check conformance rather than read about it." ;
+  ] ;
+
+  sh:property [
+    sh:path rdfs:comment ;
+    sh:name "transferabilityNotes" ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+  ] ;
+.
+
+#################################################################
+# A note is not a criterion.
+#
+# The whole point of this block is that "replace with a local equivalent" is unactionable without
+# saying what would count. An acceptance-criteria object carrying only free text reproduces exactly
+# the problem it exists to solve, one level down, while looking like it has been addressed.
+#################################################################
+
+focal-shape:AcceptanceCriteriaStatesACriterion
+  a sh:NodeShape ;
+  sh:targetObjectsOf focal-prop:acceptanceCriteria ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "acceptance criteria must state at least one structured criterion (variable, units, axes, gridTypes or conformsTo). A note alone is not checkable against a candidate dataset, which is the only thing these criteria are for." ;
+    sh:select """
+      SELECT $this WHERE {
+        FILTER NOT EXISTS { $this <https://w3id.org/ogc/hosted/focal/transferability/properties/variable> ?v }
+        FILTER NOT EXISTS { $this <https://w3id.org/ogc/hosted/focal/transferability/properties/unit> ?u }
+        FILTER NOT EXISTS { $this <https://w3id.org/ogc/hosted/focal/transferability/properties/axis> ?a }
+        FILTER NOT EXISTS { $this <https://w3id.org/ogc/hosted/focal/transferability/properties/gridType> ?g }
+        FILTER NOT EXISTS { $this <http://purl.org/dc/terms/conformsTo> ?c }
+      }
+    """ ;
+  ] ;
+.

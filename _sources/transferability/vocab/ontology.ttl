@@ -21,6 +21,9 @@
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix focal-test: <https://w3id.org/ogc/hosted/focal/transferability/tests/> .
 @prefix focal-marker: <https://w3id.org/ogc/hosted/focal/transferability/scenario-markers/> .
+@prefix focal-grid: <https://w3id.org/ogc/hosted/focal/transferability/grid-types/> .
+@prefix focal-axis: <https://w3id.org/ogc/hosted/focal/transferability/axes/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
 
 #################################################################
 # transferabilityAction
@@ -364,19 +367,85 @@ focal-test:scheme a skos:ConceptScheme ;
 
 focal-test:inside a skos:Concept ;
   skos:prefLabel "inside"@en ;
-  skos:definition "The target falls within the constraint. For a spatial or jurisdictional constraint this is evaluable as geof:sfWithin against the constraint's geometry; for a temporal constraint, containment in the stated period; for a prose-valued dimension it is a human judgement stated in the same terms."@en ;
-  skos:relatedMatch geo:sfWithin ;
+  skos:definition "The target falls wholly within the constraint. For a spatial, jurisdictional or grid-structure constraint this is evaluable -- geof:sfWithin against the constraint's geometry, or set membership against its accepted grid types; for a temporal constraint, containment in the stated period; for a prose-valued dimension it is a human judgement stated in the same terms."@en ;
   rdfs:seeAlso geof:sfWithin ;
   skos:topConceptOf focal-test:scheme ;
   skos:inScheme focal-test:scheme ;
 .
 
+# `outside` is the strict negation of `inside`, NOT geo:sfDisjoint. The two differ on exactly the
+# case that matters most in practice: an area of interest that partly overlaps a coverage is
+# neither wholly within it nor disjoint from it, and almost every real European AOI straddles some
+# boundary. Reading `outside` as sfDisjoint would silently answer "no rule fires" for a target
+# half of which the workflow cannot serve. Reading it as NOT sfWithin flags that target, which is
+# the conservative direction and the one every other approximation in this model already leans.
 focal-test:outside a skos:Concept ;
   skos:prefLabel "outside"@en ;
-  skos:definition "The target falls outside the constraint: the negation of focal-test:inside, and the condition under which almost every evidenced FOCAL rule fires."@en ;
-  skos:relatedMatch geo:sfDisjoint ;
+  skos:definition "The target does not fall wholly within the constraint: the strict negation of focal-test:inside, and the condition under which almost every evidenced FOCAL rule fires. A target that partly overlaps the constraint is outside it, not disjoint from it -- partial overlap means the workflow cannot serve the whole target, so the rule fires. Evaluable for a spatial constraint as NOT geof:sfWithin, which is deliberately not geof:sfDisjoint."@en ;
+  rdfs:seeAlso geof:sfWithin ;
   skos:topConceptOf focal-test:scheme ;
   skos:inScheme focal-test:scheme ;
+.
+
+#################################################################
+# grid types
+#
+# The value vocabulary for a `grid-structure` envelope constraint. UP-WF3 is the evidenced case:
+# its precipitation input must be on a regular lat/lon or a rotated-pole grid, and "other
+# projections are not handled". That is a hard interface requirement over a small enumerable set,
+# which is the definition of something that should be terms rather than the prose the schema's
+# catch-all branch would otherwise give it.
+#
+# Each term carries the CF-conventions `grid_mapping_name` as its skos:notation. CF is what the
+# climate datasets in question (E-OBS, NUKLEUS, EURO-CORDEX) actually declare, so a consumer can
+# read a candidate NetCDF's grid_mapping variable and check membership without a human in the
+# loop. Seeded with the two evidenced terms only; extending it for another projection is a lookup
+# in the CF table rather than a judgement, which is why nothing else is pre-empted here.
+#################################################################
+
+focal-grid:scheme a skos:ConceptScheme ;
+  skos:prefLabel "FOCAL Grid Types"@en ;
+  skos:definition "Grid structures a workflow's gridded inputs may be on. Open; cross-walked to CF-conventions grid_mapping_name values."@en ;
+  skos:hasTopConcept focal-grid:regular-latlon, focal-grid:rotated-pole ;
+.
+
+focal-grid:regular-latlon a skos:Concept ;
+  skos:prefLabel "regular latitude/longitude grid"@en ;
+  skos:notation "latitude_longitude" ;
+  skos:definition "A grid whose axes are longitude and latitude in degrees, evenly spaced. The CF grid_mapping_name is latitude_longitude."@en ;
+  skos:topConceptOf focal-grid:scheme ;
+  skos:inScheme focal-grid:scheme ;
+.
+
+focal-grid:rotated-pole a skos:Concept ;
+  skos:prefLabel "rotated-pole grid"@en ;
+  skos:notation "rotated_latitude_longitude" ;
+  skos:definition "A latitude/longitude grid on a rotated sphere, used by EURO-CORDEX (EUR-11) and the regional climate models driven by it, so that a limited-area domain is close to regular in its own coordinates. Its footprint in true lat/lon is not a rectangle. The CF grid_mapping_name is rotated_latitude_longitude."@en ;
+  skos:topConceptOf focal-grid:scheme ;
+  skos:inScheme focal-grid:scheme ;
+.
+
+#################################################################
+# axes
+#
+# Axes an artifact's data must have, for acceptance criteria. Seeded with the one term the corpus
+# evidences: UP-WF3's rolling accumulation needs a time axis, without which it has nothing to
+# accumulate over. Deliberately not pre-populated with vertical, ensemble or the rest -- no FOCAL
+# workflow states a requirement for one, and a scheme padded with plausible terms nobody asked for
+# is a scheme nobody trusts the contents of.
+#################################################################
+
+focal-axis:scheme a skos:ConceptScheme ;
+  skos:prefLabel "FOCAL Data Axes"@en ;
+  skos:definition "Axes an artifact's data must carry for a workflow to accept it."@en ;
+  skos:hasTopConcept focal-axis:time ;
+.
+
+focal-axis:time a skos:Concept ;
+  skos:prefLabel "time"@en ;
+  skos:definition "A time axis. Required by any workflow that aggregates, accumulates or composites over time rather than operating on a single field."@en ;
+  skos:topConceptOf focal-axis:scheme ;
+  skos:inScheme focal-axis:scheme ;
 .
 
 #################################################################
@@ -442,6 +511,11 @@ focal-transf:ArtifactDependency a owl:Class ;
   rdfs:subClassOf prov:Entity ;
 .
 
+focal-transf:AcceptanceCriteria a owl:Class ;
+  rdfs:label "Acceptance Criteria"@en ;
+  rdfs:comment "What a dataset must satisfy to serve as a given artifact. A standing property of the interface rather than of any transfer: the requirement holds whether or not the workflow is being moved, and merely becomes visible when a substitution is proposed. It is what turns focal-action:replace-with-local-equivalent from an instruction that something must change into one a consumer can check a candidate dataset against."@en ;
+.
+
 focal-transf:Rule a owl:Class ;
   rdfs:label "Transferability Rule"@en ;
   rdfs:comment "A condition/action rule: which artifacts it governs, the envelope conditions under which it fires, the actions that resolve it, and whether applying one is mandatory."@en ;
@@ -463,8 +537,17 @@ focal-transf:Condition a owl:Class ;
 #   free-text notes     -> rdfs:comment
 #   geometry            -> geo:Geometry / geo:asWKT
 #   calendar period     -> dcterms:PeriodOfTime / dcat:startDate / dcat:endDate
-#   quality annotation  -> dqv:hasQualityAnnotation / dqv:QualityAnnotation / dqv:inDimension
+#   quality annotation  -> dqv:QualityAnnotation / dqv:inDimension (the attaching property is
+#                          FOCAL's; see focal-prop:qualityAnnotation for why)
 #   artifact entity     -> prov:Entity
+#   unit                -> qudt:Unit (QUDT unit IRIs)
+#   schema conformance  -> dcterms:conformsTo
+#
+# Where a property's values are drawn from one of the schemes above, that is stated as an OWL
+# range restriction (`rdfs:range [ owl:onProperty skos:inScheme ; owl:hasValue <scheme> ]`) rather
+# than by putting skos:inScheme on the property itself. The latter reads as "this property is a
+# concept in that scheme", which is not true of any property here and would have a reasoner
+# concluding that focal-prop:role is one of the roles.
 #################################################################
 
 focal-prop:transferability a owl:ObjectProperty ;
@@ -499,7 +582,7 @@ focal-prop:role a owl:ObjectProperty ;
   rdfs:comment "Which aspect of the envelope this statement describes: what the workflow was trained on, what its results are valid for, or where it can technically run."@en ;
   rdfs:domain focal-transf:EnvelopeConstraint ;
   rdfs:range skos:Concept ;
-  skos:inScheme focal-role:scheme ;
+  rdfs:range [ a owl:Restriction ; owl:onProperty skos:inScheme ; owl:hasValue focal-role:scheme ] ;
 .
 
 focal-prop:dimension a owl:ObjectProperty ;
@@ -507,7 +590,7 @@ focal-prop:dimension a owl:ObjectProperty ;
   rdfs:comment "Which axis of variation this statement constrains. Also decides the shape of the value, and therefore whether a machine can evaluate a condition against it."@en ;
   rdfs:domain focal-transf:EnvelopeConstraint ;
   rdfs:range skos:Concept ;
-  skos:inScheme focal-dim:scheme ;
+  rdfs:range [ a owl:Restriction ; owl:onProperty skos:inScheme ; owl:hasValue focal-dim:scheme ] ;
 .
 
 focal-prop:value a rdf:Property ;
@@ -520,7 +603,7 @@ focal-prop:scenarioMarker a owl:ObjectProperty ;
   rdfs:label "scenario marker"@en ;
   rdfs:comment "A non-calendar, scenario-indexed temporal position, for results that are not calendar-indexed at all."@en ;
   rdfs:range skos:Concept ;
-  skos:inScheme focal-marker:scheme ;
+  rdfs:range [ a owl:Restriction ; owl:onProperty skos:inScheme ; owl:hasValue focal-marker:scheme ] ;
 .
 
 focal-prop:artifactRole a owl:ObjectProperty ;
@@ -528,7 +611,7 @@ focal-prop:artifactRole a owl:ObjectProperty ;
   rdfs:comment "What kind of thing the artifact is, independent of whether an executable workflow description exists that could give it an identifier yet."@en ;
   rdfs:domain focal-transf:ArtifactDependency ;
   rdfs:range skos:Concept ;
-  skos:inScheme focal-arole:scheme ;
+  rdfs:range [ a owl:Restriction ; owl:onProperty skos:inScheme ; owl:hasValue focal-arole:scheme ] ;
 .
 
 focal-prop:artifactRef a owl:DatatypeProperty ;
@@ -564,7 +647,7 @@ focal-prop:test a owl:ObjectProperty ;
   rdfs:comment "How the target is compared against the constraint."@en ;
   rdfs:domain focal-transf:Condition ;
   rdfs:range skos:Concept ;
-  skos:inScheme focal-test:scheme ;
+  rdfs:range [ a owl:Restriction ; owl:onProperty skos:inScheme ; owl:hasValue focal-test:scheme ] ;
 .
 
 focal-prop:triggeredBy a owl:ObjectProperty ;
@@ -572,7 +655,7 @@ focal-prop:triggeredBy a owl:ObjectProperty ;
   rdfs:comment "A coarse, human-readable statement of what fires this rule, for cases where no envelope constraint can be cited. Where one can, focal-prop:when says the same thing precisely and machine-evaluably."@en ;
   rdfs:domain focal-transf:Rule ;
   rdfs:range skos:Concept ;
-  skos:inScheme focal-trigger:scheme ;
+  rdfs:range [ a owl:Restriction ; owl:onProperty skos:inScheme ; owl:hasValue focal-trigger:scheme ] ;
 .
 
 focal-prop:actions a owl:ObjectProperty ;
@@ -580,7 +663,7 @@ focal-prop:actions a owl:ObjectProperty ;
   rdfs:comment "An OR-set: any one of these actions resolves the rule. Never a sequence, and never a combination to apply together."@en ;
   rdfs:domain focal-transf:Rule ;
   rdfs:range skos:Concept ;
-  skos:inScheme focal-action:scheme ;
+  rdfs:range [ a owl:Restriction ; owl:onProperty skos:inScheme ; owl:hasValue focal-action:scheme ] ;
 .
 
 focal-prop:mandatory a owl:DatatypeProperty ;
@@ -590,16 +673,72 @@ focal-prop:mandatory a owl:DatatypeProperty ;
   rdfs:range xsd:boolean ;
 .
 
+focal-prop:acceptanceCriteria a owl:ObjectProperty ;
+  rdfs:label "acceptance criteria"@en ;
+  rdfs:comment "Attaches acceptance criteria to the artifact they describe."@en ;
+  rdfs:domain focal-transf:ArtifactDependency ;
+  rdfs:range focal-transf:AcceptanceCriteria ;
+.
+
+focal-prop:variable a owl:DatatypeProperty ;
+  rdfs:label "variable"@en ;
+  rdfs:comment "The name the workflow expects a variable to be called. Deliberately a plain string and not a CF standard name: a standard name is a claim about what a quantity is, whereas this is a claim about what this workflow's code looks for, and the two coincide only by convention."@en ;
+  rdfs:domain focal-transf:AcceptanceCriteria ;
+  rdfs:range xsd:string ;
+.
+
+focal-prop:unit a owl:ObjectProperty ;
+  rdfs:label "unit"@en ;
+  rdfs:comment "A unit the variable may be in, as a QUDT unit. Repeatable and disjunctive: any one listed is acceptable. QUDT rather than a unit string because mm, millimetre and mm/day are three incomparable strings and the last is a different quantity; a QUDT unit carries its symbol and its quantity kind, so conformance is decidable."@en ;
+  rdfs:domain focal-transf:AcceptanceCriteria ;
+  rdfs:range qudt:Unit ;
+.
+
+focal-prop:axis a owl:ObjectProperty ;
+  rdfs:label "axis"@en ;
+  rdfs:comment "An axis the data must have. Repeatable and conjunctive, unlike focal-prop:unit and focal-prop:gridType: every axis listed must be present."@en ;
+  rdfs:domain focal-transf:AcceptanceCriteria ;
+  rdfs:range skos:Concept ;
+  rdfs:range [ a owl:Restriction ; owl:onProperty skos:inScheme ; owl:hasValue focal-axis:scheme ] ;
+.
+
+focal-prop:gridType a owl:ObjectProperty ;
+  rdfs:label "grid type"@en ;
+  rdfs:comment "A grid structure gridded data may be on. Repeatable and disjunctive: the accepted set is the whole list. Used in two places for two jobs -- on an envelope constraint of dimension grid-structure it is a boundary a rule is conditioned on, and in acceptance criteria it is a specification a candidate dataset is checked against once a rule has fired."@en ;
+  rdfs:range skos:Concept ;
+  rdfs:range [ a owl:Restriction ; owl:onProperty skos:inScheme ; owl:hasValue focal-grid:scheme ] ;
+.
+
+focal-prop:affects a owl:DatatypeProperty ;
+  rdfs:label "affects"@en ;
+  rdfs:comment "A part of the annotated document whose availability this rule's outcome bears on, as a JSON Pointer -- typically a step or an output. It is what turns focal-action:component-not-executable from a claim with no object into one a consumer can act on: without it, 'a component cannot run' cannot be told apart from 'the workflow cannot run', and no per-workflow verdict can be assembled from per-artifact rules."@en ;
+  rdfs:domain focal-transf:Rule ;
+  rdfs:range xsd:string ;
+.
+
+focal-prop:qualityAnnotation a owl:ObjectProperty ;
+  rdfs:label "quality annotation"@en ;
+  rdfs:comment "Attaches an uncertainty or confidence statement to the thing it is about. FOCAL's own property rather than dqv:hasQualityAnnotation, whose domain is a dcat:Dataset or dcat:Distribution: a CWL Workflow is neither, and asserting DQV's property on one would have a reasoner conclude it is a dataset. The annotation node it points at is DQV's, carrying dqv:inDimension."@en ;
+  rdfs:range dqv:QualityAnnotation ;
+.
+
+focal-prop:note a owl:DatatypeProperty ;
+  rdfs:label "note"@en ;
+  rdfs:comment "The text of a quality annotation, in the workflow owner's own words. Kept as a FOCAL property: DQV carries an annotation body through oa:hasBody, which is heavier machinery than a single sentence needs. Distinct from rdfs:comment, which every other free-text note in this model uplifts to -- this one is the annotation's payload, not a remark about it."@en ;
+  rdfs:domain dqv:QualityAnnotation ;
+  rdfs:range xsd:string ;
+.
+
 focal-prop:computationType a owl:ObjectProperty ;
   rdfs:label "computation type"@en ;
   rdfs:comment "How the workflow computes its results."@en ;
   rdfs:range skos:Concept ;
-  skos:inScheme focal-compute:scheme ;
+  rdfs:range [ a owl:Restriction ; owl:onProperty skos:inScheme ; owl:hasValue focal-compute:scheme ] ;
 .
 
 focal-prop:maturityStatus a owl:ObjectProperty ;
   rdfs:label "maturity status"@en ;
   rdfs:comment "The workflow's operational maturity stage. Distinct from a Block's own authoring-lifecycle status, and from dqv quality: a workflow can be operational and still carry a result-confidence caveat."@en ;
   rdfs:range skos:Concept ;
-  skos:inScheme focal-maturity:scheme ;
+  rdfs:range [ a owl:Restriction ; owl:onProperty skos:inScheme ; owl:hasValue focal-maturity:scheme ] ;
 .

@@ -4,8 +4,8 @@
   "status": "under-development",
   "dateTimeAddition": "2026-09-03T00:00:00Z",
   "itemClass": "schema",
-  "version": "0.4",
-  "dateOfLastChange": "2026-09-03",
+  "version": "0.6",
+  "dateOfLastChange": "2026-09-06",
   "concept": [
     "https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/scheme"
   ],
@@ -16,7 +16,9 @@
     "bblocks://ogc.focal.transferability.vocab",
     "bblocks://ogc.focal.transferability.envelopeConstraint",
     "bblocks://ogc.focal.transferability.rule",
-    "bblocks://ogc.ogc-utils.iri-or-curie"
+    "bblocks://ogc.ogc-utils.iri-or-curie",
+    "bblocks://ogc.focal.transferability.notes",
+    "bblocks://ogc.focal.transferability.acceptanceCriteria"
   ],
   "tags": [
     "focal",

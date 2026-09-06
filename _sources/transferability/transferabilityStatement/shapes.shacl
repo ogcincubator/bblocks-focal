@@ -16,15 +16,29 @@
 # inexpressible because rules could not cite anything at all, and would now be silently ignored.
 #################################################################
 
+#################################################################
+# Targeting note: a statement whose `envelope` or `rules` is the empty array emits no triple for
+# that property, so targeting by any single one of them would switch these checks off for exactly
+# the statements most likely to need them. Every statement-level shape below therefore targets the
+# union of the three list properties plus the attachment property.
+#
+# There is deliberately no minimum on `envelope`. An empty one is a claim -- no validity boundary
+# -- not an omission, and the schema's `required` on all three lists is what stops it from being
+# read as an oversight.
+#################################################################
+
 focal-shape:TransferabilityStatement
   a sh:NodeShape ;
   sh:targetSubjectsOf focal-prop:envelope ;
+  sh:targetSubjectsOf focal-prop:artifacts ;
+  sh:targetSubjectsOf focal-prop:rules ;
+  sh:targetObjectsOf focal-prop:transferability ;
 
   sh:property [
-    sh:path focal-prop:envelope ;
-    sh:name "envelope" ;
-    sh:minCount 1 ;
-    sh:message "a transferability statement carries at least one envelope constraint. Something with no stated validity boundary is not yet a portability statement, and inventing one to satisfy the schema would be worse than leaving the workflow unmodelled." ;
+    sh:path rdfs:comment ;
+    sh:name "transferabilityNotes" ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
   ] ;
 .
 
@@ -102,6 +116,9 @@ focal-shape:ArtifactRefOnlyForInternalRoles
 focal-shape:RuleCitesDeclaredConstraint
   a sh:NodeShape ;
   sh:targetSubjectsOf focal-prop:envelope ;
+  sh:targetSubjectsOf focal-prop:artifacts ;
+  sh:targetSubjectsOf focal-prop:rules ;
+  sh:targetObjectsOf focal-prop:transferability ;
   sh:sparql [
     a sh:SPARQLConstraint ;
     sh:message "a rule cites an envelope constraint id that this statement does not declare in `envelope`. A dangling citation is silently unevaluable: nothing can test the target against a constraint that is not there." ;
@@ -121,6 +138,9 @@ focal-shape:RuleCitesDeclaredConstraint
 focal-shape:RuleCitesDeclaredArtifact
   a sh:NodeShape ;
   sh:targetSubjectsOf focal-prop:envelope ;
+  sh:targetSubjectsOf focal-prop:artifacts ;
+  sh:targetSubjectsOf focal-prop:rules ;
+  sh:targetObjectsOf focal-prop:transferability ;
   sh:sparql [
     a sh:SPARQLConstraint ;
     sh:message "a rule applies to an artifact id that this statement does not declare in `artifacts`." ;
@@ -147,6 +167,9 @@ focal-shape:RuleCitesDeclaredArtifact
 focal-shape:ArtifactIsGovernedByARule
   a sh:NodeShape ;
   sh:targetSubjectsOf focal-prop:envelope ;
+  sh:targetSubjectsOf focal-prop:artifacts ;
+  sh:targetSubjectsOf focal-prop:rules ;
+  sh:targetObjectsOf focal-prop:transferability ;
   sh:sparql [
     a sh:SPARQLConstraint ;
     sh:severity sh:Warning ;

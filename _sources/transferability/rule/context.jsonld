@@ -26,6 +26,10 @@
       "@type": "@id",
       "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/triggers/" }
     },
+    "affects": {
+      "@id": "focal-transf-prop:affects",
+      "@container": "@set"
+    },
     "actions": {
       "@id": "focal-transf-prop:actions",
       "@type": "@id",

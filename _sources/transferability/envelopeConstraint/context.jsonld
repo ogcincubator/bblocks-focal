@@ -22,6 +22,12 @@
         "asWKT": { "@id": "geo:asWKT", "@type": "geo:wktLiteral" },
         "startDate": "dcat:startDate",
         "endDate": "dcat:endDate",
+        "gridTypes": {
+          "@id": "focal-transf-prop:gridType",
+          "@type": "@id",
+          "@container": "@set",
+          "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/grid-types/" }
+        },
         "scenarioMarker": {
           "@id": "focal-transf-prop:scenarioMarker",
           "@type": "@id",
