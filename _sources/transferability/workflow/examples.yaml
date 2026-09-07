@@ -40,8 +40,8 @@ examples:
                 ]
               }
             },
-            "inputs": { "climate_data": "File" },
-            "outputs": { "trained_growth_model": "File" },
+            "inputs": { "climate_data": { "type": "File" } },
+            "outputs": { "trained_growth_model": { "type": "File" } },
             "transferability": {
               "envelope": [
                 {
@@ -144,16 +144,16 @@ examples:
               "NetworkAccess": { "networkAccess": true }
             },
             "inputs": {
-              "species_tolerances": "File",
-              "forest_classification_context": "File",
-              "species_codes": "File",
-              "climate_registry_endpoint": "string"
+              "species_tolerances": { "type": "File" },
+              "forest_classification_context": { "type": "File" },
+              "species_codes": { "type": "File" },
+              "climate_registry_endpoint": { "type": "string" }
             },
             "transferability": {
               "envelope": [
                 {
                   "id": "czechia",
-                  "role": "trained-on",
+                  "role": "derived-from",
                   "dimension": "jurisdictional",
                   "value": { "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))" },
                   "transferabilityNotes": "Inferred, not stated: the questionnaire gives no envelope fact directly, only that four separate reference artifacts are Czechia-specific. Value is Czechia's country bounding box. Needs owner confirmation."
@@ -207,9 +207,9 @@ examples:
               "SoftwareRequirement": { "packages": [{ "package": "python" }] }
             },
             "inputs": {
-              "disturbance_labels": "File",
-              "eo_compositing_strategy": "string",
-              "phenology_normalization_assumptions": "string"
+              "disturbance_labels": { "type": "File" },
+              "eo_compositing_strategy": { "type": "string" },
+              "phenology_normalization_assumptions": { "type": "string" }
             },
             "transferability": {
               "envelope": [
@@ -310,9 +310,11 @@ examples:
 
       `outputs` omitted. `inputs` and `steps` ids are **placeholders** invented so `artifactRef`
       and `affects` have something to point at; they are not UP-WF2's real interface, and the step
-      bodies are stubs. One `affects` pointer, `/steps/heat_risk_indicator`, deliberately resolves
-      to nothing: the indicator is not built yet, which is the same reason its Eurostat input has
-      no `artifactRef` and its rule uses `triggeredBy` instead of a cited constraint.
+      bodies are stubs. The planned Heat Risk Indicator has one too, so the rule saying it cannot run
+      without census data names a step that exists: a record that names a component it does not have
+      would mislead a consumer about which components stop. Its Eurostat dependency stays an
+      `external-resource` with no `artifactRef`, since the data is not implemented and there is
+      nothing to point into.
     snippets:
       - language: json
         code: |
@@ -338,7 +340,7 @@ examples:
               },
               "NetworkAccess": { "networkAccess": true }
             },
-            "inputs": { "lst_datasets": "File", "clms_tcd_imd": "File" },
+            "inputs": { "lst_datasets": { "type": "File" }, "clms_tcd_imd": { "type": "File" } },
             "steps": {
               "lst_preparation": {
                 "run": "#lst_preparation.cwl",
@@ -349,6 +351,11 @@ examples:
                 "run": "#hotspot_characterization.cwl",
                 "in": { "lst": "lst_preparation/lst_composite", "clms": "clms_tcd_imd" },
                 "out": ["hotspot_map"]
+              },
+              "heat_risk_indicator": {
+                "run": "#heat_risk_indicator.cwl",
+                "in": { "hotspots": "hotspot_characterization/hotspot_map" },
+                "out": ["heat_risk_map"]
               }
             },
             "transferability": {
@@ -476,8 +483,8 @@ examples:
             "requirements": {
               "SoftwareRequirement": { "packages": [{ "package": "python" }] }
             },
-            "inputs": { "nukleus_ensemble": "File" },
-            "outputs": { "climate_indices": "File" },
+            "inputs": { "nukleus_ensemble": { "type": "File" } },
+            "outputs": { "climate_indices": { "type": "File" } },
             "transferability": {
               "envelope": [],
               "artifacts": [
@@ -545,9 +552,9 @@ examples:
               "NetworkAccess": { "networkAccess": true }
             },
             "inputs": {
-              "climate_zone_thresholds": "File",
-              "climate_metadata": "File",
-              "climate_source_catalogue": "string"
+              "climate_zone_thresholds": { "type": "File" },
+              "climate_metadata": { "type": "File" },
+              "climate_source_catalogue": { "type": "string" }
             },
             "transferability": {
               "envelope": [
@@ -659,7 +666,8 @@ examples:
 
       **Two threshold sets, one climatic trigger.** The 6-hour and 12-hour percentile thresholds
       come from DWD station data for Germany, the 1-day and 7-day ones from E-OBS for Europe. Both
-      provenances are recorded as `trained-on` constraints, but the rule that fires is conditioned
+      provenances are recorded as `derived-from` constraints rather than `trained-on`, since the
+      thresholds were computed, not fitted: this workflow trains nothing. The rule that fires is conditioned
       on the climatic constraint, because that is what question 9 actually says: "for a region with
       different climate regime, user should use a custom threshold". A target inside Germany with an
       unlike climate is as much of a problem as one outside it.
@@ -719,11 +727,11 @@ examples:
               "NetworkAccess": { "networkAccess": true }
             },
             "inputs": {
-              "precipitation": "File",
-              "threshold_subdaily": "File",
-              "threshold_daily": "File",
-              "exposure_layers": "File",
-              "vulnerability_index": "File"
+              "precipitation": { "type": "File" },
+              "threshold_subdaily": { "type": "File" },
+              "threshold_daily": { "type": "File" },
+              "exposure_layers": { "type": "File" },
+              "vulnerability_index": { "type": "File" }
             },
             "steps": {
               "accumulation": {
@@ -751,14 +759,14 @@ examples:
               "envelope": [
                 {
                   "id": "dwd-stations",
-                  "role": "trained-on",
+                  "role": "derived-from",
                   "dimension": "spatial",
                   "value": { "asWKT": "POLYGON((5.87 47.27,15.04 47.27,15.04 55.06,5.87 55.06,5.87 47.27))" },
                   "transferabilityNotes": "Germany's country bounding box, standing in for the DWD station network the 6-hour and 12-hour percentile thresholds were pre-computed from. A scattered set of stations, not a rectangle, so this is an upper bound; and station networks are dense in some regions and sparse in others, which a bounding box cannot show at all."
                 },
                 {
                   "id": "eobs-extent",
-                  "role": "trained-on",
+                  "role": "derived-from",
                   "dimension": "spatial",
                   "value": { "asWKT": "POLYGON((-25 25,45 25,45 71.5,-25 71.5,-25 25))" },
                   "transferabilityNotes": "The E-OBS domain's published approximate extent (about 25W-45E, 25N-71.5N), from which the 1-day and 7-day percentile thresholds were pre-computed. A coarse rectangle: E-OBS's actual land coverage is neither rectangular nor uniform in station density."

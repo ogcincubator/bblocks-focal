@@ -182,12 +182,19 @@ focal-role:scheme a skos:ConceptScheme ;
   skos:prefLabel "FOCAL Transferability Envelope Roles"@en ;
   skos:definition "The role an envelope statement plays, independent of which dimension it concerns. A workflow can carry more than one role for the same or different dimensions at once — e.g. trained-on/spatial, valid-for/ecological, and can-run-on/climatic can all apply simultaneously to one workflow."@en ;
   skos:hasTopConcept
-    focal-role:trained-on, focal-role:valid-for, focal-role:can-run-on ;
+    focal-role:trained-on, focal-role:derived-from, focal-role:valid-for, focal-role:can-run-on ;
 .
 
 focal-role:trained-on a skos:Concept ;
   skos:prefLabel "trained on"@en ;
-  skos:definition "What the artifact was trained or calibrated on."@en ;
+  skos:definition "What a model was fitted to: the data a training or calibration procedure consumed to produce the artifact. Implies that such a procedure exists, so it belongs on a workflow whose focal-prop:computationType says one does. Where an artifact was merely computed from, or pertains to, a region without any model being fitted, use focal-role:derived-from instead: a deterministic workflow has provenance but nothing was trained."@en ;
+  skos:topConceptOf focal-role:scheme ;
+  skos:inScheme focal-role:scheme ;
+.
+
+focal-role:derived-from a skos:Concept ;
+  skos:prefLabel "derived from"@en ;
+  skos:definition "Where a reference or calibration artifact came from, or which population it pertains to, with no implication that anything was trained or fitted. Pre-computed thresholds, national classification tables, species lists and other reference resources are derived from a region in this sense. The distinction from focal-role:trained-on matters to a consumer deciding what a substitute has to be: retraining is not available where there was no training."@en ;
   skos:topConceptOf focal-role:scheme ;
   skos:inScheme focal-role:scheme ;
 .

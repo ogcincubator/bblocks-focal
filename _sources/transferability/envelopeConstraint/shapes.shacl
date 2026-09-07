@@ -29,7 +29,7 @@ focal-shape:EnvelopeConstraint
     sh:nodeKind sh:IRI ;
     sh:class skos:Concept ;
     sh:severity sh:Warning ;
-    sh:message "role must be exactly one concept from the FOCAL envelope-roles scheme (trained-on, valid-for, can-run-on, ...)." ;
+    sh:message "role must be exactly one concept from the FOCAL envelope-roles scheme (trained-on, derived-from, valid-for, can-run-on, ...)." ;
   ] ;
 
   sh:property [

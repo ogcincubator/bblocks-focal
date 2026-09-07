@@ -12,7 +12,7 @@ ontology, with no schema change on the blocks that reference them.
 | triggers | coarse conditions, for rules that cannot cite a constraint |
 | tests | `inside` / `outside` / `same-class-as` / `different-class-from`, how a target is compared against a constraint |
 | dimensions | the axes an envelope is stated along |
-| roles | `trained-on` / `valid-for` / `can-run-on` |
+| roles | `trained-on` / `derived-from` / `valid-for` / `can-run-on` |
 | artifact-roles | what kind of thing an artifact is |
 | scenario-markers | non-calendar temporal positions (Global Warming Levels) |
 | grid-types | grid structures a workflow's gridded inputs may be on |

@@ -54,6 +54,7 @@ allOf:
         type: string
         examples:
           - trained-on
+          - derived-from
           - valid-for
           - can-run-on
         description: >
