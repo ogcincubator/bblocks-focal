@@ -30,6 +30,16 @@ examples:
             "id": "",
             "cwlVersion": "v1.2",
             "label": "FP-WF1 — Tree species suitability",
+            "requirements": {
+              "SoftwareRequirement": {
+                "packages": [
+                  { "package": "python" },
+                  { "package": "lightgbm" },
+                  { "package": "flask" },
+                  { "package": "gunicorn" }
+                ]
+              }
+            },
             "inputs": { "climate_data": "File" },
             "outputs": { "trained_growth_model": "File" },
             "transferability": {
@@ -123,6 +133,16 @@ examples:
             "id": "",
             "cwlVersion": "v1.2",
             "label": "FP-WF2 — Heat stress",
+            "requirements": {
+              "SoftwareRequirement": {
+                "packages": [
+                  { "package": "python" },
+                  { "package": "flask" },
+                  { "package": "gunicorn" }
+                ]
+              },
+              "NetworkAccess": { "networkAccess": true }
+            },
             "inputs": {
               "species_tolerances": "File",
               "forest_classification_context": "File",
@@ -183,6 +203,9 @@ examples:
             "id": "",
             "cwlVersion": "v1.2",
             "label": "FP-WF3 — Prediction of threatened stands",
+            "requirements": {
+              "SoftwareRequirement": { "packages": [{ "package": "python" }] }
+            },
             "inputs": {
               "disturbance_labels": "File",
               "eo_compositing_strategy": "string",
@@ -298,6 +321,23 @@ examples:
             "id": "",
             "cwlVersion": "v1.2",
             "label": "UP-WF2 — Urban hot/cool spot",
+            "requirements": {
+              "SoftwareRequirement": {
+                "packages": [
+                  { "package": "python", "version": ["3.10", "3.11", "3.12", "3.13"] },
+                  { "package": "rioxarray" },
+                  { "package": "xarray" },
+                  { "package": "rasterio" },
+                  { "package": "geopandas" },
+                  { "package": "shapely" },
+                  { "package": "numpy" },
+                  { "package": "pandas" },
+                  { "package": "matplotlib" },
+                  { "package": "joblib" }
+                ]
+              },
+              "NetworkAccess": { "networkAccess": true }
+            },
             "inputs": { "lst_datasets": "File", "clms_tcd_imd": "File" },
             "steps": {
               "lst_preparation": {
@@ -433,6 +473,9 @@ examples:
             "id": "",
             "cwlVersion": "v1.2",
             "label": "UP-WF1 — Regional climate change",
+            "requirements": {
+              "SoftwareRequirement": { "packages": [{ "package": "python" }] }
+            },
             "inputs": { "nukleus_ensemble": "File" },
             "outputs": { "climate_indices": "File" },
             "transferability": {
@@ -495,6 +538,12 @@ examples:
             "id": "",
             "cwlVersion": "v1.2",
             "label": "FP-WF5 — Map of climatic zones",
+            "requirements": {
+              "SoftwareRequirement": {
+                "packages": [{ "package": "python" }, { "package": "flask" }]
+              },
+              "NetworkAccess": { "networkAccess": true }
+            },
             "inputs": {
               "climate_zone_thresholds": "File",
               "climate_metadata": "File",
@@ -657,6 +706,18 @@ examples:
             "id": "",
             "cwlVersion": "v1.2",
             "label": "UP-WF3 — Urban blue-spot flood risk",
+            "requirements": {
+              "SoftwareRequirement": {
+                "packages": [
+                  { "package": "python", "version": ["3.10", "3.11", "3.12", "3.13"] },
+                  { "package": "xarray" },
+                  { "package": "numpy" },
+                  { "package": "pandas" },
+                  { "package": "rasterio" }
+                ]
+              },
+              "NetworkAccess": { "networkAccess": true }
+            },
             "inputs": {
               "precipitation": "File",
               "threshold_subdaily": "File",

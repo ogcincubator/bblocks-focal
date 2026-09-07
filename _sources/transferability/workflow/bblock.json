@@ -8,6 +8,7 @@
   "dateOfLastChange": "2026-09-06",
   "isProfileOf": "bblocks://ogc.cwl.v1_2_1.CWLWorkflow",
   "dependsOn": [
+    "bblocks://ogc.cwl.v1_2_1.CWLWorkflow",
     "bblocks://ogc.focal.transferability.transferabilityStatement",
     "bblocks://ogc.focal.transferability.computationType",
     "bblocks://ogc.focal.transferability.maturityStatus",
