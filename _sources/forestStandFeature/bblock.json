@@ -13,10 +13,7 @@
       "link": "https://docs.ogc.org/is/17-069r3/17-069r3.html#_response_7"
     }
   ],
-  "maturity": "development",
-  "scope": "unstable",
-  "dependsOn": [
-  ],
+  "dependsOn": [],
   "tags": [
     "focal",
     "forestry",

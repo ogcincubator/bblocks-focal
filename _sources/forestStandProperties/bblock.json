@@ -15,7 +15,9 @@
       "link": "https://example.com/sources/1"
     }
   ],
-  "maturity": "mature",
-  "scope": "unstable",
-  "tags": ["focal", "forestry", "schema"]
+  "tags": [
+    "focal",
+    "forestry",
+    "schema"
+  ]
 }
