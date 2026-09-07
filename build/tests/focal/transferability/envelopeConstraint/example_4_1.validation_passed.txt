@@ -1,5 +1,5 @@
 Validation report for ogc.focal.transferability.envelopeConstraint - FOCAL Transferability Envelope Constraint
-Generated 2026-09-07T09:47:26.156107+00:00
+Generated 2026-09-07T09:51:21.022783+00:00
 === Files ===
 Using example_4_1.json from examples
 JSON-LD context is present - uplifting
@@ -19,14 +19,14 @@ Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:
   Conforms: True
   
 Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
- - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value
+ - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>
  - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>
- - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>
+ - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value
  - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value
  - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>
- - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value
+ - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value
  - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>
- - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>
+ - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>
 
 === End SHACL ===
 

@@ -16,11 +16,9 @@
       "link": "https://docs.ogc.org/is/17-069r3/17-069r3.html#_response_7"
     }
   ],
-  "maturity": "development",
-  "scope": "unstable",
   "dependsOn": [
-    "ogc.geo.features.feature",
-    "ogc.focal.forestStandProperties"
+    "ogc.focal.forestStandProperties",
+    "ogc.geo.features.feature"
   ],
   "tags": [
     "focal",

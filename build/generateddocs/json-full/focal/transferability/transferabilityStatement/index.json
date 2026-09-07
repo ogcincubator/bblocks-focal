@@ -16,12 +16,12 @@
     "https://w3id.org/ogc/hosted/focal/transferability/TransferabilityStatement"
   ],
   "dependsOn": [
+    "ogc.ogc-utils.iri-or-curie",
     "ogc.focal.transferability.envelopeConstraint",
     "ogc.focal.transferability.vocab",
     "ogc.focal.transferability.rule",
     "ogc.focal.transferability.notes",
-    "ogc.focal.transferability.acceptanceCriteria",
-    "ogc.ogc-utils.iri-or-curie"
+    "ogc.focal.transferability.acceptanceCriteria"
   ],
   "tags": [
     "focal",

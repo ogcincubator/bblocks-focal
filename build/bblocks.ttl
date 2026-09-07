@@ -22,10 +22,10 @@
     rdfs:label "FOCAL Ontology" ;
     dct:abstract "RDF contents for the FOCAL ontology"^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-04-09T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/focal-ontology/index.json> ],
-        [ dct:format "text/html" ;
+    dct:description [ dct:format "text/html" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.focal-ontology> ],
+        [ dct:format "application/json" ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/focal-ontology/index.json> ],
         [ dct:format "text/markdown" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/focal-ontology/index.md> ] ;
     dct:hasVersion "0.1" ;
@@ -50,10 +50,10 @@
     rdfs:label "FOCAL Forest Stand Feature Collection" ;
     dct:abstract "GeoJSON FeatureCollection of FOCAL forest stands, providing a spatial dataset of forest units classified by forest type, region, and management unit."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2023-05-19T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/forestStandCollection/index.md> ],
-        [ dct:format "text/html" ;
+    dct:description [ dct:format "text/html" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.forestStandCollection> ],
+        [ dct:format "text/markdown" ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/forestStandCollection/index.md> ],
         [ dct:format "application/json" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/forestStandCollection/index.json> ] ;
     dct:hasVersion "1.0" ;
@@ -67,9 +67,18 @@
         "focal",
         "forestry" ;
     prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandCollection/schema.yaml> ;
+            dct:format "application/json" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandCollection/schema.json> ;
             prof:hasRole role:schema ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://ogc.geo.features.featureCollection> ;
+            prof:hasArtifact <https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandCollection/context.jsonld> ;
+            prof:hasRole role:mapping ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://ogc.focal.forestStandFeature> ;
@@ -77,25 +86,15 @@
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://ogc.geo.features.featureCollection> ;
-            prof:hasArtifact <https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/json" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandCollection/schema.json> ;
-            prof:hasRole role:schema ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://ogc.geo.features.feature> ;
             prof:hasArtifact <https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl> ;
             prof:hasRole role:validation ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandCollection/context.jsonld> ;
-            prof:hasRole role:mapping ] ;
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandCollection/schema.yaml> ;
+            prof:hasRole role:schema ] ;
     bblocks:dependsOn <bblocks://ogc.focal.forestStandFeature>,
         <bblocks://ogc.geo.features.featureCollection> ;
-    bblocks:scope <http://www.opengis.net/def/bblocks/scope/unstable> ;
     bblocks:status <http://www.opengis.net/def/status/under-development> ;
     bblocks:validationPassed true .
 
@@ -103,18 +102,18 @@
 
 <https://ogcincubator.github.io/bblocks-focal/build/bblocks.ttl> a prov:Entity ;
     dct:format "text/turtle" ;
-    prov:wasAttributedTo _:N4815cdd38c59483a8e6e1b01fa323cc0 ;
+    prov:wasAttributedTo _:Nae875472904445b4bfbe410da3d164ad ;
     prov:wasGeneratedBy [ a prov:Activity ;
-            prov:endedAtTime "2026-09-07T09:47:33.179485"^^xsd:dateTime ;
-            prov:startedAtTime "2026-09-07T09:47:32.993012"^^xsd:dateTime ;
+            prov:endedAtTime "2026-09-07T09:51:28.423672"^^xsd:dateTime ;
+            prov:startedAtTime "2026-09-07T09:51:28.310753"^^xsd:dateTime ;
             prov:used [ a prov:Entity ;
                     dct:format "application/yaml" ;
                     rdfs:seeAlso <file:///src/ogc/bblocks/register-context.yaml> ],
                 [ a prov:Entity ;
                     dct:format "application/json" ;
-                    dct:hasVersion "git:c8b32399ca8662a7e8dd97f9bb83f14ae62c7e28" ;
+                    dct:hasVersion "git:4b25cdf5a1f6d0a7c30669d3e9fce4d4daed7454" ;
                     rdfs:seeAlso <https://ogcincubator.github.io/bblocks-focal/build/register.json> ] ;
-            prov:wasAssociatedWith _:N4815cdd38c59483a8e6e1b01fa323cc0 ] .
+            prov:wasAssociatedWith _:Nae875472904445b4bfbe410da3d164ad ] .
 
 <bblocks://ogc.focal.forestStandProperties> a skos:Concept,
         dcat:Dataset,
@@ -123,10 +122,10 @@
     rdfs:label "FOCAL Forest Stand Properties" ;
     dct:abstract "Schema defining the properties of a FOCAL forest stand, including forest type classification, forest region, target management unit, field verification status, area, and data provenance."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2023-04-05T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/forestStandProperties/index.json> ],
-        [ dct:format "text/html" ;
+    dct:description [ dct:format "text/html" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.forestStandProperties> ],
+        [ dct:format "application/json" ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/forestStandProperties/index.json> ],
         [ dct:format "text/markdown" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/forestStandProperties/index.md> ] ;
     dct:hasVersion "0.1" ;
@@ -138,20 +137,19 @@
     dcat:keyword "focal",
         "forestry",
         "schema" ;
-    prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandProperties/schema.yaml> ;
-            prof:hasRole role:schema ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+    prof:hasResource [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
             dct:format "application/ld+json" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandProperties/context.jsonld> ;
             prof:hasRole role:mapping ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/json" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandProperties/schema.json> ;
+            prof:hasRole role:schema ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandProperties/schema.yaml> ;
             prof:hasRole role:schema ] ;
     bblocks:hasSourceJsonLdContext <https://ogcincubator.github.io/bblocks-focal/_sources/forestStandProperties/context.jsonld> ;
-    bblocks:scope <http://www.opengis.net/def/bblocks/scope/unstable> ;
     bblocks:status <http://www.opengis.net/def/status/under-development> ;
     bblocks:validationPassed true .
 
@@ -162,10 +160,10 @@
     rdfs:label "FOCAL Transferability Workflow" ;
     dct:abstract "Profile of a CWL Workflow adding FOCAL's machine-readable transferability facts: a transferability statement (validity envelope, reference/calibration-artifact adaptation rules), computation type, maturity status, and quality annotations."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-09-02T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/workflow/index.md> ],
-        [ dct:format "text/html" ;
+    dct:description [ dct:format "text/html" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.workflow> ],
+        [ dct:format "text/markdown" ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/workflow/index.md> ],
         [ dct:format "application/json" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/workflow/index.json> ] ;
     dct:hasVersion "0.8" ;
@@ -179,6 +177,11 @@
         "workflow" ;
     prof:hasResource [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://ogc.focal.transferability.computationType> ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/computationType/shapes.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://ogc.focal.transferability.workflow> ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/workflow/shapes.shacl> ;
             prof:hasRole role:validation ],
@@ -187,10 +190,6 @@
             rdfs:seeAlso <bblocks://ogc.focal.transferability.qualityAnnotation> ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/qualityAnnotation/shapes.shacl> ;
             prof:hasRole role:validation ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/workflow/context.jsonld> ;
-            prof:hasRole role:mapping ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://ogc.focal.transferability.envelopeConstraint> ;
@@ -198,13 +197,8 @@
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://ogc.focal.transferability.rule> ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/shapes.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://ogc.focal.transferability.maturityStatus> ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/maturityStatus/shapes.shacl> ;
+            rdfs:seeAlso <bblocks://ogc.focal.transferability.transferabilityStatement> ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/transferabilityStatement/shapes.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/yaml" ;
@@ -212,23 +206,27 @@
             prof:hasRole role:schema ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://ogc.focal.transferability.computationType> ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/computationType/shapes.shacl> ;
+            rdfs:seeAlso <bblocks://ogc.focal.transferability.rule> ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/shapes.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://ogc.focal.transferability.acceptanceCriteria> ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/acceptanceCriteria/shapes.shacl> ;
             prof:hasRole role:validation ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://ogc.focal.transferability.transferabilityStatement> ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/transferabilityStatement/shapes.shacl> ;
-            prof:hasRole role:validation ],
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/workflow/context.jsonld> ;
+            prof:hasRole role:mapping ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/json" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/workflow/schema.json> ;
-            prof:hasRole role:schema ] ;
+            prof:hasRole role:schema ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://ogc.focal.transferability.maturityStatus> ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/maturityStatus/shapes.shacl> ;
+            prof:hasRole role:validation ] ;
     prof:isProfileOf <bblocks://ogc.cwl.v1_2_1.CWLWorkflow> ;
     bblocks:dependsOn <bblocks://ogc.cwl.v1_2_1.CWLWorkflow>,
         <bblocks://ogc.focal.transferability.computationType>,
@@ -249,12 +247,12 @@
     rdfs:label "FOCAL Forest Stand Feature" ;
     dct:abstract "GeoJSON Feature representing a spatially delineated forest stand classified according to the FOCAL forest typology system, with properties describing forest type, region, management unit, area, and data provenance."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2023-05-19T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.forestStandFeature> ],
+    dct:description [ dct:format "application/json" ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/forestStandFeature/index.json> ],
         [ dct:format "text/markdown" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/forestStandFeature/index.md> ],
-        [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/forestStandFeature/index.json> ] ;
+        [ dct:format "text/html" ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.forestStandFeature> ] ;
     dct:hasVersion "1.0" ;
     dct:modified "2026-09-07"^^xsd:date ;
     dct:source <https://docs.ogc.org/is/17-069r3/17-069r3.html#_response_7> ;
@@ -264,11 +262,7 @@
     dcat:keyword "feature",
         "focal",
         "forestry" ;
-    prof:hasResource [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandFeature/context.jsonld> ;
-            prof:hasRole role:mapping ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+    prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/json" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandFeature/schema.json> ;
             prof:hasRole role:schema ],
@@ -281,6 +275,10 @@
             dct:format "application/yaml" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandFeature/schema.yaml> ;
             prof:hasRole role:schema ],
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/forestStandFeature/context.jsonld> ;
+            prof:hasRole role:mapping ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://ogc.focal.forestStandFeature> ;
@@ -288,7 +286,6 @@
             prof:hasRole role:validation ] ;
     bblocks:dependsOn <bblocks://ogc.focal.forestStandProperties>,
         <bblocks://ogc.geo.features.feature> ;
-    bblocks:scope <http://www.opengis.net/def/bblocks/scope/unstable> ;
     bblocks:status <http://www.opengis.net/def/status/under-development> ;
     bblocks:validationPassed true .
 
@@ -299,10 +296,10 @@
     rdfs:label "FOCAL Computation Type (mixin)" ;
     dct:abstract "Reusable mixin adding computationType, an open-vocabulary classification of how a workflow computes its results (statistical/ML, deterministic/rule-based, precomputed data delivery). Optional at the workflow level."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-09-02T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.computationType> ],
-        [ dct:format "application/json" ;
+    dct:description [ dct:format "application/json" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/computationType/index.json> ],
+        [ dct:format "text/html" ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.computationType> ],
         [ dct:format "text/markdown" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/computationType/index.md> ] ;
     dct:hasVersion "0.2" ;
@@ -314,23 +311,23 @@
     dcat:keyword "focal",
         "mixin",
         "transferability" ;
-    prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+    prof:hasResource [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://ogc.focal.transferability.computationType> ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/computationType/shapes.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/yaml" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/schema.yaml> ;
             prof:hasRole role:schema ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/context.jsonld> ;
-            prof:hasRole role:mapping ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/json" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/schema.json> ;
             prof:hasRole role:schema ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://ogc.focal.transferability.computationType> ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/computationType/shapes.shacl> ;
-            prof:hasRole role:validation ] ;
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/computationType/context.jsonld> ;
+            prof:hasRole role:mapping ] ;
     bblocks:dependsOn <bblocks://ogc.focal.transferability.vocab> ;
     bblocks:hasSourceJsonLdContext <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/computationType/context.jsonld> ;
     bblocks:status <http://www.opengis.net/def/status/under-development> ;
@@ -345,10 +342,10 @@
     dct:created "2026-09-02T00:00:00+00:00"^^xsd:dateTime ;
     dct:description [ dct:format "application/json" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/maturityStatus/index.json> ],
-        [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/maturityStatus/index.md> ],
         [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.maturityStatus> ] ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.maturityStatus> ],
+        [ dct:format "text/markdown" ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/maturityStatus/index.md> ] ;
     dct:hasVersion "0.2" ;
     dct:modified "2026-09-07"^^xsd:date ;
     skos:closeMatch <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/scheme> ;
@@ -363,10 +360,6 @@
             rdfs:seeAlso <bblocks://ogc.focal.transferability.maturityStatus> ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/maturityStatus/shapes.shacl> ;
             prof:hasRole role:validation ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/json" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/maturityStatus/schema.json> ;
-            prof:hasRole role:schema ],
         [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
             dct:format "application/ld+json" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/maturityStatus/context.jsonld> ;
@@ -374,6 +367,10 @@
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/yaml" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/maturityStatus/schema.yaml> ;
+            prof:hasRole role:schema ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/json" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/maturityStatus/schema.json> ;
             prof:hasRole role:schema ] ;
     bblocks:dependsOn <bblocks://ogc.focal.transferability.vocab> ;
     bblocks:hasSourceJsonLdContext <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/maturityStatus/context.jsonld> ;
@@ -387,10 +384,10 @@
     rdfs:label "FOCAL Quality Annotation" ;
     dct:abstract "A single statement of uncertainty or confidence about a workflow's results, independent of its maturityStatus. Binds to the W3C Data Quality Vocabulary (DQV) directly, since no OGC Block wraps DQV."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-09-02T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/qualityAnnotation/index.json> ],
-        [ dct:format "text/markdown" ;
+    dct:description [ dct:format "text/markdown" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/qualityAnnotation/index.md> ],
+        [ dct:format "application/json" ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/qualityAnnotation/index.json> ],
         [ dct:format "text/html" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.qualityAnnotation> ] ;
     dct:hasVersion "0.3" ;
@@ -405,22 +402,22 @@
         "focal",
         "schema",
         "transferability" ;
-    prof:hasResource [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/qualityAnnotation/context.jsonld> ;
-            prof:hasRole role:mapping ],
+    prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/qualityAnnotation/schema.yaml> ;
+            prof:hasRole role:schema ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://ogc.focal.transferability.qualityAnnotation> ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/qualityAnnotation/shapes.shacl> ;
             prof:hasRole role:validation ],
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/qualityAnnotation/context.jsonld> ;
+            prof:hasRole role:mapping ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/json" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/qualityAnnotation/schema.json> ;
-            prof:hasRole role:schema ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/qualityAnnotation/schema.yaml> ;
             prof:hasRole role:schema ] ;
     bblocks:dependsOn <bblocks://ogc.focal.transferability.vocab> ;
     bblocks:hasSourceJsonLdContext <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/qualityAnnotation/context.jsonld> ;
@@ -434,12 +431,12 @@
     rdfs:label "FOCAL Transferability Statement" ;
     dct:abstract "Where something's results are valid (envelope), which reference/calibration artifacts it depends on (artifacts), and what must happen to each under which conditions (rules) - three id-addressable lists joined by reference rather than nesting."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-09-03T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.transferabilityStatement> ],
+    dct:description [ dct:format "text/markdown" ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/transferabilityStatement/index.md> ],
         [ dct:format "application/json" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/transferabilityStatement/index.json> ],
-        [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/transferabilityStatement/index.md> ] ;
+        [ dct:format "text/html" ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.transferabilityStatement> ] ;
     dct:hasVersion "0.7" ;
     dct:modified "2026-09-07"^^xsd:date ;
     rdfs:subClassOf <https://w3id.org/ogc/hosted/focal/transferability/TransferabilityStatement> ;
@@ -450,28 +447,15 @@
     dcat:keyword "focal",
         "schema",
         "transferability" ;
-    prof:hasResource [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://ogc.focal.transferability.rule> ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/shapes.shacl> ;
-            prof:hasRole role:validation ],
+    prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/schema.yaml> ;
+            prof:hasRole role:schema ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://ogc.focal.transferability.transferabilityStatement> ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/transferabilityStatement/shapes.shacl> ;
             prof:hasRole role:validation ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/json" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/schema.json> ;
-            prof:hasRole role:schema ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/schema.yaml> ;
-            prof:hasRole role:schema ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/context.jsonld> ;
-            prof:hasRole role:mapping ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://ogc.focal.transferability.acceptanceCriteria> ;
@@ -479,9 +463,22 @@
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://ogc.focal.transferability.rule> ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/shapes.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://ogc.focal.transferability.envelopeConstraint> ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/envelopeConstraint/shapes.shacl> ;
-            prof:hasRole role:validation ] ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/json" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/schema.json> ;
+            prof:hasRole role:schema ],
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/context.jsonld> ;
+            prof:hasRole role:mapping ] ;
     bblocks:dependsOn <bblocks://ogc.focal.transferability.acceptanceCriteria>,
         <bblocks://ogc.focal.transferability.envelopeConstraint>,
         <bblocks://ogc.focal.transferability.notes>,
@@ -499,12 +496,12 @@
     rdfs:label "FOCAL Artifact Acceptance Criteria" ;
     dct:abstract "What a dataset must satisfy to serve as a given artifact - variable name, acceptable units (QUDT), required axes, acceptable grids, schemas it must conform to. What makes replace-with-local-equivalent actionable rather than merely stated."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-09-06T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/html" ;
+    dct:description [ dct:format "application/json" ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/acceptanceCriteria/index.json> ],
+        [ dct:format "text/html" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.acceptanceCriteria> ],
         [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/acceptanceCriteria/index.md> ],
-        [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/acceptanceCriteria/index.json> ] ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/acceptanceCriteria/index.md> ] ;
     dct:hasVersion "0.2" ;
     dct:modified "2026-09-07"^^xsd:date ;
     rdfs:subClassOf <https://w3id.org/ogc/hosted/focal/transferability/AcceptanceCriteria> ;
@@ -549,10 +546,10 @@
     dct:created "2026-09-02T00:00:00+00:00"^^xsd:dateTime ;
     dct:description [ dct:format "application/json" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/envelopeConstraint/index.json> ],
-        [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/envelopeConstraint/index.md> ],
         [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.envelopeConstraint> ] ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.envelopeConstraint> ],
+        [ dct:format "text/markdown" ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/envelopeConstraint/index.md> ] ;
     dct:hasVersion "0.6" ;
     dct:modified "2026-09-07"^^xsd:date ;
     rdfs:subClassOf <https://w3id.org/ogc/hosted/focal/transferability/EnvelopeConstraint> ;
@@ -565,22 +562,22 @@
     dcat:keyword "focal",
         "schema",
         "transferability" ;
-    prof:hasResource [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld> ;
-            prof:hasRole role:mapping ],
-        [ dct:conformsTo shacl: ;
+    prof:hasResource [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://ogc.focal.transferability.envelopeConstraint> ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/envelopeConstraint/shapes.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/schema.yaml> ;
-            prof:hasRole role:schema ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/json" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/schema.json> ;
+            prof:hasRole role:schema ],
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld> ;
+            prof:hasRole role:mapping ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/schema.yaml> ;
             prof:hasRole role:schema ] ;
     bblocks:dependsOn <bblocks://ogc.focal.transferability.notes>,
         <bblocks://ogc.focal.transferability.vocab>,
@@ -598,10 +595,10 @@
     dct:created "2026-09-02T00:00:00+00:00"^^xsd:dateTime ;
     dct:description [ dct:format "application/json" ;
             rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/json-full/focal/transferability/notes/index.json> ],
-        [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.notes> ],
         [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/notes/index.md> ] ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/build/generateddocs/markdown/focal/transferability/notes/index.md> ],
+        [ dct:format "text/html" ;
+            rdfs:isDefinedBy <https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.transferability.notes> ] ;
     dct:hasVersion "0.3" ;
     dct:modified "2026-09-07"^^xsd:date ;
     skos:inScheme <https://ogcincubator.github.io/bblocks-focal/> ;
@@ -611,17 +608,17 @@
         "mixin",
         "transferability" ;
     prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml> ;
+            prof:hasRole role:schema ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/json" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.json> ;
             prof:hasRole role:schema ],
         [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
             dct:format "application/ld+json" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/context.jsonld> ;
-            prof:hasRole role:mapping ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml> ;
-            prof:hasRole role:schema ] ;
+            prof:hasRole role:mapping ] ;
     bblocks:hasSourceJsonLdContext <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/notes/context.jsonld> ;
     bblocks:status <http://www.opengis.net/def/status/under-development> ;
     bblocks:validationPassed true .
@@ -655,19 +652,19 @@
             dct:format "application/yaml" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/schema.yaml> ;
             prof:hasRole role:schema ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://ogc.focal.transferability.rule> ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/shapes.shacl> ;
-            prof:hasRole role:validation ],
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld> ;
+            prof:hasRole role:mapping ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/json" ;
             prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/schema.json> ;
             prof:hasRole role:schema ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld> ;
-            prof:hasRole role:mapping ] ;
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://ogc.focal.transferability.rule> ;
+            prof:hasArtifact <https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/shapes.shacl> ;
+            prof:hasRole role:validation ] ;
     bblocks:dependsOn <bblocks://ogc.focal.transferability.notes>,
         <bblocks://ogc.focal.transferability.vocab>,
         <bblocks://ogc.ogc-utils.iri-or-curie> ;
@@ -759,7 +756,7 @@ It hosts reusable **OGC Blocks** that move from document-centric descriptions to
 *   **[OGC Blocks Tutorials](https://ogcincubator.github.io/bblocks-tutorial/)**
 *   **[OGC Blocks Examples](https://ogcincubator.github.io/bblocks-examples/)**
 """^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
-    dct:modified "2026-09-07T09:47:19.425384"^^xsd:dateTime ;
+    dct:modified "2026-09-07T09:51:14.242089"^^xsd:dateTime ;
     void:sparqlEndpoint <http://defs-hosted.opengis.net/fuseki-hosted/query> ;
     owl:imports <https://ogcincubator.github.io/bblocks-cwl/build/register.json>,
         <https://ogcincubator.github.io/cross-domain-model/build/register.json>,
@@ -783,18 +780,18 @@ It hosts reusable **OGC Blocks** that move from document-centric descriptions to
             dct:type "application/ld+json" ;
             ns1:relation <http://www.iana.org/assignments/relation/self> ;
             ns2:hasTarget <https://ogcincubator.github.io/bblocks-focal/build/bblocks.jsonld> ],
-        [ rdfs:label "This Building Blocks Register in RDF Turtle format" ;
-            dct:type "text/turtle" ;
-            ns1:relation <http://www.iana.org/assignments/relation/self> ;
-            ns2:hasTarget <https://ogcincubator.github.io/bblocks-focal/build/bblocks.ttl> ],
         [ rdfs:label "This Building Blocks Register in JSON format" ;
             dct:type "application/json" ;
             ns1:relation <http://www.iana.org/assignments/relation/self> ;
-            ns2:hasTarget <https://ogcincubator.github.io/bblocks-focal/build/register.json> ] ;
+            ns2:hasTarget <https://ogcincubator.github.io/bblocks-focal/build/register.json> ],
+        [ rdfs:label "This Building Blocks Register in RDF Turtle format" ;
+            dct:type "text/turtle" ;
+            ns1:relation <http://www.iana.org/assignments/relation/self> ;
+            ns2:hasTarget <https://ogcincubator.github.io/bblocks-focal/build/bblocks.ttl> ] ;
     foaf:homepage <https://ogcincubator.github.io/bblocks-focal/> ;
     bblocks:hasValidationReport <https://ogcincubator.github.io/bblocks-focal/build/tests/report.html> .
 
-_:N4815cdd38c59483a8e6e1b01fa323cc0 a prov:Agent,
+_:Nae875472904445b4bfbe410da3d164ad a prov:Agent,
         schema:SoftwareApplication ;
     rdfs:label "OGC-NA tools" ;
     dct:hasVersion "0.5.33" ;

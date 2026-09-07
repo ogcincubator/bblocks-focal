@@ -1,5 +1,5 @@
 Validation report for ogc.focal.forestStandCollection - FOCAL Forest Stand Feature Collection
-Generated 2026-09-07T09:47:28.150638+00:00
+Generated 2026-09-07T09:51:22.988152+00:00
 === Files ===
 Using examples/feature.json from examples
 JSON-LD context is present - uplifting
@@ -12,35 +12,35 @@ Validation passed
 === End JSON Schema ===
 
 === SHACL ===
-Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:
+Validation result for _sources/forestStandFeature/shapes.shacl:
   Validation Report
   Conforms: True
   
-Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:
- - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape geojson:FeatureShape: *none*
- - Shape geojson:FeatureCollectionShape: _:N9b353360c35a4d36b7851df4492e75bf
- - Shape geojson:GeometryShape: *none*
- - Shape geojson:LinkShape: *none*
- - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
+Focus nodes for _sources/forestStandFeature/shapes.shacl:
+ - Shape <https://example.com/focal/feature-lesniTyp>: _:N568850cfb8ef4351850ef3a3d854945e,_:N11a5e99bf5c14c19b75a053f72dc80bb,_:N1ef4267b60904003893f559e18e81742,_:N5a5e81165c224c36aa0ed84bc9fb3a11,_:Nb2d5b257ef8041dfa484d647121105d2,_:Nee2b09b812094e3e84cf79e4f36a7551,_:Nd391481537254c178c0f3014eb5a7bd1,_:Nd65880defe4045cc84edee54217920d2,_:N5ec0eec8d5ef40a2948e7078551bb923,_:N9da10e193ee04b1db1675979b60b6283,_:N27f462319f984e768a4086e158bd86c4,_:N86282d38894b4df3b30f9fb8fd45843c,_:N97932608bc764710905d6431bba95014
 
 Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
   Validation Report
   Conforms: True
   
 Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
- - Shape geojson:FeatureShape: _:Nb62609b8cc2b448d9c711da98a229f58,_:N8f162749fa4d4fa39522a192d32c5ba0,_:N89f18d154d584652a3857e1686787457,_:N8e9aaa8f4ee84e6ca4dbdbab74b41c25,_:N4fa97e81591849fa90d21b0aa026f14c,_:N29655cdcdb464b84a5af29aa0c858c7f,_:N03c4e69bf77e4ada8e1c04abd3004182,_:N7842fa7a98fe44bbbdfd76aff2b86209,_:N57f3a5c02fbd4cdb9f9ffe809028fb9d,_:Neb0d48ef774e44ee89141feeaf9137bc,_:N5a90164f30884819a2035e0d81cbf4a6,_:N3d3c7a5a050e468ea84b05e142474d6c,_:N262acca480fc48cf9061edfdc52ad4b8
  - Shape geojson:GeometryShape: *none*
  - Shape geojson:LinkShape: *none*
  - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
  - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
+ - Shape geojson:FeatureShape: _:N568850cfb8ef4351850ef3a3d854945e,_:N11a5e99bf5c14c19b75a053f72dc80bb,_:N1ef4267b60904003893f559e18e81742,_:N5a5e81165c224c36aa0ed84bc9fb3a11,_:Nb2d5b257ef8041dfa484d647121105d2,_:Nee2b09b812094e3e84cf79e4f36a7551,_:Nd391481537254c178c0f3014eb5a7bd1,_:Nd65880defe4045cc84edee54217920d2,_:N5ec0eec8d5ef40a2948e7078551bb923,_:N9da10e193ee04b1db1675979b60b6283,_:N27f462319f984e768a4086e158bd86c4,_:N86282d38894b4df3b30f9fb8fd45843c,_:N97932608bc764710905d6431bba95014
 
-Validation result for _sources/forestStandFeature/shapes.shacl:
+Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:
   Validation Report
   Conforms: True
   
-Focus nodes for _sources/forestStandFeature/shapes.shacl:
- - Shape <https://example.com/focal/feature-lesniTyp>: _:Nb62609b8cc2b448d9c711da98a229f58,_:N8f162749fa4d4fa39522a192d32c5ba0,_:N89f18d154d584652a3857e1686787457,_:N8e9aaa8f4ee84e6ca4dbdbab74b41c25,_:N4fa97e81591849fa90d21b0aa026f14c,_:N29655cdcdb464b84a5af29aa0c858c7f,_:N03c4e69bf77e4ada8e1c04abd3004182,_:N7842fa7a98fe44bbbdfd76aff2b86209,_:N57f3a5c02fbd4cdb9f9ffe809028fb9d,_:Neb0d48ef774e44ee89141feeaf9137bc,_:N5a90164f30884819a2035e0d81cbf4a6,_:N3d3c7a5a050e468ea84b05e142474d6c,_:N262acca480fc48cf9061edfdc52ad4b8
+Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:
+ - Shape geojson:GeometryShape: *none*
+ - Shape geojson:LinkShape: *none*
+ - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
+ - Shape geojson:FeatureShape: *none*
+ - Shape geojson:FeatureCollectionShape: _:Nf98eef204e2f4da8bbf208aa86be199c
 
 === End SHACL ===
 

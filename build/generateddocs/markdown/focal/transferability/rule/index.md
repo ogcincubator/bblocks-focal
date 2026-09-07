@@ -226,9 +226,9 @@ the sentence it came from, which a nested boolean expression does not.
 [] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/lst> ;
     focal-transf-prop:mandatory true ;
-    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-domain> ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-grid> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ],
-        [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-grid> ;
+        [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-domain> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
 
 

@@ -66,23 +66,35 @@ RDF contents for the FOCAL ontology
 
 Schema defining the properties of a FOCAL forest stand, including forest type classification, forest region, target management unit, field verification status, area, and data provenance.
 
-### `ogc.focal.transferability.vocab` — FOCAL Transferability Vocabulary and Model Ontology
-
-**Type:** model
-
-The RDF vocabulary behind the FOCAL workflow transferability model: ten open SKOS concept schemes (actions, triggers, condition tests, envelope dimensions, envelope roles, artifact roles, scenario markers, computation types, maturity statuses, quality dimensions) plus the classes and properties FOCAL mints where no published vocabulary says the same thing.
-
 ### `ogc.focal.transferability.notes` — FOCAL Transferability Notes (mixin)
 
 **Type:** schema
 
 Reusable mixin adding a free-text escape hatch for transferability facts the controlled vocabularies cannot capture. Uplifts to rdfs:comment rather than a FOCAL-specific property.
 
+### `ogc.focal.transferability.vocab` — FOCAL Transferability Vocabulary and Model Ontology
+
+**Type:** model
+
+The RDF vocabulary behind the FOCAL workflow transferability model: ten open SKOS concept schemes (actions, triggers, condition tests, envelope dimensions, envelope roles, artifact roles, scenario markers, computation types, maturity statuses, quality dimensions) plus the classes and properties FOCAL mints where no published vocabulary says the same thing.
+
+### `ogc.focal.transferability.acceptanceCriteria` — FOCAL Artifact Acceptance Criteria
+
+**Type:** schema
+
+What a dataset must satisfy to serve as a given artifact - variable name, acceptable units (QUDT), required axes, acceptable grids, schemas it must conform to. What makes replace-with-local-equivalent actionable rather than merely stated.
+
 ### `ogc.focal.transferability.computationType` — FOCAL Computation Type (mixin)
 
 **Type:** schema
 
 Reusable mixin adding computationType, an open-vocabulary classification of how a workflow computes its results (statistical/ML, deterministic/rule-based, precomputed data delivery). Optional at the workflow level.
+
+### `ogc.focal.transferability.envelopeConstraint` — FOCAL Transferability Envelope Constraint
+
+**Type:** schema
+
+A single {role, dimension, value} statement bounding where a workflow's results are valid, addressable by id so rules can cite which boundary they are evaluated against. Spatial values are GeoSPARQL geometries and temporal values DCAT periods, so a consumer can evaluate them without knowing FOCAL.
 
 ### `ogc.focal.transferability.maturityStatus` — FOCAL Workflow Maturity Status (mixin)
 
@@ -95,18 +107,6 @@ Reusable mixin adding maturityStatus, an open-vocabulary classification of a wor
 **Type:** schema
 
 A single statement of uncertainty or confidence about a workflow's results, independent of its maturityStatus. Binds to the W3C Data Quality Vocabulary (DQV) directly, since no OGC Block wraps DQV.
-
-### `ogc.focal.transferability.acceptanceCriteria` — FOCAL Artifact Acceptance Criteria
-
-**Type:** schema
-
-What a dataset must satisfy to serve as a given artifact - variable name, acceptable units (QUDT), required axes, acceptable grids, schemas it must conform to. What makes replace-with-local-equivalent actionable rather than merely stated.
-
-### `ogc.focal.transferability.envelopeConstraint` — FOCAL Transferability Envelope Constraint
-
-**Type:** schema
-
-A single {role, dimension, value} statement bounding where a workflow's results are valid, addressable by id so rules can cite which boundary they are evaluated against. Spatial values are GeoSPARQL geometries and temporal values DCAT periods, so a consumer can evaluate them without knowing FOCAL.
 
 ### `ogc.focal.transferability.rule` — FOCAL Transferability Rule
 
