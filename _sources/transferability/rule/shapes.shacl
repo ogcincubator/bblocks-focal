@@ -84,9 +84,9 @@ focal-shape:TransferabilityRule
 focal-shape:TerminalActionNamesWhatItAffects
   a sh:NodeShape ;
   sh:targetSubjectsOf focal-prop:actions ;
+  sh:severity sh:Warning ;
   sh:sparql [
     a sh:SPARQLConstraint ;
-    sh:severity sh:Warning ;
     sh:message "a rule offering component-not-executable does not say which component: name the affected steps or outputs in `affects`, or state deliberately that the whole workflow is what stops." ;
     sh:select """
       SELECT $this WHERE {

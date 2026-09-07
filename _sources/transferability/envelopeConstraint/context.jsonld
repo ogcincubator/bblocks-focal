@@ -9,29 +9,55 @@
     "role": {
       "@id": "focal-transf-prop:role",
       "@type": "@id",
-      "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/roles/" }
+      "@context": {
+        "@base": "https://w3id.org/ogc/hosted/focal/transferability/roles/"
+      }
     },
     "dimension": {
       "@id": "focal-transf-prop:dimension",
       "@type": "@id",
-      "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/" }
+      "@context": {
+        "@base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/"
+      }
     },
     "value": {
       "@id": "focal-transf-prop:value",
       "@context": {
-        "asWKT": { "@id": "geo:asWKT", "@type": "geo:wktLiteral" },
+        "asWKT": {
+          "@id": "geo:asWKT",
+          "@type": "geo:wktLiteral"
+        },
         "startDate": "dcat:startDate",
         "endDate": "dcat:endDate",
         "gridTypes": {
           "@id": "focal-transf-prop:gridType",
           "@type": "@id",
           "@container": "@set",
-          "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/grid-types/" }
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/grid-types/"
+          }
         },
         "scenarioMarker": {
           "@id": "focal-transf-prop:scenarioMarker",
           "@type": "@id",
-          "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/scenario-markers/" }
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/scenario-markers/"
+          }
+        },
+        "scheme": {
+          "@id": "focal-transf-prop:classificationScheme",
+          "@type": "@id",
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/"
+          }
+        },
+        "sameClassAs": {
+          "@id": "focal-transf-prop:sameClassAs",
+          "@type": "@id"
+        },
+        "classes": {
+          "@id": "focal-transf-prop:class",
+          "@container": "@set"
         }
       }
     },

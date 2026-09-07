@@ -45,15 +45,30 @@ allOf:
       - required: [conformsTo]
     properties:
       variable:
-        type: string
-        examples:
-          - pr
-          - rr
+        oneOf:
+          - type: string
+            examples:
+              - pr
+              - rr
+          - type: object
+            title: Same as the current artifact
+            required: [sameAsCurrent]
+            additionalProperties: false
+            properties:
+              sameAsCurrent:
+                const: true
         description: >
-          The name the workflow expects the variable to be called, in the words the source used.
-          UP-WF3 requires "the same variable name" of any replacement precipitation source, which is
-          a real constraint on a candidate file and a purely local one: it is what this workflow's
-          code looks for, not a claim about the world.
+          The name the workflow expects the variable to be called, either as a literal or as a
+          relation to whatever the artifact currently in use carries.
+
+          **The relation form is not a fallback for not knowing.** UP-WF3's source says a
+          replacement must have *"the same precipitation variable name as current dataset"*, and
+          that is a complete, precise requirement stated as a relation. Recording a literal in its
+          place (`rr`, say, guessed from the fact that one of the two current sources is E-OBS)
+          asserts something the source did not, and is wrong outright if the workflow reads the
+          CORDEX path where the same field is called `pr`. `{"sameAsCurrent": true}` states exactly
+          the requirement, and a platform can evaluate it by reading the artifact in use. Use it
+          when sameness *is* the claim; where the source names a value, name the value.
 
           A plain string rather than a term, deliberately. The obvious binding is a CF standard name
           (`precipitation_amount`), and a CF standard name is not what a NetCDF variable is called;

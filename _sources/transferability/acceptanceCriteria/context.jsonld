@@ -3,24 +3,35 @@
     "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
     "dcterms": "http://purl.org/dc/terms/",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "variable": "focal-transf-prop:variable",
+    "variable": {
+      "@id": "focal-transf-prop:variable",
+      "@context": {
+        "sameAsCurrent": "focal-transf-prop:sameAsCurrent"
+      }
+    },
     "units": {
       "@id": "focal-transf-prop:unit",
       "@type": "@id",
       "@container": "@set",
-      "@context": { "@base": "http://qudt.org/vocab/unit/" }
+      "@context": {
+        "@base": "http://qudt.org/vocab/unit/"
+      }
     },
     "axes": {
       "@id": "focal-transf-prop:axis",
       "@type": "@id",
       "@container": "@set",
-      "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/axes/" }
+      "@context": {
+        "@base": "https://w3id.org/ogc/hosted/focal/transferability/axes/"
+      }
     },
     "gridTypes": {
       "@id": "focal-transf-prop:gridType",
       "@type": "@id",
       "@container": "@set",
-      "@context": { "@base": "https://w3id.org/ogc/hosted/focal/transferability/grid-types/" }
+      "@context": {
+        "@base": "https://w3id.org/ogc/hosted/focal/transferability/grid-types/"
+      }
     },
     "conformsTo": {
       "@id": "dcterms:conformsTo",

@@ -105,11 +105,21 @@ allOf:
             set — mechanically checkable, and *more* so than a bounding box, since the terms carry
             the CF-conventions `grid_mapping_name` as their `skos:notation` and the datasets in
             question declare exactly that.
-          - `ecological`/`climatic`/anything else — a plain string. "A comparable ecological range"
-            is not a place and does not become machine-checkable by being wrapped in coordinates it
-            does not have. A rule may still cite such a constraint; the condition is then a
-            judgement a person makes, stated in the same structure, which is honest about where
-            automation stops.
+          - **any dimension, as an analogy** — `{"scheme": ..., "sameClassAs": ...}`, saying the
+            target must fall in the same class of a published classification as some reference
+            does. This is the shape of every "comparable to where we calibrated" claim in the
+            corpus, and it is a *relation*, not a value: the source says the target must resemble
+            the training area, and says nothing about which classes the training area is in.
+            Enumerating those classes would state something the source never said and would go
+            stale the moment the training geometry is corrected, so the default is to name the
+            reference and let a platform derive the rest. Tested with `same-class-as` /
+            `different-class-from` rather than `inside`/`outside`.
+          - `ecological`/`climatic`/anything else — a plain string, where no classification
+            captures the claim. "A comparable ecological range" does not become machine-checkable
+            by being wrapped in coordinates it does not have. A rule may still cite such a
+            constraint; the condition is then a judgement a person makes, stated in the same
+            structure, which is honest about where automation stops. Prefer the analogy shape above
+            where a scheme does capture it: it says the same thing and a machine can settle it.
 oneOf:
   - title: Spatial or jurisdictional extent (geometry-valued)
     properties:
@@ -143,6 +153,16 @@ oneOf:
         $ref: "#/$defs/gridStructure"
     required:
       - dimension
+      - value
+  - title: Classification analogy (any dimension)
+    description: >
+      Available on every dimension, including spatial ones: "the same biogeographical region as the
+      training area" is a different claim from "inside the training area's bounding box", and both
+      are legitimate.
+    properties:
+      value:
+        $ref: "#/$defs/analogy"
+    required:
       - value
   - title: Any other dimension (string-valued)
     properties:
@@ -218,6 +238,52 @@ oneOf:
           is `inside` it if its grid is one of these. Open vocabulary, seeded only with the two
           terms UP-WF3 evidences and cross-walked to CF-conventions `grid_mapping_name` values, so
           adding a projection is a lookup in the CF table rather than a judgement.
+  analogy:
+    title: Classification analogy
+    type: object
+    required:
+      - scheme
+    additionalProperties: false
+    anyOf:
+      - required: [sameClassAs]
+      - required: [classes]
+    properties:
+      scheme:
+        type: string
+        examples:
+          - koppen-geiger
+          - eunis-habitats
+          - eea-biogeographical-regions
+        description: >
+          The published classification system this constraint is evaluated in, as a concept from
+          the FOCAL classification-schemes vocabulary (see
+          bblocks://ogc.focal.transferability.vocab). FOCAL names the scheme and records where its
+          terms live; it does not restate them, the same discipline applied to QUDT units and CF
+          grid mappings.
+      sameClassAs:
+        "$ref": "bblocks://ogc.ogc-utils.iri-or-curie"
+        description: >
+          The reference whose classification the target must share, normally the `id` of another
+          constraint in the same envelope — typically the `trained-on` extent. **This is the
+          preferred form**, and the only one usable with a scheme that publishes no term
+          identifiers: nothing has to name a class, so a platform classifies the reference geometry
+          and the target and compares. It also stays correct when the reference geometry is
+          replaced by a better one, which an enumerated class list would not.
+      classes:
+        type: array
+        minItems: 1
+        items:
+          type: string
+        examples:
+          - ["Cfb", "Dfb"]
+          - ["http://eunis.eea.europa.eu/eunishabitats/G1"]
+        description: >
+          Explicitly stated classes, as an alternative to naming a reference. Use only where the
+          source actually states them: deriving them from a reference and writing them here turns
+          an inference into an assertion. Cite the scheme's own identifiers — EUNIS habitats are
+          published by the EEA, and Koppen-Geiger classes are published by FOCAL itself
+          (`.../koppen-geiger/Cfb`) precisely because no maintainer publishes them. Each
+          classification-schemes concept records where its terms live.
   scenarioMarker:
     title: Scenario-indexed marker
     type: object

@@ -157,11 +157,21 @@ focal-shape:RuleCitesDeclaredArtifact
 .
 
 #################################################################
-# An artifact nothing governs is probably an omission.
+# An artifact that carries no transferability information at all is probably an omission.
 #
-# Artifacts are listed because rules act on them. One that no rule cites either needs a rule, or
-# does not belong in the statement -- but it may legitimately be waiting for one, so this is
-# advisory rather than a violation.
+# An earlier version of this shape warned about any artifact no rule cites, which contradicts the
+# closed-world default this model adopted: rules are exceptions, and an artifact no rule fires for
+# is reused unchanged. Under that default an ungoverned artifact is not a gap, it is the strongest
+# positive portability claim the model can make -- and it is exactly what two questionnaires say.
+# UP-WF1 answers questions 8, 9 and 10 with "Nothing", "Nothing" and "All parts are portable", and
+# UP-WF3's exposure and vulnerability layers cannot be substituted at all, which is a standing
+# limitation rather than a rule. Both were blocked by the old reading.
+#
+# What is still worth flagging is an artifact carrying nothing: no rule, no acceptance criteria,
+# no note. That one really is a bare label in a list, and says nothing a consumer can act on.
+#
+# Advisory, not a violation -- though note that the postprocessor currently fails an example on any
+# SHACL result, warnings included, so in practice it still bites.
 #################################################################
 
 focal-shape:ArtifactIsGovernedByARule
@@ -170,16 +180,22 @@ focal-shape:ArtifactIsGovernedByARule
   sh:targetSubjectsOf focal-prop:artifacts ;
   sh:targetSubjectsOf focal-prop:rules ;
   sh:targetObjectsOf focal-prop:transferability ;
+  sh:severity sh:Warning ;
   sh:sparql [
     a sh:SPARQLConstraint ;
-    sh:severity sh:Warning ;
-    sh:message "an artifact is declared that no rule applies to. Either it needs a rule, or it does not need to be in the statement at all: only artifacts with an evidenced transferability fact belong here." ;
+    sh:message "an artifact is declared that carries no transferability information: no rule applies to it, it states no acceptance criteria, and it has no note. An artifact no rule governs is fine and often meaningful -- it says the dependency is reusable unchanged -- but say why in transferabilityNotes, or the entry is a bare label a consumer can do nothing with." ;
     sh:select """
       SELECT $this WHERE {
         $this <https://w3id.org/ogc/hosted/focal/transferability/properties/artifacts> ?artifact .
         FILTER NOT EXISTS {
           $this <https://w3id.org/ogc/hosted/focal/transferability/properties/rules> ?rule .
           ?rule <https://w3id.org/ogc/hosted/focal/transferability/properties/appliesTo> ?artifact .
+        }
+        FILTER NOT EXISTS {
+          ?artifact <https://w3id.org/ogc/hosted/focal/transferability/properties/acceptanceCriteria> ?criteria .
+        }
+        FILTER NOT EXISTS {
+          ?artifact <http://www.w3.org/2000/01/rdf-schema#comment> ?note .
         }
       }
     """ ;

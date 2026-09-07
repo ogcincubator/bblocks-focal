@@ -144,7 +144,7 @@ focal-shape:NonGeometricEnvelopeValue
   sh:targetSubjectsOf focal-prop:dimension ;
   sh:sparql [
     a sh:SPARQLConstraint ;
-    sh:message "a constraint on any dimension the schema gives no structured shape to carries a plain string value. A phenological regime is not a place, and wrapping it in coordinates it does not have makes the data less honest, not more machine-readable." ;
+    sh:message "a constraint on any dimension the schema gives no structured shape to carries either a plain string value or a classification analogy. A phenological regime is not a place, and wrapping it in coordinates it does not have makes the data less honest, not more machine-readable; but where a published classification does capture the claim, naming it says the same thing and a machine can settle it." ;
     sh:select """
       SELECT $this WHERE {
         $this <https://w3id.org/ogc/hosted/focal/transferability/properties/dimension> ?dim .
@@ -156,6 +156,9 @@ focal-shape:NonGeometricEnvelopeValue
         ))
         $this <https://w3id.org/ogc/hosted/focal/transferability/properties/value> ?v .
         FILTER(!isLiteral(?v))
+        FILTER NOT EXISTS {
+          ?v <https://w3id.org/ogc/hosted/focal/transferability/properties/classificationScheme> ?scheme .
+        }
       }
     """ ;
   ] ;
@@ -179,5 +182,34 @@ focal-shape:ScenarioMarkerIsAConcept
     sh:class skos:Concept ;
     sh:severity sh:Warning ;
     sh:message "scenarioMarker should resolve to a concept in the FOCAL scenario-markers scheme (gwl-1.5, gwl-2.0, gwl-3.0, ...)." ;
+  ] ;
+.
+
+#################################################################
+# A classification analogy names what it is analogous to.
+#
+# `scheme` alone bounds nothing: "evaluated in Koppen-Geiger" is not a constraint until something
+# says which class. Either a reference to classify (the preferred form, and the only one available
+# for a scheme that publishes no term identifiers) or an explicit class list.
+#################################################################
+
+focal-shape:AnalogyNamesItsReference
+  a sh:NodeShape ;
+  sh:targetObjectsOf focal-prop:value ;
+  sh:severity sh:Violation ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "a constraint value naming a classification scheme must also name either a reference to classify (focal-prop:sameClassAs) or the classes themselves (focal-prop:class). A scheme on its own says where the question would be answered, not what the answer must be." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/classificationScheme> ?scheme .
+        FILTER NOT EXISTS {
+          $this <https://w3id.org/ogc/hosted/focal/transferability/properties/sameClassAs> ?ref .
+        }
+        FILTER NOT EXISTS {
+          $this <https://w3id.org/ogc/hosted/focal/transferability/properties/class> ?cls .
+        }
+      }
+    """ ;
   ] ;
 .

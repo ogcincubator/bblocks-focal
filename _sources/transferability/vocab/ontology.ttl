@@ -23,6 +23,8 @@
 @prefix focal-marker: <https://w3id.org/ogc/hosted/focal/transferability/scenario-markers/> .
 @prefix focal-grid: <https://w3id.org/ogc/hosted/focal/transferability/grid-types/> .
 @prefix focal-axis: <https://w3id.org/ogc/hosted/focal/transferability/axes/> .
+@prefix focal-cls: <https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/> .
+@prefix focal-koppen: <https://w3id.org/ogc/hosted/focal/transferability/koppen-geiger/> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 
 #################################################################
@@ -283,7 +285,8 @@ focal-qdim:scheme a skos:ConceptScheme ;
   skos:prefLabel "FOCAL Quality Annotation Dimensions"@en ;
   skos:definition "Dimensions along which a qualityAnnotation statement expresses uncertainty or confidence about a workflow's results, independent of its maturityStatus. Deliberately seeded small from a single workflow (FP-WF1) and open to growth."@en ;
   skos:hasTopConcept
-    focal-qdim:decision-support-only, focal-qdim:validation-incomplete ;
+    focal-qdim:decision-support-only, focal-qdim:validation-incomplete,
+    focal-qdim:spatial-support-mismatch ;
 .
 
 focal-qdim:decision-support-only a skos:Concept, dqv:Dimension ;
@@ -297,6 +300,15 @@ focal-qdim:decision-support-only a skos:Concept, dqv:Dimension ;
 focal-qdim:validation-incomplete a skos:Concept, dqv:Dimension ;
   skos:prefLabel "validation incomplete"@en ;
   skos:definition "Model or validation work is still being finalised at the time of the statement."@en ;
+  dqv:inCategory focal-qdim:scheme ;
+  skos:topConceptOf focal-qdim:scheme ;
+  skos:inScheme focal-qdim:scheme ;
+.
+
+focal-qdim:spatial-support-mismatch a skos:Concept, dqv:Dimension ;
+  skos:prefLabel "spatial support mismatch"@en ;
+  skos:definition "Two or more of the workflow's inputs are on supports of different resolution, or on supports that do not align, so results combining them are coarser or less precisely located than the finest input suggests. A property of the workflow as deployed, not of a transfer: it holds in the source region too."@en ;
+  skos:scopeNote "Bears on how far a result can be read, not on whether the workflow can move. Use an envelope constraint, not this dimension, when the issue is that a target falls outside a boundary."@en ;
   dqv:inCategory focal-qdim:scheme ;
   skos:topConceptOf focal-qdim:scheme ;
   skos:inScheme focal-qdim:scheme ;
@@ -362,7 +374,8 @@ focal-arole:infrastructure a skos:Concept ;
 focal-test:scheme a skos:ConceptScheme ;
   skos:prefLabel "FOCAL Envelope Condition Tests"@en ;
   skos:definition "How a target is tested against an envelope constraint when deciding whether a transferability rule fires."@en ;
-  skos:hasTopConcept focal-test:inside, focal-test:outside ;
+  skos:hasTopConcept focal-test:inside, focal-test:outside,
+    focal-test:same-class-as, focal-test:different-class-from ;
 .
 
 focal-test:inside a skos:Concept ;
@@ -385,6 +398,94 @@ focal-test:outside a skos:Concept ;
   rdfs:seeAlso geof:sfWithin ;
   skos:topConceptOf focal-test:scheme ;
   skos:inScheme focal-test:scheme ;
+.
+
+# `same-class-as`/`different-class-from` test a constraint whose value names a classification
+# scheme and a reference, rather than a value the target is compared against directly. The claim
+# they encode is *analogy*, not containment: FP-WF1's "valid mainly within a comparable ecological
+# range" says the target must resemble the training area, and says nothing about which classes the
+# training area happens to fall in. Enumerating those classes would state something the source
+# never said and would go stale the moment the training geometry is corrected. Naming the relation
+# instead keeps the claim exactly as strong as the sentence it came from, and lets the class set be
+# derived from whatever geometry the reference constraint currently holds.
+focal-test:same-class-as a skos:Concept ;
+  skos:prefLabel "same class as"@en ;
+  skos:definition "The target falls in the same class of the constraint's classification scheme as the constraint's reference does. Evaluable wherever the scheme is: classify the reference (usually a geometry held by another constraint in the same envelope), classify the target, and compare. Where the constraint states its classes explicitly instead of naming a reference, this is set membership."@en ;
+  skos:scopeNote "For a claim of resemblance, not of location. Use focal-test:inside when the constraint is an extent the target must fall within."@en ;
+  skos:topConceptOf focal-test:scheme ;
+  skos:inScheme focal-test:scheme ;
+.
+
+focal-test:different-class-from a skos:Concept ;
+  skos:prefLabel "different class from"@en ;
+  skos:definition "The strict negation of focal-test:same-class-as, and the condition under which an analogy rule fires. A target spanning several classes, only some of which the reference shares, is different from it -- the same conservative reading that makes focal-test:outside the negation of focal-test:inside rather than disjointness."@en ;
+  skos:topConceptOf focal-test:scheme ;
+  skos:inScheme focal-test:scheme ;
+.
+
+#################################################################
+# classification-schemes
+#
+# The published classification systems a `same-class-as` constraint may be evaluated in. FOCAL
+# names the scheme; it does not restate the scheme's terms. That is the same discipline applied to
+# QUDT units, DQV dimensions and CF grid mappings, and it matters more here than anywhere else,
+# because these schemes are asymmetric in how referenceable they are:
+#
+#   - EUNIS habitats is a real SKOS vocabulary, published by the EEA in the EIONET data dictionary
+#     with skos:broader/narrower/exactMatch, and mirrored as an INSPIRE codelist. Individual
+#     habitat classes have dereferenceable URIs and should be used as such.
+#   - Koppen-Geiger had no term URIs at all: it is published as datasets (the Beck et al. 1-km
+#     rasters, with DOIs), not as a vocabulary. FOCAL publishes them, in focal-koppen:scheme.
+#
+# The rule is not "never mint". It is **never fork a vocabulary that has a maintainer**. Restating
+# EUNIS would create a second, diverging copy of something the EEA curates, which is the failure
+# this discipline exists to prevent. Koppen-Geiger has no maintainer to diverge from and a closed,
+# decades-stable class set, so giving it identifiers fills a gap instead of competing with one.
+# Publishing it is a contribution, and it is published here, under FOCAL identifiers.
+#
+# `same-class-as` remains the preferred form regardless, because it tracks what the sources
+# actually say: FP-WF1 claims resemblance to where it was calibrated and names no class. A
+# constraint naming a reference never has to identify a class at all, which is also what let this
+# model use Koppen before the terms existed.
+#################################################################
+
+focal-cls:scheme a skos:ConceptScheme ;
+  skos:prefLabel "FOCAL Classification Schemes"@en ;
+  skos:definition "Published classification systems in which an envelope constraint's analogy test may be evaluated. Open, and deliberately shallow: each concept identifies an external scheme and says where its terms live, rather than reproducing them."@en ;
+  skos:hasTopConcept focal-cls:eunis-habitats, focal-cls:koppen-geiger,
+    focal-cls:eea-biogeographical-regions ;
+.
+
+focal-cls:eunis-habitats a skos:Concept ;
+  skos:prefLabel "EUNIS habitat classification"@en ;
+  skos:definition "The European Nature Information System hierarchical habitat classification, maintained by the European Environment Agency. Terms are dereferenceable and should be cited by their own URIs where a constraint states classes explicitly."@en ;
+  skos:notation "eunis-habitats" ;
+  rdfs:seeAlso <https://eunis.eea.europa.eu/about> ;
+  focal-prop:termNamespace <http://eunis.eea.europa.eu/eunishabitats/> ;
+  skos:relatedMatch <http://inspire.ec.europa.eu/codelist/EunisHabitatTypeCodeValue/> ;
+  skos:topConceptOf focal-cls:scheme ;
+  skos:inScheme focal-cls:scheme ;
+.
+
+focal-cls:koppen-geiger a skos:Concept ;
+  skos:prefLabel "Koppen-Geiger climate classification"@en ;
+  skos:definition "The Koppen-Geiger empirical climate classification, in its modern high-resolution form. Classes are the conventional letter codes (Cfb, Dfb, ...)."@en ;
+  skos:notation "koppen-geiger" ;
+  skos:scopeNote "No maintainer publishes this scheme as a vocabulary, so FOCAL does: focal-prop:termNamespace points at the 30 classes and their five parent groups, given identifiers here and defined in focal-koppen:scheme. The classes are long-established and not FOCAL's; only their IRIs are. Naming a reference via focal-prop:sameClassAs remains the preferred form where the source states an analogy rather than a class."@en ;
+  dcterms:source <https://doi.org/10.1038/sdata.2018.214> ;
+  focal-prop:termNamespace <https://w3id.org/ogc/hosted/focal/transferability/koppen-geiger/> ;
+  skos:related focal-koppen:scheme ;
+  skos:topConceptOf focal-cls:scheme ;
+  skos:inScheme focal-cls:scheme ;
+.
+
+focal-cls:eea-biogeographical-regions a skos:Concept ;
+  skos:prefLabel "EEA biogeographical regions"@en ;
+  skos:definition "The European Environment Agency's biogeographical regions of Europe (Alpine, Atlantic, Continental, Pannonian, ...), used under the Habitats Directive."@en ;
+  skos:notation "eea-biogeographical-regions" ;
+  rdfs:seeAlso <https://www.eea.europa.eu/en/datahub/datahubitem-view/11db8d14-f167-4cd5-9205-95638dfd9618> ;
+  skos:topConceptOf focal-cls:scheme ;
+  skos:inScheme focal-cls:scheme ;
 .
 
 #################################################################
@@ -650,6 +751,36 @@ focal-prop:test a owl:ObjectProperty ;
   rdfs:range [ a owl:Restriction ; owl:onProperty skos:inScheme ; owl:hasValue focal-test:scheme ] ;
 .
 
+focal-prop:classificationScheme a owl:ObjectProperty ;
+  rdfs:label "classification scheme"@en ;
+  rdfs:comment "The published classification system an analogy constraint is evaluated in."@en ;
+  rdfs:range skos:Concept ;
+  rdfs:range [ a owl:Restriction ; owl:onProperty skos:inScheme ; owl:hasValue focal-cls:scheme ] ;
+.
+
+focal-prop:sameClassAs a owl:ObjectProperty ;
+  rdfs:label "same class as"@en ;
+  rdfs:comment "The reference whose classification the target must share, normally another envelope constraint in the same statement (typically the trained-on extent). Naming a reference rather than a class list is what lets the class set be derived, and re-derived when the reference geometry is corrected."@en ;
+  rdfs:range focal-transf:EnvelopeConstraint ;
+.
+
+focal-prop:class a owl:ObjectProperty ;
+  rdfs:label "class"@en ;
+  rdfs:comment "An explicitly stated class of the constraint's classification scheme. Use only where the source states classes; otherwise name a reference with focal-prop:sameClassAs and let them be derived. Values are terms of the external scheme, cited by its own identifiers where it has them."@en ;
+.
+
+focal-prop:termNamespace a owl:ObjectProperty ;
+  rdfs:label "term namespace"@en ;
+  rdfs:comment "Where an external classification scheme's own term identifiers live, for schemes that publish dereferenceable terms. Absent for schemes distributed as data rather than as a vocabulary."@en ;
+  rdfs:domain skos:Concept ;
+.
+
+focal-prop:sameAsCurrent a owl:DatatypeProperty ;
+  rdfs:label "same as current"@en ;
+  rdfs:comment "Asserts that a criterion's required value is whatever the artifact currently in use has, rather than a literal. The honest encoding of a source that says 'the same variable name as the current dataset' without naming it: the requirement is a relation, and recording a guessed literal in its place states something the source did not."@en ;
+  rdfs:range xsd:boolean ;
+.
+
 focal-prop:triggeredBy a owl:ObjectProperty ;
   rdfs:label "triggered by"@en ;
   rdfs:comment "A coarse, human-readable statement of what fires this rule, for cases where no envelope constraint can be cited. Where one can, focal-prop:when says the same thing precisely and machine-evaluably."@en ;
@@ -741,4 +872,280 @@ focal-prop:maturityStatus a owl:ObjectProperty ;
   rdfs:comment "The workflow's operational maturity stage. Distinct from a Block's own authoring-lifecycle status, and from dqv quality: a workflow can be operational and still carry a result-confidence caveat."@en ;
   rdfs:range skos:Concept ;
   rdfs:range [ a owl:Restriction ; owl:onProperty skos:inScheme ; owl:hasValue focal-maturity:scheme ] ;
+.
+
+#################################################################
+# koppen-geiger
+#
+# FOCAL publishes this scheme because nobody else does. Koppen-Geiger is distributed as raster
+# datasets (Beck et al. 2018 and successors) and as prose in textbooks; there is no maintained SKOS
+# vocabulary and its classes therefore have no identifiers anything can cite. That is a gap, not a
+# territory somebody else occupies, and the distinction is the whole rule: FOCAL never restates a
+# vocabulary that has a maintainer (EUNIS habitats, QUDT units, DQV dimensions, CF grid mappings
+# are all referenced, never copied), and does publish one where a stable, closed, universally
+# agreed set has simply never been given identifiers. The 30 classes below have been unchanged for
+# decades and are not FOCAL's invention -- only their IRIs are.
+#
+# This scheme stays in FOCAL, identifiers included, by decision. A climate classification is
+# arguably a poor fit for a project register, and if this is ever refactored into a cross-domain
+# one the tier moves with it -- at the cost of either changing IRIs that consumers may have cited,
+# or leaving FOCAL-namespaced IRIs in a register that is not FOCAL's. Taken deliberately.
+#
+# The two-level hierarchy is deliberate and load-bearing for `same-class-as`: whether Cfb and Cfa
+# count as "a comparable ecological range" is a real question, and skos:broader lets a consumer
+# evaluate the analogy at either granularity instead of forcing the finest one. Which level a given
+# constraint intends is a question for its owner.
+#################################################################
+
+focal-koppen:scheme a skos:ConceptScheme ;
+  skos:prefLabel "Koppen-Geiger climate classification"@en ;
+  skos:definition "The Koppen-Geiger empirical climate classification, in the 30-class form used by modern high-resolution global maps. Published here with identifiers because the scheme itself has none; the classes and their meanings are long-established and not FOCAL's."@en ;
+  dcterms:source <https://doi.org/10.1038/sdata.2018.214> ;
+  skos:hasTopConcept focal-koppen:A, focal-koppen:B, focal-koppen:C, focal-koppen:D, focal-koppen:E ;
+.
+
+
+focal-koppen:A a skos:Concept ;
+  skos:prefLabel "Tropical"@en ;
+  skos:notation "A" ;
+  skos:topConceptOf focal-koppen:scheme ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:B a skos:Concept ;
+  skos:prefLabel "Arid"@en ;
+  skos:notation "B" ;
+  skos:topConceptOf focal-koppen:scheme ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:C a skos:Concept ;
+  skos:prefLabel "Temperate"@en ;
+  skos:notation "C" ;
+  skos:topConceptOf focal-koppen:scheme ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:D a skos:Concept ;
+  skos:prefLabel "Cold (continental)"@en ;
+  skos:notation "D" ;
+  skos:topConceptOf focal-koppen:scheme ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:E a skos:Concept ;
+  skos:prefLabel "Polar"@en ;
+  skos:notation "E" ;
+  skos:topConceptOf focal-koppen:scheme ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Af a skos:Concept ;
+  skos:prefLabel "Tropical rainforest"@en ;
+  skos:notation "Af" ;
+  skos:broader focal-koppen:A ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Am a skos:Concept ;
+  skos:prefLabel "Tropical monsoon"@en ;
+  skos:notation "Am" ;
+  skos:broader focal-koppen:A ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Aw a skos:Concept ;
+  skos:prefLabel "Tropical savannah"@en ;
+  skos:notation "Aw" ;
+  skos:broader focal-koppen:A ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:BWh a skos:Concept ;
+  skos:prefLabel "Arid desert, hot"@en ;
+  skos:notation "BWh" ;
+  skos:broader focal-koppen:B ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:BWk a skos:Concept ;
+  skos:prefLabel "Arid desert, cold"@en ;
+  skos:notation "BWk" ;
+  skos:broader focal-koppen:B ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:BSh a skos:Concept ;
+  skos:prefLabel "Arid steppe, hot"@en ;
+  skos:notation "BSh" ;
+  skos:broader focal-koppen:B ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:BSk a skos:Concept ;
+  skos:prefLabel "Arid steppe, cold"@en ;
+  skos:notation "BSk" ;
+  skos:broader focal-koppen:B ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Csa a skos:Concept ;
+  skos:prefLabel "Temperate, dry summer, hot summer"@en ;
+  skos:notation "Csa" ;
+  skos:broader focal-koppen:C ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Csb a skos:Concept ;
+  skos:prefLabel "Temperate, dry summer, warm summer"@en ;
+  skos:notation "Csb" ;
+  skos:broader focal-koppen:C ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Csc a skos:Concept ;
+  skos:prefLabel "Temperate, dry summer, cold summer"@en ;
+  skos:notation "Csc" ;
+  skos:broader focal-koppen:C ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Cwa a skos:Concept ;
+  skos:prefLabel "Temperate, dry winter, hot summer"@en ;
+  skos:notation "Cwa" ;
+  skos:broader focal-koppen:C ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Cwb a skos:Concept ;
+  skos:prefLabel "Temperate, dry winter, warm summer"@en ;
+  skos:notation "Cwb" ;
+  skos:broader focal-koppen:C ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Cwc a skos:Concept ;
+  skos:prefLabel "Temperate, dry winter, cold summer"@en ;
+  skos:notation "Cwc" ;
+  skos:broader focal-koppen:C ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Cfa a skos:Concept ;
+  skos:prefLabel "Temperate, no dry season, hot summer"@en ;
+  skos:notation "Cfa" ;
+  skos:broader focal-koppen:C ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Cfb a skos:Concept ;
+  skos:prefLabel "Temperate, no dry season, warm summer"@en ;
+  skos:notation "Cfb" ;
+  skos:broader focal-koppen:C ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Cfc a skos:Concept ;
+  skos:prefLabel "Temperate, no dry season, cold summer"@en ;
+  skos:notation "Cfc" ;
+  skos:broader focal-koppen:C ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Dsa a skos:Concept ;
+  skos:prefLabel "Cold, dry summer, hot summer"@en ;
+  skos:notation "Dsa" ;
+  skos:broader focal-koppen:D ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Dsb a skos:Concept ;
+  skos:prefLabel "Cold, dry summer, warm summer"@en ;
+  skos:notation "Dsb" ;
+  skos:broader focal-koppen:D ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Dsc a skos:Concept ;
+  skos:prefLabel "Cold, dry summer, cold summer"@en ;
+  skos:notation "Dsc" ;
+  skos:broader focal-koppen:D ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Dsd a skos:Concept ;
+  skos:prefLabel "Cold, dry summer, very cold winter"@en ;
+  skos:notation "Dsd" ;
+  skos:broader focal-koppen:D ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Dwa a skos:Concept ;
+  skos:prefLabel "Cold, dry winter, hot summer"@en ;
+  skos:notation "Dwa" ;
+  skos:broader focal-koppen:D ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Dwb a skos:Concept ;
+  skos:prefLabel "Cold, dry winter, warm summer"@en ;
+  skos:notation "Dwb" ;
+  skos:broader focal-koppen:D ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Dwc a skos:Concept ;
+  skos:prefLabel "Cold, dry winter, cold summer"@en ;
+  skos:notation "Dwc" ;
+  skos:broader focal-koppen:D ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Dwd a skos:Concept ;
+  skos:prefLabel "Cold, dry winter, very cold winter"@en ;
+  skos:notation "Dwd" ;
+  skos:broader focal-koppen:D ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Dfa a skos:Concept ;
+  skos:prefLabel "Cold, no dry season, hot summer"@en ;
+  skos:notation "Dfa" ;
+  skos:broader focal-koppen:D ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Dfb a skos:Concept ;
+  skos:prefLabel "Cold, no dry season, warm summer"@en ;
+  skos:notation "Dfb" ;
+  skos:broader focal-koppen:D ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Dfc a skos:Concept ;
+  skos:prefLabel "Cold, no dry season, cold summer"@en ;
+  skos:notation "Dfc" ;
+  skos:broader focal-koppen:D ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:Dfd a skos:Concept ;
+  skos:prefLabel "Cold, no dry season, very cold winter"@en ;
+  skos:notation "Dfd" ;
+  skos:broader focal-koppen:D ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:ET a skos:Concept ;
+  skos:prefLabel "Polar tundra"@en ;
+  skos:notation "ET" ;
+  skos:broader focal-koppen:E ;
+  skos:inScheme focal-koppen:scheme ;
+.
+
+focal-koppen:EF a skos:Concept ;
+  skos:prefLabel "Polar frost (ice cap)"@en ;
+  skos:notation "EF" ;
+  skos:broader focal-koppen:E ;
+  skos:inScheme focal-koppen:scheme ;
 .

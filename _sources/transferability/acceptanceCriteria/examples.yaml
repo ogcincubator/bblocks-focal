@@ -22,11 +22,11 @@ examples:
       - language: json
         code: |
           {
-            "variable": "rr",
+            "variable": { "sameAsCurrent": true },
             "units": ["MilliM", "KiloGM-PER-M2-SEC"],
             "axes": ["time"],
             "gridTypes": ["regular-latlon", "rotated-pole"],
-            "transferabilityNotes": "From UP-WF3's questionnaire, which specifies its replacement contract more fully than any other in the set. The variable name is E-OBS's; a NUKLEUS-derived substitute uses a different one, so this is the criterion most likely to need loosening once the owner confirms which sources are actually interchangeable."
+            "transferabilityNotes": "From UP-WF3's questionnaire, which specifies its replacement contract more fully than any other in the set. The variable requirement is a relation in the source — 'same precipitation variable name as current dataset' — and is recorded as one. Naming a literal here would assert a name the source never gives, and would be wrong for one of the two paths the workflow reads: the field is `rr` in E-OBS and `pr` in CORDEX-family data."
           }
 
   - title: A schema requirement, on data that does not exist yet

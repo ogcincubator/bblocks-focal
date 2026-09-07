@@ -10,7 +10,7 @@ ontology, with no schema change on the blocks that reference them.
 |---|---|
 | actions | what must be done to an artifact to make it valid elsewhere |
 | triggers | coarse conditions, for rules that cannot cite a constraint |
-| tests | `inside` / `outside`, how a target is compared against a constraint |
+| tests | `inside` / `outside` / `same-class-as` / `different-class-from`, how a target is compared against a constraint |
 | dimensions | the axes an envelope is stated along |
 | roles | `trained-on` / `valid-for` / `can-run-on` |
 | artifact-roles | what kind of thing an artifact is |
@@ -19,9 +19,11 @@ ontology, with no schema change on the blocks that reference them.
 | computation-types | how a workflow computes its results |
 | maturity-statuses | operational maturity of the workflow itself |
 | quality-dimensions | kinds of result-confidence caveat (also `dqv:Dimension`) |
+| classification-schemes | published classification systems an analogy constraint may be evaluated in |
+| koppen-geiger | the 30 Koppen-Geiger climate classes and their five parent groups |
 
-**Reuse before minting.** FOCAL declares a term only where nothing published says the same thing.
-What the model uses directly instead:
+**Reuse before minting, and the one exception.** FOCAL declares a term only where nothing
+published says the same thing. What the model uses directly instead:
 
 | Concept | Term used |
 |---|---|
@@ -50,3 +52,30 @@ of the roles.
 
 **Status: draft/WIP.** Seeded from `20260817-workflow-transferability-mapping-extraction.md` and
 `20260902-condition-action-expressivity.md` (FOCAL WP10 project directory).
+
+
+## Publishing a scheme that has no maintainer
+
+`koppen-geiger` is the one place FOCAL publishes somebody else's classification rather than
+referencing it, and the reason is narrow enough to state as a rule.
+
+The discipline everywhere else is **never fork a vocabulary that has a maintainer**. EUNIS habitats
+are curated by the EEA and published as SKOS with dereferenceable terms; restating them here would
+create a second copy that diverges the first time either changes. The same holds for QUDT units,
+DQV dimensions and CF grid mappings, all referenced and none copied.
+
+Koppen-Geiger has no maintainer to diverge from. It is distributed as raster datasets and as prose
+in textbooks, and its classes have never been given identifiers by anyone. The set is closed and
+has been stable for decades. So minting IRIs for it fills a gap rather than competing with an
+authority, and the classes themselves remain what they always were: only the identifiers are new.
+
+The five parent groups are modelled with `skos:broader` because whether `Cfb` and `Cfa` count as
+"a comparable ecological range" is a real question, and the hierarchy lets an analogy be evaluated
+at either granularity rather than forcing the finest one.
+
+**It lives in FOCAL, identifiers included, and that is a decision rather than a holding pattern.**
+A climate classification is arguably a poor fit for a project-specific register, and if this is
+ever refactored into a cross-domain one the tier changes with it. The cost of deciding it this way
+now is carried by the IRIs: they are FOCAL-namespaced, so a later move either changes identifiers
+that consumers may have cited, or keeps FOCAL IRIs in a register that is not FOCAL's. Both are
+survivable, neither is free, and the tradeoff was taken deliberately rather than overlooked.

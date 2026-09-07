@@ -19,13 +19,19 @@ those properties directly onto the CWL Workflow profile. `computationType`, `mat
 `qualityAnnotation` describe the workflow's implementation and result quality generally, not its
 portability boundary, so they stay outside that bundle and attach here directly instead.
 
-**Status: draft/WIP**, four worked examples (FP-WF1, FP-WF2, FP-WF3, UP-WF2) — chosen to cover the
-model's main branch points: multiple simultaneous envelope roles, OR-set actions, an
-optional/degrading rule (`mandatory: false`), the `component-not-executable` terminal outcome, one
-rule shared across four artifacts, a two-rule cascade over a single constraint, and a directly
-evidenced temporal envelope entry. The remaining 4 pilot workflows (FP-WF4, FP-WF5,
-UP-WF1, UP-WF3) aren't yet worked as examples — UP-WF1 in particular can't be, without fabricating
-values: its source states no assignable `envelope` fact at all (see the
-mapping-extraction doc's UP-WF1 section), so it fails this schema's `required` properties outright
-until its owner is consulted. Not yet circulated to WF owners generally — that circulation will
-happen through this repo (PR review on `bblocks-focal`, not a separate document).
+**Status: draft/WIP**, seven worked examples covering seven of FOCAL's eight pilot workflows
+(FP-WF1, FP-WF2, FP-WF3, FP-WF5, UP-WF1, UP-WF2, UP-WF3). Between them they exercise every branch
+point in the model: multiple simultaneous envelope roles, OR-set actions, an optional/degrading
+rule (`mandatory: false`), the `component-not-executable` terminal outcome with `affects`, one rule
+shared across four artifacts, a two-rule cascade over a single constraint, an evidenced temporal
+envelope entry, the `grid-structure` dimension, an artifact-level `acceptanceCriteria` contract,
+and an entirely empty envelope stated as a claim.
+
+**The eighth, FP-WF4, is deliberately not here.** It is not a CWL Workflow at all but a SensLog
+observing system, so it cannot profile `ogc.cwl.v1_2_1.CWLWorkflow` — which is precisely why
+`transferabilityStatement` was factored out of this block and carries no CWL assumption. Attaching
+it needs a sibling block for observing systems, and an action term for re-deploying physical
+infrastructure. See the FOCAL WP10 model-extension note for both.
+
+Not yet circulated to WF owners generally — that circulation will happen through this repo (PR
+review on `bblocks-focal`, not a separate document).
