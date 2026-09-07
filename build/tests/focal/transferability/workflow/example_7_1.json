@@ -3,6 +3,36 @@
   "id": "",
   "cwlVersion": "v1.2",
   "label": "UP-WF3 \u2014 Urban blue-spot flood risk",
+  "requirements": {
+    "SoftwareRequirement": {
+      "packages": [
+        {
+          "package": "python",
+          "version": [
+            "3.10",
+            "3.11",
+            "3.12",
+            "3.13"
+          ]
+        },
+        {
+          "package": "xarray"
+        },
+        {
+          "package": "numpy"
+        },
+        {
+          "package": "pandas"
+        },
+        {
+          "package": "rasterio"
+        }
+      ]
+    },
+    "NetworkAccess": {
+      "networkAccess": true
+    }
+  },
   "inputs": {
     "precipitation": "File",
     "threshold_subdaily": "File",

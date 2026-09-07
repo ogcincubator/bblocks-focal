@@ -2,7 +2,7 @@
   "title": "Validation report for ogc.focal.transferability.rule - FOCAL Transferability Rule",
   "bblockName": "FOCAL Transferability Rule",
   "bblockId": "ogc.focal.transferability.rule",
-  "generated": "2026-09-07T09:51:21.544536+00:00",
+  "generated": "2026-09-07T11:31:14.240020+00:00",
   "result": true,
   "items": [
     {
@@ -78,37 +78,37 @@
               "focusNodes": {
                 "focal-shape:TerminalActionNamesWhatItAffects": {
                   "nodes": [
-                    "_:N361a35333e1e49ef95857ff568979d5a"
+                    "_:N104b024afcd74e1ba9e3e20f535ff731"
                   ]
                 },
                 "focal-shape:EnvelopeCondition": {
                   "nodes": [
-                    "_:N23561fce114843688e5c266ba68b2fb4"
+                    "_:N8c92b87c8a284964aa5d0aa46caa4cbd"
                   ]
                 },
                 "focal-shape:TransferabilityRule": {
                   "nodes": [
-                    "_:N361a35333e1e49ef95857ff568979d5a"
-                  ]
-                },
-                "focal-shape:RuleHasACondition": {
-                  "nodes": [
-                    "_:N361a35333e1e49ef95857ff568979d5a"
-                  ]
-                },
-                "focal-shape:TerminalActionNotAlongsideReuse": {
-                  "nodes": [
-                    "_:N361a35333e1e49ef95857ff568979d5a"
+                    "_:N104b024afcd74e1ba9e3e20f535ff731"
                   ]
                 },
                 "focal-shape:OptionalRuleHasConsequence": {
                   "nodes": [
-                    "_:N361a35333e1e49ef95857ff568979d5a"
+                    "_:N104b024afcd74e1ba9e3e20f535ff731"
+                  ]
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "_:N104b024afcd74e1ba9e3e20f535ff731"
+                  ]
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": [
+                    "_:N104b024afcd74e1ba9e3e20f535ff731"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: _:N361a35333e1e49ef95857ff568979d5a\n - Shape focal-shape:EnvelopeCondition: _:N23561fce114843688e5c266ba68b2fb4\n - Shape focal-shape:TransferabilityRule: _:N361a35333e1e49ef95857ff568979d5a\n - Shape focal-shape:RuleHasACondition: _:N361a35333e1e49ef95857ff568979d5a\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N361a35333e1e49ef95857ff568979d5a\n - Shape focal-shape:OptionalRuleHasConsequence: _:N361a35333e1e49ef95857ff568979d5a\n"
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: _:N104b024afcd74e1ba9e3e20f535ff731\n - Shape focal-shape:EnvelopeCondition: _:N8c92b87c8a284964aa5d0aa46caa4cbd\n - Shape focal-shape:TransferabilityRule: _:N104b024afcd74e1ba9e3e20f535ff731\n - Shape focal-shape:OptionalRuleHasConsequence: _:N104b024afcd74e1ba9e3e20f535ff731\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N104b024afcd74e1ba9e3e20f535ff731\n - Shape focal-shape:RuleHasACondition: _:N104b024afcd74e1ba9e3e20f535ff731\n"
             }
           ]
         }
@@ -187,37 +187,37 @@
               "focusNodes": {
                 "focal-shape:TerminalActionNamesWhatItAffects": {
                   "nodes": [
-                    "_:N0bdc992a496543fa91cba27fcd533bad"
+                    "_:N17bd3719f71c48e2a2476e8900c38646"
                   ]
                 },
                 "focal-shape:EnvelopeCondition": {
                   "nodes": [
-                    "_:Na7152f9fd8f9485a83e8fab89bff2390"
+                    "_:N132a7d0068cf4a82ae63bfa7309282fb"
                   ]
                 },
                 "focal-shape:TransferabilityRule": {
                   "nodes": [
-                    "_:N0bdc992a496543fa91cba27fcd533bad"
-                  ]
-                },
-                "focal-shape:RuleHasACondition": {
-                  "nodes": [
-                    "_:N0bdc992a496543fa91cba27fcd533bad"
-                  ]
-                },
-                "focal-shape:TerminalActionNotAlongsideReuse": {
-                  "nodes": [
-                    "_:N0bdc992a496543fa91cba27fcd533bad"
+                    "_:N17bd3719f71c48e2a2476e8900c38646"
                   ]
                 },
                 "focal-shape:OptionalRuleHasConsequence": {
                   "nodes": [
-                    "_:N0bdc992a496543fa91cba27fcd533bad"
+                    "_:N17bd3719f71c48e2a2476e8900c38646"
+                  ]
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "_:N17bd3719f71c48e2a2476e8900c38646"
+                  ]
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": [
+                    "_:N17bd3719f71c48e2a2476e8900c38646"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: _:N0bdc992a496543fa91cba27fcd533bad\n - Shape focal-shape:EnvelopeCondition: _:Na7152f9fd8f9485a83e8fab89bff2390\n - Shape focal-shape:TransferabilityRule: _:N0bdc992a496543fa91cba27fcd533bad\n - Shape focal-shape:RuleHasACondition: _:N0bdc992a496543fa91cba27fcd533bad\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N0bdc992a496543fa91cba27fcd533bad\n - Shape focal-shape:OptionalRuleHasConsequence: _:N0bdc992a496543fa91cba27fcd533bad\n"
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: _:N17bd3719f71c48e2a2476e8900c38646\n - Shape focal-shape:EnvelopeCondition: _:N132a7d0068cf4a82ae63bfa7309282fb\n - Shape focal-shape:TransferabilityRule: _:N17bd3719f71c48e2a2476e8900c38646\n - Shape focal-shape:OptionalRuleHasConsequence: _:N17bd3719f71c48e2a2476e8900c38646\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N17bd3719f71c48e2a2476e8900c38646\n - Shape focal-shape:RuleHasACondition: _:N17bd3719f71c48e2a2476e8900c38646\n"
             }
           ]
         }
@@ -296,38 +296,38 @@
               "focusNodes": {
                 "focal-shape:TerminalActionNamesWhatItAffects": {
                   "nodes": [
-                    "_:N305e6cbb1b3940719b7f48a13c69c265"
+                    "_:Nf3435bc7fdb141119f66f9bf6ddfd900"
                   ]
                 },
                 "focal-shape:EnvelopeCondition": {
                   "nodes": [
-                    "_:N7098c375bda14b819c752161227137ee",
-                    "_:Nd4e1a6e5d5f64bb7a7f42242915e1069"
+                    "_:N771ffa2c145544cb9787aae6558adddf",
+                    "_:N8c5fbeebeeb04fde969d5ae5dd42ad33"
                   ]
                 },
                 "focal-shape:TransferabilityRule": {
                   "nodes": [
-                    "_:N305e6cbb1b3940719b7f48a13c69c265"
-                  ]
-                },
-                "focal-shape:RuleHasACondition": {
-                  "nodes": [
-                    "_:N305e6cbb1b3940719b7f48a13c69c265"
-                  ]
-                },
-                "focal-shape:TerminalActionNotAlongsideReuse": {
-                  "nodes": [
-                    "_:N305e6cbb1b3940719b7f48a13c69c265"
+                    "_:Nf3435bc7fdb141119f66f9bf6ddfd900"
                   ]
                 },
                 "focal-shape:OptionalRuleHasConsequence": {
                   "nodes": [
-                    "_:N305e6cbb1b3940719b7f48a13c69c265"
+                    "_:Nf3435bc7fdb141119f66f9bf6ddfd900"
+                  ]
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "_:Nf3435bc7fdb141119f66f9bf6ddfd900"
+                  ]
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": [
+                    "_:Nf3435bc7fdb141119f66f9bf6ddfd900"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: _:N305e6cbb1b3940719b7f48a13c69c265\n - Shape focal-shape:EnvelopeCondition: _:N7098c375bda14b819c752161227137ee,_:Nd4e1a6e5d5f64bb7a7f42242915e1069\n - Shape focal-shape:TransferabilityRule: _:N305e6cbb1b3940719b7f48a13c69c265\n - Shape focal-shape:RuleHasACondition: _:N305e6cbb1b3940719b7f48a13c69c265\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N305e6cbb1b3940719b7f48a13c69c265\n - Shape focal-shape:OptionalRuleHasConsequence: _:N305e6cbb1b3940719b7f48a13c69c265\n"
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: _:Nf3435bc7fdb141119f66f9bf6ddfd900\n - Shape focal-shape:EnvelopeCondition: _:N771ffa2c145544cb9787aae6558adddf,_:N8c5fbeebeeb04fde969d5ae5dd42ad33\n - Shape focal-shape:TransferabilityRule: _:Nf3435bc7fdb141119f66f9bf6ddfd900\n - Shape focal-shape:OptionalRuleHasConsequence: _:Nf3435bc7fdb141119f66f9bf6ddfd900\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Nf3435bc7fdb141119f66f9bf6ddfd900\n - Shape focal-shape:RuleHasACondition: _:Nf3435bc7fdb141119f66f9bf6ddfd900\n"
             }
           ]
         }
@@ -406,35 +406,35 @@
               "focusNodes": {
                 "focal-shape:TerminalActionNamesWhatItAffects": {
                   "nodes": [
-                    "_:Nfbfaf278fae74754999cac5a734cbed9"
+                    "_:N660894eb8a054a6a9ac7461a0c162385"
                   ]
                 },
                 "focal-shape:EnvelopeCondition": {
                   "nodes": [
-                    "_:N0baa075a4ffb4b17a64d03f5f41e523e"
+                    "_:N08ca13e8906f4ab3a57dce720e5c58b5"
                   ]
                 },
                 "focal-shape:TransferabilityRule": {
                   "nodes": [
-                    "_:Nfbfaf278fae74754999cac5a734cbed9"
-                  ]
-                },
-                "focal-shape:RuleHasACondition": {
-                  "nodes": [
-                    "_:Nfbfaf278fae74754999cac5a734cbed9"
-                  ]
-                },
-                "focal-shape:TerminalActionNotAlongsideReuse": {
-                  "nodes": [
-                    "_:Nfbfaf278fae74754999cac5a734cbed9"
+                    "_:N660894eb8a054a6a9ac7461a0c162385"
                   ]
                 },
                 "focal-shape:OptionalRuleHasConsequence": {
                   "nodes": []
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "_:N660894eb8a054a6a9ac7461a0c162385"
+                  ]
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": [
+                    "_:N660894eb8a054a6a9ac7461a0c162385"
+                  ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: _:Nfbfaf278fae74754999cac5a734cbed9\n - Shape focal-shape:EnvelopeCondition: _:N0baa075a4ffb4b17a64d03f5f41e523e\n - Shape focal-shape:TransferabilityRule: _:Nfbfaf278fae74754999cac5a734cbed9\n - Shape focal-shape:RuleHasACondition: _:Nfbfaf278fae74754999cac5a734cbed9\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Nfbfaf278fae74754999cac5a734cbed9\n - Shape focal-shape:OptionalRuleHasConsequence: *none*\n"
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: _:N660894eb8a054a6a9ac7461a0c162385\n - Shape focal-shape:EnvelopeCondition: _:N08ca13e8906f4ab3a57dce720e5c58b5\n - Shape focal-shape:TransferabilityRule: _:N660894eb8a054a6a9ac7461a0c162385\n - Shape focal-shape:OptionalRuleHasConsequence: *none*\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N660894eb8a054a6a9ac7461a0c162385\n - Shape focal-shape:RuleHasACondition: _:N660894eb8a054a6a9ac7461a0c162385\n"
             }
           ]
         }
@@ -513,37 +513,37 @@
               "focusNodes": {
                 "focal-shape:TerminalActionNamesWhatItAffects": {
                   "nodes": [
-                    "_:Nf070e03147cc44ad8e216f8fc9f6d6f9"
+                    "_:Nce5ea2ae0dbe4bbd817e4c0e7359b1e8"
                   ]
                 },
                 "focal-shape:EnvelopeCondition": {
                   "nodes": [
-                    "_:N9fab68622768431ab72c11164298bebc"
+                    "_:Nb652f25a5fef4e6296560603e0d00aa8"
                   ]
                 },
                 "focal-shape:TransferabilityRule": {
                   "nodes": [
-                    "_:Nf070e03147cc44ad8e216f8fc9f6d6f9"
-                  ]
-                },
-                "focal-shape:RuleHasACondition": {
-                  "nodes": [
-                    "_:Nf070e03147cc44ad8e216f8fc9f6d6f9"
-                  ]
-                },
-                "focal-shape:TerminalActionNotAlongsideReuse": {
-                  "nodes": [
-                    "_:Nf070e03147cc44ad8e216f8fc9f6d6f9"
+                    "_:Nce5ea2ae0dbe4bbd817e4c0e7359b1e8"
                   ]
                 },
                 "focal-shape:OptionalRuleHasConsequence": {
                   "nodes": [
-                    "_:Nf070e03147cc44ad8e216f8fc9f6d6f9"
+                    "_:Nce5ea2ae0dbe4bbd817e4c0e7359b1e8"
+                  ]
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "_:Nce5ea2ae0dbe4bbd817e4c0e7359b1e8"
+                  ]
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": [
+                    "_:Nce5ea2ae0dbe4bbd817e4c0e7359b1e8"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: _:Nf070e03147cc44ad8e216f8fc9f6d6f9\n - Shape focal-shape:EnvelopeCondition: _:N9fab68622768431ab72c11164298bebc\n - Shape focal-shape:TransferabilityRule: _:Nf070e03147cc44ad8e216f8fc9f6d6f9\n - Shape focal-shape:RuleHasACondition: _:Nf070e03147cc44ad8e216f8fc9f6d6f9\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Nf070e03147cc44ad8e216f8fc9f6d6f9\n - Shape focal-shape:OptionalRuleHasConsequence: _:Nf070e03147cc44ad8e216f8fc9f6d6f9\n"
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: _:Nce5ea2ae0dbe4bbd817e4c0e7359b1e8\n - Shape focal-shape:EnvelopeCondition: _:Nb652f25a5fef4e6296560603e0d00aa8\n - Shape focal-shape:TransferabilityRule: _:Nce5ea2ae0dbe4bbd817e4c0e7359b1e8\n - Shape focal-shape:OptionalRuleHasConsequence: _:Nce5ea2ae0dbe4bbd817e4c0e7359b1e8\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Nce5ea2ae0dbe4bbd817e4c0e7359b1e8\n - Shape focal-shape:RuleHasACondition: _:Nce5ea2ae0dbe4bbd817e4c0e7359b1e8\n"
             }
           ]
         }
@@ -622,7 +622,7 @@
               "focusNodes": {
                 "focal-shape:TerminalActionNamesWhatItAffects": {
                   "nodes": [
-                    "_:Na59a6eca811c4a2dbd07e15b2f660df1"
+                    "_:N026924796813413aa42519bedf7ef773"
                   ]
                 },
                 "focal-shape:EnvelopeCondition": {
@@ -630,27 +630,27 @@
                 },
                 "focal-shape:TransferabilityRule": {
                   "nodes": [
-                    "_:Na59a6eca811c4a2dbd07e15b2f660df1"
-                  ]
-                },
-                "focal-shape:RuleHasACondition": {
-                  "nodes": [
-                    "_:Na59a6eca811c4a2dbd07e15b2f660df1"
-                  ]
-                },
-                "focal-shape:TerminalActionNotAlongsideReuse": {
-                  "nodes": [
-                    "_:Na59a6eca811c4a2dbd07e15b2f660df1"
+                    "_:N026924796813413aa42519bedf7ef773"
                   ]
                 },
                 "focal-shape:OptionalRuleHasConsequence": {
                   "nodes": [
-                    "_:Na59a6eca811c4a2dbd07e15b2f660df1"
+                    "_:N026924796813413aa42519bedf7ef773"
+                  ]
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "_:N026924796813413aa42519bedf7ef773"
+                  ]
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": [
+                    "_:N026924796813413aa42519bedf7ef773"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: _:Na59a6eca811c4a2dbd07e15b2f660df1\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:TransferabilityRule: _:Na59a6eca811c4a2dbd07e15b2f660df1\n - Shape focal-shape:RuleHasACondition: _:Na59a6eca811c4a2dbd07e15b2f660df1\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Na59a6eca811c4a2dbd07e15b2f660df1\n - Shape focal-shape:OptionalRuleHasConsequence: _:Na59a6eca811c4a2dbd07e15b2f660df1\n"
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: _:N026924796813413aa42519bedf7ef773\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:TransferabilityRule: _:N026924796813413aa42519bedf7ef773\n - Shape focal-shape:OptionalRuleHasConsequence: _:N026924796813413aa42519bedf7ef773\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N026924796813413aa42519bedf7ef773\n - Shape focal-shape:RuleHasACondition: _:N026924796813413aa42519bedf7ef773\n"
             }
           ]
         }

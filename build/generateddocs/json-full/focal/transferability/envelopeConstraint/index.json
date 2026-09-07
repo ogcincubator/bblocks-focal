@@ -18,9 +18,9 @@
     "https://w3id.org/ogc/hosted/focal/transferability/EnvelopeConstraint"
   ],
   "dependsOn": [
-    "ogc.focal.transferability.notes",
+    "ogc.ogc-utils.iri-or-curie",
     "ogc.focal.transferability.vocab",
-    "ogc.ogc-utils.iri-or-curie"
+    "ogc.focal.transferability.notes"
   ],
   "tags": [
     "focal",

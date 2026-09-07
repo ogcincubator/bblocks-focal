@@ -4,6 +4,15 @@
   "id": "",
   "cwlVersion": "v1.2",
   "label": "FP-WF3 \u2014 Prediction of threatened stands",
+  "requirements": {
+    "SoftwareRequirement": {
+      "packages": [
+        {
+          "package": "python"
+        }
+      ]
+    }
+  },
   "inputs": {
     "disturbance_labels": "File",
     "eo_compositing_strategy": "string",

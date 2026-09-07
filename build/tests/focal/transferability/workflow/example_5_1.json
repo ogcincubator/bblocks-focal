@@ -3,6 +3,15 @@
   "id": "",
   "cwlVersion": "v1.2",
   "label": "UP-WF1 \u2014 Regional climate change",
+  "requirements": {
+    "SoftwareRequirement": {
+      "packages": [
+        {
+          "package": "python"
+        }
+      ]
+    }
+  },
   "inputs": {
     "nukleus_ensemble": "File"
   },

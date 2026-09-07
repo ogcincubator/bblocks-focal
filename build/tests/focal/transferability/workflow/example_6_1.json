@@ -3,6 +3,21 @@
   "id": "",
   "cwlVersion": "v1.2",
   "label": "FP-WF5 \u2014 Map of climatic zones",
+  "requirements": {
+    "SoftwareRequirement": {
+      "packages": [
+        {
+          "package": "python"
+        },
+        {
+          "package": "flask"
+        }
+      ]
+    },
+    "NetworkAccess": {
+      "networkAccess": true
+    }
+  },
   "inputs": {
     "climate_zone_thresholds": "File",
     "climate_metadata": "File",

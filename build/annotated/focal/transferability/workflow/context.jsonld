@@ -1,7 +1,311 @@
 {
   "@context": {
     "version": "cwl:SoftwarePackage/version",
+    "doc": "rdfs:comment",
     "label": "rdfs:label",
+    "Workflow": "cwl:Workflow",
+    "class": "@type",
+    "hints": {
+      "@context": {
+        "DockerRequirement": "cwl:DockerRequirement",
+        "EnvVarRequirement": "cwl:EnvVarRequirement",
+        "InitialWorkDirRequirement": "cwl:InitialWorkDirRequirement",
+        "InlineJavascriptRequirement": "cwl:InlineJavascriptRequirement",
+        "InplaceUpdateRequirement": "cwl:InplaceUpdateRequirement",
+        "LoadListingRequirement": "cwl:LoadListingRequirement",
+        "MultipleInputFeatureRequirement": "cwl:MultipleInputFeatureRequirement",
+        "NetworkAccess": "cwl:NetworkAccess",
+        "ResourceRequirement": "cwl:ResourceRequirement",
+        "ScatterFeatureRequirement": "cwl:ScatterFeatureRequirement",
+        "SchemaDefRequirement": "cwl:SchemaDefRequirement",
+        "ShellCommandRequirement": "cwl:ShellCommandRequirement",
+        "SoftwareRequirement": "cwl:SoftwareRequirement",
+        "StepInputExpressionRequirement": "cwl:StepInputExpressionRequirement",
+        "SubworkflowFeatureRequirement": "cwl:SubworkflowFeatureRequirement",
+        "ToolTimeLimit": "cwl:ToolTimeLimit",
+        "WorkReuse": "cwl:WorkReuse",
+        "dockerFile": "cwl:DockerRequirement/dockerFile",
+        "dockerImageId": "cwl:DockerRequirement/dockerImageId",
+        "dockerImport": "cwl:DockerRequirement/dockerImport",
+        "dockerLoad": "cwl:DockerRequirement/dockerLoad",
+        "dockerOutputDirectory": "cwl:DockerRequirement/dockerOutputDirectory",
+        "dockerPull": "cwl:DockerRequirement/dockerPull",
+        "packages": {
+          "@context": {
+            "package": "cwl:SoftwarePackage/package",
+            "specs": {
+              "@id": "cwl:SoftwarePackage/specs",
+              "@type": "@id"
+            }
+          },
+          "@id": "cwl:SoftwareRequirement/packages",
+          "@container": "@id"
+        },
+        "envDef": {
+          "@context": {
+            "envName": "cwl:EnvironmentDef/envName",
+            "envValue": "cwl:EnvironmentDef/envValue"
+          },
+          "@id": "cwl:EnvVarRequirement/envDef",
+          "@container": "@id"
+        },
+        "types": {
+          "@context": {
+            "type": {
+              "@id": "sld:type",
+              "@type": "@vocab"
+            },
+            "fields": {
+              "@context": {
+                "format": {
+                  "@id": "cwl:format",
+                  "@type": "@id"
+                },
+                "loadContents": "cwl:loadContents",
+                "secondaryFiles": "cwl:secondaryFiles",
+                "streamable": "cwl:FieldBase/streamable"
+              },
+              "@id": "sld:fields",
+              "@container": "@id"
+            },
+            "name": "@id",
+            "items": {
+              "@id": "sld:items",
+              "@type": "@vocab"
+            }
+          },
+          "@id": "cwl:SchemaDefRequirement/types"
+        },
+        "listing": "cwl:listing",
+        "expressionLib": "cwl:InlineJavascriptRequirement/expressionLib",
+        "inplaceUpdate": "cwl:InplaceUpdateRequirement/inplaceUpdate",
+        "loadListing": "cwl:loadListing",
+        "networkAccess": "cwl:NetworkAccess/networkAccess",
+        "coresMin": "cwl:ResourceRequirement/coresMin",
+        "coresMax": "cwl:ResourceRequirement/coresMax",
+        "ramMin": "cwl:ResourceRequirement/ramMin",
+        "ramMax": "cwl:ResourceRequirement/ramMax",
+        "outdirMin": "cwl:ResourceRequirement/outdirMin",
+        "outdirMax": "cwl:ResourceRequirement/outdirMax",
+        "tmpdirMin": "cwl:ResourceRequirement/tmpdirMin",
+        "tmpdirMax": "cwl:ResourceRequirement/tmpdirMax",
+        "timelimit": "cwl:ToolTimeLimit/timelimit",
+        "enableReuse": "cwl:WorkReuse/enableReuse"
+      },
+      "@id": "cwl:hints",
+      "@container": "@type"
+    },
+    "inputs": {
+      "@context": {
+        "default": {
+          "@context": {
+            "basename": "cwl:basename",
+            "location": "@id",
+            "nameroot": "cwl:File/nameroot",
+            "path": {
+              "@id": "cwl:path",
+              "@type": "@id"
+            }
+          },
+          "@id": "sld:default"
+        },
+        "type": {
+          "@id": "sld:type",
+          "@type": "@vocab"
+        },
+        "inputBinding": {
+          "@context": {
+            "itemSeparator": "cwl:CommandLineBinding/itemSeparator",
+            "position": "cwl:CommandLineBinding/position",
+            "prefix": "cwl:CommandLineBinding/prefix",
+            "shellQuote": "cwl:CommandLineBinding/shellQuote",
+            "valueFrom": "cwl:valueFrom"
+          },
+          "@id": "cwl:inputBinding"
+        }
+      },
+      "@id": "cwl:inputs",
+      "@container": "@id"
+    },
+    "outputs": {
+      "@context": {
+        "outputBinding": {
+          "@context": {
+            "glob": "cwl:CommandOutputBinding/glob"
+          },
+          "@id": "cwl:outputBinding"
+        },
+        "type": {
+          "@id": "sld:type",
+          "@type": "@vocab"
+        }
+      },
+      "@id": "cwl:outputs",
+      "@container": "@id"
+    },
+    "requirements": {
+      "@context": {
+        "DockerRequirement": "cwl:DockerRequirement",
+        "EnvVarRequirement": "cwl:EnvVarRequirement",
+        "InitialWorkDirRequirement": "cwl:InitialWorkDirRequirement",
+        "InlineJavascriptRequirement": "cwl:InlineJavascriptRequirement",
+        "InplaceUpdateRequirement": "cwl:InplaceUpdateRequirement",
+        "LoadListingRequirement": "cwl:LoadListingRequirement",
+        "MultipleInputFeatureRequirement": "cwl:MultipleInputFeatureRequirement",
+        "NetworkAccess": "cwl:NetworkAccess",
+        "ResourceRequirement": "cwl:ResourceRequirement",
+        "ScatterFeatureRequirement": "cwl:ScatterFeatureRequirement",
+        "SchemaDefRequirement": "cwl:SchemaDefRequirement",
+        "ShellCommandRequirement": "cwl:ShellCommandRequirement",
+        "SoftwareRequirement": "cwl:SoftwareRequirement",
+        "StepInputExpressionRequirement": "cwl:StepInputExpressionRequirement",
+        "SubworkflowFeatureRequirement": "cwl:SubworkflowFeatureRequirement",
+        "ToolTimeLimit": "cwl:ToolTimeLimit",
+        "WorkReuse": "cwl:WorkReuse",
+        "dockerFile": "cwl:DockerRequirement/dockerFile",
+        "dockerImageId": "cwl:DockerRequirement/dockerImageId",
+        "dockerImport": "cwl:DockerRequirement/dockerImport",
+        "dockerLoad": "cwl:DockerRequirement/dockerLoad",
+        "dockerOutputDirectory": "cwl:DockerRequirement/dockerOutputDirectory",
+        "dockerPull": "cwl:DockerRequirement/dockerPull",
+        "packages": {
+          "@context": {
+            "package": "cwl:SoftwarePackage/package",
+            "specs": {
+              "@id": "cwl:SoftwarePackage/specs",
+              "@type": "@id"
+            }
+          },
+          "@id": "cwl:SoftwareRequirement/packages",
+          "@container": "@id"
+        },
+        "envDef": {
+          "@context": {
+            "envName": "cwl:EnvironmentDef/envName",
+            "envValue": "cwl:EnvironmentDef/envValue"
+          },
+          "@id": "cwl:EnvVarRequirement/envDef",
+          "@container": "@id"
+        },
+        "types": {
+          "@context": {
+            "type": {
+              "@id": "sld:type",
+              "@type": "@vocab"
+            },
+            "fields": {
+              "@context": {
+                "format": {
+                  "@id": "cwl:format",
+                  "@type": "@id"
+                },
+                "loadContents": "cwl:loadContents",
+                "secondaryFiles": "cwl:secondaryFiles",
+                "streamable": "cwl:FieldBase/streamable"
+              },
+              "@id": "sld:fields",
+              "@container": "@id"
+            },
+            "name": "@id",
+            "items": {
+              "@id": "sld:items",
+              "@type": "@vocab"
+            }
+          },
+          "@id": "cwl:SchemaDefRequirement/types"
+        },
+        "listing": "cwl:listing",
+        "expressionLib": "cwl:InlineJavascriptRequirement/expressionLib",
+        "inplaceUpdate": "cwl:InplaceUpdateRequirement/inplaceUpdate",
+        "loadListing": "cwl:loadListing",
+        "networkAccess": "cwl:NetworkAccess/networkAccess",
+        "coresMin": "cwl:ResourceRequirement/coresMin",
+        "coresMax": "cwl:ResourceRequirement/coresMax",
+        "ramMin": "cwl:ResourceRequirement/ramMin",
+        "ramMax": "cwl:ResourceRequirement/ramMax",
+        "outdirMin": "cwl:ResourceRequirement/outdirMin",
+        "outdirMax": "cwl:ResourceRequirement/outdirMax",
+        "tmpdirMin": "cwl:ResourceRequirement/tmpdirMin",
+        "tmpdirMax": "cwl:ResourceRequirement/tmpdirMax",
+        "timelimit": "cwl:ToolTimeLimit/timelimit",
+        "enableReuse": "cwl:WorkReuse/enableReuse"
+      },
+      "@id": "cwl:requirements",
+      "@container": "@type"
+    },
+    "steps": {
+      "@context": {
+        "in": {
+          "@context": {
+            "linkMerge": "cwl:linkMerge",
+            "source": {
+              "@id": "cwl:source",
+              "@type": "@id"
+            },
+            "valueFrom": "cwl:valueFrom",
+            "default": {
+              "@context": {
+                "basename": "cwl:basename",
+                "location": "@id",
+                "nameroot": "cwl:File/nameroot",
+                "path": {
+                  "@id": "cwl:path",
+                  "@type": "@id"
+                }
+              },
+              "@id": "sld:default",
+              "@container": "@list"
+            }
+          },
+          "@id": "cwl:in",
+          "@container": "@id"
+        },
+        "out": {
+          "@id": "cwl:out",
+          "@type": "@id"
+        },
+        "run": {
+          "@context": {
+            "arguments": {
+              "@context": {
+                "itemSeparator": "cwl:CommandLineBinding/itemSeparator",
+                "position": "cwl:CommandLineBinding/position",
+                "prefix": "cwl:CommandLineBinding/prefix",
+                "shellQuote": "cwl:CommandLineBinding/shellQuote",
+                "valueFrom": "cwl:valueFrom"
+              },
+              "@id": "cwl:arguments",
+              "@container": "@list"
+            },
+            "baseCommand": {
+              "@id": "cwl:baseCommand",
+              "@container": "@list"
+            },
+            "intent": {
+              "@id": "cwl:Process/intent",
+              "@type": "@id"
+            },
+            "stderr": "cwl:stderr",
+            "stdin": "cwl:stdin",
+            "stdout": "cwl:stdout"
+          },
+          "@id": "cwl:run",
+          "@type": "@id"
+        },
+        "when": "cwl:when",
+        "scatter": {
+          "@id": "cwl:scatter",
+          "@type": "@id",
+          "@container": "@list"
+        },
+        "scatterMethod": {
+          "@id": "cwl:scatterMethod",
+          "@type": "@vocab"
+        }
+      },
+      "@id": "cwl:Workflow/steps",
+      "@container": "@id"
+    },
     "computationType": {
       "@context": {
         "@base": "https://w3id.org/ogc/hosted/focal/transferability/computation-types/"
@@ -83,7 +387,7 @@
         },
         "artifacts": {
           "@context": {
-            "artifact": "dcterms:title",
+            "artifact": "dct:title",
             "artifactRole": {
               "@context": {
                 "@base": "https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/"
@@ -124,7 +428,7 @@
                   "@container": "@set"
                 },
                 "conformsTo": {
-                  "@id": "dcterms:conformsTo",
+                  "@id": "dct:conformsTo",
                   "@type": "@id",
                   "@container": "@set"
                 }
@@ -204,10 +508,28 @@
     "writable": "cwl:Dirent/writable",
     "checksum": "cwl:File/checksum",
     "size": "cwl:File/size",
-    "loadContents": "cwl:loadContents",
-    "streamable": "cwl:FieldBase/streamable",
-    "loadListing": "cwl:loadListing",
+    "null": "sld:null",
+    "boolean": "xsd:boolean",
+    "int": "xsd:int",
+    "integer": "xsd:int",
+    "long": "xsd:long",
+    "float": "xsd:float",
+    "double": "xsd:double",
+    "string": "xsd:string",
+    "File": "cwl:File",
+    "Directory": "cwl:Directory",
+    "BuiltinRequirement": "ogccwl:BuiltinRequirement",
+    "OGCAPIRequirement": "ogccwl:OGCAPIRequirement",
+    "WPS1Requirement": "ogccwl:WPS1Requirement",
+    "CommandLineTool": "cwl:CommandLineTool",
+    "ExpressionTool": "cwl:ExpressionTool",
+    "s": "https://schema.org/",
     "cwl": "https://w3id.org/cwl/cwl#",
+    "cwltool": "http://commonwl.org/cwltool#",
+    "sld": "https://w3id.org/cwl/salad#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ogccwl": "https://w3id.org/ogc/cwl/",
+    "dct": "http://purl.org/dc/terms/",
     "focal-transf-prop": "focal-transf:properties/",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "dcterms": "http://purl.org/dc/terms/",

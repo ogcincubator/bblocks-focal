@@ -1,5 +1,5 @@
 Validation report for ogc.focal.forestStandCollection - FOCAL Forest Stand Feature Collection
-Generated 2026-09-07T09:51:22.598544+00:00
+Generated 2026-09-07T11:31:16.342626+00:00
 === General ===
 Test was expected to fail and it did.
 === End General ===
@@ -84,7 +84,7 @@ Validation result for _sources/forestStandFeature/shapes.shacl:
   	Message: Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.
   
 Focus nodes for _sources/forestStandFeature/shapes.shacl:
- - Shape <https://example.com/focal/feature-lesniTyp>: _:N8a481bba49c545d5bc27c4883fc85d39,_:N5296395fa3184be1b40162f389d6e316,_:N6763fd1fdfa24a7d93d9b101e4801656,_:N77de3347cb3d462987e7629f874780b3,_:N7312840191e243ae80d106ccfabd1562,_:N686a05b7b67d42a3be446e931c02da51,_:N45affef53f7e4471846c741f7f338ec2,_:Nd87a8f19b9ad4571a7c7d9d1d946f77c,_:N8cd9dc067c284f23ac208ef910d8aa44,_:N012cea0279cf4bb9962f7c1b9170c727,_:N9563ddcbf6d64f89ba8cf8085bb1c4ce,_:Nf5fe89bcf8a4403781532bc0c28c36e7,_:N6c147f480c3d419fbfc11306e94dc659
+ - Shape <https://example.com/focal/feature-lesniTyp>: _:Nf874e6c8acec4e728b4266991ed450c8,_:Na5866d6fed0340878c916a926bf868b8,_:N14ad7d5f89264a0db0f10ee3aedf11cc,_:N3ed2d994e93443489c0c38beac04245b,_:N65bffb25eb14461baa3b8b457bf8e45a,_:Nb1455f7753fa43d091f7755f69f9017d,_:Naadef1706c254a0294f5ee11438e4722,_:N1cd6000febc84500b914f91fe468386b,_:N4e4a2a15d1b14a53941b4a686534ebf0,_:N361a87dc30cd4cfb993d3935a2deaf71,_:N2ca945b2deed46c3882c9462c98bb767,_:Nc15b965b68904f76a8fb28b79dcb3493,_:Nf4d35173f3d249028c945be933525a8f
 
 Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
   Validation Report
@@ -92,10 +92,10 @@ Validation result for https://opengeospatial.github.io/bblocks/registereditems/g
   
 Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
  - Shape geojson:GeometryShape: *none*
- - Shape geojson:LinkShape: *none*
+ - Shape geojson:FeatureShape: _:Nf874e6c8acec4e728b4266991ed450c8,_:Na5866d6fed0340878c916a926bf868b8,_:N14ad7d5f89264a0db0f10ee3aedf11cc,_:N3ed2d994e93443489c0c38beac04245b,_:N65bffb25eb14461baa3b8b457bf8e45a,_:Nb1455f7753fa43d091f7755f69f9017d,_:Naadef1706c254a0294f5ee11438e4722,_:N1cd6000febc84500b914f91fe468386b,_:N4e4a2a15d1b14a53941b4a686534ebf0,_:N361a87dc30cd4cfb993d3935a2deaf71,_:N2ca945b2deed46c3882c9462c98bb767,_:Nc15b965b68904f76a8fb28b79dcb3493,_:Nf4d35173f3d249028c945be933525a8f
  - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
  - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
- - Shape geojson:FeatureShape: _:N8a481bba49c545d5bc27c4883fc85d39,_:N5296395fa3184be1b40162f389d6e316,_:N6763fd1fdfa24a7d93d9b101e4801656,_:N77de3347cb3d462987e7629f874780b3,_:N7312840191e243ae80d106ccfabd1562,_:N686a05b7b67d42a3be446e931c02da51,_:N45affef53f7e4471846c741f7f338ec2,_:Nd87a8f19b9ad4571a7c7d9d1d946f77c,_:N8cd9dc067c284f23ac208ef910d8aa44,_:N012cea0279cf4bb9962f7c1b9170c727,_:N9563ddcbf6d64f89ba8cf8085bb1c4ce,_:Nf5fe89bcf8a4403781532bc0c28c36e7,_:N6c147f480c3d419fbfc11306e94dc659
+ - Shape geojson:LinkShape: *none*
 
 Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:
   Validation Report
@@ -103,11 +103,11 @@ Validation result for https://opengeospatial.github.io/bblocks/registereditems/g
   
 Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:
  - Shape geojson:GeometryShape: *none*
- - Shape geojson:LinkShape: *none*
- - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
  - Shape geojson:FeatureShape: *none*
- - Shape geojson:FeatureCollectionShape: _:N8689e644d8a144d281889f30f05a3e9a
+ - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
+ - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape geojson:LinkShape: *none*
+ - Shape geojson:FeatureCollectionShape: _:N2988542b72994bbcbfd37d27c0532858
 
 === End SHACL ===
 

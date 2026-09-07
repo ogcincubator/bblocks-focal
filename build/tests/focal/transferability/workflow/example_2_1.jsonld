@@ -4,6 +4,24 @@
   "id": "",
   "cwlVersion": "v1.2",
   "label": "FP-WF2 \u2014 Heat stress",
+  "requirements": {
+    "SoftwareRequirement": {
+      "packages": [
+        {
+          "package": "python"
+        },
+        {
+          "package": "flask"
+        },
+        {
+          "package": "gunicorn"
+        }
+      ]
+    },
+    "NetworkAccess": {
+      "networkAccess": true
+    }
+  },
   "inputs": {
     "species_tolerances": "File",
     "forest_classification_context": "File",
