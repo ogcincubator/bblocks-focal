@@ -23,10 +23,14 @@
     }
   },
   "inputs": {
-    "climate_data": "File"
+    "climate_data": {
+      "type": "File"
+    }
   },
   "outputs": {
-    "trained_growth_model": "File"
+    "trained_growth_model": {
+      "type": "File"
+    }
   },
   "transferability": {
     "envelope": [

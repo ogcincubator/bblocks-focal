@@ -49,8 +49,12 @@
     }
   },
   "inputs": {
-    "lst_datasets": "File",
-    "clms_tcd_imd": "File"
+    "lst_datasets": {
+      "type": "File"
+    },
+    "clms_tcd_imd": {
+      "type": "File"
+    }
   },
   "steps": {
     "lst_preparation": {
@@ -70,6 +74,15 @@
       },
       "out": [
         "hotspot_map"
+      ]
+    },
+    "heat_risk_indicator": {
+      "run": "#heat_risk_indicator.cwl",
+      "in": {
+        "hotspots": "hotspot_characterization/hotspot_map"
+      },
+      "out": [
+        "heat_risk_map"
       ]
     }
   },

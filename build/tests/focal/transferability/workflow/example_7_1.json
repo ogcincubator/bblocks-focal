@@ -34,11 +34,21 @@
     }
   },
   "inputs": {
-    "precipitation": "File",
-    "threshold_subdaily": "File",
-    "threshold_daily": "File",
-    "exposure_layers": "File",
-    "vulnerability_index": "File"
+    "precipitation": {
+      "type": "File"
+    },
+    "threshold_subdaily": {
+      "type": "File"
+    },
+    "threshold_daily": {
+      "type": "File"
+    },
+    "exposure_layers": {
+      "type": "File"
+    },
+    "vulnerability_index": {
+      "type": "File"
+    }
   },
   "steps": {
     "accumulation": {
@@ -85,7 +95,7 @@
     "envelope": [
       {
         "id": "dwd-stations",
-        "role": "trained-on",
+        "role": "derived-from",
         "dimension": "spatial",
         "value": {
           "asWKT": "POLYGON((5.87 47.27,15.04 47.27,15.04 55.06,5.87 55.06,5.87 47.27))"
@@ -94,7 +104,7 @@
       },
       {
         "id": "eobs-extent",
-        "role": "trained-on",
+        "role": "derived-from",
         "dimension": "spatial",
         "value": {
           "asWKT": "POLYGON((-25 25,45 25,45 71.5,-25 71.5,-25 25))"

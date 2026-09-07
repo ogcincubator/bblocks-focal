@@ -13,10 +13,14 @@
     }
   },
   "inputs": {
-    "nukleus_ensemble": "File"
+    "nukleus_ensemble": {
+      "type": "File"
+    }
   },
   "outputs": {
-    "climate_indices": "File"
+    "climate_indices": {
+      "type": "File"
+    }
   },
   "transferability": {
     "envelope": [],

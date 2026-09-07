@@ -472,6 +472,7 @@ allOf:
       type: string
       examples:
       - trained-on
+      - derived-from
       - valid-for
       - can-run-on
       description: "Which aspect of the envelope this statement describes. Open vocabulary

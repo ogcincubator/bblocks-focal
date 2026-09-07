@@ -1,23 +1,28 @@
 @prefix cwl: <https://w3id.org/cwl/cwl#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
-@prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sld: <https://w3id.org/cwl/salad#> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/> a cwl:Workflow ;
     rdfs:label "UP-WF1 — Regional climate change" ;
-    cwl:inputs "File" ;
-    cwl:outputs "File" ;
+    cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/nukleus_ensemble> ;
+    cwl:outputs <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/climate_indices> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns1:packages [ ns2:package "python" ] ] ;
+            ns2:packages [ ns1:package "python" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/precomputed-delivery> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
     focal-transf-prop:transferability [ rdfs:comment "Both arrays are empty deliberately, not for want of an entry. The questionnaire answers questions 8, 9 and 10 with 'Nothing', 'Nothing' and 'All parts are portable', so this states no validity boundary and no adaptation step. Two caveats travel with that. First, it is the source's claim and not a verified one: a nine-member regional climate ensemble delivered as precomputed indices very likely does carry conditions this questionnaire did not ask about, and the owner has been asked to confirm or correct the emptiness. Second, question 7 states that timeslices are represented as Global Warming Levels rather than calendar periods, which is a genuine temporal fact but not one this envelope can hold: no specific level is named in the source, and the scenario-marker value takes a level, not the assertion that levels are the indexing scheme. Naming one would be fabricating a slice." ;
             focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/nukleus-ensemble> ] .
 
+<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/climate_indices> sld:type cwl:File .
+
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/nukleus-ensemble> dcterms:title "9-member NUKLEUS regional climate ensemble" ;
     rdfs:comment "Declared because the delivered indices depend on it, and left ungoverned because the source states no condition under which it would have to change. Question 9's answer is 'Nothing'." ;
     focal-transf-prop:artifactRef "/inputs/nukleus_ensemble" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/nukleus_ensemble> sld:type cwl:File .
 

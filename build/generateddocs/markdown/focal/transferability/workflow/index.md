@@ -88,8 +88,8 @@ point at; they are not FP-WF1's real interface.
       ]
     }
   },
-  "inputs": { "climate_data": "File" },
-  "outputs": { "trained_growth_model": "File" },
+  "inputs": { "climate_data": { "type": "File" } },
+  "outputs": { "trained_growth_model": { "type": "File" } },
   "transferability": {
     "envelope": [
       {
@@ -184,10 +184,14 @@ point at; they are not FP-WF1's real interface.
     }
   },
   "inputs": {
-    "climate_data": "File"
+    "climate_data": {
+      "type": "File"
+    }
   },
   "outputs": {
-    "trained_growth_model": "File"
+    "trained_growth_model": {
+      "type": "File"
+    }
   },
   "transferability": {
     "envelope": [
@@ -286,17 +290,18 @@ point at; they are not FP-WF1's real interface.
 @prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
 @prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sld: <https://w3id.org/cwl/salad#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/> a cwl:Workflow ;
     rdfs:label "FP-WF1 — Tree species suitability" ;
-    cwl:inputs "File" ;
-    cwl:outputs "File" ;
+    cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate_data> ;
+    cwl:outputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/trained_growth_model> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns1:packages [ ns2:package "gunicorn" ],
+            ns1:packages [ ns2:package "flask" ],
                 [ ns2:package "lightgbm" ],
-                [ ns2:package "flask" ],
-                [ ns2:package "python" ] ] ;
+                [ ns2:package "python" ],
+                [ ns2:package "gunicorn" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/statistical-ml> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
     focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/decision-support-only> ;
@@ -306,21 +311,25 @@ point at; they are not FP-WF1's real interface.
             focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range> ;
-            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-alternative-published-model>,
+            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate-data> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-alternative-published-model>,
                         <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/different-class-from> ] ],
-                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate-data> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/different-class-from> ] ] ] .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate_data> sld:type cwl:File .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/climatic> ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/can-run-on> ;
     focal-transf-prop:value "wherever downscaled climate data is available" .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/trained_growth_model> sld:type cwl:File .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate-data> dcterms:title "downscaled FOCAL climate data (current + future)" ;
     focal-transf-prop:artifactRef "/inputs/climate_data" ;
@@ -380,16 +389,16 @@ omitted, no Application Package yet. `inputs` ids are placeholders.
     "NetworkAccess": { "networkAccess": true }
   },
   "inputs": {
-    "species_tolerances": "File",
-    "forest_classification_context": "File",
-    "species_codes": "File",
-    "climate_registry_endpoint": "string"
+    "species_tolerances": { "type": "File" },
+    "forest_classification_context": { "type": "File" },
+    "species_codes": { "type": "File" },
+    "climate_registry_endpoint": { "type": "string" }
   },
   "transferability": {
     "envelope": [
       {
         "id": "czechia",
-        "role": "trained-on",
+        "role": "derived-from",
         "dimension": "jurisdictional",
         "value": { "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))" },
         "transferabilityNotes": "Inferred, not stated: the questionnaire gives no envelope fact directly, only that four separate reference artifacts are Czechia-specific. Value is Czechia's country bounding box. Needs owner confirmation."
@@ -444,16 +453,24 @@ omitted, no Application Package yet. `inputs` ids are placeholders.
     }
   },
   "inputs": {
-    "species_tolerances": "File",
-    "forest_classification_context": "File",
-    "species_codes": "File",
-    "climate_registry_endpoint": "string"
+    "species_tolerances": {
+      "type": "File"
+    },
+    "forest_classification_context": {
+      "type": "File"
+    },
+    "species_codes": {
+      "type": "File"
+    },
+    "climate_registry_endpoint": {
+      "type": "string"
+    }
   },
   "transferability": {
     "envelope": [
       {
         "id": "czechia",
-        "role": "trained-on",
+        "role": "derived-from",
         "dimension": "jurisdictional",
         "value": {
           "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"
@@ -520,22 +537,25 @@ omitted, no Application Package yet. `inputs` ids are placeholders.
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix ns1: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#NetworkAccess/> .
-@prefix ns3: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
+@prefix ns3: <https://w3id.org/cwl/cwl#NetworkAccess/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sld: <https://w3id.org/cwl/salad#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/> a cwl:Workflow ;
     rdfs:label "FP-WF2 — Heat stress" ;
-    cwl:inputs "File",
-        "string" ;
+    cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/climate_registry_endpoint>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/forest_classification_context>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species_codes>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species_tolerances> ;
     cwl:requirements [ a cwl:NetworkAccess ;
-            ns2:networkAccess true ],
+            ns3:networkAccess true ],
         [ a cwl:SoftwareRequirement ;
-            ns3:packages [ ns1:package "flask" ],
-                [ ns1:package "gunicorn" ],
-                [ ns1:package "python" ] ] ;
+            ns1:packages [ ns2:package "gunicorn" ],
+                [ ns2:package "flask" ],
+                [ ns2:package "python" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
     focal-transf-prop:transferability [ focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>,
@@ -553,9 +573,17 @@ omitted, no Application Package yet. `inputs` ids are placeholders.
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
 
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/climate_registry_endpoint> sld:type xsd:string .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/forest_classification_context> sld:type cwl:File .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species_codes> sld:type cwl:File .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species_tolerances> sld:type cwl:File .
+
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia> rdfs:comment "Inferred, not stated: the questionnaire gives no envelope fact directly, only that four separate reference artifacts are Czechia-specific. Value is Czechia's country bounding box. Needs owner confirmation." ;
     focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/jurisdictional> ;
-    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/derived-from> ;
     focal-transf-prop:value [ geo:asWKT "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"^^geo:wktLiteral ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman> dcterms:title "Rasdaman climate registry / source catalogue" ;
@@ -604,9 +632,9 @@ an Application Package here than anywhere else. `inputs` ids are placeholders.
     "SoftwareRequirement": { "packages": [{ "package": "python" }] }
   },
   "inputs": {
-    "disturbance_labels": "File",
-    "eo_compositing_strategy": "string",
-    "phenology_normalization_assumptions": "string"
+    "disturbance_labels": { "type": "File" },
+    "eo_compositing_strategy": { "type": "string" },
+    "phenology_normalization_assumptions": { "type": "string" }
   },
   "transferability": {
     "envelope": [
@@ -675,9 +703,15 @@ an Application Package here than anywhere else. `inputs` ids are placeholders.
     }
   },
   "inputs": {
-    "disturbance_labels": "File",
-    "eo_compositing_strategy": "string",
-    "phenology_normalization_assumptions": "string"
+    "disturbance_labels": {
+      "type": "File"
+    },
+    "eo_compositing_strategy": {
+      "type": "string"
+    },
+    "phenology_normalization_assumptions": {
+      "type": "string"
+    }
   },
   "transferability": {
     "envelope": [
@@ -777,17 +811,19 @@ an Application Package here than anywhere else. `inputs` ids are placeholders.
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix ns1: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sld: <https://w3id.org/cwl/salad#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/> a cwl:Workflow ;
     rdfs:label "FP-WF3 — Prediction of threatened stands" ;
-    cwl:inputs "File",
-        "string" ;
+    cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/disturbance_labels>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo_compositing_strategy>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology_normalization_assumptions> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns2:packages [ ns1:package "python" ] ] ;
+            ns1:packages [ ns2:package "python" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/statistical-ml> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/prototype> ;
     focal-transf-prop:transferability [ focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy>,
@@ -795,7 +831,12 @@ an Application Package here than anywhere else. `inputs` ids are placeholders.
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology> ;
             focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime> ;
-            focal-transf-prop:rules [ rdfs:comment "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement." ;
+            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ rdfs:comment "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels> ;
                     focal-transf-prop:mandatory false ;
@@ -805,12 +846,13 @@ an Application Package here than anywhere else. `inputs` ids are placeholders.
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/disturbance_labels> sld:type cwl:File .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo_compositing_strategy> sld:type xsd:string .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology_normalization_assumptions> sld:type xsd:string .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy> dcterms:title "EO sensor selection, cloud masking, temporal compositing strategy" ;
     focal-transf-prop:artifactRef "/inputs/eo_compositing_strategy" ;
@@ -887,9 +929,11 @@ not, which is what question 3 to the workflow owners is for.
 
 `outputs` omitted. `inputs` and `steps` ids are **placeholders** invented so `artifactRef`
 and `affects` have something to point at; they are not UP-WF2's real interface, and the step
-bodies are stubs. One `affects` pointer, `/steps/heat_risk_indicator`, deliberately resolves
-to nothing: the indicator is not built yet, which is the same reason its Eurostat input has
-no `artifactRef` and its rule uses `triggeredBy` instead of a cited constraint.
+bodies are stubs. The planned Heat Risk Indicator has one too, so the rule saying it cannot run
+without census data names a step that exists: a record that names a component it does not have
+would mislead a consumer about which components stop. Its Eurostat dependency stays an
+`external-resource` with no `artifactRef`, since the data is not implemented and there is
+nothing to point into.
 
 #### json
 ```json
@@ -915,7 +959,7 @@ no `artifactRef` and its rule uses `triggeredBy` instead of a cited constraint.
     },
     "NetworkAccess": { "networkAccess": true }
   },
-  "inputs": { "lst_datasets": "File", "clms_tcd_imd": "File" },
+  "inputs": { "lst_datasets": { "type": "File" }, "clms_tcd_imd": { "type": "File" } },
   "steps": {
     "lst_preparation": {
       "run": "#lst_preparation.cwl",
@@ -926,6 +970,11 @@ no `artifactRef` and its rule uses `triggeredBy` instead of a cited constraint.
       "run": "#hotspot_characterization.cwl",
       "in": { "lst": "lst_preparation/lst_composite", "clms": "clms_tcd_imd" },
       "out": ["hotspot_map"]
+    },
+    "heat_risk_indicator": {
+      "run": "#heat_risk_indicator.cwl",
+      "in": { "hotspots": "hotspot_characterization/hotspot_map" },
+      "out": ["heat_risk_map"]
     }
   },
   "transferability": {
@@ -1065,8 +1114,12 @@ no `artifactRef` and its rule uses `triggeredBy` instead of a cited constraint.
     }
   },
   "inputs": {
-    "lst_datasets": "File",
-    "clms_tcd_imd": "File"
+    "lst_datasets": {
+      "type": "File"
+    },
+    "clms_tcd_imd": {
+      "type": "File"
+    }
   },
   "steps": {
     "lst_preparation": {
@@ -1086,6 +1139,15 @@ no `artifactRef` and its rule uses `triggeredBy` instead of a cited constraint.
       },
       "out": [
         "hotspot_map"
+      ]
+    },
+    "heat_risk_indicator": {
+      "run": "#heat_risk_indicator.cwl",
+      "in": {
+        "hotspots": "hotspot_characterization/hotspot_map"
+      },
+      "out": [
+        "heat_risk_map"
       ]
     }
   },
@@ -1256,33 +1318,36 @@ no `artifactRef` and its rule uses `triggeredBy` instead of a cited constraint.
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix ns1: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
 @prefix ns2: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
-@prefix ns3: <https://w3id.org/cwl/cwl#NetworkAccess/> .
-@prefix ns4: <https://w3id.org/cwl/cwl#Workflow/> .
+@prefix ns3: <https://w3id.org/cwl/cwl#Workflow/> .
+@prefix ns4: <https://w3id.org/cwl/cwl#NetworkAccess/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sld: <https://w3id.org/cwl/salad#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/> a cwl:Workflow ;
     rdfs:label "UP-WF2 — Urban hot/cool spot" ;
-    ns4:steps <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/hotspot_characterization>,
+    ns3:steps <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/heat_risk_indicator>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/hotspot_characterization>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst_preparation> ;
-    cwl:inputs "File" ;
+    cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms_tcd_imd>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst_datasets> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns2:packages [ ns1:package "numpy" ],
+            ns2:packages [ ns1:package "rioxarray" ],
+                [ ns1:package "rasterio" ],
+                [ ns1:package "pandas" ],
+                [ ns1:package "joblib" ],
+                [ ns1:package "geopandas" ],
                 [ ns1:package "python" ;
                     ns1:version "3.10",
                         "3.11",
                         "3.12",
                         "3.13" ],
-                [ ns1:package "pandas" ],
-                [ ns1:package "rioxarray" ],
                 [ ns1:package "matplotlib" ],
-                [ ns1:package "xarray" ],
                 [ ns1:package "shapely" ],
-                [ ns1:package "joblib" ],
-                [ ns1:package "rasterio" ],
-                [ ns1:package "geopandas" ] ],
+                [ ns1:package "xarray" ],
+                [ ns1:package "numpy" ] ],
         [ a cwl:NetworkAccess ;
-            ns3:networkAccess true ] ;
+            ns4:networkAccess true ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
     focal-transf-prop:transferability [ focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms>,
@@ -1292,14 +1357,7 @@ no `artifactRef` and its rule uses `triggeredBy` instead of a cited constraint.
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain> ;
-            focal-transf-prop:rules [ rdfs:comment "Within the CLMS bounding extent but inside the area the product excludes: no Tree Cover Density or Imperviousness Density data exists, and no substitute is defined, so hot-spot characterization cannot be executed. A terminal outcome with no alternative offered, unlike the coverage rule above." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable> ;
-                    focal-transf-prop:affects "/steps/hotspot_characterization" ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] ],
-                [ rdfs:comment "Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target. Which of the two applies depends on whether a substitute is obtainable, which the source does not resolve." ;
+            focal-transf-prop:rules [ rdfs:comment "Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target. Which of the two applies depends on whether a substitute is obtainable, which the source does not resolve." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
                         <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:affects "/steps/hotspot_characterization",
@@ -1308,17 +1366,12 @@ no `artifactRef` and its rule uses `triggeredBy` instead of a cited constraint.
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Stated with triggeredBy rather than a cited constraint: this data is not yet implemented, so there is no envelope fact to point at. Once built, the planned Heat Risk Indicator would not be executable without it." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:affects "/steps/heat_risk_indicator" ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eurostat> ;
+                [ rdfs:comment "Within the CLMS bounding extent but inside the area the product excludes: no Tree Cover Density or Imperviousness Density data exists, and no substitute is defined, so hot-spot characterization cannot be executed. A terminal outcome with no alternative offered, unlike the coverage rule above." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable> ;
+                    focal-transf-prop:affects "/steps/hotspot_characterization" ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms> ;
                     focal-transf-prop:mandatory true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ],
-                [ rdfs:comment "Inside the EURO-CORDEX domain the datasets are reused unchanged, by changing the area of interest." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/reuse-as-is> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst> ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain> ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] ],
                 [ rdfs:comment "Outside CLMS coverage no substitute is currently defined, and hot-spot characterization, which uses this dataset, cannot be executed." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
@@ -1327,7 +1380,21 @@ no `artifactRef` and its rule uses `triggeredBy` instead of a cited constraint.
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ rdfs:comment "Inside the EURO-CORDEX domain the datasets are reused unchanged, by changing the area of interest." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/reuse-as-is> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst> ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] ],
+                [ rdfs:comment "Stated with triggeredBy rather than a cited constraint: this data is not yet implemented, so there is no envelope fact to point at. Once built, the planned Heat Risk Indicator would not be executable without it." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:affects "/steps/heat_risk_indicator" ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eurostat> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ] .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms_tcd_imd> sld:type cwl:File .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epochs> rdfs:comment "Discrete temporal epochs, explicitly not a time series: one timestep per epoch. 2022–2025 available at time of writing." ;
     focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/temporal> ;
@@ -1335,10 +1402,16 @@ no `artifactRef` and its rule uses `triggeredBy` instead of a cited constraint.
     focal-transf-prop:value [ dcat:endDate "2025" ;
             dcat:startDate "2022" ] .
 
+<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/heat_risk_indicator> cwl:in "hotspot_characterization/hotspot_map" ;
+    cwl:out <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/heat_risk_map> ;
+    cwl:run <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/#heat_risk_indicator.cwl> .
+
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/hotspot_characterization> cwl:in "clms_tcd_imd",
         "lst_preparation/lst_composite" ;
     cwl:out <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/hotspot_map> ;
     cwl:run <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/#hotspot_characterization.cwl> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst_datasets> sld:type cwl:File .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst_preparation> cwl:in "lst_datasets" ;
     cwl:out <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst_composite> ;
@@ -1417,8 +1490,8 @@ workflow's own account, no process to package.
   "requirements": {
     "SoftwareRequirement": { "packages": [{ "package": "python" }] }
   },
-  "inputs": { "nukleus_ensemble": "File" },
-  "outputs": { "climate_indices": "File" },
+  "inputs": { "nukleus_ensemble": { "type": "File" } },
+  "outputs": { "climate_indices": { "type": "File" } },
   "transferability": {
     "envelope": [],
     "artifacts": [
@@ -1457,10 +1530,14 @@ workflow's own account, no process to package.
     }
   },
   "inputs": {
-    "nukleus_ensemble": "File"
+    "nukleus_ensemble": {
+      "type": "File"
+    }
   },
   "outputs": {
-    "climate_indices": "File"
+    "climate_indices": {
+      "type": "File"
+    }
   },
   "transferability": {
     "envelope": [],
@@ -1486,25 +1563,30 @@ workflow's own account, no process to package.
 @prefix cwl: <https://w3id.org/cwl/cwl#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
-@prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sld: <https://w3id.org/cwl/salad#> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/> a cwl:Workflow ;
     rdfs:label "UP-WF1 — Regional climate change" ;
-    cwl:inputs "File" ;
-    cwl:outputs "File" ;
+    cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/nukleus_ensemble> ;
+    cwl:outputs <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/climate_indices> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns1:packages [ ns2:package "python" ] ] ;
+            ns2:packages [ ns1:package "python" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/precomputed-delivery> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
     focal-transf-prop:transferability [ rdfs:comment "Both arrays are empty deliberately, not for want of an entry. The questionnaire answers questions 8, 9 and 10 with 'Nothing', 'Nothing' and 'All parts are portable', so this states no validity boundary and no adaptation step. Two caveats travel with that. First, it is the source's claim and not a verified one: a nine-member regional climate ensemble delivered as precomputed indices very likely does carry conditions this questionnaire did not ask about, and the owner has been asked to confirm or correct the emptiness. Second, question 7 states that timeslices are represented as Global Warming Levels rather than calendar periods, which is a genuine temporal fact but not one this envelope can hold: no specific level is named in the source, and the scenario-marker value takes a level, not the assertion that levels are the indexing scheme. Naming one would be fabricating a slice." ;
             focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/nukleus-ensemble> ] .
 
+<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/climate_indices> sld:type cwl:File .
+
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/nukleus-ensemble> dcterms:title "9-member NUKLEUS regional climate ensemble" ;
     rdfs:comment "Declared because the delivered indices depend on it, and left ungoverned because the source states no condition under which it would have to change. Question 9's answer is 'Nothing'." ;
     focal-transf-prop:artifactRef "/inputs/nukleus_ensemble" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/nukleus_ensemble> sld:type cwl:File .
 
 
 ```
@@ -1557,9 +1639,9 @@ parameter with no stated bound, the same situation as FP-WF1 and FP-WF2. `steps`
     "NetworkAccess": { "networkAccess": true }
   },
   "inputs": {
-    "climate_zone_thresholds": "File",
-    "climate_metadata": "File",
-    "climate_source_catalogue": "string"
+    "climate_zone_thresholds": { "type": "File" },
+    "climate_metadata": { "type": "File" },
+    "climate_source_catalogue": { "type": "string" }
   },
   "transferability": {
     "envelope": [
@@ -1675,9 +1757,15 @@ parameter with no stated bound, the same situation as FP-WF1 and FP-WF2. `steps`
     }
   },
   "inputs": {
-    "climate_zone_thresholds": "File",
-    "climate_metadata": "File",
-    "climate_source_catalogue": "string"
+    "climate_zone_thresholds": {
+      "type": "File"
+    },
+    "climate_metadata": {
+      "type": "File"
+    },
+    "climate_source_catalogue": {
+      "type": "string"
+    }
   },
   "transferability": {
     "envelope": [
@@ -1819,15 +1907,17 @@ parameter with no stated bound, the same situation as FP-WF1 and FP-WF2. `steps`
 @prefix ns2: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
 @prefix ns3: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sld: <https://w3id.org/cwl/salad#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/> a cwl:Workflow ;
     rdfs:label "FP-WF5 — Map of climatic zones" ;
-    cwl:inputs "File",
-        "string" ;
+    cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_metadata>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_source_catalogue>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_zone_thresholds> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns2:packages [ ns3:package "flask" ],
-                [ ns3:package "python" ] ],
+            ns2:packages [ ns3:package "python" ],
+                [ ns3:package "flask" ] ],
         [ a cwl:NetworkAccess ;
             ns1:networkAccess true ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
@@ -1845,6 +1935,13 @@ parameter with no stated bound, the same situation as FP-WF1 and FP-WF2. `steps`
                     focal-transf-prop:mandatory false ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ rdfs:comment "Question 9: 'Climate-zone thresholds, labels and metadata should be adapted to local or national classification schemes.' Thresholds and the metadata that describes them move together — adapting one without the other leaves the zone descriptions naming classes the thresholds no longer produce." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate-metadata>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
                 [ rdfs:comment "The second, independent trigger for the same substitution: question 7 assumes Quitt-inspired thresholds are meaningful for the target area, and a target inside Czechia's borders but climatically unlike the areas the scheme was built around fails that assumption without leaving the jurisdiction. A separate rule rather than a second condition on the one above, because either alone suffices and `when` is conjunctive." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits> ;
@@ -1856,14 +1953,13 @@ parameter with no stated bound, the same situation as FP-WF1 and FP-WF2. `steps`
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-registry> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Question 9: 'Climate-zone thresholds, labels and metadata should be adapted to local or national classification schemes.' Thresholds and the metadata that describes them move together — adapting one without the other leaves the zone descriptions naming classes the thresholds no longer produce." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate-metadata>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_metadata> sld:type cwl:File .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_source_catalogue> sld:type xsd:string .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_zone_thresholds> sld:type cwl:File .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate-metadata> dcterms:title "climate metadata file (indicator definitions and descriptions)" ;
     focal-transf-prop:artifactRef "/inputs/climate_metadata" ;
@@ -1921,7 +2017,8 @@ UP-WF2's, where a substitute might yet be found.
 
 **Two threshold sets, one climatic trigger.** The 6-hour and 12-hour percentile thresholds
 come from DWD station data for Germany, the 1-day and 7-day ones from E-OBS for Europe. Both
-provenances are recorded as `trained-on` constraints, but the rule that fires is conditioned
+provenances are recorded as `derived-from` constraints rather than `trained-on`, since the
+thresholds were computed, not fitted: this workflow trains nothing. The rule that fires is conditioned
 on the climatic constraint, because that is what question 9 actually says: "for a region with
 different climate regime, user should use a custom threshold". A target inside Germany with an
 unlike climate is as much of a problem as one outside it.
@@ -1981,11 +2078,11 @@ integration testing. `inputs` and `steps` ids are placeholders invented so `arti
     "NetworkAccess": { "networkAccess": true }
   },
   "inputs": {
-    "precipitation": "File",
-    "threshold_subdaily": "File",
-    "threshold_daily": "File",
-    "exposure_layers": "File",
-    "vulnerability_index": "File"
+    "precipitation": { "type": "File" },
+    "threshold_subdaily": { "type": "File" },
+    "threshold_daily": { "type": "File" },
+    "exposure_layers": { "type": "File" },
+    "vulnerability_index": { "type": "File" }
   },
   "steps": {
     "accumulation": {
@@ -2013,14 +2110,14 @@ integration testing. `inputs` and `steps` ids are placeholders invented so `arti
     "envelope": [
       {
         "id": "dwd-stations",
-        "role": "trained-on",
+        "role": "derived-from",
         "dimension": "spatial",
         "value": { "asWKT": "POLYGON((5.87 47.27,15.04 47.27,15.04 55.06,5.87 55.06,5.87 47.27))" },
         "transferabilityNotes": "Germany's country bounding box, standing in for the DWD station network the 6-hour and 12-hour percentile thresholds were pre-computed from. A scattered set of stations, not a rectangle, so this is an upper bound; and station networks are dense in some regions and sparse in others, which a bounding box cannot show at all."
       },
       {
         "id": "eobs-extent",
-        "role": "trained-on",
+        "role": "derived-from",
         "dimension": "spatial",
         "value": { "asWKT": "POLYGON((-25 25,45 25,45 71.5,-25 71.5,-25 25))" },
         "transferabilityNotes": "The E-OBS domain's published approximate extent (about 25W-45E, 25N-71.5N), from which the 1-day and 7-day percentile thresholds were pre-computed. A coarse rectangle: E-OBS's actual land coverage is neither rectangular nor uniform in station density."
@@ -2182,11 +2279,21 @@ integration testing. `inputs` and `steps` ids are placeholders invented so `arti
     }
   },
   "inputs": {
-    "precipitation": "File",
-    "threshold_subdaily": "File",
-    "threshold_daily": "File",
-    "exposure_layers": "File",
-    "vulnerability_index": "File"
+    "precipitation": {
+      "type": "File"
+    },
+    "threshold_subdaily": {
+      "type": "File"
+    },
+    "threshold_daily": {
+      "type": "File"
+    },
+    "exposure_layers": {
+      "type": "File"
+    },
+    "vulnerability_index": {
+      "type": "File"
+    }
   },
   "steps": {
     "accumulation": {
@@ -2233,7 +2340,7 @@ integration testing. `inputs` and `steps` ids are placeholders invented so `arti
     "envelope": [
       {
         "id": "dwd-stations",
-        "role": "trained-on",
+        "role": "derived-from",
         "dimension": "spatial",
         "value": {
           "asWKT": "POLYGON((5.87 47.27,15.04 47.27,15.04 55.06,5.87 55.06,5.87 47.27))"
@@ -2242,7 +2349,7 @@ integration testing. `inputs` and `steps` ids are placeholders invented so `arti
       },
       {
         "id": "eobs-extent",
-        "role": "trained-on",
+        "role": "derived-from",
         "dimension": "spatial",
         "value": {
           "asWKT": "POLYGON((-25 25,45 25,45 71.5,-25 71.5,-25 25))"
@@ -2425,38 +2532,43 @@ integration testing. `inputs` and `steps` ids are placeholders invented so `arti
 @prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix ns1: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#Workflow/> .
-@prefix ns3: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
+@prefix ns3: <https://w3id.org/cwl/cwl#Workflow/> .
 @prefix ns4: <https://w3id.org/cwl/cwl#NetworkAccess/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sld: <https://w3id.org/cwl/salad#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/> a cwl:Workflow ;
     rdfs:label "UP-WF3 — Urban blue-spot flood risk" ;
-    ns2:steps <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/accumulation>,
+    ns3:steps <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/accumulation>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/blue_spot_detection>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/exposure_overlay>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/vulnerability_overlay> ;
-    cwl:inputs "File" ;
-    cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns3:packages [ ns1:package "xarray" ],
-                [ ns1:package "python" ;
-                    ns1:version "3.10",
+    cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/exposure_layers>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/precipitation>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold_daily>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold_subdaily>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/vulnerability_index> ;
+    cwl:requirements [ a cwl:NetworkAccess ;
+            ns4:networkAccess true ],
+        [ a cwl:SoftwareRequirement ;
+            ns1:packages [ ns2:package "numpy" ],
+                [ ns2:package "rasterio" ],
+                [ ns2:package "xarray" ],
+                [ ns2:package "pandas" ],
+                [ ns2:package "python" ;
+                    ns2:version "3.10",
                         "3.11",
                         "3.12",
-                        "3.13" ],
-                [ ns1:package "pandas" ],
-                [ ns1:package "rasterio" ],
-                [ ns1:package "numpy" ] ],
-        [ a cwl:NetworkAccess ;
-            ns4:networkAccess true ] ;
+                        "3.13" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/pre-operational> ;
-    focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/decision-support-only> ;
-            focal-transf-prop:note "Question 1, in the owner's own words: the workflow does not provide the result of hydrological or hydraulic model simulation, the Blue Spot is an indicator of potentially flood-prone areas, and exposure and vulnerability are contextual layers that are not combined into a single quantitative risk score. Results support a qualitative judgement about where urban flood risk is likely to be highest; they are not a risk assessment." ],
-        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/spatial-support-mismatch> ;
-            focal-transf-prop:note "Question 7: the JRC vulnerability index is provided at NUTS3 level, 'coarser than the precipitation grid and does not align exactly with the AOI boundary'. The overlay can therefore be read no finer than a NUTS3 region, whatever resolution the blue-spot map itself carries, and NUTS3 units straddling the AOI edge are only partly covered. This holds in the source deployment as much as in any target: it bounds how far a result can be read, not whether the workflow moves." ] ;
+    focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/spatial-support-mismatch> ;
+            focal-transf-prop:note "Question 7: the JRC vulnerability index is provided at NUTS3 level, 'coarser than the precipitation grid and does not align exactly with the AOI boundary'. The overlay can therefore be read no finer than a NUTS3 region, whatever resolution the blue-spot map itself carries, and NUTS3 units straddling the AOI edge are only partly covered. This holds in the source deployment as much as in any target: it bounds how far a result can be read, not whether the workflow moves." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/decision-support-only> ;
+            focal-transf-prop:note "Question 1, in the owner's own words: the workflow does not provide the result of hydrological or hydraulic model simulation, the Blue Spot is an indicator of potentially flood-prone areas, and exposure and vulnerability are contextual layers that are not combined into a single quantitative risk score. Results support a qualitative judgement about where urban flood risk is likely to be highest; they are not a risk assessment." ] ;
     focal-transf-prop:transferability [ rdfs:comment "Two evidenced facts from this questionnaire are recorded in notes rather than in structure, because no shape in this model holds them without misstating them: that exposure and vulnerability cannot be substituted at all (a standing limitation, not a triggered outcome); and that the choice of precipitation source gates which accumulation windows are available (a co-constraint between two CWL inputs, which CWL's own union-of-record-schemas typing is the right place for). Each is on the artifact it concerns. The NUTS3 support mismatch, previously a third note here, is now carried structurally by a `spatial-support-mismatch` qualityAnnotation." ;
             focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/exposure>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/focal-stac-loader>,
@@ -2469,18 +2581,16 @@ integration testing. `inputs` and `steps` ids are placeholders invented so `arti
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/eu-input-coverage>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/supported-grids>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold-climate-regime> ;
-            focal-transf-prop:rules [ rdfs:comment "Outside the coverage of the bundled sources a local precipitation dataset has to be supplied, and it must satisfy this artifact's acceptance criteria: same variable name, mm or kg m-2 s-1, a time axis, and one of the two supported grids." ;
+            focal-transf-prop:rules [ rdfs:comment "Question 9: 'Since all the data is loaded from FOCAL STAC, user need a new data loader.' Stated with `triggeredBy` rather than a cited constraint because the condition is that the data comes from somewhere other than the FOCAL STAC catalogue, which is a fact about the source rather than about where the target is: a user inside the EU with their own local precipitation archive needs the new loader just as much as one outside it." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/focal-stac-loader> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-dataset> ],
+                [ rdfs:comment "Outside the coverage of the bundled sources a local precipitation dataset has to be supplied, and it must satisfy this artifact's acceptance criteria: same variable name, mm or kg m-2 s-1, a time axis, and one of the two supported grids." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/precipitation> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/eu-input-coverage> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Question 9: 'the percentile thresholds were calculated for Germany(6h,12h)/Europe(1d,7d). So, for a region with different climate regime, user should use a custom threshold.' Question 4 confirms the workflow already accepts one: 'a user-defined threshold can be given', so this substitution needs no code change, only a value the user has to derive from local data." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold-daily>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold-subdaily> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold-climate-regime> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
                 [ rdfs:comment "Question 7: 'Other projections are not handled.' Terminal rather than a substitution, and deliberately so — a dataset on a Lambert-conformal or polar-stereographic grid does not produce worse blue spots, it produces none, because the rolling accumulation has no code path for it. Regridding to a supported grid is a preprocessing step outside this workflow, not an action it offers." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable> ;
@@ -2490,11 +2600,13 @@ integration testing. `inputs` and `steps` ids are placeholders invented so `arti
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/supported-grids> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Question 9: 'Since all the data is loaded from FOCAL STAC, user need a new data loader.' Stated with `triggeredBy` rather than a cited constraint because the condition is that the data comes from somewhere other than the FOCAL STAC catalogue, which is a fact about the source rather than about where the target is: a user inside the EU with their own local precipitation archive needs the new loader just as much as one outside it." ;
+                [ rdfs:comment "Question 9: 'the percentile thresholds were calculated for Germany(6h,12h)/Europe(1d,7d). So, for a region with different climate regime, user should use a custom threshold.' Question 4 confirms the workflow already accepts one: 'a user-defined threshold can be given', so this substitution needs no code change, only a value the user has to derive from local data." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/focal-stac-loader> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold-daily>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold-subdaily> ;
                     focal-transf-prop:mandatory true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-dataset> ] ] .
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold-climate-regime> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/accumulation> cwl:in "precipitation" ;
     cwl:out <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/accumulated_precipitation> ;
@@ -2507,12 +2619,12 @@ integration testing. `inputs` and `steps` ids are placeholders invented so `arti
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/dwd-stations> rdfs:comment "Germany's country bounding box, standing in for the DWD station network the 6-hour and 12-hour percentile thresholds were pre-computed from. A scattered set of stations, not a rectangle, so this is an upper bound; and station networks are dense in some regions and sparse in others, which a bounding box cannot show at all." ;
     focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
-    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/derived-from> ;
     focal-transf-prop:value [ geo:asWKT "POLYGON((5.87 47.27,15.04 47.27,15.04 55.06,5.87 55.06,5.87 47.27))"^^geo:wktLiteral ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/eobs-extent> rdfs:comment "The E-OBS domain's published approximate extent (about 25W-45E, 25N-71.5N), from which the 1-day and 7-day percentile thresholds were pre-computed. A coarse rectangle: E-OBS's actual land coverage is neither rectangular nor uniform in station density." ;
     focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
-    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/derived-from> ;
     focal-transf-prop:value [ geo:asWKT "POLYGON((-25 25,45 25,45 71.5,-25 71.5,-25 25))"^^geo:wktLiteral ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/exposure> dcterms:title "exposure layers (Local Climate Zones, imperviousness, population)" ;
@@ -2520,15 +2632,23 @@ integration testing. `inputs` and `steps` ids are placeholders invented so `arti
     focal-transf-prop:artifactRef "/inputs/exposure_layers" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
+<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/exposure_layers> sld:type cwl:File .
+
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/exposure_overlay> cwl:in "blue_spot_detection/blue_spot_map",
         "exposure_layers" ;
     cwl:out <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/exposure_map> ;
     cwl:run <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/#exposure_overlay.cwl> .
 
+<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold_daily> sld:type cwl:File .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold_subdaily> sld:type cwl:File .
+
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/vulnerability> dcterms:title "vulnerability index at NUTS3 level (JRC Risk Data Hub)" ;
     rdfs:comment "Contextual overlay, and not substitutable, for the same reason recorded on `exposure`. Question 7 also states the index is at NUTS3 level, 'coarser than the precipitation grid and does not align exactly with the AOI boundary'. That is a relationship between the spatial supports of two artifacts, so no envelope dimension describes it and no rule is conditioned on it; it bears on how far the overlay can be read rather than on whether the workflow moves, and it is carried on that axis instead, by the workflow's `spatial-support-mismatch` qualityAnnotation." ;
     focal-transf-prop:artifactRef "/inputs/vulnerability_index" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/vulnerability_index> sld:type cwl:File .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/vulnerability_overlay> cwl:in "blue_spot_detection/blue_spot_map",
         "vulnerability_index" ;
@@ -2564,6 +2684,7 @@ integration testing. `inputs` and `steps` ids are placeholders invented so `arti
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/precipitation> dcterms:title "precipitation input dataset (E-OBS or the NUKLEUS regional climate ensemble, read from the FOCAL STAC catalogue)" ;
+    sld:type cwl:File ;
     focal-transf-prop:acceptanceCriteria [ rdfs:comment "Question 9 states the fullest replacement contract in the corpus: 'The precipitation dataset must provide same precipitation variable name as current dataset, its unit (mm or flux (kg m-2 s-1)), a time axis, and the grid or projection must be either regular lat/lon or rotated pole.' The variable requirement is recorded as the relation the source states rather than as a literal: it says the replacement must match the current dataset, not what the current dataset is called. An earlier draft guessed `rr`, which is E-OBS's name and wrong for the CORDEX path where the same field is `pr` — the guess was needed only because the schema wanted a literal where the source gave a relation. One further requirement still resists this shape: the source's temporal resolution gates which accumulation windows are available, which is a constraint between two inputs rather than a property of this one." ;
             focal-transf-prop:axis <https://w3id.org/ogc/hosted/focal/transferability/axes/time> ;
             focal-transf-prop:gridType <https://w3id.org/ogc/hosted/focal/transferability/grid-types/regular-latlon>,

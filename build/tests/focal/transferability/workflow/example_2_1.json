@@ -22,16 +22,24 @@
     }
   },
   "inputs": {
-    "species_tolerances": "File",
-    "forest_classification_context": "File",
-    "species_codes": "File",
-    "climate_registry_endpoint": "string"
+    "species_tolerances": {
+      "type": "File"
+    },
+    "forest_classification_context": {
+      "type": "File"
+    },
+    "species_codes": {
+      "type": "File"
+    },
+    "climate_registry_endpoint": {
+      "type": "string"
+    }
   },
   "transferability": {
     "envelope": [
       {
         "id": "czechia",
-        "role": "trained-on",
+        "role": "derived-from",
         "dimension": "jurisdictional",
         "value": {
           "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"

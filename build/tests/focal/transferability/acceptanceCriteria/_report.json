@@ -2,7 +2,7 @@
   "title": "Validation report for ogc.focal.transferability.acceptanceCriteria - FOCAL Artifact Acceptance Criteria",
   "bblockName": "FOCAL Artifact Acceptance Criteria",
   "bblockId": "ogc.focal.transferability.acceptanceCriteria",
-  "generated": "2026-09-07T11:31:13.394527+00:00",
+  "generated": "2026-09-07T12:57:30.943307+00:00",
   "result": true,
   "items": [
     {
@@ -76,21 +76,21 @@
             {
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
               "focusNodes": {
-                "_:nd0b46ea1bb55441791984cfc391947fcb3": {
-                  "nodes": []
-                },
-                "focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first": {
-                  "nodes": []
-                },
                 "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 },
                 "focal-shape:AcceptanceCriteria": {
                   "nodes": []
+                },
+                "focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:n53660dff3d9f41a0999a20a81d0ba679b3": {
+                  "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape _:nd0b46ea1bb55441791984cfc391947fcb3: *none*\n - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*\n - Shape _:n53660dff3d9f41a0999a20a81d0ba679b3: *none*\n"
             }
           ]
         }
@@ -167,21 +167,21 @@
             {
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
               "focusNodes": {
-                "_:nd0b46ea1bb55441791984cfc391947fcb3": {
-                  "nodes": []
-                },
-                "focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first": {
-                  "nodes": []
-                },
                 "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 },
                 "focal-shape:AcceptanceCriteria": {
                   "nodes": []
+                },
+                "focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:n53660dff3d9f41a0999a20a81d0ba679b3": {
+                  "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape _:nd0b46ea1bb55441791984cfc391947fcb3: *none*\n - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*\n - Shape _:n53660dff3d9f41a0999a20a81d0ba679b3: *none*\n"
             }
           ]
         }
@@ -258,21 +258,21 @@
             {
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
               "focusNodes": {
-                "_:nd0b46ea1bb55441791984cfc391947fcb3": {
-                  "nodes": []
-                },
-                "focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first": {
-                  "nodes": []
-                },
                 "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 },
                 "focal-shape:AcceptanceCriteria": {
                   "nodes": []
+                },
+                "focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:n53660dff3d9f41a0999a20a81d0ba679b3": {
+                  "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape _:nd0b46ea1bb55441791984cfc391947fcb3: *none*\n - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*\n - Shape _:n53660dff3d9f41a0999a20a81d0ba679b3: *none*\n"
             }
           ]
         }

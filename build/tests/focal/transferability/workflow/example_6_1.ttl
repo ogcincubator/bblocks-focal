@@ -6,15 +6,17 @@
 @prefix ns2: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
 @prefix ns3: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sld: <https://w3id.org/cwl/salad#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/> a cwl:Workflow ;
     rdfs:label "FP-WF5 — Map of climatic zones" ;
-    cwl:inputs "File",
-        "string" ;
+    cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_metadata>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_source_catalogue>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_zone_thresholds> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns2:packages [ ns3:package "flask" ],
-                [ ns3:package "python" ] ],
+            ns2:packages [ ns3:package "python" ],
+                [ ns3:package "flask" ] ],
         [ a cwl:NetworkAccess ;
             ns1:networkAccess true ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
@@ -32,6 +34,13 @@
                     focal-transf-prop:mandatory false ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ rdfs:comment "Question 9: 'Climate-zone thresholds, labels and metadata should be adapted to local or national classification schemes.' Thresholds and the metadata that describes them move together — adapting one without the other leaves the zone descriptions naming classes the thresholds no longer produce." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate-metadata>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
                 [ rdfs:comment "The second, independent trigger for the same substitution: question 7 assumes Quitt-inspired thresholds are meaningful for the target area, and a target inside Czechia's borders but climatically unlike the areas the scheme was built around fails that assumption without leaving the jurisdiction. A separate rule rather than a second condition on the one above, because either alone suffices and `when` is conjunctive." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits> ;
@@ -43,14 +52,13 @@
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-registry> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Question 9: 'Climate-zone thresholds, labels and metadata should be adapted to local or national classification schemes.' Thresholds and the metadata that describes them move together — adapting one without the other leaves the zone descriptions naming classes the thresholds no longer produce." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate-metadata>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_metadata> sld:type cwl:File .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_source_catalogue> sld:type xsd:string .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_zone_thresholds> sld:type cwl:File .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate-metadata> dcterms:title "climate metadata file (indicator definitions and descriptions)" ;
     focal-transf-prop:artifactRef "/inputs/climate_metadata" ;

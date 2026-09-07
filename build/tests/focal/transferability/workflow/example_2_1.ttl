@@ -2,22 +2,25 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix ns1: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#NetworkAccess/> .
-@prefix ns3: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
+@prefix ns3: <https://w3id.org/cwl/cwl#NetworkAccess/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sld: <https://w3id.org/cwl/salad#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/> a cwl:Workflow ;
     rdfs:label "FP-WF2 — Heat stress" ;
-    cwl:inputs "File",
-        "string" ;
+    cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/climate_registry_endpoint>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/forest_classification_context>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species_codes>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species_tolerances> ;
     cwl:requirements [ a cwl:NetworkAccess ;
-            ns2:networkAccess true ],
+            ns3:networkAccess true ],
         [ a cwl:SoftwareRequirement ;
-            ns3:packages [ ns1:package "flask" ],
-                [ ns1:package "gunicorn" ],
-                [ ns1:package "python" ] ] ;
+            ns1:packages [ ns2:package "gunicorn" ],
+                [ ns2:package "flask" ],
+                [ ns2:package "python" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
     focal-transf-prop:transferability [ focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>,
@@ -35,9 +38,17 @@
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
 
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/climate_registry_endpoint> sld:type xsd:string .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/forest_classification_context> sld:type cwl:File .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species_codes> sld:type cwl:File .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species_tolerances> sld:type cwl:File .
+
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia> rdfs:comment "Inferred, not stated: the questionnaire gives no envelope fact directly, only that four separate reference artifacts are Czechia-specific. Value is Czechia's country bounding box. Needs owner confirmation." ;
     focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/jurisdictional> ;
-    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/derived-from> ;
     focal-transf-prop:value [ geo:asWKT "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"^^geo:wktLiteral ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman> dcterms:title "Rasdaman climate registry / source catalogue" ;

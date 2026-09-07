@@ -20,9 +20,15 @@
     }
   },
   "inputs": {
-    "climate_zone_thresholds": "File",
-    "climate_metadata": "File",
-    "climate_source_catalogue": "string"
+    "climate_zone_thresholds": {
+      "type": "File"
+    },
+    "climate_metadata": {
+      "type": "File"
+    },
+    "climate_source_catalogue": {
+      "type": "string"
+    }
   },
   "transferability": {
     "envelope": [

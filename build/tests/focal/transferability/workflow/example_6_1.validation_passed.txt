@@ -1,5 +1,5 @@
 Validation report for ogc.focal.transferability.workflow - FOCAL Transferability Workflow
-Generated 2026-09-07T11:31:22.575365+00:00
+Generated 2026-09-07T12:57:38.798187+00:00
 === Files ===
 Using example_6_1.json from examples
 JSON-LD context is present - uplifting
@@ -23,6 +23,13 @@ Validation result for _sources/transferability/workflow/shapes.shacl:
 Focus nodes for _sources/transferability/workflow/shapes.shacl:
  - Shape focal-shape:TransferabilityWorkflow: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>
 
+Validation result for _sources/transferability/computationType/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/computationType/shapes.shacl:
+ - Shape focal-shape:ComputationType: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>
+
 Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:
   Validation Report
   Conforms: True
@@ -31,67 +38,60 @@ Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:
  - Shape focal-shape:QualityAnnotationHasNote: *none*
  - Shape focal-shape:QualityAnnotation: *none*
 
-Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:
- - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability
- - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability
- - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability
- - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability
- - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/validation-reference>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate-metadata>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-registry>
- - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/validation-reference>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate-metadata>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-registry>
-
-Validation result for _sources/transferability/rule/shapes.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/transferability/rule/shapes.shacl:
- - Shape focal-shape:TerminalActionNamesWhatItAffects: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules
- - Shape focal-shape:EnvelopeCondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when
- - Shape focal-shape:TransferabilityRule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules
- - Shape focal-shape:OptionalRuleHasConsequence: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules
- - Shape focal-shape:TerminalActionNotAlongsideReuse: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules
- - Shape focal-shape:RuleHasACondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules
-
-Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:
- - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*
- - Shape _:ne5e9abecd66543018b37e1d04ea6c5edb3: *none*
- - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*
- - Shape focal-shape:AcceptanceCriteria: *none*
-
-Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
- - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>
- - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>
- - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>
- - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>
- - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>/focal-transf-prop:value
- - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>/focal-transf-prop:value
- - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>/focal-transf-prop:value
- - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>
-
-Validation result for _sources/transferability/computationType/shapes.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/transferability/computationType/shapes.shacl:
- - Shape focal-shape:ComputationType: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>
-
 Validation result for _sources/transferability/maturityStatus/shapes.shacl:
   Validation Report
   Conforms: True
   
 Focus nodes for _sources/transferability/maturityStatus/shapes.shacl:
  - Shape focal-shape:MaturityStatus: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>
+
+Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:
+ - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability
+ - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability
+ - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability
+ - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability
+ - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate-metadata>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-registry>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/validation-reference>
+ - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate-metadata>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-registry>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/validation-reference>
+
+Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
+ - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>/focal-transf-prop:value
+ - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>/focal-transf-prop:value
+ - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>
+ - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>
+ - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>
+ - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>
+ - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>/focal-transf-prop:value,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>/focal-transf-prop:value
+ - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>
+
+Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:
+ - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*
+ - Shape focal-shape:AcceptanceCriteria: *none*
+ - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*
+ - Shape _:n015336c018f64655b12db6a9179d8d24b3: *none*
+
+Validation result for _sources/transferability/rule/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/rule/shapes.shacl:
+ - Shape focal-shape:RuleHasACondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules
+ - Shape focal-shape:TerminalActionNamesWhatItAffects: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules
+ - Shape focal-shape:EnvelopeCondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules/focal-transf-prop:when
+ - Shape focal-shape:TransferabilityRule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules
+ - Shape focal-shape:TerminalActionNotAlongsideReuse: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules
+ - Shape focal-shape:OptionalRuleHasConsequence: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/>/focal-transf-prop:transferability/focal-transf-prop:rules
 
 === End SHACL ===
 
