@@ -30,6 +30,29 @@
           },
           "@id": "focal-transf-prop:scenarioMarker",
           "@type": "@id"
+        },
+        "gridTypes": {
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/grid-types/"
+          },
+          "@id": "focal-transf-prop:gridType",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "scheme": {
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/"
+          },
+          "@id": "focal-transf-prop:classificationScheme",
+          "@type": "@id"
+        },
+        "sameClassAs": {
+          "@id": "focal-transf-prop:sameClassAs",
+          "@type": "@id"
+        },
+        "classes": {
+          "@id": "focal-transf-prop:class",
+          "@container": "@set"
         }
       },
       "@id": "focal-transf-prop:value"

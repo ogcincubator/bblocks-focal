@@ -96,6 +96,12 @@ Reusable mixin adding maturityStatus, an open-vocabulary classification of a wor
 
 A single statement of uncertainty or confidence about a workflow's results, independent of its maturityStatus. Binds to the W3C Data Quality Vocabulary (DQV) directly, since no OGC Block wraps DQV.
 
+### `ogc.focal.transferability.acceptanceCriteria` — FOCAL Artifact Acceptance Criteria
+
+**Type:** schema
+
+What a dataset must satisfy to serve as a given artifact - variable name, acceptable units (QUDT), required axes, acceptable grids, schemas it must conform to. What makes replace-with-local-equivalent actionable rather than merely stated.
+
 ### `ogc.focal.transferability.envelopeConstraint` — FOCAL Transferability Envelope Constraint
 
 **Type:** schema

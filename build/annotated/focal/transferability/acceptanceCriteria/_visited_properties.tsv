@@ -1,0 +1,8 @@
+path	@id	schema
+/transferabilityNotes	http://www.w3.org/2000/01/rdf-schema#comment	/github/workspace/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml
+/variable	https://w3id.org/ogc/hosted/focal/transferability/properties/variable	/github/workspace/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml
+/variable/_oneOf/1/sameAsCurrent	https://w3id.org/ogc/hosted/focal/transferability/properties/sameAsCurrent	/github/workspace/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml
+/units	https://w3id.org/ogc/hosted/focal/transferability/properties/unit	/github/workspace/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml
+/axes	https://w3id.org/ogc/hosted/focal/transferability/properties/axis	/github/workspace/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml
+/gridTypes	https://w3id.org/ogc/hosted/focal/transferability/properties/gridType	/github/workspace/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml
+/conformsTo	http://purl.org/dc/terms/conformsTo	/github/workspace/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml

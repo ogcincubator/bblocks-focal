@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Rule (Schema)
 
-`ogc.focal.transferability.rule` *v0.4*
+`ogc.focal.transferability.rule` *v0.7*
 
 What must happen, to which artifacts, under which envelope conditions. Conditions cite envelope constraints by id and are conjunctive; actions are an OR-set.
 
@@ -20,10 +20,23 @@ What must happen, to which artifacts, under which envelope conditions.
 - `triggeredBy` — a coarse alternative for cases where no constraint can be cited without
   inventing one. At least one of `when` or `triggeredBy` is required; prefer `when`.
 - `actions` — an **OR-set**: any one resolves the rule, never a sequence or a combination.
+- `affects` — JSON Pointers to what stops working, or works differently, if the terminal branch is
+  taken. This is what gives `component-not-executable` an object: without it, "a component cannot
+  run" and "the workflow cannot run" are one statement, and per-artifact answers cannot be rolled
+  up into the per-workflow verdict a deployment platform has to produce. UP-WF2 loses one step in
+  Kyiv, not the run.
 - `mandatory` — whether applying one is required once the conditions hold. `false` means the
   workflow still runs with degraded trust, and `transferabilityNotes` must then say what degrades;
   `shapes.shacl` enforces that, because a skippable rule with no stated consequence tells a
   consumer nothing they can act on.
+
+**Rules are exceptions, not a decision table.** A statement lists what has to change; an artifact
+no rule fires for is reused unchanged. That default is what stops "no rule fires" from being
+ambiguous between *nothing needs doing* and *nobody checked* — the ambiguity is closed structurally
+instead, since a statement cannot omit `rules`, so writing none is deliberate. A rule stating
+`reuse-as-is` therefore restates the default: worth writing where it makes a cascade legible, and
+noise otherwise. It also has no use for `mandatory`, since "you must do nothing" is not an
+instruction.
 
 **AND, OR, and why there is no boolean expression language.** `when` is an AND and `actions` is an
 OR. A disjunction of *conditions* is written as two rules. That is a deliberate limit: two
@@ -159,7 +172,9 @@ recording that they were the same fact.
 ### Conjunctive conditions (AND)
 Two conditions in one `when` mean both must hold. This is the case nesting rules under
 artifacts could not express: an artifact bounded on two axes at once, needing adaptation only
-when the target falls outside both.
+when the target falls outside both. The two axes here are genuinely different in kind: a
+coverage footprint (spatial, a geometry) and a grid structure (a set of accepted grid types),
+and both are machine-evaluable.
 
 A disjunction is written as two rules instead. That is deliberate: two conditions leading to
 the same action really are two statements, and keeping them separate keeps each traceable to
@@ -211,9 +226,9 @@ the sentence it came from, which a nested boolean expression does not.
 [] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/lst> ;
     focal-transf-prop:mandatory true ;
-    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-grid> ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-domain> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ],
-        [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-domain> ;
+        [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-grid> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
 
 
@@ -226,13 +241,16 @@ condition. Reuse within the domain is this rule; substitute-or-fail outside it i
 rule over the same constraint. Previously the model had two flat rules and dropped the link
 between them.
 
+This rule restates the default (an artifact no rule fires for is reused unchanged), so it
+adds no obligation — which is why it carries no `mandatory`: "you must do nothing" is not an
+instruction. It earns its place by making the cascade legible, not by changing any answer.
+
 #### json
 ```json
 {
   "appliesTo": ["lst"],
   "when": [{ "constraint": "eur11-domain", "test": "inside" }],
-  "actions": ["reuse-as-is"],
-  "mandatory": true
+  "actions": ["reuse-as-is"]
 }
 
 ```
@@ -252,19 +270,16 @@ between them.
   ],
   "actions": [
     "reuse-as-is"
-  ],
-  "mandatory": true
+  ]
 }
 ```
 
 #### ttl
 ```ttl
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/reuse-as-is> ;
     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/lst> ;
-    focal-transf-prop:mandatory true ;
     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-domain> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] .
 
@@ -337,12 +352,17 @@ at. `triggeredBy` states the condition coarsely rather than forcing an invented 
 At least one of `when` or `triggeredBy` is required, so no rule is left with no stated
 condition at all. Prefer `when` wherever a constraint exists to cite.
 
+`affects` names what stops working if the terminal branch of the OR-set is the one taken.
+Without it `component-not-executable` has no object, and a consumer cannot tell losing one
+step from losing the run.
+
 #### json
 ```json
 {
   "appliesTo": ["eurostat"],
   "triggeredBy": "different-geographic-coverage",
   "actions": ["replace-with-local-equivalent", "component-not-executable"],
+  "affects": ["/steps/heat_risk_indicator"],
   "mandatory": true,
   "transferabilityNotes": "Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it."
 }
@@ -361,6 +381,9 @@ condition at all. Prefer `when` wherever a constraint exists to cite.
     "replace-with-local-equivalent",
     "component-not-executable"
   ],
+  "affects": [
+    "/steps/heat_risk_indicator"
+  ],
   "mandatory": true,
   "transferabilityNotes": "Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it."
 }
@@ -375,6 +398,7 @@ condition at all. Prefer `when` wherever a constraint exists to cite.
 [] rdfs:comment "Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it." ;
     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
         <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+    focal-transf-prop:affects "/steps/heat_risk_indicator" ;
     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eurostat> ;
     focal-transf-prop:mandatory true ;
     focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> .
@@ -393,15 +417,24 @@ description: "What must happen, to which artifacts, under which envelope conditi
   envelope constraint by `id` and how the target is\n  tested against it (`inside`/`outside`).
   **Conjunctive: all of them must hold.** A disjunction\n  is written as two rules.\n-
   `actions` \u2014 an **OR-set**: any one resolves the rule. Never a sequence, never
-  a combination to\n  apply together.\n- `mandatory` \u2014 whether applying one is
-  required once the conditions hold.\n**`when` is what makes a rule evaluable rather
-  than merely readable.** `triggeredBy: different-geographic-coverage` is a string
-  a person reads; `when: [{constraint: clms-coverage, test: outside}]` names the boundary,
-  and if that constraint's dimension is spatial its value is a `geo:asWKT` geometry,
-  so a GeoSPARQL engine can settle the question with `geof:sfWithin`. Where the cited
-  constraint is prose-valued (a comparable ecological range), the same structure records
-  a judgement a person still has to make \u2014 which is honest about where automation
-  stops rather than pretending the whole model is machine-decidable.\n`triggeredBy`
+  a combination to\n  apply together.\n- `affects` \u2014 which parts of the annotated
+  document stop working, or work differently, if this\n  rule's outcome is the terminal
+  one.\n- `mandatory` \u2014 whether applying one is required once the conditions
+  hold.\n**Rules are exceptions, not a complete decision table.** A statement's rules
+  say what has to change; anything they do not mention is reusable unchanged. So an
+  artifact with no rule firing for a given target is reused as-is, and a rule stating
+  `reuse-as-is` explicitly is documenting the default rather than adding to it (worth
+  doing where it makes a cascade legible, as UP-WF2's inside/outside pair does, and
+  redundant otherwise). See bblocks://ogc.focal.transferability.transferabilityStatement
+  for why that default is safe here: a statement cannot omit `rules`, so writing none
+  is a deliberate act rather than an oversight.\n**`when` is what makes a rule evaluable
+  rather than merely readable.** `triggeredBy: different-geographic-coverage` is a
+  string a person reads; `when: [{constraint: clms-coverage, test: outside}]` names
+  the boundary, and if that constraint's dimension is spatial its value is a `geo:asWKT`
+  geometry, so a GeoSPARQL engine can settle the question with `geof:sfWithin`. Where
+  the cited constraint is prose-valued (a comparable ecological range), the same structure
+  records a judgement a person still has to make \u2014 which is honest about where
+  automation stops rather than pretending the whole model is machine-decidable.\n`triggeredBy`
   is kept, but optional: not every evidenced FOCAL case has a constraint precise enough
   to cite, and forcing one would mean inventing boundaries. At least one of `when`
   or `triggeredBy` is required, so no rule is left with no stated condition at all.
@@ -452,6 +485,28 @@ allOf:
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/triggeredBy
       x-jsonld-type: '@id'
       x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/triggers/
+    affects:
+      type: array
+      minItems: 1
+      items:
+        type: string
+        format: json-pointer
+        pattern: ^/
+      description: "JSON Pointers (RFC 6901) to the parts of the annotated document
+        this rule's outcome bears on \u2014 for the CWL profile in bblocks://ogc.focal.transferability.workflow,
+        typically `/steps/<id>` or `/outputs/<id>`, though the pointer carries no
+        CWL assumption.\n**This is what `component-not-executable` needs to be actionable.**
+        Without it the action names no component, so \"hot-spot characterization cannot
+        run\" and \"the workflow cannot run\" are the same statement, and per-artifact
+        answers cannot be assembled into the per-workflow verdict (*runs as is* /
+        *runs in part* / *cannot run here*) that a deployment platform actually has
+        to produce. UP-WF2 is the evidenced case: losing CLMS costs it one step, not
+        the run.\nOptional, and meaningful for any action: a `replace-with-local-equivalent`
+        rule may equally name the outputs whose quality changes. Omit it rather than
+        guess, the same way `artifactRef` is omitted where no real Application Package
+        exists to point into.\n"
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/affects
+      x-jsonld-container: '@set'
     actions:
       type: array
       minItems: 1
@@ -475,9 +530,11 @@ allOf:
       description: "Whether applying one of `actions` is mandatory once the conditions
         hold. Defaults to true. When false, skipping is allowed but degrades result
         quality or trust rather than blocking execution \u2014 say what degrades in
-        `transferabilityNotes`.\nNamed `mandatory` rather than `required`: a data
-        property spelled like a JSON Schema keyword reads as the keyword, and this
-        one sits beside real `required` lists.\n"
+        `transferabilityNotes`.\nSays nothing on a rule whose only action is `reuse-as-is`:
+        \"you must do nothing\" and \"you may do nothing\" are the same instruction.
+        Omit it there.\nNamed `mandatory` rather than `required`: a data property
+        spelled like a JSON Schema keyword reads as the keyword, and this one sits
+        beside real `required` lists.\n"
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/mandatory
 $defs:
   condition:
@@ -558,6 +615,10 @@ Links to the schema:
       },
       "@id": "focal-transf-prop:triggeredBy",
       "@type": "@id"
+    },
+    "affects": {
+      "@id": "focal-transf-prop:affects",
+      "@container": "@set"
     },
     "actions": {
       "@context": {

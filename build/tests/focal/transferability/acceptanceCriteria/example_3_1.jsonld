@@ -1,0 +1,6 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/context.jsonld",
+  "axes": [
+    "time"
+  ]
+}

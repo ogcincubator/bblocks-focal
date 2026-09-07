@@ -1,7 +1,7 @@
 
 # FOCAL Quality Annotation (Schema)
 
-`ogc.focal.transferability.qualityAnnotation` *v0.2*
+`ogc.focal.transferability.qualityAnnotation` *v0.3*
 
 A single statement of uncertainty or confidence about a workflow's results, independent of its maturityStatus. Binds to the W3C Data Quality Vocabulary (DQV) directly, since no OGC Block wraps DQV.
 
@@ -43,6 +43,7 @@ properties:
     examples:
     - decision-support-only
     - validation-incomplete
+    - spatial-support-mismatch
     description: 'What kind of uncertainty/confidence statement this is. Open vocabulary
       (SKOS), bound to `dqv:inDimension` -> `dqv:Dimension`.
 

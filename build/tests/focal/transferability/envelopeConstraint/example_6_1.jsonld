@@ -3,5 +3,11 @@
   "id": "eur11-grid",
   "role": "can-run-on",
   "dimension": "grid-structure",
-  "value": "inputs on a rotated-pole EUR-11 grid; a regular lat/lon grid requires resampling first"
+  "value": {
+    "gridTypes": [
+      "regular-latlon",
+      "rotated-pole"
+    ]
+  },
+  "transferabilityNotes": "UP-WF3's stated input requirement. A dataset on any other projection has to be resampled before the workflow will accept it."
 }

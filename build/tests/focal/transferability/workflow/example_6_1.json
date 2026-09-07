@@ -1,0 +1,138 @@
+{
+  "class": "Workflow",
+  "id": "",
+  "cwlVersion": "v1.2",
+  "label": "FP-WF5 \u2014 Map of climatic zones",
+  "inputs": {
+    "climate_zone_thresholds": "File",
+    "climate_metadata": "File",
+    "climate_source_catalogue": "string"
+  },
+  "transferability": {
+    "envelope": [
+      {
+        "id": "czech-zone-scheme",
+        "role": "valid-for",
+        "dimension": "jurisdictional",
+        "value": {
+          "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"
+        },
+        "transferabilityNotes": "The Quitt classification is the Czech national forest climate-zone scheme, so this is a scheme boundary rather than a data footprint: question 9 says thresholds, labels and metadata 'should be adapted to local or national classification schemes'. Value is Czechia's country bounding box. Inferred \u2014 the questionnaire names Quitt and 'Czech climate-zone definitions' but never states an extent \u2014 and needs owner confirmation."
+      },
+      {
+        "id": "rasdaman-collections",
+        "role": "can-run-on",
+        "dimension": "spatial",
+        "value": {
+          "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"
+        },
+        "transferabilityNotes": "Where the current Rasdaman annual-indicator collections hold data. Same approximated geometry as `czech-zone-scheme` and a different fact: this one is about what can be read, that one about what the classification means. Question 9 says the registry and source catalogue 'would need to reference the target region'. Inferred extent; needs owner confirmation."
+      },
+      {
+        "id": "quitt-meaningful",
+        "role": "valid-for",
+        "dimension": "climatic",
+        "value": {
+          "scheme": "koppen-geiger",
+          "sameClassAs": "czech-zone-scheme"
+        },
+        "transferabilityNotes": "Question 7's assumption that Quitt-inspired thresholds are meaningful for the target area. A claim about climatic similarity to where the scheme was built, which no extent settles but a climate classification does: the target must share the Koppen-Geiger class of the area the Quitt scheme covers. Koppen is the apt scheme because Quitt's own zones are a Czech regional climate classification of the same kind. No class is enumerated: Koppen publishes no term identifiers, and the source names no zone."
+      }
+    ],
+    "artifacts": [
+      {
+        "id": "quitt-limits",
+        "artifact": "Quitt-limit JSON climate-zone threshold definitions (thresholds, labels, zone descriptions)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/climate_zone_thresholds"
+      },
+      {
+        "id": "climate-metadata",
+        "artifact": "climate metadata file (indicator definitions and descriptions)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/climate_metadata"
+      },
+      {
+        "id": "rasdaman-registry",
+        "artifact": "Rasdaman collection registry and climate source catalogue",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/climate_source_catalogue"
+      },
+      {
+        "id": "validation-reference",
+        "artifact": "local meteorological observations or accepted climate maps, for validating the adapted classification",
+        "artifactRole": "external-resource",
+        "transferabilityNotes": "Not an input of the current workflow: question 9 recommends it as the way to check an adapted classification, so it enters the model only on transfer. Declared as an external resource with no pointer for that reason."
+      }
+    ],
+    "rules": [
+      {
+        "appliesTo": [
+          "quitt-limits",
+          "climate-metadata"
+        ],
+        "when": [
+          {
+            "constraint": "czech-zone-scheme",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Question 9: 'Climate-zone thresholds, labels and metadata should be adapted to local or national classification schemes.' Thresholds and the metadata that describes them move together \u2014 adapting one without the other leaves the zone descriptions naming classes the thresholds no longer produce."
+      },
+      {
+        "appliesTo": [
+          "quitt-limits"
+        ],
+        "when": [
+          {
+            "constraint": "quitt-meaningful",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "The second, independent trigger for the same substitution: question 7 assumes Quitt-inspired thresholds are meaningful for the target area, and a target inside Czechia's borders but climatically unlike the areas the scheme was built around fails that assumption without leaving the jurisdiction. A separate rule rather than a second condition on the one above, because either alone suffices and `when` is conjunctive."
+      },
+      {
+        "appliesTo": [
+          "rasdaman-registry"
+        ],
+        "when": [
+          {
+            "constraint": "rasdaman-collections",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Question 9: the registry and source catalogue 'would need to reference the target region'. Question 8 accepts 'Rasdaman or equivalent annual climate-indicator data', so an equivalent datacube service satisfies this \u2014 the substitution is of the collections the catalogue points at, not necessarily of Rasdaman itself."
+      },
+      {
+        "appliesTo": [
+          "validation-reference"
+        ],
+        "when": [
+          {
+            "constraint": "czech-zone-scheme",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": false,
+        "transferabilityNotes": "Question 9: 'Validation should use local meteorological observations or accepted climate maps where available.' Non-mandatory because the source qualifies it with 'where available'. Skipping it does not stop the workflow: it produces zone maps from thresholds that have been adapted but never checked against anything in the target area, so the classification should be treated as indicative and the fuzzy match scores not compared against those from the Czech setup."
+      }
+    ]
+  },
+  "computationType": "deterministic-rule-based",
+  "maturityStatus": "operational"
+}

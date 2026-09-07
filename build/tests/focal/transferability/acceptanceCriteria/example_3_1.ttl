@@ -1,0 +1,4 @@
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+
+[] focal-transf-prop:axis <https://w3id.org/ogc/hosted/focal/transferability/axes/time> .
+

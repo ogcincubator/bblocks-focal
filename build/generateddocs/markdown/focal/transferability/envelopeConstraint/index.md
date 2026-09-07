@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Envelope Constraint (Schema)
 
-`ogc.focal.transferability.envelopeConstraint` *v0.4*
+`ogc.focal.transferability.envelopeConstraint` *v0.6*
 
 A single {role, dimension, value} statement bounding where a workflow's results are valid, addressable by id so rules can cite which boundary they are evaluated against. Spatial values are GeoSPARQL geometries and temporal values DCAT periods, so a consumer can evaluate them without knowing FOCAL.
 
@@ -39,10 +39,20 @@ GeoSPARQL or DCAT needs to learn nothing about FOCAL to evaluate them:
   `{"scenarioMarker"}` for results that are not calendar-indexed at all, as a concept rather than
   free text. A Global Warming Level is reached in different years under different scenarios, so a
   calendar period would be a fabrication.
+- `grid-structure` → `{"gridTypes": [...]}`, a set of accepted grid types drawn from an open
+  vocabulary whose terms carry the CF-conventions `grid_mapping_name` as their `skos:notation`.
+  `inside` means the candidate dataset's grid is one of them. UP-WF3 states this outright ("other
+  projections are not handled"), and it is a hard interface requirement over a small, already
+  standardised set, so it is terms rather than prose.
 - anything else → a plain string. A phenological regime is not a place and does not become
   machine-checkable by being wrapped in coordinates it does not have. A rule may still cite such a
   constraint; the condition is then a judgement a person makes, recorded in the same structure as
   one a machine can settle.
+
+**What decides whether a dimension gets a structured value shape** is not whether it is
+geographic: it is whether the fact is a small enumerable set or a hard interval, rather than a
+judgement. Grid structure qualifies and ecological range does not, and a grid type is arguably
+more mechanically checkable than any of the approximate bounding boxes in the worked examples.
 
 **Status: draft/WIP**, circulated for review, not locked.
 
@@ -249,6 +259,11 @@ is then a judgement a person makes, recorded in the same structure as one a mach
 settle — which is honest about where automation stops rather than pretending the whole model
 is decidable.
 
+This is also the catch-all branch: a dimension term nobody has added a `value` shape for
+lands here and validates, so the SKOS scheme can grow without touching the schema. The
+schema is only touched when a new dimension turns out to need a shape other than a string,
+which is what `grid-structure` did.
+
 #### json
 ```json
 {
@@ -283,15 +298,23 @@ is decidable.
 ```
 
 
-### Dimension outside the schema's structured set (open vocabulary)
-`grid-structure` — how a workflow's inputs must be gridded, as opposed to where results are
-valid — is a real concept in the dimensions scheme but not one the schema gives a structured
-`value` shape to, so it lands in the string branch.
+### Grid structure (a set of accepted grid types)
+How a workflow's inputs must be gridded, as opposed to where its results are valid. UP-WF3
+states it plainly: the precipitation source must be on a regular lat/lon or a rotated-pole
+grid, and "other projections are not handled".
 
-That is the open-vocabulary claim working: the SKOS scheme grew by one term with no schema
-change. Only a dimension needing a `value` shape other than a string, the way `spatial` needs
-a geometry, forces the schema to be touched. Evidenced by UP-WF3's rotated-pole versus
-regular lat/lon split.
+The whole array is the constraint. `inside` means the candidate dataset's grid is one of
+these; `outside` that it is not, and a rule citing this constraint fires. Each term carries
+the CF-conventions `grid_mapping_name` as its `skos:notation`
+(`latitude_longitude`, `rotated_latitude_longitude`), which is what E-OBS, NUKLEUS and
+EURO-CORDEX actually declare in their files — so this is a check a consumer runs against a
+candidate NetCDF, not one a person reads.
+
+This branch exists because prose was the wrong answer here. Most non-spatial dimensions are
+judgements and stay strings; a grid type is a small, closed, already-standardised set, and
+it is arguably *more* mechanically checkable than any of the approximate bounding boxes
+elsewhere in this model. The test for whether a dimension deserves a structured shape is
+that one, not whether it happens to be geographic.
 
 #### json
 ```json
@@ -299,7 +322,8 @@ regular lat/lon split.
   "id": "eur11-grid",
   "role": "can-run-on",
   "dimension": "grid-structure",
-  "value": "inputs on a rotated-pole EUR-11 grid; a regular lat/lon grid requires resampling first"
+  "value": { "gridTypes": ["regular-latlon", "rotated-pole"] },
+  "transferabilityNotes": "UP-WF3's stated input requirement. A dataset on any other projection has to be resampled before the workflow will accept it."
 }
 
 ```
@@ -311,17 +335,26 @@ regular lat/lon split.
   "id": "eur11-grid",
   "role": "can-run-on",
   "dimension": "grid-structure",
-  "value": "inputs on a rotated-pole EUR-11 grid; a regular lat/lon grid requires resampling first"
+  "value": {
+    "gridTypes": [
+      "regular-latlon",
+      "rotated-pole"
+    ]
+  },
+  "transferabilityNotes": "UP-WF3's stated input requirement. A dataset on any other projection has to be resampled before the workflow will accept it."
 }
 ```
 
 #### ttl
 ```ttl
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/grid-structure> ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid> rdfs:comment "UP-WF3's stated input requirement. A dataset on any other projection has to be resampled before the workflow will accept it." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/grid-structure> ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/can-run-on> ;
-    focal-transf-prop:value "inputs on a rotated-pole EUR-11 grid; a regular lat/lon grid requires resampling first" .
+    focal-transf-prop:value [ focal-transf-prop:gridType <https://w3id.org/ogc/hosted/focal/transferability/grid-types/regular-latlon>,
+                <https://w3id.org/ogc/hosted/focal/transferability/grid-types/rotated-pole> ] .
 
 
 ```
@@ -491,12 +524,32 @@ allOf:
         years under different emissions scenarios\n  and ensemble members, so a calendar
         interval would be a fabrication rather than a\n  simplification. Markers are
         concepts, not free text, so `GWL+1.5` written two ways by\n  two pilots is
-        one thing rather than two.\n- `ecological`/`climatic`/anything else \u2014
-        a plain string. \"A comparable ecological range\"\n  is not a place and does
-        not become machine-checkable by being wrapped in coordinates it\n  does not
-        have. A rule may still cite such a constraint; the condition is then a\n  judgement
-        a person makes, stated in the same structure, which is honest about where\n
-        \ automation stops.\n"
+        one thing rather than two.\n- `grid-structure` \u2014 the set of grid types
+        the workflow's gridded inputs may be on, as\n  `{\"gridTypes\": [\"regular-latlon\",
+        \"rotated-pole\"]}`. A whitelist rather than a\n  description: `inside` means
+        the target data's grid is one of these, `outside` that it\n  is not. This
+        is a structured branch and not prose because UP-WF3's constraint (\"other\n
+        \ projections are not handled\") is a hard interface requirement over a small
+        enumerable\n  set \u2014 mechanically checkable, and *more* so than a bounding
+        box, since the terms carry\n  the CF-conventions `grid_mapping_name` as their
+        `skos:notation` and the datasets in\n  question declare exactly that.\n- **any
+        dimension, as an analogy** \u2014 `{\"scheme\": ..., \"sameClassAs\": ...}`,
+        saying the\n  target must fall in the same class of a published classification
+        as some reference\n  does. This is the shape of every \"comparable to where
+        we calibrated\" claim in the\n  corpus, and it is a *relation*, not a value:
+        the source says the target must resemble\n  the training area, and says nothing
+        about which classes the training area is in.\n  Enumerating those classes
+        would state something the source never said and would go\n  stale the moment
+        the training geometry is corrected, so the default is to name the\n  reference
+        and let a platform derive the rest. Tested with `same-class-as` /\n  `different-class-from`
+        rather than `inside`/`outside`.\n- `ecological`/`climatic`/anything else \u2014
+        a plain string, where no classification\n  captures the claim. \"A comparable
+        ecological range\" does not become machine-checkable\n  by being wrapped in
+        coordinates it does not have. A rule may still cite such a\n  constraint;
+        the condition is then a judgement a person makes, stated in the same\n  structure,
+        which is honest about where automation stops. Prefer the analogy shape above\n
+        \ where a scheme does capture it: it says the same thing and a machine can
+        settle it.\n"
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/value
 oneOf:
 - title: Spatial or jurisdictional extent (geometry-valued)
@@ -530,6 +583,32 @@ oneOf:
   required:
   - dimension
   - value
+- title: Grid structure (set of accepted grid types)
+  properties:
+    dimension:
+      enum:
+      - grid-structure
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/dimension
+      x-jsonld-type: '@id'
+      x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/dimensions/
+    value:
+      $ref: '#/$defs/gridStructure'
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/value
+  required:
+  - dimension
+  - value
+- title: Classification analogy (any dimension)
+  description: 'Available on every dimension, including spatial ones: "the same biogeographical
+    region as the training area" is a different claim from "inside the training area''s
+    bounding box", and both are legitimate.
+
+    '
+  properties:
+    value:
+      $ref: '#/$defs/analogy'
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/value
+  required:
+  - value
 - title: Any other dimension (string-valued)
   properties:
     dimension:
@@ -538,6 +617,7 @@ oneOf:
         - spatial
         - jurisdictional
         - temporal
+        - grid-structure
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/dimension
       x-jsonld-type: '@id'
       x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/dimensions/
@@ -599,6 +679,89 @@ $defs:
         - '2025'
         description: End of the period, in the same form as `startDate`.
         x-jsonld-id: http://www.w3.org/ns/dcat#endDate
+  gridStructure:
+    title: Accepted grid types
+    type: object
+    required:
+    - gridTypes
+    additionalProperties: false
+    properties:
+      gridTypes:
+        type: array
+        minItems: 1
+        items:
+          type: string
+          examples:
+          - regular-latlon
+          - rotated-pole
+        description: 'The grid types the workflow accepts, as concepts from the FOCAL
+          grid-types scheme (see bblocks://ogc.focal.transferability.vocab). The whole
+          array is the constraint: a target is `inside` it if its grid is one of these.
+          Open vocabulary, seeded only with the two terms UP-WF3 evidences and cross-walked
+          to CF-conventions `grid_mapping_name` values, so adding a projection is
+          a lookup in the CF table rather than a judgement.
+
+          '
+        x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/gridType
+        x-jsonld-type: '@id'
+        x-jsonld-container: '@set'
+        x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/grid-types/
+  analogy:
+    title: Classification analogy
+    type: object
+    required:
+    - scheme
+    additionalProperties: false
+    anyOf:
+    - required:
+      - sameClassAs
+    - required:
+      - classes
+    properties:
+      scheme:
+        type: string
+        examples:
+        - koppen-geiger
+        - eunis-habitats
+        - eea-biogeographical-regions
+        description: 'The published classification system this constraint is evaluated
+          in, as a concept from the FOCAL classification-schemes vocabulary (see bblocks://ogc.focal.transferability.vocab).
+          FOCAL names the scheme and records where its terms live; it does not restate
+          them, the same discipline applied to QUDT units and CF grid mappings.
+
+          '
+        x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/classificationScheme
+        x-jsonld-type: '@id'
+        x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/
+      sameClassAs:
+        $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.yaml
+        description: "The reference whose classification the target must share, normally
+          the `id` of another constraint in the same envelope \u2014 typically the
+          `trained-on` extent. **This is the preferred form**, and the only one usable
+          with a scheme that publishes no term identifiers: nothing has to name a
+          class, so a platform classifies the reference geometry and the target and
+          compares. It also stays correct when the reference geometry is replaced
+          by a better one, which an enumerated class list would not.\n"
+        x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/sameClassAs
+        x-jsonld-type: '@id'
+      classes:
+        type: array
+        minItems: 1
+        items:
+          type: string
+        examples:
+        - - Cfb
+          - Dfb
+        - - http://eunis.eea.europa.eu/eunishabitats/G1
+        description: "Explicitly stated classes, as an alternative to naming a reference.
+          Use only where the source actually states them: deriving them from a reference
+          and writing them here turns an inference into an assertion. Cite the scheme's
+          own identifiers \u2014 EUNIS habitats are published by the EEA, and Koppen-Geiger
+          classes are published by FOCAL itself (`.../koppen-geiger/Cfb`) precisely
+          because no maintainer publishes them. Each classification-schemes concept
+          records where its terms live.\n"
+        x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/class
+        x-jsonld-container: '@set'
   scenarioMarker:
     title: Scenario-indexed marker
     type: object
@@ -669,6 +832,29 @@ Links to the schema:
           },
           "@id": "focal-transf-prop:scenarioMarker",
           "@type": "@id"
+        },
+        "gridTypes": {
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/grid-types/"
+          },
+          "@id": "focal-transf-prop:gridType",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "scheme": {
+          "@context": {
+            "@base": "https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/"
+          },
+          "@id": "focal-transf-prop:classificationScheme",
+          "@type": "@id"
+        },
+        "sameClassAs": {
+          "@id": "focal-transf-prop:sameClassAs",
+          "@type": "@id"
+        },
+        "classes": {
+          "@id": "focal-transf-prop:class",
+          "@container": "@set"
         }
       },
       "@id": "focal-transf-prop:value"

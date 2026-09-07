@@ -1,8 +1,8 @@
 {
   "@context": {
+    "transferabilityNotes": "rdfs:comment",
     "envelope": {
       "@context": {
-        "transferabilityNotes": "rdfs:comment",
         "id": "@id",
         "role": {
           "@context": {
@@ -32,6 +32,29 @@
               },
               "@id": "focal-transf-prop:scenarioMarker",
               "@type": "@id"
+            },
+            "gridTypes": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/grid-types/"
+              },
+              "@id": "focal-transf-prop:gridType",
+              "@type": "@id",
+              "@container": "@set"
+            },
+            "scheme": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/"
+              },
+              "@id": "focal-transf-prop:classificationScheme",
+              "@type": "@id"
+            },
+            "sameClassAs": {
+              "@id": "focal-transf-prop:sameClassAs",
+              "@type": "@id"
+            },
+            "classes": {
+              "@id": "focal-transf-prop:class",
+              "@container": "@set"
             }
           },
           "@id": "focal-transf-prop:value"
@@ -51,15 +74,53 @@
           "@id": "focal-transf-prop:artifactRole",
           "@type": "@id"
         },
-        "artifactRef": "focal-transf-prop:artifactRef",
-        "transferabilityNotes": "rdfs:comment"
+        "acceptanceCriteria": {
+          "@context": {
+            "variable": {
+              "@context": {
+                "sameAsCurrent": "focal-transf-prop:sameAsCurrent"
+              },
+              "@id": "focal-transf-prop:variable"
+            },
+            "units": {
+              "@context": {
+                "@base": "http://qudt.org/vocab/unit/"
+              },
+              "@id": "focal-transf-prop:unit",
+              "@type": "@id",
+              "@container": "@set"
+            },
+            "axes": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/axes/"
+              },
+              "@id": "focal-transf-prop:axis",
+              "@type": "@id",
+              "@container": "@set"
+            },
+            "gridTypes": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/grid-types/"
+              },
+              "@id": "focal-transf-prop:gridType",
+              "@type": "@id",
+              "@container": "@set"
+            },
+            "conformsTo": {
+              "@id": "dcterms:conformsTo",
+              "@type": "@id",
+              "@container": "@set"
+            }
+          },
+          "@id": "focal-transf-prop:acceptanceCriteria"
+        },
+        "artifactRef": "focal-transf-prop:artifactRef"
       },
       "@id": "focal-transf-prop:artifacts",
       "@container": "@set"
     },
     "rules": {
       "@context": {
-        "transferabilityNotes": "rdfs:comment",
         "appliesTo": {
           "@id": "focal-transf-prop:appliesTo",
           "@type": "@id",
@@ -89,6 +150,10 @@
           "@id": "focal-transf-prop:triggeredBy",
           "@type": "@id"
         },
+        "affects": {
+          "@id": "focal-transf-prop:affects",
+          "@container": "@set"
+        },
         "actions": {
           "@context": {
             "@base": "https://w3id.org/ogc/hosted/focal/transferability/actions/"
@@ -104,11 +169,11 @@
     },
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "focal-transf-prop": "focal-transf:properties/",
-    "geo": "http://www.opengis.net/ont/geosparql#",
-    "dcat": "http://www.w3.org/ns/dcat#",
     "dcterms": "http://purl.org/dc/terms/",
     "focal-transf": "https://w3id.org/ogc/hosted/focal/transferability/",
     "prov": "http://www.w3.org/ns/prov#",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "dcat": "http://www.w3.org/ns/dcat#",
     "@version": 1.1
   }
 }

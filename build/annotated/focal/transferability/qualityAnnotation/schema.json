@@ -11,7 +11,8 @@
       "type": "string",
       "examples": [
         "decision-support-only",
-        "validation-incomplete"
+        "validation-incomplete",
+        "spatial-support-mismatch"
       ],
       "description": "What kind of uncertainty/confidence statement this is. Open vocabulary (SKOS), bound to `dqv:inDimension` -> `dqv:Dimension`.\n",
       "x-jsonld-id": "http://www.w3.org/ns/dqv#inDimension",

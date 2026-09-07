@@ -7,6 +7,9 @@
     "replace-with-local-equivalent",
     "component-not-executable"
   ],
+  "affects": [
+    "/steps/heat_risk_indicator"
+  ],
   "mandatory": true,
   "transferabilityNotes": "Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it."
 }

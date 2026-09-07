@@ -14,3 +14,10 @@ path	@id	schema
 /_oneOf/1/value/_oneOf/1/scenarioMarker	https://w3id.org/ogc/hosted/focal/transferability/properties/scenarioMarker	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
 /_oneOf/2/dimension	https://w3id.org/ogc/hosted/focal/transferability/properties/dimension	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
 /_oneOf/2/value	https://w3id.org/ogc/hosted/focal/transferability/properties/value	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/_oneOf/2/value/gridTypes	https://w3id.org/ogc/hosted/focal/transferability/properties/gridType	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/_oneOf/3/value	https://w3id.org/ogc/hosted/focal/transferability/properties/value	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/_oneOf/3/value/scheme	https://w3id.org/ogc/hosted/focal/transferability/properties/classificationScheme	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/_oneOf/3/value/sameClassAs	https://w3id.org/ogc/hosted/focal/transferability/properties/sameClassAs	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/_oneOf/3/value/classes	https://w3id.org/ogc/hosted/focal/transferability/properties/class	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/_oneOf/4/dimension	https://w3id.org/ogc/hosted/focal/transferability/properties/dimension	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
+/_oneOf/4/value	https://w3id.org/ogc/hosted/focal/transferability/properties/value	/github/workspace/build/annotated/focal/transferability/envelopeConstraint/schema.yaml

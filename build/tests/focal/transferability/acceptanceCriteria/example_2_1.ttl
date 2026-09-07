@@ -1,0 +1,6 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+[] dcterms:conformsTo <https://ec.europa.eu/eurostat/web/population-and-housing-census> ;
+    rdfs:comment "The source states this as a preference (\"preferably following a schema compatible with Eurostat\"), not a requirement, and cites no schema document, so the identifier names the programme rather than a schema a consumer could validate against. Both need confirmation from the workflow owner before this is treated as a check." .
+

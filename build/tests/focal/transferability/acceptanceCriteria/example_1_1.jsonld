@@ -1,0 +1,18 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/context.jsonld",
+  "variable": {
+    "sameAsCurrent": true
+  },
+  "units": [
+    "MilliM",
+    "KiloGM-PER-M2-SEC"
+  ],
+  "axes": [
+    "time"
+  ],
+  "gridTypes": [
+    "regular-latlon",
+    "rotated-pole"
+  ],
+  "transferabilityNotes": "From UP-WF3's questionnaire, which specifies its replacement contract more fully than any other in the set. The variable requirement is a relation in the source \u2014 'same precipitation variable name as current dataset' \u2014 and is recorded as one. Naming a literal here would assert a name the source never gives, and would be wrong for one of the two paths the workflow reads: the field is `rr` in E-OBS and `pr` in CORDEX-family data."
+}

@@ -30,6 +30,10 @@
       "@id": "focal-transf-prop:triggeredBy",
       "@type": "@id"
     },
+    "affects": {
+      "@id": "focal-transf-prop:affects",
+      "@container": "@set"
+    },
     "actions": {
       "@context": {
         "@base": "https://w3id.org/ogc/hosted/focal/transferability/actions/"

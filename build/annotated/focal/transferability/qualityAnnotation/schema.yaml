@@ -31,6 +31,7 @@ properties:
     examples:
     - decision-support-only
     - validation-incomplete
+    - spatial-support-mismatch
     description: 'What kind of uncertainty/confidence statement this is. Open vocabulary
       (SKOS), bound to `dqv:inDimension` -> `dqv:Dimension`.
 

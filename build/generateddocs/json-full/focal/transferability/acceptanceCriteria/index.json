@@ -1,0 +1,127 @@
+
+
+{
+  "itemIdentifier": "ogc.focal.transferability.acceptanceCriteria",
+  "name": "FOCAL Artifact Acceptance Criteria",
+  "abstract": "What a dataset must satisfy to serve as a given artifact - variable name, acceptable units (QUDT), required axes, acceptable grids, schemas it must conform to. What makes replace-with-local-equivalent actionable rather than merely stated.",
+  "status": "under-development",
+  "dateTimeAddition": "2026-09-06T00:00:00Z",
+  "itemClass": "schema",
+  "version": "0.2",
+  "dateOfLastChange": "2026-09-07",
+  "concept": [
+    "https://w3id.org/ogc/hosted/focal/transferability/axes/scheme",
+    "https://w3id.org/ogc/hosted/focal/transferability/grid-types/scheme"
+  ],
+  "rdfType": [
+    "https://w3id.org/ogc/hosted/focal/transferability/AcceptanceCriteria"
+  ],
+  "dependsOn": [
+    "ogc.focal.transferability.vocab",
+    "ogc.ogc-utils.iri-or-curie",
+    "ogc.focal.transferability.notes"
+  ],
+  "tags": [
+    "focal",
+    "transferability",
+    "schema"
+  ],
+  "group": "FOCAL Transferability",
+  "shaclShapes": {
+    "ogc.focal.transferability.acceptanceCriteria": [
+      "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/acceptanceCriteria/shapes.shacl"
+    ]
+  },
+  "ldContext": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/context.jsonld",
+  "schema": {
+    "application/yaml": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml",
+    "application/json": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/schema.json"
+  },
+  "sourceSchema": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/acceptanceCriteria/schema.yaml",
+  "sourceLdContext": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/acceptanceCriteria/context.jsonld",
+  "resolvedSchemaProperties": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/resolvedProperties.json",
+  "sourceFiles": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/acceptanceCriteria/",
+  "validationPassed": true,
+  "testOutputs": "https://github.com/ogcincubator/bblocks-focal/blob/master/build/tests/focal/transferability/acceptanceCriteria/",
+  "description": "## FOCAL Artifact Acceptance Criteria\n\nWhat a dataset has to satisfy to serve as a given artifact.\n\n| Property | Combines as | Bound to |\n|---|---|---|\n| `variable` | single value | FOCAL (a local expectation, not a published fact) |\n| `units` | **OR** \u2014 any one is acceptable | QUDT unit IRIs |\n| `axes` | **AND** \u2014 all must be present | FOCAL axes scheme (open) |\n| `gridTypes` | **OR** \u2014 any one is acceptable | FOCAL grid-types scheme, cross-walked to CF `grid_mapping_name` |\n| `conformsTo` | **AND** | `dcterms:conformsTo` |\n\n**Why this block exists.** `replace-with-local-equivalent` is the most common action in the FOCAL\ncorpus by a wide margin, and by itself it says something must change without saying what would\ncount as having changed it correctly. A platform asked whether it can run a workflow over a new\narea with local data cannot answer from the action. It can answer from these criteria, checked\nagainst a candidate file.\n\n**These are properties of the artifact, not of the transfer.** UP-WF3's precipitation input needs\nmillimetres or kg m\u207b\u00b2s\u207b\u00b9 and a time axis whether or not anyone is moving the workflow anywhere. The\nrequirement only becomes visible when a substitution is proposed, which is why it was first noticed\nas a transferability fact, but it is a standing property of the interface. So it is stated once on\nthe artifact declaration in\n[`transferabilityStatement`](bblocks://ogc.focal.transferability.transferabilityStatement), and\nrules that call for a substitution reach it through the artifact id they already cite.\n\n**`gridTypes` here is not a duplicate of the `grid-structure` envelope dimension.** They do\ndifferent jobs. An envelope constraint is a boundary a rule is *conditioned on*: cite it in `when`\nand the rule fires when the target falls outside it. These criteria are a specification a candidate\nis *checked against*, after a rule has already fired and said to substitute something. Same\nvocabulary, two places in the decision.\n\n**Evidenced 2/8**: UP-WF3 (the fullest contract in the corpus) and UP-WF2's planned Eurostat input.\nThe questionnaires never asked the question, so silence elsewhere is not evidence of absence \u2014 this\nis the single most useful thing a workflow owner can add in review.\n\n**Status: draft/WIP**, not yet exercised by a worked workflow example: UP-WF3, the workflow that\nmotivates it, is not modelled yet. The examples here are drawn from its questionnaire directly.\n",
+  "examples": [
+    {
+      "title": "UP-WF3's precipitation source, the fullest contract in the corpus",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/acceptance-criteria/",
+      "content": "UP-WF3 states, of any replacement precipitation dataset: the same variable name, the same unit\n(mm or kg m\u207b\u00b2s\u207b\u00b9), a time axis, and a grid that is regular lat/lon or rotated pole. Four\nrequirements, all checkable against a candidate NetCDF, and all of which the model previously\nthrew away \u2014 the workflow got a `replace-with-local-equivalent` action and nothing else, so a\nconsumer knew a substitution was needed but not what would satisfy it.\n\nNote the three different logics in one object. `units` is an OR-set: millimetres and\nkg m\u207b\u00b2s\u207b\u00b9 are the accumulated and flux forms of the same quantity, and either is fine.\n`gridTypes` is an OR-set for the same reason. `axes` is an AND: every axis listed must be\npresent, and there is no useful reading of \"either a time axis or something else\" for a\nrolling accumulation.\n\nThe units are QUDT IRIs, whose published symbols are exactly `mm` and `kg/(m\u00b2\u00b7s)`. That\nmatters more than it looks: `mm`, `millimetre` and `mm/day` are three incomparable strings and\nthe last is a different quantity, so a consumer checking a candidate needs the quantity kind,\nnot the spelling.\n",
+      "snippets": [
+        {
+          "language": "json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/acceptanceCriteria/example_1_1.json",
+          "sizeBytes": 624,
+          "code": "{\n  \"variable\": { \"sameAsCurrent\": true },\n  \"units\": [\"MilliM\", \"KiloGM-PER-M2-SEC\"],\n  \"axes\": [\"time\"],\n  \"gridTypes\": [\"regular-latlon\", \"rotated-pole\"],\n  \"transferabilityNotes\": \"From UP-WF3's questionnaire, which specifies its replacement contract more fully than any other in the set. The variable requirement is a relation in the source \u2014 'same precipitation variable name as current dataset' \u2014 and is recorded as one. Naming a literal here would assert a name the source never gives, and would be wrong for one of the two paths the workflow reads: the field is `rr` in E-OBS and `pr` in CORDEX-family data.\"\n}\n"
+        },
+        {
+          "language": "jsonld",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/acceptanceCriteria/example_1_1.jsonld",
+          "sizeBytes": 801,
+          "code": "{\n  \"@context\": \"https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/context.jsonld\",\n  \"variable\": {\n    \"sameAsCurrent\": true\n  },\n  \"units\": [\n    \"MilliM\",\n    \"KiloGM-PER-M2-SEC\"\n  ],\n  \"axes\": [\n    \"time\"\n  ],\n  \"gridTypes\": [\n    \"regular-latlon\",\n    \"rotated-pole\"\n  ],\n  \"transferabilityNotes\": \"From UP-WF3's questionnaire, which specifies its replacement contract more fully than any other in the set. The variable requirement is a relation in the source \\u2014 'same precipitation variable name as current dataset' \\u2014 and is recorded as one. Naming a literal here would assert a name the source never gives, and would be wrong for one of the two paths the workflow reads: the field is `rr` in E-OBS and `pr` in CORDEX-family data.\"\n}"
+        },
+        {
+          "language": "ttl",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/acceptanceCriteria/example_1_1.ttl",
+          "sizeBytes": 1140,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] rdfs:comment \"From UP-WF3's questionnaire, which specifies its replacement contract more fully than any other in the set. The variable requirement is a relation in the source \u2014 'same precipitation variable name as current dataset' \u2014 and is recorded as one. Naming a literal here would assert a name the source never gives, and would be wrong for one of the two paths the workflow reads: the field is `rr` in E-OBS and `pr` in CORDEX-family data.\" ;\n    focal-transf-prop:axis <https://w3id.org/ogc/hosted/focal/transferability/axes/time> ;\n    focal-transf-prop:gridType <https://w3id.org/ogc/hosted/focal/transferability/grid-types/regular-latlon>,\n        <https://w3id.org/ogc/hosted/focal/transferability/grid-types/rotated-pole> ;\n    focal-transf-prop:unit <http://qudt.org/vocab/unit/KiloGM-PER-M2-SEC>,\n        <http://qudt.org/vocab/unit/MilliM> ;\n    focal-transf-prop:variable [ focal-transf-prop:sameAsCurrent true ] .\n\n"
+        }
+      ]
+    },
+    {
+      "title": "A schema requirement, on data that does not exist yet",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/acceptance-criteria/",
+      "content": "UP-WF2's planned Heat Risk Indicator needs census or socio-economic data \"preferably following\na schema compatible with Eurostat's\". `conformsTo` is `dcterms:conformsTo`, which is what\ncatalogues already use to say a resource follows a specification.\n\nTwo honesty notes travel with this one. The source says *preferably*, so stating it as a\ncriterion is firmer than the questionnaire is, and the note says so rather than smoothing it\nover. And the identifier here names Eurostat's census hub rather than a machine-readable\nschema document, because no such document was cited; that is a real weakness in the criterion\nand is recorded as one.\n",
+      "snippets": [
+        {
+          "language": "json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/acceptanceCriteria/example_2_1.json",
+          "sizeBytes": 443,
+          "code": "{\n  \"conformsTo\": [\"https://ec.europa.eu/eurostat/web/population-and-housing-census\"],\n  \"transferabilityNotes\": \"The source states this as a preference (\\\"preferably following a schema compatible with Eurostat\\\"), not a requirement, and cites no schema document, so the identifier names the programme rather than a schema a consumer could validate against. Both need confirmation from the workflow owner before this is treated as a check.\"\n}\n"
+        },
+        {
+          "language": "jsonld",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/acceptanceCriteria/example_2_1.jsonld",
+          "sizeBytes": 584,
+          "code": "{\n  \"@context\": \"https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/context.jsonld\",\n  \"conformsTo\": [\n    \"https://ec.europa.eu/eurostat/web/population-and-housing-census\"\n  ],\n  \"transferabilityNotes\": \"The source states this as a preference (\\\"preferably following a schema compatible with Eurostat\\\"), not a requirement, and cites no schema document, so the identifier names the programme rather than a schema a consumer could validate against. Both need confirmation from the workflow owner before this is treated as a check.\"\n}"
+        },
+        {
+          "language": "ttl",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/acceptanceCriteria/example_2_1.ttl",
+          "sizeBytes": 542,
+          "code": "@prefix dcterms: <http://purl.org/dc/terms/> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n[] dcterms:conformsTo <https://ec.europa.eu/eurostat/web/population-and-housing-census> ;\n    rdfs:comment \"The source states this as a preference (\\\"preferably following a schema compatible with Eurostat\\\"), not a requirement, and cites no schema document, so the identifier names the programme rather than a schema a consumer could validate against. Both need confirmation from the workflow owner before this is treated as a check.\" .\n\n"
+        }
+      ]
+    },
+    {
+      "title": "A single criterion is a complete statement",
+      "base-uri": "https://w3id.org/ogc/hosted/focal/transferability/examples/acceptance-criteria/",
+      "content": "Nothing obliges an artifact to state a full contract. One real criterion beats five invented\nones, and a partial contract still narrows what a consumer has to guess.\n\nWhat is not allowed is criteria consisting only of a note: `shapes.shacl` rejects that. Free\ntext saying \"must be a compatible climate dataset\" reproduces exactly the problem this block\nexists to solve, one level further down, while looking like it has been addressed.\n",
+      "snippets": [
+        {
+          "language": "json",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/acceptanceCriteria/example_3_1.json",
+          "sizeBytes": 23,
+          "code": "{\n  \"axes\": [\"time\"]\n}\n"
+        },
+        {
+          "language": "jsonld",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/acceptanceCriteria/example_3_1.jsonld",
+          "sizeBytes": 164,
+          "code": "{\n  \"@context\": \"https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/context.jsonld\",\n  \"axes\": [\n    \"time\"\n  ]\n}"
+        },
+        {
+          "language": "ttl",
+          "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/acceptanceCriteria/example_3_1.ttl",
+          "sizeBytes": 185,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n\n[] focal-transf-prop:axis <https://w3id.org/ogc/hosted/focal/transferability/axes/time> .\n\n"
+        }
+      ]
+    }
+  ],
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntitle: Artifact Acceptance Criteria\ndescription: \"What a dataset has to satisfy to serve as a given artifact: the variable\n  it must carry, the units that variable may be in, the axes it must have, the grids\n  it may be on, and any schema it must conform to.\\n**This is what makes `replace-with-local-equivalent`\n  actionable.** That action is by far the most common in the FOCAL corpus, and on\n  its own it says that something must change without saying what would count as having\n  changed it correctly. A platform asked \\\"can I run this workflow over my area of\n  interest with my data?\\\" cannot answer from the action alone. It can answer from\n  these criteria, against a candidate file, with no human in the loop.\\n**These are\n  properties of the artifact, not of the transfer.** UP-WF3's precipitation input\n  needs millimetres or kg m\\u207B\\xB2s\\u207B\\xB9 and a time axis whether or not anyone\n  is moving the workflow anywhere; the requirement simply becomes visible when a substitution\n  is proposed. So the criteria attach to the artifact declaration, where they are\n  stated once, rather than to the rules that happen to invoke them. A rule saying\n  `replace-with-local-equivalent` cites the artifact by id, and the criteria travel\n  with it.\\nEvery property is optional and at least one is required: a criteria object\n  that only carries a note states no criterion. Where a requirement genuinely resists\n  structuring, say it in `transferabilityNotes` rather than inventing a property for\n  it.\\n**Published vocabularies, not FOCAL ones, wherever one exists.** Units are\n  QUDT unit IRIs (`MilliM`, `KiloGM-PER-M2-SEC`, whose QUDT symbols are exactly the\n  `mm` and `kg/(m\\xB2\\xB7s)` UP-WF3 states). A schema requirement is `dcterms:conformsTo`.\n  Grid types are the same FOCAL scheme bblocks://ogc.focal.transferability.envelopeConstraint\n  uses, cross-walked to CF `grid_mapping_name`. Only `variable` and `axes` are FOCAL's\n  own, and only because a workflow's internal expectation of what an input is called\n  is not a published fact about anything.\\n**Evidenced 2/8:** UP-WF3 states the fullest\n  contract in the corpus (variable name, either of two units, a time axis, one of\n  two grids); UP-WF2's planned Eurostat input states a schema compatibility preference.\n  Expect this to grow: the question was never asked in the questionnaires, so absence\n  here is not evidence that other workflows have no contract.\\n\"\nallOf:\n- $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml\n- type: object\n  anyOf:\n  - required:\n    - variable\n  - required:\n    - units\n  - required:\n    - axes\n  - required:\n    - gridTypes\n  - required:\n    - conformsTo\n  properties:\n    variable:\n      oneOf:\n      - type: string\n        examples:\n        - pr\n        - rr\n      - type: object\n        title: Same as the current artifact\n        required:\n        - sameAsCurrent\n        additionalProperties: false\n        properties:\n          sameAsCurrent:\n            const: true\n            x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/sameAsCurrent\n      description: 'The name the workflow expects the variable to be called, either\n        as a literal or as a relation to whatever the artifact currently in use carries.\n\n        **The relation form is not a fallback for not knowing.** UP-WF3''s source\n        says a replacement must have *\"the same precipitation variable name as current\n        dataset\"*, and that is a complete, precise requirement stated as a relation.\n        Recording a literal in its place (`rr`, say, guessed from the fact that one\n        of the two current sources is E-OBS) asserts something the source did not,\n        and is wrong outright if the workflow reads the CORDEX path where the same\n        field is called `pr`. `{\"sameAsCurrent\": true}` states exactly the requirement,\n        and a platform can evaluate it by reading the artifact in use. Use it when\n        sameness *is* the claim; where the source names a value, name the value.\n\n        A plain string rather than a term, deliberately. The obvious binding is a\n        CF standard name (`precipitation_amount`), and a CF standard name is not what\n        a NetCDF variable is called; the two coincide only by convention. Recording\n        the actual name keeps the check honest. If a workflow owner supplies a standard\n        name as well, that is a second fact and wants its own property, not a reinterpretation\n        of this one.\n\n        '\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/variable\n    units:\n      type: array\n      minItems: 1\n      items:\n        type: string\n        examples:\n        - MilliM\n        - KiloGM-PER-M2-SEC\n      description: \"The units the variable may be in, as QUDT unit IRIs (relative\n        names resolve against `http://qudt.org/vocab/unit/`). **An OR-set:** any one\n        is acceptable, which is UP-WF3's case exactly \\u2014 millimetres or kg m\\u207B\\xB2s\\u207B\\xB9,\n        the accumulated and the flux form of the same quantity.\\nQUDT rather than\n        a unit string, because `mm`, `millimetre` and `mm/day` are three incomparable\n        strings and one of them is a different quantity. QUDT carries the symbol and\n        the quantity kind, so a consumer can tell that a candidate in `kg/(m\\xB2\\xB7s)`\n        satisfies this and one in metres does not.\\n\"\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/unit\n      x-jsonld-type: '@id'\n      x-jsonld-container: '@set'\n      x-jsonld-base: http://qudt.org/vocab/unit/\n    axes:\n      type: array\n      minItems: 1\n      items:\n        type: string\n        examples:\n        - time\n      description: 'Axes the data must have, as concepts from the FOCAL axes scheme\n        (see bblocks://ogc.focal.transferability.vocab). **Conjunctive**, unlike `units`\n        and `gridTypes`: every axis listed must be present. UP-WF3 requires a time\n        axis, without which its rolling accumulation has nothing to accumulate over.\n\n        '\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/axis\n      x-jsonld-type: '@id'\n      x-jsonld-container: '@set'\n      x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/axes/\n    gridTypes:\n      type: array\n      minItems: 1\n      items:\n        type: string\n        examples:\n        - regular-latlon\n        - rotated-pole\n      description: \"The grids the data may be on, from the same open scheme an envelope\n        constraint's `grid-structure` dimension uses. **An OR-set.**\\nNot a duplicate\n        of that dimension: the two do different jobs. An envelope constraint is a\n        boundary a *rule is conditioned on* \\u2014 cite it in `when` and the rule\n        fires when the target falls outside it. These criteria are a specification\n        a *candidate is checked against* once the rule has already fired and says\n        to substitute something. State the constraint at the envelope when it bounds\n        the workflow as a whole, and here when it binds this one artifact; UP-WF3\n        happens to be a case where both readings are available, because its only gridded\n        input is also the whole of its gridded interface.\\n\"\n      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/gridType\n      x-jsonld-type: '@id'\n      x-jsonld-container: '@set'\n      x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/grid-types/\n    conformsTo:\n      type: array\n      minItems: 1\n      items:\n        $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.yaml\n      description: \"Schemas or specifications the data must conform to, as identifiers.\n        Uplifts to `dcterms:conformsTo`, the term catalogues already use for exactly\n        this.\\nUP-WF2's planned Heat Risk Indicator is the evidenced case: replacement\n        census data \\\"preferably following a schema compatible with Eurostat's\\\".\n        Note that source says *preferably*, so recording it here states it more firmly\n        than the questionnaire does \\u2014 which is a thing to check with the owner\n        rather than to smooth over. Where the preference is genuinely soft, `transferabilityNotes`\n        is the honest home for it.\\n\"\n      x-jsonld-id: http://purl.org/dc/terms/conformsTo\n      x-jsonld-type: '@id'\n      x-jsonld-container: '@set'\n    transferabilityNotes:\n      type: string\n      description: 'A requirement that does not reduce to the properties above, or\n        a qualification on one that does. Uplifts to `rdfs:comment`. Mixed in from\n        bblocks://ogc.focal.transferability.notes. Not a criterion on its own: a criteria\n        object needs at least one structured property.\n\n        '\n      x-jsonld-id: http://www.w3.org/2000/01/rdf-schema#comment\nx-jsonld-prefixes:\n  focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/\n  dcterms: http://purl.org/dc/terms/\n  rdfs: http://www.w3.org/2000/01/rdf-schema#\n",
+  "gitRepository": "https://github.com/ogcincubator/bblocks-focal",
+  "gitPath": "_sources/transferability/acceptanceCriteria"
+}

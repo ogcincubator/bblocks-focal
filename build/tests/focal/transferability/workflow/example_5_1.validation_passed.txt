@@ -1,0 +1,95 @@
+Validation report for ogc.focal.transferability.workflow - FOCAL Transferability Workflow
+Generated 2026-09-07T09:47:30.592478+00:00
+=== Files ===
+Using example_5_1.json from examples
+JSON-LD context is present - uplifting
+Output JSON-LD example_5_1.jsonld created
+Output Turtle example_5_1.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+Validation passed
+=== End JSON Schema ===
+
+=== SHACL ===
+Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):
+ - /github/workspace/_sources/transferability/vocab/ontology.ttl
+Validation result for _sources/transferability/workflow/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/workflow/shapes.shacl:
+ - Shape focal-shape:TransferabilityWorkflow: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/>
+
+Validation result for _sources/transferability/qualityAnnotation/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/qualityAnnotation/shapes.shacl:
+ - Shape focal-shape:QualityAnnotation: *none*
+ - Shape focal-shape:QualityAnnotationHasNote: *none*
+
+Validation result for _sources/transferability/maturityStatus/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/maturityStatus/shapes.shacl:
+ - Shape focal-shape:MaturityStatus: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/>
+
+Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:
+ - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/nukleus-ensemble>
+ - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/>/focal-transf-prop:transferability
+ - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/>/focal-transf-prop:transferability
+ - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/nukleus-ensemble>
+ - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/>/focal-transf-prop:transferability
+ - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/>/focal-transf-prop:transferability
+
+Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
+ - Shape focal-shape:GridTypeIsAConcept: *none*
+ - Shape focal-shape:NonGeometricEnvelopeValue: *none*
+ - Shape focal-shape:TemporalEnvelopeValue: *none*
+ - Shape focal-shape:ScenarioMarkerIsAConcept: *none*
+ - Shape focal-shape:GridStructureEnvelopeValue: *none*
+ - Shape focal-shape:AnalogyNamesItsReference: *none*
+ - Shape focal-shape:EnvelopeConstraint: *none*
+ - Shape focal-shape:SpatialEnvelopeValue: *none*
+
+Validation result for _sources/transferability/rule/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/rule/shapes.shacl:
+ - Shape focal-shape:RuleHasACondition: *none*
+ - Shape focal-shape:EnvelopeCondition: *none*
+ - Shape focal-shape:TerminalActionNamesWhatItAffects: *none*
+ - Shape focal-shape:TerminalActionNotAlongsideReuse: *none*
+ - Shape focal-shape:TransferabilityRule: *none*
+ - Shape focal-shape:OptionalRuleHasConsequence: *none*
+
+Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:
+ - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*
+ - Shape _:n60be9b56deb84c8eb40757f481036100b3: *none*
+ - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*
+ - Shape focal-shape:AcceptanceCriteria: *none*
+
+Validation result for _sources/transferability/computationType/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/computationType/shapes.shacl:
+ - Shape focal-shape:ComputationType: <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/>
+
+=== End SHACL ===
+

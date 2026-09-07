@@ -5,6 +5,7 @@
 [] rdfs:comment "Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it." ;
     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
         <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+    focal-transf-prop:affects "/steps/heat_risk_indicator" ;
     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eurostat> ;
     focal-transf-prop:mandatory true ;
     focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> .

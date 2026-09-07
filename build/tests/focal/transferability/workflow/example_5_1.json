@@ -1,0 +1,28 @@
+{
+  "class": "Workflow",
+  "id": "",
+  "cwlVersion": "v1.2",
+  "label": "UP-WF1 \u2014 Regional climate change",
+  "inputs": {
+    "nukleus_ensemble": "File"
+  },
+  "outputs": {
+    "climate_indices": "File"
+  },
+  "transferability": {
+    "envelope": [],
+    "artifacts": [
+      {
+        "id": "nukleus-ensemble",
+        "artifact": "9-member NUKLEUS regional climate ensemble",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/nukleus_ensemble",
+        "transferabilityNotes": "Declared because the delivered indices depend on it, and left ungoverned because the source states no condition under which it would have to change. Question 9's answer is 'Nothing'."
+      }
+    ],
+    "rules": [],
+    "transferabilityNotes": "Both arrays are empty deliberately, not for want of an entry. The questionnaire answers questions 8, 9 and 10 with 'Nothing', 'Nothing' and 'All parts are portable', so this states no validity boundary and no adaptation step. Two caveats travel with that. First, it is the source's claim and not a verified one: a nine-member regional climate ensemble delivered as precomputed indices very likely does carry conditions this questionnaire did not ask about, and the owner has been asked to confirm or correct the emptiness. Second, question 7 states that timeslices are represented as Global Warming Levels rather than calendar periods, which is a genuine temporal fact but not one this envelope can hold: no specific level is named in the source, and the scenario-marker value takes a level, not the assertion that levels are the indexing scheme. Naming one would be fabricating a slice."
+  },
+  "computationType": "precomputed-delivery",
+  "maturityStatus": "operational"
+}

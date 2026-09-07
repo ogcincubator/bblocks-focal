@@ -7,6 +7,27 @@
     "lst_datasets": "File",
     "clms_tcd_imd": "File"
   },
+  "steps": {
+    "lst_preparation": {
+      "run": "#lst_preparation.cwl",
+      "in": {
+        "lst": "lst_datasets"
+      },
+      "out": [
+        "lst_composite"
+      ]
+    },
+    "hotspot_characterization": {
+      "run": "#hotspot_characterization.cwl",
+      "in": {
+        "lst": "lst_preparation/lst_composite",
+        "clms": "clms_tcd_imd"
+      },
+      "out": [
+        "hotspot_map"
+      ]
+    }
+  },
   "transferability": {
     "envelope": [
       {
@@ -81,7 +102,6 @@
         "actions": [
           "reuse-as-is"
         ],
-        "mandatory": true,
         "transferabilityNotes": "Inside the EURO-CORDEX domain the datasets are reused unchanged, by changing the area of interest."
       },
       {
@@ -97,6 +117,10 @@
         "actions": [
           "replace-with-local-equivalent",
           "component-not-executable"
+        ],
+        "affects": [
+          "/steps/lst_preparation",
+          "/steps/hotspot_characterization"
         ],
         "mandatory": true,
         "transferabilityNotes": "Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target. Which of the two applies depends on whether a substitute is obtainable, which the source does not resolve."
@@ -115,6 +139,9 @@
           "replace-with-local-equivalent",
           "component-not-executable"
         ],
+        "affects": [
+          "/steps/hotspot_characterization"
+        ],
         "mandatory": true,
         "transferabilityNotes": "Outside CLMS coverage no substitute is currently defined, and hot-spot characterization, which uses this dataset, cannot be executed."
       },
@@ -131,6 +158,9 @@
         "actions": [
           "component-not-executable"
         ],
+        "affects": [
+          "/steps/hotspot_characterization"
+        ],
         "mandatory": true,
         "transferabilityNotes": "Within the CLMS bounding extent but inside the area the product excludes: no Tree Cover Density or Imperviousness Density data exists, and no substitute is defined, so hot-spot characterization cannot be executed. A terminal outcome with no alternative offered, unlike the coverage rule above."
       },
@@ -142,6 +172,9 @@
         "actions": [
           "replace-with-local-equivalent",
           "component-not-executable"
+        ],
+        "affects": [
+          "/steps/heat_risk_indicator"
         ],
         "mandatory": true,
         "transferabilityNotes": "Stated with triggeredBy rather than a cited constraint: this data is not yet implemented, so there is no envelope fact to point at. Once built, the planned Heat Risk Indicator would not be executable without it."

@@ -24,7 +24,11 @@
         "id": "ecological-range",
         "role": "valid-for",
         "dimension": "ecological",
-        "value": "a comparable ecological range"
+        "value": {
+          "scheme": "eea-biogeographical-regions",
+          "sameClassAs": "czech-plots"
+        },
+        "transferabilityNotes": "Question 7: results are 'valid mainly within a comparable ecological range'. That is an analogy to where the model was calibrated, not an extent, so it is stated as one: the target must share the biogeographical region of `czech-plots`. No region is named here on purpose \u2014 the source names none, and the set follows from whatever geometry `czech-plots` holds, so correcting that stand-in bounding box to the real plot coordinates sharpens this constraint too. The scheme is the one needing owner confirmation: biogeographical regions, Koppen-Geiger climate zones and EUNIS habitat classes are all plausible readings of 'ecological range' and they do not agree."
       },
       {
         "id": "downscaled-climate-available",
@@ -55,7 +59,7 @@
         "when": [
           {
             "constraint": "ecological-range",
-            "test": "outside"
+            "test": "different-class-from"
           }
         ],
         "actions": [

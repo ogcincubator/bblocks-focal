@@ -52,7 +52,7 @@
           "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#comment"
         },
         "value": {
-          "description": "The constraint value, shaped by `dimension`:\n- `spatial`/`jurisdictional` \u2014 a geometry, as `{\"asWKT\": \"POLYGON((...))\"}`. WKT rather\n  than GeoJSON coordinate arrays: it uplifts to a real `geo:wktLiteral`, which is the\n  form GeoSPARQL's topological functions actually operate on, it is one value rather than\n  a nested array so nothing is lost or reshaped in uplift, and it is dramatically more\n  compact (UP-WF2's European coverage MultiPolygon costs a few hundred characters\n  instead of 1,283 lines of Turtle). An approximate extent is expected and fine \u2014 a\n  published bounding box for a model domain, say \u2014 but it must be a real extent, since a\n  free-text place name cannot answer the containment question this dimension exists for.\n- `temporal` \u2014 either `{\"startDate\", \"endDate\"}` (a calendar span, uplifting to\n  `dcat:startDate`/`dcat:endDate` on a `dcterms:PeriodOfTime`) or `{\"scenarioMarker\"}`\n  for results that are not calendar-indexed at all. A Global Warming Level is the\n  evidenced case: it is reached in different years under different emissions scenarios\n  and ensemble members, so a calendar interval would be a fabrication rather than a\n  simplification. Markers are concepts, not free text, so `GWL+1.5` written two ways by\n  two pilots is one thing rather than two.\n- `ecological`/`climatic`/anything else \u2014 a plain string. \"A comparable ecological range\"\n  is not a place and does not become machine-checkable by being wrapped in coordinates it\n  does not have. A rule may still cite such a constraint; the condition is then a\n  judgement a person makes, stated in the same structure, which is honest about where\n  automation stops.\n",
+          "description": "The constraint value, shaped by `dimension`:\n- `spatial`/`jurisdictional` \u2014 a geometry, as `{\"asWKT\": \"POLYGON((...))\"}`. WKT rather\n  than GeoJSON coordinate arrays: it uplifts to a real `geo:wktLiteral`, which is the\n  form GeoSPARQL's topological functions actually operate on, it is one value rather than\n  a nested array so nothing is lost or reshaped in uplift, and it is dramatically more\n  compact (UP-WF2's European coverage MultiPolygon costs a few hundred characters\n  instead of 1,283 lines of Turtle). An approximate extent is expected and fine \u2014 a\n  published bounding box for a model domain, say \u2014 but it must be a real extent, since a\n  free-text place name cannot answer the containment question this dimension exists for.\n- `temporal` \u2014 either `{\"startDate\", \"endDate\"}` (a calendar span, uplifting to\n  `dcat:startDate`/`dcat:endDate` on a `dcterms:PeriodOfTime`) or `{\"scenarioMarker\"}`\n  for results that are not calendar-indexed at all. A Global Warming Level is the\n  evidenced case: it is reached in different years under different emissions scenarios\n  and ensemble members, so a calendar interval would be a fabrication rather than a\n  simplification. Markers are concepts, not free text, so `GWL+1.5` written two ways by\n  two pilots is one thing rather than two.\n- `grid-structure` \u2014 the set of grid types the workflow's gridded inputs may be on, as\n  `{\"gridTypes\": [\"regular-latlon\", \"rotated-pole\"]}`. A whitelist rather than a\n  description: `inside` means the target data's grid is one of these, `outside` that it\n  is not. This is a structured branch and not prose because UP-WF3's constraint (\"other\n  projections are not handled\") is a hard interface requirement over a small enumerable\n  set \u2014 mechanically checkable, and *more* so than a bounding box, since the terms carry\n  the CF-conventions `grid_mapping_name` as their `skos:notation` and the datasets in\n  question declare exactly that.\n- **any dimension, as an analogy** \u2014 `{\"scheme\": ..., \"sameClassAs\": ...}`, saying the\n  target must fall in the same class of a published classification as some reference\n  does. This is the shape of every \"comparable to where we calibrated\" claim in the\n  corpus, and it is a *relation*, not a value: the source says the target must resemble\n  the training area, and says nothing about which classes the training area is in.\n  Enumerating those classes would state something the source never said and would go\n  stale the moment the training geometry is corrected, so the default is to name the\n  reference and let a platform derive the rest. Tested with `same-class-as` /\n  `different-class-from` rather than `inside`/`outside`.\n- `ecological`/`climatic`/anything else \u2014 a plain string, where no classification\n  captures the claim. \"A comparable ecological range\" does not become machine-checkable\n  by being wrapped in coordinates it does not have. A rule may still cite such a\n  constraint; the condition is then a judgement a person makes, stated in the same\n  structure, which is honest about where automation stops. Prefer the analogy shape above\n  where a scheme does capture it: it says the same thing and a machine can settle it.\n",
           "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/value"
         }
       }
@@ -110,6 +110,40 @@
       ]
     },
     {
+      "title": "Grid structure (set of accepted grid types)",
+      "properties": {
+        "dimension": {
+          "enum": [
+            "grid-structure"
+          ],
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/dimension",
+          "x-jsonld-type": "@id",
+          "x-jsonld-base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/"
+        },
+        "value": {
+          "$ref": "#/$defs/gridStructure",
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/value"
+        }
+      },
+      "required": [
+        "dimension",
+        "value"
+      ]
+    },
+    {
+      "title": "Classification analogy (any dimension)",
+      "description": "Available on every dimension, including spatial ones: \"the same biogeographical region as the training area\" is a different claim from \"inside the training area's bounding box\", and both are legitimate.\n",
+      "properties": {
+        "value": {
+          "$ref": "#/$defs/analogy",
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/value"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    {
       "title": "Any other dimension (string-valued)",
       "properties": {
         "dimension": {
@@ -117,7 +151,8 @@
             "enum": [
               "spatial",
               "jurisdictional",
-              "temporal"
+              "temporal",
+              "grid-structure"
             ]
           },
           "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/dimension",
@@ -185,6 +220,91 @@
           ],
           "description": "End of the period, in the same form as `startDate`.",
           "x-jsonld-id": "http://www.w3.org/ns/dcat#endDate"
+        }
+      }
+    },
+    "gridStructure": {
+      "title": "Accepted grid types",
+      "type": "object",
+      "required": [
+        "gridTypes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "gridTypes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "examples": [
+              "regular-latlon",
+              "rotated-pole"
+            ]
+          },
+          "description": "The grid types the workflow accepts, as concepts from the FOCAL grid-types scheme (see bblocks://ogc.focal.transferability.vocab). The whole array is the constraint: a target is `inside` it if its grid is one of these. Open vocabulary, seeded only with the two terms UP-WF3 evidences and cross-walked to CF-conventions `grid_mapping_name` values, so adding a projection is a lookup in the CF table rather than a judgement.\n",
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/gridType",
+          "x-jsonld-type": "@id",
+          "x-jsonld-container": "@set",
+          "x-jsonld-base": "https://w3id.org/ogc/hosted/focal/transferability/grid-types/"
+        }
+      }
+    },
+    "analogy": {
+      "title": "Classification analogy",
+      "type": "object",
+      "required": [
+        "scheme"
+      ],
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "sameClassAs"
+          ]
+        },
+        {
+          "required": [
+            "classes"
+          ]
+        }
+      ],
+      "properties": {
+        "scheme": {
+          "type": "string",
+          "examples": [
+            "koppen-geiger",
+            "eunis-habitats",
+            "eea-biogeographical-regions"
+          ],
+          "description": "The published classification system this constraint is evaluated in, as a concept from the FOCAL classification-schemes vocabulary (see bblocks://ogc.focal.transferability.vocab). FOCAL names the scheme and records where its terms live; it does not restate them, the same discipline applied to QUDT units and CF grid mappings.\n",
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/classificationScheme",
+          "x-jsonld-type": "@id",
+          "x-jsonld-base": "https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/"
+        },
+        "sameClassAs": {
+          "$ref": "https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.json",
+          "description": "The reference whose classification the target must share, normally the `id` of another constraint in the same envelope \u2014 typically the `trained-on` extent. **This is the preferred form**, and the only one usable with a scheme that publishes no term identifiers: nothing has to name a class, so a platform classifies the reference geometry and the target and compares. It also stays correct when the reference geometry is replaced by a better one, which an enumerated class list would not.\n",
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/sameClassAs",
+          "x-jsonld-type": "@id"
+        },
+        "classes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "examples": [
+            [
+              "Cfb",
+              "Dfb"
+            ],
+            [
+              "http://eunis.eea.europa.eu/eunishabitats/G1"
+            ]
+          ],
+          "description": "Explicitly stated classes, as an alternative to naming a reference. Use only where the source actually states them: deriving them from a reference and writing them here turns an inference into an assertion. Cite the scheme's own identifiers \u2014 EUNIS habitats are published by the EEA, and Koppen-Geiger classes are published by FOCAL itself (`.../koppen-geiger/Cfb`) precisely because no maintainer publishes them. Each classification-schemes concept records where its terms live.\n",
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/class",
+          "x-jsonld-container": "@set"
         }
       }
     },

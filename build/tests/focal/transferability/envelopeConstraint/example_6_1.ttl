@@ -1,6 +1,9 @@
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/grid-structure> ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid> rdfs:comment "UP-WF3's stated input requirement. A dataset on any other projection has to be resampled before the workflow will accept it." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/grid-structure> ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/can-run-on> ;
-    focal-transf-prop:value "inputs on a rotated-pole EUR-11 grid; a regular lat/lon grid requires resampling first" .
+    focal-transf-prop:value [ focal-transf-prop:gridType <https://w3id.org/ogc/hosted/focal/transferability/grid-types/regular-latlon>,
+                <https://w3id.org/ogc/hosted/focal/transferability/grid-types/rotated-pole> ] .
 
