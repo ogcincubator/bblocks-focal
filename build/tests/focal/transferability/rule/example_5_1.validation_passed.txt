@@ -1,5 +1,5 @@
 Validation report for ogc.focal.transferability.rule - FOCAL Transferability Rule
-Generated 2026-09-07T12:57:31.732654+00:00
+Generated 2026-09-14T13:54:05.597249+00:00
 === Files ===
 Using example_5_1.json from examples
 JSON-LD context is present - uplifting
@@ -19,12 +19,12 @@ Validation result for _sources/transferability/rule/shapes.shacl:
   Conforms: True
   
 Focus nodes for _sources/transferability/rule/shapes.shacl:
- - Shape focal-shape:RuleHasACondition: _:N1a406df1dfdb47c88c9be5c226e9eeb6
- - Shape focal-shape:TerminalActionNamesWhatItAffects: _:N1a406df1dfdb47c88c9be5c226e9eeb6
- - Shape focal-shape:EnvelopeCondition: _:Na3c8760838524a2da560a5c5ea6b23f4
- - Shape focal-shape:TransferabilityRule: _:N1a406df1dfdb47c88c9be5c226e9eeb6
- - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N1a406df1dfdb47c88c9be5c226e9eeb6
- - Shape focal-shape:OptionalRuleHasConsequence: _:N1a406df1dfdb47c88c9be5c226e9eeb6
+ - Shape focal-shape:TerminalActionNamesWhatItAffects: _:Nd43abf7e68dc446386f90f0807dba549
+ - Shape focal-shape:OptionalRuleHasConsequence: _:Nd43abf7e68dc446386f90f0807dba549
+ - Shape focal-shape:EnvelopeCondition: _:Naee2f2e789e8414ea7f1ba548520deab
+ - Shape focal-shape:TerminalActionNotAlongsideReuse: _:Nd43abf7e68dc446386f90f0807dba549
+ - Shape focal-shape:TransferabilityRule: _:Nd43abf7e68dc446386f90f0807dba549
+ - Shape focal-shape:RuleHasACondition: _:Nd43abf7e68dc446386f90f0807dba549
 
 === End SHACL ===
 

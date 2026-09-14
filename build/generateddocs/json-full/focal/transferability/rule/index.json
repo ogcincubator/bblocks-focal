@@ -8,7 +8,7 @@
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "schema",
   "version": "0.7",
-  "dateOfLastChange": "2026-09-07",
+  "dateOfLastChange": "2026-09-14",
   "concept": [
     "https://w3id.org/ogc/hosted/focal/transferability/actions/scheme",
     "https://w3id.org/ogc/hosted/focal/transferability/triggers/scheme",
@@ -18,9 +18,9 @@
     "https://w3id.org/ogc/hosted/focal/transferability/Rule"
   ],
   "dependsOn": [
-    "ogc.focal.transferability.vocab",
+    "ogc.ogc-utils.iri-or-curie",
     "ogc.focal.transferability.notes",
-    "ogc.ogc-utils.iri-or-curie"
+    "ogc.focal.transferability.vocab"
   ],
   "tags": [
     "focal",
