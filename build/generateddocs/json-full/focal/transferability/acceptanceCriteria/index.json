@@ -18,8 +18,8 @@
   ],
   "dependsOn": [
     "ogc.ogc-utils.iri-or-curie",
-    "ogc.focal.transferability.notes",
-    "ogc.focal.transferability.vocab"
+    "ogc.focal.transferability.vocab",
+    "ogc.focal.transferability.notes"
   ],
   "tags": [
     "focal",

@@ -1,51 +1,54 @@
 # FOCAL OGC Blocks
 
-OGC Blocks for the FOCAL project: a shared ontology and forest-stand data model, plus a
-machine-readable model for the transferability of climate-service workflows - where a workflow's
-results are valid, what reference and calibration artifacts it depends on, and what must happen to
-them before the workflow can be reused elsewhere.
+OGC Blocks for the FOCAL project. The main content is a machine-readable model for the
+transferability of climate-service workflows - where a workflow's results are valid, what reference
+and calibration artifacts it depends on, and what must happen to them before the workflow can be
+reused elsewhere. The register also carries a forest-typology ontology and data model, originally
+built as a worked demonstrator of bblocks' semantic-binding and JSON-LD-enhanced map-view
+capabilities applied to a real domain.
 
 
 ## About this Register: FOCAL OGC Blocks
 
-This register is the machine-readable foundation for the **FOCAL project**, a standards-mediated
+This register is the machine-readable foundation for the **[FOCAL project](https://www.focal-euproject.eu/)**, a standards-mediated
 pipeline bridging global climate science and local decision-making. It implements the **OGC Blocks**
 framework to deliver a "system of systems" approach for **Distributed Digital Twins**, and covers two
 related concerns:
 
-*   **A shared domain model:** an ontology and a Czech forest-typology data model (forest stand
-    features, properties, and feature collections) that turn "normal GIS" data into
-    machine-interpretable knowledge with clear input/output contracts.
 *   **Workflow transferability:** a model for stating, in machine-readable form, where a workflow's
     results hold, what reference/calibration artifacts they depend on, and what must happen to those
     artifacts (recalibrate, substitute, flag as unsupported, ...) before the workflow can be run
     somewhere else. This lets a consumer - human or automated - decide whether a workflow built for
     one region, dataset, or scenario can be trusted, adapted, or must be rejected for another.
+*   **A worked demonstrator:** an ontology and a Czech forest-typology data model (forest stand
+    features, properties, and feature collections) built to show bblocks' semantic-binding and
+    JSON-LD-enhanced map-view capabilities applied to a real domain, ahead of applying the same
+    capabilities to the transferability model itself.
 
 ### **Who is this register for?**
 This register supports a multi-actor ecosystem:
-*   **Data Providers:** Forestry researchers and municipal GIS departments who need to transform
-    **"normal GIS"** data (e.g., typology from photogrammetry) into machine-interpretable knowledge.
 *   **Workflow Owners:** Scientists and engineers who build climate-service workflows and need a
     standard way to say where those workflows are valid and what they depend on.
 *   **Developers:** Engineers building climate services who require stable API contracts, versioned
     schemas, and reusable data models for **Digital Twins**.
-*   **Domain Experts:** Foresters and urban planners looking for validated, climate-resilient
-    recommendations.
+*   **Bblocks Authors:** Anyone evaluating OGC Blocks' semantic-binding and JSON-LD map-view
+    capabilities can use the forest-typology demonstrator as a worked reference.
 *   **AI Agents:** Automated systems that require explicit semantics to programmatically process data
     and evaluate workflow transferability without human intervention.
 
 ### **What does this register contain?**
 It hosts reusable **OGC Blocks** that move from document-centric descriptions to actionable components:
-*   **focal-ontology:** A core module providing the machine-readable semantics (SKOS/OWL) for forest
-    type codes with **multi-lingual support** in Czech, English, and German.
-*   **Forest Stand data model:** `forestStandProperties`, `forestStandFeature`, and
-    `forestStandCollection` - a Feature/FeatureCollection profile for forest stands classified by the
-    FOCAL forest typology.
 *   **Transferability model** (`_sources/transferability`): a profile of a CWL Workflow adding a
     transferability statement (validity envelope, artifact acceptance criteria, adaptation rules),
     computation type, maturity status, quality annotations, and the open SKOS vocabularies these
     blocks are built on.
+*   **focal-ontology:** A core module providing the machine-readable semantics (SKOS/OWL) for forest
+    type codes with **multi-lingual support** in Czech, English, and German - the demonstrator's
+    vocabulary.
+*   **Forest Stand data model:** `forestStandProperties`, `forestStandFeature`, and
+    `forestStandCollection` - a Feature/FeatureCollection profile for forest stands classified by the
+    FOCAL forest typology, showing how a schema binds to that vocabulary and renders in the
+    JSON-LD-enhanced map view.
 
 ### **When should this register be used?**
 *   **Standardized Ingestion:** When converting shapefiles or other scientific data into
@@ -103,35 +106,23 @@ RDF contents for the FOCAL ontology
 
 Schema defining the properties of a FOCAL forest stand, including forest type classification, forest region, target management unit, field verification status, area, and data provenance.
 
-### `ogc.focal.transferability.notes` — FOCAL Transferability Notes (mixin)
-
-**Type:** schema
-
-Reusable mixin adding a free-text escape hatch for transferability facts the controlled vocabularies cannot capture. Uplifts to rdfs:comment rather than a FOCAL-specific property.
-
 ### `ogc.focal.transferability.vocab` — FOCAL Transferability Vocabulary and Model Ontology
 
 **Type:** model
 
 The RDF vocabulary behind the FOCAL workflow transferability model: ten open SKOS concept schemes (actions, triggers, condition tests, envelope dimensions, envelope roles, artifact roles, scenario markers, computation types, maturity statuses, quality dimensions) plus the classes and properties FOCAL mints where no published vocabulary says the same thing.
 
-### `ogc.focal.transferability.acceptanceCriteria` — FOCAL Artifact Acceptance Criteria
+### `ogc.focal.transferability.notes` — FOCAL Transferability Notes (mixin)
 
 **Type:** schema
 
-What a dataset must satisfy to serve as a given artifact - variable name, acceptable units (QUDT), required axes, acceptable grids, schemas it must conform to. What makes replace-with-local-equivalent actionable rather than merely stated.
+Reusable mixin adding a free-text escape hatch for transferability facts the controlled vocabularies cannot capture. Uplifts to rdfs:comment rather than a FOCAL-specific property.
 
 ### `ogc.focal.transferability.computationType` — FOCAL Computation Type (mixin)
 
 **Type:** schema
 
 Reusable mixin adding computationType, an open-vocabulary classification of how a workflow computes its results (statistical/ML, deterministic/rule-based, precomputed data delivery). Optional at the workflow level.
-
-### `ogc.focal.transferability.envelopeConstraint` — FOCAL Transferability Envelope Constraint
-
-**Type:** schema
-
-A single {role, dimension, value} statement bounding where a workflow's results are valid, addressable by id so rules can cite which boundary they are evaluated against. Spatial values are GeoSPARQL geometries and temporal values DCAT periods, so a consumer can evaluate them without knowing FOCAL.
 
 ### `ogc.focal.transferability.maturityStatus` — FOCAL Workflow Maturity Status (mixin)
 
@@ -144,6 +135,18 @@ Reusable mixin adding maturityStatus, an open-vocabulary classification of a wor
 **Type:** schema
 
 A single statement of uncertainty or confidence about a workflow's results, independent of its maturityStatus. Binds to the W3C Data Quality Vocabulary (DQV) directly, since no OGC Block wraps DQV.
+
+### `ogc.focal.transferability.acceptanceCriteria` — FOCAL Artifact Acceptance Criteria
+
+**Type:** schema
+
+What a dataset must satisfy to serve as a given artifact - variable name, acceptable units (QUDT), required axes, acceptable grids, schemas it must conform to. What makes replace-with-local-equivalent actionable rather than merely stated.
+
+### `ogc.focal.transferability.envelopeConstraint` — FOCAL Transferability Envelope Constraint
+
+**Type:** schema
+
+A single {role, dimension, value} statement bounding where a workflow's results are valid, addressable by id so rules can cite which boundary they are evaluated against. Spatial values are GeoSPARQL geometries and temporal values DCAT periods, so a consumer can evaluate them without knowing FOCAL.
 
 ### `ogc.focal.transferability.rule` — FOCAL Transferability Rule
 
