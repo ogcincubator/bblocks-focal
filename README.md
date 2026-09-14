@@ -1,19 +1,22 @@
 # FOCAL OGC Blocks
 
-OGC Blocks for the [FOCAL project](https://focal-project.eu/), covering two related concerns:
+OGC Blocks for the [FOCAL project](https://www.focal-euproject.eu/). The main content is:
 
-- A shared domain model: an [ontology](_sources/focal-ontology) and a Czech forest-typology data model
-  (forest stand features, properties, and feature collections).
 - [**Workflow transferability**](_sources/transferability): a machine-readable model for where a
   climate-service workflow's results are valid, what reference/calibration artifacts they depend on, and
   what must happen to those artifacts before the workflow can be reused elsewhere. See
   [`_sources/transferability`](_sources/transferability) for the blocks (`transferabilityStatement`,
   `envelopeConstraint`, `rule`, `acceptanceCriteria`, `vocab`, and more).
 
+The register also carries a forest-typology [ontology](_sources/focal-ontology) and data model (forest
+stand features, properties, and feature collections), originally built as a worked demonstrator of
+bblocks' semantic-binding and JSON-LD-enhanced map-view capabilities applied to a real domain, ahead of
+applying the same capabilities to the transferability model itself.
+
 # Highlights of this Repository
 
-The forest-typology blocks below started as a worked example of how to build a domain-specific OGC
-Blocks collection:
+The forest-typology blocks below are that demonstrator: a worked example of how to build a
+domain-specific OGC Blocks collection with semantic binding and a JSON-LD-enhanced map view:
 
 1. Howto publish vector data with a custom schema
 2. Howto add CRS transformations
