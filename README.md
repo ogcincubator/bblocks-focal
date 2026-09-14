@@ -1,4 +1,19 @@
+# FOCAL OGC Blocks
+
+OGC Blocks for the [FOCAL project](https://focal-project.eu/), covering two related concerns:
+
+- A shared domain model: an [ontology](_sources/focal-ontology) and a Czech forest-typology data model
+  (forest stand features, properties, and feature collections).
+- [**Workflow transferability**](_sources/transferability): a machine-readable model for where a
+  climate-service workflow's results are valid, what reference/calibration artifacts they depend on, and
+  what must happen to those artifacts before the workflow can be reused elsewhere. See
+  [`_sources/transferability`](_sources/transferability) for the blocks (`transferabilityStatement`,
+  `envelopeConstraint`, `rule`, `acceptanceCriteria`, `vocab`, and more).
+
 # Highlights of this Repository
+
+The forest-typology blocks below started as a worked example of how to build a domain-specific OGC
+Blocks collection:
 
 1. Howto publish vector data with a custom schema
 2. Howto add CRS transformations
@@ -10,9 +25,9 @@
 2. Create the repo by following the [instructions](https://github.com/opengeospatial/bblock-template/blob/master/USAGE.md) from the [template](https://github.com/opengeospatial/bblock-template/)
 3. Implement the necessary OGC Blocks for "Features with geometry and typology" with a suitable [ontology](_sources/focal-ontology).
 4. Extend the [`ontology.ttl`](_sources/focal-ontology/ontology.ttl) with the forest type code attribute (`LT`) which needs to be mapped to proper URIs which in turn can be used to retrieve ecological properties in multiple languages for the forest type code attribute (`LT`).
-5. Add an example GeoJSON [`FeatureCollection`](_sources/myFeatureCollection/examples/feature.json) conform to the new Forest Site Assessment schema.
-6. Add a [`transforms.yaml`](_sources/myFeatureCollection/transforms.yaml) to produce only CRS 5555 output data.
-7. Add a test for validation purposes using [shacl shapes](_sources/myFeature/shapes.shacl).
+5. Add an example GeoJSON [`FeatureCollection`](_sources/forestStandCollection/examples/feature.json) conform to the new Forest Site Assessment schema.
+6. Add a [`transforms.yaml`](_sources/forestStandCollection/transforms.yaml) to produce only CRS 5555 output data.
+7. Add a test for validation purposes using [shacl shapes](_sources/forestStandFeature/shapes.shacl).
 
 ---
 
@@ -30,19 +45,22 @@ See the [instructions](https://github.com/opengeospatial/bblock-template/blob/ma
 
 ### The folder structure 
 
-Look at the different folders in [`_sources`](_sources). Each folder contains a [`bblock.json`](_sources/mySchema/bblock.json) to define a OGC Block.
+Look at the different folders in [`_sources`](_sources). Each folder contains a [`bblock.json`](_sources/forestStandProperties/bblock.json) to define a OGC Block.
 
 - [`focal-ontology`](_sources/focal-ontology)
   - The ontology OGC Block provides the semantics and gets automatically uploaded to an official register.
 
-- [`mySchema`](_sources/mySchema)
+- [`forestStandProperties`](_sources/forestStandProperties)
   - The domain-specific Forest Typology OGC Block which maps the attributes of the dataset to the semantics.
 
-- [`myFeature`](_sources/myFeature)
+- [`forestStandFeature`](_sources/forestStandFeature)
   - A Feature OGC Block inherited from the Feature OGC Block combining geometry with the domain-specific schema.
 
-- [`myFeatureCollection`](_sources/myFeatureCollection)
+- [`forestStandCollection`](_sources/forestStandCollection)
   - A FeatureCollection OGC Block inherited from the FeatureCollection OGC Block describing the whole dataset.
+
+- [`transferability`](_sources/transferability)
+  - The workflow transferability model - not tied to the forest-typology example above, see its own [`description.md`](_sources/transferability/workflow) for the current worked-through FOCAL workflows.
 
 ### The Property Set (Czech meta-data description)
 
@@ -76,16 +94,16 @@ Souřadnicový systém: S-JTSK
 1. [`ontology.ttl`](_sources/focal-ontology/ontology.ttl) within [`focal-ontology`](_sources/focal-ontology)
    - Semantics
 
-2. [`schema.yaml`](_sources/mySchema/schema.yaml) within [`mySchema`](_sources/mySchema)
+2. [`schema.yaml`](_sources/forestStandProperties/schema.yaml) within [`forestStandProperties`](_sources/forestStandProperties)
    - Typology type definitions
 
-3. [`context.jsonld`](_sources/mySchema/context.jsonld) within [`mySchema`](_sources/mySchema)
+3. [`context.jsonld`](_sources/forestStandProperties/context.jsonld) within [`forestStandProperties`](_sources/forestStandProperties)
    - Maps the type definitions to the URIs from the ontology
 
-4. [`schema.yaml`](_sources/myFeature/schema.yaml) within [`myFeature`](_sources/myFeature)
+4. [`schema.yaml`](_sources/forestStandFeature/schema.yaml) within [`forestStandFeature`](_sources/forestStandFeature)
    - Feature definition
 
-5. [`schema.yaml`](_sources/myFeatureCollection/schema.yaml) within [`myFeatureCollection`](_sources/myFeatureCollection)
+5. [`schema.yaml`](_sources/forestStandCollection/schema.yaml) within [`forestStandCollection`](_sources/forestStandCollection)
    - Feature collection definition
 
 ---
@@ -120,22 +138,22 @@ focal-lt:2S1 a skos:Concept, focal-lt:LT ;
 
 Look at the example data for a feature collection. This example data has been created by QGIS as an export from a shapefile.
 
-The example data for feature collections can be integrated by providing an [`GeoJSON`](_sources/myFeatureCollection/examples/feature.json) and an [`examples.yaml`](_sources/myFeatureCollection/examples.yaml) within the [`myFeatureCollection`](_sources/myFeatureCollection) definitions and a .
+The example data for feature collections can be integrated by providing a [`GeoJSON`](_sources/forestStandCollection/examples/feature.json) and an [`examples.yaml`](_sources/forestStandCollection/examples.yaml) within the [`forestStandCollection`](_sources/forestStandCollection) definitions.
 
-The example data for a feature can be defined by linking back to the feature collection using the [`examples.yaml`](_sources/myFeature/examples.yaml) within the [`myFeature`](_sources/myFeature) definitions.
+The example data for a feature can be defined by linking back to the feature collection using the [`examples.yaml`](_sources/forestStandFeature/examples.yaml) within the [`forestStandFeature`](_sources/forestStandFeature) definitions.
 
-The first feature within the feature collection carries the coordinate reference system as an extra property. Without this definition, the example feature could not be viewed within the ["map view"](https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.myFeature/examples) of the feature example.
+The first feature within the feature collection carries the coordinate reference system as an extra property. Without this definition, the example feature could not be viewed within the ["map view"](https://ogcincubator.github.io/bblocks-focal/bblock/ogc.focal.forestStandFeature/examples) of the feature example.
 
-The example data for the domain-specific schema can also be defined by linking to the feature collection example using its [`examples.yaml`](_sources/mySchema/examples.yaml) within the [`mySchema`](_sources/mySchema) definitions.
+The example data for the domain-specific schema can also be defined by linking to the feature collection example using its [`examples.yaml`](_sources/forestStandProperties/examples.yaml) within the [`forestStandProperties`](_sources/forestStandProperties) definitions.
 
 
 ## 6. Transform to Match CRS 5555
 
-A transform can be added by creating a [`transforms.yaml`](_sources/myFeatureCollection/transforms.yaml). It is possible to provide the code snippet directly within this file, but for reasons of clarity the code has been outsourced to the [`transforms`](_sources/myFeatureCollection/transforms) folder can be linked as shown in the [`transforms.yaml`](_sources/myFeatureCollection/transforms.yaml).
+A transform can be added by creating a [`transforms.yaml`](_sources/forestStandCollection/transforms.yaml). It is possible to provide the code snippet directly within this file, but for reasons of clarity the code has been outsourced to the [`transforms`](_sources/forestStandCollection/transforms) folder and linked as shown in the [`transforms.yaml`](_sources/forestStandCollection/transforms.yaml).
 
 
 ## 7. Validation
 
-Validation and testing can be carried out using [SHACL shapes](_sources/myFeature/shapes.shacl). The provided example checks if the `focal-prop:lesniTyp` exists for the given examples. By providing failure examples ([`FeatureCollection`](_sources/myFeatureCollection/tests/feature-fail.json), [`Feature`](_sources/myFeature/tests/feature-fail.json)), the SHACL shapes can be tested further.
+Validation and testing can be carried out using [SHACL shapes](_sources/forestStandFeature/shapes.shacl). The provided example checks if the `focal-prop:lesniTyp` exists for the given examples. By providing failure examples ([`FeatureCollection`](_sources/forestStandCollection/tests/feature-fail.json), [`Feature`](_sources/forestStandFeature/tests/feature-fail.json)), the SHACL shapes can be tested further.
 
 
