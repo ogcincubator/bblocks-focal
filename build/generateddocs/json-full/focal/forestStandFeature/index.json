@@ -9,7 +9,7 @@
   "itemClass": "schema",
   "register": "ogc-building-block-examples",
   "version": "1.0",
-  "dateOfLastChange": "2026-09-14",
+  "dateOfLastChange": "2026-09-16",
   "sources": [
     {
       "title": "OGC API - Features, Part 1, 7.16.2: Feature Response",
@@ -17,8 +17,8 @@
     }
   ],
   "dependsOn": [
-    "ogc.geo.features.feature",
-    "ogc.focal.forestStandProperties"
+    "ogc.focal.forestStandProperties",
+    "ogc.geo.features.feature"
   ],
   "tags": [
     "focal",

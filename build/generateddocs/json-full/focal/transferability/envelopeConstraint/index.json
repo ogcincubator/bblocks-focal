@@ -8,7 +8,7 @@
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "schema",
   "version": "0.6",
-  "dateOfLastChange": "2026-09-14",
+  "dateOfLastChange": "2026-09-16",
   "concept": [
     "https://w3id.org/ogc/hosted/focal/transferability/roles/scheme",
     "https://w3id.org/ogc/hosted/focal/transferability/dimensions/scheme",
@@ -19,8 +19,8 @@
   ],
   "dependsOn": [
     "ogc.ogc-utils.iri-or-curie",
-    "ogc.focal.transferability.vocab",
-    "ogc.focal.transferability.notes"
+    "ogc.focal.transferability.notes",
+    "ogc.focal.transferability.vocab"
   ],
   "tags": [
     "focal",
