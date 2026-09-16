@@ -101,8 +101,8 @@ identifier-prefix: ogc.focal.
 # List of imports ("default" is an alias for the main OGC Blocks Register)
 imports:
   - default
-  - https://ogcincubator.github.io/bblocks-cwl/build/register.json
-  - https://ogcincubator.github.io/cross-domain-model/build/register.json
+  - '@ogc/cwl'
+  - '@ogc/cross-domain-model'
 
 # Whether to enable the (highly experimental) downcompiling of JSON schemas to an OpenAPI 3.0-compatible
 # version
