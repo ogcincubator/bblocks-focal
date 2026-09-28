@@ -6,7 +6,7 @@
     "prov": "http://www.w3.org/ns/prov#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "transferabilityNotes": "rdfs:comment",
-    "noConstraintsIdentified": "focal-transf-prop:noConstraintsIdentified",
+    "noConstraintsStated": "focal-transf-prop:noConstraintsStated",
     "trainingRequired": "focal-transf-prop:trainingRequired",
     "envelope": {
       "@id": "focal-transf-prop:envelope",

@@ -38,7 +38,7 @@ description: >
   `outside` over one constraint) and is noise otherwise. And an **empty `envelope` is a claim, not
   a blank**: it says the results carry no validity boundary at all, which is what a genuinely
   universal workflow looks like and what UP-WF1's questionnaire literally answers ("All parts are
-  portable"). Record why in `transferabilityNotes`, and set `noConstraintsIdentified: true` —
+  portable"). Record why in `transferabilityNotes`, and set `noConstraintsStated: true` —
   a boundary nobody could find and a boundary that does not exist are the same empty array
   otherwise, and the marker is what tells them apart.
 
@@ -77,14 +77,14 @@ allOf:
           an empty `envelope` or empty `rules`, to distinguish a boundary that does not exist from
           one nobody could establish. Uplifts to `rdfs:comment`. Mixed in from
           bblocks://ogc.focal.transferability.notes.
-      noConstraintsIdentified:
+      noConstraintsStated:
         type: boolean
         description: >
-          `true` says outright that the results were assessed and no validity boundary and no
-          adaptation step was identified, which is what an empty `envelope` and an empty `rules`
-          mean but do not announce: a reader cannot tell those two empty arrays from a form nobody
-          filled in. It is the source's claim, not a verified one, and belongs with a
-          `transferabilityNotes` saying who made it. Only meaningful, and only valid, alongside an
+          `true` says outright that the source named no validity boundary and no adaptation step,
+          which is what an empty `envelope` and an empty `rules` mean but do not announce: a reader
+          cannot tell those two empty arrays from a form nobody filled in. It records what the
+          source said, not a finding that anyone assessed the results, and it is not a verified
+          claim; say who made it in `transferabilityNotes`. Only meaningful, and only valid, alongside an
           empty `envelope` and an empty `rules`; omit it otherwise. Currently evidenced once
           (UP-WF1: "Nothing", "Nothing", "All parts are portable").
       trainingRequired:

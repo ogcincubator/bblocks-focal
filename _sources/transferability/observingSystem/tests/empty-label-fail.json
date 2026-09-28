@@ -1,0 +1,10 @@
+{
+  "id": "https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label",
+  "label": "",
+  "transferability": {
+    "trainingRequired": false,
+    "envelope": [],
+    "artifacts": [],
+    "rules": []
+  }
+}

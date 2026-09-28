@@ -3,22 +3,27 @@ examples:
     base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/
     content: |
       The richest of the eight FOCAL pilot workflows for this model: three simultaneous envelope
-      roles, an OR-set of actions on one artifact, and the only workflow with an evidenced quality
-      caveat so far. Drawn from `20260817-workflow-transferability-mapping-extraction.md`.
+      roles, an OR-set of actions on one artifact, and an evidenced quality caveat. Drawn from the owner's questionnaire answers.
 
       **What the rules now say that they could not before.** The trained model must be retrained or
       replaced when the target is in a different ecological class from `ecological-range`; the climate data must be swapped when
-      the target is outside `czech-plots`. Two artifacts, two different boundaries, each rule
+      the target is outside `downscaled-climate-available`, the coverage of that data. Two artifacts, two different boundaries, each rule
       naming its own — previously both said only "different geographic coverage" and nothing
       recorded which extent that referred to.
 
       **`czech-plots` is an approximation and says so in the data.** The source says "Czech
       long-term permanent sample plots", a scattered set of monitoring locations; the value here is
-      Czechia's country bounding box, an honest upper bound. That caveat is a
+      Czechia's country border (simplified), an honest upper bound. That caveat is a
       `transferabilityNotes` on the constraint (uplifting to `rdfs:comment`), not a remark in this
       prose, so a consumer weighing the envelope can see it.
 
-      No temporal constraint: the source states a user-selected "prediction period" with no bound
+            **The climate rule is tested against `downscaled-climate-available`, not against `czech-plots`.**
+      `czech-plots` is where the growth model was calibrated; where FOCAL's downscaled climate data
+      extends is a different fact, and the questionnaire does not say. The constraint is a sentence
+      for now, so a consumer reports the climate rule as unknown until the owner gives the coverage,
+      instead of answering from the plot extent.
+
+      No temporal constraint: the source states a user-selected "prediction period"  with no bound
       or granularity, and none is invented. `steps` is omitted — no Application Package exists yet.
       The `inputs`/`outputs` ids are **placeholders** invented so `artifactRef` has something to
       point at; they are not FP-WF1's real interface.
@@ -40,8 +45,8 @@ examples:
                 ]
               }
             },
-            "inputs": { "climate_data": { "type": "File" } },
-            "outputs": { "trained_growth_model": { "type": "File" } },
+            "inputs": { "climate_data": { "type": "File" }, "trained_growth_model": { "type": "File" } },
+            "outputs": { "growth_projection": { "type": "File" } },
             "transferability": {
               "trainingRequired": true,
               "envelope": [
@@ -49,8 +54,8 @@ examples:
                   "id": "czech-plots",
                   "role": "trained-on",
                   "dimension": "spatial",
-                  "value": { "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))" },
-                  "transferabilityNotes": "Czechia's country bounding box, standing in for the actual Czech long-term permanent sample plot network — a scattered set of monitoring locations, not a rectangle. An honest upper bound pending the real plot coordinates from the workflow owner."
+                  "value": { "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))" },
+                  "transferabilityNotes": "Czechia's country border, simplified to a few tens of kilometers, standing in for the actual Czech long-term permanent sample plot network — a scattered set of monitoring locations, not a country. An honest upper bound pending the real plot coordinates from the workflow owner."
                 },
                 {
                   "id": "ecological-range",
@@ -60,7 +65,7 @@ examples:
                     "scheme": "eea-biogeographical-regions",
                     "sameClassAs": "czech-plots"
                   },
-                  "transferabilityNotes": "Question 7: results are 'valid mainly within a comparable ecological range'. That is an analogy to where the model was calibrated, not an extent, so it is stated as one: the target must share the biogeographical region of `czech-plots`. No region is named here on purpose — the source names none, and the set follows from whatever geometry `czech-plots` holds, so correcting that stand-in bounding box to the real plot coordinates sharpens this constraint too. The scheme is the one needing owner confirmation: biogeographical regions, Koppen-Geiger climate zones and EUNIS habitat classes are all plausible readings of 'ecological range' and they do not agree."
+                  "transferabilityNotes": "Question 7: results are 'valid mainly within a comparable ecological range'. That is an analogy to where the model was calibrated, not an extent, so it is stated as one: the target must share the biogeographical region of `czech-plots`. No region is named here on purpose — the source names none, and the set follows from whatever geometry `czech-plots` holds, so correcting that stand-in country border to the real plot coordinates sharpens this constraint too. The scheme is the one needing owner confirmation: biogeographical regions, Koppen-Geiger climate zones and EUNIS habitat classes are all plausible readings of 'ecological range' and they do not agree."
                 },
                 {
                   "id": "downscaled-climate-available",
@@ -73,8 +78,8 @@ examples:
                 {
                   "id": "growth-model",
                   "artifact": "trained tree growth model (LightGBM, Czech permanent sample plot data)",
-                  "artifactRole": "workflow-output",
-                  "artifactRef": "/outputs/trained_growth_model"
+                  "artifactRole": "workflow-input",
+                  "artifactRef": "/inputs/trained_growth_model"
                 },
                 {
                   "id": "climate-data",
@@ -92,37 +97,39 @@ examples:
                 },
                 {
                   "appliesTo": ["climate-data"],
-                  "when": [{ "constraint": "czech-plots", "test": "outside" }],
+                  "when": [{ "constraint": "downscaled-climate-available", "test": "outside" }],
                   "actions": ["replace-with-local-equivalent"],
                   "mandatory": true
                 }
               ]
             },
             "computationType": "statistical-ml",
-            "maturityStatus": "operational",
+            "maturityStatus": "pre-operational",
             "qualityAnnotation": [
               {
                 "dimension": "decision-support-only",
-                "note": "AI model and validation are still being finalised; results are decision-support, not exact forecasts."
+                "note": "The AI model and validation are still being finalised, so results should be interpreted as decision-support information rather than exact forecasts."
               }
             ]
           }
 
-  - title: FP-WF2 — Heat stress (four artifacts, one shared boundary)
+  - title: FP-WF2 — Heat stress (four artifacts, two boundaries)
     base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/
     content: |
       A deterministic/rule-based workflow whose reference data — species tolerance thresholds,
-      SLT/T5 forest classification, species codes, and the Rasdaman climate registry — is uniformly
-      Czechia-specific.
+      SLT/T5 forest classification and species codes — the owner calls Czechia-specific (Questions
+      5, 7 and 10), and whose Rasdaman climate registry the owner calls project-specific (Question
+      10) and says must point to the target region's datasets (Question 9).
 
-      **This is the case that motivated declaring artifacts separately from rules.** All four share
-      one boundary and one action, so this is a single rule naming four artifacts in `appliesTo`,
-      rather than the same condition repeated four times. Previously each artifact carried its own
-      copy of an identical rule, and nothing said they were the same fact.
+      **This is the case that motivated declaring artifacts separately from rules.** The three
+      Czechia-specific artifacts share one boundary and one action, so they are a single rule
+      naming three artifacts in `appliesTo`, rather than the same condition repeated three times.
+      The registry has its own rule and its own extent, the coverage of the current collections,
+      because nothing in the questionnaire says that is Czechia.
 
-      The envelope entry is **inferred, not stated**: the questionnaire never gives an envelope
-      fact directly, only that four artifacts are Czechia-specific. That inference is recorded on
-      the constraint itself and needs owner confirmation.
+      Both envelope entries are **inferred, not stated**: the questionnaire never gives an extent
+      for either. Czechia's country border stands in for both, and each says so on the constraint
+      itself and needs owner confirmation.
 
       No temporal constraint (the source states a "time period" input with no bound). `steps`
       omitted, no Application Package yet. `inputs` ids are placeholders.
@@ -157,8 +164,15 @@ examples:
                   "id": "czechia",
                   "role": "derived-from",
                   "dimension": "jurisdictional",
-                  "value": { "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))" },
-                  "transferabilityNotes": "Inferred, not stated: the questionnaire gives no envelope fact directly, only that four separate reference artifacts are Czechia-specific. Value is Czechia's country bounding box. Needs owner confirmation."
+                  "value": { "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))" },
+                  "transferabilityNotes": "Inferred, not stated: the questionnaire gives no envelope fact directly, only that three separate reference artifacts are called Czechia-specific. Value is Czechia's country border, simplified, standing in for those artifacts' unstated extent. Needs owner confirmation."
+                },
+                {
+                  "id": "rasdaman-coverage",
+                  "role": "can-run-on",
+                  "dimension": "spatial",
+                  "value": { "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))" },
+                  "transferabilityNotes": "Where the current Rasdaman climate collections hold data. The questionnaire calls them project-specific (Question 10) and gives no extent. Czechia's country border, simplified, stands in. Needs owner confirmation."
                 }
               ],
               "artifacts": [
@@ -169,11 +183,18 @@ examples:
               ],
               "rules": [
                 {
-                  "appliesTo": ["tolerances", "slt-t5", "species-codes", "rasdaman"],
+                  "appliesTo": ["tolerances", "slt-t5", "species-codes"],
                   "when": [{ "constraint": "czechia", "test": "outside" }],
                   "actions": ["replace-with-local-equivalent"],
                   "mandatory": true,
                   "transferabilityNotes": "Question 4: 'Users can also provide custom thresholds', so the tolerance thresholds can be overridden directly, even within the source region. Question 9 adds that 'Thresholds may need adjustment to local species, forest types and management practice'. Both are recorded here as a note and not as structure: the model has no notion of a parameter that should be tuned when the workflow moves, and one case does not justify one."
+                },
+                {
+                  "appliesTo": ["rasdaman"],
+                  "when": [{ "constraint": "rasdaman-coverage", "test": "outside" }],
+                  "actions": ["replace-with-local-equivalent"],
+                  "mandatory": true,
+                  "transferabilityNotes": "Question 9: 'The climate registry and source catalogue would need to point to the target region's climate datasets.' Question 8 accepts 'Rasdaman or equivalent gridded daily climate data'."
                 }
               ]
             },
@@ -185,8 +206,12 @@ examples:
     base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/
     content: |
       The sharpest evidenced example of a non-operational workflow (`maturityStatus: prototype`),
-      and the only one whose source explicitly describes a rule as optional-but-degrading: without
-      local training labels, results are still produced, just "treated as exploratory". That is
+      and the clearest optional-but-degrading rule: without local training labels, results are
+      still produced, just "treated as exploratory" (Question 7). Question 9 lists the labels
+      among the things that "would need to be replaced", so the optional flag on the labels combines
+      the two answers rather than being stated in one sentence. The EO strategy is optional
+      because Question 9 says it "may also need adjustment", and Question 3 says the Python
+      requirement is only "expected", so it is provisional. That is
       `mandatory: false` with the consequence spelled out — a skippable rule with no stated
       consequence tells a consumer nothing they can act on, so `shapes.shacl` rejects that pairing.
 
@@ -231,8 +256,8 @@ examples:
                   "id": "label-extent",
                   "role": "trained-on",
                   "dimension": "spatial",
-                  "value": { "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))" },
-                  "transferabilityNotes": "More speculative than FP-WF1's or FP-WF2's: no sentence in this questionnaire names a location for the historical disturbance labels. Czechia is used as a proxy because this is a Forest Pilot workflow, and its country bounding box as the value. Needs owner confirmation before being treated as fact."
+                  "value": { "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))" },
+                  "transferabilityNotes": "More speculative than FP-WF1's or FP-WF2's: no sentence in this questionnaire names a location for the historical disturbance labels. Czechia is used as a proxy because this is a Forest Pilot workflow, and Czechia's country border (simplified) as the value, standing in for an extent the owner did not state. Needs owner confirmation before being treated as fact."
                 },
                 {
                   "id": "phenological-regime",
@@ -267,7 +292,8 @@ examples:
                   "appliesTo": ["eo-strategy"],
                   "when": [{ "constraint": "label-extent", "test": "outside" }],
                   "actions": ["replace-with-local-equivalent"],
-                  "mandatory": true
+                  "mandatory": false,
+                  "transferabilityNotes": "Question 9: the strategy 'may also need adjustment to local conditions'. Optional because the owner says 'may'; the source states no consequence for leaving it unadjusted, and the owner is asked what triggers the adjustment."
                 },
                 {
                   "appliesTo": ["phenology"],
@@ -300,7 +326,7 @@ examples:
       `spatial`, each has an `id`, and each rule cites the one that actually governs it.
 
       **CLMS's exclusion of Ukraine is its own constraint, not a hole in a geometry.** The previous
-      model carried a computed Europe-minus-Ukraine MultiPolygon — 1,283 lines of Turtle, with the
+      model carried a computed Europe-minus-Ukraine MultiPolygon at full border resolution, with the
       exclusion invisible to anyone reading it and quietly lost the moment the geometry was
       simplified. Here it is a named constraint cited by a rule with `test: inside`, so falling
       within the excluded area is what makes the component unexecutable. It is legible, it is
@@ -331,11 +357,13 @@ examples:
       The **temporal constraint is directly evidenced**, unlike the omitted periods elsewhere:
       discrete epochs, 2022–2025 at time of writing.
 
-      Geometries are coarse extents, not cadastral boundaries, and say so on the constraint. In
-      particular `clms-extent` is a bounding box over a coverage that is really a list of
-      countries, so it answers "inside" for places CLMS does not serve at all (the whole Maghreb
-      coast, for one). The Ukraine exclusion is carved out because it was known; the others are
-      not, which is what question 3 to the workflow owners is for.
+      Geometries are coarse country-based extents, not cadastral boundaries, and say so on the
+      constraint. `clms-extent` follows the owner's statement that the CLMS products cover "Europe,
+      except for Ukraine": a coarse union of European countries clipped to a European window, so
+      places outside Europe (the Maghreb coast, for one) are outside it. It does not settle whether
+      CLMS covers Russia, Belarus or Moldova, which the owners were asked. The Ukraine exclusion
+      stays a separate constraint because it was stated; any others are not known, which is what
+      question 3 to the workflow owners is for.
 
       `outputs` omitted. `inputs` and `steps` ids are **placeholders** invented so `artifactRef`
       and `affects` have something to point at; they are not UP-WF2's real interface, and the step
@@ -344,6 +372,9 @@ examples:
       would mislead a consumer about which components stop. Its Eurostat dependency stays an
       `external-resource` with no `artifactRef`, since the data is not implemented and there is
       nothing to point into.
+
+      The questionnaire gives the Python requirement as "3.10+"; CWL's version list cannot say "and
+      later", so only the lower bound is recorded.
     snippets:
       - language: json
         code: |
@@ -355,7 +386,7 @@ examples:
             "requirements": {
               "SoftwareRequirement": {
                 "packages": [
-                  { "package": "python", "version": ["3.10", "3.11", "3.12", "3.13"] },
+                  { "package": "python", "version": ["3.10"] },
                   { "package": "rioxarray" },
                   { "package": "xarray" },
                   { "package": "rasterio" },
@@ -401,22 +432,22 @@ examples:
                   "id": "clms-extent",
                   "role": "valid-for",
                   "dimension": "spatial",
-                  "value": { "asWKT": "POLYGON((-25 34,45 34,45 72,-25 72,-25 34))" },
-                  "transferabilityNotes": "CLMS product coverage, as a coarse bounding extent rather than a country-by-country outline: the precise boundary is a property of the CLMS product and is better dereferenced from CLMS than restated approximately here. The product's exclusion of Ukraine is a separate constraint (`clms-excluded-ukraine`) rather than a hole in this one — an exclusion carved into a geometry is invisible to a reader and easy to lose in simplification, whereas a named constraint a rule cites is neither."
+                  "value": { "asWKT": "MULTIPOLYGON (((-9.18 43.17, -7.7 43.76, -1.99 43.35, -1.08 45.53, -0.83 45.38, -0.69 45.09, -0.55 45, -1.74 47.22, -4.72 48.54, -1.38 48.65, -1.86 49.68, 0.42 49.45, 1.77 50.94, 4.23 51.39, 3.45 51.54, 4.27 51.47, 5.53 53.27, 9.78 53.55, 8.13 55.6, 8.16 56.61, 9.2 56.7, 8.27 56.75, 8.62 57.11, 10.61 57.74, 10.28 56.62, 10.93 56.44, 9.59 55.49, 9.87 54.47, 14.58 53.64, 13.83 54.13, 18.09 54.84, 19.41 54.39, 21.11 55.62, 20.59 54.98, 21.19 54.94, 21.73 57.57, 24.38 57.25, 24.53 58.35, 23.49 59.2, 30.16 59.9, 28.51 60.68, 23.02 59.82, 21.44 60.6, 21.55 63.2, 25.37 65.01, 24.63 65.86, 22.4 65.86, 20.76 63.87, 17.41 62.51, 17.25 60.7, 18.97 59.76, 16.21 58.64, 16.92 58.49, 16.35 56.71, 14.17 55.4, 12.89 55.41, 12.88 56.62, 10.6 59.76, 8.17 58.15, 5.59 58.62, 6.42 59.55, 5.24 59.56, 7 60.51, 5.15 59.64, 5.65 60.69, 5.01 61.04, 7.04 60.95, 7.6 61.21, 5.11 61.19, 4.93 61.88, 6.02 61.79, 6.73 61.87, 5.14 62.16, 8.62 62.85, 8.58 63.6, 10.02 63.39, 11.37 63.8, 9.57 63.71, 12.92 65.34, 12.12 65.36, 14.03 66.3, 13.12 66.23, 13.65 66.91, 15.42 67.2, 14.44 67.27, 15.59 67.35, 15.05 67.96, 16.31 67.88, 19.2 69.75, 23.35 69.98, 24.66 71, 25.77 70.85, 25.04 70.11, 27.6 71.09, 28.39 70.98, 28.19 70.25, 30.07 70.7, 30.94 70.27, 28.8 70.09, 40.97 67.71, 41.19 66.83, 38.65 66.07, 34.48 66.55, 32.93 67.09, 31.9 67.16, 34.69 65.95, 35.04 64.44, 37.44 63.81, 38.06 64.09, 36.88 65.17, 39.76 64.58, 40.44 64.78, 39.82 65.6, 42.21 66.52, 44.1 66.01, 44.2 68.25, 43.33 68.67, 45 68.58, 45 42.71, 39.98 43.42, 36.63 45.15, 39.2 47.27, 35.23 46.44, 35.02 45.7, 36.39 45.07, 33.91 44.39, 32.51 45.4, 33.59 46.1, 31.83 46.28, 32.58 46.62, 31.76 47.21, 31.87 46.65, 28.89 44.92, 27.48 42.47, 28.01 41.97, 26.58 41.95, 26.04 40.73, 23.76 40.75, 23.95 39.97, 22.63 40.5, 23.33 39.17, 22.57 38.87, 24.06 37.77, 23.05 37.9, 23.16 36.45, 22.49 36.45, 21.12 37.89, 23.18 38.13, 21.11 38.38, 19.32 40.41, 19.58 41.79, 13.21 45.77, 12.27 45.45, 12.4 44.22, 18.46 40.22, 16.93 40.46, 16.52 39.75, 17.17 39, 16.06 37.94, 15.69 39.99, 8.77 44.42, 6.12 43.07, 3.26 43.19, 3.25 41.94, 0.71 40.82, -0.33 39.52, 0.2 38.76, -2.11 36.78, -5.63 36.03, -6.86 37.28, -8.94 37.02, -9.18 43.17)), ((-6.32 52.25, -10.38 51.87, -8.78 52.68, -9.92 52.57, -8.93 53.21, -10.09 53.41, -10.06 54.26, -8.55 54.24, -7.31 55.37, -5.53 54.62, -6.35 53.94, -6.32 52.25)), ((-5.26 51.88, -4.15 52.33, -4.27 53.14, -2.75 53.31, -3.59 54.56, -3.04 54.95, -4.91 54.69, -4.58 55.94, -5.73 55.33, -5.19 56.76, -6.13 56.72, -5.02 58.57, -3.05 58.63, -4.13 57.58, -1.78 57.47, -3.31 56.36, -2.67 56.25, -3.79 56.1, -2.15 55.9, -0.08 54.12, 0.12 53.61, -0.27 53.74, -0.66 53.72, 0.05 52.91, 1.75 52.47, 0.42 51.47, 1.41 51.36, 0.96 50.93, -5.66 50.08, -4.19 51.19, -3.14 51.21, -2.43 51.74, -5.26 51.88)), ((-13.6 65.04, -18.65 63.41, -22.65 63.83, -21.59 64.63, -24.03 64.86, -21.84 65.45, -24.48 65.53, -22.44 65.91, -22.89 66.44, -21.13 65.27, -20.21 66.1, -14.7 66.34, -13.6 65.04)))" },
+                  "transferabilityNotes": "Question 4: the CLMS products cover 'Europe, except for Ukraine'. The geometry follows that statement: a coarse union of European countries (Natural Earth, public domain, simplified to a few tens of kilometers) clipped to a European window that drops overseas territories and Asian Russia. It does not settle whether CLMS covers Russia, Belarus or Moldova; that is unknown and asked of the owner. The precise boundary is a property of the CLMS product and is better dereferenced from CLMS than restated approximately here. The exclusion of Ukraine is a separate constraint (`clms-excluded-ukraine`) rather than a hole in this one — an exclusion carved into a geometry is invisible to a reader and easy to lose in simplification, whereas a named constraint a rule cites is neither."
                 },
                 {
                   "id": "clms-excluded-ukraine",
                   "role": "valid-for",
                   "dimension": "spatial",
-                  "value": { "asWKT": "POLYGON((22.1 44.4,40.2 44.4,40.2 52.4,22.1 52.4,22.1 44.4))" },
-                  "transferabilityNotes": "Ukraine's approximate bounding extent, which CLMS coverage excludes. Cited by a rule with test `inside`, so falling within it is what makes the component unexecutable. Coarse: a bounding box over Ukraine also covers parts of neighbouring countries, so this errs toward flagging a target that may in fact be covered — the safe direction for a portability check, but it needs the authoritative CLMS geometry before it is relied on."
+                  "value": { "asWKT": "MULTIPOLYGON (((37.54 47.07, 36.79 46.71, 35.83 46.62, 35.2 46.17, 35.01 46.11, 35.28 46.28, 35.23 46.44, 34.85 46.19, 34.95 45.73, 34.69 45.98, 33.81 46.21, 33.43 46.06, 33.2 46.18, 32.48 46.08, 31.83 46.28, 32.01 46.43, 31.55 46.55, 32.36 46.47, 32.58 46.62, 32.04 46.64, 31.94 46.98, 31.76 47.21, 31.87 46.65, 31.53 46.66, 31.56 46.78, 30.8 46.55, 30.22 45.87, 29.63 45.72, 29.71 45.26, 29.4 45.42, 28.76 45.23, 28.21 45.45, 28.5 45.52, 28.49 45.67, 28.95 46.05, 28.96 46.46, 30.13 46.42, 29.92 46.54, 29.88 46.83, 29.57 46.96, 29.54 47.27, 29.13 47.49, 29.13 47.96, 27.55 48.48, 26.85 48.39, 26.31 48.2, 26.16 47.99, 24.89 47.72, 24.48 47.95, 23.14 48.09, 22.88 47.95, 22.13 48.41, 22.14 48.57, 22.54 49.07, 22.84 49.04, 22.71 49.17, 22.71 49.61, 24.09 50.53, 23.98 50.79, 24.1 50.87, 23.66 51.31, 23.61 51.61, 23.98 51.59, 24.36 51.87, 25.93 51.91, 27.14 51.75, 27.7 51.48, 28.18 51.61, 28.73 51.43, 29.1 51.63, 29.35 51.38, 30.16 51.48, 30.54 51.27, 30.58 51.69, 30.98 52.05, 32.12 52.05, 32.44 52.31, 33.74 52.34, 34.4 51.78, 34.12 51.68, 34.21 51.26, 35.06 51.2, 35.31 51.04, 35.41 50.54, 35.59 50.37, 36.12 50.41, 36.62 50.21, 37.42 50.41, 38.05 49.92, 38.26 50.05, 40.08 49.58, 40.11 49.25, 39.69 49.01, 40 48.82, 39.79 48.81, 39.64 48.59, 39.84 48.54, 39.96 48.27, 39.78 47.89, 38.9 47.86, 38.37 47.61, 38.21 47.09, 37.54 47.07)), ((32.15 46.15, 31.56 46.26, 31.51 46.37, 32.15 46.15)))" },
+                  "transferabilityNotes": "Ukraine's country border (Natural Earth, public domain, simplified to a few tens of kilometers), the area the owner says the CLMS products exclude (Question 4: 'Europe, except for Ukraine'). Cited by a rule with test `inside`, so falling within it is what makes the component unexecutable. Kept as its own constraint so it can be corrected separately when the authoritative CLMS geometry is available. Near the border a target within a few tens of kilometers of the line may be classified the wrong way."
                 },
                 {
                   "id": "epochs",
-                  "role": "valid-for",
+                  "role": "can-run-on",
                   "dimension": "temporal",
                   "value": { "startDate": "2022", "endDate": "2025" },
-                  "transferabilityNotes": "Discrete temporal epochs, explicitly not a time series: one timestep per epoch. 2022–2025 available at time of writing."
+                  "transferabilityNotes": "The epochs available now: discrete temporal epochs, explicitly not a time series (one timestep per epoch), 2022–2025 available at time of writing. Question 6 says two to three more periods are planned, and Question 4 that the Landsat source depends on the selected time period, so this is what is available, not a validity limit."
                 }
               ],
               "artifacts": [
@@ -435,7 +466,7 @@ examples:
                   "appliesTo": ["lst"],
                   "when": [{ "constraint": "eur11-domain", "test": "outside" }],
                   "actions": ["replace-with-local-equivalent", "component-not-executable"],
-                  "affects": ["/steps/lst_preparation", "/steps/hotspot_characterization"],
+                  "affects": ["/steps/hotspot_characterization"],
                   "mandatory": true,
                   "transferabilityNotes": "Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target. Which of the two applies depends on whether a substitute is obtainable, which the source does not resolve."
                 },
@@ -445,23 +476,23 @@ examples:
                   "actions": ["replace-with-local-equivalent", "component-not-executable"],
                   "affects": ["/steps/hotspot_characterization"],
                   "mandatory": true,
-                  "transferabilityNotes": "Outside CLMS coverage no substitute is currently defined, and hot-spot characterization, which uses this dataset, cannot be executed."
+                  "transferabilityNotes": "Outside CLMS coverage, Question 9 asks for 'Equivalent environmental datasets (e.g., Tree Cover Density and Imperviousness)' and says that without them some components, particularly hot spot characterization, cannot be executed. Which of the two applies depends on whether an equivalent exists, which the source does not resolve."
                 },
                 {
                   "appliesTo": ["clms"],
                   "when": [{ "constraint": "clms-excluded-ukraine", "test": "inside" }],
-                  "actions": ["component-not-executable"],
+                  "actions": ["replace-with-local-equivalent", "component-not-executable"],
                   "affects": ["/steps/hotspot_characterization"],
                   "mandatory": true,
-                  "transferabilityNotes": "Within the CLMS bounding extent but inside the area the product excludes: no Tree Cover Density or Imperviousness Density data exists, and no substitute is defined, so hot-spot characterization cannot be executed. A terminal outcome with no alternative offered, unlike the coverage rule above."
+                  "transferabilityNotes": "Inside the area the product excludes (Question 4): the same cascade as outside CLMS coverage, because Ukraine is one more place the product does not cover. Whether an equivalent exists is not resolved by the source."
                 },
                 {
                   "appliesTo": ["eurostat"],
-                  "triggeredBy": "different-geographic-coverage",
+                  "when": [{ "constraint": "eur11-domain", "test": "outside" }],
                   "actions": ["replace-with-local-equivalent", "component-not-executable"],
                   "affects": ["/steps/heat_risk_indicator"],
-                  "mandatory": true,
-                  "transferabilityNotes": "Stated with triggeredBy rather than a cited constraint: this data is not yet implemented, so there is no envelope fact to point at. Once built, the planned Heat Risk Indicator would not be executable without it."
+                  "mandatory": false,
+                  "transferabilityNotes": "Question 9: outside the EURO-CORDEX domain, 'Availability of comparable census or socio-economic data (preferably following a schema compatible with Eurostat)' is needed, and without the datasets some components cannot be executed. Optional because the Heat Risk Indicator is planned and not yet implemented: today its absence costs a planned step, not the current workflow."
                 }
               ],
               "transferabilityNotes": "Question 9 states a portability fact that no shape here holds: the classification step is data-agnostic. 'The LST dataset the hot and cool spot classification is based on is a raster dataset with a single time step and one value per grid cell. It is not a time series. Hence, the classification could also be applied to other raster datasets with a single time step and one value per grid cell.' In other words the algorithm is more portable than the specific input dataset. Recorded as a note because one workflow does not justify a property."
@@ -489,14 +520,14 @@ examples:
 
       **An empty `envelope` and an empty `rules` are the claim here, not a shortfall.** Under the
       closed-world default — rules are exceptions, silence means reuse — the two empty arrays say
-      that the delivery was assessed and carries no validity boundary and no adaptation step. That
+      that the owner named no validity boundary and no adaptation step for the delivery. That
       is a strong claim, and the statement's `transferabilityNotes` says plainly that it is the
       source's claim rather than a verified one: a nine-member regional climate ensemble almost
       certainly does have conditions the questionnaire did not surface. Until the owner confirms,
       the honest record is the answer as given, marked as unverified, rather than a boundary
       invented to make the entry look substantial.
 
-      **`noConstraintsIdentified: true` is that claim stated outright.** Two empty arrays cannot
+      **`noConstraintsStated: true` says outright that the owner named none.** Two empty arrays cannot
       be told from a form nobody filled in, which is exactly how a consumer read them when this
       record was first tested. The marker changes that, and a shape rejects it alongside any
       envelope entry or rule, so it cannot contradict the lists it summarizes.
@@ -517,7 +548,7 @@ examples:
       the indexing scheme. Writing `gwl-1.5` here would be inventing a slice. Recorded in
       `transferabilityNotes` and raised with the owner instead. `inputs`/`outputs` ids are
       placeholders; `steps` is omitted, since there is no Application Package and, on this
-      workflow's own account, no process to package.
+      workflow's own account (Question 3: "Python but data is precalculated"), no re-executable package was described.
     snippets:
       - language: json
         code: |
@@ -533,7 +564,7 @@ examples:
             "outputs": { "climate_indices": { "type": "File" } },
             "transferability": {
               "trainingRequired": false,
-              "noConstraintsIdentified": true,
+              "noConstraintsStated": true,
               "envelope": [],
               "artifacts": [
                 {
@@ -561,7 +592,7 @@ examples:
       the Czech national climate-zone scheme, so their boundary is `jurisdictional` and its role is
       `valid-for`: outside it a local or national scheme applies instead. The Rasdaman collections
       are a data footprint, so their boundary is `spatial` and its role is `can-run-on`: outside it
-      there is simply nothing to read. Both are approximated by Czechia's bounding box and both are
+      there is simply nothing to read. Both are approximated by Czechia's simplified country border and both are
       inferred rather than stated, which is recorded on each constraint. Collapsing them into one
       would lose the fact that a target could satisfy either without satisfying the other — an
       instance with the Czech scheme but no Rasdaman coverage needs a datacube, not a new
@@ -611,15 +642,15 @@ examples:
                   "id": "czech-zone-scheme",
                   "role": "valid-for",
                   "dimension": "jurisdictional",
-                  "value": { "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))" },
-                  "transferabilityNotes": "The Quitt classification is the Czech national forest climate-zone scheme, so this is a scheme boundary rather than a data footprint: question 9 says thresholds, labels and metadata 'should be adapted to local or national classification schemes'. Value is Czechia's country bounding box. Inferred — the questionnaire names Quitt and 'Czech climate-zone definitions' but never states an extent — and needs owner confirmation."
+                  "value": { "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))" },
+                  "transferabilityNotes": "The Quitt classification is the Czech national forest climate-zone scheme, so this is a scheme boundary rather than a data footprint: question 9 says thresholds, labels and metadata 'should be adapted to local or national classification schemes'. Value is Czechia's country border, simplified, standing in for the scheme's unstated extent. Inferred — the questionnaire names Quitt and 'Czech climate-zone definitions' but never states an extent — and needs owner confirmation."
                 },
                 {
                   "id": "rasdaman-collections",
                   "role": "can-run-on",
                   "dimension": "spatial",
-                  "value": { "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))" },
-                  "transferabilityNotes": "Where the current Rasdaman annual-indicator collections hold data. Same approximated geometry as `czech-zone-scheme` and a different fact: this one is about what can be read, that one about what the classification means. Question 9 says the registry and source catalogue 'would need to reference the target region'. Inferred extent; needs owner confirmation."
+                  "value": { "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))" },
+                  "transferabilityNotes": "Where the current Rasdaman annual-indicator collections hold data. Same stand-in geometry (Czechia's simplified country border, for an extent the owner did not state) as `czech-zone-scheme` and a different fact: this one is about what can be read, that one about what the classification means. Question 9 says the registry and source catalogue 'would need to reference the target region'. Inferred extent; needs owner confirmation."
                 },
                 {
                   "id": "quitt-meaningful",
@@ -709,7 +740,7 @@ examples:
       **An unsupported grid is not a substitution problem.** Question 7 is categorical: "Other
       projections are not handled." So the grid constraint is cited by a rule whose action is
       `component-not-executable` and whose `affects` names the accumulation and detection steps —
-      the computation does not degrade on a Lambert-conformal grid, it does not run. That is the
+      we read "not handled" as: it does not run (for example on a Lambert-conformal grid), which the owner is asked to confirm. That is the
       distinction the terminal action exists to draw, and this is a cleaner instance of it than
       UP-WF2's, where a substitute might yet be found.
 
@@ -722,7 +753,7 @@ examples:
       unlike climate is as much of a problem as one outside it.
 
       **A support mismatch is a quality fact, not a portability one.** Question 7 states that the
-      JRC vulnerability index is at NUTS3 level, "coarser than the precipitation grid and does not
+      vulnerability index is at NUTS3 level, "coarser than the precipitation grid and does not
       align exactly with the AOI boundary". That is a relationship between the supports of two of
       the workflow's own artifacts, so no envelope dimension holds it and no rule is conditioned on
       it, and it holds in the source deployment as much as in any target. It belongs on the axis
@@ -755,6 +786,9 @@ examples:
       Python package on DKRZ's HPC system, "Container: none at this stage", recently shared for
       integration testing. `inputs` and `steps` ids are placeholders invented so `artifactRef` and
       `affects` resolve; they are not UP-WF3's real interface.
+
+      The questionnaire gives the Python requirement as "3.10+"; CWL's version list cannot say "and
+      later", so only the lower bound is recorded.
     snippets:
       - language: json
         code: |
@@ -766,7 +800,7 @@ examples:
             "requirements": {
               "SoftwareRequirement": {
                 "packages": [
-                  { "package": "python", "version": ["3.10", "3.11", "3.12", "3.13"] },
+                  { "package": "python", "version": ["3.10"] },
                   { "package": "xarray" },
                   { "package": "numpy" },
                   { "package": "pandas" },
@@ -811,15 +845,15 @@ examples:
                   "id": "dwd-stations",
                   "role": "derived-from",
                   "dimension": "spatial",
-                  "value": { "asWKT": "POLYGON((5.87 47.27,15.04 47.27,15.04 55.06,5.87 55.06,5.87 47.27))" },
-                  "transferabilityNotes": "Germany's country bounding box, standing in for the DWD station network the 6-hour and 12-hour percentile thresholds were pre-computed from. A scattered set of stations, not a rectangle, so this is an upper bound; and station networks are dense in some regions and sparse in others, which a bounding box cannot show at all."
+                  "value": { "asWKT": "MULTIPOLYGON (((8.57 47.78, 8.43 47.59, 7.57 47.61, 7.62 48.16, 8.13 48.97, 6.74 49.16, 6.34 49.45, 6.49 49.8, 6.11 50.09, 6.34 50.45, 5.86 51.03, 6.13 51.15, 6.2 51.45, 5.95 51.8, 6.74 51.91, 6.72 52.08, 7.02 52.27, 7 52.42, 6.69 52.53, 7.01 52.63, 7.18 52.97, 7.2 53.28, 7.05 53.38, 7.21 53.65, 8.01 53.69, 8.11 53.47, 8.33 53.61, 8.5 53.39, 8.62 53.88, 9.21 53.86, 9.59 53.6, 9.78 53.55, 9.31 53.86, 8.98 53.93, 8.91 54.26, 8.64 54.29, 8.96 54.54, 8.67 54.9, 9.62 54.86, 10.02 54.67, 9.87 54.47, 11.01 54.38, 11.01 54.18, 10.81 54.08, 10.92 54, 11.4 53.94, 12.58 54.47, 13.03 54.41, 13.45 54.14, 13.72 54.15, 13.87 53.85, 14.26 53.73, 14.41 53.2, 14.13 52.88, 14.62 52.53, 14.55 52.36, 14.75 52.08, 14.6 51.83, 14.72 51.52, 14.94 51.44, 14.96 51.1, 14.77 50.82, 14.32 51.04, 14.37 50.9, 12.94 50.41, 12.55 50.39, 12.28 50.18, 12.09 50.27, 12.51 49.9, 12.39 49.74, 12.63 49.46, 13.77 48.82, 13.79 48.59, 13.49 48.58, 13.37 48.36, 12.76 48.11, 13.05 47.66, 13.01 47.48, 12.21 47.72, 11.04 47.39, 10.44 47.55, 10.18 47.28, 9.97 47.51, 8.57 47.78)), ((13.36 54.25, 13.16 54.36, 13.18 54.54, 13.42 54.7, 13.71 54.38, 13.36 54.25)), ((13.93 53.88, 13.83 54.13, 14.04 54.03, 14.21 53.95, 13.93 53.88)), ((11.13 54.42, 11.01 54.47, 11.08 54.53, 11.28 54.42, 11.13 54.42)), ((8.41 55.06, 8.38 54.9, 8.63 54.89, 8.31 54.79, 8.41 55.06)), ((8.55 54.69, 8.4 54.71, 8.51 54.76, 8.55 54.69)))" },
+                  "transferabilityNotes": "Germany's country border, simplified to a few tens of kilometers, standing in for the DWD station network the 6-hour and 12-hour percentile thresholds were pre-computed from. A scattered set of stations, not a country, so this is an upper bound; and station networks are dense in some regions and sparse in others, which a border cannot show at all."
                 },
                 {
                   "id": "eobs-extent",
                   "role": "derived-from",
                   "dimension": "spatial",
                   "value": { "asWKT": "POLYGON((-25 25,45 25,45 71.5,-25 71.5,-25 25))" },
-                  "transferabilityNotes": "The E-OBS domain's published approximate extent (about 25W-45E, 25N-71.5N), from which the 1-day and 7-day percentile thresholds were pre-computed. A coarse rectangle: E-OBS's actual land coverage is neither rectangular nor uniform in station density."
+                  "transferabilityNotes": "The E-OBS domain's published approximate extent (about 25W-45E, 25N-71.5N), from which the 1-day and 7-day percentile thresholds were pre-computed. E-OBS is distributed on a regular rectangular latitude/longitude grid, so a rectangle is the right shape for its extent; its actual land coverage is coarser than that and station density is not uniform."
                 },
                 {
                   "id": "threshold-climate-regime",
@@ -832,8 +866,8 @@ examples:
                   "id": "eu-input-coverage",
                   "role": "can-run-on",
                   "dimension": "spatial",
-                  "value": { "asWKT": "POLYGON((-25 25,45 25,45 71.5,-25 71.5,-25 25))" },
-                  "transferabilityNotes": "Question 9: 'All input datasets are covering EU.' Approximated by the E-OBS extent, which is the widest of the sources involved. Deliberately coarse and known to be too generous: this is really the intersection of E-OBS, the NUKLEUS EUR-11 domain, the Local Climate Zone, imperviousness and population layers, and a NUTS3 vulnerability index that stops at the EU's borders. The individual footprints were not stated; the union bounding box answers 'inside' for places at least one input does not reach. Needs owner confirmation before it is relied on."
+                  "value": { "asWKT": "MULTIPOLYGON (((-8.79 39.08, -9.48 38.8, -8.66 41.03, -9.18 43.17, -7.7 43.76, -1.99 43.35, -1.08 45.53, -0.83 45.38, -0.69 45.09, -0.55 45, -1.74 47.22, -4.72 48.54, -1.38 48.65, -1.86 49.68, 0.42 49.45, 1.77 50.94, 4.23 51.39, 3.45 51.54, 4.27 51.47, 5.53 53.27, 9.78 53.55, 8.13 55.6, 8.16 56.61, 9.2 56.7, 8.27 56.75, 8.62 57.11, 10.61 57.74, 10.28 56.62, 10.89 56.36, 9.45 55.04, 10.92 54, 12.58 54.47, 13.72 54.15, 13.95 53.8, 14.58 53.64, 13.83 54.13, 18.09 54.84, 22.73 54.35, 22.57 55.06, 21.2 55.34, 21.46 57.32, 24.28 57.17, 24.53 58.35, 23.43 58.92, 24.38 59.47, 28.15 59.37, 27.35 57.53, 28.15 56.14, 26.59 55.67, 25.75 54.16, 23.48 53.94, 23.92 52.77, 23.18 52.29, 24.09 50.53, 22.13 48.41, 24.89 47.72, 26.9 48.21, 28.24 46.64, 28.21 45.45, 29.71 45.26, 27.48 42.47, 28.01 41.97, 26.58 41.95, 26.04 40.73, 23.76 40.75, 23.95 39.97, 22.63 40.5, 23.33 39.17, 22.57 38.87, 24.02 38.14, 22.73 37.54, 23.16 36.45, 21.12 37.89, 23.15 38.18, 21.18 38.35, 20 39.71, 20.96 40.85, 22.93 41.36, 22.34 42.31, 22.73 44.57, 19.61 46.17, 18.84 45.84, 19.01 44.87, 15.79 45.18, 17.59 42.94, 15.99 43.52, 14.55 45.3, 13.86 44.84, 13.63 45.77, 12.27 45.45, 12.4 44.22, 14.18 42.51, 18.46 40.22, 16.93 40.46, 16.52 39.75, 17.17 39, 16.06 37.94, 15.69 39.99, 8.77 44.42, 6.12 43.07, 3.26 43.19, 3.25 41.94, 0.71 40.82, -0.33 39.52, 0.2 38.76, -2.11 36.78, -5.63 36.03, -6.86 37.28, -8.74 37.07, -8.79 39.08)), ((-7.85 54.22, -6.18 54.05, -6.32 52.25, -10.12 51.6, -9.6 51.87, -10.36 52.21, -8.78 52.68, -9.92 52.57, -8.93 53.21, -10.09 53.41, -9.58 53.81, -10.09 54.22, -6.96 55.24, -7.85 54.22)), ((12.88 61.35, 12.16 61.72, 12.18 63.6, 14.06 64.1, 13.65 64.58, 14.54 66.13, 16.78 67.9, 21.27 69.27, 24.94 68.59, 26.53 69.92, 29.33 69.47, 28.41 68.9, 29.99 67.67, 29.07 66.89, 30.09 65.79, 29.6 64.97, 30.53 64.08, 29.99 63.74, 31.54 62.92, 29.25 61.29, 23.02 59.82, 21.44 60.6, 21.55 63.2, 25.37 65.01, 24.63 65.86, 22.4 65.86, 20.76 63.87, 17.38 62.46, 17.25 60.7, 18.99 59.83, 16.21 58.64, 16.92 58.49, 15.92 56.17, 12.89 55.41, 12.88 56.62, 11.25 58.37, 12.88 61.35)))" },
+                  "transferabilityNotes": "Question 9: 'All input datasets are covering EU.' Approximated by the EU as a coarse union of the 27 member countries (Natural Earth, public domain, simplified) within a European window, so overseas territories are excluded and small islands such as Malta and Cyprus are dropped. Deliberately coarse and known to be too generous: this is really the intersection of E-OBS, the NUKLEUS EUR-11 domain, the Local Climate Zone, imperviousness and population layers, and a NUTS3 vulnerability index that stops at the EU's borders, and the individual footprints were not stated. Needs owner confirmation before it is relied on."
                 },
                 {
                   "id": "supported-grids",
@@ -880,14 +914,14 @@ examples:
                   "artifact": "exposure layers (Local Climate Zones, imperviousness, population)",
                   "artifactRole": "workflow-input",
                   "artifactRef": "/inputs/exposure_layers",
-                  "transferabilityNotes": "Contextual overlay only: question 4 is explicit that exposure does not enter the calculation. Left ungoverned by any rule, which under the closed-world default reads as reusable unchanged, and here that is right for the wrong reason. Question 9 says the workflow offers no way to substitute it: 'If users want to use their own exposure or vulnerability data, since current workflow is no option for it.' That is a standing limitation of the interface, not an outcome triggered by a target falling outside a boundary, and the model has no shape for it — `when` and `triggeredBy` both assume a trigger, and `component-not-executable` would say the overlay step fails, which it does not."
+                  "transferabilityNotes": "Contextual overlay: Question 4 is explicit that exposure does not enter the calculation, and Question 9 says that if users want their own exposure or vulnerability data, 'current workflow is no option for it'. Not substitutable, then, which this model cannot yet state (see the statement-level note). Question 9 also says 'All input datasets are covering EU', so the overlay cannot be produced outside the EU: recorded as an optional terminal rule on `eu-input-coverage`, our inference from those two answers, to be confirmed with the owner."
                 },
                 {
                   "id": "vulnerability",
-                  "artifact": "vulnerability index at NUTS3 level (JRC Risk Data Hub)",
+                  "artifact": "vulnerability index at NUTS3 level (Risk Data Hub)",
                   "artifactRole": "workflow-input",
                   "artifactRef": "/inputs/vulnerability_index",
-                  "transferabilityNotes": "Contextual overlay, and not substitutable, for the same reason recorded on `exposure`. Question 7 also states the index is at NUTS3 level, 'coarser than the precipitation grid and does not align exactly with the AOI boundary'. That is a relationship between the spatial supports of two artifacts, so no envelope dimension describes it and no rule is conditioned on it; it bears on how far the overlay can be read rather than on whether the workflow moves, and it is carried on that axis instead, by the workflow's `spatial-support-mismatch` qualityAnnotation."
+                  "transferabilityNotes": "Contextual overlay, and not substitutable, for the same reason recorded on `exposure`, with the same optional rule outside the EU. Question 7 also states the index is at NUTS3 level, 'coarser than the precipitation grid and does not align exactly with the AOI boundary', which is carried by the `spatial-support-mismatch` qualityAnnotation. Question 8: the index data is 'currently local files, until it is published on the FOCAL STAC'."
                 }
               ],
               "rules": [
@@ -911,7 +945,7 @@ examples:
                   "actions": ["component-not-executable"],
                   "affects": ["/steps/accumulation", "/steps/blue_spot_detection"],
                   "mandatory": true,
-                  "transferabilityNotes": "Question 7: 'Other projections are not handled.' Terminal rather than a substitution, and deliberately so — a dataset on a Lambert-conformal or polar-stereographic grid does not produce worse blue spots, it produces none, because the rolling accumulation has no code path for it. Regridding to a supported grid is a preprocessing step outside this workflow, not an action it offers."
+                  "transferabilityNotes": "Question 7: 'Other projections are not handled.' Our reading of 'not handled' (to be confirmed with the owner): terminal rather than a substitution — a dataset on a Lambert-conformal or polar-stereographic grid does not produce worse blue spots, it produces none, because the rolling accumulation has no code path for it. Regridding to a supported grid is a preprocessing step outside this workflow, not an action it offers."
                 },
                 {
                   "appliesTo": ["focal-stac-loader"],
@@ -919,6 +953,14 @@ examples:
                   "actions": ["replace-with-local-equivalent"],
                   "mandatory": true,
                   "transferabilityNotes": "Question 9: 'Since all the data is loaded from FOCAL STAC, user need a new data loader.' Stated with `triggeredBy` rather than a cited constraint because the condition is that the data comes from somewhere other than the FOCAL STAC catalogue, which is a fact about the source rather than about where the target is: a user inside the EU with their own local precipitation archive needs the new loader just as much as one outside it."
+                },
+                {
+                  "appliesTo": ["exposure", "vulnerability"],
+                  "when": [{ "constraint": "eu-input-coverage", "test": "outside" }],
+                  "actions": ["component-not-executable"],
+                  "affects": ["/steps/exposure_overlay", "/steps/vulnerability_overlay"],
+                  "mandatory": false,
+                  "transferabilityNotes": "Our inference, to be confirmed: Question 9 says 'All input datasets are covering EU' and that users cannot supply their own exposure or vulnerability data, so outside the EU the overlays cannot be produced. Optional because no single sentence of the owner states it: the blue-spot map itself does not depend on the overlays (Question 4), so their absence costs the context layers, not the result."
                 }
               ],
               "transferabilityNotes": "Two evidenced facts from this questionnaire are recorded in notes rather than in structure, because no shape in this model holds them without misstating them: that exposure and vulnerability cannot be substituted at all (a standing limitation, not a triggered outcome); and that the choice of precipitation source gates which accumulation windows are available (a co-constraint between two CWL inputs, which CWL's own union-of-record-schemas typing is the right place for). Each is on the artifact it concerns. The NUTS3 support mismatch, previously a third note here, is now carried structurally by a `spatial-support-mismatch` qualityAnnotation."
@@ -932,7 +974,7 @@ examples:
               },
               {
                 "dimension": "spatial-support-mismatch",
-                "note": "Question 7: the JRC vulnerability index is provided at NUTS3 level, 'coarser than the precipitation grid and does not align exactly with the AOI boundary'. The overlay can therefore be read no finer than a NUTS3 region, whatever resolution the blue-spot map itself carries, and NUTS3 units straddling the AOI edge are only partly covered. This holds in the source deployment as much as in any target: it bounds how far a result can be read, not whether the workflow moves."
+                "note": "Question 7: the vulnerability index is provided at NUTS3 level, 'coarser than the precipitation grid and does not align exactly with the AOI boundary'. The overlay can therefore be read no finer than a NUTS3 region, whatever resolution the blue-spot map itself carries, and NUTS3 units straddling the AOI edge are only partly covered. This holds in the source deployment as much as in any target: it bounds how far a result can be read, not whether the workflow moves."
               }
             ]
           }

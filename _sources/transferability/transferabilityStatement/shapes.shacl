@@ -42,11 +42,11 @@ focal-shape:TransferabilityStatement
   ] ;
 
   sh:property [
-    sh:path focal-prop:noConstraintsIdentified ;
-    sh:name "noConstraintsIdentified" ;
+    sh:path focal-prop:noConstraintsStated ;
+    sh:name "noConstraintsStated" ;
     sh:maxCount 1 ;
     sh:datatype xsd:boolean ;
-    sh:message "noConstraintsIdentified is a boolean." ;
+    sh:message "noConstraintsStated is a boolean." ;
   ] ;
 
   sh:property [
@@ -61,20 +61,20 @@ focal-shape:TransferabilityStatement
 #################################################################
 # The two assertions about absence have to be consistent with the lists they summarize.
 #
-# noConstraintsIdentified true says "assessed, nothing to constrain", so a statement that also
+# noConstraintsStated true says "the source named nothing to constrain", so a statement that also
 # lists a boundary or a rule contradicts itself. trainingRequired false says no training is
 # needed, so a trained-on envelope entry (which means "fitted to this") contradicts it.
 #################################################################
 
 focal-shape:NoConstraintsMeansNoConstraints
   a sh:NodeShape ;
-  sh:targetSubjectsOf focal-prop:noConstraintsIdentified ;
+  sh:targetSubjectsOf focal-prop:noConstraintsStated ;
   sh:sparql [
     a sh:SPARQLConstraint ;
-    sh:message "noConstraintsIdentified is true but the statement lists an envelope entry or a rule. Either the marker or the lists are wrong: the marker says that nothing was identified." ;
+    sh:message "noConstraintsStated is true but the statement lists an envelope entry or a rule. Either the marker or the lists are wrong: the marker says that the source named nothing." ;
     sh:select """
       SELECT $this WHERE {
-        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/noConstraintsIdentified> true .
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/noConstraintsStated> true .
         { $this <https://w3id.org/ogc/hosted/focal/transferability/properties/envelope> ?x }
         UNION
         { $this <https://w3id.org/ogc/hosted/focal/transferability/properties/rules> ?x }

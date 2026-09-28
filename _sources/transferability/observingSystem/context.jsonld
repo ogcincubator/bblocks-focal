@@ -1,0 +1,9 @@
+{
+  "@context": {
+    "id": "@id",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
+    "label": "rdfs:label",
+    "transferability": "focal-transf-prop:transferability"
+  }
+}

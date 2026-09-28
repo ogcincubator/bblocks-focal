@@ -19,20 +19,19 @@ those properties directly onto the CWL Workflow profile. `computationType`, `mat
 `qualityAnnotation` describe the workflow's implementation and result quality generally, not its
 portability boundary, so they stay outside that bundle and attach here directly instead.
 
-**Status: draft/WIP**, seven worked examples covering seven of FOCAL's eight pilot workflows
+**Status: draft/WIP**, seven worked examples covering seven of FOCAL's eight pilot workflows (the eighth is in `observingSystem`)
 (FP-WF1, FP-WF2, FP-WF3, FP-WF5, UP-WF1, UP-WF2, UP-WF3). Between them they exercise every branch
 point in the model: multiple simultaneous envelope roles, OR-set actions, an optional/degrading
 rule (`mandatory: false`), the `component-not-executable` terminal outcome with `affects`, one rule
 shared across four artifacts, a two-rule cascade over a single constraint, an evidenced temporal
 envelope entry, the `grid-structure` dimension, an artifact-level `acceptanceCriteria` contract,
-an entirely empty envelope stated as a claim (`noConstraintsIdentified`), a positive statement that
+an entirely empty envelope stated as a claim (`noConstraintsStated`), a positive statement that
 no training or calibration data is needed (`trainingRequired: false`), and caveats about results
 that are neither maturity nor a boundary (`qualityAnnotation`).
 
-**The eighth, FP-WF4, is deliberately not here.** It is not a CWL Workflow at all but a SensLog
-observing system, so it cannot profile `ogc.cwl.v1_2_1.CWLWorkflow` — which is precisely why
-`transferabilityStatement` was factored out of this block and carries no CWL assumption. Attaching
-it needs a sibling block for observing systems, and an action term for re-deploying physical
-infrastructure. Both are planned for a later round.
+**The eighth, FP-WF4, is not a CWL Workflow at all** but a SensLog observation store, so it cannot
+profile `ogc.cwl.v1_2_1.CWLWorkflow`. It is modeled with the sibling block
+[`observingSystem`](bblocks://ogc.focal.transferability.observingSystem), which carries the same
+`transferabilityStatement` and deliberately no `computationType` and no `maturityStatus`.
 
 Circulated to the pilot workflow owners for review in September 2026; nothing here is locked.

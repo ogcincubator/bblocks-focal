@@ -1,0 +1,40 @@
+"$schema": https://json-schema.org/draft/2020-12/schema
+title: Transferability Observing System
+x-jsonld-context: context.jsonld
+description: >
+  A sibling of `ogc.focal.transferability.workflow` for a pilot component that is not a CWL
+  Workflow: a sensor-data service (FP-WF4's SensLog / SensLog-OTS3 observation store) that cannot
+  profile `CWLWorkflow`. It does one thing, which is to give a
+  [`transferabilityStatement`](bblocks://ogc.focal.transferability.transferabilityStatement) a
+  subject to be about.
+
+  - `transferability` — required, one statement. Nothing in the statement assumes CWL.
+  - `id`, `label` — optional identity, so the statement is not an anonymous node.
+
+  **What it deliberately does not carry.** `computationType` describes how an executable package
+  computes results; a service that stores and serves observations has no such thing, and the
+  property is rejected here rather than filled with a "not applicable" value. `maturityStatus` is
+  not carried either, because no source has stated one for this subject and the vocabulary has no
+  way to say "unknown": it can be added, as an optional property, the day an owner states a
+  maturity. `qualityAnnotation` is likewise absent until there is a caveat about results that is
+  more than "depends on its inputs".
+allOf:
+  - type: object
+    required:
+      - transferability
+    properties:
+      id:
+        "$ref": "bblocks://ogc.ogc-utils.iri-or-curie"
+        description: >
+          Identifier for the observing system, resolved against the document's base URI. An empty
+          string resolves to the base URI itself, i.e. "the system this document describes".
+      label:
+        type: string
+        description: >
+          A human-readable name, in the words of the source. Uplifts to `rdfs:label`.
+      transferability:
+        "$ref": "bblocks://ogc.focal.transferability.transferabilityStatement"
+        description: >
+          The system's portability boundary: which artifacts it depends on and what must happen to
+          each elsewhere, plus a validity envelope where a source states one.
+      computationType: false

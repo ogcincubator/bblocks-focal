@@ -1,0 +1,17 @@
+{
+  "id": "https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training",
+  "label": "Contradictory variant: no training required, yet a trained-on envelope entry",
+  "transferability": {
+    "trainingRequired": false,
+    "envelope": [
+      {
+        "id": "https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site",
+        "role": "trained-on",
+        "dimension": "ecological",
+        "value": "any"
+      }
+    ],
+    "artifacts": [],
+    "rules": []
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "FOCAL Transferability Observing System",
+  "abstract": "Host for a transferability statement on something that is a sensor-data service rather than a CWL Workflow (FP-WF4, a SensLog observation store). Carries the statement and a label; deliberately no computationType, and no maturityStatus until a source states one.",
+  "status": "under-development",
+  "dateTimeAddition": "2026-09-28T00:00:00Z",
+  "itemClass": "schema",
+  "version": "0.1",
+  "dateOfLastChange": "2026-09-28",
+  "dependsOn": [
+    "bblocks://ogc.focal.transferability.transferabilityStatement",
+    "bblocks://ogc.ogc-utils.iri-or-curie"
+  ],
+  "tags": [
+    "focal",
+    "transferability",
+    "observing-system"
+  ],
+  "group": "FOCAL Transferability"
+}

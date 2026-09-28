@@ -1,0 +1,11 @@
+{
+  "id": "https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type",
+  "label": "Contradictory variant: an observing system claiming a computation type",
+  "computationType": "deterministic-rule-based",
+  "transferability": {
+    "trainingRequired": false,
+    "envelope": [],
+    "artifacts": [],
+    "rules": []
+  }
+}

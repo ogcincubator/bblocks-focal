@@ -1,4 +1,5 @@
 @prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix cwl:         <https://w3id.org/cwl/cwl#> .
 @prefix focal-prop:  <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix focal-shape: <https://w3id.org/ogc/hosted/focal/transferability/shapes/> .
 
@@ -16,9 +17,12 @@
 # properties must be present on a workflow, and how many times.
 #################################################################
 
+# Targets CWL Workflows, not "anything with a transferability statement": the statement also
+# attaches to other things (an observing system carries one and has no maturity status or
+# computation type), and a shape that demanded a maturity status of all of them would reject them.
 focal-shape:TransferabilityWorkflow
   a sh:NodeShape ;
-  sh:targetSubjectsOf focal-prop:transferability ;
+  sh:targetClass cwl:Workflow ;
 
   sh:property [
     sh:path focal-prop:transferability ;

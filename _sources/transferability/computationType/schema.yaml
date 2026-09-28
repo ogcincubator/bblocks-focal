@@ -6,8 +6,8 @@ description: >
   computes its results — see bblocks://ogc.focal.transferability.vocab for the seeded values
   (`statistical-ml`, `deterministic-rule-based`, `precomputed-delivery`). Evidenced 8/8 across
   FOCAL's pilot workflows, but not universal by design: **optional**, omitted entirely for a
-  workflow that isn't an executable Application/ApplicationPackage at all (e.g. FP-WF4, an
-  `ogcapi-sosa` observing system) — not a fourth "not applicable" value, the same way JSON Schema
+  workflow that isn't an executable Application/ApplicationPackage at all (e.g. FP-WF4, a SensLog
+  observation store, see `observingSystem`) — not a fourth "not applicable" value, the same way JSON Schema
   already handles a property that simply doesn't apply.
 type: object
 properties:
