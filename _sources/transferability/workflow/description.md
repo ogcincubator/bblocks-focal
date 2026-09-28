@@ -31,7 +31,6 @@ and an entirely empty envelope stated as a claim.
 observing system, so it cannot profile `ogc.cwl.v1_2_1.CWLWorkflow` — which is precisely why
 `transferabilityStatement` was factored out of this block and carries no CWL assumption. Attaching
 it needs a sibling block for observing systems, and an action term for re-deploying physical
-infrastructure. See the FOCAL WP10 model-extension note for both.
+infrastructure. Both are planned for a later round.
 
-Not yet circulated to WF owners generally — that circulation will happen through this repo (PR
-review on `bblocks-focal`, not a separate document).
+Circulated to the pilot workflow owners for review in September 2026; nothing here is locked.

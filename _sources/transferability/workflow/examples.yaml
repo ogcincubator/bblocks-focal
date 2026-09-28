@@ -192,6 +192,16 @@ examples:
       questionnaire names a location at all. Czechia is a proxy because this is a Forest Pilot
       workflow. Recorded as such on the constraint.
 
+      Question 9 lists four things to replace for the target region: "Historical disturbance labels,
+      forest masks, phenological normalisation and model training data". Labels, phenology and the
+      EO strategy are artifacts here, and forest masks now are too. "Model training data" is read as
+      the labels themselves (Question 4 describes the labels as the polygons "for training or
+      validation"), which is recorded on the labels artifact and needs owner confirmation.
+
+      Question 5 also says "structured regression testing and full scientific validation are not yet
+      complete", which is what `validation-incomplete` exists for, so it is carried as a
+      `qualityAnnotation`, separate from `maturityStatus: prototype`.
+
       No temporal constraint. `steps` omitted — this workflow's own questionnaire says its
       container, API and regression-test packaging are still to be completed, so there is less of
       an Application Package here than anywhere else. `inputs` ids are placeholders.
@@ -208,6 +218,7 @@ examples:
             },
             "inputs": {
               "disturbance_labels": { "type": "File" },
+              "forest_masks": { "type": "File" },
               "eo_compositing_strategy": { "type": "string" },
               "phenology_normalization_assumptions": { "type": "string" }
             },
@@ -228,7 +239,9 @@ examples:
                 }
               ],
               "artifacts": [
-                { "id": "labels", "artifact": "historical forest disturbance/damage labels (ground truth training data)", "artifactRole": "workflow-input", "artifactRef": "/inputs/disturbance_labels" },
+                { "id": "labels", "artifact": "historical forest disturbance/damage labels (ground truth training data)", "artifactRole": "workflow-input", "artifactRef": "/inputs/disturbance_labels",
+                  "transferabilityNotes": "Question 9 also lists \"model training data\" among the things to replace. Read here as the same thing as these labels, because Question 4 describes the labels as the polygons \"for training or validation\". Needs owner confirmation." },
+                { "id": "forest-masks", "artifact": "forest masks or stand boundaries", "artifactRole": "workflow-input", "artifactRef": "/inputs/forest_masks" },
                 { "id": "eo-strategy", "artifact": "EO sensor selection, cloud masking, temporal compositing strategy", "artifactRole": "workflow-input", "artifactRef": "/inputs/eo_compositing_strategy" },
                 { "id": "phenology", "artifact": "regional phenology normalisation assumptions", "artifactRole": "workflow-input", "artifactRef": "/inputs/phenology_normalization_assumptions" }
               ],
@@ -239,6 +252,13 @@ examples:
                   "actions": ["retrain"],
                   "mandatory": false,
                   "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement."
+                },
+                {
+                  "appliesTo": ["forest-masks"],
+                  "when": [{ "constraint": "label-extent", "test": "outside" }],
+                  "actions": ["replace-with-local-equivalent"],
+                  "mandatory": true,
+                  "transferabilityNotes": "Question 9: forest masks 'would need to be replaced for the target region'. Tested against the label extent like the EO strategy, because the questionnaire names no boundary of its own for them."
                 },
                 {
                   "appliesTo": ["eo-strategy"],
@@ -255,7 +275,13 @@ examples:
               ]
             },
             "computationType": "statistical-ml",
-            "maturityStatus": "prototype"
+            "maturityStatus": "prototype",
+            "qualityAnnotation": [
+              {
+                "dimension": "validation-incomplete",
+                "note": "Question 5: 'structured regression testing and full scientific validation are not yet complete'. A separate axis from maturityStatus: it says how far the results can be trusted, not how far along the software is."
+              }
+            ]
           }
 
   - title: UP-WF2 — Urban hot/cool spot (two footprints, a cascade, a terminal outcome)
@@ -878,7 +904,7 @@ examples:
             "qualityAnnotation": [
               {
                 "dimension": "decision-support-only",
-                "note": "Question 1, in the owner's own words: the workflow does not provide the result of hydrological or hydraulic model simulation, the Blue Spot is an indicator of potentially flood-prone areas, and exposure and vulnerability are contextual layers that are not combined into a single quantitative risk score. Results support a qualitative judgement about where urban flood risk is likely to be highest; they are not a risk assessment."
+                "note": "Question 1: 'The Blue Spot is an indicator of potentially flood-prone areas'. The workflow does not provide the result of a hydrological or hydraulic model simulation, and exposure and vulnerability, provided as contextual layers, 'are not combined into a single quantitative risk score'. Read together, results support a qualitative judgement about where urban flood risk is likely to be highest (the owner's stated purpose); they are not a risk assessment (our reading of the caveat)."
               },
               {
                 "dimension": "spatial-support-mismatch",

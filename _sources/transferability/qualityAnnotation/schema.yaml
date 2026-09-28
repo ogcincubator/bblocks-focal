@@ -8,8 +8,12 @@ description: >
   two facts don't collapse into one. Repeatable at the workflow level, same discipline as
   `envelopeConstraint`.
 
-  Currently evidenced 1/8 (FP-WF1 only) — thinner evidence than any other confirmed transferability
-  gap; expect this to grow once other workflow owners are consulted.
+  Currently evidenced 3/8: FP-WF1 (`decision-support-only`), FP-WF3 (`validation-incomplete`) and
+  UP-WF3 (`decision-support-only` and `spatial-support-mismatch`). UP-WF2's questionnaire also
+  states two caveat-like things (land surface temperature is not air temperature; results are not
+  for real-time monitoring) that no current dimension fits, so they are not recorded. Still thinner
+  evidence than most confirmed transferability gaps; expect this to grow once other workflow owners
+  are consulted.
 
   **Binds directly to the W3C Data Quality Vocabulary (DQV, `https://www.w3.org/ns/dqv#`)**,
   checked 2026-09-02 against the published spec rather than assumed: `dimension` maps to
