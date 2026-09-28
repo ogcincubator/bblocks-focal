@@ -11,17 +11,18 @@
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/> a cwl:Workflow ;
     rdfs:label "FP-WF1 — Tree species suitability" ;
-    cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate_data> ;
-    cwl:outputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/trained_growth_model> ;
+    cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate_data>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/trained_growth_model> ;
+    cwl:outputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth_projection> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns1:packages [ ns2:package "lightgbm" ],
-                [ ns2:package "gunicorn" ],
+            ns1:packages [ ns2:package "gunicorn" ],
+                [ ns2:package "python" ],
                 [ ns2:package "flask" ],
-                [ ns2:package "python" ] ] ;
+                [ ns2:package "lightgbm" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/statistical-ml> ;
-    focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
+    focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/pre-operational> ;
     focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/decision-support-only> ;
-            focal-transf-prop:note "AI model and validation are still being finalised; results are decision-support, not exact forecasts." ] ;
+            focal-transf-prop:note "The AI model and validation are still being finalised, so results should be interpreted as decision-support information rather than exact forecasts." ] ;
     focal-transf-prop:transferability [ focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate-data>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model> ;
             focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots>,
@@ -30,7 +31,7 @@
             focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate-data> ;
                     focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots> ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
                 [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-alternative-published-model>,
                         <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
@@ -42,9 +43,7 @@
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate_data> sld:type cwl:File .
 
-<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/climatic> ;
-    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/can-run-on> ;
-    focal-transf-prop:value "wherever downscaled climate data is available" .
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth_projection> sld:type cwl:File .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/trained_growth_model> sld:type cwl:File .
 
@@ -52,18 +51,22 @@
     focal-transf-prop:artifactRef "/inputs/climate_data" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
-<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range> rdfs:comment "Question 7: results are 'valid mainly within a comparable ecological range'. That is an analogy to where the model was calibrated, not an extent, so it is stated as one: the target must share the biogeographical region of `czech-plots`. No region is named here on purpose — the source names none, and the set follows from whatever geometry `czech-plots` holds, so correcting that stand-in bounding box to the real plot coordinates sharpens this constraint too. The scheme is the one needing owner confirmation: biogeographical regions, Koppen-Geiger climate zones and EUNIS habitat classes are all plausible readings of 'ecological range' and they do not agree." ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots> rdfs:comment "Czechia's country border, simplified to a few tens of kilometers, standing in for the actual Czech long-term permanent sample plot network — a scattered set of monitoring locations, not a country. An honest upper bound pending the real plot coordinates from the workflow owner." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
+    focal-transf-prop:value [ geo:asWKT "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"^^geo:wktLiteral ] .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/downscaled-climate-available> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/climatic> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/can-run-on> ;
+    focal-transf-prop:value "wherever downscaled climate data is available" .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range> rdfs:comment "Question 7: results are 'valid mainly within a comparable ecological range'. That is an analogy to where the model was calibrated, not an extent, so it is stated as one: the target must share the biogeographical region of `czech-plots`. No region is named here on purpose — the source names none, and the set follows from whatever geometry `czech-plots` holds, so correcting that stand-in country border to the real plot coordinates sharpens this constraint too. The scheme is the one needing owner confirmation: biogeographical regions, Koppen-Geiger climate zones and EUNIS habitat classes are all plausible readings of 'ecological range' and they do not agree." ;
     focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
     focal-transf-prop:value [ focal-transf-prop:classificationScheme <https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/eea-biogeographical-regions> ;
             focal-transf-prop:sameClassAs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots> ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model> dcterms:title "trained tree growth model (LightGBM, Czech permanent sample plot data)" ;
-    focal-transf-prop:artifactRef "/outputs/trained_growth_model" ;
-    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-output> .
-
-<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-plots> rdfs:comment "Czechia's country bounding box, standing in for the actual Czech long-term permanent sample plot network — a scattered set of monitoring locations, not a rectangle. An honest upper bound pending the real plot coordinates from the workflow owner." ;
-    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
-    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
-    focal-transf-prop:value [ geo:asWKT "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"^^geo:wktLiteral ] .
+    focal-transf-prop:artifactRef "/inputs/trained_growth_model" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 

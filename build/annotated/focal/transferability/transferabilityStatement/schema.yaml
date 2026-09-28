@@ -34,14 +34,14 @@ description: "Where something's results are valid, which reference or calibratio
   is a claim, not a blank**: it says the results carry no validity boundary at all,
   which is what a genuinely universal workflow looks like and what UP-WF1's questionnaire
   literally answers (\"All parts are portable\"). Record why in `transferabilityNotes`,
-  and set `noConstraintsIdentified: true` \u2014 a boundary nobody could find and
-  a boundary that does not exist are the same empty array otherwise, and the marker
-  is what tells them apart.\n**Conjunction and disjunction.** A rule's `when` is an
-  AND: every condition must hold for the rule to fire. A disjunction is written as
-  two rules. That is a deliberate limit rather than a missing feature \u2014 two conditions
-  leading to the same action really are two statements, and keeping them separate
-  keeps each traceable to the sentence in a questionnaire it came from, which a nested
-  boolean expression does not. `actions` remains an OR-set: any one resolves the rule.\n"
+  and set `noConstraintsStated: true` \u2014 a boundary nobody could find and a boundary
+  that does not exist are the same empty array otherwise, and the marker is what tells
+  them apart.\n**Conjunction and disjunction.** A rule's `when` is an AND: every condition
+  must hold for the rule to fire. A disjunction is written as two rules. That is a
+  deliberate limit rather than a missing feature \u2014 two conditions leading to
+  the same action really are two statements, and keeping them separate keeps each
+  traceable to the sentence in a questionnaire it came from, which a nested boolean
+  expression does not. `actions` remains an OR-set: any one resolves the rule.\n"
 allOf:
 - $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml
 - type: object
@@ -74,19 +74,19 @@ allOf:
         a boundary that does not exist from one nobody could establish. Uplifts to
         `rdfs:comment`. Mixed in from bblocks://ogc.focal.transferability.notes.\n"
       x-jsonld-id: http://www.w3.org/2000/01/rdf-schema#comment
-    noConstraintsIdentified:
+    noConstraintsStated:
       type: boolean
-      description: '`true` says outright that the results were assessed and no validity
-        boundary and no adaptation step was identified, which is what an empty `envelope`
-        and an empty `rules` mean but do not announce: a reader cannot tell those
-        two empty arrays from a form nobody filled in. It is the source''s claim,
-        not a verified one, and belongs with a `transferabilityNotes` saying who made
-        it. Only meaningful, and only valid, alongside an empty `envelope` and an
-        empty `rules`; omit it otherwise. Currently evidenced once (UP-WF1: "Nothing",
-        "Nothing", "All parts are portable").
+      description: '`true` says outright that the source named no validity boundary
+        and no adaptation step, which is what an empty `envelope` and an empty `rules`
+        mean but do not announce: a reader cannot tell those two empty arrays from
+        a form nobody filled in. It records what the source said, not a finding that
+        anyone assessed the results, and it is not a verified claim; say who made
+        it in `transferabilityNotes`. Only meaningful, and only valid, alongside an
+        empty `envelope` and an empty `rules`; omit it otherwise. Currently evidenced
+        once (UP-WF1: "Nothing", "Nothing", "All parts are portable").
 
         '
-      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/noConstraintsIdentified
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/noConstraintsStated
     trainingRequired:
       type: boolean
       description: 'Whether the thing this statement describes needs training or calibration

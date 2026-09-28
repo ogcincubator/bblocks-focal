@@ -1,0 +1,87 @@
+Validation report for ogc.focal.transferability.observingSystem - FOCAL Transferability Observing System
+Generated 2026-09-28T16:45:23.598014+00:00
+=== General ===
+Test was expected to fail and it did.
+=== End General ===
+
+=== Files ===
+Using computation-type-fail.json from test resources
+JSON-LD context is present - uplifting
+Output JSON-LD computation-type-fail.jsonld created
+Output Turtle computation-type-fail.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+
+** Validation error **
+ValidationError: 'deterministic-rule-based' should not be valid under True
+
+Failed validating 'not' in schema['allOf'][0]['properties']['computationType']:
+    {'not': True}
+
+On instance['computationType']:
+    'deterministic-rule-based'
+=== End JSON Schema ===
+
+=== SHACL ===
+Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):
+ - /github/workspace/_sources/transferability/vocab/ontology.ttl
+Validation result for _sources/transferability/observingSystem/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/observingSystem/shapes.shacl:
+ - Shape focal-shape:ObservingSystem: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>
+
+Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:
+ - Shape focal-shape:ArtifactDependency: *none*
+ - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability
+ - Shape focal-shape:NoTrainingMeansNoTrainedOn: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability
+ - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability
+ - Shape focal-shape:ArtifactRefOnlyForInternalRoles: *none*
+ - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability
+ - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability
+ - Shape focal-shape:NoConstraintsMeansNoConstraints: *none*
+
+Validation result for _sources/transferability/rule/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/rule/shapes.shacl:
+ - Shape focal-shape:OptionalRuleHasConsequence: *none*
+ - Shape focal-shape:TransferabilityRule: *none*
+ - Shape focal-shape:RuleHasACondition: *none*
+ - Shape focal-shape:TerminalActionNotAlongsideReuse: *none*
+ - Shape focal-shape:EnvelopeCondition: *none*
+ - Shape focal-shape:TerminalActionNamesWhatItAffects: *none*
+
+Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
+ - Shape focal-shape:EnvelopeConstraint: *none*
+ - Shape focal-shape:ScenarioMarkerIsAConcept: *none*
+ - Shape focal-shape:NonGeometricEnvelopeValue: *none*
+ - Shape focal-shape:TemporalEnvelopeValue: *none*
+ - Shape focal-shape:GridStructureEnvelopeValue: *none*
+ - Shape focal-shape:GridTypeIsAConcept: *none*
+ - Shape focal-shape:AnalogyNamesItsReference: *none*
+ - Shape focal-shape:SpatialEnvelopeValue: *none*
+
+Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:
+ - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*
+ - Shape focal-shape:AcceptanceCriteria: *none*
+ - Shape _:nee98852d820b4abfa600ef54433bca60b3: *none*
+ - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*
+
+=== End SHACL ===
+

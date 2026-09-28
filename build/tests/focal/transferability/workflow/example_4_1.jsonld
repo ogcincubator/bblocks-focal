@@ -10,10 +10,7 @@
         {
           "package": "python",
           "version": [
-            "3.10",
-            "3.11",
-            "3.12",
-            "3.13"
+            "3.10"
           ]
         },
         {
@@ -104,28 +101,28 @@
         "role": "valid-for",
         "dimension": "spatial",
         "value": {
-          "asWKT": "POLYGON((-25 34,45 34,45 72,-25 72,-25 34))"
+          "asWKT": "MULTIPOLYGON (((-9.18 43.17, -7.7 43.76, -1.99 43.35, -1.08 45.53, -0.83 45.38, -0.69 45.09, -0.55 45, -1.74 47.22, -4.72 48.54, -1.38 48.65, -1.86 49.68, 0.42 49.45, 1.77 50.94, 4.23 51.39, 3.45 51.54, 4.27 51.47, 5.53 53.27, 9.78 53.55, 8.13 55.6, 8.16 56.61, 9.2 56.7, 8.27 56.75, 8.62 57.11, 10.61 57.74, 10.28 56.62, 10.93 56.44, 9.59 55.49, 9.87 54.47, 14.58 53.64, 13.83 54.13, 18.09 54.84, 19.41 54.39, 21.11 55.62, 20.59 54.98, 21.19 54.94, 21.73 57.57, 24.38 57.25, 24.53 58.35, 23.49 59.2, 30.16 59.9, 28.51 60.68, 23.02 59.82, 21.44 60.6, 21.55 63.2, 25.37 65.01, 24.63 65.86, 22.4 65.86, 20.76 63.87, 17.41 62.51, 17.25 60.7, 18.97 59.76, 16.21 58.64, 16.92 58.49, 16.35 56.71, 14.17 55.4, 12.89 55.41, 12.88 56.62, 10.6 59.76, 8.17 58.15, 5.59 58.62, 6.42 59.55, 5.24 59.56, 7 60.51, 5.15 59.64, 5.65 60.69, 5.01 61.04, 7.04 60.95, 7.6 61.21, 5.11 61.19, 4.93 61.88, 6.02 61.79, 6.73 61.87, 5.14 62.16, 8.62 62.85, 8.58 63.6, 10.02 63.39, 11.37 63.8, 9.57 63.71, 12.92 65.34, 12.12 65.36, 14.03 66.3, 13.12 66.23, 13.65 66.91, 15.42 67.2, 14.44 67.27, 15.59 67.35, 15.05 67.96, 16.31 67.88, 19.2 69.75, 23.35 69.98, 24.66 71, 25.77 70.85, 25.04 70.11, 27.6 71.09, 28.39 70.98, 28.19 70.25, 30.07 70.7, 30.94 70.27, 28.8 70.09, 40.97 67.71, 41.19 66.83, 38.65 66.07, 34.48 66.55, 32.93 67.09, 31.9 67.16, 34.69 65.95, 35.04 64.44, 37.44 63.81, 38.06 64.09, 36.88 65.17, 39.76 64.58, 40.44 64.78, 39.82 65.6, 42.21 66.52, 44.1 66.01, 44.2 68.25, 43.33 68.67, 45 68.58, 45 42.71, 39.98 43.42, 36.63 45.15, 39.2 47.27, 35.23 46.44, 35.02 45.7, 36.39 45.07, 33.91 44.39, 32.51 45.4, 33.59 46.1, 31.83 46.28, 32.58 46.62, 31.76 47.21, 31.87 46.65, 28.89 44.92, 27.48 42.47, 28.01 41.97, 26.58 41.95, 26.04 40.73, 23.76 40.75, 23.95 39.97, 22.63 40.5, 23.33 39.17, 22.57 38.87, 24.06 37.77, 23.05 37.9, 23.16 36.45, 22.49 36.45, 21.12 37.89, 23.18 38.13, 21.11 38.38, 19.32 40.41, 19.58 41.79, 13.21 45.77, 12.27 45.45, 12.4 44.22, 18.46 40.22, 16.93 40.46, 16.52 39.75, 17.17 39, 16.06 37.94, 15.69 39.99, 8.77 44.42, 6.12 43.07, 3.26 43.19, 3.25 41.94, 0.71 40.82, -0.33 39.52, 0.2 38.76, -2.11 36.78, -5.63 36.03, -6.86 37.28, -8.94 37.02, -9.18 43.17)), ((-6.32 52.25, -10.38 51.87, -8.78 52.68, -9.92 52.57, -8.93 53.21, -10.09 53.41, -10.06 54.26, -8.55 54.24, -7.31 55.37, -5.53 54.62, -6.35 53.94, -6.32 52.25)), ((-5.26 51.88, -4.15 52.33, -4.27 53.14, -2.75 53.31, -3.59 54.56, -3.04 54.95, -4.91 54.69, -4.58 55.94, -5.73 55.33, -5.19 56.76, -6.13 56.72, -5.02 58.57, -3.05 58.63, -4.13 57.58, -1.78 57.47, -3.31 56.36, -2.67 56.25, -3.79 56.1, -2.15 55.9, -0.08 54.12, 0.12 53.61, -0.27 53.74, -0.66 53.72, 0.05 52.91, 1.75 52.47, 0.42 51.47, 1.41 51.36, 0.96 50.93, -5.66 50.08, -4.19 51.19, -3.14 51.21, -2.43 51.74, -5.26 51.88)), ((-13.6 65.04, -18.65 63.41, -22.65 63.83, -21.59 64.63, -24.03 64.86, -21.84 65.45, -24.48 65.53, -22.44 65.91, -22.89 66.44, -21.13 65.27, -20.21 66.1, -14.7 66.34, -13.6 65.04)))"
         },
-        "transferabilityNotes": "CLMS product coverage, as a coarse bounding extent rather than a country-by-country outline: the precise boundary is a property of the CLMS product and is better dereferenced from CLMS than restated approximately here. The product's exclusion of Ukraine is a separate constraint (`clms-excluded-ukraine`) rather than a hole in this one \u2014 an exclusion carved into a geometry is invisible to a reader and easy to lose in simplification, whereas a named constraint a rule cites is neither."
+        "transferabilityNotes": "Question 4: the CLMS products cover 'Europe, except for Ukraine'. The geometry follows that statement: a coarse union of European countries (Natural Earth, public domain, simplified to a few tens of kilometers) clipped to a European window that drops overseas territories and Asian Russia. It does not settle whether CLMS covers Russia, Belarus or Moldova; that is unknown and asked of the owner. The precise boundary is a property of the CLMS product and is better dereferenced from CLMS than restated approximately here. The exclusion of Ukraine is a separate constraint (`clms-excluded-ukraine`) rather than a hole in this one \u2014 an exclusion carved into a geometry is invisible to a reader and easy to lose in simplification, whereas a named constraint a rule cites is neither."
       },
       {
         "id": "clms-excluded-ukraine",
         "role": "valid-for",
         "dimension": "spatial",
         "value": {
-          "asWKT": "POLYGON((22.1 44.4,40.2 44.4,40.2 52.4,22.1 52.4,22.1 44.4))"
+          "asWKT": "MULTIPOLYGON (((37.54 47.07, 36.79 46.71, 35.83 46.62, 35.2 46.17, 35.01 46.11, 35.28 46.28, 35.23 46.44, 34.85 46.19, 34.95 45.73, 34.69 45.98, 33.81 46.21, 33.43 46.06, 33.2 46.18, 32.48 46.08, 31.83 46.28, 32.01 46.43, 31.55 46.55, 32.36 46.47, 32.58 46.62, 32.04 46.64, 31.94 46.98, 31.76 47.21, 31.87 46.65, 31.53 46.66, 31.56 46.78, 30.8 46.55, 30.22 45.87, 29.63 45.72, 29.71 45.26, 29.4 45.42, 28.76 45.23, 28.21 45.45, 28.5 45.52, 28.49 45.67, 28.95 46.05, 28.96 46.46, 30.13 46.42, 29.92 46.54, 29.88 46.83, 29.57 46.96, 29.54 47.27, 29.13 47.49, 29.13 47.96, 27.55 48.48, 26.85 48.39, 26.31 48.2, 26.16 47.99, 24.89 47.72, 24.48 47.95, 23.14 48.09, 22.88 47.95, 22.13 48.41, 22.14 48.57, 22.54 49.07, 22.84 49.04, 22.71 49.17, 22.71 49.61, 24.09 50.53, 23.98 50.79, 24.1 50.87, 23.66 51.31, 23.61 51.61, 23.98 51.59, 24.36 51.87, 25.93 51.91, 27.14 51.75, 27.7 51.48, 28.18 51.61, 28.73 51.43, 29.1 51.63, 29.35 51.38, 30.16 51.48, 30.54 51.27, 30.58 51.69, 30.98 52.05, 32.12 52.05, 32.44 52.31, 33.74 52.34, 34.4 51.78, 34.12 51.68, 34.21 51.26, 35.06 51.2, 35.31 51.04, 35.41 50.54, 35.59 50.37, 36.12 50.41, 36.62 50.21, 37.42 50.41, 38.05 49.92, 38.26 50.05, 40.08 49.58, 40.11 49.25, 39.69 49.01, 40 48.82, 39.79 48.81, 39.64 48.59, 39.84 48.54, 39.96 48.27, 39.78 47.89, 38.9 47.86, 38.37 47.61, 38.21 47.09, 37.54 47.07)), ((32.15 46.15, 31.56 46.26, 31.51 46.37, 32.15 46.15)))"
         },
-        "transferabilityNotes": "Ukraine's approximate bounding extent, which CLMS coverage excludes. Cited by a rule with test `inside`, so falling within it is what makes the component unexecutable. Coarse: a bounding box over Ukraine also covers parts of neighbouring countries, so this errs toward flagging a target that may in fact be covered \u2014 the safe direction for a portability check, but it needs the authoritative CLMS geometry before it is relied on."
+        "transferabilityNotes": "Ukraine's country border (Natural Earth, public domain, simplified to a few tens of kilometers), the area the owner says the CLMS products exclude (Question 4: 'Europe, except for Ukraine'). Cited by a rule with test `inside`, so falling within it is what makes the component unexecutable. Kept as its own constraint so it can be corrected separately when the authoritative CLMS geometry is available. Near the border a target within a few tens of kilometers of the line may be classified the wrong way."
       },
       {
         "id": "epochs",
-        "role": "valid-for",
+        "role": "can-run-on",
         "dimension": "temporal",
         "value": {
           "startDate": "2022",
           "endDate": "2025"
         },
-        "transferabilityNotes": "Discrete temporal epochs, explicitly not a time series: one timestep per epoch. 2022\u20132025 available at time of writing."
+        "transferabilityNotes": "The epochs available now: discrete temporal epochs, explicitly not a time series (one timestep per epoch), 2022\u20132025 available at time of writing. Question 6 says two to three more periods are planned, and Question 4 that the Landsat source depends on the selected time period, so this is what is available, not a validity limit."
       }
     ],
     "artifacts": [
@@ -179,7 +176,6 @@
           "component-not-executable"
         ],
         "affects": [
-          "/steps/lst_preparation",
           "/steps/hotspot_characterization"
         ],
         "mandatory": true,
@@ -203,7 +199,7 @@
           "/steps/hotspot_characterization"
         ],
         "mandatory": true,
-        "transferabilityNotes": "Outside CLMS coverage no substitute is currently defined, and hot-spot characterization, which uses this dataset, cannot be executed."
+        "transferabilityNotes": "Outside CLMS coverage, Question 9 asks for 'Equivalent environmental datasets (e.g., Tree Cover Density and Imperviousness)' and says that without them some components, particularly hot spot characterization, cannot be executed. Which of the two applies depends on whether an equivalent exists, which the source does not resolve."
       },
       {
         "appliesTo": [
@@ -216,19 +212,25 @@
           }
         ],
         "actions": [
+          "replace-with-local-equivalent",
           "component-not-executable"
         ],
         "affects": [
           "/steps/hotspot_characterization"
         ],
         "mandatory": true,
-        "transferabilityNotes": "Within the CLMS bounding extent but inside the area the product excludes: no Tree Cover Density or Imperviousness Density data exists, and no substitute is defined, so hot-spot characterization cannot be executed. A terminal outcome with no alternative offered, unlike the coverage rule above."
+        "transferabilityNotes": "Inside the area the product excludes (Question 4): the same cascade as outside CLMS coverage, because Ukraine is one more place the product does not cover. Whether an equivalent exists is not resolved by the source."
       },
       {
         "appliesTo": [
           "eurostat"
         ],
-        "triggeredBy": "different-geographic-coverage",
+        "when": [
+          {
+            "constraint": "eur11-domain",
+            "test": "outside"
+          }
+        ],
         "actions": [
           "replace-with-local-equivalent",
           "component-not-executable"
@@ -236,8 +238,8 @@
         "affects": [
           "/steps/heat_risk_indicator"
         ],
-        "mandatory": true,
-        "transferabilityNotes": "Stated with triggeredBy rather than a cited constraint: this data is not yet implemented, so there is no envelope fact to point at. Once built, the planned Heat Risk Indicator would not be executable without it."
+        "mandatory": false,
+        "transferabilityNotes": "Question 9: outside the EURO-CORDEX domain, 'Availability of comparable census or socio-economic data (preferably following a schema compatible with Eurostat)' is needed, and without the datasets some components cannot be executed. Optional because the Heat Risk Indicator is planned and not yet implemented: today its absence costs a planned step, not the current workflow."
       }
     ],
     "transferabilityNotes": "Question 9 states a portability fact that no shape here holds: the classification step is data-agnostic. 'The LST dataset the hot and cool spot classification is based on is a raster dataset with a single time step and one value per grid cell. It is not a time series. Hence, the classification could also be applied to other raster datasets with a single time step and one value per grid cell.' In other words the algorithm is more portable than the specific input dataset. Recorded as a note because one workflow does not justify a property."

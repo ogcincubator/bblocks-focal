@@ -325,9 +325,9 @@ focal-prop:maturityStatus a owl:ObjectProperty ;
             owl:onProperty skos:inScheme ],
         skos:Concept .
 
-focal-prop:noConstraintsIdentified a owl:DatatypeProperty ;
-    rdfs:label "no constraints identified"@en ;
-    rdfs:comment "Asserts that the results were assessed and no validity boundary and no adaptation step was identified. An empty envelope and an empty set of rules mean the same but cannot be told from a form nobody filled in; this says it outright. It is the source's claim, not a verified one."@en ;
+focal-prop:noConstraintsStated a owl:DatatypeProperty ;
+    rdfs:label "no constraints stated"@en ;
+    rdfs:comment "Asserts that the source named no validity boundary and no adaptation step. It records what the source said, not an assessment. An empty envelope and an empty set of rules mean the same but cannot be told from a form nobody filled in; this says it outright. It is the source's claim, not a verified one."@en ;
     rdfs:domain focal-transf:TransferabilityStatement ;
     rdfs:range xsd:boolean .
 
@@ -469,7 +469,7 @@ focal-arole:external-resource a skos:Concept ;
     skos:topConceptOf focal-arole:scheme .
 
 focal-arole:infrastructure a skos:Concept ;
-    skos:definition "Physical or operational, not data at all -- a sensor network that must be re-deployed rather than replaced."@en ;
+    skos:definition "Physical or operational, not data at all -- a sensor network, or the data loader a workflow was built around, that has to be set up again or replaced with a local equivalent at the target."@en ;
     skos:inScheme focal-arole:scheme ;
     skos:prefLabel "infrastructure"@en ;
     skos:topConceptOf focal-arole:scheme .

@@ -9,10 +9,7 @@
         {
           "package": "python",
           "version": [
-            "3.10",
-            "3.11",
-            "3.12",
-            "3.13"
+            "3.10"
           ]
         },
         {
@@ -99,9 +96,9 @@
         "role": "derived-from",
         "dimension": "spatial",
         "value": {
-          "asWKT": "POLYGON((5.87 47.27,15.04 47.27,15.04 55.06,5.87 55.06,5.87 47.27))"
+          "asWKT": "MULTIPOLYGON (((8.57 47.78, 8.43 47.59, 7.57 47.61, 7.62 48.16, 8.13 48.97, 6.74 49.16, 6.34 49.45, 6.49 49.8, 6.11 50.09, 6.34 50.45, 5.86 51.03, 6.13 51.15, 6.2 51.45, 5.95 51.8, 6.74 51.91, 6.72 52.08, 7.02 52.27, 7 52.42, 6.69 52.53, 7.01 52.63, 7.18 52.97, 7.2 53.28, 7.05 53.38, 7.21 53.65, 8.01 53.69, 8.11 53.47, 8.33 53.61, 8.5 53.39, 8.62 53.88, 9.21 53.86, 9.59 53.6, 9.78 53.55, 9.31 53.86, 8.98 53.93, 8.91 54.26, 8.64 54.29, 8.96 54.54, 8.67 54.9, 9.62 54.86, 10.02 54.67, 9.87 54.47, 11.01 54.38, 11.01 54.18, 10.81 54.08, 10.92 54, 11.4 53.94, 12.58 54.47, 13.03 54.41, 13.45 54.14, 13.72 54.15, 13.87 53.85, 14.26 53.73, 14.41 53.2, 14.13 52.88, 14.62 52.53, 14.55 52.36, 14.75 52.08, 14.6 51.83, 14.72 51.52, 14.94 51.44, 14.96 51.1, 14.77 50.82, 14.32 51.04, 14.37 50.9, 12.94 50.41, 12.55 50.39, 12.28 50.18, 12.09 50.27, 12.51 49.9, 12.39 49.74, 12.63 49.46, 13.77 48.82, 13.79 48.59, 13.49 48.58, 13.37 48.36, 12.76 48.11, 13.05 47.66, 13.01 47.48, 12.21 47.72, 11.04 47.39, 10.44 47.55, 10.18 47.28, 9.97 47.51, 8.57 47.78)), ((13.36 54.25, 13.16 54.36, 13.18 54.54, 13.42 54.7, 13.71 54.38, 13.36 54.25)), ((13.93 53.88, 13.83 54.13, 14.04 54.03, 14.21 53.95, 13.93 53.88)), ((11.13 54.42, 11.01 54.47, 11.08 54.53, 11.28 54.42, 11.13 54.42)), ((8.41 55.06, 8.38 54.9, 8.63 54.89, 8.31 54.79, 8.41 55.06)), ((8.55 54.69, 8.4 54.71, 8.51 54.76, 8.55 54.69)))"
         },
-        "transferabilityNotes": "Germany's country bounding box, standing in for the DWD station network the 6-hour and 12-hour percentile thresholds were pre-computed from. A scattered set of stations, not a rectangle, so this is an upper bound; and station networks are dense in some regions and sparse in others, which a bounding box cannot show at all."
+        "transferabilityNotes": "Germany's country border, simplified to a few tens of kilometers, standing in for the DWD station network the 6-hour and 12-hour percentile thresholds were pre-computed from. A scattered set of stations, not a country, so this is an upper bound; and station networks are dense in some regions and sparse in others, which a border cannot show at all."
       },
       {
         "id": "eobs-extent",
@@ -110,7 +107,7 @@
         "value": {
           "asWKT": "POLYGON((-25 25,45 25,45 71.5,-25 71.5,-25 25))"
         },
-        "transferabilityNotes": "The E-OBS domain's published approximate extent (about 25W-45E, 25N-71.5N), from which the 1-day and 7-day percentile thresholds were pre-computed. A coarse rectangle: E-OBS's actual land coverage is neither rectangular nor uniform in station density."
+        "transferabilityNotes": "The E-OBS domain's published approximate extent (about 25W-45E, 25N-71.5N), from which the 1-day and 7-day percentile thresholds were pre-computed. E-OBS is distributed on a regular rectangular latitude/longitude grid, so a rectangle is the right shape for its extent; its actual land coverage is coarser than that and station density is not uniform."
       },
       {
         "id": "threshold-climate-regime",
@@ -124,9 +121,9 @@
         "role": "can-run-on",
         "dimension": "spatial",
         "value": {
-          "asWKT": "POLYGON((-25 25,45 25,45 71.5,-25 71.5,-25 25))"
+          "asWKT": "MULTIPOLYGON (((-8.79 39.08, -9.48 38.8, -8.66 41.03, -9.18 43.17, -7.7 43.76, -1.99 43.35, -1.08 45.53, -0.83 45.38, -0.69 45.09, -0.55 45, -1.74 47.22, -4.72 48.54, -1.38 48.65, -1.86 49.68, 0.42 49.45, 1.77 50.94, 4.23 51.39, 3.45 51.54, 4.27 51.47, 5.53 53.27, 9.78 53.55, 8.13 55.6, 8.16 56.61, 9.2 56.7, 8.27 56.75, 8.62 57.11, 10.61 57.74, 10.28 56.62, 10.89 56.36, 9.45 55.04, 10.92 54, 12.58 54.47, 13.72 54.15, 13.95 53.8, 14.58 53.64, 13.83 54.13, 18.09 54.84, 22.73 54.35, 22.57 55.06, 21.2 55.34, 21.46 57.32, 24.28 57.17, 24.53 58.35, 23.43 58.92, 24.38 59.47, 28.15 59.37, 27.35 57.53, 28.15 56.14, 26.59 55.67, 25.75 54.16, 23.48 53.94, 23.92 52.77, 23.18 52.29, 24.09 50.53, 22.13 48.41, 24.89 47.72, 26.9 48.21, 28.24 46.64, 28.21 45.45, 29.71 45.26, 27.48 42.47, 28.01 41.97, 26.58 41.95, 26.04 40.73, 23.76 40.75, 23.95 39.97, 22.63 40.5, 23.33 39.17, 22.57 38.87, 24.02 38.14, 22.73 37.54, 23.16 36.45, 21.12 37.89, 23.15 38.18, 21.18 38.35, 20 39.71, 20.96 40.85, 22.93 41.36, 22.34 42.31, 22.73 44.57, 19.61 46.17, 18.84 45.84, 19.01 44.87, 15.79 45.18, 17.59 42.94, 15.99 43.52, 14.55 45.3, 13.86 44.84, 13.63 45.77, 12.27 45.45, 12.4 44.22, 14.18 42.51, 18.46 40.22, 16.93 40.46, 16.52 39.75, 17.17 39, 16.06 37.94, 15.69 39.99, 8.77 44.42, 6.12 43.07, 3.26 43.19, 3.25 41.94, 0.71 40.82, -0.33 39.52, 0.2 38.76, -2.11 36.78, -5.63 36.03, -6.86 37.28, -8.74 37.07, -8.79 39.08)), ((-7.85 54.22, -6.18 54.05, -6.32 52.25, -10.12 51.6, -9.6 51.87, -10.36 52.21, -8.78 52.68, -9.92 52.57, -8.93 53.21, -10.09 53.41, -9.58 53.81, -10.09 54.22, -6.96 55.24, -7.85 54.22)), ((12.88 61.35, 12.16 61.72, 12.18 63.6, 14.06 64.1, 13.65 64.58, 14.54 66.13, 16.78 67.9, 21.27 69.27, 24.94 68.59, 26.53 69.92, 29.33 69.47, 28.41 68.9, 29.99 67.67, 29.07 66.89, 30.09 65.79, 29.6 64.97, 30.53 64.08, 29.99 63.74, 31.54 62.92, 29.25 61.29, 23.02 59.82, 21.44 60.6, 21.55 63.2, 25.37 65.01, 24.63 65.86, 22.4 65.86, 20.76 63.87, 17.38 62.46, 17.25 60.7, 18.99 59.83, 16.21 58.64, 16.92 58.49, 15.92 56.17, 12.89 55.41, 12.88 56.62, 11.25 58.37, 12.88 61.35)))"
         },
-        "transferabilityNotes": "Question 9: 'All input datasets are covering EU.' Approximated by the E-OBS extent, which is the widest of the sources involved. Deliberately coarse and known to be too generous: this is really the intersection of E-OBS, the NUKLEUS EUR-11 domain, the Local Climate Zone, imperviousness and population layers, and a NUTS3 vulnerability index that stops at the EU's borders. The individual footprints were not stated; the union bounding box answers 'inside' for places at least one input does not reach. Needs owner confirmation before it is relied on."
+        "transferabilityNotes": "Question 9: 'All input datasets are covering EU.' Approximated by the EU as a coarse union of the 27 member countries (Natural Earth, public domain, simplified) within a European window, so overseas territories are excluded and small islands such as Malta and Cyprus are dropped. Deliberately coarse and known to be too generous: this is really the intersection of E-OBS, the NUKLEUS EUR-11 domain, the Local Climate Zone, imperviousness and population layers, and a NUTS3 vulnerability index that stops at the EU's borders, and the individual footprints were not stated. Needs owner confirmation before it is relied on."
       },
       {
         "id": "supported-grids",
@@ -188,14 +185,14 @@
         "artifact": "exposure layers (Local Climate Zones, imperviousness, population)",
         "artifactRole": "workflow-input",
         "artifactRef": "/inputs/exposure_layers",
-        "transferabilityNotes": "Contextual overlay only: question 4 is explicit that exposure does not enter the calculation. Left ungoverned by any rule, which under the closed-world default reads as reusable unchanged, and here that is right for the wrong reason. Question 9 says the workflow offers no way to substitute it: 'If users want to use their own exposure or vulnerability data, since current workflow is no option for it.' That is a standing limitation of the interface, not an outcome triggered by a target falling outside a boundary, and the model has no shape for it \u2014 `when` and `triggeredBy` both assume a trigger, and `component-not-executable` would say the overlay step fails, which it does not."
+        "transferabilityNotes": "Contextual overlay: Question 4 is explicit that exposure does not enter the calculation, and Question 9 says that if users want their own exposure or vulnerability data, 'current workflow is no option for it'. Not substitutable, then, which this model cannot yet state (see the statement-level note). Question 9 also says 'All input datasets are covering EU', so the overlay cannot be produced outside the EU: recorded as an optional terminal rule on `eu-input-coverage`, our inference from those two answers, to be confirmed with the owner."
       },
       {
         "id": "vulnerability",
-        "artifact": "vulnerability index at NUTS3 level (JRC Risk Data Hub)",
+        "artifact": "vulnerability index at NUTS3 level (Risk Data Hub)",
         "artifactRole": "workflow-input",
         "artifactRef": "/inputs/vulnerability_index",
-        "transferabilityNotes": "Contextual overlay, and not substitutable, for the same reason recorded on `exposure`. Question 7 also states the index is at NUTS3 level, 'coarser than the precipitation grid and does not align exactly with the AOI boundary'. That is a relationship between the spatial supports of two artifacts, so no envelope dimension describes it and no rule is conditioned on it; it bears on how far the overlay can be read rather than on whether the workflow moves, and it is carried on that axis instead, by the workflow's `spatial-support-mismatch` qualityAnnotation."
+        "transferabilityNotes": "Contextual overlay, and not substitutable, for the same reason recorded on `exposure`, with the same optional rule outside the EU. Question 7 also states the index is at NUTS3 level, 'coarser than the precipitation grid and does not align exactly with the AOI boundary', which is carried by the `spatial-support-mismatch` qualityAnnotation. Question 8: the index data is 'currently local files, until it is published on the FOCAL STAC'."
       }
     ],
     "rules": [
@@ -250,7 +247,7 @@
           "/steps/blue_spot_detection"
         ],
         "mandatory": true,
-        "transferabilityNotes": "Question 7: 'Other projections are not handled.' Terminal rather than a substitution, and deliberately so \u2014 a dataset on a Lambert-conformal or polar-stereographic grid does not produce worse blue spots, it produces none, because the rolling accumulation has no code path for it. Regridding to a supported grid is a preprocessing step outside this workflow, not an action it offers."
+        "transferabilityNotes": "Question 7: 'Other projections are not handled.' Our reading of 'not handled' (to be confirmed with the owner): terminal rather than a substitution \u2014 a dataset on a Lambert-conformal or polar-stereographic grid does not produce worse blue spots, it produces none, because the rolling accumulation has no code path for it. Regridding to a supported grid is a preprocessing step outside this workflow, not an action it offers."
       },
       {
         "appliesTo": [
@@ -262,6 +259,27 @@
         ],
         "mandatory": true,
         "transferabilityNotes": "Question 9: 'Since all the data is loaded from FOCAL STAC, user need a new data loader.' Stated with `triggeredBy` rather than a cited constraint because the condition is that the data comes from somewhere other than the FOCAL STAC catalogue, which is a fact about the source rather than about where the target is: a user inside the EU with their own local precipitation archive needs the new loader just as much as one outside it."
+      },
+      {
+        "appliesTo": [
+          "exposure",
+          "vulnerability"
+        ],
+        "when": [
+          {
+            "constraint": "eu-input-coverage",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "component-not-executable"
+        ],
+        "affects": [
+          "/steps/exposure_overlay",
+          "/steps/vulnerability_overlay"
+        ],
+        "mandatory": false,
+        "transferabilityNotes": "Our inference, to be confirmed: Question 9 says 'All input datasets are covering EU' and that users cannot supply their own exposure or vulnerability data, so outside the EU the overlays cannot be produced. Optional because no single sentence of the owner states it: the blue-spot map itself does not depend on the overlays (Question 4), so their absence costs the context layers, not the result."
       }
     ],
     "transferabilityNotes": "Two evidenced facts from this questionnaire are recorded in notes rather than in structure, because no shape in this model holds them without misstating them: that exposure and vulnerability cannot be substituted at all (a standing limitation, not a triggered outcome); and that the choice of precipitation source gates which accumulation windows are available (a co-constraint between two CWL inputs, which CWL's own union-of-record-schemas typing is the right place for). Each is on the artifact it concerns. The NUTS3 support mismatch, previously a third note here, is now carried structurally by a `spatial-support-mismatch` qualityAnnotation."
@@ -275,7 +293,7 @@
     },
     {
       "dimension": "spatial-support-mismatch",
-      "note": "Question 7: the JRC vulnerability index is provided at NUTS3 level, 'coarser than the precipitation grid and does not align exactly with the AOI boundary'. The overlay can therefore be read no finer than a NUTS3 region, whatever resolution the blue-spot map itself carries, and NUTS3 units straddling the AOI edge are only partly covered. This holds in the source deployment as much as in any target: it bounds how far a result can be read, not whether the workflow moves."
+      "note": "Question 7: the vulnerability index is provided at NUTS3 level, 'coarser than the precipitation grid and does not align exactly with the AOI boundary'. The overlay can therefore be read no finer than a NUTS3 region, whatever resolution the blue-spot map itself carries, and NUTS3 units straddling the AOI edge are only partly covered. This holds in the source deployment as much as in any target: it bounds how far a result can be read, not whether the workflow moves."
     }
   ]
 }

@@ -23,7 +23,7 @@ path	@id	schema
 /envelope/_oneOf/3/value/classes	https://w3id.org/ogc/hosted/focal/transferability/properties/class	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
 /envelope/_oneOf/4/dimension	https://w3id.org/ogc/hosted/focal/transferability/properties/dimension	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
 /envelope/_oneOf/4/value	https://w3id.org/ogc/hosted/focal/transferability/properties/value	https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/schema.yaml
-/noConstraintsIdentified	https://w3id.org/ogc/hosted/focal/transferability/properties/noConstraintsIdentified	/github/workspace/build/annotated/focal/transferability/transferabilityStatement/schema.yaml
+/noConstraintsStated	https://w3id.org/ogc/hosted/focal/transferability/properties/noConstraintsStated	/github/workspace/build/annotated/focal/transferability/transferabilityStatement/schema.yaml
 /trainingRequired	https://w3id.org/ogc/hosted/focal/transferability/properties/trainingRequired	/github/workspace/build/annotated/focal/transferability/transferabilityStatement/schema.yaml
 /artifacts	https://w3id.org/ogc/hosted/focal/transferability/properties/artifacts	/github/workspace/build/annotated/focal/transferability/transferabilityStatement/schema.yaml
 /artifacts/id	@id	/github/workspace/build/annotated/focal/transferability/transferabilityStatement/schema.yaml

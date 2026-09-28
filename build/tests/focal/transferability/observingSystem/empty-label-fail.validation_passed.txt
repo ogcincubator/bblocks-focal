@@ -1,0 +1,89 @@
+Validation report for ogc.focal.transferability.observingSystem - FOCAL Transferability Observing System
+Generated 2026-09-28T16:45:23.767111+00:00
+=== General ===
+Test was expected to fail and it did.
+=== End General ===
+
+=== Files ===
+Using empty-label-fail.json from test resources
+JSON-LD context is present - uplifting
+Output JSON-LD empty-label-fail.jsonld created
+Output Turtle empty-label-fail.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+Validation passed
+=== End JSON Schema ===
+
+=== SHACL ===
+Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):
+ - /github/workspace/_sources/transferability/vocab/ontology.ttl
+
+** Validation error **
+Validation result for _sources/transferability/observingSystem/shapes.shacl:
+  Validation Report
+  Conforms: False
+  Results (1):
+  Constraint Violation in MinLengthConstraintComponent (http://www.w3.org/ns/shacl#MinLengthConstraintComponent):
+  	Severity: sh:Violation
+  	Source Shape: [ sh:datatype xsd:string ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:message Literal("a label, where given, is one non-empty string, in the words of the source.") ; sh:minLength Literal("1", datatype=xsd:integer) ; sh:name Literal("label") ; sh:path rdfs:label ]
+  	Focus Node: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>
+  	Value Node: Literal("")
+  	Result Path: rdfs:label
+  	Message: a label, where given, is one non-empty string, in the words of the source.
+  
+Focus nodes for _sources/transferability/observingSystem/shapes.shacl:
+ - Shape focal-shape:ObservingSystem: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>
+
+Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:
+ - Shape focal-shape:ArtifactDependency: *none*
+ - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability
+ - Shape focal-shape:NoTrainingMeansNoTrainedOn: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability
+ - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability
+ - Shape focal-shape:ArtifactRefOnlyForInternalRoles: *none*
+ - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability
+ - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability
+ - Shape focal-shape:NoConstraintsMeansNoConstraints: *none*
+
+Validation result for _sources/transferability/rule/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/rule/shapes.shacl:
+ - Shape focal-shape:OptionalRuleHasConsequence: *none*
+ - Shape focal-shape:TransferabilityRule: *none*
+ - Shape focal-shape:RuleHasACondition: *none*
+ - Shape focal-shape:TerminalActionNotAlongsideReuse: *none*
+ - Shape focal-shape:EnvelopeCondition: *none*
+ - Shape focal-shape:TerminalActionNamesWhatItAffects: *none*
+
+Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
+ - Shape focal-shape:EnvelopeConstraint: *none*
+ - Shape focal-shape:ScenarioMarkerIsAConcept: *none*
+ - Shape focal-shape:NonGeometricEnvelopeValue: *none*
+ - Shape focal-shape:TemporalEnvelopeValue: *none*
+ - Shape focal-shape:GridStructureEnvelopeValue: *none*
+ - Shape focal-shape:GridTypeIsAConcept: *none*
+ - Shape focal-shape:AnalogyNamesItsReference: *none*
+ - Shape focal-shape:SpatialEnvelopeValue: *none*
+
+Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:
+ - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*
+ - Shape focal-shape:AcceptanceCriteria: *none*
+ - Shape _:nee98852d820b4abfa600ef54433bca60b3: *none*
+ - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*
+
+=== End SHACL ===
+

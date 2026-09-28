@@ -1,0 +1,80 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/observingSystem/context.jsonld",
+  "id": "",
+  "label": "FP-WF4 \u2014 Collection of Local Data for Calibration",
+  "transferability": {
+    "trainingRequired": false,
+    "envelope": [],
+    "artifacts": [
+      {
+        "id": "senslog-model-and-api",
+        "artifact": "SensLog data model and API-based access",
+        "artifactRole": "external-resource",
+        "transferabilityNotes": "Question 10: 'Portable parts are the SensLog data model, API-based access, time-series concept and calibration/validation methodology.' No rule applies, so it is reusable unchanged. The role is inferred: a specification a deployment conforms to, not something the workflow ships."
+      },
+      {
+        "id": "sensor-network",
+        "artifact": "physical sensor network (local soil sensors and meteorological stations)",
+        "artifactRole": "infrastructure",
+        "transferabilityNotes": "Question 7: 'the physical sensor network and field procedures are site-specific'. Question 9: 'The sensor network, station metadata, observed properties, calibration rules and target climate datasets would need to be replaced by local equivalents'. Question 8 allows 'sensor units or existing observation data', so installing new sensors is not the only way to satisfy the replacement; the source does not say which is expected."
+      },
+      {
+        "id": "station-metadata",
+        "artifact": "station metadata",
+        "artifactRole": "workflow-input",
+        "transferabilityNotes": "Question 8: 'metadata for stations and observed properties'. Role inferred; there is no executable description to point into."
+      },
+      {
+        "id": "observed-properties",
+        "artifact": "observed properties",
+        "artifactRole": "workflow-input",
+        "transferabilityNotes": "Question 8: 'metadata for stations and observed properties'. Role inferred."
+      },
+      {
+        "id": "calibration-rules",
+        "artifact": "calibration rules",
+        "artifactRole": "workflow-input",
+        "transferabilityNotes": "Question 9 says these must be replaced; question 10 says the 'calibration/validation methodology' is portable. The two may be consistent (the method carries over, the rules are local) but the source does not say so; asked of the owner."
+      },
+      {
+        "id": "target-climate-datasets",
+        "artifact": "target climate datasets",
+        "artifactRole": "workflow-input",
+        "transferabilityNotes": "Question 8: 'matching climate or hydrological datasets for comparison'. Question 10 lists 'selected comparison datasets' as project-specific. Question 1 names downscaled ERA5-Land as the data compared with; the source does not say whether another FOCAL workflow produces it."
+      }
+    ],
+    "rules": [
+      {
+        "appliesTo": [
+          "sensor-network",
+          "station-metadata",
+          "observed-properties",
+          "calibration-rules",
+          "target-climate-datasets"
+        ],
+        "triggeredBy": "different-geographic-coverage",
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Question 9: 'What would need to change to apply it to another region or dataset?' answered with 'would need to be replaced by local equivalents'. The region half of that disjunction; no extent is stated, so there is no envelope constraint to cite."
+      },
+      {
+        "appliesTo": [
+          "sensor-network",
+          "station-metadata",
+          "observed-properties",
+          "calibration-rules",
+          "target-climate-datasets"
+        ],
+        "triggeredBy": "different-dataset",
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "The dataset half of question 9's 'another region or dataset'. The source does not separate which artifacts each half applies to, so both rules list all five."
+      }
+    ],
+    "transferabilityNotes": "Every fact here is from the FP-WF4 questionnaire; inferences are marked as such on the entry they affect. The envelope is empty because the source names no region, period or class, which is not a claim that the results are valid everywhere. Question 5 gives 'No ML training is required.', hence trainingRequired false. Question 7: 'The workflow assumes that local sensors are installed, maintained and correctly described by metadata. Data quality depends on sensor calibration, measurement depth, temporal coverage and gap handling.' Recorded here as an assumption and a dependency, not as a quality annotation. Question 9 adds: 'Interpretation of soil moisture differences should be adapted to local soil, rooting depth, stand structure and management context.' Whether that is a validity boundary or only advice is not stated. Question 10 lists as project-specific 'current sensor deployments, credentials, backend routing, FOCAL integration settings and selected comparison datasets'; only the datasets are also in question 9's replacement list, so no rule is recorded for the rest, although question 8 says a new user needs 'access credentials/API endpoints'. Where the comparison with ERA5-Land is computed (inside SensLog, in the Forest backend, or in the web app) is not stated."
+  }
+}

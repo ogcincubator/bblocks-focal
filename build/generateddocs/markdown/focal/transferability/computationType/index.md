@@ -1,7 +1,7 @@
 
 # FOCAL Computation Type (mixin) (Schema)
 
-`ogc.focal.transferability.computationType` *v0.2*
+`ogc.focal.transferability.computationType` *v0.3*
 
 Reusable mixin adding computationType, an open-vocabulary classification of how a workflow computes its results (statistical/ML, deterministic/rule-based, precomputed data delivery). Optional at the workflow level.
 
@@ -17,9 +17,9 @@ description: "Reusable mixin adding `computationType`, an open-vocabulary classi
   for the seeded values (`statistical-ml`, `deterministic-rule-based`, `precomputed-delivery`).
   Evidenced 8/8 across FOCAL's pilot workflows, but not universal by design: **optional**,
   omitted entirely for a workflow that isn't an executable Application/ApplicationPackage
-  at all (e.g. FP-WF4, an `ogcapi-sosa` observing system) \u2014 not a fourth \"not
-  applicable\" value, the same way JSON Schema already handles a property that simply
-  doesn't apply.\n"
+  at all (e.g. FP-WF4, a SensLog observation store, see `observingSystem`) \u2014
+  not a fourth \"not applicable\" value, the same way JSON Schema already handles
+  a property that simply doesn't apply.\n"
 type: object
 properties:
   computationType:

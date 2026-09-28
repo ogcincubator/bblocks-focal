@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Vocabulary and Model Ontology (Model)
 
-`ogc.focal.transferability.vocab` *v0.7*
+`ogc.focal.transferability.vocab` *v0.9*
 
 The RDF vocabulary behind the FOCAL workflow transferability model: ten open SKOS concept schemes (actions, triggers, condition tests, envelope dimensions, envelope roles, artifact roles, scenario markers, computation types, maturity statuses, quality dimensions) plus the classes and properties FOCAL mints where no published vocabulary says the same thing.
 
@@ -61,8 +61,7 @@ extents that come apart in practice), the rule and its conditions, and the conce
 which is true of none of them and would have a reasoner concluding that `focal-prop:role` is one
 of the roles.
 
-**Status: draft/WIP.** Seeded from `20260817-workflow-transferability-mapping-extraction.md` and
-`20260902-condition-action-expressivity.md` (FOCAL WP10 project directory).
+**Status: draft/WIP.** Seeded from the eight FOCAL pilot workflow questionnaires (FOCAL WP10, Task 10.3).
 
 
 ## Publishing a scheme that has no maintainer

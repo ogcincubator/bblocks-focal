@@ -1,0 +1,7 @@
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label> rdfs:label "" ;
+    focal-transf-prop:transferability [ focal-transf-prop:trainingRequired false ] .
+

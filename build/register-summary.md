@@ -172,6 +172,12 @@ Where something's results are valid (envelope), which reference/calibration arti
 
 GeoJSON FeatureCollection of FOCAL forest stands, providing a spatial dataset of forest units classified by forest type, region, and management unit.
 
+### `ogc.focal.transferability.observingSystem` — FOCAL Transferability Observing System
+
+**Type:** schema
+
+Host for a transferability statement on something that is a sensor-data service rather than a CWL Workflow (FP-WF4, a SensLog observation store). Carries the statement and a label; deliberately no computationType, and no maturityStatus until a source states one.
+
 ### `ogc.focal.transferability.workflow` — FOCAL Transferability Workflow
 
 **Type:** schema

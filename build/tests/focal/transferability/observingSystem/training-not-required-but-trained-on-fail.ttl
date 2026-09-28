@@ -1,0 +1,12 @@
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training> rdfs:label "Contradictory variant: no training required, yet a trained-on envelope entry" ;
+    focal-transf-prop:transferability [ focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site> ;
+            focal-transf-prop:trainingRequired false ] .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;
+    focal-transf-prop:value "any" .
+

@@ -1,0 +1,7 @@
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type> rdfs:label "Contradictory variant: an observing system claiming a computation type" ;
+    focal-transf-prop:transferability [ focal-transf-prop:trainingRequired false ] .
+

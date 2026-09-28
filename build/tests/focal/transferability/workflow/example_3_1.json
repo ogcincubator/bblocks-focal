@@ -34,9 +34,9 @@
         "role": "trained-on",
         "dimension": "spatial",
         "value": {
-          "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"
+          "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"
         },
-        "transferabilityNotes": "More speculative than FP-WF1's or FP-WF2's: no sentence in this questionnaire names a location for the historical disturbance labels. Czechia is used as a proxy because this is a Forest Pilot workflow, and its country bounding box as the value. Needs owner confirmation before being treated as fact."
+        "transferabilityNotes": "More speculative than FP-WF1's or FP-WF2's: no sentence in this questionnaire names a location for the historical disturbance labels. Czechia is used as a proxy because this is a Forest Pilot workflow, and Czechia's country border (simplified) as the value, standing in for an extent the owner did not state. Needs owner confirmation before being treated as fact."
       },
       {
         "id": "phenological-regime",
@@ -118,7 +118,8 @@
         "actions": [
           "replace-with-local-equivalent"
         ],
-        "mandatory": true
+        "mandatory": false,
+        "transferabilityNotes": "Question 9: the strategy 'may also need adjustment to local conditions'. Optional because the owner says 'may'; the source states no consequence for leaving it unadjusted, and the owner is asked what triggers the adjustment."
       },
       {
         "appliesTo": [

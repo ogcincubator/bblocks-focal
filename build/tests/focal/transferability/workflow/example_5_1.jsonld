@@ -25,7 +25,7 @@
   },
   "transferability": {
     "trainingRequired": false,
-    "noConstraintsIdentified": true,
+    "noConstraintsStated": true,
     "envelope": [],
     "artifacts": [
       {

@@ -1,5 +1,5 @@
 Validation report for ogc.focal.forestStandFeature - FOCAL Forest Stand Feature
-Generated 2026-09-28T16:05:16.148247+00:00
+Generated 2026-09-28T16:45:21.865771+00:00
 === Files ===
 Using ../forestStandCollection/examples/feature.json from examples
 JSON-LD context is present - uplifting
@@ -17,7 +17,7 @@ Validation result for _sources/forestStandFeature/shapes.shacl:
   Conforms: True
   
 Focus nodes for _sources/forestStandFeature/shapes.shacl:
- - Shape <https://example.com/focal/feature-lesniTyp>: _:N3df125a8bb664a608e2eabf94f5a1b17
+ - Shape <https://example.com/focal/feature-lesniTyp>: _:N75f9a622aa624c3398391f96627b2af7
 
 Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
   Validation Report
@@ -25,9 +25,9 @@ Validation result for https://opengeospatial.github.io/bblocks/registereditems/g
   
 Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
  - Shape geojson:LinkShape: *none*
- - Shape geojson:GeometryShape: *none*
  - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape geojson:FeatureShape: _:N3df125a8bb664a608e2eabf94f5a1b17
+ - Shape geojson:GeometryShape: *none*
+ - Shape geojson:FeatureShape: _:N75f9a622aa624c3398391f96627b2af7
  - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
 
 === End SHACL ===

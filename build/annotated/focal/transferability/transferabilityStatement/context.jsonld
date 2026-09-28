@@ -63,7 +63,7 @@
       "@id": "focal-transf-prop:envelope",
       "@container": "@set"
     },
-    "noConstraintsIdentified": "focal-transf-prop:noConstraintsIdentified",
+    "noConstraintsStated": "focal-transf-prop:noConstraintsStated",
     "trainingRequired": "focal-transf-prop:trainingRequired",
     "artifacts": {
       "@context": {

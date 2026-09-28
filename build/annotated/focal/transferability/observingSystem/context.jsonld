@@ -1,0 +1,186 @@
+{
+  "@context": {
+    "id": "@id",
+    "label": "rdfs:label",
+    "transferability": {
+      "@context": {
+        "transferabilityNotes": "rdfs:comment",
+        "envelope": {
+          "@context": {
+            "role": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/roles/"
+              },
+              "@id": "focal-transf-prop:role",
+              "@type": "@id"
+            },
+            "dimension": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/"
+              },
+              "@id": "focal-transf-prop:dimension",
+              "@type": "@id"
+            },
+            "value": {
+              "@context": {
+                "asWKT": {
+                  "@id": "geo:asWKT",
+                  "@type": "geo:wktLiteral"
+                },
+                "startDate": "dcat:startDate",
+                "endDate": "dcat:endDate",
+                "scenarioMarker": {
+                  "@context": {
+                    "@base": "https://w3id.org/ogc/hosted/focal/transferability/scenario-markers/"
+                  },
+                  "@id": "focal-transf-prop:scenarioMarker",
+                  "@type": "@id"
+                },
+                "gridTypes": {
+                  "@context": {
+                    "@base": "https://w3id.org/ogc/hosted/focal/transferability/grid-types/"
+                  },
+                  "@id": "focal-transf-prop:gridType",
+                  "@type": "@id",
+                  "@container": "@set"
+                },
+                "scheme": {
+                  "@context": {
+                    "@base": "https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/"
+                  },
+                  "@id": "focal-transf-prop:classificationScheme",
+                  "@type": "@id"
+                },
+                "sameClassAs": {
+                  "@id": "focal-transf-prop:sameClassAs",
+                  "@type": "@id"
+                },
+                "classes": {
+                  "@id": "focal-transf-prop:class",
+                  "@container": "@set"
+                }
+              },
+              "@id": "focal-transf-prop:value"
+            }
+          },
+          "@id": "focal-transf-prop:envelope",
+          "@container": "@set"
+        },
+        "noConstraintsStated": "focal-transf-prop:noConstraintsStated",
+        "trainingRequired": "focal-transf-prop:trainingRequired",
+        "artifacts": {
+          "@context": {
+            "artifact": "dcterms:title",
+            "artifactRole": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/"
+              },
+              "@id": "focal-transf-prop:artifactRole",
+              "@type": "@id"
+            },
+            "acceptanceCriteria": {
+              "@context": {
+                "variable": {
+                  "@context": {
+                    "sameAsCurrent": "focal-transf-prop:sameAsCurrent"
+                  },
+                  "@id": "focal-transf-prop:variable"
+                },
+                "units": {
+                  "@context": {
+                    "@base": "http://qudt.org/vocab/unit/"
+                  },
+                  "@id": "focal-transf-prop:unit",
+                  "@type": "@id",
+                  "@container": "@set"
+                },
+                "axes": {
+                  "@context": {
+                    "@base": "https://w3id.org/ogc/hosted/focal/transferability/axes/"
+                  },
+                  "@id": "focal-transf-prop:axis",
+                  "@type": "@id",
+                  "@container": "@set"
+                },
+                "gridTypes": {
+                  "@context": {
+                    "@base": "https://w3id.org/ogc/hosted/focal/transferability/grid-types/"
+                  },
+                  "@id": "focal-transf-prop:gridType",
+                  "@type": "@id",
+                  "@container": "@set"
+                },
+                "conformsTo": {
+                  "@id": "dcterms:conformsTo",
+                  "@type": "@id",
+                  "@container": "@set"
+                }
+              },
+              "@id": "focal-transf-prop:acceptanceCriteria"
+            },
+            "artifactRef": "focal-transf-prop:artifactRef"
+          },
+          "@id": "focal-transf-prop:artifacts",
+          "@container": "@set"
+        },
+        "rules": {
+          "@context": {
+            "appliesTo": {
+              "@id": "focal-transf-prop:appliesTo",
+              "@type": "@id",
+              "@container": "@set"
+            },
+            "when": {
+              "@context": {
+                "constraint": {
+                  "@id": "focal-transf-prop:constraint",
+                  "@type": "@id"
+                },
+                "test": {
+                  "@context": {
+                    "@base": "https://w3id.org/ogc/hosted/focal/transferability/tests/"
+                  },
+                  "@id": "focal-transf-prop:test",
+                  "@type": "@id"
+                }
+              },
+              "@id": "focal-transf-prop:when",
+              "@container": "@set"
+            },
+            "triggeredBy": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/triggers/"
+              },
+              "@id": "focal-transf-prop:triggeredBy",
+              "@type": "@id"
+            },
+            "affects": {
+              "@id": "focal-transf-prop:affects",
+              "@container": "@set"
+            },
+            "actions": {
+              "@context": {
+                "@base": "https://w3id.org/ogc/hosted/focal/transferability/actions/"
+              },
+              "@id": "focal-transf-prop:actions",
+              "@type": "@id",
+              "@container": "@set"
+            },
+            "mandatory": "focal-transf-prop:mandatory"
+          },
+          "@id": "focal-transf-prop:rules",
+          "@container": "@set"
+        }
+      },
+      "@id": "focal-transf-prop:transferability"
+    },
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "focal-transf-prop": "focal-transf:properties/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "focal-transf": "https://w3id.org/ogc/hosted/focal/transferability/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "@version": 1.1
+  }
+}

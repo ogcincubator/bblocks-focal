@@ -24,10 +24,13 @@
   "inputs": {
     "climate_data": {
       "type": "File"
+    },
+    "trained_growth_model": {
+      "type": "File"
     }
   },
   "outputs": {
-    "trained_growth_model": {
+    "growth_projection": {
       "type": "File"
     }
   },
@@ -39,9 +42,9 @@
         "role": "trained-on",
         "dimension": "spatial",
         "value": {
-          "asWKT": "POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))"
+          "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"
         },
-        "transferabilityNotes": "Czechia's country bounding box, standing in for the actual Czech long-term permanent sample plot network \u2014 a scattered set of monitoring locations, not a rectangle. An honest upper bound pending the real plot coordinates from the workflow owner."
+        "transferabilityNotes": "Czechia's country border, simplified to a few tens of kilometers, standing in for the actual Czech long-term permanent sample plot network \u2014 a scattered set of monitoring locations, not a country. An honest upper bound pending the real plot coordinates from the workflow owner."
       },
       {
         "id": "ecological-range",
@@ -51,7 +54,7 @@
           "scheme": "eea-biogeographical-regions",
           "sameClassAs": "czech-plots"
         },
-        "transferabilityNotes": "Question 7: results are 'valid mainly within a comparable ecological range'. That is an analogy to where the model was calibrated, not an extent, so it is stated as one: the target must share the biogeographical region of `czech-plots`. No region is named here on purpose \u2014 the source names none, and the set follows from whatever geometry `czech-plots` holds, so correcting that stand-in bounding box to the real plot coordinates sharpens this constraint too. The scheme is the one needing owner confirmation: biogeographical regions, Koppen-Geiger climate zones and EUNIS habitat classes are all plausible readings of 'ecological range' and they do not agree."
+        "transferabilityNotes": "Question 7: results are 'valid mainly within a comparable ecological range'. That is an analogy to where the model was calibrated, not an extent, so it is stated as one: the target must share the biogeographical region of `czech-plots`. No region is named here on purpose \u2014 the source names none, and the set follows from whatever geometry `czech-plots` holds, so correcting that stand-in country border to the real plot coordinates sharpens this constraint too. The scheme is the one needing owner confirmation: biogeographical regions, Koppen-Geiger climate zones and EUNIS habitat classes are all plausible readings of 'ecological range' and they do not agree."
       },
       {
         "id": "downscaled-climate-available",
@@ -64,8 +67,8 @@
       {
         "id": "growth-model",
         "artifact": "trained tree growth model (LightGBM, Czech permanent sample plot data)",
-        "artifactRole": "workflow-output",
-        "artifactRef": "/outputs/trained_growth_model"
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/trained_growth_model"
       },
       {
         "id": "climate-data",
@@ -97,7 +100,7 @@
         ],
         "when": [
           {
-            "constraint": "czech-plots",
+            "constraint": "downscaled-climate-available",
             "test": "outside"
           }
         ],
@@ -109,11 +112,11 @@
     ]
   },
   "computationType": "statistical-ml",
-  "maturityStatus": "operational",
+  "maturityStatus": "pre-operational",
   "qualityAnnotation": [
     {
       "dimension": "decision-support-only",
-      "note": "AI model and validation are still being finalised; results are decision-support, not exact forecasts."
+      "note": "The AI model and validation are still being finalised, so results should be interpreted as decision-support information rather than exact forecasts."
     }
   ]
 }
