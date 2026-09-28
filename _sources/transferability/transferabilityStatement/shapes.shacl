@@ -40,6 +40,64 @@ focal-shape:TransferabilityStatement
     sh:maxCount 1 ;
     sh:datatype xsd:string ;
   ] ;
+
+  sh:property [
+    sh:path focal-prop:noConstraintsIdentified ;
+    sh:name "noConstraintsIdentified" ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:boolean ;
+    sh:message "noConstraintsIdentified is a boolean." ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:trainingRequired ;
+    sh:name "trainingRequired" ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:boolean ;
+    sh:message "trainingRequired is a boolean: whether the thing needs training or calibration data to be re-created elsewhere." ;
+  ] ;
+.
+
+#################################################################
+# The two assertions about absence have to be consistent with the lists they summarize.
+#
+# noConstraintsIdentified true says "assessed, nothing to constrain", so a statement that also
+# lists a boundary or a rule contradicts itself. trainingRequired false says no training is
+# needed, so a trained-on envelope entry (which means "fitted to this") contradicts it.
+#################################################################
+
+focal-shape:NoConstraintsMeansNoConstraints
+  a sh:NodeShape ;
+  sh:targetSubjectsOf focal-prop:noConstraintsIdentified ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "noConstraintsIdentified is true but the statement lists an envelope entry or a rule. Either the marker or the lists are wrong: the marker says that nothing was identified." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/noConstraintsIdentified> true .
+        { $this <https://w3id.org/ogc/hosted/focal/transferability/properties/envelope> ?x }
+        UNION
+        { $this <https://w3id.org/ogc/hosted/focal/transferability/properties/rules> ?x }
+      }
+    """ ;
+  ] ;
+.
+
+focal-shape:NoTrainingMeansNoTrainedOn
+  a sh:NodeShape ;
+  sh:targetSubjectsOf focal-prop:trainingRequired ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "trainingRequired is false but an envelope entry has the trained-on role. Use derived-from for a reference dataset that was computed rather than fitted." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/trainingRequired> false .
+        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/envelope> ?e .
+        ?e <https://w3id.org/ogc/hosted/focal/transferability/properties/role>
+           <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> .
+      }
+    """ ;
+  ] ;
 .
 
 focal-shape:ArtifactDependency

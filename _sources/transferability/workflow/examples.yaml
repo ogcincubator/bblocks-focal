@@ -43,6 +43,7 @@ examples:
             "inputs": { "climate_data": { "type": "File" } },
             "outputs": { "trained_growth_model": { "type": "File" } },
             "transferability": {
+              "trainingRequired": true,
               "envelope": [
                 {
                   "id": "czech-plots",
@@ -150,6 +151,7 @@ examples:
               "climate_registry_endpoint": { "type": "string" }
             },
             "transferability": {
+              "trainingRequired": false,
               "envelope": [
                 {
                   "id": "czechia",
@@ -171,7 +173,7 @@ examples:
                   "when": [{ "constraint": "czechia", "test": "outside" }],
                   "actions": ["replace-with-local-equivalent"],
                   "mandatory": true,
-                  "transferabilityNotes": "Users may also override the tolerance thresholds directly, even within the source region — a separate user-configurability fact, not modelled here."
+                  "transferabilityNotes": "Question 4: 'Users can also provide custom thresholds', so the tolerance thresholds can be overridden directly, even within the source region. Question 9 adds that 'Thresholds may need adjustment to local species, forest types and management practice'. Both are recorded here as a note and not as structure: the model has no notion of a parameter that should be tuned when the workflow moves, and one case does not justify one."
                 }
               ]
             },
@@ -223,6 +225,7 @@ examples:
               "phenology_normalization_assumptions": { "type": "string" }
             },
             "transferability": {
+              "trainingRequired": true,
               "envelope": [
                 {
                   "id": "label-extent",
@@ -385,6 +388,7 @@ examples:
               }
             },
             "transferability": {
+              "trainingRequired": false,
               "envelope": [
                 {
                   "id": "eur11-domain",
@@ -459,10 +463,21 @@ examples:
                   "mandatory": true,
                   "transferabilityNotes": "Stated with triggeredBy rather than a cited constraint: this data is not yet implemented, so there is no envelope fact to point at. Once built, the planned Heat Risk Indicator would not be executable without it."
                 }
-              ]
+              ],
+              "transferabilityNotes": "Question 9 states a portability fact that no shape here holds: the classification step is data-agnostic. 'The LST dataset the hot and cool spot classification is based on is a raster dataset with a single time step and one value per grid cell. It is not a time series. Hence, the classification could also be applied to other raster datasets with a single time step and one value per grid cell.' In other words the algorithm is more portable than the specific input dataset. Recorded as a note because one workflow does not justify a property."
             },
             "computationType": "deterministic-rule-based",
-            "maturityStatus": "operational"
+            "maturityStatus": "operational",
+            "qualityAnnotation": [
+              {
+                "dimension": "proxy-variable",
+                "note": "Question 7: 'Hot spot detection is based on median summer Land Surface Temperature, which represents surface temperatures rather than near-surface air temperatures.' What the workflow computes is a stand-in for the air temperature a reader might assume, in the source region as much as in any target."
+              },
+              {
+                "dimension": "intended-use-limit",
+                "note": "Question 7: 'Results represent long-term thermal patterns for the selected epoch and are not intended for real-time heat monitoring.'"
+              }
+            ]
           }
 
   - title: UP-WF1 — Regional climate change (an empty envelope, stated deliberately)
@@ -480,6 +495,11 @@ examples:
       certainly does have conditions the questionnaire did not surface. Until the owner confirms,
       the honest record is the answer as given, marked as unverified, rather than a boundary
       invented to make the entry look substantial.
+
+      **`noConstraintsIdentified: true` is that claim stated outright.** Two empty arrays cannot
+      be told from a form nobody filled in, which is exactly how a consumer read them when this
+      record was first tested. The marker changes that, and a shape rejects it alongside any
+      envelope entry or rule, so it cannot contradict the lists it summarizes.
 
       **The one artifact carries no rule, and that is the point.** The NUKLEUS ensemble is declared
       because the delivery depends on it; no rule fires for it because the source states no
@@ -512,6 +532,8 @@ examples:
             "inputs": { "nukleus_ensemble": { "type": "File" } },
             "outputs": { "climate_indices": { "type": "File" } },
             "transferability": {
+              "trainingRequired": false,
+              "noConstraintsIdentified": true,
               "envelope": [],
               "artifacts": [
                 {
@@ -583,6 +605,7 @@ examples:
               "climate_source_catalogue": { "type": "string" }
             },
             "transferability": {
+              "trainingRequired": false,
               "envelope": [
                 {
                   "id": "czech-zone-scheme",
@@ -782,6 +805,7 @@ examples:
               }
             },
             "transferability": {
+              "trainingRequired": false,
               "envelope": [
                 {
                   "id": "dwd-stations",

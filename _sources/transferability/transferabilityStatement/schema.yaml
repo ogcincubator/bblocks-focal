@@ -38,8 +38,9 @@ description: >
   `outside` over one constraint) and is noise otherwise. And an **empty `envelope` is a claim, not
   a blank**: it says the results carry no validity boundary at all, which is what a genuinely
   universal workflow looks like and what UP-WF1's questionnaire literally answers ("All parts are
-  portable"). Record why in `transferabilityNotes` — a boundary nobody could find and a boundary
-  that does not exist are the same empty array otherwise.
+  portable"). Record why in `transferabilityNotes`, and set `noConstraintsIdentified: true` —
+  a boundary nobody could find and a boundary that does not exist are the same empty array
+  otherwise, and the marker is what tells them apart.
 
   **Conjunction and disjunction.** A rule's `when` is an AND: every condition must hold for the
   rule to fire. A disjunction is written as two rules. That is a deliberate limit rather than a
@@ -76,6 +77,27 @@ allOf:
           an empty `envelope` or empty `rules`, to distinguish a boundary that does not exist from
           one nobody could establish. Uplifts to `rdfs:comment`. Mixed in from
           bblocks://ogc.focal.transferability.notes.
+      noConstraintsIdentified:
+        type: boolean
+        description: >
+          `true` says outright that the results were assessed and no validity boundary and no
+          adaptation step was identified, which is what an empty `envelope` and an empty `rules`
+          mean but do not announce: a reader cannot tell those two empty arrays from a form nobody
+          filled in. It is the source's claim, not a verified one, and belongs with a
+          `transferabilityNotes` saying who made it. Only meaningful, and only valid, alongside an
+          empty `envelope` and an empty `rules`; omit it otherwise. Currently evidenced once
+          (UP-WF1: "Nothing", "Nothing", "All parts are portable").
+      trainingRequired:
+        type: boolean
+        description: >
+          Whether the thing this statement describes needs training or calibration data to be
+          re-created somewhere else. `false` is a positive statement of the source ("does not
+          require ML training", "Nil"), not an absence: omitting the property says nobody has
+          said. `true` says a model is fitted to data, which is what `retrain` actions and
+          `trained-on` envelope entries presuppose. `false` alongside a `trained-on` envelope entry
+          is contradictory and is rejected by the shapes. Evidenced by every questionnaire that
+          answers question 5: two say yes (FP-WF1, FP-WF3) and five say no (FP-WF2, FP-WF5, UP-WF1,
+          UP-WF2, UP-WF3).
       artifacts:
         type: array
         items:

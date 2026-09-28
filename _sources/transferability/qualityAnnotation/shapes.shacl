@@ -32,7 +32,7 @@ focal-shape:QualityAnnotation
     sh:path dqv:inDimension ;
     sh:class skos:Concept ;
     sh:severity sh:Warning ;
-    sh:message "the quality dimension should resolve to a concept in the FOCAL quality-dimensions scheme (decision-support-only, validation-incomplete, ...). Evidence for this block is thin (one workflow), so a new term here is expected -- add it to transferability/vocab rather than leaving it as a bare string." ;
+    sh:message "the quality dimension should resolve to a concept in the FOCAL quality-dimensions scheme (decision-support-only, validation-incomplete, ...). Evidence for this block is thin (four workflows), so a new term here is expected -- add it to transferability/vocab rather than leaving it as a bare string." ;
   ] ;
 
   sh:property [

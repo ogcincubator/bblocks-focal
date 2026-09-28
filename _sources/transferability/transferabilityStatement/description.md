@@ -15,7 +15,16 @@ different from the property being absent, which says nobody has looked. Requirin
 entry forces anyone in the first situation to invent one. For `envelope` that minimum also made
 "valid everywhere" inexpressible except as a world-sized polygon, and left the one workflow whose
 source states no boundary at all (UP-WF1) with no honest representation rather than one saying
-exactly that. Say which case it is in `transferabilityNotes`.
+exactly that. Say which case it is in `transferabilityNotes`, and set `noConstraintsIdentified: true`
+so that a reader can tell a claim from a blank.
+
+Two optional booleans state absences outright. `noConstraintsIdentified` says the results were
+assessed and no boundary and no adaptation step was found. `trainingRequired` says whether training
+or calibration data is needed to re-create the thing elsewhere: `false` is the source's positive
+statement (five of the seven modeled workflows), `true` says a model is fitted to data. Neither is
+inferred; leave a property out when nobody has said. Shapes reject `noConstraintsIdentified: true`
+alongside any envelope entry or rule, and `trainingRequired: false` alongside a `trained-on`
+envelope entry.
 
 **Rules are exceptions; silence means reuse.** An artifact no rule fires for, over a given target,
 is reused unchanged. Without that default, a consumer asking "can I run this over my area of

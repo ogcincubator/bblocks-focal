@@ -293,7 +293,8 @@ focal-qdim:scheme a skos:ConceptScheme ;
   skos:definition "Dimensions along which a qualityAnnotation statement expresses uncertainty or confidence about a workflow's results, independent of its maturityStatus. Deliberately seeded small from a single workflow (FP-WF1) and open to growth."@en ;
   skos:hasTopConcept
     focal-qdim:decision-support-only, focal-qdim:validation-incomplete,
-    focal-qdim:spatial-support-mismatch ;
+    focal-qdim:spatial-support-mismatch, focal-qdim:proxy-variable,
+    focal-qdim:intended-use-limit ;
 .
 
 focal-qdim:decision-support-only a skos:Concept, dqv:Dimension ;
@@ -316,6 +317,24 @@ focal-qdim:spatial-support-mismatch a skos:Concept, dqv:Dimension ;
   skos:prefLabel "spatial support mismatch"@en ;
   skos:definition "Two or more of the workflow's inputs are on supports of different resolution, or on supports that do not align, so results combining them are coarser or less precisely located than the finest input suggests. A property of the workflow as deployed, not of a transfer: it holds in the source region too."@en ;
   skos:scopeNote "Bears on how far a result can be read, not on whether the workflow can move. Use an envelope constraint, not this dimension, when the issue is that a target falls outside a boundary."@en ;
+  dqv:inCategory focal-qdim:scheme ;
+  skos:topConceptOf focal-qdim:scheme ;
+  skos:inScheme focal-qdim:scheme ;
+.
+
+focal-qdim:proxy-variable a skos:Concept, dqv:Dimension ;
+  skos:prefLabel "proxy variable"@en ;
+  skos:definition "What the result measures is a stand-in for the quantity a reader would naturally assume it describes, e.g. UP-WF2's median summer land surface temperature, which represents surface temperatures rather than near-surface air temperatures."@en ;
+  skos:scopeNote "A property of what the workflow computes, true in the source region as much as anywhere else. Not a limit on where the workflow can go."@en ;
+  dqv:inCategory focal-qdim:scheme ;
+  skos:topConceptOf focal-qdim:scheme ;
+  skos:inScheme focal-qdim:scheme ;
+.
+
+focal-qdim:intended-use-limit a skos:Concept, dqv:Dimension ;
+  skos:prefLabel "intended-use limit"@en ;
+  skos:definition "The results are explicitly not intended for a named use that the data might appear to support, e.g. UP-WF2's long-term thermal patterns, which are not intended for real-time heat monitoring."@en ;
+  skos:scopeNote "Distinct from decision-support-only, which says results inform a decision rather than stand as exact figures. This names a specific use to avoid."@en ;
   dqv:inCategory focal-qdim:scheme ;
   skos:topConceptOf focal-qdim:scheme ;
   skos:inScheme focal-qdim:scheme ;
@@ -662,6 +681,20 @@ focal-prop:transferability a owl:ObjectProperty ;
   rdfs:label "transferability"@en ;
   rdfs:comment "Attaches a transferability statement to the thing it describes."@en ;
   rdfs:range focal-transf:TransferabilityStatement ;
+.
+
+focal-prop:noConstraintsIdentified a owl:DatatypeProperty ;
+  rdfs:label "no constraints identified"@en ;
+  rdfs:comment "Asserts that the results were assessed and no validity boundary and no adaptation step was identified. An empty envelope and an empty set of rules mean the same but cannot be told from a form nobody filled in; this says it outright. It is the source's claim, not a verified one."@en ;
+  rdfs:domain focal-transf:TransferabilityStatement ;
+  rdfs:range xsd:boolean ;
+.
+
+focal-prop:trainingRequired a owl:DatatypeProperty ;
+  rdfs:label "training required"@en ;
+  rdfs:comment "Whether the thing described needs training or calibration data to be re-created elsewhere. False is a positive statement of the source, not an absence: leaving the property out says nobody has said."@en ;
+  rdfs:domain focal-transf:TransferabilityStatement ;
+  rdfs:range xsd:boolean ;
 .
 
 focal-prop:envelope a owl:ObjectProperty ;

@@ -25,7 +25,9 @@ point in the model: multiple simultaneous envelope roles, OR-set actions, an opt
 rule (`mandatory: false`), the `component-not-executable` terminal outcome with `affects`, one rule
 shared across four artifacts, a two-rule cascade over a single constraint, an evidenced temporal
 envelope entry, the `grid-structure` dimension, an artifact-level `acceptanceCriteria` contract,
-and an entirely empty envelope stated as a claim.
+an entirely empty envelope stated as a claim (`noConstraintsIdentified`), a positive statement that
+no training or calibration data is needed (`trainingRequired: false`), and caveats about results
+that are neither maturity nor a boundary (`qualityAnnotation`).
 
 **The eighth, FP-WF4, is deliberately not here.** It is not a CWL Workflow at all but a SensLog
 observing system, so it cannot profile `ogc.cwl.v1_2_1.CWLWorkflow` — which is precisely why
