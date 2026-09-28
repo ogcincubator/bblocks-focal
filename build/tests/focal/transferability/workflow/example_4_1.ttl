@@ -1,43 +1,49 @@
 @prefix cwl: <https://w3id.org/cwl/cwl#> .
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix ns1: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
-@prefix ns3: <https://w3id.org/cwl/cwl#NetworkAccess/> .
-@prefix ns4: <https://w3id.org/cwl/cwl#Workflow/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#Workflow/> .
+@prefix ns3: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
+@prefix ns4: <https://w3id.org/cwl/cwl#NetworkAccess/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sld: <https://w3id.org/cwl/salad#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/> a cwl:Workflow ;
     rdfs:label "UP-WF2 — Urban hot/cool spot" ;
-    ns4:steps <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/heat_risk_indicator>,
+    ns2:steps <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/heat_risk_indicator>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/hotspot_characterization>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst_preparation> ;
     cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms_tcd_imd>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst_datasets> ;
-    cwl:requirements [ a cwl:NetworkAccess ;
-            ns3:networkAccess true ],
-        [ a cwl:SoftwareRequirement ;
-            ns2:packages [ ns1:package "matplotlib" ],
-                [ ns1:package "joblib" ],
-                [ ns1:package "rasterio" ],
-                [ ns1:package "pandas" ],
-                [ ns1:package "shapely" ],
-                [ ns1:package "geopandas" ],
-                [ ns1:package "xarray" ],
-                [ ns1:package "python" ;
-                    ns1:version "3.10",
+    cwl:requirements [ a cwl:SoftwareRequirement ;
+            ns1:packages [ ns3:package "geopandas" ],
+                [ ns3:package "numpy" ],
+                [ ns3:package "pandas" ],
+                [ ns3:package "rioxarray" ],
+                [ ns3:package "rasterio" ],
+                [ ns3:package "matplotlib" ],
+                [ ns3:package "shapely" ],
+                [ ns3:package "xarray" ],
+                [ ns3:package "joblib" ],
+                [ ns3:package "python" ;
+                    ns3:version "3.10",
                         "3.11",
                         "3.12",
-                        "3.13" ],
-                [ ns1:package "rioxarray" ],
-                [ ns1:package "numpy" ] ] ;
+                        "3.13" ] ],
+        [ a cwl:NetworkAccess ;
+            ns4:networkAccess true ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
-    focal-transf-prop:transferability [ focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms>,
+    focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/proxy-variable> ;
+            focal-transf-prop:note "Question 7: 'Hot spot detection is based on median summer Land Surface Temperature, which represents surface temperatures rather than near-surface air temperatures.' What the workflow computes is a stand-in for the air temperature a reader might assume, in the source region as much as in any target." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/intended-use-limit> ;
+            focal-transf-prop:note "Question 7: 'Results represent long-term thermal patterns for the selected epoch and are not intended for real-time heat monitoring.'" ] ;
+    focal-transf-prop:transferability [ rdfs:comment "Question 9 states a portability fact that no shape here holds: the classification step is data-agnostic. 'The LST dataset the hot and cool spot classification is based on is a raster dataset with a single time step and one value per grid cell. It is not a time series. Hence, the classification could also be applied to other raster datasets with a single time step and one value per grid cell.' In other words the algorithm is more portable than the specific input dataset. Recorded as a note because one workflow does not justify a property." ;
+            focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eurostat>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst> ;
             focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine>,
@@ -49,6 +55,20 @@
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst> ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] ],
+                [ rdfs:comment "Within the CLMS bounding extent but inside the area the product excludes: no Tree Cover Density or Imperviousness Density data exists, and no substitute is defined, so hot-spot characterization cannot be executed. A terminal outcome with no alternative offered, unlike the coverage rule above." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable> ;
+                    focal-transf-prop:affects "/steps/hotspot_characterization" ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] ],
+                [ rdfs:comment "Stated with triggeredBy rather than a cited constraint: this data is not yet implemented, so there is no envelope fact to point at. Once built, the planned Heat Risk Indicator would not be executable without it." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:affects "/steps/heat_risk_indicator" ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eurostat> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ],
                 [ rdfs:comment "Outside CLMS coverage no substitute is currently defined, and hot-spot characterization, which uses this dataset, cannot be executed." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
                         <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
@@ -57,13 +77,6 @@
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Within the CLMS bounding extent but inside the area the product excludes: no Tree Cover Density or Imperviousness Density data exists, and no substitute is defined, so hot-spot characterization cannot be executed. A terminal outcome with no alternative offered, unlike the coverage rule above." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable> ;
-                    focal-transf-prop:affects "/steps/hotspot_characterization" ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-excluded-ukraine> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/inside> ] ],
                 [ rdfs:comment "Outside it, compatible LST datasets must be generated or preprocessed if possible; if none can be produced, this component cannot be executed for the target. Which of the two applies depends on whether a substitute is obtainable, which the source does not resolve." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
                         <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
@@ -72,14 +85,8 @@
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Stated with triggeredBy rather than a cited constraint: this data is not yet implemented, so there is no envelope fact to point at. Once built, the planned Heat Risk Indicator would not be executable without it." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:affects "/steps/heat_risk_indicator" ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eurostat> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ] .
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ;
+            focal-transf-prop:trainingRequired false ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms_tcd_imd> sld:type cwl:File .
 

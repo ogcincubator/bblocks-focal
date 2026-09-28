@@ -17,6 +17,9 @@
     "disturbance_labels": {
       "type": "File"
     },
+    "forest_masks": {
+      "type": "File"
+    },
     "eo_compositing_strategy": {
       "type": "string"
     },
@@ -25,6 +28,7 @@
     }
   },
   "transferability": {
+    "trainingRequired": true,
     "envelope": [
       {
         "id": "label-extent",
@@ -47,7 +51,14 @@
         "id": "labels",
         "artifact": "historical forest disturbance/damage labels (ground truth training data)",
         "artifactRole": "workflow-input",
-        "artifactRef": "/inputs/disturbance_labels"
+        "artifactRef": "/inputs/disturbance_labels",
+        "transferabilityNotes": "Question 9 also lists \"model training data\" among the things to replace. Read here as the same thing as these labels, because Question 4 describes the labels as the polygons \"for training or validation\". Needs owner confirmation."
+      },
+      {
+        "id": "forest-masks",
+        "artifact": "forest masks or stand boundaries",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/forest_masks"
       },
       {
         "id": "eo-strategy",
@@ -78,6 +89,22 @@
         ],
         "mandatory": false,
         "transferabilityNotes": "Without local training labels, results should be treated as exploratory rather than blocked outright \u2014 a degraded-mode caveat, not a hard requirement."
+      },
+      {
+        "appliesTo": [
+          "forest-masks"
+        ],
+        "when": [
+          {
+            "constraint": "label-extent",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Question 9: forest masks 'would need to be replaced for the target region'. Tested against the label extent like the EO strategy, because the questionnaire names no boundary of its own for them."
       },
       {
         "appliesTo": [
@@ -112,5 +139,11 @@
     ]
   },
   "computationType": "statistical-ml",
-  "maturityStatus": "prototype"
+  "maturityStatus": "prototype",
+  "qualityAnnotation": [
+    {
+      "dimension": "validation-incomplete",
+      "note": "Question 5: 'structured regression testing and full scientific validation are not yet complete'. A separate axis from maturityStatus: it says how far the results can be trusted, not how far along the software is."
+    }
+  ]
 }

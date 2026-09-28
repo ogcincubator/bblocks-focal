@@ -1,5 +1,6 @@
 @prefix cwl: <https://w3id.org/cwl/cwl#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
@@ -12,18 +13,29 @@
     rdfs:label "FP-WF3 — Prediction of threatened stands" ;
     cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/disturbance_labels>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo_compositing_strategy>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/forest_masks>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology_normalization_assumptions> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
             ns1:packages [ ns2:package "python" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/statistical-ml> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/prototype> ;
+    focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/validation-incomplete> ;
+            focal-transf-prop:note "Question 5: 'structured regression testing and full scientific validation are not yet complete'. A separate axis from maturityStatus: it says how far the results can be trusted, not how far along the software is." ] ;
     focal-transf-prop:transferability [ focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy>,
+                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/forest-masks>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology> ;
             focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime> ;
-            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy> ;
+            focal-transf-prop:rules [ rdfs:comment "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels> ;
+                    focal-transf-prop:mandatory false ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ rdfs:comment "Question 9: forest masks 'would need to be replaced for the target region'. Tested against the label extent like the EO strategy, because the questionnaire names no boundary of its own for them." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/forest-masks> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
@@ -32,16 +44,18 @@
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Without local training labels, results should be treated as exploratory rather than blocked outright — a degraded-mode caveat, not a hard requirement." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels> ;
-                    focal-transf-prop:mandatory false ;
+                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy> ;
+                    focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ;
+            focal-transf-prop:trainingRequired true ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/disturbance_labels> sld:type cwl:File .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo_compositing_strategy> sld:type xsd:string .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/forest_masks> sld:type cwl:File .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology_normalization_assumptions> sld:type xsd:string .
 
@@ -49,7 +63,12 @@
     focal-transf-prop:artifactRef "/inputs/eo_compositing_strategy" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/forest-masks> dcterms:title "forest masks or stand boundaries" ;
+    focal-transf-prop:artifactRef "/inputs/forest_masks" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels> dcterms:title "historical forest disturbance/damage labels (ground truth training data)" ;
+    rdfs:comment "Question 9 also lists \"model training data\" among the things to replace. Read here as the same thing as these labels, because Question 4 describes the labels as the polygons \"for training or validation\". Needs owner confirmation." ;
     focal-transf-prop:artifactRef "/inputs/disturbance_labels" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 

@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Vocabulary and Model Ontology (Model)
 
-`ogc.focal.transferability.vocab` *v0.6*
+`ogc.focal.transferability.vocab` *v0.7*
 
 The RDF vocabulary behind the FOCAL workflow transferability model: ten open SKOS concept schemes (actions, triggers, condition tests, envelope dimensions, envelope roles, artifact roles, scenario markers, computation types, maturity statuses, quality dimensions) plus the classes and properties FOCAL mints where no published vocabulary says the same thing.
 

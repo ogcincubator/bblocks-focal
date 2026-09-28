@@ -14,8 +14,8 @@
     cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate_data> ;
     cwl:outputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/trained_growth_model> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns1:packages [ ns2:package "gunicorn" ],
-                [ ns2:package "lightgbm" ],
+            ns1:packages [ ns2:package "lightgbm" ],
+                [ ns2:package "gunicorn" ],
                 [ ns2:package "flask" ],
                 [ ns2:package "python" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/statistical-ml> ;
@@ -37,7 +37,8 @@
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/ecological-range> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/different-class-from> ] ] ] .
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/different-class-from> ] ] ;
+            focal-transf-prop:trainingRequired true ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/climate_data> sld:type cwl:File .
 

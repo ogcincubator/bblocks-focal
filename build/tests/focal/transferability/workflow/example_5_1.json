@@ -23,6 +23,8 @@
     }
   },
   "transferability": {
+    "trainingRequired": false,
+    "noConstraintsIdentified": true,
     "envelope": [],
     "artifacts": [
       {

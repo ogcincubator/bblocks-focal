@@ -92,6 +92,7 @@
     }
   },
   "transferability": {
+    "trainingRequired": false,
     "envelope": [
       {
         "id": "dwd-stations",
@@ -270,7 +271,7 @@
   "qualityAnnotation": [
     {
       "dimension": "decision-support-only",
-      "note": "Question 1, in the owner's own words: the workflow does not provide the result of hydrological or hydraulic model simulation, the Blue Spot is an indicator of potentially flood-prone areas, and exposure and vulnerability are contextual layers that are not combined into a single quantitative risk score. Results support a qualitative judgement about where urban flood risk is likely to be highest; they are not a risk assessment."
+      "note": "Question 1: 'The Blue Spot is an indicator of potentially flood-prone areas'. The workflow does not provide the result of a hydrological or hydraulic model simulation, and exposure and vulnerability, provided as contextual layers, 'are not combined into a single quantitative risk score'. Read together, results support a qualitative judgement about where urban flood risk is likely to be highest (the owner's stated purpose); they are not a risk assessment (our reading of the caveat)."
     },
     {
       "dimension": "spatial-support-mismatch",

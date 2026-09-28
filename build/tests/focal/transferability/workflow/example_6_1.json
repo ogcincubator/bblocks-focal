@@ -30,6 +30,7 @@
     }
   },
   "transferability": {
+    "trainingRequired": false,
     "envelope": [
       {
         "id": "czech-zone-scheme",

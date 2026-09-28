@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Statement (Schema)
 
-`ogc.focal.transferability.transferabilityStatement` *v0.7*
+`ogc.focal.transferability.transferabilityStatement` *v0.8*
 
 Where something's results are valid (envelope), which reference/calibration artifacts it depends on (artifacts), and what must happen to each under which conditions (rules) - three id-addressable lists joined by reference rather than nesting.
 
@@ -26,7 +26,16 @@ different from the property being absent, which says nobody has looked. Requirin
 entry forces anyone in the first situation to invent one. For `envelope` that minimum also made
 "valid everywhere" inexpressible except as a world-sized polygon, and left the one workflow whose
 source states no boundary at all (UP-WF1) with no honest representation rather than one saying
-exactly that. Say which case it is in `transferabilityNotes`.
+exactly that. Say which case it is in `transferabilityNotes`, and set `noConstraintsIdentified: true`
+so that a reader can tell a claim from a blank.
+
+Two optional booleans state absences outright. `noConstraintsIdentified` says the results were
+assessed and no boundary and no adaptation step was found. `trainingRequired` says whether training
+or calibration data is needed to re-create the thing elsewhere: `false` is the source's positive
+statement (five of the seven modeled workflows), `true` says a model is fitted to data. Neither is
+inferred; leave a property out when nobody has said. Shapes reject `noConstraintsIdentified: true`
+alongside any envelope entry or rule, and `trainingRequired: false` alongside a `trained-on`
+envelope entry.
 
 **Rules are exceptions; silence means reuse.** An artifact no rule fires for, over a given target,
 is reused unchanged. Without that default, a consumer asking "can I run this over my area of
@@ -86,11 +95,12 @@ description: "Where something's results are valid, which reference or calibratio
   `outside` over one constraint) and is noise otherwise. And an **empty `envelope`
   is a claim, not a blank**: it says the results carry no validity boundary at all,
   which is what a genuinely universal workflow looks like and what UP-WF1's questionnaire
-  literally answers (\"All parts are portable\"). Record why in `transferabilityNotes`
-  \u2014 a boundary nobody could find and a boundary that does not exist are the same
-  empty array otherwise.\n**Conjunction and disjunction.** A rule's `when` is an AND:
-  every condition must hold for the rule to fire. A disjunction is written as two
-  rules. That is a deliberate limit rather than a missing feature \u2014 two conditions
+  literally answers (\"All parts are portable\"). Record why in `transferabilityNotes`,
+  and set `noConstraintsIdentified: true` \u2014 a boundary nobody could find and
+  a boundary that does not exist are the same empty array otherwise, and the marker
+  is what tells them apart.\n**Conjunction and disjunction.** A rule's `when` is an
+  AND: every condition must hold for the rule to fire. A disjunction is written as
+  two rules. That is a deliberate limit rather than a missing feature \u2014 two conditions
   leading to the same action really are two statements, and keeping them separate
   keeps each traceable to the sentence in a questionnaire it came from, which a nested
   boolean expression does not. `actions` remains an OR-set: any one resolves the rule.\n"
@@ -126,6 +136,33 @@ allOf:
         a boundary that does not exist from one nobody could establish. Uplifts to
         `rdfs:comment`. Mixed in from bblocks://ogc.focal.transferability.notes.\n"
       x-jsonld-id: http://www.w3.org/2000/01/rdf-schema#comment
+    noConstraintsIdentified:
+      type: boolean
+      description: '`true` says outright that the results were assessed and no validity
+        boundary and no adaptation step was identified, which is what an empty `envelope`
+        and an empty `rules` mean but do not announce: a reader cannot tell those
+        two empty arrays from a form nobody filled in. It is the source''s claim,
+        not a verified one, and belongs with a `transferabilityNotes` saying who made
+        it. Only meaningful, and only valid, alongside an empty `envelope` and an
+        empty `rules`; omit it otherwise. Currently evidenced once (UP-WF1: "Nothing",
+        "Nothing", "All parts are portable").
+
+        '
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/noConstraintsIdentified
+    trainingRequired:
+      type: boolean
+      description: 'Whether the thing this statement describes needs training or calibration
+        data to be re-created somewhere else. `false` is a positive statement of the
+        source ("does not require ML training", "Nil"), not an absence: omitting the
+        property says nobody has said. `true` says a model is fitted to data, which
+        is what `retrain` actions and `trained-on` envelope entries presuppose. `false`
+        alongside a `trained-on` envelope entry is contradictory and is rejected by
+        the shapes. Evidenced by every questionnaire that answers question 5: two
+        say yes (FP-WF1, FP-WF3) and five say no (FP-WF2, FP-WF5, UP-WF1, UP-WF2,
+        UP-WF3).
+
+        '
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/trainingRequired
     artifacts:
       type: array
       items:
@@ -317,6 +354,8 @@ Links to the schema:
       "@id": "focal-transf-prop:envelope",
       "@container": "@set"
     },
+    "noConstraintsIdentified": "focal-transf-prop:noConstraintsIdentified",
+    "trainingRequired": "focal-transf-prop:trainingRequired",
     "artifacts": {
       "@context": {
         "id": "@id",

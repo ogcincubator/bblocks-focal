@@ -325,6 +325,12 @@ focal-prop:maturityStatus a owl:ObjectProperty ;
             owl:onProperty skos:inScheme ],
         skos:Concept .
 
+focal-prop:noConstraintsIdentified a owl:DatatypeProperty ;
+    rdfs:label "no constraints identified"@en ;
+    rdfs:comment "Asserts that the results were assessed and no validity boundary and no adaptation step was identified. An empty envelope and an empty set of rules mean the same but cannot be told from a form nobody filled in; this says it outright. It is the source's claim, not a verified one."@en ;
+    rdfs:domain focal-transf:TransferabilityStatement ;
+    rdfs:range xsd:boolean .
+
 focal-prop:note a owl:DatatypeProperty ;
     rdfs:label "note"@en ;
     rdfs:comment "The text of a quality annotation, in the workflow owner's own words. Kept as a FOCAL property: DQV carries an annotation body through oa:hasBody, which is heavier machinery than a single sentence needs. Distinct from rdfs:comment, which every other free-text note in this model uplifts to -- this one is the annotation's payload, not a remark about it."@en ;
@@ -382,6 +388,12 @@ focal-prop:test a owl:ObjectProperty ;
             owl:hasValue focal-test:scheme ;
             owl:onProperty skos:inScheme ],
         skos:Concept .
+
+focal-prop:trainingRequired a owl:DatatypeProperty ;
+    rdfs:label "training required"@en ;
+    rdfs:comment "Whether the thing described needs training or calibration data to be re-created elsewhere. False is a positive statement of the source, not an absence: leaving the property out says nobody has said."@en ;
+    rdfs:domain focal-transf:TransferabilityStatement ;
+    rdfs:range xsd:boolean .
 
 focal-prop:transferability a owl:ObjectProperty ;
     rdfs:label "transferability"@en ;
@@ -603,6 +615,24 @@ focal-qdim:decision-support-only a skos:Concept,
     skos:topConceptOf focal-qdim:scheme ;
     dqv:inCategory focal-qdim:scheme .
 
+focal-qdim:intended-use-limit a skos:Concept,
+        dqv:Dimension ;
+    skos:definition "The results are explicitly not intended for a named use that the data might appear to support, e.g. UP-WF2's long-term thermal patterns, which are not intended for real-time heat monitoring."@en ;
+    skos:inScheme focal-qdim:scheme ;
+    skos:prefLabel "intended-use limit"@en ;
+    skos:scopeNote "Distinct from decision-support-only, which says results inform a decision rather than stand as exact figures. This names a specific use to avoid."@en ;
+    skos:topConceptOf focal-qdim:scheme ;
+    dqv:inCategory focal-qdim:scheme .
+
+focal-qdim:proxy-variable a skos:Concept,
+        dqv:Dimension ;
+    skos:definition "What the result measures is a stand-in for the quantity a reader would naturally assume it describes, e.g. UP-WF2's median summer land surface temperature, which represents surface temperatures rather than near-surface air temperatures."@en ;
+    skos:inScheme focal-qdim:scheme ;
+    skos:prefLabel "proxy variable"@en ;
+    skos:scopeNote "A property of what the workflow computes, true in the source region as much as anywhere else. Not a limit on where the workflow can go."@en ;
+    skos:topConceptOf focal-qdim:scheme ;
+    dqv:inCategory focal-qdim:scheme .
+
 focal-qdim:spatial-support-mismatch a skos:Concept,
         dqv:Dimension ;
     skos:definition "Two or more of the workflow's inputs are on supports of different resolution, or on supports that do not align, so results combining them are coarser or less precisely located than the finest input suggests. A property of the workflow as deployed, not of a transfer: it holds in the source region too."@en ;
@@ -733,10 +763,6 @@ focal-transf:AcceptanceCriteria a owl:Class ;
     rdfs:label "Acceptance Criteria"@en ;
     rdfs:comment "What a dataset must satisfy to serve as a given artifact. A standing property of the interface rather than of any transfer: the requirement holds whether or not the workflow is being moved, and merely becomes visible when a substitution is proposed. It is what turns focal-action:replace-with-local-equivalent from an instruction that something must change into one a consumer can check a candidate dataset against."@en .
 
-focal-transf:TransferabilityStatement a owl:Class ;
-    rdfs:label "Transferability Statement"@en ;
-    rdfs:comment "The portability boundary of something: where its results are valid, which reference or calibration artifacts it depends on, and what must happen to each to make the results valid elsewhere."@en .
-
 focal-koppen:A a skos:Concept ;
     skos:inScheme focal-koppen:scheme ;
     skos:notation "A" ;
@@ -763,6 +789,10 @@ focal-koppen:B a skos:Concept ;
 focal-transf:EnvelopeConstraint a owl:Class ;
     rdfs:label "Envelope Constraint"@en ;
     rdfs:comment "One role/dimension/value statement bounding where results are valid. No published vocabulary carries this: dcterms:spatial and dcterms:temporal state a single coverage, whereas the distinction that matters here is between what a workflow was trained on, what its outputs are valid for, and where it can technically run -- three different extents that come apart in practice."@en .
+
+focal-transf:TransferabilityStatement a owl:Class ;
+    rdfs:label "Transferability Statement"@en ;
+    rdfs:comment "The portability boundary of something: where its results are valid, which reference or calibration artifacts it depends on, and what must happen to each to make the results valid elsewhere."@en .
 
 focal-transf:Rule a owl:Class ;
     rdfs:label "Transferability Rule"@en ;
@@ -803,13 +833,6 @@ focal-arole:scheme a skos:ConceptScheme ;
         focal-arole:workflow-input,
         focal-arole:workflow-output ;
     skos:prefLabel "FOCAL Transferability Artifact Roles"@en .
-
-focal-qdim:scheme a skos:ConceptScheme ;
-    skos:definition "Dimensions along which a qualityAnnotation statement expresses uncertainty or confidence about a workflow's results, independent of its maturityStatus. Deliberately seeded small from a single workflow (FP-WF1) and open to growth."@en ;
-    skos:hasTopConcept focal-qdim:decision-support-only,
-        focal-qdim:spatial-support-mismatch,
-        focal-qdim:validation-incomplete ;
-    skos:prefLabel "FOCAL Quality Annotation Dimensions"@en .
 
 focal-role:scheme a skos:ConceptScheme ;
     skos:definition "The role an envelope statement plays, independent of which dimension it concerns. A workflow can carry more than one role for the same or different dimensions at once — e.g. trained-on/spatial, valid-for/ecological, and can-run-on/climatic can all apply simultaneously to one workflow."@en ;
@@ -865,6 +888,15 @@ focal-koppen:D a skos:Concept ;
     skos:notation "D" ;
     skos:prefLabel "Cold (continental)"@en ;
     skos:topConceptOf focal-koppen:scheme .
+
+focal-qdim:scheme a skos:ConceptScheme ;
+    skos:definition "Dimensions along which a qualityAnnotation statement expresses uncertainty or confidence about a workflow's results, independent of its maturityStatus. Deliberately seeded small from a single workflow (FP-WF1) and open to growth."@en ;
+    skos:hasTopConcept focal-qdim:decision-support-only,
+        focal-qdim:intended-use-limit,
+        focal-qdim:proxy-variable,
+        focal-qdim:spatial-support-mismatch,
+        focal-qdim:validation-incomplete ;
+    skos:prefLabel "FOCAL Quality Annotation Dimensions"@en .
 
 focal-koppen:scheme a skos:ConceptScheme ;
     dcterms:source <https://doi.org/10.1038/sdata.2018.214> ;

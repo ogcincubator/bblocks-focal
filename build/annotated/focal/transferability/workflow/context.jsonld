@@ -385,6 +385,8 @@
           "@id": "focal-transf-prop:envelope",
           "@container": "@set"
         },
+        "noConstraintsIdentified": "focal-transf-prop:noConstraintsIdentified",
+        "trainingRequired": "focal-transf-prop:trainingRequired",
         "artifacts": {
           "@context": {
             "artifact": "dct:title",

@@ -32,6 +32,7 @@
     }
   },
   "transferability": {
+    "trainingRequired": true,
     "envelope": [
       {
         "id": "czech-plots",

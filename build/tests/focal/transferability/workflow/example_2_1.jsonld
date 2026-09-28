@@ -37,6 +37,7 @@
     }
   },
   "transferability": {
+    "trainingRequired": false,
     "envelope": [
       {
         "id": "czechia",
@@ -92,7 +93,7 @@
           "replace-with-local-equivalent"
         ],
         "mandatory": true,
-        "transferabilityNotes": "Users may also override the tolerance thresholds directly, even within the source region \u2014 a separate user-configurability fact, not modelled here."
+        "transferabilityNotes": "Question 4: 'Users can also provide custom thresholds', so the tolerance thresholds can be overridden directly, even within the source region. Question 9 adds that 'Thresholds may need adjustment to local species, forest types and management practice'. Both are recorded here as a note and not as structure: the model has no notion of a parameter that should be tuned when the workflow moves, and one case does not justify one."
       }
     ]
   },

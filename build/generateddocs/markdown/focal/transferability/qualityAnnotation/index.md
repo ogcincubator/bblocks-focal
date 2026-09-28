@@ -1,7 +1,7 @@
 
 # FOCAL Quality Annotation (Schema)
 
-`ogc.focal.transferability.qualityAnnotation` *v0.3*
+`ogc.focal.transferability.qualityAnnotation` *v0.5*
 
 A single statement of uncertainty or confidence about a workflow's results, independent of its maturityStatus. Binds to the W3C Data Quality Vocabulary (DQV) directly, since no OGC Block wraps DQV.
 
@@ -16,20 +16,23 @@ description: "A single statement of uncertainty or confidence about a workflow's
   \u2014 a separate axis from `maturityStatus` (see bblocks://ogc.focal.transferability.maturityStatus):
   FP-WF1 is `operational` *and* carries a caveat that its results are decision-support,
   not exact, and the two facts don't collapse into one. Repeatable at the workflow
-  level, same discipline as `envelopeConstraint`.\nCurrently evidenced 1/8 (FP-WF1
-  only) \u2014 thinner evidence than any other confirmed transferability gap; expect
-  this to grow once other workflow owners are consulted.\n**Binds directly to the
-  W3C Data Quality Vocabulary (DQV, `https://www.w3.org/ns/dqv#`)**, checked 2026-09-02
-  against the published spec rather than assumed: `dimension` maps to `dqv:inDimension`,
-  whose range `dqv:Dimension` is itself a `skos:Concept` \u2014 the open-SKOS-vocabulary
-  pattern used everywhere else in this model turns out to already be DQV's own pattern,
-  not just an analogy to it. No OGC Block wraps DQV (checked: no register or bblock
-  defines it; the only other DQV usage anywhere in the bblocks ecosystem is a Tier-3
-  sibling, `ogc.hosted.iliad.api.features.indicator-quality-requirement`, shaped for
-  a different domain), so this binds straight to the published namespace rather than
-  depending on anything. `note` has no exact DQV equivalent (DQV's annotation body
-  normally comes via `oa:hasBody`, heavier machinery than needed here) and stays a
-  plain FOCAL property.\nA numeric quality measurement (which would map to `dqv:QualityMeasurement`)
+  level, same discipline as `envelopeConstraint`.\nCurrently evidenced 4/8: FP-WF1
+  (`decision-support-only`), FP-WF3 (`validation-incomplete`), UP-WF2 (`proxy-variable`
+  and `intended-use-limit`) and UP-WF3 (`decision-support-only` and `spatial-support-mismatch`).
+  FP-WF2 and FP-WF5 state that results \"depend on\" their inputs and settings, which
+  is not a caveat in this sense and is not recorded. Still thinner evidence than most
+  confirmed transferability gaps; expect this to grow once other workflow owners are
+  consulted.\n**Binds directly to the W3C Data Quality Vocabulary (DQV, `https://www.w3.org/ns/dqv#`)**,
+  checked 2026-09-02 against the published spec rather than assumed: `dimension` maps
+  to `dqv:inDimension`, whose range `dqv:Dimension` is itself a `skos:Concept` \u2014
+  the open-SKOS-vocabulary pattern used everywhere else in this model turns out to
+  already be DQV's own pattern, not just an analogy to it. No OGC Block wraps DQV
+  (checked: no register or bblock defines it; the only other DQV usage anywhere in
+  the bblocks ecosystem is a Tier-3 sibling, `ogc.hosted.iliad.api.features.indicator-quality-requirement`,
+  shaped for a different domain), so this binds straight to the published namespace
+  rather than depending on anything. `note` has no exact DQV equivalent (DQV's annotation
+  body normally comes via `oa:hasBody`, heavier machinery than needed here) and stays
+  a plain FOCAL property.\nA numeric quality measurement (which would map to `dqv:QualityMeasurement`)
   has no evidenced case yet and no property here. An earlier draft reserved a `measurement`
   property with no type and no binding, which validated literally any value and invited
   reviewers to fill it with anything; the intent is better recorded in prose until
@@ -44,6 +47,8 @@ properties:
     - decision-support-only
     - validation-incomplete
     - spatial-support-mismatch
+    - proxy-variable
+    - intended-use-limit
     description: 'What kind of uncertainty/confidence statement this is. Open vocabulary
       (SKOS), bound to `dqv:inDimension` -> `dqv:Dimension`.
 

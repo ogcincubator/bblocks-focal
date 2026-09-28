@@ -88,6 +88,7 @@
     }
   },
   "transferability": {
+    "trainingRequired": false,
     "envelope": [
       {
         "id": "eur11-domain",
@@ -238,8 +239,19 @@
         "mandatory": true,
         "transferabilityNotes": "Stated with triggeredBy rather than a cited constraint: this data is not yet implemented, so there is no envelope fact to point at. Once built, the planned Heat Risk Indicator would not be executable without it."
       }
-    ]
+    ],
+    "transferabilityNotes": "Question 9 states a portability fact that no shape here holds: the classification step is data-agnostic. 'The LST dataset the hot and cool spot classification is based on is a raster dataset with a single time step and one value per grid cell. It is not a time series. Hence, the classification could also be applied to other raster datasets with a single time step and one value per grid cell.' In other words the algorithm is more portable than the specific input dataset. Recorded as a note because one workflow does not justify a property."
   },
   "computationType": "deterministic-rule-based",
-  "maturityStatus": "operational"
+  "maturityStatus": "operational",
+  "qualityAnnotation": [
+    {
+      "dimension": "proxy-variable",
+      "note": "Question 7: 'Hot spot detection is based on median summer Land Surface Temperature, which represents surface temperatures rather than near-surface air temperatures.' What the workflow computes is a stand-in for the air temperature a reader might assume, in the source region as much as in any target."
+    },
+    {
+      "dimension": "intended-use-limit",
+      "note": "Question 7: 'Results represent long-term thermal patterns for the selected epoch and are not intended for real-time heat monitoring.'"
+    }
+  ]
 }

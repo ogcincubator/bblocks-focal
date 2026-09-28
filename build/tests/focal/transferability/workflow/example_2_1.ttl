@@ -15,12 +15,12 @@
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/forest_classification_context>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species_codes>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species_tolerances> ;
-    cwl:requirements [ a cwl:NetworkAccess ;
-            ns3:networkAccess true ],
-        [ a cwl:SoftwareRequirement ;
-            ns2:packages [ ns1:package "gunicorn" ],
-                [ ns1:package "flask" ],
-                [ ns1:package "python" ] ] ;
+    cwl:requirements [ a cwl:SoftwareRequirement ;
+            ns2:packages [ ns1:package "flask" ],
+                [ ns1:package "gunicorn" ],
+                [ ns1:package "python" ] ],
+        [ a cwl:NetworkAccess ;
+            ns3:networkAccess true ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
     focal-transf-prop:transferability [ focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>,
@@ -28,7 +28,7 @@
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances> ;
             focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia> ;
-            focal-transf-prop:rules [ rdfs:comment "Users may also override the tolerance thresholds directly, even within the source region — a separate user-configurability fact, not modelled here." ;
+            focal-transf-prop:rules [ rdfs:comment "Question 4: 'Users can also provide custom thresholds', so the tolerance thresholds can be overridden directly, even within the source region. Question 9 adds that 'Thresholds may need adjustment to local species, forest types and management practice'. Both are recorded here as a note and not as structure: the model has no notion of a parameter that should be tuned when the workflow moves, and one case does not justify one." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>,
                         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>,
@@ -36,7 +36,8 @@
                         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ] .
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ;
+            focal-transf-prop:trainingRequired false ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/climate_registry_endpoint> sld:type xsd:string .
 
