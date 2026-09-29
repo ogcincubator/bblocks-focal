@@ -46,7 +46,7 @@
         "value": {
           "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"
         },
-        "transferabilityNotes": "Inferred, not stated: the questionnaire gives no envelope fact directly, only that three separate reference artifacts are called Czechia-specific. Value is Czechia's country border, simplified, standing in for those artifacts' unstated extent. Needs owner confirmation."
+        "transferabilityNotes": "Inferred, not stated: the questionnaire gives no envelope fact directly, only that three separate reference artifacts are called Czechia-specific. Value is Czechia's country border, simplified, standing in for those artifacts' unstated extent. The owner's 2026-09-29 review confirms this reading: `czechia` names the coverage of the current SLT/species/threshold input resources, not a validity limit of the WF2 methodology itself, which is intended to be transferable wherever the relevant local inputs are available or adapted. Real coverage of these resources still needs owner/technical confirmation."
       },
       {
         "id": "rasdaman-coverage",
@@ -87,7 +87,6 @@
     "rules": [
       {
         "appliesTo": [
-          "tolerances",
           "slt-t5",
           "species-codes"
         ],
@@ -101,7 +100,23 @@
           "replace-with-local-equivalent"
         ],
         "mandatory": true,
-        "transferabilityNotes": "Question 4: 'Users can also provide custom thresholds', so the tolerance thresholds can be overridden directly, even within the source region. Question 9 adds that 'Thresholds may need adjustment to local species, forest types and management practice'. Both are recorded here as a note and not as structure: the model has no notion of a parameter that should be tuned when the workflow moves, and one case does not justify one."
+        "transferabilityNotes": "Owner's 2026-09-29 review: SLT and species-code resources are Czech-specific spatial/reference inputs and need an appropriate local or regional equivalent outside their coverage. This is a property of these particular resources, not of the WF2 methodology, which the owner considers transferable in general."
+      },
+      {
+        "appliesTo": [
+          "tolerances"
+        ],
+        "when": [
+          {
+            "constraint": "czechia",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": false,
+        "transferabilityNotes": "Question 4: 'Users can also provide custom thresholds', so the tolerance thresholds can be overridden directly, even within the source region. Question 9 adds that 'Thresholds may need adjustment to local species, forest types and management practice'. The owner's 2026-09-29 review confirms this is not a geographic validity constraint: predefined per-species thresholds are default/reference values, and a user can enter target-appropriate values directly without adding a new species-specific parameter set to the workflow \u2014 hence `mandatory: false`, split from the SLT/species-codes rule above rather than sharing its `appliesTo`."
       },
       {
         "appliesTo": [

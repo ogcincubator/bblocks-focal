@@ -50,11 +50,8 @@
         "id": "ecological-range",
         "role": "valid-for",
         "dimension": "ecological",
-        "value": {
-          "scheme": "eea-biogeographical-regions",
-          "sameClassAs": "czech-plots"
-        },
-        "transferabilityNotes": "Question 7: results are 'valid mainly within a comparable ecological range'. That is an analogy to where the model was calibrated, not an extent, so it is stated as one: the target must share the biogeographical region of `czech-plots`. No region is named here on purpose \u2014 the source names none, and the set follows from whatever geometry `czech-plots` holds, so correcting that stand-in country border to the real plot coordinates sharpens this constraint too. The scheme is the one needing owner confirmation: biogeographical regions, Koppen-Geiger climate zones and EUNIS habitat classes are all plausible readings of 'ecological range' and they do not agree."
+        "value": "environmental and site conditions comparable to those represented in the Czech training data (`czech-plots`) \u2014 an ecological/environmental comparability judgement, not a match against a single named classification scheme",
+        "transferabilityNotes": "Question 7: results are 'valid mainly within a comparable ecological range'. Earlier recorded as a same-class-as test against the EEA biogeographical regions; the owner's 2026-09-29 review rejected that reading and asked that it not be defined through a single existing classification scheme. Recorded as prose instead, mirroring `downscaled-climate-available`. The owner notes that in the future the model's applicability could be assessed more explicitly against the environmental range represented in the training data, which would need a purpose-built measure, not an off-the-shelf scheme \u2014 still open, no such measure exists yet."
       },
       {
         "id": "downscaled-climate-available",
@@ -85,14 +82,15 @@
         "when": [
           {
             "constraint": "ecological-range",
-            "test": "different-class-from"
+            "test": "outside"
           }
         ],
         "actions": [
           "retrain",
           "replace-with-alternative-published-model"
         ],
-        "mandatory": true
+        "mandatory": true,
+        "transferabilityNotes": "Owner's 2026-09-29 review, item 4: the workflow concept is transferable, while the Czech-trained growth model is a replaceable component outside its applicable environmental range. Two adaptation pathways: retrain/calibrate on suitable target-region data, or replace with another published or locally developed growth model. No rule of thumb for choosing between them is recorded yet (still open, FP-WF1.8)."
       },
       {
         "appliesTo": [

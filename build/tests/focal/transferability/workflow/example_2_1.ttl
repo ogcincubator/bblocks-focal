@@ -3,8 +3,8 @@
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#NetworkAccess/> .
-@prefix ns3: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
+@prefix ns3: <https://w3id.org/cwl/cwl#NetworkAccess/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sld: <https://w3id.org/cwl/salad#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -15,12 +15,12 @@
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/forest_classification_context>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species_codes>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species_tolerances> ;
-    cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns1:packages [ ns3:package "python" ],
-                [ ns3:package "gunicorn" ],
-                [ ns3:package "flask" ] ],
-        [ a cwl:NetworkAccess ;
-            ns2:networkAccess true ] ;
+    cwl:requirements [ a cwl:NetworkAccess ;
+            ns3:networkAccess true ],
+        [ a cwl:SoftwareRequirement ;
+            ns1:packages [ ns2:package "python" ],
+                [ ns2:package "flask" ],
+                [ ns2:package "gunicorn" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
     focal-transf-prop:transferability [ focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman>,
@@ -29,18 +29,23 @@
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances> ;
             focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman-coverage> ;
-            focal-transf-prop:rules [ rdfs:comment "Question 9: 'The climate registry and source catalogue would need to point to the target region's climate datasets.' Question 8 accepts 'Rasdaman or equivalent gridded daily climate data'." ;
+            focal-transf-prop:rules [ rdfs:comment "Owner's 2026-09-29 review: SLT and species-code resources are Czech-specific spatial/reference inputs and need an appropriate local or regional equivalent outside their coverage. This is a property of these particular resources, not of the WF2 methodology, which the owner considers transferable in general." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ rdfs:comment "Question 9: 'The climate registry and source catalogue would need to point to the target region's climate datasets.' Question 8 accepts 'Rasdaman or equivalent gridded daily climate data'." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman-coverage> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Question 4: 'Users can also provide custom thresholds', so the tolerance thresholds can be overridden directly, even within the source region. Question 9 adds that 'Thresholds may need adjustment to local species, forest types and management practice'. Both are recorded here as a note and not as structure: the model has no notion of a parameter that should be tuned when the workflow moves, and one case does not justify one." ;
+                [ rdfs:comment "Question 4: 'Users can also provide custom thresholds', so the tolerance thresholds can be overridden directly, even within the source region. Question 9 adds that 'Thresholds may need adjustment to local species, forest types and management practice'. The owner's 2026-09-29 review confirms this is not a geographic validity constraint: predefined per-species thresholds are default/reference values, and a user can enter target-appropriate values directly without adding a new species-specific parameter set to the workflow — hence `mandatory: false`, split from the SLT/species-codes rule above rather than sharing its `appliesTo`." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-t5>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-codes>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances> ;
-                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances> ;
+                    focal-transf-prop:mandatory false ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ;
             focal-transf-prop:trainingRequired false ] .
@@ -52,11 +57,6 @@
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species_codes> sld:type cwl:File .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species_tolerances> sld:type cwl:File .
-
-<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia> rdfs:comment "Inferred, not stated: the questionnaire gives no envelope fact directly, only that three separate reference artifacts are called Czechia-specific. Value is Czechia's country border, simplified, standing in for those artifacts' unstated extent. Needs owner confirmation." ;
-    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/jurisdictional> ;
-    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/derived-from> ;
-    focal-transf-prop:value [ geo:asWKT "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"^^geo:wktLiteral ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman> dcterms:title "Rasdaman climate registry / source catalogue" ;
     focal-transf-prop:artifactRef "/inputs/climate_registry_endpoint" ;
@@ -78,4 +78,9 @@
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerances> dcterms:title "species tolerance thresholds (species_tolerances.json)" ;
     focal-transf-prop:artifactRef "/inputs/species_tolerances" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czechia> rdfs:comment "Inferred, not stated: the questionnaire gives no envelope fact directly, only that three separate reference artifacts are called Czechia-specific. Value is Czechia's country border, simplified, standing in for those artifacts' unstated extent. The owner's 2026-09-29 review confirms this reading: `czechia` names the coverage of the current SLT/species/threshold input resources, not a validity limit of the WF2 methodology itself, which is intended to be transferable wherever the relevant local inputs are available or adapted. Real coverage of these resources still needs owner/technical confirmation." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/jurisdictional> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/derived-from> ;
+    focal-transf-prop:value [ geo:asWKT "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"^^geo:wktLiteral ] .
 

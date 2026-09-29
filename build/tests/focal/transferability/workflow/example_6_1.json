@@ -34,12 +34,12 @@
     "envelope": [
       {
         "id": "czech-zone-scheme",
-        "role": "valid-for",
+        "role": "derived-from",
         "dimension": "jurisdictional",
         "value": {
           "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"
         },
-        "transferabilityNotes": "The Quitt classification is the Czech national forest climate-zone scheme, so this is a scheme boundary rather than a data footprint: question 9 says thresholds, labels and metadata 'should be adapted to local or national classification schemes'. Value is Czechia's country border, simplified, standing in for the scheme's unstated extent. Inferred \u2014 the questionnaire names Quitt and 'Czech climate-zone definitions' but never states an extent \u2014 and needs owner confirmation."
+        "transferabilityNotes": "The Quitt classification is the Czech national forest climate-zone scheme; question 9 says thresholds, labels and metadata 'should be adapted to local or national classification schemes'. Value is Czechia's country border, simplified, standing in for the current inputs' unstated extent. Previously typed `valid-for`; the owner's 2026-09-29 review was explicit this is not a validity boundary of the classification scheme, only (at most) the coverage of particular current datasets or mapped products, so the role is `derived-from`, matching FP-WF2's `czechia`. The real validity condition is `quitt-meaningful`. Extent still inferred and needs owner/technical confirmation."
       },
       {
         "id": "rasdaman-collections",
@@ -54,11 +54,8 @@
         "id": "quitt-meaningful",
         "role": "valid-for",
         "dimension": "climatic",
-        "value": {
-          "scheme": "koppen-geiger",
-          "sameClassAs": "czech-zone-scheme"
-        },
-        "transferabilityNotes": "Question 7's assumption that Quitt-inspired thresholds are meaningful for the target area. A claim about climatic similarity to where the scheme was built, which no extent settles but a climate classification does: the target must share the Koppen-Geiger class of the area the Quitt scheme covers. Koppen is the apt scheme because Quitt's own zones are a Czech regional climate classification of the same kind. No class is enumerated: Koppen publishes no term identifiers, and the source names no zone."
+        "value": "the climatic conditions of the target area and period are adequately represented by the range of classes distinguished by the implemented Quitt classification \u2014 a classification-range judgement, not a match against K\u00f6ppen-Geiger or any other external scheme",
+        "transferabilityNotes": "Question 7's assumption that Quitt-inspired thresholds are meaningful for the target area. Earlier recorded as a same-class-as test against K\u00f6ppen-Geiger; the owner's 2026-09-29 review rejected K\u00f6ppen-Geiger as the transferability boundary outright. The real limitation is the range of climatic conditions the current Quitt classes can distinguish, which is climatic rather than geographic and already bites inside Czechia under warming (large areas collapsing into the warmest class). Recorded as prose, the same shape as FP-WF1's `ecological-range`."
       }
     ],
     "artifacts": [
@@ -103,7 +100,7 @@
           "replace-with-local-equivalent"
         ],
         "mandatory": true,
-        "transferabilityNotes": "Question 9: 'Climate-zone thresholds, labels and metadata should be adapted to local or national classification schemes.' Thresholds and the metadata that describes them move together \u2014 adapting one without the other leaves the zone descriptions naming classes the thresholds no longer produce."
+        "transferabilityNotes": "Question 9: 'Climate-zone thresholds, labels and metadata should be adapted to local or national classification schemes.' Thresholds and the metadata that describes them move together \u2014 adapting one without the other leaves the zone descriptions naming classes the thresholds no longer produce. Triggered by `czech-zone-scheme` (coverage of these particular inputs, `derived-from`), independent of `quitt-meaningful` (whether the classification range itself still applies) below \u2014 either alone can call for replacement."
       },
       {
         "appliesTo": [
@@ -119,7 +116,7 @@
           "replace-with-local-equivalent"
         ],
         "mandatory": true,
-        "transferabilityNotes": "The second, independent trigger for the same substitution: question 7 assumes Quitt-inspired thresholds are meaningful for the target area, and a target inside Czechia's borders but climatically unlike the areas the scheme was built around fails that assumption without leaving the jurisdiction. A separate rule rather than a second condition on the one above, because either alone suffices and `when` is conjunctive."
+        "transferabilityNotes": "The second, independent trigger for the same substitution: question 7 assumes Quitt-inspired thresholds are meaningful for the target area, and a target inside Czechia's borders but outside the range of conditions the current classes distinguish fails that assumption without leaving the jurisdiction \u2014 the owner's 2026-09-29 review names this as already happening under warming projections. A separate rule rather than a second condition on the one above, because either alone suffices and `when` is conjunctive."
       },
       {
         "appliesTo": [

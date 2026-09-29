@@ -2,7 +2,7 @@
   "title": "Validation report for ogc.focal.forestStandCollection - FOCAL Forest Stand Feature Collection",
   "bblockName": "FOCAL Forest Stand Feature Collection",
   "bblockId": "ogc.focal.forestStandCollection",
-  "generated": "2026-09-28T16:45:23.379268+00:00",
+  "generated": "2026-09-29T07:54:59.176704+00:00",
   "result": true,
   "items": [
     {
@@ -75,34 +75,37 @@
           "entries": [
             {
               "op": "shacl-report",
-              "shaclFile": "_sources/forestStandFeature/shapes.shacl",
-              "graph": "@prefix focal-prop: <https://w3id.org/ogc/hosted/focal/properties/> .\n@prefix geojson: <https://purl.org/geojson/vocab#> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode [ a geojson:Feature ;\n                    geojson:geometry [ a geojson:MultiPolygon ;\n                            geojson:coordinates ( ( ( [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] ) ) ) ] ;\n                    focal-prop:lesniCHS 25 ;\n                    focal-prop:lesniDSOPRL 2025 ;\n                    focal-prop:lesniID1 128301 ;\n                    focal-prop:lesniOVERT \"NE\" ;\n                    focal-prop:lesniOblast 8 ;\n                    focal-prop:lesniOblastCast \"a\" ;\n                    focal-prop:lesniPCHS \"25a\" ;\n                    focal-prop:lesniPLOCHA 1.22425e+03 ;\n                    focal-prop:lesniROKMAP 2015 ;\n                    focal-prop:lesniSLT \"2S\" ;\n                    focal-prop:lesniUDRZBA 2022 ;\n                    focal-prop:lesniZADOST \"-\" ;\n                    focal-prop:lesniZMENA \"Uveden\u00ed do souladu s KN\" ] ;\n            sh:resultMessage \"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\" ;\n            sh:resultPath focal-prop:lesniTyp ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraintComponent sh:MinCountConstraintComponent ;\n            sh:sourceShape [ sh:message \"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\" ;\n                    sh:minCount 1 ;\n                    sh:name \"lesniTyp\" ;\n                    sh:nodeKind sh:IRI ;\n                    sh:path focal-prop:lesniTyp ] ] .\n\n",
-              "isError": true,
-              "message": "Validation result for _sources/forestStandFeature/shapes.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):\n  \tSeverity: sh:Violation\n  \tSource Shape: [ sh:message Literal(\"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\") ; sh:minCount Literal(\"1\", datatype=xsd:integer) ; sh:name Literal(\"lesniTyp\") ; sh:nodeKind sh:IRI ; sh:path focal-prop:lesniTyp ]\n  \tFocus Node: [ focal-prop:lesniCHS Literal(\"25\", datatype=xsd:integer) ; focal-prop:lesniDSOPRL Literal(\"2025\", datatype=xsd:integer) ; focal-prop:lesniID1 Literal(\"128301\", datatype=xsd:integer) ; focal-prop:lesniOVERT Literal(\"NE\") ; focal-prop:lesniOblast Literal(\"8\", datatype=xsd:integer) ; focal-prop:lesniOblastCast Literal(\"a\") ; focal-prop:lesniPCHS Literal(\"25a\") ; focal-prop:lesniPLOCHA Literal(\"1224.24963\", datatype=xsd:double) ; focal-prop:lesniROKMAP Literal(\"2015\", datatype=xsd:integer) ; focal-prop:lesniSLT Literal(\"2S\") ; focal-prop:lesniUDRZBA Literal(\"2022\", datatype=xsd:integer) ; focal-prop:lesniZADOST Literal(\"-\") ; focal-prop:lesniZMENA Literal(\"Uveden\u00ed do souladu s KN\") ; geojson:geometry [ geojson:coordinates ( ( <http://recursion.too.deep> ) ) ; rdf:type geojson:MultiPolygon ] ; rdf:type geojson:Feature ]\n  \tResult Path: focal-prop:lesniTyp\n  \tMessage: Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\n  "
+              "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
             },
             {
-              "shaclFile": "_sources/forestStandFeature/shapes.shacl",
+              "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
               "focusNodes": {
-                "<https://example.com/focal/feature-lesniTyp>": {
+                "geojson:GeometryShape": {
+                  "nodes": []
+                },
+                "geojson:FeatureCollectionShape": {
                   "nodes": [
-                    "_:N91cf65a2127d412cb8d768c3e8b05188",
-                    "_:N40bbe6a499bd4beab6af554bc7e0e649",
-                    "_:N277593391e8d4b938a0dfa7e4d18ab98",
-                    "_:N58356a57447c4c8fab42be16d796144a",
-                    "_:Nc96625f6f1a84073b2a3eccc12c4e293",
-                    "_:N5fc9c8bc3f1d415a95328c5f1f90706b",
-                    "_:N69205b2f5c9c42aaad4797579886c546",
-                    "_:Nd5338874c5884b2c93b829ebda423a1e",
-                    "_:Nec98acf960df46eea6597a912afda934",
-                    "_:Nd32ce0b57b9c465fb43579f18bbc7da7",
-                    "_:N1fc44715467041d6aca55e291cb0ca5a",
-                    "_:N83c1054a95be4d2a9385f7dfa6fef3eb",
-                    "_:N64117abc4cb44b3cb8abc626a4d9c135"
+                    "_:N2b600ca3cefd4b9c8ec9fc11c40cbb59"
                   ]
+                },
+                "geojson:GeometryShape/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "geojson:LinkShape": {
+                  "nodes": []
+                },
+                "geojson:FeatureShape": {
+                  "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/forestStandFeature/shapes.shacl:\n - Shape <https://example.com/focal/feature-lesniTyp>: _:N91cf65a2127d412cb8d768c3e8b05188,_:N40bbe6a499bd4beab6af554bc7e0e649,_:N277593391e8d4b938a0dfa7e4d18ab98,_:N58356a57447c4c8fab42be16d796144a,_:Nc96625f6f1a84073b2a3eccc12c4e293,_:N5fc9c8bc3f1d415a95328c5f1f90706b,_:N69205b2f5c9c42aaad4797579886c546,_:Nd5338874c5884b2c93b829ebda423a1e,_:Nec98acf960df46eea6597a912afda934,_:Nd32ce0b57b9c465fb43579f18bbc7da7,_:N1fc44715467041d6aca55e291cb0ca5a,_:N83c1054a95be4d2a9385f7dfa6fef3eb,_:N64117abc4cb44b3cb8abc626a4d9c135\n"
+              "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:FeatureCollectionShape: _:N2b600ca3cefd4b9c8ec9fc11c40cbb59\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:LinkShape: *none*\n - Shape geojson:FeatureShape: *none*\n"
             },
             {
               "op": "shacl-report",
@@ -114,72 +117,69 @@
             {
               "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl",
               "focusNodes": {
-                "geojson:LinkShape": {
-                  "nodes": []
-                },
                 "geojson:GeometryShape": {
                   "nodes": []
                 },
                 "geojson:GeometryShape/sh:or/rdf:first": {
                   "nodes": []
                 },
-                "geojson:FeatureShape": {
-                  "nodes": [
-                    "_:N91cf65a2127d412cb8d768c3e8b05188",
-                    "_:N40bbe6a499bd4beab6af554bc7e0e649",
-                    "_:N277593391e8d4b938a0dfa7e4d18ab98",
-                    "_:N58356a57447c4c8fab42be16d796144a",
-                    "_:Nc96625f6f1a84073b2a3eccc12c4e293",
-                    "_:N5fc9c8bc3f1d415a95328c5f1f90706b",
-                    "_:N69205b2f5c9c42aaad4797579886c546",
-                    "_:Nd5338874c5884b2c93b829ebda423a1e",
-                    "_:Nec98acf960df46eea6597a912afda934",
-                    "_:Nd32ce0b57b9c465fb43579f18bbc7da7",
-                    "_:N1fc44715467041d6aca55e291cb0ca5a",
-                    "_:N83c1054a95be4d2a9385f7dfa6fef3eb",
-                    "_:N64117abc4cb44b3cb8abc626a4d9c135"
-                  ]
-                },
                 "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
                   "nodes": []
+                },
+                "geojson:LinkShape": {
+                  "nodes": []
+                },
+                "geojson:FeatureShape": {
+                  "nodes": [
+                    "_:Ncd7bafc00e2a4728a2cc54c0288d34c5",
+                    "_:Nc29b8ead0ea34b64a2d5236cceb9f9ff",
+                    "_:Nb9afa40385ac408d8f093fbe6aba9a39",
+                    "_:Nb60696c9c2cb40178139fd369b9971f8",
+                    "_:N1bef9b95ca28407c98999c7c1f56009b",
+                    "_:Nfe67e5bf0d024182945a8ee60f1177fa",
+                    "_:N1fe070d91e4948dd8578d925884971cd",
+                    "_:N7a39b3ad6fc545d29da2a5da210cdb07",
+                    "_:Na614aa11a2124f7aac5af290ae836214",
+                    "_:Nca0f0faa24da45a3bbf11a1fc81e791e",
+                    "_:N6a667279e989421881d74dd880dc37be",
+                    "_:Nb0846a97db2e48c6bd0a92842e4ec77c",
+                    "_:Ne400c340f4b6480bb73cb43f282a165b"
+                  ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:FeatureShape: _:N91cf65a2127d412cb8d768c3e8b05188,_:N40bbe6a499bd4beab6af554bc7e0e649,_:N277593391e8d4b938a0dfa7e4d18ab98,_:N58356a57447c4c8fab42be16d796144a,_:Nc96625f6f1a84073b2a3eccc12c4e293,_:N5fc9c8bc3f1d415a95328c5f1f90706b,_:N69205b2f5c9c42aaad4797579886c546,_:Nd5338874c5884b2c93b829ebda423a1e,_:Nec98acf960df46eea6597a912afda934,_:Nd32ce0b57b9c465fb43579f18bbc7da7,_:N1fc44715467041d6aca55e291cb0ca5a,_:N83c1054a95be4d2a9385f7dfa6fef3eb,_:N64117abc4cb44b3cb8abc626a4d9c135\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n"
+              "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:LinkShape: *none*\n - Shape geojson:FeatureShape: _:Ncd7bafc00e2a4728a2cc54c0288d34c5,_:Nc29b8ead0ea34b64a2d5236cceb9f9ff,_:Nb9afa40385ac408d8f093fbe6aba9a39,_:Nb60696c9c2cb40178139fd369b9971f8,_:N1bef9b95ca28407c98999c7c1f56009b,_:Nfe67e5bf0d024182945a8ee60f1177fa,_:N1fe070d91e4948dd8578d925884971cd,_:N7a39b3ad6fc545d29da2a5da210cdb07,_:Na614aa11a2124f7aac5af290ae836214,_:Nca0f0faa24da45a3bbf11a1fc81e791e,_:N6a667279e989421881d74dd880dc37be,_:Nb0846a97db2e48c6bd0a92842e4ec77c,_:Ne400c340f4b6480bb73cb43f282a165b\n"
             },
             {
               "op": "shacl-report",
-              "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
-              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-              "isError": false,
-              "message": "Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "shaclFile": "_sources/forestStandFeature/shapes.shacl",
+              "graph": "@prefix focal-prop: <https://w3id.org/ogc/hosted/focal/properties/> .\n@prefix geojson: <https://purl.org/geojson/vocab#> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode [ a geojson:Feature ;\n                    geojson:geometry [ a geojson:MultiPolygon ;\n                            geojson:coordinates ( ( ( [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] ) ) ) ] ;\n                    focal-prop:lesniCHS 25 ;\n                    focal-prop:lesniDSOPRL 2025 ;\n                    focal-prop:lesniID1 128301 ;\n                    focal-prop:lesniOVERT \"NE\" ;\n                    focal-prop:lesniOblast 8 ;\n                    focal-prop:lesniOblastCast \"a\" ;\n                    focal-prop:lesniPCHS \"25a\" ;\n                    focal-prop:lesniPLOCHA 1.22425e+03 ;\n                    focal-prop:lesniROKMAP 2015 ;\n                    focal-prop:lesniSLT \"2S\" ;\n                    focal-prop:lesniUDRZBA 2022 ;\n                    focal-prop:lesniZADOST \"-\" ;\n                    focal-prop:lesniZMENA \"Uveden\u00ed do souladu s KN\" ] ;\n            sh:resultMessage \"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\" ;\n            sh:resultPath focal-prop:lesniTyp ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraintComponent sh:MinCountConstraintComponent ;\n            sh:sourceShape [ sh:message \"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\" ;\n                    sh:minCount 1 ;\n                    sh:name \"lesniTyp\" ;\n                    sh:nodeKind sh:IRI ;\n                    sh:path focal-prop:lesniTyp ] ] .\n\n",
+              "isError": true,
+              "message": "Validation result for _sources/forestStandFeature/shapes.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):\n  \tSeverity: sh:Violation\n  \tSource Shape: [ sh:message Literal(\"Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\") ; sh:minCount Literal(\"1\", datatype=xsd:integer) ; sh:name Literal(\"lesniTyp\") ; sh:nodeKind sh:IRI ; sh:path focal-prop:lesniTyp ]\n  \tFocus Node: [ focal-prop:lesniCHS Literal(\"25\", datatype=xsd:integer) ; focal-prop:lesniDSOPRL Literal(\"2025\", datatype=xsd:integer) ; focal-prop:lesniID1 Literal(\"128301\", datatype=xsd:integer) ; focal-prop:lesniOVERT Literal(\"NE\") ; focal-prop:lesniOblast Literal(\"8\", datatype=xsd:integer) ; focal-prop:lesniOblastCast Literal(\"a\") ; focal-prop:lesniPCHS Literal(\"25a\") ; focal-prop:lesniPLOCHA Literal(\"1224.24963\", datatype=xsd:double) ; focal-prop:lesniROKMAP Literal(\"2015\", datatype=xsd:integer) ; focal-prop:lesniSLT Literal(\"2S\") ; focal-prop:lesniUDRZBA Literal(\"2022\", datatype=xsd:integer) ; focal-prop:lesniZADOST Literal(\"-\") ; focal-prop:lesniZMENA Literal(\"Uveden\u00ed do souladu s KN\") ; geojson:geometry [ geojson:coordinates ( ( <http://recursion.too.deep> ) ) ; rdf:type geojson:MultiPolygon ] ; rdf:type geojson:Feature ]\n  \tResult Path: focal-prop:lesniTyp\n  \tMessage: Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.\n  "
             },
             {
-              "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
+              "shaclFile": "_sources/forestStandFeature/shapes.shacl",
               "focusNodes": {
-                "geojson:LinkShape": {
-                  "nodes": []
-                },
-                "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
-                  "nodes": []
-                },
-                "geojson:FeatureCollectionShape": {
+                "<https://example.com/focal/feature-lesniTyp>": {
                   "nodes": [
-                    "_:N28b2d181072f4728b1c2255ce4d87bd0"
+                    "_:Ncd7bafc00e2a4728a2cc54c0288d34c5",
+                    "_:Nc29b8ead0ea34b64a2d5236cceb9f9ff",
+                    "_:Nb9afa40385ac408d8f093fbe6aba9a39",
+                    "_:Nb60696c9c2cb40178139fd369b9971f8",
+                    "_:N1bef9b95ca28407c98999c7c1f56009b",
+                    "_:Nfe67e5bf0d024182945a8ee60f1177fa",
+                    "_:N1fe070d91e4948dd8578d925884971cd",
+                    "_:N7a39b3ad6fc545d29da2a5da210cdb07",
+                    "_:Na614aa11a2124f7aac5af290ae836214",
+                    "_:Nca0f0faa24da45a3bbf11a1fc81e791e",
+                    "_:N6a667279e989421881d74dd880dc37be",
+                    "_:Nb0846a97db2e48c6bd0a92842e4ec77c",
+                    "_:Ne400c340f4b6480bb73cb43f282a165b"
                   ]
-                },
-                "geojson:GeometryShape": {
-                  "nodes": []
-                },
-                "geojson:FeatureShape": {
-                  "nodes": []
-                },
-                "geojson:GeometryShape/sh:or/rdf:first": {
-                  "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:FeatureCollectionShape: _:N28b2d181072f4728b1c2255ce4d87bd0\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:FeatureShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n"
+              "message": "Focus nodes for _sources/forestStandFeature/shapes.shacl:\n - Shape <https://example.com/focal/feature-lesniTyp>: _:Ncd7bafc00e2a4728a2cc54c0288d34c5,_:Nc29b8ead0ea34b64a2d5236cceb9f9ff,_:Nb9afa40385ac408d8f093fbe6aba9a39,_:Nb60696c9c2cb40178139fd369b9971f8,_:N1bef9b95ca28407c98999c7c1f56009b,_:Nfe67e5bf0d024182945a8ee60f1177fa,_:N1fe070d91e4948dd8578d925884971cd,_:N7a39b3ad6fc545d29da2a5da210cdb07,_:Na614aa11a2124f7aac5af290ae836214,_:Nca0f0faa24da45a3bbf11a1fc81e791e,_:N6a667279e989421881d74dd880dc37be,_:Nb0846a97db2e48c6bd0a92842e4ec77c,_:Ne400c340f4b6480bb73cb43f282a165b\n"
             }
           ]
         }
@@ -244,34 +244,37 @@
           "entries": [
             {
               "op": "shacl-report",
-              "shaclFile": "_sources/forestStandFeature/shapes.shacl",
+              "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/forestStandFeature/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
             },
             {
-              "shaclFile": "_sources/forestStandFeature/shapes.shacl",
+              "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
               "focusNodes": {
-                "<https://example.com/focal/feature-lesniTyp>": {
+                "geojson:GeometryShape": {
+                  "nodes": []
+                },
+                "geojson:FeatureCollectionShape": {
                   "nodes": [
-                    "_:N0102f001c4c84b82a3f31d26af70fb9a",
-                    "_:N1266d27a144e4e7f8b79e4f07d3ed915",
-                    "_:Nc46aa312c673480c8656f1f6c9ec917b",
-                    "_:Nb1fe420088524fa5892db095931041a4",
-                    "_:N17fdcda0d59a43f0b71f1734d69a60e2",
-                    "_:N1430d21268b54689a4e64ad9da3a7ebd",
-                    "_:Ndf7d66fada894fcf9d6a7c1fc2530132",
-                    "_:Nba229fde8d564c4aab6dfcbfae673516",
-                    "_:N601d0c428efe4e8a89fb453692340b12",
-                    "_:N27983b9804d7479d8f08c4f08fd2aa83",
-                    "_:Nb08439903a99427da7505ddedecce136",
-                    "_:Na265ca3e78094cd3831214ed21376bbc",
-                    "_:Nbaeda1157d28431ab66c4d9ed40aa787"
+                    "_:N34a2ec00c5b5464ca0d28d6fa41fcd38"
                   ]
+                },
+                "geojson:GeometryShape/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "geojson:LinkShape": {
+                  "nodes": []
+                },
+                "geojson:FeatureShape": {
+                  "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/forestStandFeature/shapes.shacl:\n - Shape <https://example.com/focal/feature-lesniTyp>: _:N0102f001c4c84b82a3f31d26af70fb9a,_:N1266d27a144e4e7f8b79e4f07d3ed915,_:Nc46aa312c673480c8656f1f6c9ec917b,_:Nb1fe420088524fa5892db095931041a4,_:N17fdcda0d59a43f0b71f1734d69a60e2,_:N1430d21268b54689a4e64ad9da3a7ebd,_:Ndf7d66fada894fcf9d6a7c1fc2530132,_:Nba229fde8d564c4aab6dfcbfae673516,_:N601d0c428efe4e8a89fb453692340b12,_:N27983b9804d7479d8f08c4f08fd2aa83,_:Nb08439903a99427da7505ddedecce136,_:Na265ca3e78094cd3831214ed21376bbc,_:Nbaeda1157d28431ab66c4d9ed40aa787\n"
+              "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:FeatureCollectionShape: _:N34a2ec00c5b5464ca0d28d6fa41fcd38\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:LinkShape: *none*\n - Shape geojson:FeatureShape: *none*\n"
             },
             {
               "op": "shacl-report",
@@ -283,72 +286,69 @@
             {
               "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl",
               "focusNodes": {
-                "geojson:LinkShape": {
-                  "nodes": []
-                },
                 "geojson:GeometryShape": {
                   "nodes": []
                 },
                 "geojson:GeometryShape/sh:or/rdf:first": {
                   "nodes": []
                 },
-                "geojson:FeatureShape": {
-                  "nodes": [
-                    "_:N0102f001c4c84b82a3f31d26af70fb9a",
-                    "_:N1266d27a144e4e7f8b79e4f07d3ed915",
-                    "_:Nc46aa312c673480c8656f1f6c9ec917b",
-                    "_:Nb1fe420088524fa5892db095931041a4",
-                    "_:N17fdcda0d59a43f0b71f1734d69a60e2",
-                    "_:N1430d21268b54689a4e64ad9da3a7ebd",
-                    "_:Ndf7d66fada894fcf9d6a7c1fc2530132",
-                    "_:Nba229fde8d564c4aab6dfcbfae673516",
-                    "_:N601d0c428efe4e8a89fb453692340b12",
-                    "_:N27983b9804d7479d8f08c4f08fd2aa83",
-                    "_:Nb08439903a99427da7505ddedecce136",
-                    "_:Na265ca3e78094cd3831214ed21376bbc",
-                    "_:Nbaeda1157d28431ab66c4d9ed40aa787"
-                  ]
-                },
                 "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
                   "nodes": []
+                },
+                "geojson:LinkShape": {
+                  "nodes": []
+                },
+                "geojson:FeatureShape": {
+                  "nodes": [
+                    "_:Ne0f2207d0c954ce3a599dee23cf68f00",
+                    "_:N6b13266a40964e2a97133372dc0e39d5",
+                    "_:N3d1c1c81b666445caf94ac192d928df3",
+                    "_:Nd44f1ad602be45d8bd66be77c8018d4c",
+                    "_:Ndaeb60f96e304dec96f034f56c8ec0b0",
+                    "_:Nd4ad7cbaeb1a4c248e22a27254a52f4c",
+                    "_:N3648403617ec42bd83d315bc8dc34fab",
+                    "_:N6c1137e1b6d54650b6df5c83a03f39a3",
+                    "_:Ncd168aa8bf3b4772b6db67d65cdd5dff",
+                    "_:N5d9a6a2c24624b49bf967209d31b4bb2",
+                    "_:Nc9f19fe626814be3a36035fa8213009a",
+                    "_:N3680b5ba36aa4117b24545a6e40ed1a1",
+                    "_:N171935efd19346c7a7c78d0a9ae9a6c0"
+                  ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:FeatureShape: _:N0102f001c4c84b82a3f31d26af70fb9a,_:N1266d27a144e4e7f8b79e4f07d3ed915,_:Nc46aa312c673480c8656f1f6c9ec917b,_:Nb1fe420088524fa5892db095931041a4,_:N17fdcda0d59a43f0b71f1734d69a60e2,_:N1430d21268b54689a4e64ad9da3a7ebd,_:Ndf7d66fada894fcf9d6a7c1fc2530132,_:Nba229fde8d564c4aab6dfcbfae673516,_:N601d0c428efe4e8a89fb453692340b12,_:N27983b9804d7479d8f08c4f08fd2aa83,_:Nb08439903a99427da7505ddedecce136,_:Na265ca3e78094cd3831214ed21376bbc,_:Nbaeda1157d28431ab66c4d9ed40aa787\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n"
+              "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:LinkShape: *none*\n - Shape geojson:FeatureShape: _:Ne0f2207d0c954ce3a599dee23cf68f00,_:N6b13266a40964e2a97133372dc0e39d5,_:N3d1c1c81b666445caf94ac192d928df3,_:Nd44f1ad602be45d8bd66be77c8018d4c,_:Ndaeb60f96e304dec96f034f56c8ec0b0,_:Nd4ad7cbaeb1a4c248e22a27254a52f4c,_:N3648403617ec42bd83d315bc8dc34fab,_:N6c1137e1b6d54650b6df5c83a03f39a3,_:Ncd168aa8bf3b4772b6db67d65cdd5dff,_:N5d9a6a2c24624b49bf967209d31b4bb2,_:Nc9f19fe626814be3a36035fa8213009a,_:N3680b5ba36aa4117b24545a6e40ed1a1,_:N171935efd19346c7a7c78d0a9ae9a6c0\n"
             },
             {
               "op": "shacl-report",
-              "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
+              "shaclFile": "_sources/forestStandFeature/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/forestStandFeature/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
             },
             {
-              "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl",
+              "shaclFile": "_sources/forestStandFeature/shapes.shacl",
               "focusNodes": {
-                "geojson:LinkShape": {
-                  "nodes": []
-                },
-                "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
-                  "nodes": []
-                },
-                "geojson:FeatureCollectionShape": {
+                "<https://example.com/focal/feature-lesniTyp>": {
                   "nodes": [
-                    "_:N16aeaf453a6a4b318c918ae510f7a503"
+                    "_:Ne0f2207d0c954ce3a599dee23cf68f00",
+                    "_:N6b13266a40964e2a97133372dc0e39d5",
+                    "_:N3d1c1c81b666445caf94ac192d928df3",
+                    "_:Nd44f1ad602be45d8bd66be77c8018d4c",
+                    "_:Ndaeb60f96e304dec96f034f56c8ec0b0",
+                    "_:Nd4ad7cbaeb1a4c248e22a27254a52f4c",
+                    "_:N3648403617ec42bd83d315bc8dc34fab",
+                    "_:N6c1137e1b6d54650b6df5c83a03f39a3",
+                    "_:Ncd168aa8bf3b4772b6db67d65cdd5dff",
+                    "_:N5d9a6a2c24624b49bf967209d31b4bb2",
+                    "_:Nc9f19fe626814be3a36035fa8213009a",
+                    "_:N3680b5ba36aa4117b24545a6e40ed1a1",
+                    "_:N171935efd19346c7a7c78d0a9ae9a6c0"
                   ]
-                },
-                "geojson:GeometryShape": {
-                  "nodes": []
-                },
-                "geojson:FeatureShape": {
-                  "nodes": []
-                },
-                "geojson:GeometryShape/sh:or/rdf:first": {
-                  "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/featureCollection/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:FeatureCollectionShape: _:N16aeaf453a6a4b318c918ae510f7a503\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:FeatureShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n"
+              "message": "Focus nodes for _sources/forestStandFeature/shapes.shacl:\n - Shape <https://example.com/focal/feature-lesniTyp>: _:Ne0f2207d0c954ce3a599dee23cf68f00,_:N6b13266a40964e2a97133372dc0e39d5,_:N3d1c1c81b666445caf94ac192d928df3,_:Nd44f1ad602be45d8bd66be77c8018d4c,_:Ndaeb60f96e304dec96f034f56c8ec0b0,_:Nd4ad7cbaeb1a4c248e22a27254a52f4c,_:N3648403617ec42bd83d315bc8dc34fab,_:N6c1137e1b6d54650b6df5c83a03f39a3,_:Ncd168aa8bf3b4772b6db67d65cdd5dff,_:N5d9a6a2c24624b49bf967209d31b4bb2,_:Nc9f19fe626814be3a36035fa8213009a,_:N3680b5ba36aa4117b24545a6e40ed1a1,_:N171935efd19346c7a7c78d0a9ae9a6c0\n"
             }
           ]
         }
