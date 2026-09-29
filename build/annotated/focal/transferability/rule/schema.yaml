@@ -46,8 +46,12 @@ allOf:
         $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.yaml
       description: "Identifiers of the artifacts this rule governs, from the enclosing
         statement's `artifacts`. Several artifacts may share one rule \u2014 FP-WF2's
-        four Czechia-specific reference files do. Omit for a rule that applies to
-        the workflow as a whole.\n"
+        SLT and species-code artifacts do, both requiring an equivalent outside `czechia`.
+        Not every artifact bounded by the same constraint belongs in the same rule,
+        though: FP-WF2's tolerance thresholds and T5 are also bounded by `czechia`
+        but sit in a separate, `mandatory: false` rule, because unlike SLT and the
+        species codes they are adjustable defaults, not a required replacement. Omit
+        `appliesTo` for a rule that applies to the workflow as a whole.\n"
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/appliesTo
       x-jsonld-type: '@id'
       x-jsonld-container: '@set'

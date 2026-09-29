@@ -17,8 +17,8 @@
     }
   ],
   "dependsOn": [
-    "ogc.focal.forestStandProperties",
-    "ogc.geo.features.feature"
+    "ogc.geo.features.feature",
+    "ogc.focal.forestStandProperties"
   ],
   "tags": [
     "focal",

@@ -28,6 +28,7 @@
   },
   "transferability": {
     "trainingRequired": true,
+    "transferabilityNotes": "Question 7 names 'disturbance type' as a fourth thing this approach depends on, alongside label quality, cloud-free time series and phenology (the other three are modeled below). Disturbance type has no artifact, constraint or rule here: the questionnaire gives no scheme or definition for what a 'comparable' disturbance type would mean, and no target-region facet to test it against, so recording a rule would mean inventing a classification the owner never gave. Left as an explicit open gap rather than modeled or silently dropped \u2014 still open, no owner answer yet.",
     "envelope": [
       {
         "id": "label-extent",

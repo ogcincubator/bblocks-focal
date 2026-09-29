@@ -65,10 +65,16 @@
         "artifactRef": "/inputs/species_tolerances"
       },
       {
-        "id": "slt-t5",
-        "artifact": "SLT/T5 forest classification context (Czechia-specific)",
+        "id": "slt",
+        "artifact": "SLT forest classification context (Czechia-specific)",
         "artifactRole": "workflow-input",
         "artifactRef": "/inputs/forest_classification_context"
+      },
+      {
+        "id": "t5",
+        "artifact": "T5 species-specific stress threshold",
+        "artifactRole": "workflow-input",
+        "transferabilityNotes": "Owner's 2026-09-29 review, \u00a73/\u00a74: T5 is a species-specific stress threshold, grouped with the predefined tolerance values as an adjustable default/reference parameter, not with SLT's spatial/reference classification. No `artifactRef` yet: the current CWL input (`forest_classification_context`) still carries T5 bundled with SLT, since no separate T5 file exists in the questionnaire's description."
       },
       {
         "id": "species-codes",
@@ -86,7 +92,7 @@
     "rules": [
       {
         "appliesTo": [
-          "slt-t5",
+          "slt",
           "species-codes"
         ],
         "when": [
@@ -103,7 +109,8 @@
       },
       {
         "appliesTo": [
-          "tolerances"
+          "tolerances",
+          "t5"
         ],
         "when": [
           {
@@ -115,7 +122,7 @@
           "replace-with-local-equivalent"
         ],
         "mandatory": false,
-        "transferabilityNotes": "Question 4: 'Users can also provide custom thresholds', so the tolerance thresholds can be overridden directly, even within the source region. Question 9 adds that 'Thresholds may need adjustment to local species, forest types and management practice'. The owner's 2026-09-29 review confirms this is not a geographic validity constraint: predefined per-species thresholds are default/reference values, and a user can enter target-appropriate values directly without adding a new species-specific parameter set to the workflow \u2014 hence `mandatory: false`, split from the SLT/species-codes rule above rather than sharing its `appliesTo`."
+        "transferabilityNotes": "Question 4: 'Users can also provide custom thresholds', so the tolerance thresholds can be overridden directly, even within the source region. Question 9 adds that 'Thresholds may need adjustment to local species, forest types and management practice'. The owner's 2026-09-29 review confirms this is not a geographic validity constraint: predefined per-species thresholds, including T5, are default/reference values, and a user can enter target-appropriate values directly without adding a new species-specific parameter set to the workflow \u2014 hence `mandatory: false`, split from the SLT/species-codes rule above rather than sharing its `appliesTo`. T5 was named explicitly in the review's \u00a73 ('should remain explicit in the workflow description') and \u00a74, so it now joins `tolerances` here rather than staying folded into the SLT artifact."
       },
       {
         "appliesTo": [

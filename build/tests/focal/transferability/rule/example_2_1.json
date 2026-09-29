@@ -1,9 +1,7 @@
 {
   "appliesTo": [
-    "tolerances",
-    "slt-t5",
-    "species-codes",
-    "rasdaman"
+    "slt",
+    "species-codes"
   ],
   "when": [
     {

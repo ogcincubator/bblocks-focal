@@ -18,8 +18,8 @@
     "https://w3id.org/ogc/hosted/focal/transferability/EnvelopeConstraint"
   ],
   "dependsOn": [
-    "ogc.focal.transferability.notes",
     "ogc.focal.transferability.vocab",
+    "ogc.focal.transferability.notes",
     "ogc.ogc-utils.iri-or-curie"
   ],
   "tags": [
@@ -54,20 +54,20 @@
         {
           "language": "json",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_1_1.json",
-          "sizeBytes": 340,
-          "code": "{\n  \"id\": \"czech-plots\",\n  \"role\": \"trained-on\",\n  \"dimension\": \"spatial\",\n  \"value\": { \"asWKT\": \"POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))\" },\n  \"transferabilityNotes\": \"Country bounding box, standing in for the actual permanent sample plot network; an honest upper bound pending the real plot coordinates.\"\n}\n"
+          "sizeBytes": 438,
+          "code": "{\n  \"id\": \"czech-plots\",\n  \"role\": \"trained-on\",\n  \"dimension\": \"spatial\",\n  \"value\": { \"asWKT\": \"POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))\" },\n  \"transferabilityNotes\": \"Country bounding box, standing in for the actual permanent sample plot network; the owner's 2026-09-29 review confirmed Czechia as an acceptable representation of the training data's coverage, so exact plot coordinates are not needed.\"\n}\n"
         },
         {
           "language": "jsonld",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_1_1.jsonld",
-          "sizeBytes": 479,
-          "code": "{\n  \"@context\": \"https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld\",\n  \"id\": \"czech-plots\",\n  \"role\": \"trained-on\",\n  \"dimension\": \"spatial\",\n  \"value\": {\n    \"asWKT\": \"POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))\"\n  },\n  \"transferabilityNotes\": \"Country bounding box, standing in for the actual permanent sample plot network; an honest upper bound pending the real plot coordinates.\"\n}"
+          "sizeBytes": 577,
+          "code": "{\n  \"@context\": \"https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld\",\n  \"id\": \"czech-plots\",\n  \"role\": \"trained-on\",\n  \"dimension\": \"spatial\",\n  \"value\": {\n    \"asWKT\": \"POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))\"\n  },\n  \"transferabilityNotes\": \"Country bounding box, standing in for the actual permanent sample plot network; the owner's 2026-09-29 review confirmed Czechia as an acceptable representation of the training data's coverage, so exact plot coordinates are not needed.\"\n}"
         },
         {
           "language": "ttl",
           "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/envelopeConstraint/example_1_1.ttl",
-          "sizeBytes": 789,
-          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix geo: <http://www.opengis.net/ont/geosparql#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots> rdfs:comment \"Country bounding box, standing in for the actual permanent sample plot network; an honest upper bound pending the real plot coordinates.\" ;\n    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;\n    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;\n    focal-transf-prop:value [ geo:asWKT \"POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))\"^^geo:wktLiteral ] .\n\n"
+          "sizeBytes": 887,
+          "code": "@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix geo: <http://www.opengis.net/ont/geosparql#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots> rdfs:comment \"Country bounding box, standing in for the actual permanent sample plot network; the owner's 2026-09-29 review confirmed Czechia as an acceptable representation of the training data's coverage, so exact plot coordinates are not needed.\" ;\n    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;\n    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> ;\n    focal-transf-prop:value [ geo:asWKT \"POLYGON((12.09 48.55,18.87 48.55,18.87 51.06,12.09 51.06,12.09 48.55))\"^^geo:wktLiteral ] .\n\n"
         }
       ]
     },

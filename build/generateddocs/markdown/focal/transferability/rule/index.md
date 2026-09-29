@@ -13,8 +13,10 @@ What must happen, to which artifacts, under which envelope conditions. Condition
 
 What must happen, to which artifacts, under which envelope conditions.
 
-- `appliesTo` — the artifacts this rule governs, by `id`. FP-WF2's four Czechia-specific reference
-  files share one rule rather than carrying four copies of the same condition.
+- `appliesTo` — the artifacts this rule governs, by `id`. FP-WF2's SLT and species-code artifacts
+  share one rule rather than carrying two copies of the same condition; its tolerance thresholds
+  and T5, bounded by the same constraint but adjustable rather than required, sit in a separate
+  `mandatory: false` rule instead.
 - `when` — the conditions, each citing an envelope constraint by `id` plus how the target is
   tested against it. **Conjunctive: all must hold.**
 - `triggeredBy` — a coarse alternative for cases where no constraint can be cited without
@@ -113,14 +115,23 @@ value is a GeoSPARQL geometry.
 
 
 ### One rule over several artifacts
-FP-WF2's four Czechia-specific reference artifacts share one boundary and one action, so
-they share one rule. Previously this was the same condition copied four times with nothing
-recording that they were the same fact.
+FP-WF2's SLT and species-code artifacts share one boundary (`czechia`) and one action, so
+they share one rule, rather than the same condition copied twice with nothing recording that
+they were the same fact.
+
+Not every Czechia-specific artifact belongs in this rule, though. An earlier version put all
+four of FP-WF2's Czechia-specific artifacts here, including the species tolerance thresholds
+and T5. The owner's 2026-09-29 review distinguished them: SLT and the species codes are
+spatial/reference inputs that genuinely need replacing outside their coverage
+(`mandatory: true`, this rule); the tolerance thresholds and T5 are adjustable
+default/reference parameters a user can already override directly, so they sit in their own
+`mandatory: false` rule over the same `czechia` constraint instead — see
+bblocks://ogc.focal.transferability.workflow's FP-WF2 example.
 
 #### json
 ```json
 {
-  "appliesTo": ["tolerances", "slt-t5", "species-codes", "rasdaman"],
+  "appliesTo": ["slt", "species-codes"],
   "when": [{ "constraint": "czechia", "test": "outside" }],
   "actions": ["replace-with-local-equivalent"],
   "mandatory": true
@@ -133,10 +144,8 @@ recording that they were the same fact.
 {
   "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld",
   "appliesTo": [
-    "tolerances",
-    "slt-t5",
-    "species-codes",
-    "rasdaman"
+    "slt",
+    "species-codes"
   ],
   "when": [
     {
@@ -157,10 +166,8 @@ recording that they were the same fact.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/rasdaman>,
-        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/slt-t5>,
-        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/species-codes>,
-        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/tolerances> ;
+    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/slt>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/species-codes> ;
     focal-transf-prop:mandatory true ;
     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/czechia> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
@@ -226,9 +233,9 @@ the sentence it came from, which a nested boolean expression does not.
 [] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/lst> ;
     focal-transf-prop:mandatory true ;
-    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-domain> ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-grid> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ],
-        [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-grid> ;
+        [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-domain> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
 
 
@@ -457,8 +464,12 @@ allOf:
         $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.yaml
       description: "Identifiers of the artifacts this rule governs, from the enclosing
         statement's `artifacts`. Several artifacts may share one rule \u2014 FP-WF2's
-        four Czechia-specific reference files do. Omit for a rule that applies to
-        the workflow as a whole.\n"
+        SLT and species-code artifacts do, both requiring an equivalent outside `czechia`.
+        Not every artifact bounded by the same constraint belongs in the same rule,
+        though: FP-WF2's tolerance thresholds and T5 are also bounded by `czechia`
+        but sit in a separate, `mandatory: false` rule, because unlike SLT and the
+        species codes they are adjustable defaults, not a required replacement. Omit
+        `appliesTo` for a rule that applies to the workflow as a whole.\n"
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/appliesTo
       x-jsonld-type: '@id'
       x-jsonld-container: '@set'

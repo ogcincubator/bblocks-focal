@@ -26,11 +26,11 @@
     "ogc.focal.transferability.transferabilityStatement": [
       "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/transferabilityStatement/shapes.shacl"
     ],
-    "ogc.focal.transferability.envelopeConstraint": [
-      "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/envelopeConstraint/shapes.shacl"
-    ],
     "ogc.focal.transferability.rule": [
       "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/rule/shapes.shacl"
+    ],
+    "ogc.focal.transferability.envelopeConstraint": [
+      "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/envelopeConstraint/shapes.shacl"
     ],
     "ogc.focal.transferability.acceptanceCriteria": [
       "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/acceptanceCriteria/shapes.shacl"

@@ -80,30 +80,33 @@ description: "Where something's results are valid, which reference or calibratio
   rule fires. Nesting rules under artifacts fixes that one case and fails the next:
   an artifact bounded on two axes at once needs a conjunction, which a tree cannot
   express. Citing ids costs one indirection and expresses both, plus the case that
-  motivated neither \u2014 FP-WF2's four artifacts sharing a single boundary, stated
-  once rather than four times.\n**Rules are exceptions; silence means reuse.** A statement
-  lists what has to change. An artifact no rule fires for, over a given target, is
-  reused unchanged. That default is what makes the model answerable rather than merely
-  inspectable: without it, \"no rule fires\" is ambiguous between *nothing needs doing*
-  and *nobody checked*, and every consumer has to guess. The ambiguity is closed structurally
-  rather than by convention: `envelope`, `artifacts` and `rules` are all required,
-  so an empty one of any of them is something an author wrote down, not something
-  missing. Absent from the document entirely, the statement says nobody has looked;
-  an empty array inside it says somebody looked and found nothing.\nTwo consequences
-  worth stating plainly. A rule whose only action is `reuse-as-is` restates the default,
-  which is worth doing where it makes a cascade legible (UP-WF2 pairs `inside` with
-  `outside` over one constraint) and is noise otherwise. And an **empty `envelope`
-  is a claim, not a blank**: it says the results carry no validity boundary at all,
-  which is what a genuinely universal workflow looks like and what UP-WF1's questionnaire
-  literally answers (\"All parts are portable\"). Record why in `transferabilityNotes`,
-  and set `noConstraintsStated: true` \u2014 a boundary nobody could find and a boundary
-  that does not exist are the same empty array otherwise, and the marker is what tells
-  them apart.\n**Conjunction and disjunction.** A rule's `when` is an AND: every condition
-  must hold for the rule to fire. A disjunction is written as two rules. That is a
-  deliberate limit rather than a missing feature \u2014 two conditions leading to
-  the same action really are two statements, and keeping them separate keeps each
-  traceable to the sentence in a questionnaire it came from, which a nested boolean
-  expression does not. `actions` remains an OR-set: any one resolves the rule.\n"
+  motivated neither \u2014 FP-WF2's SLT and species-code artifacts sharing a single
+  boundary and rule, stated once rather than twice, while its tolerance-threshold
+  and T5 artifacts share that same boundary but a separate rule, because the two pairs
+  need different things to happen outside it.\n**Rules are exceptions; silence means
+  reuse.** A statement lists what has to change. An artifact no rule fires for, over
+  a given target, is reused unchanged. That default is what makes the model answerable
+  rather than merely inspectable: without it, \"no rule fires\" is ambiguous between
+  *nothing needs doing* and *nobody checked*, and every consumer has to guess. The
+  ambiguity is closed structurally rather than by convention: `envelope`, `artifacts`
+  and `rules` are all required, so an empty one of any of them is something an author
+  wrote down, not something missing. Absent from the document entirely, the statement
+  says nobody has looked; an empty array inside it says somebody looked and found
+  nothing.\nTwo consequences worth stating plainly. A rule whose only action is `reuse-as-is`
+  restates the default, which is worth doing where it makes a cascade legible (UP-WF2
+  pairs `inside` with `outside` over one constraint) and is noise otherwise. And an
+  **empty `envelope` is a claim, not a blank**: it says the results carry no validity
+  boundary at all, which is what a genuinely universal workflow looks like and what
+  UP-WF1's questionnaire literally answers (\"All parts are portable\"). Record why
+  in `transferabilityNotes`, and set `noConstraintsStated: true` \u2014 a boundary
+  nobody could find and a boundary that does not exist are the same empty array otherwise,
+  and the marker is what tells them apart.\n**Conjunction and disjunction.** A rule's
+  `when` is an AND: every condition must hold for the rule to fire. A disjunction
+  is written as two rules. That is a deliberate limit rather than a missing feature
+  \u2014 two conditions leading to the same action really are two statements, and
+  keeping them separate keeps each traceable to the sentence in a questionnaire it
+  came from, which a nested boolean expression does not. `actions` remains an OR-set:
+  any one resolves the rule.\n"
 allOf:
 - $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml
 - type: object

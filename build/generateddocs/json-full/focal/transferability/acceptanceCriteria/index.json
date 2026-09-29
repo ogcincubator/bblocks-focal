@@ -17,8 +17,8 @@
     "https://w3id.org/ogc/hosted/focal/transferability/AcceptanceCriteria"
   ],
   "dependsOn": [
-    "ogc.focal.transferability.notes",
     "ogc.focal.transferability.vocab",
+    "ogc.focal.transferability.notes",
     "ogc.ogc-utils.iri-or-curie"
   ],
   "tags": [
