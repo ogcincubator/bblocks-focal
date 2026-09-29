@@ -23,14 +23,23 @@ examples:
   - title: One rule over several artifacts
     base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/rule/
     content: |
-      FP-WF2's four Czechia-specific reference artifacts share one boundary and one action, so
-      they share one rule. Previously this was the same condition copied four times with nothing
-      recording that they were the same fact.
+      FP-WF2's SLT and species-code artifacts share one boundary (`czechia`) and one action, so
+      they share one rule, rather than the same condition copied twice with nothing recording that
+      they were the same fact.
+
+      Not every Czechia-specific artifact belongs in this rule, though. An earlier version put all
+      four of FP-WF2's Czechia-specific artifacts here, including the species tolerance thresholds
+      and T5. The owner's 2026-09-29 review distinguished them: SLT and the species codes are
+      spatial/reference inputs that genuinely need replacing outside their coverage
+      (`mandatory: true`, this rule); the tolerance thresholds and T5 are adjustable
+      default/reference parameters a user can already override directly, so they sit in their own
+      `mandatory: false` rule over the same `czechia` constraint instead — see
+      bblocks://ogc.focal.transferability.workflow's FP-WF2 example.
     snippets:
       - language: json
         code: |
           {
-            "appliesTo": ["tolerances", "slt-t5", "species-codes", "rasdaman"],
+            "appliesTo": ["slt", "species-codes"],
             "when": [{ "constraint": "czechia", "test": "outside" }],
             "actions": ["replace-with-local-equivalent"],
             "mandatory": true

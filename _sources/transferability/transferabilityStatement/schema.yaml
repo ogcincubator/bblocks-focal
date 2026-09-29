@@ -22,7 +22,9 @@ description: >
   could not tell which rule fires. Nesting rules under artifacts fixes that one case and fails the
   next: an artifact bounded on two axes at once needs a conjunction, which a tree cannot express.
   Citing ids costs one indirection and expresses both, plus the case that motivated neither —
-  FP-WF2's four artifacts sharing a single boundary, stated once rather than four times.
+  FP-WF2's SLT and species-code artifacts sharing a single boundary and rule, stated once rather
+  than twice, while its tolerance-threshold and T5 artifacts share that same boundary but a
+  separate rule, because the two pairs need different things to happen outside it.
 
   **Rules are exceptions; silence means reuse.** A statement lists what has to change. An
   artifact no rule fires for, over a given target, is reused unchanged. That default is what makes

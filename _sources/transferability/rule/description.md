@@ -2,8 +2,10 @@
 
 What must happen, to which artifacts, under which envelope conditions.
 
-- `appliesTo` — the artifacts this rule governs, by `id`. FP-WF2's four Czechia-specific reference
-  files share one rule rather than carrying four copies of the same condition.
+- `appliesTo` — the artifacts this rule governs, by `id`. FP-WF2's SLT and species-code artifacts
+  share one rule rather than carrying two copies of the same condition; its tolerance thresholds
+  and T5, bounded by the same constraint but adjustable rather than required, sit in a separate
+  `mandatory: false` rule instead.
 - `when` — the conditions, each citing an envelope constraint by `id` plus how the target is
   tested against it. **Conjunctive: all must hold.**
 - `triggeredBy` — a coarse alternative for cases where no constraint can be cited without
