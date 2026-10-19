@@ -16,7 +16,7 @@ jobs:
     # Avoid running the workflow on template clone
     if: github.run_number != 1
     name: Validate and process
-    uses: opengeospatial/bblocks-postprocess/.github/workflows/validate-and-process.yml@develop
+    uses: opengeospatial/bblocks-postprocess/.github/workflows/validate-and-process.yml@master
     secrets:
       sparql_username: ${{ secrets.sparql_username }}
       sparql_password: ${{ secrets.sparql_password }}
