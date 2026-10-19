@@ -2,7 +2,7 @@
   "title": "Validation report for ogc.focal.transferability.envelopeConstraint - FOCAL Transferability Envelope Constraint",
   "bblockName": "FOCAL Transferability Envelope Constraint",
   "bblockId": "ogc.focal.transferability.envelopeConstraint",
-  "generated": "2026-09-29T12:53:51.074603+00:00",
+  "generated": "2026-10-19T11:01:29.107607+00:00",
   "result": true,
   "items": [
     {
@@ -76,12 +76,27 @@
             {
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
               "focusNodes": {
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>/focal-transf-prop:value"
+                  ]
+                },
                 "focal-shape:TemporalEnvelopeValue": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>"
                   ]
                 },
-                "focal-shape:ScenarioMarkerIsAConcept": {
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>"
+                  ]
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>"
+                  ]
+                },
+                "focal-shape:AnalogyNamesItsReference": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>/focal-transf-prop:value"
                   ]
@@ -96,21 +111,6 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>/focal-transf-prop:value"
                   ]
                 },
-                "focal-shape:SpatialEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>"
-                  ]
-                },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>"
-                  ]
-                },
-                "focal-shape:AnalogyNamesItsReference": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>/focal-transf-prop:value"
-                  ]
-                },
                 "focal-shape:EnvelopeConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>"
@@ -118,7 +118,7 @@
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>/focal-transf-prop:value\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>/focal-transf-prop:value\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>/focal-transf-prop:value\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>/focal-transf-prop:value\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/czech-plots>\n"
             }
           ]
         }
@@ -195,12 +195,27 @@
             {
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
               "focusNodes": {
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>/focal-transf-prop:value"
+                  ]
+                },
                 "focal-shape:TemporalEnvelopeValue": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>"
                   ]
                 },
-                "focal-shape:ScenarioMarkerIsAConcept": {
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>"
+                  ]
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>"
+                  ]
+                },
+                "focal-shape:AnalogyNamesItsReference": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>/focal-transf-prop:value"
                   ]
@@ -215,21 +230,6 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>/focal-transf-prop:value"
                   ]
                 },
-                "focal-shape:SpatialEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>"
-                  ]
-                },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>"
-                  ]
-                },
-                "focal-shape:AnalogyNamesItsReference": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>/focal-transf-prop:value"
-                  ]
-                },
                 "focal-shape:EnvelopeConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>"
@@ -237,7 +237,7 @@
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>/focal-transf-prop:value\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>/focal-transf-prop:value\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>/focal-transf-prop:value\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>/focal-transf-prop:value\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/prague-point>\n"
             }
           ]
         }
@@ -314,12 +314,27 @@
             {
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
               "focusNodes": {
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>/focal-transf-prop:value"
+                  ]
+                },
                 "focal-shape:TemporalEnvelopeValue": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>"
                   ]
                 },
-                "focal-shape:ScenarioMarkerIsAConcept": {
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>"
+                  ]
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>"
+                  ]
+                },
+                "focal-shape:AnalogyNamesItsReference": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>/focal-transf-prop:value"
                   ]
@@ -334,21 +349,6 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>/focal-transf-prop:value"
                   ]
                 },
-                "focal-shape:SpatialEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>"
-                  ]
-                },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>"
-                  ]
-                },
-                "focal-shape:AnalogyNamesItsReference": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>/focal-transf-prop:value"
-                  ]
-                },
                 "focal-shape:EnvelopeConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>"
@@ -356,7 +356,7 @@
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>/focal-transf-prop:value\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>/focal-transf-prop:value\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>/focal-transf-prop:value\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>/focal-transf-prop:value\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/epochs>\n"
             }
           ]
         }
@@ -433,12 +433,27 @@
             {
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
               "focusNodes": {
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value"
+                  ]
+                },
                 "focal-shape:TemporalEnvelopeValue": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>"
                   ]
                 },
-                "focal-shape:ScenarioMarkerIsAConcept": {
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>"
+                  ]
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>"
+                  ]
+                },
+                "focal-shape:AnalogyNamesItsReference": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value"
                   ]
@@ -453,21 +468,6 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value"
                   ]
                 },
-                "focal-shape:SpatialEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>"
-                  ]
-                },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>"
-                  ]
-                },
-                "focal-shape:AnalogyNamesItsReference": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value"
-                  ]
-                },
                 "focal-shape:EnvelopeConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>"
@@ -475,7 +475,7 @@
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/gwl-15>\n"
             }
           ]
         }
@@ -552,12 +552,27 @@
             {
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
               "focusNodes": {
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>/focal-transf-prop:value"
+                  ]
+                },
                 "focal-shape:TemporalEnvelopeValue": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>"
                   ]
                 },
-                "focal-shape:ScenarioMarkerIsAConcept": {
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>"
+                  ]
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>"
+                  ]
+                },
+                "focal-shape:AnalogyNamesItsReference": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>/focal-transf-prop:value"
                   ]
@@ -572,21 +587,6 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>/focal-transf-prop:value"
                   ]
                 },
-                "focal-shape:SpatialEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>"
-                  ]
-                },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>"
-                  ]
-                },
-                "focal-shape:AnalogyNamesItsReference": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>/focal-transf-prop:value"
-                  ]
-                },
                 "focal-shape:EnvelopeConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>"
@@ -594,7 +594,7 @@
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>/focal-transf-prop:value\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>/focal-transf-prop:value\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>/focal-transf-prop:value\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>/focal-transf-prop:value\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/ecological-range>\n"
             }
           ]
         }
@@ -671,12 +671,27 @@
             {
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
               "focusNodes": {
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>/focal-transf-prop:value"
+                  ]
+                },
                 "focal-shape:TemporalEnvelopeValue": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>"
                   ]
                 },
-                "focal-shape:ScenarioMarkerIsAConcept": {
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>"
+                  ]
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>"
+                  ]
+                },
+                "focal-shape:AnalogyNamesItsReference": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>/focal-transf-prop:value"
                   ]
@@ -691,21 +706,6 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>/focal-transf-prop:value"
                   ]
                 },
-                "focal-shape:SpatialEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>"
-                  ]
-                },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>"
-                  ]
-                },
-                "focal-shape:AnalogyNamesItsReference": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>/focal-transf-prop:value"
-                  ]
-                },
                 "focal-shape:EnvelopeConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>"
@@ -713,7 +713,7 @@
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>/focal-transf-prop:value\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>/focal-transf-prop:value\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>/focal-transf-prop:value\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>/focal-transf-prop:value\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/eur11-grid>\n"
             }
           ]
         }
@@ -790,12 +790,27 @@
             {
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
               "focusNodes": {
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>/focal-transf-prop:value"
+                  ]
+                },
                 "focal-shape:TemporalEnvelopeValue": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>"
                   ]
                 },
-                "focal-shape:ScenarioMarkerIsAConcept": {
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>"
+                  ]
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>"
+                  ]
+                },
+                "focal-shape:AnalogyNamesItsReference": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>/focal-transf-prop:value"
                   ]
@@ -810,21 +825,6 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>/focal-transf-prop:value"
                   ]
                 },
-                "focal-shape:SpatialEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>"
-                  ]
-                },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>"
-                  ]
-                },
-                "focal-shape:AnalogyNamesItsReference": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>/focal-transf-prop:value"
-                  ]
-                },
                 "focal-shape:EnvelopeConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>"
@@ -832,7 +832,7 @@
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>/focal-transf-prop:value\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>/focal-transf-prop:value\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>/focal-transf-prop:value\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>/focal-transf-prop:value\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/extents/euro-cordex-eur11>\n"
             }
           ]
         }
