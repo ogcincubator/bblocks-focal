@@ -370,3 +370,8 @@ x-jsonld-prefixes:
   dcat: http://www.w3.org/ns/dcat#
   rdfs: http://www.w3.org/2000/01/rdf-schema#
   dcterms: http://purl.org/dc/terms/
+x-bblocks-metadata:
+  itemIdentifier: ogc.focal.transferability.envelopeConstraint
+  register: https://ogcincubator.github.io/bblocks-focal/build/register.json
+  version: '0.8'
+  dateOfLastChange: '2026-11-10'

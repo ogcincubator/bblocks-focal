@@ -1,0 +1,8 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/context.jsonld",
+  "noConstraintsStated": true,
+  "envelope": [],
+  "artifacts": [],
+  "rules": [],
+  "transferabilityNotes": "The provider states that the results carry no validity boundary and need no adaptation. This is the provider's claim, not a verified one."
+}

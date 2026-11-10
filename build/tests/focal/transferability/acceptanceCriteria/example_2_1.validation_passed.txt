@@ -1,5 +1,5 @@
 Validation report for ogc.focal.transferability.acceptanceCriteria - FOCAL Artifact Acceptance Criteria
-Generated 2026-10-19T11:08:52.195007+00:00
+Generated 2026-11-10T16:11:25.212239+00:00
 === Files ===
 Using example_2_1.json from examples
 JSON-LD context is present - uplifting
@@ -14,15 +14,12 @@ Validation passed
 === SHACL ===
 Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):
  - /github/workspace/_sources/transferability/vocab/ontology.ttl
-Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl:
-  Validation Report
-  Conforms: True
-  
+Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl: no results
 Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:
- - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*
- - Shape _:nf8034f70cb8a4ca38f59dd6a598a144cb3: *none*
  - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*
+ - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*
  - Shape focal-shape:AcceptanceCriteria: *none*
+ - Shape _:n4c14766fdb514567bda6cb717a5ef1a5b3: *none*
 
 === End SHACL ===
 

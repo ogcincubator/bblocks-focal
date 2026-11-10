@@ -33,6 +33,11 @@ properties:
     x-jsonld-id: http://www.w3.org/2000/01/rdf-schema#comment
 x-jsonld-prefixes:
   rdfs: http://www.w3.org/2000/01/rdf-schema#
+x-bblocks-metadata:
+  itemIdentifier: ogc.focal.transferability.notes
+  register: https://ogcincubator.github.io/bblocks-focal/build/register.json
+  version: '0.3'
+  dateOfLastChange: '2026-11-10'
 
 ```
 

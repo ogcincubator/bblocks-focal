@@ -2,10 +2,11 @@
   "title": "Validation report for ogc.focal.transferability.notes - FOCAL Transferability Notes (mixin)",
   "bblockName": "FOCAL Transferability Notes (mixin)",
   "bblockId": "ogc.focal.transferability.notes",
-  "generated": "2026-10-19T11:08:52.047986+00:00",
+  "generated": "2026-11-10T16:11:25.030435+00:00",
   "result": true,
   "items": [],
   "globalErrors": {},
+  "hasWarnings": false,
   "counts": {
     "total": 0,
     "passed": 0,

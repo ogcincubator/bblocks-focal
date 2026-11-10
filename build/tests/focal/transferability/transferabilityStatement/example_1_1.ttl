@@ -1,0 +1,7 @@
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] rdfs:comment "The provider states that the results carry no validity boundary and need no adaptation. This is the provider's claim, not a verified one." ;
+    focal-transf-prop:noConstraintsStated true .
+

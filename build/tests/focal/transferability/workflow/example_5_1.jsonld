@@ -9,6 +9,30 @@
       "packages": [
         {
           "package": "python"
+        },
+        {
+          "package": "numpy"
+        },
+        {
+          "package": "pandas"
+        },
+        {
+          "package": "xarray"
+        },
+        {
+          "package": "xclim"
+        },
+        {
+          "package": "dask"
+        },
+        {
+          "package": "s3fs"
+        },
+        {
+          "package": "xESMF"
+        },
+        {
+          "package": "h5netcdf"
         }
       ]
     }
@@ -25,20 +49,65 @@
   },
   "transferability": {
     "trainingRequired": false,
-    "noConstraintsStated": true,
-    "envelope": [],
+    "envelope": [
+      {
+        "id": "ceu3-domain",
+        "role": "valid-for",
+        "dimension": "spatial",
+        "value": {
+          "asWKT": "POLYGON((1.6198 44.8502,18.2799 44.8502,18.2799 56.2362,1.6198 56.2362,1.6198 44.8502))"
+        }
+      },
+      {
+        "id": "gwl-2",
+        "role": "valid-for",
+        "dimension": "temporal",
+        "value": {
+          "scenarioMarker": "gwl-2.0"
+        }
+      },
+      {
+        "id": "gwl-3",
+        "role": "valid-for",
+        "dimension": "temporal",
+        "value": {
+          "scenarioMarker": "gwl-3.0"
+        }
+      }
+    ],
     "artifacts": [
       {
         "id": "nukleus-ensemble",
         "artifact": "9-member NUKLEUS regional climate ensemble",
         "artifactRole": "workflow-input",
-        "artifactRef": "/inputs/nukleus_ensemble",
-        "transferabilityNotes": "Declared because the delivered indices depend on it, and left ungoverned because the source states no condition under which it would have to change. Question 9's answer is 'Nothing'."
+        "artifactRef": "/inputs/nukleus_ensemble"
       }
     ],
-    "rules": [],
-    "transferabilityNotes": "Both arrays are empty deliberately, not for want of an entry. The questionnaire answers questions 8, 9 and 10 with 'Nothing', 'Nothing' and 'All parts are portable', so this states no validity boundary and no adaptation step. Two caveats travel with that. First, it is the source's claim and not a verified one: a nine-member regional climate ensemble delivered as precomputed indices very likely does carry conditions this questionnaire did not ask about, and the owner has been asked to confirm or correct the emptiness. Second, question 7 states that timeslices are represented as Global Warming Levels rather than calendar periods, which is a genuine temporal fact but not one this envelope can hold: no specific level is named in the source, and the scenario-marker value takes a level, not the assertion that levels are the indexing scheme. Naming one would be fabricating a slice."
+    "rules": [
+      {
+        "appliesTo": [
+          "nukleus-ensemble"
+        ],
+        "when": [
+          {
+            "constraint": "ceu3-domain",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true
+      }
+    ],
+    "transferabilityNotes": "Redistribution is a separate permission issue: the NUKLEUS publication is pending. The localized climate data is part of the ensemble processing, not a separate input. Serving the delivered indices needs no rerun inside the domain; recreating them needs the climate-model inputs and the Python index calculation."
   },
   "computationType": "precomputed-delivery",
-  "maturityStatus": "operational"
+  "maturityStatus": "pre-operational",
+  "qualityAnnotation": [
+    {
+      "dimension": "intended-use-limit",
+      "note": "Results are derived from the nine-member NUKLEUS ensemble and apply only within the delivered spatial domain and the available historical and GWL timeslices; they depend on the climate-model inputs and the ensemble representation."
+    }
+  ]
 }

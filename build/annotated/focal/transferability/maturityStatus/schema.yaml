@@ -31,3 +31,8 @@ properties:
     x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/
 x-jsonld-prefixes:
   focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/
+x-bblocks-metadata:
+  itemIdentifier: ogc.focal.transferability.maturityStatus
+  register: https://ogcincubator.github.io/bblocks-focal/build/register.json
+  version: '0.2'
+  dateOfLastChange: '2026-11-10'

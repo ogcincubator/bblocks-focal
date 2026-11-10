@@ -35,6 +35,11 @@ properties:
     x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/computation-types/
 x-jsonld-prefixes:
   focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/
+x-bblocks-metadata:
+  itemIdentifier: ogc.focal.transferability.computationType
+  register: https://ogcincubator.github.io/bblocks-focal/build/register.json
+  version: '0.3'
+  dateOfLastChange: '2026-11-10'
 
 ```
 

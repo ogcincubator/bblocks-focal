@@ -25,9 +25,10 @@ description: "What a dataset has to satisfy to serve as a given artifact: the va
   own, and only because a workflow's internal expectation of what an input is called
   is not a published fact about anything.\n**Evidenced 2/8:** UP-WF3 states the fullest
   contract in the corpus (variable name, either of two units, a time axis, one of
-  two grids); UP-WF2's planned Eurostat input states a schema compatibility preference.
-  Expect this to grow: the question was never asked in the questionnaires, so absence
-  here is not evidence that other workflows have no contract.\n"
+  two grids); UP-WF2 states the raster conventions its code assumes (variable name,
+  packing, no-data). No current record uses `conformsTo`. Expect this to grow: the
+  question was never asked in the questionnaires, so absence here is not evidence
+  that other workflows have no contract.\n"
 allOf:
 - $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml
 - type: object
@@ -144,14 +145,16 @@ allOf:
       minItems: 1
       items:
         $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.yaml
-      description: "Schemas or specifications the data must conform to, as identifiers.
+      description: 'Schemas or specifications the data must conform to, as identifiers.
         Uplifts to `dcterms:conformsTo`, the term catalogues already use for exactly
-        this.\nUP-WF2's planned Heat Risk Indicator is the evidenced case: replacement
-        census data \"preferably following a schema compatible with Eurostat's\".
-        Note that source says *preferably*, so recording it here states it more firmly
-        than the questionnaire does \u2014 which is a thing to check with the owner
-        rather than to smooth over. Where the preference is genuinely soft, `transferabilityNotes`
-        is the honest home for it.\n"
+        this.
+
+        No current record uses it. It was drafted for UP-WF2''s planned Heat Risk
+        Indicator (census data "preferably following a schema compatible with Eurostat''s"),
+        which the owners say is not part of the workflow today. Where a preference
+        is genuinely soft, `transferabilityNotes` is the honest home for it.
+
+        '
       x-jsonld-id: http://purl.org/dc/terms/conformsTo
       x-jsonld-type: '@id'
       x-jsonld-container: '@set'
@@ -168,3 +171,8 @@ x-jsonld-prefixes:
   focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/
   dcterms: http://purl.org/dc/terms/
   rdfs: http://www.w3.org/2000/01/rdf-schema#
+x-bblocks-metadata:
+  itemIdentifier: ogc.focal.transferability.acceptanceCriteria
+  register: https://ogcincubator.github.io/bblocks-focal/build/register.json
+  version: '0.4'
+  dateOfLastChange: '2026-11-10'

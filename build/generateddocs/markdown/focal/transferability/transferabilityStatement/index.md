@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Statement (Schema)
 
-`ogc.focal.transferability.transferabilityStatement` *v0.9*
+`ogc.focal.transferability.transferabilityStatement` *v0.11*
 
 Where something's results are valid (envelope), which reference/calibration artifacts it depends on (artifacts), and what must happen to each under which conditions (rules) - three id-addressable lists joined by reference rather than nesting.
 
@@ -24,10 +24,11 @@ Three id-addressable lists joined by reference rather than by nesting:
 needs adapting; assessed, no validity boundary. Both are positive portability facts, and quite
 different from the property being absent, which says nobody has looked. Requiring at least one
 entry forces anyone in the first situation to invent one. For `envelope` that minimum also made
-"valid everywhere" inexpressible except as a world-sized polygon, and left the one workflow whose
-source states no boundary at all (UP-WF1) with no honest representation rather than one saying
-exactly that. Say which case it is in `transferabilityNotes`, and set `noConstraintsStated: true`
-so that a reader can tell a claim from a blank.
+"valid everywhere" inexpressible except as a world-sized polygon, and gave a source that states no
+boundary at all no honest representation, rather than one saying exactly that. No pilot workflow
+evidences that case today, so this block carries a small illustrative example. Say which case it
+is in `transferabilityNotes`, and set `noConstraintsStated: true` so that a reader can tell a
+claim from a blank.
 
 Two optional booleans state absences outright. `noConstraintsStated` says the source named no
 boundary and no adaptation step (it records what was said, not an assessment). `trainingRequired` says whether training
@@ -56,6 +57,52 @@ including the statement's own `transferabilityNotes`, are `rdfs:comment`. FOCAL 
 [`ogc.focal.transferability.workflow`](bblocks://ogc.focal.transferability.workflow) attaches one
 statement of this shape to a profiled `CWLWorkflow`, but the same bundle can attach to a step, a
 process, or a delivered dataset.
+
+## Examples
+
+### An empty envelope stated as a claim
+The smallest statement the schema accepts, and the case the `noConstraintsStated` marker
+exists for. Two empty arrays alone cannot be told from a form nobody filled in; the marker
+says the source named no validity boundary and no adaptation step, and the note says whose
+claim it is. It records what was said, not a finding that anyone assessed the results.
+
+Illustrative only: no pilot workflow evidences this case today.
+
+#### json
+```json
+{
+  "noConstraintsStated": true,
+  "envelope": [],
+  "artifacts": [],
+  "rules": [],
+  "transferabilityNotes": "The provider states that the results carry no validity boundary and need no adaptation. This is the provider's claim, not a verified one."
+}
+
+```
+
+#### jsonld
+```jsonld
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/context.jsonld",
+  "noConstraintsStated": true,
+  "envelope": [],
+  "artifacts": [],
+  "rules": [],
+  "transferabilityNotes": "The provider states that the results carry no validity boundary and need no adaptation. This is the provider's claim, not a verified one."
+}
+```
+
+#### ttl
+```ttl
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] rdfs:comment "The provider states that the results carry no validity boundary and need no adaptation. This is the provider's claim, not a verified one." ;
+    focal-transf-prop:noConstraintsStated true .
+
+
+```
 
 ## Schema
 
@@ -96,17 +143,16 @@ description: "Where something's results are valid, which reference or calibratio
   restates the default, which is worth doing where it makes a cascade legible (UP-WF2
   pairs `inside` with `outside` over one constraint) and is noise otherwise. And an
   **empty `envelope` is a claim, not a blank**: it says the results carry no validity
-  boundary at all, which is what a genuinely universal workflow looks like and what
-  UP-WF1's questionnaire literally answers (\"All parts are portable\"). Record why
-  in `transferabilityNotes`, and set `noConstraintsStated: true` \u2014 a boundary
-  nobody could find and a boundary that does not exist are the same empty array otherwise,
-  and the marker is what tells them apart.\n**Conjunction and disjunction.** A rule's
-  `when` is an AND: every condition must hold for the rule to fire. A disjunction
-  is written as two rules. That is a deliberate limit rather than a missing feature
-  \u2014 two conditions leading to the same action really are two statements, and
-  keeping them separate keeps each traceable to the sentence in a questionnaire it
-  came from, which a nested boolean expression does not. `actions` remains an OR-set:
-  any one resolves the rule.\n"
+  boundary at all, which is what a genuinely universal workflow looks like; no pilot
+  workflow evidences that case today. Record why in `transferabilityNotes`, and set
+  `noConstraintsStated: true` \u2014 a boundary nobody could find and a boundary that
+  does not exist are the same empty array otherwise, and the marker is what tells
+  them apart.\n**Conjunction and disjunction.** A rule's `when` is an AND: every condition
+  must hold for the rule to fire. A disjunction is written as two rules. That is a
+  deliberate limit rather than a missing feature \u2014 two conditions leading to
+  the same action really are two statements, and keeping them separate keeps each
+  traceable to the sentence in a questionnaire it came from, which a nested boolean
+  expression does not. `actions` remains an OR-set: any one resolves the rule.\n"
 allOf:
 - $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml
 - type: object
@@ -125,9 +171,9 @@ allOf:
         draft required at least one entry, on the reasoning that inventing a boundary
         to satisfy the schema is worse than leaving a workflow unmodelled. That is
         still true, and the minimum did not achieve it: it made "valid everywhere"
-        inexpressible except by drawing a world-sized polygon, and it left the one
-        workflow whose source states no boundary (UP-WF1) with no honest representation
-        at all rather than one saying exactly that. Say which case it is in `transferabilityNotes`.
+        inexpressible except by drawing a world-sized polygon, and it gave a source
+        that states no boundary no honest representation at all, rather than one saying
+        exactly that. Say which case it is in `transferabilityNotes`.
 
         '
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/envelope
@@ -147,8 +193,8 @@ allOf:
         a form nobody filled in. It records what the source said, not a finding that
         anyone assessed the results, and it is not a verified claim; say who made
         it in `transferabilityNotes`. Only meaningful, and only valid, alongside an
-        empty `envelope` and an empty `rules`; omit it otherwise. Currently evidenced
-        once (UP-WF1: "Nothing", "Nothing", "All parts are portable").
+        empty `envelope` and an empty `rules`; omit it otherwise. Not evidenced by
+        any pilot workflow today; see the illustrative example.
 
         '
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/noConstraintsStated
@@ -161,7 +207,7 @@ allOf:
         is what `retrain` actions and `trained-on` envelope entries presuppose. `false`
         alongside a `trained-on` envelope entry is contradictory and is rejected by
         the shapes. Evidenced by every questionnaire that answers question 5: two
-        say yes (FP-WF1, FP-WF3) and five say no (FP-WF2, FP-WF5, UP-WF1, UP-WF2,
+        say yes (FP-WF1, FP-WF3) and six say no (FP-WF2, FP-WF4, FP-WF5, UP-WF1, UP-WF2,
         UP-WF3).
 
         '
@@ -249,8 +295,8 @@ $defs:
           It lives on the artifact rather than on the rule because it is a standing
           property of the interface, true whether or not anything is being transferred.
           A substitution is merely when it becomes visible. Optional, and thinly evidenced
-          (UP-WF3, and loosely UP-WF2''s planned Eurostat input) because the questionnaires
-          never asked.
+          (UP-WF3, and UP-WF2''s raster conventions) because the questionnaires never
+          asked.
 
           '
         x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/acceptanceCriteria
@@ -280,6 +326,11 @@ x-jsonld-prefixes:
   dcterms: http://purl.org/dc/terms/
   focal-transf: https://w3id.org/ogc/hosted/focal/transferability/
   prov: http://www.w3.org/ns/prov#
+x-bblocks-metadata:
+  itemIdentifier: ogc.focal.transferability.transferabilityStatement
+  register: https://ogcincubator.github.io/bblocks-focal/build/register.json
+  version: '0.11'
+  dateOfLastChange: '2026-11-10'
 
 ```
 

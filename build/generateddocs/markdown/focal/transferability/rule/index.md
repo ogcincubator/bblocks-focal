@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Rule (Schema)
 
-`ogc.focal.transferability.rule` *v0.7*
+`ogc.focal.transferability.rule` *v0.8*
 
 What must happen, to which artifacts, under which envelope conditions. Conditions cite envelope constraints by id and are conjunctive; actions are an OR-set.
 
@@ -353,25 +353,20 @@ nothing they can act on.
 
 
 ### Coarse fallback when no constraint can be cited
-UP-WF2's planned Eurostat input is not implemented yet, so there is no envelope fact to point
-at. `triggeredBy` states the condition coarsely rather than forcing an invented boundary.
+UP-WF3's data loader is built around the FOCAL STAC catalogue. The condition is where the data
+comes from, not where the target is, so there is no envelope fact to point at. `triggeredBy`
+states the condition coarsely rather than forcing an invented boundary.
 
 At least one of `when` or `triggeredBy` is required, so no rule is left with no stated
 condition at all. Prefer `when` wherever a constraint exists to cite.
 
-`affects` names what stops working if the terminal branch of the OR-set is the one taken.
-Without it `component-not-executable` has no object, and a consumer cannot tell losing one
-step from losing the run.
-
 #### json
 ```json
 {
-  "appliesTo": ["eurostat"],
-  "triggeredBy": "different-geographic-coverage",
-  "actions": ["replace-with-local-equivalent", "component-not-executable"],
-  "affects": ["/steps/heat_risk_indicator"],
-  "mandatory": true,
-  "transferabilityNotes": "Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it."
+  "appliesTo": ["focal-stac-loader"],
+  "triggeredBy": "different-dataset",
+  "actions": ["replace-with-local-equivalent"],
+  "mandatory": true
 }
 
 ```
@@ -381,34 +376,25 @@ step from losing the run.
 {
   "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld",
   "appliesTo": [
-    "eurostat"
+    "focal-stac-loader"
   ],
-  "triggeredBy": "different-geographic-coverage",
+  "triggeredBy": "different-dataset",
   "actions": [
-    "replace-with-local-equivalent",
-    "component-not-executable"
+    "replace-with-local-equivalent"
   ],
-  "affects": [
-    "/steps/heat_risk_indicator"
-  ],
-  "mandatory": true,
-  "transferabilityNotes": "Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it."
+  "mandatory": true
 }
 ```
 
 #### ttl
 ```ttl
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-[] rdfs:comment "Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it." ;
-    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
-        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-    focal-transf-prop:affects "/steps/heat_risk_indicator" ;
-    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eurostat> ;
+[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/focal-stac-loader> ;
     focal-transf-prop:mandatory true ;
-    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> .
+    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-dataset> .
 
 
 ```
@@ -541,11 +527,15 @@ allOf:
       description: "Whether applying one of `actions` is mandatory once the conditions
         hold. Defaults to true. When false, skipping is allowed but degrades result
         quality or trust rather than blocking execution \u2014 say what degrades in
-        `transferabilityNotes`.\nSays nothing on a rule whose only action is `reuse-as-is`:
-        \"you must do nothing\" and \"you may do nothing\" are the same instruction.
-        Omit it there.\nNamed `mandatory` rather than `required`: a data property
-        spelled like a JSON Schema keyword reads as the keyword, and this one sits
-        beside real `required` lists.\n"
+        `transferabilityNotes`.\nThis is about validity, not executability. Whether
+        the workflow can run without an input at all is the workflow description's
+        to say (in CWL an optional input is `File?`, with a step `when`). `mandatory`
+        says whether, once the target is outside the artifact's coverage, replacing
+        it is compulsory or may be skipped at the cost of trust.\nSays nothing on
+        a rule whose only action is `reuse-as-is`: \"you must do nothing\" and \"you
+        may do nothing\" are the same instruction. Omit it there.\nNamed `mandatory`
+        rather than `required`: a data property spelled like a JSON Schema keyword
+        reads as the keyword, and this one sits beside real `required` lists.\n"
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/mandatory
 $defs:
   condition:
@@ -583,6 +573,11 @@ $defs:
         x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/tests/
 x-jsonld-prefixes:
   focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/
+x-bblocks-metadata:
+  itemIdentifier: ogc.focal.transferability.rule
+  register: https://ogcincubator.github.io/bblocks-focal/build/register.json
+  version: '0.8'
+  dateOfLastChange: '2026-11-10'
 
 ```
 

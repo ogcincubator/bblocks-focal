@@ -2,7 +2,7 @@
   "title": "Validation report for ogc.focal.transferability.observingSystem - FOCAL Transferability Observing System",
   "bblockName": "FOCAL Transferability Observing System",
   "bblockId": "ogc.focal.transferability.observingSystem",
-  "generated": "2026-10-19T11:08:55.728561+00:00",
+  "generated": "2026-11-10T16:11:38.122911+00:00",
   "result": true,
   "items": [
     {
@@ -14,6 +14,7 @@
         "language": "json"
       },
       "result": true,
+      "hasWarnings": false,
       "sections": [
         {
           "name": "GENERAL",
@@ -82,7 +83,7 @@
               "shaclFile": "_sources/transferability/observingSystem/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/observingSystem/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/observingSystem/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/observingSystem/shapes.shacl",
@@ -101,25 +102,12 @@
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "focusNodes": {
-                "focal-shape:RuleCitesDeclaredConstraint": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability"
-                  ]
-                },
-                "focal-shape:NoConstraintsMeansNoConstraints": {
-                  "nodes": []
-                },
-                "focal-shape:RuleCitesDeclaredArtifact": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability"
-                  ]
-                },
-                "focal-shape:ArtifactIsGovernedByARule": {
+                "focal-shape:TransferabilityStatement": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability"
                   ]
@@ -129,27 +117,40 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability"
                   ]
                 },
-                "focal-shape:TransferabilityStatement": {
+                "focal-shape:RuleCitesDeclaredConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability"
                   ]
                 },
+                "focal-shape:ArtifactDependency": {
+                  "nodes": []
+                },
+                "focal-shape:NoConstraintsMeansNoConstraints": {
+                  "nodes": []
+                },
                 "focal-shape:ArtifactRefOnlyForInternalRoles": {
                   "nodes": []
                 },
-                "focal-shape:ArtifactDependency": {
-                  "nodes": []
+                "focal-shape:ArtifactIsGovernedByARule": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredArtifact": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability"
+                  ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability\n - Shape focal-shape:NoConstraintsMeansNoConstraints: *none*\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability\n - Shape focal-shape:NoTrainingMeansNoTrainedOn: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: *none*\n - Shape focal-shape:ArtifactDependency: *none*\n"
+              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability\n - Shape focal-shape:NoTrainingMeansNoTrainedOn: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactDependency: *none*\n - Shape focal-shape:NoConstraintsMeansNoConstraints: *none*\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: *none*\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/computation-type>/focal-transf-prop:transferability\n"
             },
             {
               "op": "shacl-report",
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
@@ -157,25 +158,25 @@
                 "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 },
-                "focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first": {
-                  "nodes": []
-                },
                 "focal-shape:AcceptanceCriteria": {
                   "nodes": []
                 },
-                "_:n3a7dbdd91f5643588cd62ed12813b5cbb3": {
+                "_:nc61de116972f4c6bbcecb16813d32761b3": {
+                  "nodes": []
+                },
+                "focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape _:n3a7dbdd91f5643588cd62ed12813b5cbb3: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape _:nc61de116972f4c6bbcecb16813d32761b3: *none*\n - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*\n"
             },
             {
               "op": "shacl-report",
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
@@ -183,22 +184,22 @@
                 "focal-shape:TemporalEnvelopeValue": {
                   "nodes": []
                 },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": []
-                },
-                "focal-shape:ScenarioMarkerIsAConcept": {
+                "focal-shape:GridStructureEnvelopeValue": {
                   "nodes": []
                 },
                 "focal-shape:GridTypeIsAConcept": {
                   "nodes": []
                 },
+                "focal-shape:AnalogyNamesItsReference": {
+                  "nodes": []
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": []
+                },
                 "focal-shape:SpatialEnvelopeValue": {
                   "nodes": []
                 },
-                "focal-shape:GridStructureEnvelopeValue": {
-                  "nodes": []
-                },
-                "focal-shape:AnalogyNamesItsReference": {
+                "focal-shape:ScenarioMarkerIsAConcept": {
                   "nodes": []
                 },
                 "focal-shape:EnvelopeConstraint": {
@@ -206,39 +207,39 @@
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: *none*\n - Shape focal-shape:NonGeometricEnvelopeValue: *none*\n - Shape focal-shape:ScenarioMarkerIsAConcept: *none*\n - Shape focal-shape:GridTypeIsAConcept: *none*\n - Shape focal-shape:SpatialEnvelopeValue: *none*\n - Shape focal-shape:GridStructureEnvelopeValue: *none*\n - Shape focal-shape:AnalogyNamesItsReference: *none*\n - Shape focal-shape:EnvelopeConstraint: *none*\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: *none*\n - Shape focal-shape:GridStructureEnvelopeValue: *none*\n - Shape focal-shape:GridTypeIsAConcept: *none*\n - Shape focal-shape:AnalogyNamesItsReference: *none*\n - Shape focal-shape:NonGeometricEnvelopeValue: *none*\n - Shape focal-shape:SpatialEnvelopeValue: *none*\n - Shape focal-shape:ScenarioMarkerIsAConcept: *none*\n - Shape focal-shape:EnvelopeConstraint: *none*\n"
             },
             {
               "op": "shacl-report",
               "shaclFile": "_sources/transferability/rule/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/rule/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/rule/shapes.shacl",
               "focusNodes": {
-                "focal-shape:EnvelopeCondition": {
-                  "nodes": []
-                },
                 "focal-shape:TransferabilityRule": {
-                  "nodes": []
-                },
-                "focal-shape:OptionalRuleHasConsequence": {
                   "nodes": []
                 },
                 "focal-shape:RuleHasACondition": {
                   "nodes": []
                 },
-                "focal-shape:TerminalActionNamesWhatItAffects": {
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": []
+                },
+                "focal-shape:OptionalRuleHasConsequence": {
                   "nodes": []
                 },
                 "focal-shape:TerminalActionNotAlongsideReuse": {
                   "nodes": []
+                },
+                "focal-shape:TerminalActionNamesWhatItAffects": {
+                  "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:TransferabilityRule: *none*\n - Shape focal-shape:OptionalRuleHasConsequence: *none*\n - Shape focal-shape:RuleHasACondition: *none*\n - Shape focal-shape:TerminalActionNamesWhatItAffects: *none*\n - Shape focal-shape:TerminalActionNotAlongsideReuse: *none*\n"
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TransferabilityRule: *none*\n - Shape focal-shape:RuleHasACondition: *none*\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:OptionalRuleHasConsequence: *none*\n - Shape focal-shape:TerminalActionNotAlongsideReuse: *none*\n - Shape focal-shape:TerminalActionNamesWhatItAffects: *none*\n"
             }
           ]
         }
@@ -253,6 +254,7 @@
         "language": "json"
       },
       "result": true,
+      "hasWarnings": false,
       "sections": [
         {
           "name": "GENERAL",
@@ -318,8 +320,23 @@
               "op": "shacl-report",
               "shaclFile": "_sources/transferability/observingSystem/shapes.shacl",
               "graph": "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label> ;\n            sh:resultMessage \"a label, where given, is one non-empty string, in the words of the source.\" ;\n            sh:resultPath rdfs:label ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraintComponent sh:MinLengthConstraintComponent ;\n            sh:sourceShape [ sh:datatype xsd:string ;\n                    sh:maxCount 1 ;\n                    sh:message \"a label, where given, is one non-empty string, in the words of the source.\" ;\n                    sh:minLength 1 ;\n                    sh:name \"label\" ;\n                    sh:path rdfs:label ] ;\n            sh:value \"\" ] .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/observingSystem/shapes.shacl: 1 violation"
+            },
+            {
+              "op": "shacl-result",
+              "resultSeverity": "http://www.w3.org/ns/shacl#Violation",
+              "focusNode": "https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label",
+              "resultPath": "rdfs:label",
+              "sourceConstraintComponent": "http://www.w3.org/ns/shacl#MinLengthConstraintComponent",
+              "sourceShape": null,
+              "sourceShapeDescription": "focal-shape:ObservingSystem/sh:property \"label\" (path rdfs:label)",
+              "value": "\"\"",
+              "resultMessage": "a label, where given, is one non-empty string, in the words of the source.",
+              "shaclFile": "_sources/transferability/observingSystem/shapes.shacl",
               "isError": true,
-              "message": "Validation result for _sources/transferability/observingSystem/shapes.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Constraint Violation in MinLengthConstraintComponent (http://www.w3.org/ns/shacl#MinLengthConstraintComponent):\n  \tSeverity: sh:Violation\n  \tSource Shape: [ sh:datatype xsd:string ; sh:maxCount Literal(\"1\", datatype=xsd:integer) ; sh:message Literal(\"a label, where given, is one non-empty string, in the words of the source.\") ; sh:minLength Literal(\"1\", datatype=xsd:integer) ; sh:name Literal(\"label\") ; sh:path rdfs:label ]\n  \tFocus Node: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>\n  \tValue Node: Literal(\"\")\n  \tResult Path: rdfs:label\n  \tMessage: a label, where given, is one non-empty string, in the words of the source.\n  "
+              "severity": "error",
+              "message": "Violation (sh:MinLengthConstraintComponent):\n  Source shape: focal-shape:ObservingSystem/sh:property \"label\" (path rdfs:label)\n  Focus node: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>\n  Result path: rdfs:label\n  Value: \"\"\n  Message: a label, where given, is one non-empty string, in the words of the source."
             },
             {
               "shaclFile": "_sources/transferability/observingSystem/shapes.shacl",
@@ -338,25 +355,12 @@
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "focusNodes": {
-                "focal-shape:RuleCitesDeclaredConstraint": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability"
-                  ]
-                },
-                "focal-shape:NoConstraintsMeansNoConstraints": {
-                  "nodes": []
-                },
-                "focal-shape:RuleCitesDeclaredArtifact": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability"
-                  ]
-                },
-                "focal-shape:ArtifactIsGovernedByARule": {
+                "focal-shape:TransferabilityStatement": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability"
                   ]
@@ -366,27 +370,40 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability"
                   ]
                 },
-                "focal-shape:TransferabilityStatement": {
+                "focal-shape:RuleCitesDeclaredConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability"
                   ]
                 },
+                "focal-shape:ArtifactDependency": {
+                  "nodes": []
+                },
+                "focal-shape:NoConstraintsMeansNoConstraints": {
+                  "nodes": []
+                },
                 "focal-shape:ArtifactRefOnlyForInternalRoles": {
                   "nodes": []
                 },
-                "focal-shape:ArtifactDependency": {
-                  "nodes": []
+                "focal-shape:ArtifactIsGovernedByARule": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredArtifact": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability"
+                  ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability\n - Shape focal-shape:NoConstraintsMeansNoConstraints: *none*\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability\n - Shape focal-shape:NoTrainingMeansNoTrainedOn: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: *none*\n - Shape focal-shape:ArtifactDependency: *none*\n"
+              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability\n - Shape focal-shape:NoTrainingMeansNoTrainedOn: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactDependency: *none*\n - Shape focal-shape:NoConstraintsMeansNoConstraints: *none*\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: *none*\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/empty-label>/focal-transf-prop:transferability\n"
             },
             {
               "op": "shacl-report",
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
@@ -394,25 +411,25 @@
                 "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 },
-                "focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first": {
-                  "nodes": []
-                },
                 "focal-shape:AcceptanceCriteria": {
                   "nodes": []
                 },
-                "_:n3a7dbdd91f5643588cd62ed12813b5cbb3": {
+                "_:nc61de116972f4c6bbcecb16813d32761b3": {
+                  "nodes": []
+                },
+                "focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape _:n3a7dbdd91f5643588cd62ed12813b5cbb3: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape _:nc61de116972f4c6bbcecb16813d32761b3: *none*\n - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*\n"
             },
             {
               "op": "shacl-report",
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
@@ -420,22 +437,22 @@
                 "focal-shape:TemporalEnvelopeValue": {
                   "nodes": []
                 },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": []
-                },
-                "focal-shape:ScenarioMarkerIsAConcept": {
+                "focal-shape:GridStructureEnvelopeValue": {
                   "nodes": []
                 },
                 "focal-shape:GridTypeIsAConcept": {
                   "nodes": []
                 },
+                "focal-shape:AnalogyNamesItsReference": {
+                  "nodes": []
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": []
+                },
                 "focal-shape:SpatialEnvelopeValue": {
                   "nodes": []
                 },
-                "focal-shape:GridStructureEnvelopeValue": {
-                  "nodes": []
-                },
-                "focal-shape:AnalogyNamesItsReference": {
+                "focal-shape:ScenarioMarkerIsAConcept": {
                   "nodes": []
                 },
                 "focal-shape:EnvelopeConstraint": {
@@ -443,39 +460,39 @@
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: *none*\n - Shape focal-shape:NonGeometricEnvelopeValue: *none*\n - Shape focal-shape:ScenarioMarkerIsAConcept: *none*\n - Shape focal-shape:GridTypeIsAConcept: *none*\n - Shape focal-shape:SpatialEnvelopeValue: *none*\n - Shape focal-shape:GridStructureEnvelopeValue: *none*\n - Shape focal-shape:AnalogyNamesItsReference: *none*\n - Shape focal-shape:EnvelopeConstraint: *none*\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: *none*\n - Shape focal-shape:GridStructureEnvelopeValue: *none*\n - Shape focal-shape:GridTypeIsAConcept: *none*\n - Shape focal-shape:AnalogyNamesItsReference: *none*\n - Shape focal-shape:NonGeometricEnvelopeValue: *none*\n - Shape focal-shape:SpatialEnvelopeValue: *none*\n - Shape focal-shape:ScenarioMarkerIsAConcept: *none*\n - Shape focal-shape:EnvelopeConstraint: *none*\n"
             },
             {
               "op": "shacl-report",
               "shaclFile": "_sources/transferability/rule/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/rule/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/rule/shapes.shacl",
               "focusNodes": {
-                "focal-shape:EnvelopeCondition": {
-                  "nodes": []
-                },
                 "focal-shape:TransferabilityRule": {
-                  "nodes": []
-                },
-                "focal-shape:OptionalRuleHasConsequence": {
                   "nodes": []
                 },
                 "focal-shape:RuleHasACondition": {
                   "nodes": []
                 },
-                "focal-shape:TerminalActionNamesWhatItAffects": {
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": []
+                },
+                "focal-shape:OptionalRuleHasConsequence": {
                   "nodes": []
                 },
                 "focal-shape:TerminalActionNotAlongsideReuse": {
                   "nodes": []
+                },
+                "focal-shape:TerminalActionNamesWhatItAffects": {
+                  "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:TransferabilityRule: *none*\n - Shape focal-shape:OptionalRuleHasConsequence: *none*\n - Shape focal-shape:RuleHasACondition: *none*\n - Shape focal-shape:TerminalActionNamesWhatItAffects: *none*\n - Shape focal-shape:TerminalActionNotAlongsideReuse: *none*\n"
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TransferabilityRule: *none*\n - Shape focal-shape:RuleHasACondition: *none*\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:OptionalRuleHasConsequence: *none*\n - Shape focal-shape:TerminalActionNotAlongsideReuse: *none*\n - Shape focal-shape:TerminalActionNamesWhatItAffects: *none*\n"
             }
           ]
         }
@@ -490,6 +507,7 @@
         "language": "json"
       },
       "result": true,
+      "hasWarnings": false,
       "sections": [
         {
           "name": "GENERAL",
@@ -556,7 +574,7 @@
               "shaclFile": "_sources/transferability/observingSystem/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/observingSystem/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/observingSystem/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/observingSystem/shapes.shacl",
@@ -573,27 +591,29 @@
             {
               "op": "shacl-report",
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
-              "graph": "@prefix focal-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix focal-shape: <https://w3id.org/ogc/hosted/focal/transferability/shapes/> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode _:Ne4bd6f28970044c694d395f2d83bbc69 ;\n            sh:resultMessage \"trainingRequired is false but an envelope entry has the trained-on role. Use derived-from for a reference dataset that was computed rather than fitted.\" ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraint [ a sh:SPARQLConstraint ;\n                    sh:message \"trainingRequired is false but an envelope entry has the trained-on role. Use derived-from for a reference dataset that was computed rather than fitted.\" ;\n                    sh:select \"\"\"\n      SELECT $this WHERE {\n        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/trainingRequired> false .\n        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/envelope> ?e .\n        ?e <https://w3id.org/ogc/hosted/focal/transferability/properties/role>\n           <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> .\n      }\n    \"\"\" ] ;\n            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;\n            sh:sourceShape focal-shape:NoTrainingMeansNoTrainedOn ;\n            sh:value _:Ne4bd6f28970044c694d395f2d83bbc69 ] .\n\n_:Ne4bd6f28970044c694d395f2d83bbc69 focal-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site> ;\n    focal-prop:trainingRequired false .\n\n",
+              "graph": "@prefix focal-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix focal-shape: <https://w3id.org/ogc/hosted/focal/transferability/shapes/> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode _:Nf0ba45a7739942e79b6ff264cb5c581c ;\n            sh:resultMessage \"trainingRequired is false but an envelope entry has the trained-on role. Use derived-from for a reference dataset that was computed rather than fitted.\" ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraint [ a sh:SPARQLConstraint ;\n                    sh:message \"trainingRequired is false but an envelope entry has the trained-on role. Use derived-from for a reference dataset that was computed rather than fitted.\" ;\n                    sh:select \"\"\"\n      SELECT $this WHERE {\n        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/trainingRequired> false .\n        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/envelope> ?e .\n        ?e <https://w3id.org/ogc/hosted/focal/transferability/properties/role>\n           <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> .\n      }\n    \"\"\" ] ;\n            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;\n            sh:sourceShape focal-shape:NoTrainingMeansNoTrainedOn ;\n            sh:value _:Nf0ba45a7739942e79b6ff264cb5c581c ] .\n\n_:Nf0ba45a7739942e79b6ff264cb5c581c focal-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site> ;\n    focal-prop:trainingRequired false .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl: 1 violation"
+            },
+            {
+              "op": "shacl-result",
+              "resultSeverity": "http://www.w3.org/ns/shacl#Violation",
+              "focusNode": "Nf0ba45a7739942e79b6ff264cb5c581c",
+              "resultPath": null,
+              "sourceConstraintComponent": "http://www.w3.org/ns/shacl#SPARQLConstraintComponent",
+              "sourceShape": "https://w3id.org/ogc/hosted/focal/transferability/shapes/NoTrainingMeansNoTrainedOn",
+              "sourceShapeDescription": "focal-shape:NoTrainingMeansNoTrainedOn",
+              "value": "_:Nf0ba45a7739942e79b6ff264cb5c581c",
+              "resultMessage": "trainingRequired is false but an envelope entry has the trained-on role. Use derived-from for a reference dataset that was computed rather than fitted.",
+              "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "isError": true,
-              "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Constraint Violation in SPARQLConstraintComponent (http://www.w3.org/ns/shacl#SPARQLConstraintComponent):\n  \tSeverity: sh:Violation\n  \tSource Shape: focal-shape:NoTrainingMeansNoTrainedOn\n  \tFocus Node: [ focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site> ; focal-transf-prop:trainingRequired Literal(\"false\" = False, datatype=xsd:boolean) ]\n  \tValue Node: [ focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site> ; focal-transf-prop:trainingRequired Literal(\"false\" = False, datatype=xsd:boolean) ]\n  \tSource Constraint: [ rdf:type sh:SPARQLConstraint ; sh:message Literal(\"trainingRequired is false but an envelope entry has the trained-on role. Use derived-from for a reference dataset that was computed rather than fitted.\") ; sh:select Literal(\"\n        SELECT $this WHERE {\n          $this <https://w3id.org/ogc/hosted/focal/transferability/properties/trainingRequired> false .\n          $this <https://w3id.org/ogc/hosted/focal/transferability/properties/envelope> ?e .\n          ?e <https://w3id.org/ogc/hosted/focal/transferability/properties/role>\n             <https://w3id.org/ogc/hosted/focal/transferability/roles/trained-on> .\n        }\n      \") ]\n  \tMessage: trainingRequired is false but an envelope entry has the trained-on role. Use derived-from for a reference dataset that was computed rather than fitted.\n  "
+              "severity": "error",
+              "message": "Violation (sh:SPARQLConstraintComponent):\n  Source shape: focal-shape:NoTrainingMeansNoTrainedOn\n  Focus node: _:Nf0ba45a7739942e79b6ff264cb5c581c\n  Value: _:Nf0ba45a7739942e79b6ff264cb5c581c\n  Message: trainingRequired is false but an envelope entry has the trained-on role. Use derived-from for a reference dataset that was computed rather than fitted."
             },
             {
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "focusNodes": {
-                "focal-shape:RuleCitesDeclaredConstraint": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability"
-                  ]
-                },
-                "focal-shape:NoConstraintsMeansNoConstraints": {
-                  "nodes": []
-                },
-                "focal-shape:RuleCitesDeclaredArtifact": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability"
-                  ]
-                },
-                "focal-shape:ArtifactIsGovernedByARule": {
+                "focal-shape:TransferabilityStatement": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability"
                   ]
@@ -603,27 +623,40 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability"
                   ]
                 },
-                "focal-shape:TransferabilityStatement": {
+                "focal-shape:RuleCitesDeclaredConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability"
                   ]
                 },
+                "focal-shape:ArtifactDependency": {
+                  "nodes": []
+                },
+                "focal-shape:NoConstraintsMeansNoConstraints": {
+                  "nodes": []
+                },
                 "focal-shape:ArtifactRefOnlyForInternalRoles": {
                   "nodes": []
                 },
-                "focal-shape:ArtifactDependency": {
-                  "nodes": []
+                "focal-shape:ArtifactIsGovernedByARule": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredArtifact": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability"
+                  ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability\n - Shape focal-shape:NoConstraintsMeansNoConstraints: *none*\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability\n - Shape focal-shape:NoTrainingMeansNoTrainedOn: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: *none*\n - Shape focal-shape:ArtifactDependency: *none*\n"
+              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability\n - Shape focal-shape:NoTrainingMeansNoTrainedOn: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactDependency: *none*\n - Shape focal-shape:NoConstraintsMeansNoConstraints: *none*\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: *none*\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training>/focal-transf-prop:transferability\n"
             },
             {
               "op": "shacl-report",
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
@@ -631,25 +664,25 @@
                 "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 },
-                "focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first": {
-                  "nodes": []
-                },
                 "focal-shape:AcceptanceCriteria": {
                   "nodes": []
                 },
-                "_:n3a7dbdd91f5643588cd62ed12813b5cbb3": {
+                "_:nc61de116972f4c6bbcecb16813d32761b3": {
+                  "nodes": []
+                },
+                "focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape _:n3a7dbdd91f5643588cd62ed12813b5cbb3: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape _:nc61de116972f4c6bbcecb16813d32761b3: *none*\n - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*\n"
             },
             {
               "op": "shacl-report",
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
@@ -659,14 +692,9 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>"
                   ]
                 },
-                "focal-shape:NonGeometricEnvelopeValue": {
+                "focal-shape:GridStructureEnvelopeValue": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>"
-                  ]
-                },
-                "focal-shape:ScenarioMarkerIsAConcept": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>/focal-transf-prop:value"
                   ]
                 },
                 "focal-shape:GridTypeIsAConcept": {
@@ -674,17 +702,22 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>/focal-transf-prop:value"
                   ]
                 },
+                "focal-shape:AnalogyNamesItsReference": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>/focal-transf-prop:value"
+                  ]
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>"
+                  ]
+                },
                 "focal-shape:SpatialEnvelopeValue": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>"
                   ]
                 },
-                "focal-shape:GridStructureEnvelopeValue": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>"
-                  ]
-                },
-                "focal-shape:AnalogyNamesItsReference": {
+                "focal-shape:ScenarioMarkerIsAConcept": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>/focal-transf-prop:value"
                   ]
@@ -696,39 +729,39 @@
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>/focal-transf-prop:value\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>/focal-transf-prop:value\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>\n - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>\n - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>/focal-transf-prop:value\n - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>/focal-transf-prop:value\n - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>\n - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>\n - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>/focal-transf-prop:value\n - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4-fail/training#site>\n"
             },
             {
               "op": "shacl-report",
               "shaclFile": "_sources/transferability/rule/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/rule/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/rule/shapes.shacl",
               "focusNodes": {
-                "focal-shape:EnvelopeCondition": {
-                  "nodes": []
-                },
                 "focal-shape:TransferabilityRule": {
-                  "nodes": []
-                },
-                "focal-shape:OptionalRuleHasConsequence": {
                   "nodes": []
                 },
                 "focal-shape:RuleHasACondition": {
                   "nodes": []
                 },
-                "focal-shape:TerminalActionNamesWhatItAffects": {
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": []
+                },
+                "focal-shape:OptionalRuleHasConsequence": {
                   "nodes": []
                 },
                 "focal-shape:TerminalActionNotAlongsideReuse": {
                   "nodes": []
+                },
+                "focal-shape:TerminalActionNamesWhatItAffects": {
+                  "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:TransferabilityRule: *none*\n - Shape focal-shape:OptionalRuleHasConsequence: *none*\n - Shape focal-shape:RuleHasACondition: *none*\n - Shape focal-shape:TerminalActionNamesWhatItAffects: *none*\n - Shape focal-shape:TerminalActionNotAlongsideReuse: *none*\n"
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TransferabilityRule: *none*\n - Shape focal-shape:RuleHasACondition: *none*\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:OptionalRuleHasConsequence: *none*\n - Shape focal-shape:TerminalActionNotAlongsideReuse: *none*\n - Shape focal-shape:TerminalActionNamesWhatItAffects: *none*\n"
             }
           ]
         }
@@ -745,6 +778,7 @@
         "language": "application/json"
       },
       "result": true,
+      "hasWarnings": false,
       "sections": [
         {
           "name": "FILES",
@@ -769,7 +803,7 @@
               "op": "ttl-create",
               "empty": false,
               "filename": "example_1_1.ttl",
-              "size": 48,
+              "size": 42,
               "isError": false,
               "message": "Output Turtle example_1_1.ttl created"
             }
@@ -800,7 +834,7 @@
               "shaclFile": "_sources/transferability/observingSystem/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/observingSystem/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/observingSystem/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/observingSystem/shapes.shacl",
@@ -819,25 +853,12 @@
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "focusNodes": {
-                "focal-shape:RuleCitesDeclaredConstraint": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability"
-                  ]
-                },
-                "focal-shape:NoConstraintsMeansNoConstraints": {
-                  "nodes": []
-                },
-                "focal-shape:RuleCitesDeclaredArtifact": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability"
-                  ]
-                },
-                "focal-shape:ArtifactIsGovernedByARule": {
+                "focal-shape:TransferabilityStatement": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability"
                   ]
@@ -847,41 +868,54 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability"
                   ]
                 },
-                "focal-shape:TransferabilityStatement": {
+                "focal-shape:RuleCitesDeclaredConstraint": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability"
                   ]
                 },
-                "focal-shape:ArtifactRefOnlyForInternalRoles": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/senslog-model-and-api>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/target-climate-datasets>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/station-metadata>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/calibration-rules>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/sensor-network>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/observed-properties>"
-                  ]
-                },
                 "focal-shape:ArtifactDependency": {
                   "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/senslog-model-and-api>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/target-climate-datasets>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/station-metadata>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/calibration-rules>",
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/sensor-network>",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/observed-properties>"
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/senslog-model-and-api>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/observed-properties>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/calibration-rules>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/station-metadata>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/target-climate-datasets>"
+                  ]
+                },
+                "focal-shape:NoConstraintsMeansNoConstraints": {
+                  "nodes": []
+                },
+                "focal-shape:ArtifactRefOnlyForInternalRoles": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/sensor-network>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/senslog-model-and-api>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/observed-properties>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/calibration-rules>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/station-metadata>",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/target-climate-datasets>"
+                  ]
+                },
+                "focal-shape:ArtifactIsGovernedByARule": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredArtifact": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability\n - Shape focal-shape:NoConstraintsMeansNoConstraints: *none*\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability\n - Shape focal-shape:NoTrainingMeansNoTrainedOn: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/senslog-model-and-api>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/target-climate-datasets>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/station-metadata>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/calibration-rules>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/sensor-network>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/observed-properties>\n - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/senslog-model-and-api>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/target-climate-datasets>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/station-metadata>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/calibration-rules>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/sensor-network>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/observed-properties>\n"
+              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:TransferabilityStatement: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability\n - Shape focal-shape:NoTrainingMeansNoTrainedOn: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability\n - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/sensor-network>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/senslog-model-and-api>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/observed-properties>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/calibration-rules>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/station-metadata>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/target-climate-datasets>\n - Shape focal-shape:NoConstraintsMeansNoConstraints: *none*\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/sensor-network>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/senslog-model-and-api>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/observed-properties>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/calibration-rules>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/station-metadata>,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/target-climate-datasets>\n - Shape focal-shape:ArtifactIsGovernedByARule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability\n - Shape focal-shape:RuleCitesDeclaredArtifact: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability\n"
             },
             {
               "op": "shacl-report",
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
@@ -889,25 +923,25 @@
                 "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 },
-                "focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first": {
-                  "nodes": []
-                },
                 "focal-shape:AcceptanceCriteria": {
                   "nodes": []
                 },
-                "_:n3a7dbdd91f5643588cd62ed12813b5cbb3": {
+                "_:nc61de116972f4c6bbcecb16813d32761b3": {
+                  "nodes": []
+                },
+                "focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape _:n3a7dbdd91f5643588cd62ed12813b5cbb3: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape _:nc61de116972f4c6bbcecb16813d32761b3: *none*\n - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*\n"
             },
             {
               "op": "shacl-report",
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
@@ -915,22 +949,22 @@
                 "focal-shape:TemporalEnvelopeValue": {
                   "nodes": []
                 },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": []
-                },
-                "focal-shape:ScenarioMarkerIsAConcept": {
+                "focal-shape:GridStructureEnvelopeValue": {
                   "nodes": []
                 },
                 "focal-shape:GridTypeIsAConcept": {
                   "nodes": []
                 },
+                "focal-shape:AnalogyNamesItsReference": {
+                  "nodes": []
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": []
+                },
                 "focal-shape:SpatialEnvelopeValue": {
                   "nodes": []
                 },
-                "focal-shape:GridStructureEnvelopeValue": {
-                  "nodes": []
-                },
-                "focal-shape:AnalogyNamesItsReference": {
+                "focal-shape:ScenarioMarkerIsAConcept": {
                   "nodes": []
                 },
                 "focal-shape:EnvelopeConstraint": {
@@ -938,28 +972,19 @@
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: *none*\n - Shape focal-shape:NonGeometricEnvelopeValue: *none*\n - Shape focal-shape:ScenarioMarkerIsAConcept: *none*\n - Shape focal-shape:GridTypeIsAConcept: *none*\n - Shape focal-shape:SpatialEnvelopeValue: *none*\n - Shape focal-shape:GridStructureEnvelopeValue: *none*\n - Shape focal-shape:AnalogyNamesItsReference: *none*\n - Shape focal-shape:EnvelopeConstraint: *none*\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:TemporalEnvelopeValue: *none*\n - Shape focal-shape:GridStructureEnvelopeValue: *none*\n - Shape focal-shape:GridTypeIsAConcept: *none*\n - Shape focal-shape:AnalogyNamesItsReference: *none*\n - Shape focal-shape:NonGeometricEnvelopeValue: *none*\n - Shape focal-shape:SpatialEnvelopeValue: *none*\n - Shape focal-shape:ScenarioMarkerIsAConcept: *none*\n - Shape focal-shape:EnvelopeConstraint: *none*\n"
             },
             {
               "op": "shacl-report",
               "shaclFile": "_sources/transferability/rule/shapes.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/transferability/rule/shapes.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/transferability/rule/shapes.shacl: no results"
             },
             {
               "shaclFile": "_sources/transferability/rule/shapes.shacl",
               "focusNodes": {
-                "focal-shape:EnvelopeCondition": {
-                  "nodes": []
-                },
                 "focal-shape:TransferabilityRule": {
-                  "nodes": [
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules",
-                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules"
-                  ]
-                },
-                "focal-shape:OptionalRuleHasConsequence": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules",
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules"
@@ -971,7 +996,10 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules"
                   ]
                 },
-                "focal-shape:TerminalActionNamesWhatItAffects": {
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": []
+                },
+                "focal-shape:OptionalRuleHasConsequence": {
                   "nodes": [
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules",
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules"
@@ -982,10 +1010,16 @@
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules",
                     "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules"
                   ]
+                },
+                "focal-shape:TerminalActionNamesWhatItAffects": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules",
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules"
+                  ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:TransferabilityRule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:OptionalRuleHasConsequence: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:RuleHasACondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:TerminalActionNamesWhatItAffects: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:TerminalActionNotAlongsideReuse: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules\n"
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TransferabilityRule: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:RuleHasACondition: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:OptionalRuleHasConsequence: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:TerminalActionNotAlongsideReuse: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules\n - Shape focal-shape:TerminalActionNamesWhatItAffects: <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules,<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/>/focal-transf-prop:transferability/focal-transf-prop:rules\n"
             }
           ]
         }
@@ -993,6 +1027,7 @@
     }
   ],
   "globalErrors": {},
+  "hasWarnings": false,
   "counts": {
     "total": 4,
     "passed": 4,

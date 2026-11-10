@@ -33,5 +33,11 @@
   "x-jsonld-prefixes": {
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/"
+  },
+  "x-bblocks-metadata": {
+    "itemIdentifier": "ogc.focal.transferability.observingSystem",
+    "register": "https://ogcincubator.github.io/bblocks-focal/build/register.json",
+    "version": "0.2",
+    "dateOfLastChange": "2026-11-10"
   }
 }

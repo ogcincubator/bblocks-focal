@@ -1,15 +1,10 @@
 {
   "appliesTo": [
-    "eurostat"
+    "focal-stac-loader"
   ],
-  "triggeredBy": "different-geographic-coverage",
+  "triggeredBy": "different-dataset",
   "actions": [
-    "replace-with-local-equivalent",
-    "component-not-executable"
+    "replace-with-local-equivalent"
   ],
-  "affects": [
-    "/steps/heat_risk_indicator"
-  ],
-  "mandatory": true,
-  "transferabilityNotes": "Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it."
+  "mandatory": true
 }

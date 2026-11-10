@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Envelope Constraint (Schema)
 
-`ogc.focal.transferability.envelopeConstraint` *v0.6*
+`ogc.focal.transferability.envelopeConstraint` *v0.8*
 
 A single {role, dimension, value} statement bounding where a workflow's results are valid, addressable by id so rules can cite which boundary they are evaluated against. Spatial values are GeoSPARQL geometries and temporal values DCAT periods, so a consumer can evaluate them without knowing FOCAL.
 
@@ -21,7 +21,7 @@ array of these and more than one applies at once: FP-WF1's growth model needs th
 |---|---|---|
 | `trained-on` | `spatial` | a WKT geometry locating the Czech permanent sample plots |
 | `valid-for` | `ecological` | `"a comparable ecological range"` (a string, not a place) |
-| `can-run-on` | `climatic` | `"wherever downscaled climate data is available"` |
+| `valid-for` | `climatic` | `"the German and European climate regime the thresholds were derived from"` (a judgement, not a place) |
 
 **`id` is what makes a constraint citable.** A rule's `when` names the constraint it is evaluated
 against, so a workflow with two different footprints can say which artifact each one governs.
@@ -205,13 +205,13 @@ string ordering. Previously these were unconstrained strings.
 
 ### Temporal extent, scenario marker (non-calendar)
 The other temporal branch, for results that are not calendar-indexed at all. UP-WF1's
-NUKLEUS output is positioned by Global Warming Level, and a warming level is reached in
+NUKLEUS output is positioned by Global Warming Level (GWL2 and GWL3 are the delivered ones), and a warming level is reached in
 different years depending on emissions scenario and ensemble member, so a calendar period
 would be a fabrication rather than a simplification.
 
 The marker is a **concept**, not a free string: `GWL+1.5` written two ways by two pilots
-would otherwise be two incomparable strings but one thing. This branch had never been
-exercised by any example anywhere in the register before, so it had never been validated.
+would otherwise be two incomparable strings but one thing. The UP-WF1 workflow example
+uses it for the delivered levels.
 
 #### json
 ```json
@@ -789,6 +789,11 @@ x-jsonld-prefixes:
   dcat: http://www.w3.org/ns/dcat#
   rdfs: http://www.w3.org/2000/01/rdf-schema#
   dcterms: http://purl.org/dc/terms/
+x-bblocks-metadata:
+  itemIdentifier: ogc.focal.transferability.envelopeConstraint
+  register: https://ogcincubator.github.io/bblocks-focal/build/register.json
+  version: '0.8'
+  dateOfLastChange: '2026-11-10'
 
 ```
 

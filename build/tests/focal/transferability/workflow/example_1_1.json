@@ -43,21 +43,21 @@
         "dimension": "spatial",
         "value": {
           "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"
-        },
-        "transferabilityNotes": "Czechia's country border, simplified to a few tens of kilometers, standing in for the actual Czech long-term permanent sample plot network \u2014 a scattered set of monitoring locations, not a country. The owner's 2026-09-29 review confirmed Czechia as an acceptable representation of the training data's coverage; exact plot coordinates are not needed for defining workflow transferability."
+        }
       },
       {
         "id": "ecological-range",
         "role": "valid-for",
         "dimension": "ecological",
-        "value": "environmental and site conditions comparable to those represented in the Czech training data (`czech-plots`) \u2014 an ecological/environmental comparability judgement, not a match against a single named classification scheme",
-        "transferabilityNotes": "Question 7: results are 'valid mainly within a comparable ecological range'. Earlier recorded as a same-class-as test against the EEA biogeographical regions; the owner's 2026-09-29 review rejected that reading and asked that it not be defined through a single existing classification scheme. Recorded as prose instead, mirroring `downscaled-climate-available`. The owner notes that in the future the model's applicability could be assessed more explicitly against the environmental range represented in the training data, which would need a purpose-built measure, not an off-the-shelf scheme \u2014 still open, no such measure exists yet."
+        "value": "environmental and site conditions comparable to those represented in the Czech training data (`czech-plots`) \u2014 an ecological/environmental comparability judgement, not a match against a single named classification scheme"
       },
       {
         "id": "downscaled-climate-available",
         "role": "can-run-on",
-        "dimension": "climatic",
-        "value": "wherever downscaled climate data is available"
+        "dimension": "spatial",
+        "value": {
+          "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"
+        }
       }
     ],
     "artifacts": [
@@ -89,8 +89,7 @@
           "retrain",
           "replace-with-alternative-published-model"
         ],
-        "mandatory": true,
-        "transferabilityNotes": "Owner's 2026-09-29 review, item 4: the workflow concept is transferable, while the Czech-trained growth model is a replaceable component outside its applicable environmental range. Two adaptation pathways: retrain/calibrate on suitable target-region data, or replace with another published or locally developed growth model. No rule of thumb for choosing between them is recorded yet (still open, FP-WF1.8)."
+        "mandatory": true
       },
       {
         "appliesTo": [

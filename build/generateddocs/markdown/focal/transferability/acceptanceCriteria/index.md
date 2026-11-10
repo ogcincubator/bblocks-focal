@@ -1,7 +1,7 @@
 
 # FOCAL Artifact Acceptance Criteria (Schema)
 
-`ogc.focal.transferability.acceptanceCriteria` *v0.2*
+`ogc.focal.transferability.acceptanceCriteria` *v0.4*
 
 What a dataset must satisfy to serve as a given artifact - variable name, acceptable units (QUDT), required axes, acceptable grids, schemas it must conform to. What makes replace-with-local-equivalent actionable rather than merely stated.
 
@@ -41,12 +41,12 @@ and the rule fires when the target falls outside it. These criteria are a specif
 is *checked against*, after a rule has already fired and said to substitute something. Same
 vocabulary, two places in the decision.
 
-**Evidenced 2/8**: UP-WF3 (the fullest contract in the corpus) and UP-WF2's planned Eurostat input.
+**Evidenced 2/8**: UP-WF3 (the fullest contract in the corpus) and UP-WF2 (the raster conventions its code assumes). No current record uses `conformsTo`.
 The questionnaires never asked the question, so silence elsewhere is not evidence of absence — this
 is the single most useful thing a workflow owner can add in review.
 
-**Status: draft/WIP**, not yet exercised by a worked workflow example: UP-WF3, the workflow that
-motivates it, is not modelled yet. The examples here are drawn from its questionnaire directly.
+**Status: draft/WIP**, but exercised: the UP-WF3 and UP-WF2 workflow examples use it in full
+workflows. The examples here are drawn from the UP-WF3 questionnaire directly.
 
 ## Examples
 
@@ -121,9 +121,11 @@ not the spelling.
 
 
 ### A schema requirement, on data that does not exist yet
-UP-WF2's planned Heat Risk Indicator needs census or socio-economic data "preferably following
-a schema compatible with Eurostat's". `conformsTo` is `dcterms:conformsTo`, which is what
-catalogues already use to say a resource follows a specification.
+Illustrative: no current record uses `conformsTo`. It was drafted for census or
+socio-economic data "preferably following a schema compatible with Eurostat's", planned for
+UP-WF2's Heat Risk Indicator and not part of that workflow today. `conformsTo` is
+`dcterms:conformsTo`, which is what catalogues already use to say a resource follows a
+specification.
 
 Two honesty notes travel with this one. The source says *preferably*, so stating it as a
 criterion is firmer than the questionnaire is, and the note says so rather than smoothing it
@@ -228,9 +230,10 @@ description: "What a dataset has to satisfy to serve as a given artifact: the va
   own, and only because a workflow's internal expectation of what an input is called
   is not a published fact about anything.\n**Evidenced 2/8:** UP-WF3 states the fullest
   contract in the corpus (variable name, either of two units, a time axis, one of
-  two grids); UP-WF2's planned Eurostat input states a schema compatibility preference.
-  Expect this to grow: the question was never asked in the questionnaires, so absence
-  here is not evidence that other workflows have no contract.\n"
+  two grids); UP-WF2 states the raster conventions its code assumes (variable name,
+  packing, no-data). No current record uses `conformsTo`. Expect this to grow: the
+  question was never asked in the questionnaires, so absence here is not evidence
+  that other workflows have no contract.\n"
 allOf:
 - $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml
 - type: object
@@ -347,14 +350,16 @@ allOf:
       minItems: 1
       items:
         $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.yaml
-      description: "Schemas or specifications the data must conform to, as identifiers.
+      description: 'Schemas or specifications the data must conform to, as identifiers.
         Uplifts to `dcterms:conformsTo`, the term catalogues already use for exactly
-        this.\nUP-WF2's planned Heat Risk Indicator is the evidenced case: replacement
-        census data \"preferably following a schema compatible with Eurostat's\".
-        Note that source says *preferably*, so recording it here states it more firmly
-        than the questionnaire does \u2014 which is a thing to check with the owner
-        rather than to smooth over. Where the preference is genuinely soft, `transferabilityNotes`
-        is the honest home for it.\n"
+        this.
+
+        No current record uses it. It was drafted for UP-WF2''s planned Heat Risk
+        Indicator (census data "preferably following a schema compatible with Eurostat''s"),
+        which the owners say is not part of the workflow today. Where a preference
+        is genuinely soft, `transferabilityNotes` is the honest home for it.
+
+        '
       x-jsonld-id: http://purl.org/dc/terms/conformsTo
       x-jsonld-type: '@id'
       x-jsonld-container: '@set'
@@ -371,6 +376,11 @@ x-jsonld-prefixes:
   focal-transf-prop: https://w3id.org/ogc/hosted/focal/transferability/properties/
   dcterms: http://purl.org/dc/terms/
   rdfs: http://www.w3.org/2000/01/rdf-schema#
+x-bblocks-metadata:
+  itemIdentifier: ogc.focal.transferability.acceptanceCriteria
+  register: https://ogcincubator.github.io/bblocks-focal/build/register.json
+  version: '0.4'
+  dateOfLastChange: '2026-11-10'
 
 ```
 

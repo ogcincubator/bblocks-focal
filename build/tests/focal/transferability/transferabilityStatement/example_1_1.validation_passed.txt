@@ -1,0 +1,56 @@
+Validation report for ogc.focal.transferability.transferabilityStatement - FOCAL Transferability Statement
+Generated 2026-11-10T16:11:28.289442+00:00
+=== Files ===
+Using example_1_1.json from examples
+JSON-LD context is present - uplifting
+Output JSON-LD example_1_1.jsonld created
+Output Turtle example_1_1.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+Validation passed
+=== End JSON Schema ===
+
+=== SHACL ===
+Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):
+ - /github/workspace/_sources/transferability/vocab/ontology.ttl
+Validation result for _sources/transferability/transferabilityStatement/shapes.shacl: no results
+Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:
+ - Shape focal-shape:TransferabilityStatement: *none*
+ - Shape focal-shape:NoTrainingMeansNoTrainedOn: *none*
+ - Shape focal-shape:RuleCitesDeclaredConstraint: *none*
+ - Shape focal-shape:ArtifactDependency: *none*
+ - Shape focal-shape:NoConstraintsMeansNoConstraints: _:N5c4eb383bb8146fc97f51f726f8c98e5
+ - Shape focal-shape:ArtifactRefOnlyForInternalRoles: *none*
+ - Shape focal-shape:ArtifactIsGovernedByARule: *none*
+ - Shape focal-shape:RuleCitesDeclaredArtifact: *none*
+
+Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl: no results
+Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:
+ - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*
+ - Shape focal-shape:AcceptanceCriteria: *none*
+ - Shape _:nf249ded69c9540bcac61be55759166f5b3: *none*
+ - Shape focal-shape:AcceptanceCriteria/sh:property/sh:or/rdf:first: *none*
+
+Validation result for _sources/transferability/envelopeConstraint/shapes.shacl: no results
+Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
+ - Shape focal-shape:TemporalEnvelopeValue: *none*
+ - Shape focal-shape:GridStructureEnvelopeValue: *none*
+ - Shape focal-shape:GridTypeIsAConcept: *none*
+ - Shape focal-shape:AnalogyNamesItsReference: *none*
+ - Shape focal-shape:NonGeometricEnvelopeValue: *none*
+ - Shape focal-shape:SpatialEnvelopeValue: *none*
+ - Shape focal-shape:ScenarioMarkerIsAConcept: *none*
+ - Shape focal-shape:EnvelopeConstraint: *none*
+
+Validation result for _sources/transferability/rule/shapes.shacl: no results
+Focus nodes for _sources/transferability/rule/shapes.shacl:
+ - Shape focal-shape:TransferabilityRule: *none*
+ - Shape focal-shape:RuleHasACondition: *none*
+ - Shape focal-shape:EnvelopeCondition: *none*
+ - Shape focal-shape:OptionalRuleHasConsequence: *none*
+ - Shape focal-shape:TerminalActionNotAlongsideReuse: *none*
+ - Shape focal-shape:TerminalActionNamesWhatItAffects: *none*
+
+=== End SHACL ===
+
