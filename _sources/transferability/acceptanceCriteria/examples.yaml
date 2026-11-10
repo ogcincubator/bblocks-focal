@@ -32,9 +32,11 @@ examples:
   - title: A schema requirement, on data that does not exist yet
     base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/acceptance-criteria/
     content: |
-      UP-WF2's planned Heat Risk Indicator needs census or socio-economic data "preferably following
-      a schema compatible with Eurostat's". `conformsTo` is `dcterms:conformsTo`, which is what
-      catalogues already use to say a resource follows a specification.
+      Illustrative: no current record uses `conformsTo`. It was drafted for census or
+      socio-economic data "preferably following a schema compatible with Eurostat's", planned for
+      UP-WF2's Heat Risk Indicator and not part of that workflow today. `conformsTo` is
+      `dcterms:conformsTo`, which is what catalogues already use to say a resource follows a
+      specification.
 
       Two honesty notes travel with this one. The source says *preferably*, so stating it as a
       criterion is firmer than the questionnaire is, and the note says so rather than smoothing it

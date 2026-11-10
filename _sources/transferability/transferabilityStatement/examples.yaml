@@ -1,0 +1,20 @@
+examples:
+  - title: An empty envelope stated as a claim
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/transferability-statement/
+    content: |
+      The smallest statement the schema accepts, and the case the `noConstraintsStated` marker
+      exists for. Two empty arrays alone cannot be told from a form nobody filled in; the marker
+      says the source named no validity boundary and no adaptation step, and the note says whose
+      claim it is. It records what was said, not a finding that anyone assessed the results.
+
+      Illustrative only: no pilot workflow evidences this case today.
+    snippets:
+      - language: json
+        code: |
+          {
+            "noConstraintsStated": true,
+            "envelope": [],
+            "artifacts": [],
+            "rules": [],
+            "transferabilityNotes": "The provider states that the results carry no validity boundary and need no adaptation. This is the provider's claim, not a verified one."
+          }

@@ -8,9 +8,9 @@ description: >
   two facts don't collapse into one. Repeatable at the workflow level, same discipline as
   `envelopeConstraint`.
 
-  Currently evidenced 4/8: FP-WF1 (`decision-support-only`), FP-WF3 (`validation-incomplete`),
-  UP-WF2 (`proxy-variable` and `intended-use-limit`) and UP-WF3 (`decision-support-only` and
-  `spatial-support-mismatch`). FP-WF2 and FP-WF5 state that results "depend on" their inputs and
+  Currently evidenced 5/8: FP-WF1 (`decision-support-only`), FP-WF3 (`validation-incomplete`),
+  UP-WF1 (`intended-use-limit`), UP-WF2 (`proxy-variable` and `intended-use-limit`) and UP-WF3
+  (`decision-support-only`, `spatial-support-mismatch` and `intended-use-limit`). FP-WF2 and FP-WF5 state that results "depend on" their inputs and
   settings, which is not a caveat in this sense and is not recorded. Still thinner evidence than
   most confirmed transferability gaps; expect this to grow once other workflow owners are
   consulted.

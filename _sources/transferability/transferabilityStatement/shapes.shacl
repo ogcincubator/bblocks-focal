@@ -220,10 +220,10 @@ focal-shape:RuleCitesDeclaredArtifact
 # An earlier version of this shape warned about any artifact no rule cites, which contradicts the
 # closed-world default this model adopted: rules are exceptions, and an artifact no rule fires for
 # is reused unchanged. Under that default an ungoverned artifact is not a gap, it is the strongest
-# positive portability claim the model can make -- and it is exactly what two questionnaires say.
-# UP-WF1 answers questions 8, 9 and 10 with "Nothing", "Nothing" and "All parts are portable", and
+# positive portability claim the model can make -- and a questionnaire can say exactly that.
 # UP-WF3's exposure and vulnerability layers cannot be substituted at all, which is a standing
-# limitation rather than a rule. Both were blocked by the old reading.
+# limitation rather than a rule. The old reading blocked that, and blocked any artifact whose
+# source names no adaptation condition.
 #
 # What is still worth flagging is an artifact carrying nothing: no rule, no acceptance criteria,
 # no note. That one really is a bare label in a list, and says nothing a consumer can act on.

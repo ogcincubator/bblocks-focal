@@ -39,8 +39,8 @@ description: >
   default, which is worth doing where it makes a cascade legible (UP-WF2 pairs `inside` with
   `outside` over one constraint) and is noise otherwise. And an **empty `envelope` is a claim, not
   a blank**: it says the results carry no validity boundary at all, which is what a genuinely
-  universal workflow looks like and what UP-WF1's questionnaire literally answers ("All parts are
-  portable"). Record why in `transferabilityNotes`, and set `noConstraintsStated: true` —
+  universal workflow looks like; no pilot workflow evidences
+  that case today. Record why in `transferabilityNotes`, and set `noConstraintsStated: true` —
   a boundary nobody could find and a boundary that does not exist are the same empty array
   otherwise, and the marker is what tells them apart.
 
@@ -68,9 +68,9 @@ allOf:
           assessed and carry no validity boundary. An earlier draft required at least one entry, on
           the reasoning that inventing a boundary to satisfy the schema is worse than leaving a
           workflow unmodelled. That is still true, and the minimum did not achieve it: it made
-          "valid everywhere" inexpressible except by drawing a world-sized polygon, and it left the
-          one workflow whose source states no boundary (UP-WF1) with no honest representation at
-          all rather than one saying exactly that. Say which case it is in
+          "valid everywhere" inexpressible except by drawing a world-sized polygon, and it gave a
+          source that states no boundary no honest representation at
+          all, rather than one saying exactly that. Say which case it is in
           `transferabilityNotes`.
       transferabilityNotes:
         type: string
@@ -87,8 +87,8 @@ allOf:
           cannot tell those two empty arrays from a form nobody filled in. It records what the
           source said, not a finding that anyone assessed the results, and it is not a verified
           claim; say who made it in `transferabilityNotes`. Only meaningful, and only valid, alongside an
-          empty `envelope` and an empty `rules`; omit it otherwise. Currently evidenced once
-          (UP-WF1: "Nothing", "Nothing", "All parts are portable").
+          empty `envelope` and an empty `rules`; omit it otherwise. Not
+          evidenced by any pilot workflow today; see the illustrative example.
       trainingRequired:
         type: boolean
         description: >
@@ -98,8 +98,8 @@ allOf:
           said. `true` says a model is fitted to data, which is what `retrain` actions and
           `trained-on` envelope entries presuppose. `false` alongside a `trained-on` envelope entry
           is contradictory and is rejected by the shapes. Evidenced by every questionnaire that
-          answers question 5: two say yes (FP-WF1, FP-WF3) and five say no (FP-WF2, FP-WF5, UP-WF1,
-          UP-WF2, UP-WF3).
+          answers question 5: two say yes (FP-WF1, FP-WF3) and six say no (FP-WF2, FP-WF4, FP-WF5,
+          UP-WF1, UP-WF2, UP-WF3).
       artifacts:
         type: array
         items:
@@ -170,8 +170,8 @@ allOf:
 
           It lives on the artifact rather than on the rule because it is a standing property of the
           interface, true whether or not anything is being transferred. A substitution is merely
-          when it becomes visible. Optional, and thinly evidenced (UP-WF3, and loosely UP-WF2's
-          planned Eurostat input) because the questionnaires never asked.
+          when it becomes visible. Optional, and thinly evidenced (UP-WF3, and UP-WF2's
+          raster conventions) because the questionnaires never asked.
       artifactRef:
         type: string
         format: json-pointer

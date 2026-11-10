@@ -25,9 +25,17 @@ point in the model: multiple simultaneous envelope roles, OR-set actions, an opt
 rule (`mandatory: false`), the `component-not-executable` terminal outcome with `affects`, one rule
 shared across four artifacts, a two-rule cascade over a single constraint, an evidenced temporal
 envelope entry, the `grid-structure` dimension, an artifact-level `acceptanceCriteria` contract,
-an entirely empty envelope stated as a claim (`noConstraintsStated`), a positive statement that
+a positive statement that
 no training or calibration data is needed (`trainingRequired: false`), and caveats about results
 that are neither maturity nor a boundary (`qualityAnnotation`).
+
+**Extents the owners did not state are assumed, not left empty.** Where a questionnaire names a
+place without giving its boundary (the Czech plots, the Czech reference data, the Rasdaman
+collections, the downscaled climate data, the historical labels, the DWD stations), the example
+uses a coarse polygon, usually the country's simplified border, and treats it as a hard boundary.
+There is no fuzzy or confidence value on a geometry: a consumer that wants a wider margin widens the
+polygon. Each assumed polygon says what it stands in for in its note, and the workflow owners are
+asked to correct any that is wrong and to supply a better polygon.
 
 **The eighth, FP-WF4, is not a CWL Workflow at all** but a SensLog observation store, so it cannot
 profile `ogc.cwl.v1_2_1.CWLWorkflow`. It is modeled with the sibling block

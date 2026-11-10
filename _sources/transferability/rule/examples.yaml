@@ -113,23 +113,18 @@ examples:
   - title: Coarse fallback when no constraint can be cited
     base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/rule/
     content: |
-      UP-WF2's planned Eurostat input is not implemented yet, so there is no envelope fact to point
-      at. `triggeredBy` states the condition coarsely rather than forcing an invented boundary.
+      UP-WF3's data loader is built around the FOCAL STAC catalogue. The condition is where the data
+      comes from, not where the target is, so there is no envelope fact to point at. `triggeredBy`
+      states the condition coarsely rather than forcing an invented boundary.
 
       At least one of `when` or `triggeredBy` is required, so no rule is left with no stated
       condition at all. Prefer `when` wherever a constraint exists to cite.
-
-      `affects` names what stops working if the terminal branch of the OR-set is the one taken.
-      Without it `component-not-executable` has no object, and a consumer cannot tell losing one
-      step from losing the run.
     snippets:
       - language: json
         code: |
           {
-            "appliesTo": ["eurostat"],
-            "triggeredBy": "different-geographic-coverage",
-            "actions": ["replace-with-local-equivalent", "component-not-executable"],
-            "affects": ["/steps/heat_risk_indicator"],
-            "mandatory": true,
-            "transferabilityNotes": "Not yet implemented; once built, the planned Heat Risk Indicator would not be executable without it."
+            "appliesTo": ["focal-stac-loader"],
+            "triggeredBy": "different-dataset",
+            "actions": ["replace-with-local-equivalent"],
+            "mandatory": true
           }

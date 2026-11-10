@@ -10,7 +10,7 @@ array of these and more than one applies at once: FP-WF1's growth model needs th
 |---|---|---|
 | `trained-on` | `spatial` | a WKT geometry locating the Czech permanent sample plots |
 | `valid-for` | `ecological` | `"a comparable ecological range"` (a string, not a place) |
-| `can-run-on` | `climatic` | `"wherever downscaled climate data is available"` |
+| `valid-for` | `climatic` | `"the German and European climate regime the thresholds were derived from"` (a judgement, not a place) |
 
 **`id` is what makes a constraint citable.** A rule's `when` names the constraint it is evaluated
 against, so a workflow with two different footprints can say which artifact each one governs.

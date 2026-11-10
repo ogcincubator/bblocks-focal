@@ -31,8 +31,8 @@ description: >
   internal expectation of what an input is called is not a published fact about anything.
 
   **Evidenced 2/8:** UP-WF3 states the fullest contract in the corpus (variable name, either of two
-  units, a time axis, one of two grids); UP-WF2's planned Eurostat input states a schema
-  compatibility preference. Expect this to grow: the question was never asked in the
+  units, a time axis, one of two grids); UP-WF2 states the raster conventions its code assumes
+  (variable name, packing, no-data). No current record uses `conformsTo`. Expect this to grow: the question was never asked in the
   questionnaires, so absence here is not evidence that other workflows have no contract.
 allOf:
   - "$ref": "bblocks://ogc.focal.transferability.notes"
@@ -133,11 +133,10 @@ allOf:
           Schemas or specifications the data must conform to, as identifiers. Uplifts to
           `dcterms:conformsTo`, the term catalogues already use for exactly this.
 
-          UP-WF2's planned Heat Risk Indicator is the evidenced case: replacement census data
-          "preferably following a schema compatible with Eurostat's". Note that source says
-          *preferably*, so recording it here states it more firmly than the questionnaire does —
-          which is a thing to check with the owner rather than to smooth over. Where the preference
-          is genuinely soft, `transferabilityNotes` is the honest home for it.
+          No current record uses it. It was drafted for UP-WF2's planned Heat Risk Indicator
+          (census data "preferably following a schema compatible with Eurostat's"), which the owners
+          say is not part of the workflow today. Where a preference is genuinely soft,
+          `transferabilityNotes` is the honest home for it.
       transferabilityNotes:
         type: string
         description: >

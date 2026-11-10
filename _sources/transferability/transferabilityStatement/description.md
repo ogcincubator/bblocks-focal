@@ -13,10 +13,11 @@ Three id-addressable lists joined by reference rather than by nesting:
 needs adapting; assessed, no validity boundary. Both are positive portability facts, and quite
 different from the property being absent, which says nobody has looked. Requiring at least one
 entry forces anyone in the first situation to invent one. For `envelope` that minimum also made
-"valid everywhere" inexpressible except as a world-sized polygon, and left the one workflow whose
-source states no boundary at all (UP-WF1) with no honest representation rather than one saying
-exactly that. Say which case it is in `transferabilityNotes`, and set `noConstraintsStated: true`
-so that a reader can tell a claim from a blank.
+"valid everywhere" inexpressible except as a world-sized polygon, and gave a source that states no
+boundary at all no honest representation, rather than one saying exactly that. No pilot workflow
+evidences that case today, so this block carries a small illustrative example. Say which case it
+is in `transferabilityNotes`, and set `noConstraintsStated: true` so that a reader can tell a
+claim from a blank.
 
 Two optional booleans state absences outright. `noConstraintsStated` says the source named no
 boundary and no adaptation step (it records what was said, not an assessment). `trainingRequired` says whether training

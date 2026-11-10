@@ -65,13 +65,13 @@ examples:
     base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/
     content: |
       The other temporal branch, for results that are not calendar-indexed at all. UP-WF1's
-      NUKLEUS output is positioned by Global Warming Level, and a warming level is reached in
+      NUKLEUS output is positioned by Global Warming Level (GWL2 and GWL3 are the delivered ones), and a warming level is reached in
       different years depending on emissions scenario and ensemble member, so a calendar period
       would be a fabrication rather than a simplification.
 
       The marker is a **concept**, not a free string: `GWL+1.5` written two ways by two pilots
-      would otherwise be two incomparable strings but one thing. This branch had never been
-      exercised by any example anywhere in the register before, so it had never been validated.
+      would otherwise be two incomparable strings but one thing. The UP-WF1 workflow example
+      uses it for the delivered levels.
     snippets:
       - language: json
         code: |

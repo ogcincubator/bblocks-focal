@@ -30,9 +30,9 @@ and the rule fires when the target falls outside it. These criteria are a specif
 is *checked against*, after a rule has already fired and said to substitute something. Same
 vocabulary, two places in the decision.
 
-**Evidenced 2/8**: UP-WF3 (the fullest contract in the corpus) and UP-WF2's planned Eurostat input.
+**Evidenced 2/8**: UP-WF3 (the fullest contract in the corpus) and UP-WF2 (the raster conventions its code assumes). No current record uses `conformsTo`.
 The questionnaires never asked the question, so silence elsewhere is not evidence of absence — this
 is the single most useful thing a workflow owner can add in review.
 
-**Status: draft/WIP**, not yet exercised by a worked workflow example: UP-WF3, the workflow that
-motivates it, is not modelled yet. The examples here are drawn from its questionnaire directly.
+**Status: draft/WIP**, but exercised: the UP-WF3 and UP-WF2 workflow examples use it in full
+workflows. The examples here are drawn from the UP-WF3 questionnaire directly.

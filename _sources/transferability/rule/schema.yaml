@@ -118,6 +118,11 @@ allOf:
           true. When false, skipping is allowed but degrades result quality or trust rather than
           blocking execution — say what degrades in `transferabilityNotes`.
 
+          This is about validity, not executability. Whether the workflow can run without an input at
+          all is the workflow description's to say (in CWL an optional input is `File?`, with a step
+          `when`). `mandatory` says whether, once the target is outside the artifact's coverage,
+          replacing it is compulsory or may be skipped at the cost of trust.
+
           Says nothing on a rule whose only action is `reuse-as-is`: "you must do nothing" and
           "you may do nothing" are the same instruction. Omit it there.
 
