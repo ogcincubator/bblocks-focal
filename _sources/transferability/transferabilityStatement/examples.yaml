@@ -18,3 +18,27 @@ examples:
             "rules": [],
             "transferabilityNotes": "The provider states that the results carry no validity boundary and need no adaptation. This is the provider's claim, not a verified one."
           }
+
+  - title: A service given through several inputs
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/transferability-statement/
+    content: |
+      A workflow that reads from a data cube. The cube is `infrastructure`; `artifactRef` points at
+      the two inputs through which it is given, so a consumer can ask about the service next to
+      those fields. The rule fires where no such service is available.
+    snippets:
+      - language: json
+        code: |
+          {
+            "envelope": [],
+            "artifacts": [
+              {
+                "id": "data-cube",
+                "artifact": "data cube holding the climate data",
+                "artifactRole": "infrastructure",
+                "artifactRef": ["/inputs/datacube_connection", "/inputs/datacube_registry"]
+              }
+            ],
+            "rules": [
+              { "appliesTo": ["data-cube"], "triggeredBy": "service-unavailable", "actions": ["replace-with-local-equivalent"] }
+            ]
+          }

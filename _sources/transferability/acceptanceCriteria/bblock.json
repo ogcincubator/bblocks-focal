@@ -4,7 +4,7 @@
   "status": "under-development",
   "dateTimeAddition": "2026-09-06T00:00:00Z",
   "itemClass": "schema",
-  "version": "0.5",
+  "version": "0.6",
   "dateOfLastChange": "2026-11-25",
   "concept": [
     "https://w3id.org/ogc/hosted/focal/transferability/axes/scheme",

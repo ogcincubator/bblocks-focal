@@ -125,6 +125,10 @@ allOf:
           says nobody has looked. Requiring at least one entry would force anyone in the first
           situation to invent a rule.
 "$defs":
+  jsonPointer:
+    type: string
+    format: json-pointer
+    pattern: "^/"
   artifact:
     title: Artifact dependency
     type: object
@@ -179,18 +183,27 @@ allOf:
           when it becomes visible. Optional, and thinly evidenced (UP-WF3, and UP-WF2's
           raster conventions) because the questionnaires never asked.
       artifactRef:
-        type: string
-        format: json-pointer
-        pattern: "^/"
+        oneOf:
+          - $ref: "#/$defs/jsonPointer"
+          - type: array
+            minItems: 1
+            items:
+              $ref: "#/$defs/jsonPointer"
         examples:
           - /inputs/climate_data
-          - /outputs/trained_growth_model
+          - ["/inputs/datacube_connection", "/inputs/datacube_registry"]
         description: >
-          JSON Pointer (RFC 6901) locating the artifact inside the document this statement
-          annotates. For the CWL profile in bblocks://ogc.focal.transferability.workflow that means
-          `/inputs/<id>` or `/outputs/<id>`, but the pointer carries no CWL assumption. Optional:
-          meaningful only for the `workflow-input` and `workflow-output` roles, and only fillable
-          once a real Application Package exists to point into. Omit it rather than guess.
+          JSON Pointer (RFC 6901), or several, into the document this statement annotates. For the
+          CWL profile in bblocks://ogc.focal.transferability.workflow that means `/inputs/<id>` or
+          `/outputs/<id>`, but the pointer carries no CWL assumption.
+
+          For a `workflow-input` or `workflow-output` artifact it locates the artifact itself: what
+          a rule would replace. For an `infrastructure` artifact, such as a data cube, it locates
+          the inputs **through which the service is given** (connection, registry); replacing the
+          service means pointing those inputs at another one. An `external-resource` has nothing in
+          the document to point at.
+
+          Optional, and only fillable once the inputs are declared. Omit it rather than guess.
       transferabilityNotes:
         type: string
         description: Free-text note about the artifact. Uplifts to `rdfs:comment`.

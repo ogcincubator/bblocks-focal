@@ -1,0 +1,13 @@
+{
+  "envelope": [],
+  "artifacts": [
+    {
+      "id": "ref-map",
+      "artifact": "validation map",
+      "artifactRole": "external-resource",
+      "artifactRef": "/inputs/map",
+      "transferabilityNotes": "x"
+    }
+  ],
+  "rules": []
+}

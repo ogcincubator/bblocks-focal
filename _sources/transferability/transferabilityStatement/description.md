@@ -29,7 +29,8 @@ envelope entry.
 
 **What the user supplies is said by the workflow description**, not by the statement. CWL (or STAC)
 declares the inputs; artifacts and envelope entries point at them with `artifactRef` and
-`inputRef`. The model states the conditions under which results are usable, for a consumer such as
+`inputRef`. For a service (`infrastructure`), `artifactRef` points at the inputs through which it
+is given, such as a connection and a registry. The model states the conditions under which results are usable, for a consumer such as
 a questionnaire UI. It does not implement a checker, and a missing or malformed input is the
 runner's error to report.
 

@@ -9,7 +9,10 @@
       "@context": {
         "name": "focal-transf-prop:variableName",
         "sameAsCurrent": "focal-transf-prop:sameAsCurrent",
-        "standardName": "focal-transf-prop:standardName",
+        "standardName": {
+          "@id": "focal-transf-prop:standardName",
+          "@container": "@set"
+        },
         "units": {
           "@id": "focal-transf-prop:unit",
           "@type": "@id",
@@ -34,7 +37,10 @@
         "minimumPrecedingYears": {
           "@id": "focal-transf-prop:minimumPrecedingYears",
           "@type": "http://www.w3.org/2001/XMLSchema#integer"
-        }
+        },
+        "complete": "focal-transf-prop:temporalComplete",
+        "startDate": "http://www.w3.org/ns/dcat#startDate",
+        "endDate": "http://www.w3.org/ns/dcat#endDate"
       }
     },
     "axes": {

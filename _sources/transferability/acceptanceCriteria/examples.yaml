@@ -72,6 +72,9 @@ examples:
       A daily climate input. Every variable is required. The CF standard name says what a variable
       name cannot: this radiation must be net, not downwelling. `temporal` states the time step,
       the calendars accepted as they are and the history needed before the requested period.
+      `complete` forbids gaps in the required data, and `startDate` states from when the data must
+      cover (`endDate` is optional). A list of standard names means any one is acceptable: here the
+      net radiation may come as a flux or as an accumulation over time, matching the two units.
     snippets:
       - language: json
         code: |
@@ -79,8 +82,8 @@ examples:
             "variables": [
               { "name": "tmax", "standardName": "air_temperature", "units": ["DEG_C"] },
               { "name": "pr", "units": ["MilliM-PER-DAY"] },
-              { "name": "ssr", "standardName": "surface_net_downward_shortwave_flux", "units": ["W-PER-M2"] }
+              { "name": "ssr", "standardName": ["surface_net_downward_shortwave_flux", "integral_wrt_time_of_surface_net_downward_shortwave_flux"], "units": ["W-PER-M2", "J-PER-M2"] }
             ],
-            "temporal": { "resolution": "P1D", "calendar": ["standard", "proleptic_gregorian"], "minimumPrecedingYears": 30 },
+            "temporal": { "resolution": "P1D", "calendar": ["standard", "proleptic_gregorian"], "minimumPrecedingYears": 30, "complete": true, "startDate": "1991" },
             "gridTypes": ["regular-latlon", "rotated-pole", "curvilinear"]
           }

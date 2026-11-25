@@ -813,7 +813,7 @@ focal-prop:artifactRole a owl:ObjectProperty ;
 
 focal-prop:artifactRef a owl:DatatypeProperty ;
   rdfs:label "artifact reference"@en ;
-  rdfs:comment "JSON Pointer (RFC 6901) locating the artifact within the document this statement annotates."@en ;
+  rdfs:comment "JSON Pointer (RFC 6901) into the document this statement annotates, locating the artifact, or, for infrastructure, an input through which the service is given. Repeatable."@en ;
   rdfs:domain focal-transf:ArtifactDependency ;
   rdfs:range xsd:string ;
 .
@@ -979,7 +979,7 @@ focal-prop:statistic a owl:DatatypeProperty ;
 
 focal-prop:standardName a owl:DatatypeProperty ;
   rdfs:label "standard name"@en ;
-  rdfs:comment "CF standard name of the quantity a required variable must carry."@en ;
+  rdfs:comment "CF standard name of the quantity a required variable must carry. Repeatable and disjunctive: any one listed is acceptable."@en ;
   rdfs:range xsd:string ;
 .
 
@@ -1309,4 +1309,9 @@ focal-koppen:EF a skos:Concept ;
   skos:notation "EF" ;
   skos:broader focal-koppen:E ;
   skos:inScheme focal-koppen:scheme ;
+.
+focal-prop:temporalComplete a owl:DatatypeProperty ;
+  rdfs:label "temporal completeness required"@en ;
+  rdfs:comment "True where no gaps are allowed in the required data."@en ;
+  rdfs:range xsd:boolean ;
 .

@@ -6,11 +6,13 @@ What a dataset has to satisfy to serve as a given artifact.
 |---|---|---|
 | `variables` | **AND** — every entry must be satisfied | see below |
 | `variables[].name` / `sameAsCurrent` | one of the two | FOCAL (a local expectation, not a published fact) |
-| `variables[].standardName` | single value | CF standard names |
+| `variables[].standardName` | one value, or **OR** over a list | CF standard names |
 | `variables[].units` | **OR** — any one is acceptable | QUDT unit IRIs |
 | `temporal.resolution` | single value | `dcat:temporalResolution` |
 | `temporal.calendar` | **OR** — accepted as they are | CF `calendar` values |
 | `temporal.minimumPrecedingYears` | single value | FOCAL |
+| `temporal.complete` | `true` = no gaps allowed in the required data | FOCAL |
+| `temporal.startDate` / `endDate` | span the data must cover; `endDate` optional | `dcat:startDate` / `dcat:endDate` |
 | `axes` | **AND** — all must be present | FOCAL axes scheme (open) |
 | `gridTypes` | **OR** — any one is acceptable | FOCAL grid-types scheme, cross-walked to CF `grid_mapping_name` where one exists |
 | `conformsTo` | **AND** | `dcterms:conformsTo` |

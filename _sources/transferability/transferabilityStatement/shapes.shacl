@@ -133,19 +133,18 @@ focal-shape:ArtifactDependency
   sh:property [
     sh:path focal-prop:artifactRef ;
     sh:name "artifactRef" ;
-    sh:maxCount 1 ;
     sh:datatype xsd:string ;
     sh:pattern "^/" ;
-    sh:message "artifactRef is a JSON Pointer (RFC 6901) and therefore starts with '/'." ;
+    sh:message "artifactRef entries are JSON Pointers (RFC 6901) and therefore start with '/'." ;
   ] ;
 .
 
 #################################################################
-# A pointer only means something for an artifact inside the annotated document.
+# A pointer only means something for something the annotated document declares.
 #
-# external-resource and infrastructure are by definition outside it: an optional validation dataset
-# the workflow only mentions, or a sensor network that has to be physically re-deployed. A pointer
-# on either is a mistake about the role or a mistake about the pointer.
+# An external-resource is by definition outside it, such as an optional validation dataset the
+# workflow only mentions. Infrastructure may point: a service is outside the document, but the
+# inputs through which it is given (a connection, a registry) are declared in it.
 #################################################################
 
 focal-shape:ArtifactRefOnlyForInternalRoles
@@ -153,15 +152,12 @@ focal-shape:ArtifactRefOnlyForInternalRoles
   sh:targetObjectsOf focal-prop:artifacts ;
   sh:sparql [
     a sh:SPARQLConstraint ;
-    sh:message "artifactRef is only meaningful for the workflow-input and workflow-output roles; an external-resource or infrastructure artifact has nothing in the annotated document to point at." ;
+    sh:message "artifactRef is not meaningful for an external-resource artifact: it has nothing in the annotated document to point at." ;
     sh:select """
       SELECT $this WHERE {
         $this <https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRef> ?ref .
         $this <https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRole> ?role .
-        FILTER(?role IN (
-          <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/external-resource>,
-          <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/infrastructure>
-        ))
+        FILTER(?role = <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/external-resource>)
       }
     """ ;
   ] ;

@@ -3,6 +3,7 @@
 @prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
 @prefix dcterms:     <http://purl.org/dc/terms/> .
+@prefix dcat:        <http://www.w3.org/ns/dcat#> .
 @prefix focal-prop:  <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix focal-shape: <https://w3id.org/ogc/hosted/focal/transferability/shapes/> .
 
@@ -20,6 +21,12 @@ focal-shape:AcceptanceCriteria
     sh:path focal-prop:variable ;
     sh:name "variables" ;
     sh:node focal-shape:VariableRequirement ;
+  ] ;
+
+  sh:property [
+    sh:path focal-prop:temporalRequirement ;
+    sh:name "temporal" ;
+    sh:node focal-shape:TemporalRequirement ;
   ] ;
 
   sh:property [
@@ -89,11 +96,22 @@ focal-shape:VariableRequirement
   a sh:NodeShape ;
   sh:property [ sh:path focal-prop:variableName ; sh:name "name" ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:minLength 1 ] ;
   sh:property [ sh:path focal-prop:sameAsCurrent ; sh:name "sameAsCurrent" ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
-  sh:property [ sh:path focal-prop:standardName ; sh:name "standardName" ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path focal-prop:standardName ; sh:name "standardName" ; sh:datatype xsd:string ; sh:minLength 1 ] ;
   sh:property [
     sh:path focal-prop:unit ;
     sh:name "units" ;
     sh:nodeKind sh:IRI ;
     sh:message "units are QUDT unit IRIs, not unit strings: mm, millimetre and mm/day are three incomparable strings and one of them is a different quantity, whereas a QUDT unit carries its symbol and its quantity kind." ;
   ] ;
+.
+
+#################################################################
+# What the data's time axis must look like.
+#################################################################
+
+focal-shape:TemporalRequirement
+  a sh:NodeShape ;
+  sh:property [ sh:path focal-prop:temporalComplete ; sh:name "complete" ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
+  sh:property [ sh:path dcat:startDate ; sh:name "startDate" ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:pattern "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" ] ;
+  sh:property [ sh:path dcat:endDate ; sh:name "endDate" ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:pattern "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$" ] ;
 .
