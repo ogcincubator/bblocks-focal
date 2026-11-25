@@ -1,0 +1,6 @@
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+
+<file:///github/workspace/d> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/input-domain> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value [ focal-transf-prop:variableRange [ focal-transf-prop:variableName "age" ] ] .
+

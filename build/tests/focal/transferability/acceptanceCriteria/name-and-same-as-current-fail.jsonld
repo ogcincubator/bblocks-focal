@@ -1,0 +1,9 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/context.jsonld",
+  "variables": [
+    {
+      "name": "pr",
+      "sameAsCurrent": true
+    }
+  ]
+}

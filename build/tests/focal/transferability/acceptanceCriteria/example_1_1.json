@@ -1,10 +1,12 @@
 {
-  "variable": {
-    "sameAsCurrent": true
-  },
-  "units": [
-    "MilliM",
-    "KiloGM-PER-M2-SEC"
+  "variables": [
+    {
+      "sameAsCurrent": true,
+      "units": [
+        "MilliM",
+        "KiloGM-PER-M2-SEC"
+      ]
+    }
   ],
   "axes": [
     "time"

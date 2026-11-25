@@ -1,10 +1,13 @@
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/slt>,
-        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/species-codes> ;
+[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
+        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+    focal-transf-prop:affects "/outputs/forest_type_tolerance_ranking",
+        "/outputs/species_at_location" ;
+    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/nli-forest-type-service>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/slt-species> ;
     focal-transf-prop:mandatory true ;
-    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/czechia> ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/czech-forest-type-map> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
 

@@ -1,0 +1,94 @@
+Validation report for ogc.focal.transferability.acceptanceCriteria - FOCAL Artifact Acceptance Criteria
+Generated 2026-11-25T11:28:39.461097+00:00
+=== General ===
+Test was expected to fail and it did.
+=== End General ===
+
+=== Files ===
+Using name-and-same-as-current-fail.json from test resources
+JSON-LD context is present - uplifting
+Output JSON-LD name-and-same-as-current-fail.jsonld created
+Output Turtle name-and-same-as-current-fail.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+
+** Validation error **
+ValidationError: {'name': 'pr', 'sameAsCurrent': True} should not be valid under {'required': ['name', 'sameAsCurrent']}
+
+Failed validating 'not' in schema['allOf'][1]['properties']['variables']['items']:
+    {'type': 'object',
+     'anyOf': [{'required': ['name']},
+               {'required': ['sameAsCurrent']},
+               {'required': ['standardName']},
+               {'required': ['units']}],
+     'not': {'required': ['name', 'sameAsCurrent']},
+     'additionalProperties': False,
+     'properties': {'name': {'type': 'string',
+                             'examples': ['pr', 'rr'],
+                             'description': 'The name the workflow expects '
+                                            'the variable to be called. A '
+                                            'plain string: a standard name '
+                                            'says what a quantity is, this '
+                                            'says what the code looks '
+                                            'for.\n',
+                             'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/variableName'},
+                    'sameAsCurrent': {'const': True,
+                                      'description': 'Instead of `name`: '
+                                                     'the variable must be '
+                                                     'called what the '
+                                                     'artifact currently '
+                                                     'in use calls it. For '
+                                                     'sources that state '
+                                                     'the requirement as '
+                                                     'that relation and '
+                                                     'never give a name; '
+                                                     'guessing a literal '
+                                                     'would assert '
+                                                     'something they did '
+                                                     'not say.\n',
+                                      'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/sameAsCurrent'},
+                    'standardName': {'type': 'string',
+                                     'examples': ['surface_net_downward_shortwave_flux',
+                                                  'air_temperature'],
+                                     'description': 'CF standard name of '
+                                                    'the quantity. Says '
+                                                    'what a name cannot, '
+                                                    'such as net against '
+                                                    'downwelling '
+                                                    'radiation. Give it '
+                                                    'only where the '
+                                                    'quantity is '
+                                                    'certain.\n',
+                                     'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/standardName'},
+                    'units': {'type': 'array',
+                              'minItems': 1,
+                              'items': {'type': 'string',
+                                        'examples': ['MilliM', 'DEG_C']},
+                              'description': 'Units the variable may be '
+                                             'in, as QUDT unit IRIs '
+                                             '(relative names resolve '
+                                             'against '
+                                             '`http://qudt.org/vocab/unit/`). '
+                                             '**An OR-set:** any one is '
+                                             'acceptable.\n',
+                              'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/unit',
+                              'x-jsonld-type': '@id',
+                              'x-jsonld-container': '@set',
+                              'x-jsonld-base': 'http://qudt.org/vocab/unit/'}}}
+
+On instance['variables'][0]:
+    {'name': 'pr', 'sameAsCurrent': True}
+=== End JSON Schema ===
+
+=== SHACL ===
+Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):
+ - /github/workspace/_sources/transferability/vocab/ontology.ttl
+Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl: no results
+Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:
+ - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*
+ - Shape focal-shape:VariableRequirement: *none*
+ - Shape focal-shape:AcceptanceCriteria: *none*
+
+=== End SHACL ===
+

@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Statement (Schema)
 
-`ogc.focal.transferability.transferabilityStatement` *v0.11*
+`ogc.focal.transferability.transferabilityStatement` *v0.12*
 
 Where something's results are valid (envelope), which reference/calibration artifacts it depends on (artifacts), and what must happen to each under which conditions (rules) - three id-addressable lists joined by reference rather than nesting.
 
@@ -33,10 +33,16 @@ claim from a blank.
 Two optional booleans state absences outright. `noConstraintsStated` says the source named no
 boundary and no adaptation step (it records what was said, not an assessment). `trainingRequired` says whether training
 or calibration data is needed to re-create the thing elsewhere: `false` is the source's positive
-statement (five of the seven modeled workflows), `true` says a model is fitted to data. Neither is
+statement (most modeled workflows), `true` says a model is fitted to data. Neither is
 inferred; leave a property out when nobody has said. Shapes reject `noConstraintsStated: true`
 alongside any envelope entry or rule, and `trainingRequired: false` alongside a `trained-on`
 envelope entry.
+
+**What the user supplies is said by the workflow description**, not by the statement. CWL (or STAC)
+declares the inputs; artifacts and envelope entries point at them with `artifactRef` and
+`inputRef`. The model states the conditions under which results are usable, for a consumer such as
+a questionnaire UI. It does not implement a checker, and a missing or malformed input is the
+runner's error to report.
 
 **Rules are exceptions; silence means reuse.** An artifact no rule fires for, over a given target,
 is reused unchanged. Without that default, a consumer asking "can I run this over my area of
@@ -127,32 +133,37 @@ description: "Where something's results are valid, which reference or calibratio
   rule fires. Nesting rules under artifacts fixes that one case and fails the next:
   an artifact bounded on two axes at once needs a conjunction, which a tree cannot
   express. Citing ids costs one indirection and expresses both, plus the case that
-  motivated neither \u2014 FP-WF2's SLT and species-code artifacts sharing a single
-  boundary and rule, stated once rather than twice, while its tolerance-threshold
-  and T5 artifacts share that same boundary but a separate rule, because the two pairs
-  need different things to happen outside it.\n**Rules are exceptions; silence means
-  reuse.** A statement lists what has to change. An artifact no rule fires for, over
-  a given target, is reused unchanged. That default is what makes the model answerable
-  rather than merely inspectable: without it, \"no rule fires\" is ambiguous between
-  *nothing needs doing* and *nobody checked*, and every consumer has to guess. The
-  ambiguity is closed structurally rather than by convention: `envelope`, `artifacts`
-  and `rules` are all required, so an empty one of any of them is something an author
-  wrote down, not something missing. Absent from the document entirely, the statement
-  says nobody has looked; an empty array inside it says somebody looked and found
-  nothing.\nTwo consequences worth stating plainly. A rule whose only action is `reuse-as-is`
-  restates the default, which is worth doing where it makes a cascade legible (UP-WF2
-  pairs `inside` with `outside` over one constraint) and is noise otherwise. And an
-  **empty `envelope` is a claim, not a blank**: it says the results carry no validity
-  boundary at all, which is what a genuinely universal workflow looks like; no pilot
-  workflow evidences that case today. Record why in `transferabilityNotes`, and set
-  `noConstraintsStated: true` \u2014 a boundary nobody could find and a boundary that
-  does not exist are the same empty array otherwise, and the marker is what tells
-  them apart.\n**Conjunction and disjunction.** A rule's `when` is an AND: every condition
-  must hold for the rule to fire. A disjunction is written as two rules. That is a
-  deliberate limit rather than a missing feature \u2014 two conditions leading to
-  the same action really are two statements, and keeping them separate keeps each
-  traceable to the sentence in a questionnaire it came from, which a nested boolean
-  expression does not. `actions` remains an OR-set: any one resolves the rule.\n"
+  motivated neither \u2014 FP-WF2's forest-type service and species composition table
+  sharing a single boundary and rule, stated once rather than twice, while its two
+  species trait tables have a boundary and a rule each, because they cover different
+  species.\n**What the user supplies is said by the workflow description, not here.**
+  CWL (or STAC) states which inputs exist, which are optional and which have a default;
+  statements refer to them by `artifactRef` and `inputRef`. A missing or malformed
+  input is the runner's error to report. This model supplies the conditions under
+  which results are usable, for a consumer such as a questionnaire UI; it does not
+  implement the check.\n**Rules are exceptions; silence means reuse.** A statement
+  lists what has to change. An artifact no rule fires for, over a given target, is
+  reused unchanged. That default is what makes the model answerable rather than merely
+  inspectable: without it, \"no rule fires\" is ambiguous between *nothing needs doing*
+  and *nobody checked*, and every consumer has to guess. The ambiguity is closed structurally
+  rather than by convention: `envelope`, `artifacts` and `rules` are all required,
+  so an empty one of any of them is something an author wrote down, not something
+  missing. Absent from the document entirely, the statement says nobody has looked;
+  an empty array inside it says somebody looked and found nothing.\nTwo consequences
+  worth stating plainly. A rule whose only action is `reuse-as-is` restates the default,
+  which is worth doing where it makes a cascade legible (UP-WF2 pairs `inside` with
+  `outside` over one constraint) and is noise otherwise. And an **empty `envelope`
+  is a claim, not a blank**: it says the results carry no validity boundary at all,
+  which is what a genuinely universal workflow looks like; no pilot workflow evidences
+  that case today. Record why in `transferabilityNotes`, and set `noConstraintsStated:
+  true` \u2014 a boundary nobody could find and a boundary that does not exist are
+  the same empty array otherwise, and the marker is what tells them apart.\n**Conjunction
+  and disjunction.** A rule's `when` is an AND: every condition must hold for the
+  rule to fire. A disjunction is written as two rules. That is a deliberate limit
+  rather than a missing feature \u2014 two conditions leading to the same action really
+  are two statements, and keeping them separate keeps each traceable to the sentence
+  in a questionnaire it came from, which a nested boolean expression does not. `actions`
+  remains an OR-set: any one resolves the rule.\n"
 allOf:
 - $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml
 - type: object
@@ -329,8 +340,8 @@ x-jsonld-prefixes:
 x-bblocks-metadata:
   itemIdentifier: ogc.focal.transferability.transferabilityStatement
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
-  version: '0.11'
-  dateOfLastChange: '2026-11-10'
+  version: '0.12'
+  dateOfLastChange: '2026-11-25'
 
 ```
 
@@ -363,6 +374,10 @@ Links to the schema:
           "@id": "focal-transf-prop:dimension",
           "@type": "@id"
         },
+        "inputRef": {
+          "@id": "focal-transf-prop:inputRef",
+          "@container": "@set"
+        },
         "value": {
           "@context": {
             "asWKT": {
@@ -386,6 +401,23 @@ Links to the schema:
               "@type": "@id",
               "@container": "@set"
             },
+            "variables": {
+              "@context": {
+                "name": "focal-transf-prop:variableName",
+                "unit": "focal-transf-prop:unitLabel",
+                "min": {
+                  "@id": "focal-transf-prop:minimum",
+                  "@type": "http://www.w3.org/2001/XMLSchema#double"
+                },
+                "max": {
+                  "@id": "focal-transf-prop:maximum",
+                  "@type": "http://www.w3.org/2001/XMLSchema#double"
+                }
+              },
+              "@id": "focal-transf-prop:variableRange",
+              "@container": "@set"
+            },
+            "statistic": "focal-transf-prop:statistic",
             "scheme": {
               "@context": {
                 "@base": "https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/"
@@ -423,18 +455,21 @@ Links to the schema:
         },
         "acceptanceCriteria": {
           "@context": {
-            "variable": {
+            "variables": {
               "@context": {
-                "sameAsCurrent": "focal-transf-prop:sameAsCurrent"
+                "name": "focal-transf-prop:variableName",
+                "sameAsCurrent": "focal-transf-prop:sameAsCurrent",
+                "standardName": "focal-transf-prop:standardName",
+                "units": {
+                  "@context": {
+                    "@base": "http://qudt.org/vocab/unit/"
+                  },
+                  "@id": "focal-transf-prop:unit",
+                  "@type": "@id",
+                  "@container": "@set"
+                }
               },
-              "@id": "focal-transf-prop:variable"
-            },
-            "units": {
-              "@context": {
-                "@base": "http://qudt.org/vocab/unit/"
-              },
-              "@id": "focal-transf-prop:unit",
-              "@type": "@id",
+              "@id": "focal-transf-prop:variable",
               "@container": "@set"
             },
             "axes": {
@@ -452,6 +487,23 @@ Links to the schema:
               "@id": "focal-transf-prop:gridType",
               "@type": "@id",
               "@container": "@set"
+            },
+            "temporal": {
+              "@context": {
+                "resolution": {
+                  "@id": "dcat:temporalResolution",
+                  "@type": "http://www.w3.org/2001/XMLSchema#duration"
+                },
+                "calendar": {
+                  "@id": "focal-transf-prop:calendar",
+                  "@container": "@set"
+                },
+                "minimumPrecedingYears": {
+                  "@id": "focal-transf-prop:minimumPrecedingYears",
+                  "@type": "http://www.w3.org/2001/XMLSchema#integer"
+                }
+              },
+              "@id": "focal-transf-prop:temporalRequirement"
             },
             "conformsTo": {
               "@id": "dcterms:conformsTo",

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Transferability Envelope Constraint",
-  "description": "A single statement bounding where a workflow's results are valid: which `role` this fact plays (what the workflow was trained on vs. what its results are valid for vs. where it can technically run), which `dimension` it concerns (spatial, temporal, ecological, climatic, jurisdictional, grid-structure, ... \u2014 an open vocabulary), and the `value` itself.\nRepeatable, and `id`-addressable: rules cite a constraint by `id` to say which boundary they are evaluated against, so a workflow with two different footprints can state which artifact each one governs. FP-WF1 needs three constraints at once (trained-on/spatial, valid-for/ecological, can-run-on/climatic), which is why role and dimension are independent axes rather than a single enum choice.\n**Values bind to published vocabularies rather than to FOCAL terms wherever one exists**, so a consumer that already understands GeoSPARQL or DCAT can evaluate the constraint without knowing anything about FOCAL: a spatial extent is a `geo:Geometry` carrying `geo:asWKT`, a calendar span is a `dcterms:PeriodOfTime` carrying `dcat:startDate`/`dcat:endDate`. That is what makes \"can I run this workflow over my area of interest?\" a query a GeoSPARQL engine can answer with `geof:sfWithin`, rather than a sentence a person has to read.\n",
+  "description": "A single statement bounding where a workflow's results are valid: which `role` this fact plays (what the workflow was trained on vs. what its results are valid for vs. where it can technically run), which `dimension` it concerns (spatial, temporal, ecological, climatic, jurisdictional, grid-structure, ... \u2014 an open vocabulary), and the `value` itself.\nRepeatable, and `id`-addressable: rules cite a constraint by `id` to say which boundary they are evaluated against, so a workflow with two different footprints can state which artifact each one governs. FP-WF1 needs several constraints at once (trained-on/spatial, valid-for/ecological, can-run-on/climatic), which is why role and dimension are independent axes rather than a single enum choice.\n**Values bind to published vocabularies rather than to FOCAL terms wherever one exists**, so a consumer that already understands GeoSPARQL or DCAT can evaluate the constraint without knowing anything about FOCAL: a spatial extent is a `geo:Geometry` carrying `geo:asWKT`, a calendar span is a `dcterms:PeriodOfTime` carrying `dcat:startDate`/`dcat:endDate`. That is what makes \"can I run this workflow over my area of interest?\" a query a GeoSPARQL engine can answer with `geof:sfWithin`, rather than a sentence a person has to read.\n",
   "allOf": [
     {
       "$ref": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.json"
@@ -52,8 +52,25 @@
           "description": "Why this value is what it is, where that is not self-evident: an approximated geometry, a fact inferred rather than stated by the source, a granularity the source left open. Uplifts to `rdfs:comment`. Mixed in from bblocks://ogc.focal.transferability.notes.\n",
           "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#comment"
         },
+        "inputRef": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/jsonPointer"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/jsonPointer"
+              }
+            }
+          ],
+          "description": "JSON Pointer (RFC 6901), or several, to the input of the annotated document that this condition is **tested against**: what the user gives, such as the area of interest or the selected species (e.g. `/inputs/species`). Several pointers are for one fact spread over several inputs, such as latitude and longitude.\nNot the same as an artifact's `artifactRef`, although the mechanism is the same. `artifactRef` says that an input *is* the thing a rule would replace; `inputRef` says that the condition is checked against what is given there. The two often differ: a species constraint is tested against the species selection and governs a trait table.\nOptional. A consumer such as a questionnaire UI composes its wording from the referenced input's own label and description and from the structured `value`.\n",
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/inputRef",
+          "x-jsonld-container": "@set"
+        },
         "value": {
-          "description": "The constraint value, shaped by `dimension`:\n- `spatial`/`jurisdictional` \u2014 a geometry, as `{\"asWKT\": \"POLYGON((...))\"}`. WKT rather\n  than GeoJSON coordinate arrays: it uplifts to a real `geo:wktLiteral`, which is the\n  form GeoSPARQL's topological functions actually operate on, it is one value rather than\n  a nested array so nothing is lost or reshaped in uplift, and it is dramatically more\n  compact (UP-WF2's European coverage MultiPolygon costs a few hundred characters\n  instead of 1,283 lines of Turtle). An approximate extent is expected and fine \u2014 a\n  published bounding box for a model domain, say \u2014 but it must be a real extent, since a\n  free-text place name cannot answer the containment question this dimension exists for.\n- `temporal` \u2014 either `{\"startDate\", \"endDate\"}` (a calendar span, uplifting to\n  `dcat:startDate`/`dcat:endDate` on a `dcterms:PeriodOfTime`) or `{\"scenarioMarker\"}`\n  for results that are not calendar-indexed at all. A Global Warming Level is the\n  evidenced case: it is reached in different years under different emissions scenarios\n  and ensemble members, so a calendar interval would be a fabrication rather than a\n  simplification. Markers are concepts, not free text, so `GWL+1.5` written two ways by\n  two pilots is one thing rather than two.\n- `grid-structure` \u2014 the set of grid types the workflow's gridded inputs may be on, as\n  `{\"gridTypes\": [\"regular-latlon\", \"rotated-pole\"]}`. A whitelist rather than a\n  description: `inside` means the target data's grid is one of these, `outside` that it\n  is not. This is a structured branch and not prose because UP-WF3's constraint (\"other\n  projections are not handled\") is a hard interface requirement over a small enumerable\n  set \u2014 mechanically checkable, and *more* so than a bounding box, since the terms carry\n  the CF-conventions `grid_mapping_name` as their `skos:notation` and the datasets in\n  question declare exactly that.\n- **any dimension, as an analogy** \u2014 `{\"scheme\": ..., \"sameClassAs\": ...}`, saying the\n  target must fall in the same class of a published classification as some reference\n  does. This is the shape of every \"comparable to where we calibrated\" claim in the\n  corpus, and it is a *relation*, not a value: the source says the target must resemble\n  the training area, and says nothing about which classes the training area is in.\n  Enumerating those classes would state something the source never said and would go\n  stale the moment the training geometry is corrected, so the default is to name the\n  reference and let a platform derive the rest. Tested with `same-class-as` /\n  `different-class-from` rather than `inside`/`outside`.\n- `ecological`/`climatic`/anything else \u2014 a plain string, where no classification\n  captures the claim. \"A comparable ecological range\" does not become machine-checkable\n  by being wrapped in coordinates it does not have. A rule may still cite such a\n  constraint; the condition is then a judgement a person makes, stated in the same\n  structure, which is honest about where automation stops. Prefer the analogy shape above\n  where a scheme does capture it: it says the same thing and a machine can settle it.\n",
+          "description": "The constraint value, shaped by `dimension`:\n- `spatial`/`jurisdictional` \u2014 a geometry, as `{\"asWKT\": \"POLYGON((...))\"}`. WKT rather\n  than GeoJSON coordinate arrays: it uplifts to a real `geo:wktLiteral`, which is the\n  form GeoSPARQL's topological functions actually operate on, it is one value rather than\n  a nested array so nothing is lost or reshaped in uplift, and it is dramatically more\n  compact (UP-WF2's European coverage MultiPolygon costs a few hundred characters\n  instead of 1,283 lines of Turtle). An approximate extent is expected and fine \u2014 a\n  published bounding box for a model domain, say \u2014 but it must be a real extent, since a\n  free-text place name cannot answer the containment question this dimension exists for.\n- `temporal` \u2014 either `{\"startDate\", \"endDate\"}` (a calendar span, uplifting to\n  `dcat:startDate`/`dcat:endDate` on a `dcterms:PeriodOfTime`) or `{\"scenarioMarker\"}`\n  for results that are not calendar-indexed at all. A Global Warming Level is the\n  evidenced case: it is reached in different years under different emissions scenarios\n  and ensemble members, so a calendar interval would be a fabrication rather than a\n  simplification. Markers are concepts, not free text, so `GWL+1.5` written two ways by\n  two pilots is one thing rather than two.\n- `grid-structure` \u2014 the set of grid types the workflow's gridded inputs may be on, as\n  `{\"gridTypes\": [\"regular-latlon\", \"rotated-pole\"]}`. A whitelist rather than a\n  description: `inside` means the target data's grid is one of these, `outside` that it\n  is not. This is a structured branch and not prose because UP-WF3's constraint (\"other\n  projections are not handled\") is a hard interface requirement over a small enumerable\n  set \u2014 mechanically checkable, and *more* so than a bounding box, since the terms carry\n  the CF-conventions `grid_mapping_name` as their `skos:notation` and the datasets in\n  question declare exactly that.\n- **value ranges** \u2014 `{\"variables\": [{\"name\", \"unit\", \"min\", \"max\"}], \"statistic\"}`:\n  the values of named variables within which the claim holds, such as the training domain\n  of a model (`input-domain`) or the indicator limits of a classification (`climatic`).\n  `inside` means every listed variable is within its range. Usually the variables are\n  derived from the inputs, so the condition cannot be settled before running; a consumer\n  reports it as unknown, never as satisfied.\n- **any dimension, as an analogy** \u2014 `{\"scheme\": ..., \"sameClassAs\": ...}`, saying the\n  target must fall in the same class of a published classification as some reference\n  does. This is the shape of every \"comparable to where we calibrated\" claim in the\n  corpus, and it is a *relation*, not a value: the source says the target must resemble\n  the training area, and says nothing about which classes the training area is in.\n  Enumerating those classes would state something the source never said and would go\n  stale the moment the training geometry is corrected, so the default is to name the\n  reference and let a platform derive the rest. Tested with `same-class-as` /\n  `different-class-from` rather than `inside`/`outside`.\n- `ecological`/`climatic`/anything else \u2014 a plain string, where no classification\n  captures the claim. \"A comparable ecological range\" does not become machine-checkable\n  by being wrapped in coordinates it does not have. A rule may still cite such a\n  constraint; the condition is then a judgement a person makes, stated in the same\n  structure, which is honest about where automation stops. Prefer the analogy shape above\n  where a scheme does capture it: it says the same thing and a machine can settle it.\n",
           "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/value"
         }
       }
@@ -132,6 +149,32 @@
       ]
     },
     {
+      "title": "Value ranges of named variables",
+      "properties": {
+        "dimension": {
+          "not": {
+            "enum": [
+              "spatial",
+              "jurisdictional",
+              "temporal",
+              "grid-structure"
+            ]
+          },
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/dimension",
+          "x-jsonld-type": "@id",
+          "x-jsonld-base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/"
+        },
+        "value": {
+          "$ref": "#/$defs/ranges",
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/value"
+        }
+      },
+      "required": [
+        "dimension",
+        "value"
+      ]
+    },
+    {
       "title": "Classification analogy (any dimension)",
       "description": "Available on every dimension, including spatial ones: \"the same biogeographical region as the training area\" is a different claim from \"inside the training area's bounding box\", and both are legitimate.\n",
       "properties": {
@@ -172,6 +215,75 @@
     }
   ],
   "$defs": {
+    "jsonPointer": {
+      "type": "string",
+      "format": "json-pointer",
+      "pattern": "^/"
+    },
+    "ranges": {
+      "title": "Value ranges",
+      "type": "object",
+      "required": [
+        "variables"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "variables": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "anyOf": [
+              {
+                "required": [
+                  "min"
+                ]
+              },
+              {
+                "required": [
+                  "max"
+                ]
+              }
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The variable, by the name the workflow uses.",
+                "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/variableName"
+              },
+              "unit": {
+                "type": "string",
+                "description": "Unit of `min` and `max`, as a plain string. Not a QUDT IRI, unlike acceptance criteria: derived variables carry units such as `z-score` or a national coding that have none.\n",
+                "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/unitLabel"
+              },
+              "min": {
+                "type": "number",
+                "description": "Lowest value inside the range. Omit for an open lower end.",
+                "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/minimum",
+                "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#double"
+              },
+              "max": {
+                "type": "number",
+                "description": "Highest value inside the range. Omit for an open upper end.",
+                "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/maximum",
+                "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#double"
+              }
+            }
+          },
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/variableRange",
+          "x-jsonld-container": "@set"
+        },
+        "statistic": {
+          "type": "string",
+          "description": "How the target's values are aggregated before they are compared, e.g. `multi-year mean`. Omit when each value is compared as it is. How the bounds themselves were derived (percentiles of training data, say) belongs in `transferabilityNotes`.\n",
+          "x-jsonld-id": "https://w3id.org/ogc/hosted/focal/transferability/properties/statistic"
+        }
+      }
+    },
     "geometry": {
       "title": "Geometry",
       "type": "object",
@@ -341,7 +453,7 @@
   "x-bblocks-metadata": {
     "itemIdentifier": "ogc.focal.transferability.envelopeConstraint",
     "register": "https://ogcincubator.github.io/bblocks-focal/build/register.json",
-    "version": "0.8",
-    "dateOfLastChange": "2026-11-10"
+    "version": "0.9",
+    "dateOfLastChange": "2026-11-25"
   }
 }

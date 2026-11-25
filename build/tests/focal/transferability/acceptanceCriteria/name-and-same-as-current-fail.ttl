@@ -1,0 +1,6 @@
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] focal-transf-prop:variable [ focal-transf-prop:sameAsCurrent true ;
+            focal-transf-prop:variableName "pr" ] .
+

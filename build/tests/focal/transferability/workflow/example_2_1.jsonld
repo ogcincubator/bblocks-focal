@@ -1,14 +1,30 @@
 {
   "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/workflow/context.jsonld",
   "class": "Workflow",
-  "id": "",
   "cwlVersion": "v1.2",
-  "label": "FP-WF2 \u2014 Heat stress",
+  "id": "",
+  "label": "FWF2 - Climate stress indicators: heat, drought, SPEI (FOCAL Forest Pilot)",
+  "doc": [
+    "Computes heat, drought and combined climate-stress indicators, including SPEI, from daily temperature and precipitation for a point or an area, over any period and sub-period. An optional add-on links them to tree species through species heat and drought tolerance.",
+    "Transferability record of workflow FP-WF2 (FWF2), record date 2026-11-18. Record basis: FWF2 code package (API, indicator engine, forest point summary, map layers, trends, species modules and tables, Rasdaman registry, source catalogue). Converted from the delivered record on 2026-11-25. Descriptive CWL profile: no steps are declared and the input and output identifiers are not yet those of an executable Application Package."
+  ],
+  "$namespaces": {
+    "s": "https://schema.org/"
+  },
+  "s:identifier": "FP-WF2",
+  "s:alternateName": "FWF2",
+  "s:dateCreated": "2026-11-18",
   "requirements": {
     "SoftwareRequirement": {
       "packages": [
         {
           "package": "python"
+        },
+        {
+          "package": "numpy"
+        },
+        {
+          "package": "scipy"
         },
         {
           "package": "flask"
@@ -23,121 +39,662 @@
     }
   },
   "inputs": {
-    "species_tolerances": {
-      "type": "File"
+    "latitude": {
+      "type": "double?",
+      "label": "Latitude of the point",
+      "doc": "Latitude in decimal degrees (WGS 84). Give latitude and longitude for a point, or bbox for an area."
     },
-    "forest_classification_context": {
-      "type": "File"
+    "longitude": {
+      "type": "double?",
+      "label": "Longitude of the point",
+      "doc": "Longitude in decimal degrees (WGS 84). Give together with latitude."
+    },
+    "bbox": {
+      "type": "double[]?",
+      "label": "Area of interest (bounding box)",
+      "doc": "Area as [minimum longitude, minimum latitude, maximum longitude, maximum latitude] in decimal degrees (WGS 84). Alternative to latitude and longitude."
+    },
+    "start_date": {
+      "type": "string",
+      "label": "Start of the period",
+      "doc": "First day of the period to evaluate (ISO 8601 date)."
+    },
+    "end_date": {
+      "type": "string",
+      "label": "End of the period",
+      "doc": "Last day of the period to evaluate (ISO 8601 date)."
+    },
+    "sub_period": {
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "symbols": [
+            "whole_period",
+            "month",
+            "iso_week",
+            "seven_day_window",
+            "calendar_year",
+            "user_year"
+          ]
+        }
+      ],
+      "label": "Sub-period",
+      "doc": "How results are broken down within the period; averages over these units are also available."
+    },
+    "spei_scale": {
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "symbols": [
+            "monthly",
+            "yearly"
+          ]
+        }
+      ],
+      "label": "SPEI time step",
+      "doc": "Whether SPEI is computed monthly or yearly."
+    },
+    "heat_threshold": {
+      "type": "float",
+      "label": "Heat stress day threshold (degC)",
+      "doc": "A day counts as a heat stress day when daily maximum temperature is at or above this value; heat stress units are degree-days above it. The default suits Central Europe; set it for the region.",
+      "default": 30
+    },
+    "dry_day_threshold": {
+      "type": "float",
+      "label": "Dry day threshold (mm)",
+      "doc": "A day with precipitation below this value counts as dry. The default suits Central Europe; set it for the region.",
+      "default": 1
+    },
+    "dry_spell_min_days": {
+      "type": "int",
+      "label": "Minimum length of a drought period (days)",
+      "doc": "Consecutive dry days needed for a drought period. The default suits Central Europe; set it for the region.",
+      "default": 10
+    },
+    "heatwave_min_days": {
+      "type": "int",
+      "label": "Minimum length of a heatwave (days)",
+      "doc": "Consecutive days needed for a heatwave in the forestry exposure summary. The default suits Central Europe; set it for the region.",
+      "default": 6
+    },
+    "growing_season_start_month": {
+      "type": "int",
+      "label": "First month of the growing season",
+      "doc": "Month number, 1 to 12. The default suits Central Europe; set it for the region.",
+      "default": 4
+    },
+    "growing_season_end_month": {
+      "type": "int",
+      "label": "Last month of the growing season",
+      "doc": "Month number, 1 to 12. The default suits Central Europe; set it for the region.",
+      "default": 9
+    },
+    "species": {
+      "type": "string[]?",
+      "label": "Tree species",
+      "doc": "Species to relate to heat and drought tolerance (optional species add-on), identified as in the species catalogue (species_codes.json, which carries Latin names). Outside Czechia, where the species-at-location lookup is not available, select them here."
+    },
+    "rasdaman_connection": {
+      "type": "string",
+      "label": "Data cube connection",
+      "doc": "How to reach the Rasdaman instance that holds the climate data (queried with rasql over SSH). The connection variables are not named in the delivered material, so one string stands for them; we assume credentials are supplied by the execution environment."
+    },
+    "rasdaman_registry": {
+      "type": "File",
+      "label": "Data cube registry",
+      "doc": "rasdaman_registry.json for that instance. The FOCAL registry is not transferable as is."
+    },
+    "climate_source_catalogue": {
+      "type": "File",
+      "label": "Climate source catalogue",
+      "doc": "climate_source_catalog.json listing the sources and areas offered."
+    },
+    "readiness_collection": {
+      "type": "string?",
+      "label": "Readiness check collection",
+      "doc": "Value for READINESS_COLLECTION, which defaults to a Czech ERA5-Land collection."
+    },
+    "t5_values": {
+      "type": "File",
+      "label": "Leaf heat tolerance (T5) table",
+      "doc": "Leaf heat tolerance T5 per species with measurements and sources. Used by the species add-on. Ships with the workflow.",
+      "default": {
+        "class": "File",
+        "location": "t5_values.json"
+      }
+    },
+    "species_tolerances": {
+      "type": "File",
+      "label": "Drought and waterlogging tolerance table",
+      "doc": "Tolerance scores 0-5 per species. Used by the species add-on. Ships with the workflow.",
+      "default": {
+        "class": "File",
+        "location": "species_tolerances.json"
+      }
     },
     "species_codes": {
-      "type": "File"
+      "type": "File",
+      "label": "Species codes table",
+      "doc": "Czech forestry species codes with Czech, English and Latin names. Used by the species add-on. Ships with the workflow.",
+      "default": {
+        "class": "File",
+        "location": "species_codes.json"
+      }
     },
-    "climate_registry_endpoint": {
-      "type": "string"
+    "slt_species": {
+      "type": "File",
+      "label": "Forest type species composition table",
+      "doc": "Natural and target species composition of the Czech forest-type groups. Used by the species add-on. Ships with the workflow.",
+      "default": {
+        "class": "File",
+        "location": "slt_species.json"
+      }
     }
   },
+  "outputs": {
+    "heat_stress_days": {
+      "type": "File",
+      "label": "Heat stress days",
+      "doc": "Days with daily maximum temperature at or above the threshold."
+    },
+    "heat_stress_units": {
+      "type": "File",
+      "label": "Heat stress units",
+      "doc": "Degree-days above the heat threshold."
+    },
+    "drought_periods": {
+      "type": "File",
+      "label": "Drought periods",
+      "doc": "Runs of consecutive dry days."
+    },
+    "heat_drought_periods": {
+      "type": "File",
+      "label": "Combined heat and drought periods",
+      "doc": "Periods of combined heat and drought."
+    },
+    "spei": {
+      "type": "File",
+      "label": "SPEI",
+      "doc": "Standardised Precipitation-Evapotranspiration Index, monthly or yearly."
+    },
+    "forest_climate_summary": {
+      "type": "File",
+      "label": "Forestry exposure summary",
+      "doc": "SPEI-3 metrics, longest dry spell, hot days, TX90p days, longest heatwave and hot days during dry spells, with relative classes."
+    },
+    "trends": {
+      "type": "File",
+      "label": "Trends",
+      "doc": "Sen's slope and Mann-Kendall trends."
+    },
+    "map_layers": {
+      "type": "File",
+      "label": "Map layers",
+      "doc": "12 map layers."
+    },
+    "species_catalogue": {
+      "type": "File?",
+      "label": "Species catalogue",
+      "doc": "Species with their codes and names (species add-on)."
+    },
+    "species_heat_threshold": {
+      "type": "File?",
+      "label": "Species heat thresholds",
+      "doc": "T5-based heat threshold of the selected species (species add-on)."
+    },
+    "species_tolerance": {
+      "type": "File?",
+      "label": "Species tolerances",
+      "doc": "Drought and waterlogging tolerance of the selected species (species add-on)."
+    },
+    "species_at_location": {
+      "type": "File?",
+      "label": "Species at the location",
+      "doc": "Czech forest type and natural and target species composition at a point (species add-on)."
+    },
+    "forest_type_tolerance_ranking": {
+      "type": "File?",
+      "label": "Forest type tolerance ranking",
+      "doc": "Tolerance ranking for the species of the forest type (species add-on)."
+    }
+  },
+  "steps": {},
   "transferability": {
     "trainingRequired": false,
+    "transferabilityNotes": "Envelope entries and rules that only described which data FOCAL currently holds, or its platform, are not part of this statement; what they said is kept in the notes of the artifacts concerned. An area or period for which no data is at hand is a matter of providing data (as delivered, in the data cube) that meets the artifact's criteria. The delivered record also notes: temporal extent is the year range of each collection, read from Rasdaman at runtime. The general climate-stress part is bounded only by data, the latitude limit of PET and SPEI and the need for 30 years of reference history; the species add-on adds species coverage and the Czech forest-type lookup.",
     "envelope": [
       {
-        "id": "czechia",
-        "role": "derived-from",
-        "dimension": "jurisdictional",
+        "id": "pet-latitude-limit",
+        "role": "valid-for",
+        "dimension": "spatial",
         "value": {
-          "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"
-        }
+          "asWKT": "POLYGON((-180 -66.56, 180 -66.56, 180 66.56, -180 66.56, -180 -66.56))"
+        },
+        "inputRef": [
+          "/inputs/latitude",
+          "/inputs/longitude",
+          "/inputs/bbox"
+        ],
+        "transferabilityNotes": "Latitude band |latitude| <= 66.56 degrees. FAO-56 extraterrestrial radiation in the Hargreaves PET is undefined during polar day/night; PET and SPEI return no value poleward of the Arctic/Antarctic circle. Other general indicators are unaffected."
       },
       {
-        "id": "rasdaman-coverage",
+        "id": "t5-species-coverage",
+        "role": "valid-for",
+        "dimension": "ecological",
+        "value": {
+          "scheme": "gbif-backbone",
+          "classes": [
+            "Picea abies",
+            "Abies alba",
+            "Pinus sylvestris",
+            "Fagus sylvatica",
+            "Quercus robur",
+            "Carpinus betulus",
+            "Acer platanoides",
+            "Acer pseudoplatanus",
+            "Alnus glutinosa",
+            "Salix alba",
+            "Salix fragilis"
+          ]
+        },
+        "inputRef": "/inputs/species",
+        "transferabilityNotes": "Species add-on only. Values are species traits from literature, independent of location; valid wherever these species grow. Species with a numeric T5. The delivered entry 'Salix alba / Salix fragilis' is listed as two taxa."
+      },
+      {
+        "id": "tolerance-species-coverage",
+        "role": "valid-for",
+        "dimension": "ecological",
+        "value": {
+          "scheme": "gbif-backbone",
+          "classes": [
+            "Picea abies",
+            "Abies alba",
+            "Pinus sylvestris",
+            "Fagus sylvatica",
+            "Quercus robur",
+            "Carpinus betulus",
+            "Acer platanoides",
+            "Acer pseudoplatanus",
+            "Alnus glutinosa",
+            "Larix decidua",
+            "Betula pendula",
+            "Sorbus aucuparia",
+            "Pinus mugo",
+            "Tilia cordata",
+            "Populus tremula"
+          ]
+        },
+        "inputRef": "/inputs/species",
+        "transferabilityNotes": "Species add-on only. Values are species traits from literature, independent of location; valid wherever these species grow. Species with drought and waterlogging tolerance scores."
+      },
+      {
+        "id": "czech-forest-type-map",
         "role": "can-run-on",
         "dimension": "spatial",
         "value": {
-          "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"
-        }
+          "asWKT": "POLYGON((12.07 48.48, 18.97 48.48, 18.97 51.08, 12.07 51.08, 12.07 48.48))"
+        },
+        "inputRef": [
+          "/inputs/latitude",
+          "/inputs/longitude",
+          "/inputs/bbox"
+        ],
+        "transferabilityNotes": "Species-at-location lookup (NLI WMS Lesni_typ + Czech forest typology). Czechia's forest land only; the box is the FOCAL Czechia bounding box standing in for the national border."
       }
     ],
     "artifacts": [
       {
-        "id": "tolerances",
-        "artifact": "species tolerance thresholds (species_tolerances.json)",
+        "id": "daily-climate",
+        "artifact": "Daily temperature (minimum, average, maximum) and precipitation covering the requested period",
         "artifactRole": "workflow-input",
-        "artifactRef": "/inputs/species_tolerances"
+        "acceptanceCriteria": {
+          "variables": [
+            {
+              "name": "tasmin",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "tas",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "tasmax",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "pr",
+              "units": [
+                "MilliM-PER-DAY"
+              ]
+            }
+          ],
+          "temporal": {
+            "resolution": "P1D",
+            "calendar": [
+              "standard",
+              "proleptic_gregorian",
+              "noleap"
+            ]
+          },
+          "axes": [
+            "time"
+          ],
+          "gridTypes": [
+            "regular-latlon",
+            "rotated-pole"
+          ],
+          "transferabilityNotes": "Structure: 3D [day, y, x]; temperature as a struct cell (min/avg/max) or as separate variables; 2D latitude/longitude of cell centres; no-data is NaN. 360_day calendars need conversion before ingest."
+        },
+        "transferabilityNotes": "As delivered, the workflow does not take these data as a file: it reads them from the Rasdaman data cube (artifact rasdaman), for the requested area and the years it needs. The delivered material gives no specification of the layout the code expects. Delivered as two datasets with the same requirements. (1) Projections: CMIP6-CORDEX EUR-11 GERICS-REMO2020 (MPI-ESM1-2-HR, EC-Earth3-Veg, MIROC6), SSP3-7.0, r1i1p1f1: daily temperature (tas_min/tas_avg/tas_max) and precipitation; SSP3-7.0 only, no historical experiment. Within FOCAL: daily data of these three simulations are held for the whole EUR-11 rotated grid and read directly, with no precompute (lon/lat bounding box 44.5939 W - 64.9644 E, 21.9878 - 72.585 N; the box overstates the rotated domain at its corners). Not usable outside that domain with these simulations: use another CORDEX domain or daily dataset meeting the criteria; other GCM-RCM pairs or scenarios can be obtained from ESGF. (2) Historical: ERA5-Land daily temperature (t2m_min/t2m_avg/t2m_max from hourly t2m) and daily precipitation sum (from hourly tp). Within FOCAL: held for Czechia, Spain and Finland; other areas by a routine precompute run. Outside FOCAL: ERA5-Land (Copernicus Climate Data Store), E-OBS or national grids. Native resolution of those sources: ERA5-Land 0.1 degrees (about 10 km), EUR-11 0.11 degrees (about 12.5 km). Used by (delivered step names): heat-stress-days, heat-stress-units, drought-periods, heat-drought-periods, spei, forest-climate-summary, trends, map-layers, spei-reference-history. SPEI, TX90p and the relative classes need 30 complete years before the evaluated period (or a fixed 30-year baseline), either in these data or in the reference history data."
       },
       {
-        "id": "slt",
-        "artifact": "SLT forest classification context (Czechia-specific)",
+        "id": "reference-history",
+        "artifact": "Historical daily climate used as the reference history (ERA5-Land in the delivered setup)",
         "artifactRole": "workflow-input",
-        "artifactRef": "/inputs/forest_classification_context"
+        "acceptanceCriteria": {
+          "variables": [
+            {
+              "name": "tasmin",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "tas",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "tasmax",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "pr",
+              "units": [
+                "MilliM-PER-DAY"
+              ]
+            }
+          ],
+          "temporal": {
+            "resolution": "P1D",
+            "calendar": [
+              "standard",
+              "proleptic_gregorian",
+              "noleap"
+            ],
+            "minimumPrecedingYears": 30
+          },
+          "axes": [
+            "time"
+          ],
+          "gridTypes": [
+            "regular-latlon",
+            "rotated-pole"
+          ],
+          "transferabilityNotes": "Structure: 3D [day, y, x]; temperature as a struct cell (min/avg/max) or as separate variables; 2D latitude/longitude of cell centres; no-data is NaN. 360_day calendars need conversion before ingest."
+        },
+        "transferabilityNotes": "As delivered, the workflow does not take these data as a file: it reads them from the Rasdaman data cube (artifact rasdaman), for the requested area and the years it needs. The delivered material gives no specification of the layout the code expects. Used only when the main data lack the history. SPEI, TX90p and relative classes need 30 complete years before the evaluated period (or a fixed 30-year baseline). Missing history is taken from a historical source quantile-mapped per calendar month to the primary source over their overlap, with at least 30 samples per month. Also needed when projections are evaluated. Within FOCAL: ERA5-Land is held for Czechia, Spain and Finland; other areas by a routine precompute run. Outside FOCAL: ERA5-Land (CDS), E-OBS or national grids. Used by (delivered step names): spei-reference-history, spei."
       },
       {
-        "id": "t5",
-        "artifact": "T5 species-specific stress threshold",
-        "artifactRole": "workflow-input"
+        "id": "t5-values",
+        "artifact": "t5_values.json: leaf heat tolerance T5 (temperature at 5 % decline of Fv/Fm) per species, with measurements and sources (Kunert et al. 2022 and others)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/t5_values",
+        "acceptanceCriteria": {
+          "variables": [
+            {
+              "name": "code"
+            },
+            {
+              "name": "lat"
+            },
+            {
+              "name": "t5",
+              "units": [
+                "DEG_C"
+              ]
+            },
+            {
+              "name": "measurements"
+            }
+          ],
+          "transferabilityNotes": "Endpoint T5: temperature at 5 % decline of Fv/Fm. Measurements carry their source. The key \"lat\" is the Latin species name, not a latitude."
+        },
+        "transferabilityNotes": "Species traits from literature, independent of location. Species add-on only. Used by (delivered step names): species-heat-threshold."
+      },
+      {
+        "id": "species-tolerances",
+        "artifact": "species_tolerances.json: drought and waterlogging tolerance 0-5 (Niinemets & Valladares 2006)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/species_tolerances",
+        "transferabilityNotes": "A replacement gives drought and waterlogging tolerance on an ordinal 0-5 scale, from the same synthesis or an equivalent ordinal scale. The source synthesis covers temperate Northern Hemisphere trees and shrubs. Species add-on only. Used by (delivered step names): species-tolerance, forest-type-tolerance-ranking."
       },
       {
         "id": "species-codes",
-        "artifact": "species codes catalogue (species_codes.json)",
+        "artifact": "species_codes.json: Czech forestry species codes with Czech, English and Latin names",
         "artifactRole": "workflow-input",
-        "artifactRef": "/inputs/species_codes"
+        "artifactRef": "/inputs/species_codes",
+        "transferabilityNotes": "The Latin names make it language independent. For further species, add codes. Used by (delivered step names): species-catalogue."
+      },
+      {
+        "id": "nli-forest-type-service",
+        "artifact": "NLI WMS (gp1/gp2.nli.gov.cz/wms_oprl), layer Lesni_typ, GetFeatureInfo; Czech regional forest development plans",
+        "artifactRole": "external-resource",
+        "transferabilityNotes": "Public service covering the forest land of Czechia only. A replacement is a point query returning a forest type or species code for the location, with coordinates in EPSG:4326 or transformable, plus an adapter. Used by (delivered step names): species-at-location."
+      },
+      {
+        "id": "slt-species",
+        "artifact": "slt_species.json: Czech forest-type groups (SLT, 105) with natural and target species composition (%)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/slt_species",
+        "transferabilityNotes": "Defined for the Czech forest typology. Structure: {type-code: {name, natural: {species-code: %}, target: {species-code: %}}}, with the same species code list as species-codes. Used by (delivered step names): species-at-location, forest-type-tolerance-ranking."
+      },
+      {
+        "id": "heat-threshold",
+        "artifact": "Heat stress day threshold (Tmax >= 30 degC)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/heat_threshold",
+        "transferabilityNotes": "30 degC is rarely reached in boreal climates and often in Mediterranean ones; set it per region or use TX90p."
+      },
+      {
+        "id": "dry-day-threshold",
+        "artifact": "Dry day threshold (< 1 mm)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/dry_day_threshold",
+        "transferabilityNotes": "A request parameter."
+      },
+      {
+        "id": "dry-spell-length",
+        "artifact": "Drought period length (>= 10 days)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/dry_spell_min_days",
+        "transferabilityNotes": "A 10-day dry spell is routine in a Mediterranean summer."
+      },
+      {
+        "id": "heatwave-length",
+        "artifact": "Heatwave length (>= 6 days)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/heatwave_min_days",
+        "transferabilityNotes": "A request parameter."
+      },
+      {
+        "id": "growing-season-start",
+        "artifact": "Growing season start (April)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/growing_season_start_month",
+        "transferabilityNotes": "Northern Hemisphere temperate default (April-September); e.g. shorter in boreal forests; in Mediterranean forests the summer drought falls inside it."
+      },
+      {
+        "id": "growing-season-end",
+        "artifact": "Growing season end (September)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/growing_season_end_month",
+        "transferabilityNotes": "Northern Hemisphere temperate default (April-September); see growing-season-start."
       },
       {
         "id": "rasdaman",
-        "artifact": "Rasdaman climate registry / source catalogue",
-        "artifactRole": "workflow-input",
-        "artifactRef": "/inputs/climate_registry_endpoint"
+        "artifact": "FOCAL Rasdaman data cube (rasql over SSH), source catalogue and registry (climate_source_catalog.json, rasdaman_registry.json)",
+        "artifactRole": "infrastructure",
+        "transferabilityNotes": "The delivered workflow reads data from a Rasdaman instance queried with rasql over SSH. Another platform needs Rasdaman with the same registry layout (set READINESS_COLLECTION, which defaults to a Czech ERA5-Land collection) and its own registry, or file-based data access instead; the computation uses NumPy and SciPy. Within FOCAL: add catalogue and registry entries for a new area (user interface listing, new ERA5-Land collections). The FOCAL registry is not transferable as is. Used by (delivered step names): data-access."
       }
     ],
     "rules": [
       {
         "appliesTo": [
-          "slt",
-          "species-codes"
+          "daily-climate",
+          "reference-history"
         ],
         "when": [
           {
-            "constraint": "czechia",
+            "constraint": "pet-latitude-limit",
             "test": "outside"
           }
         ],
-        "actions": [
-          "replace-with-local-equivalent"
+        "affects": [
+          "/outputs/spei",
+          "/outputs/forest_climate_summary"
         ],
-        "mandatory": true
+        "actions": [
+          "component-not-executable"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "PET/SPEI undefined poleward of 66.56 deg; other indicators still run. Fix needs a code change (clipping of the sunset-angle term)."
       },
       {
         "appliesTo": [
-          "tolerances",
-          "t5"
+          "t5-values"
         ],
         "when": [
           {
-            "constraint": "czechia",
-            "test": "outside"
+            "constraint": "t5-species-coverage",
+            "test": "different-class-from"
           }
         ],
         "actions": [
           "replace-with-local-equivalent"
         ],
         "mandatory": false,
-        "transferabilityNotes": "Users can supply custom thresholds, so replacing the tolerance thresholds and T5 is optional even outside the extent: the predefined per-species values are defaults, and target-appropriate values can be entered directly."
+        "transferabilityNotes": "Add literature values for the species in question; general part unaffected. Without them there is no T5-based heat result for the species. Literature T5 values must use the same endpoint."
       },
       {
         "appliesTo": [
-          "rasdaman"
+          "species-tolerances"
         ],
         "when": [
           {
-            "constraint": "rasdaman-coverage",
-            "test": "outside"
+            "constraint": "tolerance-species-coverage",
+            "test": "different-class-from"
           }
         ],
         "actions": [
           "replace-with-local-equivalent"
         ],
-        "mandatory": true
+        "mandatory": false,
+        "transferabilityNotes": "Add literature values for the species in question; general part unaffected. Without them there is no tolerance result for the species. Use values from the same synthesis."
+      },
+      {
+        "appliesTo": [
+          "nli-forest-type-service",
+          "slt-species"
+        ],
+        "when": [
+          {
+            "constraint": "czech-forest-type-map",
+            "test": "outside"
+          }
+        ],
+        "affects": [
+          "/outputs/species_at_location",
+          "/outputs/forest_type_tolerance_ranking"
+        ],
+        "actions": [
+          "replace-with-local-equivalent",
+          "component-not-executable"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Either connect a national forest typology/species map with a point query and a composition table, or the lookup is unavailable and users select species manually. General part unaffected."
+      },
+      {
+        "appliesTo": [
+          "heat-threshold",
+          "dry-day-threshold",
+          "dry-spell-length",
+          "heatwave-length",
+          "growing-season-start",
+          "growing-season-end"
+        ],
+        "triggeredBy": "different-climate-regime",
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": false,
+        "transferabilityNotes": "The default thresholds and growing season suit Central Europe; they are request parameters and should be set per region. If kept, counts and classes based on them are less meaningful for the region."
+      },
+      {
+        "appliesTo": [
+          "rasdaman"
+        ],
+        "triggeredBy": "service-unavailable",
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Applies where no Rasdaman instance is available to the workflow: set one up with the same layout and its own registry, or change the code that reads the data (see the rasdaman artifact). On the FOCAL instance, a missing area is instead added as new collections and entries."
       }
     ]
   },
   "computationType": "deterministic-rule-based",
-  "maturityStatus": "operational"
+  "maturityStatus": "operational",
+  "qualityAnnotation": [
+    {
+      "dimension": "method-limitation",
+      "note": "Default thresholds (Tmax >= 30 degC, dry day < 1 mm, dry spell >= 10 days, heatwave >= 6 days, growing season Apr-Sep) suit Central Europe; they are request parameters and should be set per region."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "Hargreaves PET is temperature-based; SPEI standardisation reduces but does not remove its bias."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "Historical years taken from another source are quantile-mapped per calendar month; this aligns distributions, it is not a full bias adjustment."
+    },
+    {
+      "dimension": "proxy-variable",
+      "note": "T5 is a leaf-tissue threshold from short laboratory exposures, compared with daily maximum air temperature; species heat counts are indicative."
+    },
+    {
+      "dimension": "intended-use-limit",
+      "note": "Drought and waterlogging tolerance scores are ordinal rankings, not mortality or SPEI thresholds."
+    },
+    {
+      "dimension": "proxy-variable",
+      "note": "Czech forest-type lookup returns potential natural and target composition, not the actual stand."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "10 km (ERA5-Land) and 12.5 km (EUR-11); IDW adds no detail."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "One RCM, three GCMs, one scenario (SSP3-7.0)."
+    }
+  ]
 }

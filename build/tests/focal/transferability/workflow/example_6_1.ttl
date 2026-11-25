@@ -1,89 +1,343 @@
 @prefix cwl: <https://w3id.org/cwl/cwl#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#NetworkAccess/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#NetworkAccess/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
 @prefix ns3: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
 @prefix sld: <https://w3id.org/cwl/salad#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/> a cwl:Workflow ;
-    rdfs:label "FP-WF5 — Map of climatic zones" ;
-    cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_metadata>,
+    rdfs:label "FWF5 - Climate zones inspired by Quitt's classification (FOCAL Forest Pilot)" ;
+    rdfs:comment "Assigns each location one of 23 climate units (coldest CH1 to warmest T5): the unit whose Quitt limits best match 11 multi-year mean climate characteristics. Reports trends of the characteristics and of the unit.",
+        "Transferability record of workflow FP-WF5 (FWF5), record date 2026-11-18. Record basis: FWF5 code package (API, scoring, trends, Rasdaman registry, source catalogue, Quitt limit table) and the published methodology; not the round-1 questionnaire. Methodology: https://github.com/JiriVales/info4forest-backend/blob/main/methodology_climate_zones_quitt_en_updated.md Converted from the delivered record on 2026-11-25. Descriptive CWL profile: no steps are declared and the input and output identifiers are not yet those of an executable Application Package." ;
+    schema:alternateName "FWF5" ;
+    schema:citation "https://github.com/JiriVales/info4forest-backend/blob/main/methodology_climate_zones_quitt_en_updated.md" ;
+    schema:dateCreated "2026-11-18" ;
+    schema:identifier "FP-WF5" ;
+    cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/bbox>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_source_catalogue>,
-        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_zone_thresholds> ;
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/end_year>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/latitude>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/longitude>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt_limit_table>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman_connection>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman_registry>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/readiness_collection>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/start_year>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/unit_descriptions> ;
+    cwl:outputs <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/adverse_episode>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_unit>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_unit_trend>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/indicator_maps>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/indicator_trends> ;
     cwl:requirements [ a cwl:NetworkAccess ;
-            ns2:networkAccess true ],
+            ns1:networkAccess true ],
         [ a cwl:SoftwareRequirement ;
-            ns1:packages [ ns3:package "flask" ],
+            ns2:packages [ ns3:package "flask" ],
+                [ ns3:package "gunicorn" ],
+                [ ns3:package "numpy" ],
                 [ ns3:package "python" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
-    focal-transf-prop:transferability [ focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate-metadata>,
-                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits>,
-                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-registry>,
-                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/validation-reference> ;
-            focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme>,
-                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful>,
-                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections> ;
-            focal-transf-prop:rules [ rdfs:comment "Skipping it does not stop the workflow: the zone maps come from adapted thresholds never checked against anything in the target area, so the classification is indicative and its fuzzy match scores are not comparable with those of the Czech setup." ;
+    focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
+            focal-transf-prop:note "10 km (ERA5-Land) and 12.5 km (EUR-11) cells; IDW smooths but adds no detail or elevation information." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
+            focal-transf-prop:note "Default adverse directions reflect a warming/drying stress view; overridable per request." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/decision-support-only> ;
+            focal-transf-prop:note "Not a substitute for local measurement, site assessment or operational forecasting." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
+            focal-transf-prop:note "The classification always returns a unit, even outside the climate envelope; a low best_score is the only signal." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
+            focal-transf-prop:note "Projections: one RCM (REMO2020) driven by three GCMs under one scenario (SSP3-7.0); not year-specific forecasts." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
+            focal-transf-prop:note "best_score (0-1) is a similarity to interval limits, not a probability." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
+            focal-transf-prop:note "11 of Quitt's 14 characteristics are used; snow cover, cloudiness and clear/overcast days are omitted." ] ;
+    focal-transf-prop:transferability [ rdfs:comment "Envelope entries and rules that only described which data FOCAL currently holds, or its platform, are not part of this statement; what they said is kept in the notes of the artifacts concerned. An area or period for which no data is at hand is a matter of providing data (as delivered, in the data cube) that meets the artifact's criteria. The delivered record also notes: temporal extent is the year range of each collection, read from Rasdaman at runtime. The 11 climate characteristics and their trends are valid everywhere; only the climate-unit outputs are bounded, by climate rather than geography." ;
+            focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/daily-climate>,
+                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limit-table>,
+                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman>,
+                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/unit-descriptions>,
+                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/yearly-indicators> ;
+            focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-climate-covered>,
+                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-climate-outer>,
+                <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits-origin> ;
+            focal-transf-prop:rules [ rdfs:comment "Without a regional table the steps still execute but return only the nearest Central European analogue with a low best_score. Characteristic outputs and trends are unaffected." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/validation-reference> ;
+                    focal-transf-prop:affects "/outputs/climate_unit",
+                        "/outputs/climate_unit_trend" ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limit-table> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-climate-outer> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ rdfs:comment "Degraded fit: an indicator mean outside 'covered' but within 'outer' still counts towards a unit with reduced membership, so the assigned unit can be trusted less. Characteristic outputs and trends are unaffected." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:affects "/outputs/climate_unit",
+                        "/outputs/climate_unit_trend" ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limit-table> ;
                     focal-transf-prop:mandatory false ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme> ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-climate-covered> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate-metadata>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "An equivalent datacube service satisfies this: what is replaced is the collections the catalogue points at, not necessarily Rasdaman itself." ;
+                [ rdfs:comment "Applies where no Rasdaman instance is available to the workflow: set one up with the same layout and its own registry, or change the code that reads the data (see the rasdaman artifact). On the FOCAL instance, a missing area is instead added as new collections and entries." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-registry> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman> ;
                     focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections> ;
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/service-unavailable> ],
+                [ rdfs:comment "Follows a replaced limit table. If not replaced, unit names and descriptions do not describe the climate of the target." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/unit-descriptions> ;
+                    focal-transf-prop:mandatory false ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-climate-outer> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ;
             focal-transf-prop:trainingRequired false ] .
 
-<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_metadata> sld:type cwl:File .
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/FWF5_climate_metadata.json> a cwl:File .
 
-<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_source_catalogue> sld:type xsd:string .
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/FWF5_quitt_limits_11_rasdaman_index.json> a cwl:File .
 
-<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_zone_thresholds> sld:type cwl:File .
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/adverse_episode> rdfs:label "Adverse episode" ;
+    rdfs:comment "Adverse episode derived from the trends." ;
+    sld:type cwl:File .
 
-<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate-metadata> dcterms:title "climate metadata file (indicator definitions and descriptions)" ;
-    focal-transf-prop:artifactRef "/inputs/climate_metadata" ;
-    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/bbox> rdfs:label "Area of interest (bounding box)" ;
+    rdfs:comment "Area as [minimum longitude, minimum latitude, maximum longitude, maximum latitude] in decimal degrees (WGS 84). Alternative to latitude and longitude." ;
+    sld:type <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/double[]> .
 
-<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-meaningful> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/climatic> ;
-    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
-    focal-transf-prop:value "the climatic conditions of the target area and period are adequately represented by the range of classes distinguished by the implemented Quitt classification — a classification-range judgement, not a match against Köppen-Geiger or any other external scheme" .
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_source_catalogue> rdfs:label "Climate source catalogue" ;
+    rdfs:comment "climate_source_catalog.json listing the sources and areas offered." ;
+    sld:type cwl:File .
 
-<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-collections> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
-    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/can-run-on> ;
-    focal-transf-prop:value [ geo:asWKT "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"^^geo:wktLiteral ] .
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_unit> rdfs:label "Climate unit" ;
+    rdfs:comment "Unit map and point detail: unit, fit score best_score and indicator means." ;
+    sld:type cwl:File .
 
-<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman-registry> dcterms:title "Rasdaman collection registry and climate source catalogue" ;
-    focal-transf-prop:artifactRef "/inputs/climate_source_catalogue" ;
-    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_unit_trend> rdfs:label "Climate unit trend" ;
+    rdfs:comment "Trend of the climate unit (yearly expected fuzzy rank)." ;
+    sld:type cwl:File .
 
-<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/validation-reference> dcterms:title "local meteorological observations or accepted climate maps, for validating the adapted classification" ;
-    rdfs:comment "Not an input of the current workflow: it enters the model only on transfer, as the way to check an adapted classification." ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/daily-climate> dcterms:title "Daily Tmin, Tavg, Tmax and precipitation from which the yearly indicators are derived (ERA5-Land hourly t2m/tp aggregated to daily; CORDEX daily tasmin/tas/tasmax/pr)" ;
+    rdfs:comment "Not read by the workflow: upstream source of the yearly indicators. The precompute step runs in FOCAL ingest tooling and is not part of the FWF5 package. Within FOCAL: daily tas, tasmin, tasmax and pr of the three REMO2020 simulations are held for the whole EUR-11 rotated grid, 412 x 424 cells (lon/lat bounding box 44.5939 W - 64.9644 E, 21.9878 - 72.585 N; the box overstates the rotated domain at its corners); FWF5 runs anywhere inside it after the yearly indicators are precomputed for the area. Outside that domain: another CORDEX domain or another daily climate dataset meeting these criteria. Used by (delivered step names): yearly-indicator-precompute." ;
+    focal-transf-prop:acceptanceCriteria [ rdfs:comment "360_day calendars bias the day-count indicators and need adjustment." ;
+            focal-transf-prop:axis <https://w3id.org/ogc/hosted/focal/transferability/axes/time> ;
+            focal-transf-prop:gridType <https://w3id.org/ogc/hosted/focal/transferability/grid-types/regular-latlon>,
+                <https://w3id.org/ogc/hosted/focal/transferability/grid-types/rotated-pole> ;
+            focal-transf-prop:temporalRequirement [ dcat:temporalResolution "P1D"^^xsd:duration ;
+                    focal-transf-prop:calendar "noleap",
+                        "proleptic_gregorian",
+                        "standard" ] ;
+            focal-transf-prop:variable [ focal-transf-prop:standardName "air_temperature" ;
+                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "tasmax" ],
+                [ focal-transf-prop:standardName "air_temperature" ;
+                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "tas" ],
+                [ focal-transf-prop:standardName "air_temperature" ;
+                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "tasmin" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
+                    focal-transf-prop:variableName "pr" ] ] ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/external-resource> .
 
-<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/czech-zone-scheme> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/jurisdictional> ;
-    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/derived-from> ;
-    focal-transf-prop:value [ geo:asWKT "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"^^geo:wktLiteral ] .
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/end_year> rdfs:label "Last year of the period" ;
+    rdfs:comment "Last year of the period; it must be within the years of the data. Trends need at least 2 years." ;
+    sld:type xsd:int .
 
-<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits> dcterms:title "Quitt-limit JSON climate-zone threshold definitions (thresholds, labels, zone descriptions)" ;
-    focal-transf-prop:artifactRef "/inputs/climate_zone_thresholds" ;
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/indicator_maps> rdfs:label "Climate characteristic maps" ;
+    rdfs:comment "Maps of the 11 climate characteristics." ;
+    sld:type cwl:File .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/indicator_trends> rdfs:label "Climate characteristic trends" ;
+    rdfs:comment "Sen's slope and Mann-Kendall test (alpha = 0.05) per indicator." ;
+    sld:type cwl:File .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/latitude> rdfs:label "Latitude of the point" ;
+    rdfs:comment "Latitude in decimal degrees (WGS 84). Give latitude and longitude for a point, or bbox for an area." ;
+    sld:type <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/double> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/longitude> rdfs:label "Longitude of the point" ;
+    rdfs:comment "Longitude in decimal degrees (WGS 84). Give together with latitude." ;
+    sld:type <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/double> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limits-origin> rdfs:comment "Bounding box of the FOCAL Czechia and Slovakia areas, standing in for former Czechoslovakia, for which Quitt (1971) derived the limit table. The limits were taken over, not fitted by FOCAL." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/spatial> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/derived-from> ;
+    focal-transf-prop:value [ geo:asWKT "POLYGON((12.07 47.63, 22.76 47.63, 22.76 51.08, 12.07 51.08, 12.07 47.63))"^^geo:wktLiteral ] .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt_limit_table> rdfs:label "Climate unit limit table" ;
+    rdfs:comment "Intervals of the 11 indicators for 23 climate units (Quitt 1971, Table 2). Ships with the workflow; replace it with a regional table for climates unlike Central Europe." ;
+    sld:default <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/FWF5_quitt_limits_11_rasdaman_index.json> ;
+    sld:type cwl:File .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman_connection> rdfs:label "Data cube connection" ;
+    rdfs:comment "How to reach the Rasdaman instance that holds the climate data (queried with rasql over SSH). The connection variables are not named in the delivered material, so one string stands for them; we assume credentials are supplied by the execution environment." ;
+    sld:type xsd:string .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman_registry> rdfs:label "Data cube registry" ;
+    rdfs:comment "rasdaman_registry.json for that instance. The FOCAL registry is not transferable as is." ;
+    sld:type cwl:File .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/readiness_collection> rdfs:label "Readiness check collection" ;
+    rdfs:comment "Value for READINESS_COLLECTION, which defaults to a Czech ERA5-Land collection. Outside that default it must be set, otherwise the readiness check fails." ;
+    sld:type <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/string> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/start_year> rdfs:label "First year of the period" ;
+    rdfs:comment "First year of the period over which the indicators are averaged; it must be within the years of the data." ;
+    sld:type xsd:int .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/unit_descriptions> rdfs:label "Climate unit descriptions" ;
+    rdfs:comment "Names and descriptions of the units (Czech and English). Ships with the workflow." ;
+    sld:default <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/FWF5_climate_metadata.json> ;
+    sld:type cwl:File .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/yearly-indicators> dcterms:title "Yearly climate indicators (11 characteristics) covering the requested period" ;
+    rdfs:comment "As delivered, the workflow does not take these data as a file: it reads them from the Rasdaman data cube (artifact rasdaman), for the requested area and the years it needs. The delivered material gives no specification of the layout the code expects. Delivered as two datasets with the same requirements. (1) Historical: ERA5-Land yearly climate indicators (Rasdaman collection era5l_cz_yindicators). Needed only for historical periods. Within FOCAL: ERA5-Land is held for Czechia, Spain and Finland (exact extents per collection); any other area is computed in a routine precompute run. Outside FOCAL: ERA5-Land from the Copernicus Climate Data Store, E-OBS, or national gridded observations. (2) Projections: CMIP6-CORDEX EUR-11 GERICS-REMO2020 (MPI-ESM1-2-HR, EC-Earth3-Veg, MIROC6), SSP3-7.0, r1i1p1f1 yearly climate indicators (Rasdaman collections *_eur11_yindicators_<area>); SSP3-7.0 only, no historical experiment. Within FOCAL: precomputed for these bounding boxes (data coverage, not administrative boundaries): Czechia 12.07-18.97 E, 48.48-51.08 N; Slovakia 16.8174-22.7629 E, 47.6296-49.705 N; Spain (Maestrazgo Mountains) -1.09395-0.297912 E, 39.8289-40.8966 N; Southern Finland 20.3719-32.7637 E, 58.9769-63.1035 N. Elsewhere in the EUR-11 domain, a routine precompute run from the daily EUR-11 collections already held (started manually, no code change), then add the new collections and area entries. If no indicators exist, derive them from daily minimum, average and maximum temperature and precipitation (see artifact daily-climate) with the definitions above; that step runs in FOCAL ingest tooling and is not part of the FWF5 package. Seasonal windows assume the Northern Hemisphere. Used by (delivered step names): indicator-means, idw, climate-unit-classification, characteristic-trends, climate-unit-trend." ;
+    focal-transf-prop:acceptanceCriteria [ rdfs:comment "Structure: 4D array [year, ind, y, x], float32, NaN as no-data, indicators in the fixed order SUM25, VEG10, FROST0, ICE0, T_JAN, T_APR, T_JUL, T_OCT, RAIN1, P_APR_SEP, P_OCT_MAR. Time axis: calendar year (integer); every year of a requested period present. 2D latitude/longitude of cell centres (lookup collections or separable 1D axes); EPSG:4326 for lookups. Definitions: SUM25 = count(Tmax >= 25 degC); VEG10 = count(Tavg >= 10 degC); FROST0 = count(Tmin < 0 degC); ICE0 = count(Tmax < 0 degC); T_JAN = mean(Tavg, Jan); T_APR = mean(Tavg, Apr); T_JUL = mean(Tavg, Jul); T_OCT = mean(Tavg, Oct); RAIN1 = count(P >= 1 mm); P_APR_SEP = sum(P, Apr-Sep); P_OCT_MAR = sum(P, Oct-Mar)." ;
+            focal-transf-prop:axis <https://w3id.org/ogc/hosted/focal/transferability/axes/time> ;
+            focal-transf-prop:gridType <https://w3id.org/ogc/hosted/focal/transferability/grid-types/regular-latlon>,
+                <https://w3id.org/ogc/hosted/focal/transferability/grid-types/rotated-pole> ;
+            focal-transf-prop:temporalRequirement [ dcat:temporalResolution "P1Y"^^xsd:duration ] ;
+            focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
+                    focal-transf-prop:variableName "RAIN1" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "T_JAN" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "T_APR" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
+                    focal-transf-prop:variableName "SUM25" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "T_OCT" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
+                    focal-transf-prop:variableName "FROST0" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "T_JUL" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM> ;
+                    focal-transf-prop:variableName "P_APR_SEP" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM> ;
+                    focal-transf-prop:variableName "P_OCT_MAR" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
+                    focal-transf-prop:variableName "VEG10" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
+                    focal-transf-prop:variableName "ICE0" ] ] ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-climate-covered> rdfs:comment "'covered' ranges: every multi-year indicator mean inside them. Union of the 23 unit intervals in FWF5_quitt_limits_11_rasdaman_index.json; 'outer' adds the fuzzy tolerances used in the code (10 days, 1 degC, 50 mm). Applies to the climate-unit outputs only; the 11 characteristics and their trends are valid everywhere. Applies in time as well as space: future SSP3-7.0 values in Czech lowlands are expected to approach or exceed the warm edge. Delivered reading: every multi-year indicator mean lies inside 'covered'; between 'covered' and 'outer' = degraded fit; beyond 'outer' = outside." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/climatic> ;
+    focal-transf-prop:inputRef "/inputs/bbox",
+        "/inputs/end_year",
+        "/inputs/latitude",
+        "/inputs/longitude",
+        "/inputs/start_year" ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value [ focal-transf-prop:statistic "multi-year mean" ;
+            focal-transf-prop:variableRange [ focal-transf-prop:maximum 1.8e+02 ;
+                    focal-transf-prop:minimum 9e+01 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "FROST0" ],
+                [ focal-transf-prop:maximum 8e+01 ;
+                    focal-transf-prop:minimum 0e+00 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "ICE0" ],
+                [ focal-transf-prop:maximum 1e+01 ;
+                    focal-transf-prop:minimum 0e+00 ;
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_APR" ],
+                [ focal-transf-prop:maximum 1e+03 ;
+                    focal-transf-prop:minimum 3e+02 ;
+                    focal-transf-prop:unitLabel "mm" ;
+                    focal-transf-prop:variableName "P_APR_SEP" ],
+                [ focal-transf-prop:maximum 7e+01 ;
+                    focal-transf-prop:minimum 0e+00 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "SUM25" ],
+                [ focal-transf-prop:maximum 1e+01 ;
+                    focal-transf-prop:minimum 2e+00 ;
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_OCT" ],
+                [ focal-transf-prop:maximum 7e+02 ;
+                    focal-transf-prop:minimum 2e+02 ;
+                    focal-transf-prop:unitLabel "mm" ;
+                    focal-transf-prop:variableName "P_OCT_MAR" ],
+                [ focal-transf-prop:maximum 1.6e+02 ;
+                    focal-transf-prop:minimum 8e+01 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "RAIN1" ],
+                [ focal-transf-prop:maximum 2e+01 ;
+                    focal-transf-prop:minimum 1e+01 ;
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_JUL" ],
+                [ focal-transf-prop:minimum 0e+00 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "VEG10" ],
+                [ focal-transf-prop:maximum -1e+00 ;
+                    focal-transf-prop:minimum -8e+00 ;
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_JAN" ] ] .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman> dcterms:title "FOCAL Rasdaman data cube (rasql over SSH), source catalogue and registry (climate_source_catalog.json, rasdaman_registry.json)" ;
+    rdfs:comment "The delivered workflow reads precomputed indicator collections from a Rasdaman instance queried with rasql over SSH. Another platform needs a Rasdaman instance with the same collection layout (set the connection variables and READINESS_COLLECTION) and its own registry, or replacement of the rasql data access by file-based reading; the scoring, IDW and trend modules use NumPy only. Within FOCAL: add the new collections and area entries. Outside FOCAL: the operator's own registry. Used by (delivered step names): data-access." ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/infrastructure> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/unit-descriptions> dcterms:title "FWF5_climate_metadata.json: unit names and descriptions (CZ/EN)" ;
+    rdfs:comment "Names and descriptions for every unit of the limit table in use. The wording reflects Central European seasons and mentions snow cover and cloudiness, which are not computed. Used by (delivered step names): output-labelling." ;
+    focal-transf-prop:artifactRef "/inputs/unit_descriptions" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-climate-outer> rdfs:comment "'outer' ranges: covered ranges plus the fuzzy tolerances; a mean beyond them gets zero membership for that indicator in every unit. VEG10 has no outer limit and is not listed. Union of the 23 unit intervals in FWF5_quitt_limits_11_rasdaman_index.json; 'outer' adds the fuzzy tolerances used in the code (10 days, 1 degC, 50 mm). Applies to the climate-unit outputs only; the 11 characteristics and their trends are valid everywhere. Applies in time as well as space: future SSP3-7.0 values in Czech lowlands are expected to approach or exceed the warm edge. Delivered reading: every multi-year indicator mean lies inside 'covered'; between 'covered' and 'outer' = degraded fit; beyond 'outer' = outside." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/climatic> ;
+    focal-transf-prop:inputRef "/inputs/bbox",
+        "/inputs/end_year",
+        "/inputs/latitude",
+        "/inputs/longitude",
+        "/inputs/start_year" ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value [ focal-transf-prop:statistic "multi-year mean" ;
+            focal-transf-prop:variableRange [ focal-transf-prop:maximum 1.1e+01 ;
+                    focal-transf-prop:minimum -1e+00 ;
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_APR" ],
+                [ focal-transf-prop:maximum 7.5e+02 ;
+                    focal-transf-prop:minimum 1.5e+02 ;
+                    focal-transf-prop:unitLabel "mm" ;
+                    focal-transf-prop:variableName "P_OCT_MAR" ],
+                [ focal-transf-prop:maximum 1.1e+01 ;
+                    focal-transf-prop:minimum 1e+00 ;
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_OCT" ],
+                [ focal-transf-prop:maximum 1.9e+02 ;
+                    focal-transf-prop:minimum 8e+01 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "FROST0" ],
+                [ focal-transf-prop:maximum 1.05e+03 ;
+                    focal-transf-prop:minimum 2.5e+02 ;
+                    focal-transf-prop:unitLabel "mm" ;
+                    focal-transf-prop:variableName "P_APR_SEP" ],
+                [ focal-transf-prop:maximum 2.1e+01 ;
+                    focal-transf-prop:minimum 9e+00 ;
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_JUL" ],
+                [ focal-transf-prop:maximum 1.7e+02 ;
+                    focal-transf-prop:minimum 7e+01 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "RAIN1" ],
+                [ focal-transf-prop:maximum 0e+00 ;
+                    focal-transf-prop:minimum -9e+00 ;
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_JAN" ],
+                [ focal-transf-prop:maximum 9e+01 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "ICE0" ],
+                [ focal-transf-prop:maximum 8e+01 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "SUM25" ] ] .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limit-table> dcterms:title "FWF5_quitt_limits_11_rasdaman_index.json: intervals of 11 indicators for 23 units (Quitt 1971, Table 2)" ;
+    rdfs:comment "A regional table needs: the same 11 indicator codes, units and axis mapping; [min, max] per unit and indicator, null allowed for an open end; and a full cold-to-warm ordering of units (used for tie-breaking and the unit trend). The limits were derived for former Czechoslovakia. Used by (delivered step names): climate-unit-classification, climate-unit-trend." ;
+    focal-transf-prop:artifactRef "/inputs/quitt_limit_table" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 

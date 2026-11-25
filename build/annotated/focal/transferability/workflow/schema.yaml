@@ -56,5 +56,5 @@ x-jsonld-prefixes:
 x-bblocks-metadata:
   itemIdentifier: ogc.focal.transferability.workflow
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
-  version: '0.16'
-  dateOfLastChange: '2026-11-10'
+  version: '0.17'
+  dateOfLastChange: '2026-11-25'

@@ -1,0 +1,16 @@
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/training-domain> rdfs:comment "1st to 99th percentile of the training data. Percentiles of single variables do not describe their joint domain." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/input-domain> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value [ focal-transf-prop:variableRange [ focal-transf-prop:maximum 1.15e+03 ;
+                    focal-transf-prop:minimum 1.75e+02 ;
+                    focal-transf-prop:unitLabel "m" ;
+                    focal-transf-prop:variableName "elevation" ],
+                [ focal-transf-prop:maximum 1.44e+02 ;
+                    focal-transf-prop:minimum 2.4e+01 ;
+                    focal-transf-prop:unitLabel "years" ;
+                    focal-transf-prop:variableName "age" ] ] .
+

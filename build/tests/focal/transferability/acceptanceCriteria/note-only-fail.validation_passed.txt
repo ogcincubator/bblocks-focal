@@ -1,0 +1,387 @@
+Validation report for ogc.focal.transferability.acceptanceCriteria - FOCAL Artifact Acceptance Criteria
+Generated 2026-11-25T11:28:39.484778+00:00
+=== General ===
+Test was expected to fail and it did.
+=== End General ===
+
+=== Files ===
+Using note-only-fail.json from test resources
+JSON-LD context is present - uplifting
+Output JSON-LD note-only-fail.jsonld created
+Output Turtle note-only-fail.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+
+** Validation error **
+ValidationError: {'transferabilityNotes': 'must be compatible'} is not valid under any of the given schemas
+
+Failed validating 'anyOf' in schema['allOf'][1]:
+    {'type': 'object',
+     'anyOf': [{'required': ['variables']},
+               {'required': ['axes']},
+               {'required': ['gridTypes']},
+               {'required': ['conformsTo']},
+               {'required': ['temporal']}],
+     'properties': {'variables': {'type': 'array',
+                                  'minItems': 1,
+                                  'items': {'type': 'object',
+                                            'anyOf': [{'required': ['name']},
+                                                      {'required': ['sameAsCurrent']},
+                                                      {'required': ['standardName']},
+                                                      {'required': ['units']}],
+                                            'not': {'required': ['name',
+                                                                 'sameAsCurrent']},
+                                            'additionalProperties': False,
+                                            'properties': {'name': {'type': 'string',
+                                                                    'examples': ['pr',
+                                                                                 'rr'],
+                                                                    'description': 'The '
+                                                                                   'name '
+                                                                                   'the '
+                                                                                   'workflow '
+                                                                                   'expects '
+                                                                                   'the '
+                                                                                   'variable '
+                                                                                   'to '
+                                                                                   'be '
+                                                                                   'called. '
+                                                                                   'A '
+                                                                                   'plain '
+                                                                                   'string: '
+                                                                                   'a '
+                                                                                   'standard '
+                                                                                   'name '
+                                                                                   'says '
+                                                                                   'what '
+                                                                                   'a '
+                                                                                   'quantity '
+                                                                                   'is, '
+                                                                                   'this '
+                                                                                   'says '
+                                                                                   'what '
+                                                                                   'the '
+                                                                                   'code '
+                                                                                   'looks '
+                                                                                   'for.\n',
+                                                                    'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/variableName'},
+                                                           'sameAsCurrent': {'const': True,
+                                                                             'description': 'Instead '
+                                                                                            'of '
+                                                                                            '`name`: '
+                                                                                            'the '
+                                                                                            'variable '
+                                                                                            'must '
+                                                                                            'be '
+                                                                                            'called '
+                                                                                            'what '
+                                                                                            'the '
+                                                                                            'artifact '
+                                                                                            'currently '
+                                                                                            'in '
+                                                                                            'use '
+                                                                                            'calls '
+                                                                                            'it. '
+                                                                                            'For '
+                                                                                            'sources '
+                                                                                            'that '
+                                                                                            'state '
+                                                                                            'the '
+                                                                                            'requirement '
+                                                                                            'as '
+                                                                                            'that '
+                                                                                            'relation '
+                                                                                            'and '
+                                                                                            'never '
+                                                                                            'give '
+                                                                                            'a '
+                                                                                            'name; '
+                                                                                            'guessing '
+                                                                                            'a '
+                                                                                            'literal '
+                                                                                            'would '
+                                                                                            'assert '
+                                                                                            'something '
+                                                                                            'they '
+                                                                                            'did '
+                                                                                            'not '
+                                                                                            'say.\n',
+                                                                             'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/sameAsCurrent'},
+                                                           'standardName': {'type': 'string',
+                                                                            'examples': ['surface_net_downward_shortwave_flux',
+                                                                                         'air_temperature'],
+                                                                            'description': 'CF '
+                                                                                           'standard '
+                                                                                           'name '
+                                                                                           'of '
+                                                                                           'the '
+                                                                                           'quantity. '
+                                                                                           'Says '
+                                                                                           'what '
+                                                                                           'a '
+                                                                                           'name '
+                                                                                           'cannot, '
+                                                                                           'such '
+                                                                                           'as '
+                                                                                           'net '
+                                                                                           'against '
+                                                                                           'downwelling '
+                                                                                           'radiation. '
+                                                                                           'Give '
+                                                                                           'it '
+                                                                                           'only '
+                                                                                           'where '
+                                                                                           'the '
+                                                                                           'quantity '
+                                                                                           'is '
+                                                                                           'certain.\n',
+                                                                            'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/standardName'},
+                                                           'units': {'type': 'array',
+                                                                     'minItems': 1,
+                                                                     'items': {'type': 'string',
+                                                                               'examples': ['MilliM',
+                                                                                            'DEG_C']},
+                                                                     'description': 'Units '
+                                                                                    'the '
+                                                                                    'variable '
+                                                                                    'may '
+                                                                                    'be '
+                                                                                    'in, '
+                                                                                    'as '
+                                                                                    'QUDT '
+                                                                                    'unit '
+                                                                                    'IRIs '
+                                                                                    '(relative '
+                                                                                    'names '
+                                                                                    'resolve '
+                                                                                    'against '
+                                                                                    '`http://qudt.org/vocab/unit/`). '
+                                                                                    '**An '
+                                                                                    'OR-set:** '
+                                                                                    'any '
+                                                                                    'one '
+                                                                                    'is '
+                                                                                    'acceptable.\n',
+                                                                     'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/unit',
+                                                                     'x-jsonld-type': '@id',
+                                                                     'x-jsonld-container': '@set',
+                                                                     'x-jsonld-base': 'http://qudt.org/vocab/unit/'}}},
+                                  'description': 'The variables the data '
+                                                 'must carry. '
+                                                 '**Conjunctive**: every '
+                                                 'entry must be satisfied. '
+                                                 'A single threshold value '
+                                                 'is one entry with only '
+                                                 '`units`.\n'
+                                                 'The STAC datacube '
+                                                 'extension describes what '
+                                                 'a dataset contains; this '
+                                                 'states what a '
+                                                 'replacement must '
+                                                 'provide. The two '
+                                                 'correspond only '
+                                                 'partly.\n',
+                                  'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/variable',
+                                  'x-jsonld-container': '@set'},
+                    'axes': {'type': 'array',
+                             'minItems': 1,
+                             'items': {'type': 'string',
+                                       'examples': ['time']},
+                             'description': 'Axes the data must have, as '
+                                            'concepts from the FOCAL axes '
+                                            'scheme (see '
+                                            'bblocks://ogc.focal.transferability.vocab). '
+                                            '**Conjunctive**, unlike '
+                                            '`units` and `gridTypes`: '
+                                            'every axis listed must be '
+                                            'present. UP-WF3 requires a '
+                                            'time axis, without which its '
+                                            'rolling accumulation has '
+                                            'nothing to accumulate over.\n',
+                             'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/axis',
+                             'x-jsonld-type': '@id',
+                             'x-jsonld-container': '@set',
+                             'x-jsonld-base': 'https://w3id.org/ogc/hosted/focal/transferability/axes/'},
+                    'gridTypes': {'type': 'array',
+                                  'minItems': 1,
+                                  'items': {'type': 'string',
+                                            'examples': ['regular-latlon',
+                                                         'rotated-pole']},
+                                  'description': 'The grids the data may '
+                                                 'be on, from the same '
+                                                 'open scheme an envelope '
+                                                 "constraint's "
+                                                 '`grid-structure` '
+                                                 'dimension uses. **An '
+                                                 'OR-set.**\n'
+                                                 'Not a duplicate of that '
+                                                 'dimension: the two do '
+                                                 'different jobs. An '
+                                                 'envelope constraint is a '
+                                                 'boundary a *rule is '
+                                                 'conditioned on* — cite '
+                                                 'it in `when` and the '
+                                                 'rule fires when the '
+                                                 'target falls outside it. '
+                                                 'These criteria are a '
+                                                 'specification a '
+                                                 '*candidate is checked '
+                                                 'against* once the rule '
+                                                 'has already fired and '
+                                                 'says to substitute '
+                                                 'something. State the '
+                                                 'constraint at the '
+                                                 'envelope when it bounds '
+                                                 'the workflow as a whole, '
+                                                 'and here when it binds '
+                                                 'this one artifact; '
+                                                 'UP-WF3 happens to be a '
+                                                 'case where both readings '
+                                                 'are available, because '
+                                                 'its only gridded input '
+                                                 'is also the whole of its '
+                                                 'gridded interface.\n',
+                                  'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/gridType',
+                                  'x-jsonld-type': '@id',
+                                  'x-jsonld-container': '@set',
+                                  'x-jsonld-base': 'https://w3id.org/ogc/hosted/focal/transferability/grid-types/'},
+                    'temporal': {'type': 'object',
+                                 'title': 'Time axis requirements',
+                                 'minProperties': 1,
+                                 'additionalProperties': False,
+                                 'properties': {'resolution': {'type': 'string',
+                                                               'format': 'duration',
+                                                               'examples': ['P1D'],
+                                                               'description': 'Required '
+                                                                              'time '
+                                                                              'step, '
+                                                                              'as '
+                                                                              'an '
+                                                                              'ISO '
+                                                                              '8601 '
+                                                                              'duration '
+                                                                              '(`dcat:temporalResolution`).',
+                                                               'x-jsonld-id': 'http://www.w3.org/ns/dcat#temporalResolution',
+                                                               'x-jsonld-type': 'http://www.w3.org/2001/XMLSchema#duration'},
+                                                'calendar': {'type': 'array',
+                                                             'minItems': 1,
+                                                             'items': {'type': 'string',
+                                                                       'examples': ['standard',
+                                                                                    'proleptic_gregorian',
+                                                                                    'noleap']},
+                                                             'description': 'CF '
+                                                                            '`calendar` '
+                                                                            'values '
+                                                                            'accepted '
+                                                                            'as '
+                                                                            'they '
+                                                                            'are. '
+                                                                            'An '
+                                                                            'OR-set. '
+                                                                            'Say '
+                                                                            'in '
+                                                                            '`transferabilityNotes` '
+                                                                            'what '
+                                                                            'happens '
+                                                                            'to '
+                                                                            'the '
+                                                                            'others, '
+                                                                            'where '
+                                                                            'the '
+                                                                            'source '
+                                                                            'does.\n',
+                                                             'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/calendar',
+                                                             'x-jsonld-container': '@set'},
+                                                'minimumPrecedingYears': {'type': 'integer',
+                                                                          'minimum': 1,
+                                                                          'description': 'Years '
+                                                                                         'of '
+                                                                                         'data '
+                                                                                         'needed '
+                                                                                         '**before** '
+                                                                                         'the '
+                                                                                         'requested '
+                                                                                         'period, '
+                                                                                         'e.g. '
+                                                                                         '30 '
+                                                                                         'for '
+                                                                                         'a '
+                                                                                         'reference '
+                                                                                         'history.\n',
+                                                                          'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/minimumPrecedingYears',
+                                                                          'x-jsonld-type': 'http://www.w3.org/2001/XMLSchema#integer'}},
+                                 'description': "What the data's time axis "
+                                                'must look like. Not the '
+                                                "envelope's `temporal` "
+                                                'dimension, which says for '
+                                                'which period results '
+                                                'hold.\n',
+                                 'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/temporalRequirement'},
+                    'conformsTo': {'type': 'array',
+                                   'minItems': 1,
+                                   'items': {'$ref': 'https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.yaml'},
+                                   'description': 'Schemas or '
+                                                  'specifications the data '
+                                                  'must conform to, as '
+                                                  'identifiers. Uplifts to '
+                                                  '`dcterms:conformsTo`, '
+                                                  'the term catalogues '
+                                                  'already use for exactly '
+                                                  'this.\n'
+                                                  'No current record uses '
+                                                  'it. It was drafted for '
+                                                  "UP-WF2's planned Heat "
+                                                  'Risk Indicator (census '
+                                                  'data "preferably '
+                                                  'following a schema '
+                                                  'compatible with '
+                                                  'Eurostat\'s"), which '
+                                                  'the owners say is not '
+                                                  'part of the workflow '
+                                                  'today. Where a '
+                                                  'preference is genuinely '
+                                                  'soft, '
+                                                  '`transferabilityNotes` '
+                                                  'is the honest home for '
+                                                  'it.\n',
+                                   'x-jsonld-id': 'http://purl.org/dc/terms/conformsTo',
+                                   'x-jsonld-type': '@id',
+                                   'x-jsonld-container': '@set'},
+                    'transferabilityNotes': {'type': 'string',
+                                             'description': 'A requirement '
+                                                            'that does not '
+                                                            'reduce to the '
+                                                            'properties '
+                                                            'above, or a '
+                                                            'qualification '
+                                                            'on one that '
+                                                            'does. Uplifts '
+                                                            'to '
+                                                            '`rdfs:comment`. '
+                                                            'Mixed in from '
+                                                            'bblocks://ogc.focal.transferability.notes. '
+                                                            'Not a '
+                                                            'criterion on '
+                                                            'its own: a '
+                                                            'criteria '
+                                                            'object needs '
+                                                            'at least one '
+                                                            'structured '
+                                                            'property.\n',
+                                             'x-jsonld-id': 'http://www.w3.org/2000/01/rdf-schema#comment'}}}
+
+On instance:
+    {'transferabilityNotes': 'must be compatible'}
+=== End JSON Schema ===
+
+=== SHACL ===
+Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):
+ - /github/workspace/_sources/transferability/vocab/ontology.ttl
+Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl: no results
+Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:
+ - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*
+ - Shape focal-shape:VariableRequirement: *none*
+ - Shape focal-shape:AcceptanceCriteria: *none*
+
+=== End SHACL ===
+

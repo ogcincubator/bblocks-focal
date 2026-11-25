@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Envelope Constraint (Schema)
 
-`ogc.focal.transferability.envelopeConstraint` *v0.8*
+`ogc.focal.transferability.envelopeConstraint` *v0.9*
 
 A single {role, dimension, value} statement bounding where a workflow's results are valid, addressable by id so rules can cite which boundary they are evaluated against. Spatial values are GeoSPARQL geometries and temporal values DCAT periods, so a consumer can evaluate them without knowing FOCAL.
 
@@ -15,13 +15,20 @@ One `{id, role, dimension, value}` statement bounding where a workflow's results
 
 `role` and `dimension` are independent axes, both open vocabularies (see
 [`transferability/vocab`](bblocks://ogc.focal.transferability.vocab)). A workflow's envelope is an
-array of these and more than one applies at once: FP-WF1's growth model needs three.
+array of these and more than one applies at once: FP-WF1's growth model needs four.
 
 | role | dimension | value |
 |---|---|---|
 | `trained-on` | `spatial` | a WKT geometry locating the Czech permanent sample plots |
 | `valid-for` | `ecological` | `"a comparable ecological range"` (a string, not a place) |
 | `valid-for` | `climatic` | `"the German and European climate regime the thresholds were derived from"` (a judgement, not a place) |
+
+Species coverage is an `ecological` entry whose value names a taxonomy and its classes
+(`{"scheme": "gbif-backbone", "classes": [...]}`). The taxonomy is pluggable; matching a user's
+codes to it is the consumer's job, as with a coordinate reference system.
+
+**`inputRef` says what is tested**: a pointer to the input the condition is checked against,
+which is often not the artifact a rule would replace.
 
 **`id` is what makes a constraint citable.** A rule's `when` names the constraint it is evaluated
 against, so a workflow with two different footprints can say which artifact each one governs.
@@ -44,6 +51,8 @@ GeoSPARQL or DCAT needs to learn nothing about FOCAL to evaluate them:
   `inside` means the candidate dataset's grid is one of them. UP-WF3 states this outright ("other
   projections are not handled"), and it is a hard interface requirement over a small, already
   standardised set, so it is terms rather than prose.
+- value ranges → `{"variables": [{"name", "unit", "min", "max"}]}`, for the training domain of a
+  model or the indicator limits of a classification.
 - anything else → a plain string. A phenological regime is not a place and does not become
   machine-checkable by being wrapped in coordinates it does not have. A rule may still cite such a
   constraint; the condition is then a judgement a person makes, recorded in the same structure as
@@ -414,6 +423,127 @@ domain?" and get an answer.
 
 ```
 
+
+### Value ranges (a model's training domain)
+The values the model saw in training. `inside` means every variable is within its range. The
+variables are derived from the inputs, so a consumer asks the user or reports the condition as
+unknown before a run.
+
+#### json
+```json
+{
+  "id": "training-domain",
+  "role": "valid-for",
+  "dimension": "input-domain",
+  "value": {
+    "variables": [
+      { "name": "age", "unit": "years", "min": 24, "max": 144 },
+      { "name": "elevation", "unit": "m", "min": 175, "max": 1150 }
+    ]
+  },
+  "transferabilityNotes": "1st to 99th percentile of the training data. Percentiles of single variables do not describe their joint domain."
+}
+
+```
+
+#### jsonld
+```jsonld
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld",
+  "id": "training-domain",
+  "role": "valid-for",
+  "dimension": "input-domain",
+  "value": {
+    "variables": [
+      {
+        "name": "age",
+        "unit": "years",
+        "min": 24,
+        "max": 144
+      },
+      {
+        "name": "elevation",
+        "unit": "m",
+        "min": 175,
+        "max": 1150
+      }
+    ]
+  },
+  "transferabilityNotes": "1st to 99th percentile of the training data. Percentiles of single variables do not describe their joint domain."
+}
+```
+
+#### ttl
+```ttl
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/training-domain> rdfs:comment "1st to 99th percentile of the training data. Percentiles of single variables do not describe their joint domain." ;
+    focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/input-domain> ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value [ focal-transf-prop:variableRange [ focal-transf-prop:maximum 1.15e+03 ;
+                    focal-transf-prop:minimum 1.75e+02 ;
+                    focal-transf-prop:unitLabel "m" ;
+                    focal-transf-prop:variableName "elevation" ],
+                [ focal-transf-prop:maximum 1.44e+02 ;
+                    focal-transf-prop:minimum 2.4e+01 ;
+                    focal-transf-prop:unitLabel "years" ;
+                    focal-transf-prop:variableName "age" ] ] .
+
+
+```
+
+
+### Species coverage, tested against the species selection
+A classification analogy over a biological taxonomy. `scheme` names the taxonomy, so it is
+pluggable; matching a user's own codes to it is the consumer's job, as with a CRS. `inputRef`
+says what is tested: the species the user selects.
+
+#### json
+```json
+{
+  "id": "trained-species",
+  "role": "valid-for",
+  "dimension": "ecological",
+  "inputRef": "/inputs/species",
+  "value": { "scheme": "gbif-backbone", "classes": ["Picea abies", "Pinus sylvestris"] }
+}
+
+```
+
+#### jsonld
+```jsonld
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld",
+  "id": "trained-species",
+  "role": "valid-for",
+  "dimension": "ecological",
+  "inputRef": "/inputs/species",
+  "value": {
+    "scheme": "gbif-backbone",
+    "classes": [
+      "Picea abies",
+      "Pinus sylvestris"
+    ]
+  }
+}
+```
+
+#### ttl
+```ttl
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/trained-species> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;
+    focal-transf-prop:inputRef "/inputs/species" ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value [ focal-transf-prop:class "Picea abies",
+                "Pinus sylvestris" ;
+            focal-transf-prop:classificationScheme <https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/gbif-backbone> ] .
+
+
+```
+
 ## Schema
 
 ```yaml
@@ -426,7 +556,7 @@ description: "A single statement bounding where a workflow's results are valid: 
   vocabulary), and the `value` itself.\nRepeatable, and `id`-addressable: rules cite
   a constraint by `id` to say which boundary they are evaluated against, so a workflow
   with two different footprints can state which artifact each one governs. FP-WF1
-  needs three constraints at once (trained-on/spatial, valid-for/ecological, can-run-on/climatic),
+  needs several constraints at once (trained-on/spatial, valid-for/ecological, can-run-on/climatic),
   which is why role and dimension are independent axes rather than a single enum choice.\n**Values
   bind to published vocabularies rather than to FOCAL terms wherever one exists**,
   so a consumer that already understands GeoSPARQL or DCAT can evaluate the constraint
@@ -507,6 +637,32 @@ allOf:
 
         '
       x-jsonld-id: http://www.w3.org/2000/01/rdf-schema#comment
+    inputRef:
+      oneOf:
+      - $ref: '#/$defs/jsonPointer'
+      - type: array
+        minItems: 1
+        items:
+          $ref: '#/$defs/jsonPointer'
+      description: 'JSON Pointer (RFC 6901), or several, to the input of the annotated
+        document that this condition is **tested against**: what the user gives, such
+        as the area of interest or the selected species (e.g. `/inputs/species`).
+        Several pointers are for one fact spread over several inputs, such as latitude
+        and longitude.
+
+        Not the same as an artifact''s `artifactRef`, although the mechanism is the
+        same. `artifactRef` says that an input *is* the thing a rule would replace;
+        `inputRef` says that the condition is checked against what is given there.
+        The two often differ: a species constraint is tested against the species selection
+        and governs a trait table.
+
+        Optional. A consumer such as a questionnaire UI composes its wording from
+        the referenced input''s own label and description and from the structured
+        `value`.
+
+        '
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/inputRef
+      x-jsonld-container: '@set'
     value:
       description: "The constraint value, shaped by `dimension`:\n- `spatial`/`jurisdictional`
         \u2014 a geometry, as `{\"asWKT\": \"POLYGON((...))\"}`. WKT rather\n  than
@@ -533,24 +689,31 @@ allOf:
         \ projections are not handled\") is a hard interface requirement over a small
         enumerable\n  set \u2014 mechanically checkable, and *more* so than a bounding
         box, since the terms carry\n  the CF-conventions `grid_mapping_name` as their
-        `skos:notation` and the datasets in\n  question declare exactly that.\n- **any
-        dimension, as an analogy** \u2014 `{\"scheme\": ..., \"sameClassAs\": ...}`,
-        saying the\n  target must fall in the same class of a published classification
-        as some reference\n  does. This is the shape of every \"comparable to where
-        we calibrated\" claim in the\n  corpus, and it is a *relation*, not a value:
-        the source says the target must resemble\n  the training area, and says nothing
-        about which classes the training area is in.\n  Enumerating those classes
-        would state something the source never said and would go\n  stale the moment
-        the training geometry is corrected, so the default is to name the\n  reference
-        and let a platform derive the rest. Tested with `same-class-as` /\n  `different-class-from`
-        rather than `inside`/`outside`.\n- `ecological`/`climatic`/anything else \u2014
-        a plain string, where no classification\n  captures the claim. \"A comparable
-        ecological range\" does not become machine-checkable\n  by being wrapped in
-        coordinates it does not have. A rule may still cite such a\n  constraint;
-        the condition is then a judgement a person makes, stated in the same\n  structure,
-        which is honest about where automation stops. Prefer the analogy shape above\n
-        \ where a scheme does capture it: it says the same thing and a machine can
-        settle it.\n"
+        `skos:notation` and the datasets in\n  question declare exactly that.\n- **value
+        ranges** \u2014 `{\"variables\": [{\"name\", \"unit\", \"min\", \"max\"}],
+        \"statistic\"}`:\n  the values of named variables within which the claim holds,
+        such as the training domain\n  of a model (`input-domain`) or the indicator
+        limits of a classification (`climatic`).\n  `inside` means every listed variable
+        is within its range. Usually the variables are\n  derived from the inputs,
+        so the condition cannot be settled before running; a consumer\n  reports it
+        as unknown, never as satisfied.\n- **any dimension, as an analogy** \u2014
+        `{\"scheme\": ..., \"sameClassAs\": ...}`, saying the\n  target must fall
+        in the same class of a published classification as some reference\n  does.
+        This is the shape of every \"comparable to where we calibrated\" claim in
+        the\n  corpus, and it is a *relation*, not a value: the source says the target
+        must resemble\n  the training area, and says nothing about which classes the
+        training area is in.\n  Enumerating those classes would state something the
+        source never said and would go\n  stale the moment the training geometry is
+        corrected, so the default is to name the\n  reference and let a platform derive
+        the rest. Tested with `same-class-as` /\n  `different-class-from` rather than
+        `inside`/`outside`.\n- `ecological`/`climatic`/anything else \u2014 a plain
+        string, where no classification\n  captures the claim. \"A comparable ecological
+        range\" does not become machine-checkable\n  by being wrapped in coordinates
+        it does not have. A rule may still cite such a\n  constraint; the condition
+        is then a judgement a person makes, stated in the same\n  structure, which
+        is honest about where automation stops. Prefer the analogy shape above\n  where
+        a scheme does capture it: it says the same thing and a machine can settle
+        it.\n"
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/value
 oneOf:
 - title: Spatial or jurisdictional extent (geometry-valued)
@@ -598,6 +761,24 @@ oneOf:
   required:
   - dimension
   - value
+- title: Value ranges of named variables
+  properties:
+    dimension:
+      not:
+        enum:
+        - spatial
+        - jurisdictional
+        - temporal
+        - grid-structure
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/dimension
+      x-jsonld-type: '@id'
+      x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/dimensions/
+    value:
+      $ref: '#/$defs/ranges'
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/value
+  required:
+  - dimension
+  - value
 - title: Classification analogy (any dimension)
   description: 'Available on every dimension, including spatial ones: "the same biogeographical
     region as the training area" is a different claim from "inside the training area''s
@@ -629,6 +810,65 @@ oneOf:
   - dimension
   - value
 $defs:
+  jsonPointer:
+    type: string
+    format: json-pointer
+    pattern: ^/
+  ranges:
+    title: Value ranges
+    type: object
+    required:
+    - variables
+    additionalProperties: false
+    properties:
+      variables:
+        type: array
+        minItems: 1
+        items:
+          type: object
+          required:
+          - name
+          anyOf:
+          - required:
+            - min
+          - required:
+            - max
+          additionalProperties: false
+          properties:
+            name:
+              type: string
+              description: The variable, by the name the workflow uses.
+              x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/variableName
+            unit:
+              type: string
+              description: 'Unit of `min` and `max`, as a plain string. Not a QUDT
+                IRI, unlike acceptance criteria: derived variables carry units such
+                as `z-score` or a national coding that have none.
+
+                '
+              x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/unitLabel
+            min:
+              type: number
+              description: Lowest value inside the range. Omit for an open lower end.
+              x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/minimum
+              x-jsonld-type: http://www.w3.org/2001/XMLSchema#double
+            max:
+              type: number
+              description: Highest value inside the range. Omit for an open upper
+                end.
+              x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/maximum
+              x-jsonld-type: http://www.w3.org/2001/XMLSchema#double
+        x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/variableRange
+        x-jsonld-container: '@set'
+      statistic:
+        type: string
+        description: 'How the target''s values are aggregated before they are compared,
+          e.g. `multi-year mean`. Omit when each value is compared as it is. How the
+          bounds themselves were derived (percentiles of training data, say) belongs
+          in `transferabilityNotes`.
+
+          '
+        x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/statistic
   geometry:
     title: Geometry
     type: object
@@ -792,8 +1032,8 @@ x-jsonld-prefixes:
 x-bblocks-metadata:
   itemIdentifier: ogc.focal.transferability.envelopeConstraint
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
-  version: '0.8'
-  dateOfLastChange: '2026-11-10'
+  version: '0.9'
+  dateOfLastChange: '2026-11-25'
 
 ```
 
@@ -824,6 +1064,10 @@ Links to the schema:
       "@id": "focal-transf-prop:dimension",
       "@type": "@id"
     },
+    "inputRef": {
+      "@id": "focal-transf-prop:inputRef",
+      "@container": "@set"
+    },
     "value": {
       "@context": {
         "asWKT": {
@@ -847,6 +1091,23 @@ Links to the schema:
           "@type": "@id",
           "@container": "@set"
         },
+        "variables": {
+          "@context": {
+            "name": "focal-transf-prop:variableName",
+            "unit": "focal-transf-prop:unitLabel",
+            "min": {
+              "@id": "focal-transf-prop:minimum",
+              "@type": "http://www.w3.org/2001/XMLSchema#double"
+            },
+            "max": {
+              "@id": "focal-transf-prop:maximum",
+              "@type": "http://www.w3.org/2001/XMLSchema#double"
+            }
+          },
+          "@id": "focal-transf-prop:variableRange",
+          "@container": "@set"
+        },
+        "statistic": "focal-transf-prop:statistic",
         "scheme": {
           "@context": {
             "@base": "https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/"

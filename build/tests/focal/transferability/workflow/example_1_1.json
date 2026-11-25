@@ -1,8 +1,18 @@
 {
   "class": "Workflow",
-  "id": "",
   "cwlVersion": "v1.2",
-  "label": "FP-WF1 \u2014 Tree species suitability",
+  "id": "",
+  "label": "FWF1 - Tree growth prediction (FOCAL Forest Pilot)",
+  "doc": [
+    "Projects the yearly height growth of an existing forest stand to its rotation age under a chosen climate source, with bootstrap uncertainty and a yearly stress index against the 1991-2020 climate. The growth model was trained on Czech National Forest Inventory stands.",
+    "Transferability record of workflow FP-WF1 (FWF1), record date 2026-11-18. Record basis: FWF1 API, focal_predict.py, wf1 climate/soil/terrain input functions, Rasdaman registry 1.1.8, focal_tree_growth repository (final downscaled model, feature documentation, report). Converted from the delivered record on 2026-11-25. Descriptive CWL profile: no steps are declared and the input and output identifiers are not yet those of an executable Application Package."
+  ],
+  "$namespaces": {
+    "s": "https://schema.org/"
+  },
+  "s:identifier": "FP-WF1",
+  "s:alternateName": "FWF1",
+  "s:dateCreated": "2026-11-18",
   "requirements": {
     "SoftwareRequirement": {
       "packages": [
@@ -10,110 +20,793 @@
           "package": "python"
         },
         {
-          "package": "lightgbm"
+          "package": "scikit-learn",
+          "version": [
+            "1.9.1"
+          ]
+        },
+        {
+          "package": "lightgbm",
+          "version": [
+            "4.7.0"
+          ]
         },
         {
           "package": "flask"
-        },
-        {
-          "package": "gunicorn"
         }
       ]
+    },
+    "NetworkAccess": {
+      "networkAccess": true
     }
   },
   "inputs": {
-    "climate_data": {
-      "type": "File"
+    "latitude": {
+      "type": "double",
+      "label": "Latitude of the stand",
+      "doc": "Latitude of the forest stand in decimal degrees (WGS 84). Soil, terrain and climate features are derived for this point. The Copernicus DEM reaches 89 degrees."
     },
-    "trained_growth_model": {
-      "type": "File"
+    "longitude": {
+      "type": "double",
+      "label": "Longitude of the stand",
+      "doc": "Longitude of the forest stand in decimal degrees (WGS 84)."
+    },
+    "species": {
+      "type": {
+        "type": "enum",
+        "symbols": [
+          "smrk",
+          "borovice",
+          "dub",
+          "buk"
+        ]
+      },
+      "label": "Tree species",
+      "doc": "Species of the stand. Only these four are accepted: smrk = Norway spruce (Picea abies), borovice = Scots pine (Pinus sylvestris), dub = pedunculate oak (Quercus robur), buk = European beech (Fagus sylvatica)."
+    },
+    "age": {
+      "type": "int",
+      "label": "Stand age (years)",
+      "doc": "Current age of the stand. Accepted from 16 years up to the rotation age of the species minus one."
+    },
+    "current_height": {
+      "type": "float?",
+      "label": "Current stand height (m)",
+      "doc": "Current mean height of the stand in metres. If omitted, a typical height for the species and age is taken from the reference growth curves."
+    },
+    "rasdaman_connection": {
+      "type": "string",
+      "label": "Data cube connection",
+      "doc": "How to reach the Rasdaman instance that holds the climate data (queried with rasql over SSH). The connection variables are not named in the delivered material, so one string stands for them; we assume credentials are supplied by the execution environment."
+    },
+    "rasdaman_registry": {
+      "type": "File",
+      "label": "Data cube registry",
+      "doc": "rasdaman_registry.json for that instance. The FOCAL registry is not transferable as is."
+    },
+    "stress_threshold": {
+      "type": "float?",
+      "label": "Stress index threshold",
+      "doc": "Manual threshold on the stress index SI for flagging stress years. If omitted, the species- and age-specific thresholds shipped with the workflow are used."
+    },
+    "rotation_age_spruce": {
+      "type": "int",
+      "label": "Rotation age of Norway spruce (years)",
+      "doc": "Age up to which growth of Norway spruce is projected. The default is the Czech forest management convention; set it for the country of the stand.",
+      "default": 110
+    },
+    "rotation_age_pine": {
+      "type": "int",
+      "label": "Rotation age of Scots pine (years)",
+      "doc": "Age up to which growth of Scots pine is projected. The default is the Czech forest management convention; set it for the country of the stand.",
+      "default": 110
+    },
+    "rotation_age_oak": {
+      "type": "int",
+      "label": "Rotation age of pedunculate oak (years)",
+      "doc": "Age up to which growth of pedunculate oak is projected. The default is the Czech forest management convention; set it for the country of the stand.",
+      "default": 140
+    },
+    "rotation_age_beech": {
+      "type": "int",
+      "label": "Rotation age of European beech (years)",
+      "doc": "Age up to which growth of European beech is projected. The default is the Czech forest management convention; set it for the country of the stand.",
+      "default": 130
+    },
+    "growth_model": {
+      "type": "Directory",
+      "label": "Trained growth model",
+      "doc": "LightGBM pipeline (central model and bootstrap ensemble) fitted to Czech National Forest Inventory data. Ships with the workflow.",
+      "default": {
+        "class": "Directory",
+        "location": "growth_model"
+      }
+    },
+    "reference_increment": {
+      "type": "File",
+      "label": "Reference growth curves",
+      "doc": "Typical height and increment per species and age (Czech NFI medians). Ships with the workflow.",
+      "default": {
+        "class": "File",
+        "location": "reference_increment_d.csv"
+      }
+    },
+    "stress_thresholds": {
+      "type": "File",
+      "label": "Stress thresholds table",
+      "doc": "Stress index threshold per species and age (90th percentile of SI, 1991-2020, Czech NFI sites). Ships with the workflow.",
+      "default": {
+        "class": "File",
+        "location": "stress_thresholds_d.csv"
+      }
     }
   },
   "outputs": {
     "growth_projection": {
-      "type": "File"
+      "type": "File",
+      "label": "Growth projection",
+      "doc": "Yearly height and increment with 2.5-97.5 % bootstrap bands."
+    },
+    "stress_assessment": {
+      "type": "File",
+      "label": "Stress assessment",
+      "doc": "Stress index SI = 1 - I / I_ref against the 1991-2020 climate, stress years and their share across bootstrap members."
+    },
+    "typical_growth": {
+      "type": "File",
+      "label": "Typical growth",
+      "doc": "Typical height and increment of the species."
+    },
+    "period_summary": {
+      "type": "File",
+      "label": "Period summary",
+      "doc": "Summary over the projected period."
     }
   },
+  "steps": {},
   "transferability": {
     "trainingRequired": true,
+    "transferabilityNotes": "Envelope entries and rules that only described which data FOCAL currently holds, or its platform, are not part of this statement; what they said is kept in the notes of the artifacts concerned. An area or period for which no data is at hand is a matter of providing data (as delivered, in the data cube) that meets the artifact's criteria. The delivered record also notes: temporal extent is the year range of each collection, read from Rasdaman at runtime. Delivered coverage fact: SoilGrids and Copernicus DEM are global; the API runs wherever the climate collections cover the point and does not restrict to Czechia or to forest land.",
     "envelope": [
       {
-        "id": "czech-plots",
+        "id": "czech-nfi-plots",
         "role": "trained-on",
         "dimension": "spatial",
         "value": {
-          "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"
-        }
+          "asWKT": "POLYGON((12.2444 48.6232, 18.815 48.6232, 18.815 51.0198, 12.2444 51.0198, 12.2444 48.6232))"
+        },
+        "inputRef": [
+          "/inputs/latitude",
+          "/inputs/longitude"
+        ],
+        "transferabilityNotes": "Bounding box of the 1,756 Czech NFI (UHUL) monitoring stands used for training (1964-2025). Validation: spatial hold-out of 160 Czech stands, 2015-2025."
       },
       {
-        "id": "ecological-range",
+        "id": "czech-nfi-period",
+        "role": "trained-on",
+        "dimension": "temporal",
+        "value": {
+          "startDate": "1964",
+          "endDate": "2025"
+        },
+        "transferabilityNotes": "Training rows before 2015, test rows 2015-2025."
+      },
+      {
+        "id": "training-feature-domain",
+        "role": "valid-for",
+        "dimension": "input-domain",
+        "value": {
+          "variables": [
+            {
+              "name": "age",
+              "unit": "years",
+              "min": 24.0,
+              "max": 144.0
+            },
+            {
+              "name": "elevation",
+              "unit": "m a.s.l.",
+              "min": 175.0,
+              "max": 1150.0
+            },
+            {
+              "name": "slope",
+              "unit": "degrees",
+              "min": 0.4369,
+              "max": 27.0
+            },
+            {
+              "name": "avg_h_lag",
+              "unit": "m",
+              "min": 9.99,
+              "max": 37.67
+            },
+            {
+              "name": "N_0_5",
+              "unit": "cg/kg",
+              "min": 518.0,
+              "max": 1096.0
+            },
+            {
+              "name": "N_5_15",
+              "unit": "cg/kg",
+              "min": 161.0,
+              "max": 673.0
+            },
+            {
+              "name": "N_15_30",
+              "unit": "cg/kg",
+              "min": 115.0,
+              "max": 411.0
+            },
+            {
+              "name": "N_30_60",
+              "unit": "cg/kg",
+              "min": 72.0,
+              "max": 296.0
+            },
+            {
+              "name": "C",
+              "unit": "dg/kg",
+              "min": 193.2,
+              "max": 825.5
+            },
+            {
+              "name": "pH",
+              "unit": "pH \u00d7 10",
+              "min": 47.75,
+              "max": 65.0
+            },
+            {
+              "name": "clay",
+              "unit": "g/kg",
+              "min": 142.5,
+              "max": 339.2
+            },
+            {
+              "name": "T_year",
+              "unit": "\u00b0C",
+              "min": 3.705,
+              "max": 10.17
+            },
+            {
+              "name": "T_autumn",
+              "unit": "\u00b0C",
+              "min": 4.207,
+              "max": 11.06
+            },
+            {
+              "name": "T_min_month",
+              "unit": "\u00b0C",
+              "min": -10.54,
+              "max": 1.298
+            },
+            {
+              "name": "T_amplitude",
+              "unit": "\u00b0C",
+              "min": 16.26,
+              "max": 27.91
+            },
+            {
+              "name": "T_veg_lag_1",
+              "unit": "\u00b0C",
+              "min": 9.507,
+              "max": 16.53
+            },
+            {
+              "name": "T_autumn_lag_1",
+              "unit": "\u00b0C",
+              "min": 4.183,
+              "max": 10.92
+            },
+            {
+              "name": "T_min_month_lag_1",
+              "unit": "\u00b0C",
+              "min": -10.54,
+              "max": 1.249
+            },
+            {
+              "name": "T_amplitude_lag_1",
+              "unit": "\u00b0C",
+              "min": 16.25,
+              "max": 27.92
+            },
+            {
+              "name": "SR_veg",
+              "unit": "W/m\u00b2",
+              "min": 136.8,
+              "max": 181.5
+            },
+            {
+              "name": "SR_spring",
+              "unit": "W/m\u00b2",
+              "min": 112.5,
+              "max": 166.3
+            },
+            {
+              "name": "SR_veg_lag_1",
+              "unit": "W/m\u00b2",
+              "min": 136.4,
+              "max": 181.4
+            },
+            {
+              "name": "SR_spring_lag_1",
+              "unit": "W/m\u00b2",
+              "min": 112.0,
+              "max": 166.3
+            },
+            {
+              "name": "P_spring",
+              "unit": "mm",
+              "min": 97.33,
+              "max": 371.2
+            },
+            {
+              "name": "P_summer",
+              "unit": "mm",
+              "min": 136.4,
+              "max": 549.6
+            },
+            {
+              "name": "P_prev_late",
+              "unit": "mm",
+              "min": 97.56,
+              "max": 412.0
+            },
+            {
+              "name": "P_spring_lag_1",
+              "unit": "mm",
+              "min": 99.11,
+              "max": 370.3
+            },
+            {
+              "name": "P_summer_lag_1",
+              "unit": "mm",
+              "min": 137.4,
+              "max": 550.9
+            },
+            {
+              "name": "P_prev_late_lag_1",
+              "unit": "mm",
+              "min": 98.32,
+              "max": 413.7
+            },
+            {
+              "name": "SPI_3_summer",
+              "unit": "z-score",
+              "min": -2.008,
+              "max": 2.483
+            },
+            {
+              "name": "SPI_3_summer_lag_1",
+              "unit": "z-score",
+              "min": -2.009,
+              "max": 2.515
+            },
+            {
+              "name": "Tmax_Jul",
+              "unit": "\u00b0C",
+              "min": 15.65,
+              "max": 26.7
+            },
+            {
+              "name": "Tmax_Jul_lag_1",
+              "unit": "\u00b0C",
+              "min": 15.63,
+              "max": 26.67
+            },
+            {
+              "name": "Tmax_Aug",
+              "unit": "\u00b0C",
+              "min": 15.88,
+              "max": 26.73
+            },
+            {
+              "name": "Tmax_Aug_lag_1",
+              "unit": "\u00b0C",
+              "min": 15.88,
+              "max": 26.59
+            },
+            {
+              "name": "HD30_veg",
+              "unit": "days",
+              "min": 0.0,
+              "max": 12.0
+            },
+            {
+              "name": "HD30_veg_lag_1",
+              "unit": "days",
+              "min": 0.0,
+              "max": 12.0
+            },
+            {
+              "name": "FD_AprMay",
+              "unit": "days",
+              "min": 0.0,
+              "max": 28.0
+            },
+            {
+              "name": "FD_AprMay_lag_1",
+              "unit": "days",
+              "min": 0.0,
+              "max": 29.0
+            },
+            {
+              "name": "FD_winter_std",
+              "unit": "days",
+              "min": 45.0,
+              "max": 90.0
+            },
+            {
+              "name": "FD_winter_std_lag_1",
+              "unit": "days",
+              "min": 44.0,
+              "max": 90.0
+            },
+            {
+              "name": "R10mm_veg",
+              "unit": "days",
+              "min": 3.0,
+              "max": 31.0
+            },
+            {
+              "name": "R10mm_veg_lag_1",
+              "unit": "days",
+              "min": 3.0,
+              "max": 31.0
+            }
+          ]
+        },
+        "inputRef": [
+          "/inputs/latitude",
+          "/inputs/longitude",
+          "/inputs/age",
+          "/inputs/current_height"
+        ],
+        "transferabilityNotes": "1st-99th percentile of 30,883 training stand-years (final model). Outside, the tree-based model repeats edge behaviour; predictions are extrapolation. A per-species area-of-applicability check exists in the modelling code but is not run by the API. Bounds are the 1st and 99th percentiles. The categorical variable aspect (NFI code) is not a range and is not listed in the value; the delivered 1st-99th percentile codes were 100 to 900."
+      },
+      {
+        "id": "trained-species",
         "role": "valid-for",
         "dimension": "ecological",
-        "value": "environmental and site conditions comparable to those represented in the Czech training data (`czech-plots`) \u2014 an ecological/environmental comparability judgement, not a match against a single named classification scheme"
-      },
-      {
-        "id": "downscaled-climate-available",
-        "role": "can-run-on",
-        "dimension": "spatial",
         "value": {
-          "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"
-        }
+          "scheme": "gbif-backbone",
+          "classes": [
+            "Picea abies",
+            "Pinus sylvestris",
+            "Quercus robur",
+            "Fagus sylvatica"
+          ]
+        },
+        "inputRef": "/inputs/species",
+        "transferabilityNotes": "Only these four species are accepted by the API."
       }
     ],
     "artifacts": [
       {
         "id": "growth-model",
-        "artifact": "trained tree growth model (LightGBM, Czech permanent sample plot data)",
+        "artifact": "LightGBM pipeline (central model + bootstrap ensemble), 45 inputs (training_feature_set_d.txt)",
         "artifactRole": "workflow-input",
-        "artifactRef": "/inputs/trained_growth_model"
+        "artifactRef": "/inputs/growth_model",
+        "transferabilityNotes": "A replacement model takes 45 inputs in fixed order (training_feature_set_d.txt): age, elevation, aspect, slope, avg_h_lag, N_0_5, N_5_15, N_15_30, N_30_60, C, pH, clay, T_year, T_autumn, T_min_month, T_amplitude, T_veg_lag_1, T_autumn_lag_1, T_min_month_lag_1, T_amplitude_lag_1, SR_veg, SR_spring, SR_veg_lag_1, SR_spring_lag_1, P_spring, P_summer, P_prev_late, P_spring_lag_1, P_summer_lag_1, P_prev_late_lag_1, SPI_3_summer, SPI_3_summer_lag_1, Tmax_Jul, Tmax_Jul_lag_1, Tmax_Aug, Tmax_Aug_lag_1, HD30_veg, HD30_veg_lag_1, FD_AprMay, FD_AprMay_lag_1, FD_winter_std, FD_winter_std_lag_1, R10mm_veg, R10mm_veg_lag_1, species. Software: scikit-learn 1.9.1, LightGBM 4.7.0. Used by (delivered step names): growth-simulation, stress-index."
       },
       {
-        "id": "climate-data",
-        "artifact": "downscaled FOCAL climate data (current + future)",
+        "id": "reference-increment",
+        "artifact": "reference_increment_d.csv: typical height and increment per species and age (Czech NFI medians)",
         "artifactRole": "workflow-input",
-        "artifactRef": "/inputs/climate_data"
+        "artifactRef": "/inputs/reference_increment",
+        "transferabilityNotes": "Per species and age; regenerated by the same pipeline together with the model. Used by (delivered step names): typical-growth, default-initial-height."
+      },
+      {
+        "id": "stress-thresholds",
+        "artifact": "stress_thresholds_d.csv: SI threshold per species and age (90th percentile of SI, 1991-2020, Czech NFI sites)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/stress_thresholds",
+        "transferabilityNotes": "Per species and age; regenerated by the same pipeline together with the model. A manual threshold can be passed per request (input stress_threshold). Used by (delivered step names): stress-years."
+      },
+      {
+        "id": "nfi-training-data",
+        "artifact": "Czech NFI stand measurements (species, age, mean height, site), 1964-2025",
+        "artifactRole": "external-resource",
+        "transferabilityNotes": "Not read at inference; needed to retrain. A replacement must give, per stand: species (the species to be modelled), stand age, mean height, coordinates and measurement year, with at least two measurements per stand. The intervals between the Czech measurements were mostly five years. Used by (delivered step names): training."
+      },
+      {
+        "id": "soilgrids",
+        "artifact": "ISRIC SoilGrids 2.0 (Q0.5), nitrogen 4 depths, SOC, pH, clay 0-60 cm, 250 m",
+        "artifactRole": "external-resource",
+        "acceptanceCriteria": {
+          "variables": [
+            {
+              "name": "nitrogen"
+            },
+            {
+              "name": "soc"
+            },
+            {
+              "name": "phh2o"
+            },
+            {
+              "name": "clay",
+              "units": [
+                "GM-PER-KiloGM"
+              ]
+            }
+          ],
+          "transferabilityNotes": "Same product required; raw SoilGrids units are part of the model contract: nitrogen in cg/kg, soc in dg/kg, phh2o as pH x 10, clay in g/kg. Depths: nitrogen at 0-5, 5-15, 15-30 and 30-60 cm; soc, pH and clay 0-60 cm."
+        },
+        "transferabilityNotes": "Global; fetched live from ISRIC (WCS or WebDAV) with a local cache, so nothing has to be prepared or supplied. Used by (delivered step names): site-features."
+      },
+      {
+        "id": "copernicus-dem",
+        "artifact": "Copernicus DEM GLO-30, elevation and 11 x 11 plane-fit slope/aspect",
+        "artifactRole": "external-resource",
+        "transferabilityNotes": "Same product only; the slope method is calibrated to it. Resolution 1 arc-second, vertical datum EGM2008. Aspect coding: 100 flat (slope <= 5 deg), 200-900 N..NW. Global (up to 89 degrees latitude); fetched live from AWS with a local cache, so nothing has to be prepared or supplied. Used by (delivered step names): site-features."
+      },
+      {
+        "id": "historical-climate",
+        "artifact": "ERA5-Land daily temperature (min/mean/max), precipitation, net SSR",
+        "artifactRole": "workflow-input",
+        "acceptanceCriteria": {
+          "variables": [
+            {
+              "name": "tmin",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "tmean",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "tmax",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "pr",
+              "units": [
+                "MilliM-PER-DAY"
+              ]
+            },
+            {
+              "name": "ssr",
+              "units": [
+                "J-PER-M2",
+                "W-PER-M2"
+              ]
+            }
+          ],
+          "temporal": {
+            "resolution": "P1D",
+            "calendar": [
+              "standard",
+              "gregorian",
+              "proleptic_gregorian"
+            ]
+          },
+          "axes": [
+            "time"
+          ],
+          "gridTypes": [
+            "regular-latlon",
+            "rotated-pole",
+            "curvilinear"
+          ],
+          "transferabilityNotes": "Structure: daily [day, y, x]; temperature as a struct cell (min/mean/max). Curvilinear grids need 2D latitude/longitude. ssr is net shortwave radiation, either in J/m2 per day (24-h accumulation assigned to UTC day D) or in W/m2; downward rsds/ssrd is not accepted. Non-Gregorian calendars must be harmonised before ingestion (they are rejected by the climate function). No-data is NaN; no gaps are allowed in required windows."
+        },
+        "transferabilityNotes": "As delivered, the workflow does not take these data as a file: it reads them from the Rasdaman data cube (artifact rasdaman), for the requested area and the years it needs. The delivered material gives no specification of the layout the code expects. Must be on a frame consistent with the training climate (FOCAL downscaled ERA5-Land, about 350 m, elevation-corrected, for temperature and precipitation; ERA5-Land net solar radiation). Needed from 1991. Within FOCAL: ERA5-Land temperature and precipitation are held for Czechia, Spain and Finland, and daily net SSR is registered for the Czechia grid (delivered box: 12.07-18.97 E, 48.48-51.08 N); elsewhere a routine ERA5-Land run, including net SSR from 1991. Outside FOCAL: Copernicus Climate Data Store. Used by (delivered step names): climate-features, spi-baseline, stress-reference, lag-context."
+      },
+      {
+        "id": "projection-climate",
+        "artifact": "Daily projected temperature (min/mean/max), precipitation and net SSR, bias-corrected to the training climate frame",
+        "artifactRole": "workflow-input",
+        "acceptanceCriteria": {
+          "variables": [
+            {
+              "name": "tmin",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "tmean",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "tmax",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "pr",
+              "units": [
+                "MilliM-PER-DAY"
+              ]
+            },
+            {
+              "name": "ssr",
+              "units": [
+                "J-PER-M2",
+                "W-PER-M2"
+              ]
+            }
+          ],
+          "temporal": {
+            "resolution": "P1D",
+            "calendar": [
+              "standard",
+              "gregorian",
+              "proleptic_gregorian"
+            ]
+          },
+          "axes": [
+            "time"
+          ],
+          "gridTypes": [
+            "regular-latlon",
+            "rotated-pole",
+            "curvilinear"
+          ],
+          "transferabilityNotes": "Structure: daily [day, y, x]; temperature as a struct cell (min/mean/max). Curvilinear grids need 2D latitude/longitude. ssr is net shortwave radiation, either in J/m2 per day (24-h accumulation assigned to UTC day D) or in W/m2; downward rsds/ssrd is not accepted. Non-Gregorian calendars must be harmonised before ingestion (they are rejected by the climate function). No-data is NaN; no gaps are allowed in required windows."
+        },
+        "transferabilityNotes": "As delivered, the workflow does not take these data as a file: it reads them from the Rasdaman data cube (artifact rasdaman), for the requested area and the years it needs. The delivered material gives no specification of the layout the code expects. Must be bias-corrected to the training climate frame. A projection set with net SSR, corrected to that frame, is required everywhere, including Czechia. FOCAL EUR-11 REMO2020 collections hold temperature and precipitation only. Model development used NEX-GDDP-CMIP6 with rsds x (1 - 0.15) and per-point monthly bias correction (1991-2014). FOCAL downscaled projections are expected in early 2027. Outside FOCAL: CORDEX or NEX-GDDP-CMIP6, including net shortwave radiation. Used by (delivered step names): climate-features. Needed only to project years beyond the historical data (our reading; to be confirmed)."
+      },
+      {
+        "id": "rotation-age-spruce",
+        "artifact": "Rotation age of Norway spruce (110 years, Czech convention)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/rotation_age_spruce",
+        "transferabilityNotes": "Czech forest management convention. Reported by the delivery as hard-coded in the current API; to be set per country."
+      },
+      {
+        "id": "rotation-age-pine",
+        "artifact": "Rotation age of Scots pine (110 years, Czech convention)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/rotation_age_pine",
+        "transferabilityNotes": "Czech forest management convention. Reported by the delivery as hard-coded in the current API; to be set per country."
+      },
+      {
+        "id": "rotation-age-oak",
+        "artifact": "Rotation age of pedunculate oak (140 years, Czech convention)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/rotation_age_oak",
+        "transferabilityNotes": "Czech forest management convention. Reported by the delivery as hard-coded in the current API; to be set per country."
+      },
+      {
+        "id": "rotation-age-beech",
+        "artifact": "Rotation age of European beech (130 years, Czech convention)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/rotation_age_beech",
+        "transferabilityNotes": "Czech forest management convention. Reported by the delivery as hard-coded in the current API; to be set per country."
+      },
+      {
+        "id": "rasdaman",
+        "artifact": "FOCAL Rasdaman data cube (rasql over SSH) and its registry (rasdaman_registry.json)",
+        "artifactRole": "infrastructure",
+        "transferabilityNotes": "The delivered workflow reads climate data from a Rasdaman instance queried with rasql over SSH, located through rasdaman_registry.json. Another platform needs Rasdaman with the same layout and its own registry, or a custom climate loader returning the 32 annual features (the predictor accepts one). Within FOCAL new collections are configuration entries; the FOCAL registry is not transferable as is. Used by (delivered step names): data-access."
       }
     ],
     "rules": [
+      {
+        "appliesTo": [
+          "growth-model",
+          "reference-increment",
+          "stress-thresholds"
+        ],
+        "when": [
+          {
+            "constraint": "czech-nfi-plots",
+            "test": "outside"
+          }
+        ],
+        "actions": [
+          "retrain"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Retrain the pipeline on national stand data; regenerate reference curves, stress thresholds and species support."
+      },
       {
         "appliesTo": [
           "growth-model"
         ],
         "when": [
           {
-            "constraint": "ecological-range",
+            "constraint": "training-feature-domain",
             "test": "outside"
           }
         ],
         "actions": [
-          "retrain",
-          "replace-with-alternative-published-model"
+          "retrain"
         ],
-        "mandatory": true
+        "mandatory": false,
+        "transferabilityNotes": "Inside Czechia, inputs outside the range (e.g. late-century heat days) are extrapolation; flag rather than block."
       },
       {
         "appliesTo": [
-          "climate-data"
+          "nfi-training-data"
         ],
         "when": [
           {
-            "constraint": "downscaled-climate-available",
+            "constraint": "czech-nfi-plots",
             "test": "outside"
           }
         ],
         "actions": [
           "replace-with-local-equivalent"
         ],
-        "mandatory": true
+        "mandatory": true,
+        "transferabilityNotes": "National forest inventory with remeasured plots."
+      },
+      {
+        "appliesTo": [
+          "rotation-age-spruce",
+          "rotation-age-pine",
+          "rotation-age-oak",
+          "rotation-age-beech"
+        ],
+        "triggeredBy": "different-geographic-coverage",
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": false,
+        "transferabilityNotes": "The defaults follow Czech forest management conventions. If they are not set for the country, projections end at an age, and accept stand ages, that may not match local practice."
+      },
+      {
+        "appliesTo": [
+          "rasdaman"
+        ],
+        "triggeredBy": "service-unavailable",
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Applies where no Rasdaman instance is available to the workflow: set one up with the same layout and its own registry, or change the code that reads the data (see the rasdaman artifact). On the FOCAL instance, a missing area is instead added as new collections and entries."
       }
     ]
   },
   "computationType": "statistical-ml",
-  "maturityStatus": "pre-operational",
+  "maturityStatus": "operational",
   "qualityAnnotation": [
     {
-      "dimension": "decision-support-only",
-      "note": "The AI model and validation are still being finalised, so results should be interpreted as decision-support information rather than exact forecasts."
+      "dimension": "accuracy",
+      "note": "Hold-out test (160 Czech stands, 2015-2025): total-height MAPE 3.15 % (2.7-3.6 % per species)."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "Bands are bootstrap model uncertainty for one climate source; no climate-model spread, no initial-height or stand-specific variability."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "Stands younger than about 16 years and late-century heat extremes lie outside the training data."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "Disturbances, mortality and management are not modelled; projections describe undisturbed growth."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "stress_probability is the share of bootstrap members flagging a stress year, not a calibrated probability."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "Slope, aspect and soil come from global maps, not field measurements (slope MAE 2.7 deg on 1,033 Czech plots)."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "Final model trained on FOCAL downscaled ERA5-Land (elevation correction fitted on Czech CHMI stations); inference collections must be on a consistent frame."
     }
   ]
 }

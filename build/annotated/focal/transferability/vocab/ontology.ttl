@@ -262,6 +262,11 @@ focal-prop:axis a owl:ObjectProperty ;
             owl:onProperty skos:inScheme ],
         skos:Concept .
 
+focal-prop:calendar a owl:DatatypeProperty ;
+    rdfs:label "calendar"@en ;
+    rdfs:comment "A CF calendar accepted as it is. Repeatable and disjunctive."@en ;
+    rdfs:range xsd:string .
+
 focal-prop:class a owl:ObjectProperty ;
     rdfs:label "class"@en ;
     rdfs:comment "An explicitly stated class of the constraint's classification scheme. Use only where the source states classes; otherwise name a reference with focal-prop:sameClassAs and let them be derived. Values are terms of the external scheme, cited by its own identifiers where it has them."@en .
@@ -311,6 +316,12 @@ focal-prop:gridType a owl:ObjectProperty ;
             owl:onProperty skos:inScheme ],
         skos:Concept .
 
+focal-prop:inputRef a owl:DatatypeProperty ;
+    rdfs:label "input reference"@en ;
+    rdfs:comment "JSON Pointer to an input of the annotated document that an envelope constraint is tested against."@en ;
+    rdfs:domain focal-transf:EnvelopeConstraint ;
+    rdfs:range xsd:string .
+
 focal-prop:mandatory a owl:DatatypeProperty ;
     rdfs:label "mandatory"@en ;
     rdfs:comment "Whether applying one of the rule's actions is mandatory once its conditions hold. False means the workflow still runs, with degraded result quality or trust described in the rule's rdfs:comment."@en ;
@@ -324,6 +335,21 @@ focal-prop:maturityStatus a owl:ObjectProperty ;
             owl:hasValue focal-maturity:scheme ;
             owl:onProperty skos:inScheme ],
         skos:Concept .
+
+focal-prop:maximum a owl:DatatypeProperty ;
+    rdfs:label "maximum"@en ;
+    rdfs:comment "Highest value inside a variable range."@en ;
+    rdfs:range xsd:double .
+
+focal-prop:minimum a owl:DatatypeProperty ;
+    rdfs:label "minimum"@en ;
+    rdfs:comment "Lowest value inside a variable range."@en ;
+    rdfs:range xsd:double .
+
+focal-prop:minimumPrecedingYears a owl:DatatypeProperty ;
+    rdfs:label "minimum preceding years"@en ;
+    rdfs:comment "Years of data needed before the requested period."@en ;
+    rdfs:range xsd:integer .
 
 focal-prop:noConstraintsStated a owl:DatatypeProperty ;
     rdfs:label "no constraints stated"@en ;
@@ -375,6 +401,21 @@ focal-prop:scenarioMarker a owl:ObjectProperty ;
             owl:onProperty skos:inScheme ],
         skos:Concept .
 
+focal-prop:standardName a owl:DatatypeProperty ;
+    rdfs:label "standard name"@en ;
+    rdfs:comment "CF standard name of the quantity a required variable must carry."@en ;
+    rdfs:range xsd:string .
+
+focal-prop:statistic a owl:DatatypeProperty ;
+    rdfs:label "statistic"@en ;
+    rdfs:comment "How target values are aggregated before being compared with variable ranges."@en ;
+    rdfs:range xsd:string .
+
+focal-prop:temporalRequirement a owl:ObjectProperty ;
+    rdfs:label "temporal requirement"@en ;
+    rdfs:comment "What the time axis of a candidate dataset must satisfy."@en ;
+    rdfs:domain focal-transf:AcceptanceCriteria .
+
 focal-prop:termNamespace a owl:ObjectProperty ;
     rdfs:label "term namespace"@en ;
     rdfs:comment "Where an external classification scheme's own term identifiers live, for schemes that publish dereferenceable terms. Absent for schemes distributed as data rather than as a vocabulary."@en ;
@@ -415,16 +456,29 @@ focal-prop:unit a owl:ObjectProperty ;
     rdfs:domain focal-transf:AcceptanceCriteria ;
     rdfs:range qudt:Unit .
 
+focal-prop:unitLabel a owl:DatatypeProperty ;
+    rdfs:label "unit label"@en ;
+    rdfs:comment "A unit written as a string, where a variable range's variable may have no published unit term."@en ;
+    rdfs:range xsd:string .
+
 focal-prop:value a rdf:Property ;
     rdfs:label "value"@en ;
     rdfs:comment "The constraint value. A geo:Geometry for spatial and jurisdictional dimensions, a dcterms:PeriodOfTime or a scenario-marker concept for temporal, a plain string otherwise. Per-dimension constraints are in the block's shapes.shacl."@en ;
     rdfs:domain focal-transf:EnvelopeConstraint .
 
-focal-prop:variable a owl:DatatypeProperty ;
+focal-prop:variable a owl:ObjectProperty ;
     rdfs:label "variable"@en ;
-    rdfs:comment "The name the workflow expects a variable to be called. Deliberately a plain string and not a CF standard name: a standard name is a claim about what a quantity is, whereas this is a claim about what this workflow's code looks for, and the two coincide only by convention."@en ;
-    rdfs:domain focal-transf:AcceptanceCriteria ;
+    rdfs:comment "A variable the data must carry. Repeatable and conjunctive."@en ;
+    rdfs:domain focal-transf:AcceptanceCriteria .
+
+focal-prop:variableName a owl:DatatypeProperty ;
+    rdfs:label "variable name"@en ;
+    rdfs:comment "The name of a variable, as the workflow uses it."@en ;
     rdfs:range xsd:string .
+
+focal-prop:variableRange a owl:ObjectProperty ;
+    rdfs:label "variable range"@en ;
+    rdfs:comment "The range of one variable within which a constraint holds."@en .
 
 focal-prop:when a owl:ObjectProperty ;
     rdfs:label "when"@en ;
@@ -433,7 +487,7 @@ focal-prop:when a owl:ObjectProperty ;
     rdfs:range focal-transf:Condition .
 
 focal-action:component-not-executable a skos:Concept ;
-    skos:definition "No substitute is available for the target; the affected workflow component cannot currently be run outside its original footprint. A terminal, non-actionable outcome."@en ;
+    skos:definition "The affected component gives no usable result for the target and no substitute is available: it fails, or runs and produces results that are not valid. The two are not told apart. A terminal, non-actionable outcome."@en ;
     skos:inScheme focal-action:scheme ;
     skos:prefLabel "component not executable"@en ;
     skos:topConceptOf focal-action:scheme .
@@ -500,6 +554,14 @@ focal-cls:eea-biogeographical-regions a skos:Concept ;
     skos:prefLabel "EEA biogeographical regions"@en ;
     skos:topConceptOf focal-cls:scheme .
 
+focal-cls:eppo a skos:Concept ;
+    rdfs:seeAlso <https://gd.eppo.int/> ;
+    skos:definition "Codes of the European and Mediterranean Plant Protection Organization for plants and pests."@en ;
+    skos:inScheme focal-cls:scheme ;
+    skos:notation "eppo" ;
+    skos:prefLabel "EPPO codes"@en ;
+    skos:topConceptOf focal-cls:scheme .
+
 focal-cls:eunis-habitats a skos:Concept ;
     rdfs:seeAlso <https://eunis.eea.europa.eu/about> ;
     skos:definition "The European Nature Information System hierarchical habitat classification, maintained by the European Environment Agency. Terms are dereferenceable and should be cited by their own URIs where a constraint states classes explicitly."@en ;
@@ -509,6 +571,14 @@ focal-cls:eunis-habitats a skos:Concept ;
     skos:relatedMatch <http://inspire.ec.europa.eu/codelist/EunisHabitatTypeCodeValue/> ;
     skos:topConceptOf focal-cls:scheme ;
     focal-prop:termNamespace <http://eunis.eea.europa.eu/eunishabitats/> .
+
+focal-cls:gbif-backbone a skos:Concept ;
+    rdfs:seeAlso <https://doi.org/10.15468/39omei> ;
+    skos:definition "The taxonomy GBIF uses to index species names. Classes are taxon identifiers or scientific names."@en ;
+    skos:inScheme focal-cls:scheme ;
+    skos:notation "gbif-backbone" ;
+    skos:prefLabel "GBIF Backbone Taxonomy"@en ;
+    skos:topConceptOf focal-cls:scheme .
 
 focal-cls:koppen-geiger a skos:Concept ;
     dcterms:source <https://doi.org/10.1038/sdata.2018.214> ;
@@ -557,6 +627,12 @@ focal-dim:grid-structure a skos:Concept ;
     skos:prefLabel "grid structure"@en ;
     skos:topConceptOf focal-dim:scheme .
 
+focal-dim:input-domain a skos:Concept ;
+    skos:definition "The range of values of the variables a method or model was built on, outside which it extrapolates."@en ;
+    skos:inScheme focal-dim:scheme ;
+    skos:prefLabel "input domain"@en ;
+    skos:topConceptOf focal-dim:scheme .
+
 focal-dim:jurisdictional a skos:Concept ;
     skos:definition "Administrative or licensing boundary (e.g. data only licensed for use in one country)."@en ;
     skos:inScheme focal-dim:scheme ;
@@ -574,6 +650,12 @@ focal-dim:temporal a skos:Concept ;
     skos:inScheme focal-dim:scheme ;
     skos:prefLabel "temporal"@en ;
     skos:topConceptOf focal-dim:scheme .
+
+focal-grid:curvilinear a skos:Concept ;
+    skos:definition "A grid whose cell centres are located by two-dimensional latitude and longitude coordinate variables. A coordinate structure rather than a projection, so it has no CF grid_mapping_name."@en ;
+    skos:inScheme focal-grid:scheme ;
+    skos:prefLabel "curvilinear grid"@en ;
+    skos:topConceptOf focal-grid:scheme .
 
 focal-grid:regular-latlon a skos:Concept ;
     skos:definition "A grid whose axes are longitude and latitude in degrees, evenly spaced. The CF grid_mapping_name is latitude_longitude."@en ;
@@ -607,6 +689,14 @@ focal-maturity:prototype a skos:Concept ;
     skos:prefLabel "prototype"@en ;
     skos:topConceptOf focal-maturity:scheme .
 
+focal-qdim:accuracy a skos:Concept,
+        dqv:Dimension ;
+    skos:definition "A statement of how well results agreed with reference data, and where that was assessed."@en ;
+    skos:inScheme focal-qdim:scheme ;
+    skos:prefLabel "accuracy"@en ;
+    skos:topConceptOf focal-qdim:scheme ;
+    dqv:inCategory focal-qdim:scheme .
+
 focal-qdim:decision-support-only a skos:Concept,
         dqv:Dimension ;
     skos:definition "Results are intended to inform a decision rather than stand as an exact forecast or measurement (e.g. FP-WF1's AI model output)."@en ;
@@ -621,6 +711,14 @@ focal-qdim:intended-use-limit a skos:Concept,
     skos:inScheme focal-qdim:scheme ;
     skos:prefLabel "intended-use limit"@en ;
     skos:scopeNote "Distinct from decision-support-only, which says results inform a decision rather than stand as exact figures. This names a specific use to avoid."@en ;
+    skos:topConceptOf focal-qdim:scheme ;
+    dqv:inCategory focal-qdim:scheme .
+
+focal-qdim:method-limitation a skos:Concept,
+        dqv:Dimension ;
+    skos:definition "A known weakness or simplification of the method that affects how results can be read, such as an omitted process or an approximate formula."@en ;
+    skos:inScheme focal-qdim:scheme ;
+    skos:prefLabel "method limitation"@en ;
     skos:topConceptOf focal-qdim:scheme ;
     dqv:inCategory focal-qdim:scheme .
 
@@ -701,7 +799,7 @@ focal-test:different-class-from a skos:Concept ;
 
 focal-test:inside a skos:Concept ;
     rdfs:seeAlso geof:sfWithin ;
-    skos:definition "The target falls wholly within the constraint. For a spatial, jurisdictional or grid-structure constraint this is evaluable -- geof:sfWithin against the constraint's geometry, or set membership against its accepted grid types; for a temporal constraint, containment in the stated period; for a prose-valued dimension it is a human judgement stated in the same terms."@en ;
+    skos:definition "The target falls wholly within the constraint. For value ranges, every listed variable is within its range. For a spatial, jurisdictional or grid-structure constraint this is evaluable -- geof:sfWithin against the constraint's geometry, or set membership against its accepted grid types; for a temporal constraint, containment in the stated period; for a prose-valued dimension it is a human judgement stated in the same terms."@en ;
     skos:inScheme focal-test:scheme ;
     skos:prefLabel "inside"@en ;
     skos:topConceptOf focal-test:scheme .
@@ -744,6 +842,12 @@ focal-trigger:different-geographic-coverage a skos:Concept ;
     skos:prefLabel "different geographic coverage"@en ;
     skos:topConceptOf focal-trigger:scheme .
 
+focal-trigger:service-unavailable a skos:Concept ;
+    skos:definition "A service the workflow depends on, such as a data cube, is not available where the workflow is to run, or does not hold the data in the form the workflow expects."@en ;
+    skos:inScheme focal-trigger:scheme ;
+    skos:prefLabel "service unavailable"@en ;
+    skos:topConceptOf focal-trigger:scheme .
+
 focal-transf:Condition a owl:Class ;
     rdfs:label "Envelope Condition"@en ;
     rdfs:comment "One test of a target against one envelope constraint. Conditions on a rule are conjunctive: all of them must hold for the rule to fire."@en .
@@ -759,26 +863,20 @@ focal-koppen:E a skos:Concept ;
     skos:prefLabel "Polar"@en ;
     skos:topConceptOf focal-koppen:scheme .
 
-focal-transf:AcceptanceCriteria a owl:Class ;
-    rdfs:label "Acceptance Criteria"@en ;
-    rdfs:comment "What a dataset must satisfy to serve as a given artifact. A standing property of the interface rather than of any transfer: the requirement holds whether or not the workflow is being moved, and merely becomes visible when a substitution is proposed. It is what turns focal-action:replace-with-local-equivalent from an instruction that something must change into one a consumer can check a candidate dataset against."@en .
-
 focal-koppen:A a skos:Concept ;
     skos:inScheme focal-koppen:scheme ;
     skos:notation "A" ;
     skos:prefLabel "Tropical"@en ;
     skos:topConceptOf focal-koppen:scheme .
 
+focal-transf:AcceptanceCriteria a owl:Class ;
+    rdfs:label "Acceptance Criteria"@en ;
+    rdfs:comment "What a dataset must satisfy to serve as a given artifact. A standing property of the interface rather than of any transfer: the requirement holds whether or not the workflow is being moved, and merely becomes visible when a substitution is proposed. It is what turns focal-action:replace-with-local-equivalent from an instruction that something must change into one a consumer can check a candidate dataset against."@en .
+
 focal-transf:ArtifactDependency a owl:Class ;
     rdfs:label "Artifact Dependency"@en ;
     rdfs:comment "A reference or calibration artifact a workflow depends on, as it is described for transferability purposes."@en ;
     rdfs:subClassOf prov:Entity .
-
-focal-grid:scheme a skos:ConceptScheme ;
-    skos:definition "Grid structures a workflow's gridded inputs may be on. Open; cross-walked to CF-conventions grid_mapping_name values."@en ;
-    skos:hasTopConcept focal-grid:regular-latlon,
-        focal-grid:rotated-pole ;
-    skos:prefLabel "FOCAL Grid Types"@en .
 
 focal-koppen:B a skos:Concept ;
     skos:inScheme focal-koppen:scheme ;
@@ -786,24 +884,17 @@ focal-koppen:B a skos:Concept ;
     skos:prefLabel "Arid"@en ;
     skos:topConceptOf focal-koppen:scheme .
 
-focal-transf:EnvelopeConstraint a owl:Class ;
-    rdfs:label "Envelope Constraint"@en ;
-    rdfs:comment "One role/dimension/value statement bounding where results are valid. No published vocabulary carries this: dcterms:spatial and dcterms:temporal state a single coverage, whereas the distinction that matters here is between what a workflow was trained on, what its outputs are valid for, and where it can technically run -- three different extents that come apart in practice."@en .
-
 focal-transf:TransferabilityStatement a owl:Class ;
     rdfs:label "Transferability Statement"@en ;
     rdfs:comment "The portability boundary of something: where its results are valid, which reference or calibration artifacts it depends on, and what must happen to each to make the results valid elsewhere."@en .
 
+focal-transf:EnvelopeConstraint a owl:Class ;
+    rdfs:label "Envelope Constraint"@en ;
+    rdfs:comment "One role/dimension/value statement bounding where results are valid. No published vocabulary carries this: dcterms:spatial and dcterms:temporal state a single coverage, whereas the distinction that matters here is between what a workflow was trained on, what its outputs are valid for, and where it can technically run -- three different extents that come apart in practice."@en .
+
 focal-transf:Rule a owl:Class ;
     rdfs:label "Transferability Rule"@en ;
     rdfs:comment "A condition/action rule: which artifacts it governs, the envelope conditions under which it fires, the actions that resolve it, and whether applying one is mandatory."@en .
-
-focal-cls:scheme a skos:ConceptScheme ;
-    skos:definition "Published classification systems in which an envelope constraint's analogy test may be evaluated. Open, and deliberately shallow: each concept identifies an external scheme and says where its terms live, rather than reproducing them."@en ;
-    skos:hasTopConcept focal-cls:eea-biogeographical-regions,
-        focal-cls:eunis-habitats,
-        focal-cls:koppen-geiger ;
-    skos:prefLabel "FOCAL Classification Schemes"@en .
 
 focal-compute:scheme a skos:ConceptScheme ;
     skos:definition "How a workflow computes its results. Optional at the workflow level — omitted entirely for workflows that aren't an executable Application/ApplicationPackage at all (e.g. an observing system), not a fourth 'not applicable' value."@en ;
@@ -811,6 +902,13 @@ focal-compute:scheme a skos:ConceptScheme ;
         focal-compute:precomputed-delivery,
         focal-compute:statistical-ml ;
     skos:prefLabel "FOCAL Computation Types"@en .
+
+focal-grid:scheme a skos:ConceptScheme ;
+    skos:definition "Grid structures a workflow's gridded inputs may be on. Open; cross-walked to CF-conventions grid_mapping_name values where one exists."@en ;
+    skos:hasTopConcept focal-grid:curvilinear,
+        focal-grid:regular-latlon,
+        focal-grid:rotated-pole ;
+    skos:prefLabel "FOCAL Grid Types"@en .
 
 focal-maturity:scheme a skos:ConceptScheme ;
     skos:definition "The operational maturity of a FOCAL pilot workflow itself, as distinct from a bblock's own authoring-lifecycle status (bblock.json's `status` field: under-development/experimental/stable/...). Deliberately a separate vocabulary in different words to avoid two unrelated axes sharing identical string values on the same object graph."@en ;
@@ -850,14 +948,6 @@ focal-test:scheme a skos:ConceptScheme ;
         focal-test:same-class-as ;
     skos:prefLabel "FOCAL Envelope Condition Tests"@en .
 
-focal-trigger:scheme a skos:ConceptScheme ;
-    skos:definition "The condition, evaluated against a workflow's validity envelope, that triggers a transferability rule."@en ;
-    skos:hasTopConcept focal-trigger:different-climate-regime,
-        focal-trigger:different-dataset,
-        focal-trigger:different-ecological-range,
-        focal-trigger:different-geographic-coverage ;
-    skos:prefLabel "FOCAL Transferability Triggers"@en .
-
 focal-koppen:C a skos:Concept ;
     skos:inScheme focal-koppen:scheme ;
     skos:notation "C" ;
@@ -873,15 +963,23 @@ focal-action:scheme a skos:ConceptScheme ;
         focal-action:reuse-as-is ;
     skos:prefLabel "FOCAL Transferability Actions"@en .
 
-focal-dim:scheme a skos:ConceptScheme ;
-    skos:definition "The axes along which a workflow's validity envelope is stated. Deliberately seeded small and open to growth — not a closed set."@en ;
-    skos:hasTopConcept focal-dim:climatic,
-        focal-dim:ecological,
-        focal-dim:grid-structure,
-        focal-dim:jurisdictional,
-        focal-dim:spatial,
-        focal-dim:temporal ;
-    skos:prefLabel "FOCAL Transferability Envelope Dimensions"@en .
+focal-cls:scheme a skos:ConceptScheme ;
+    skos:definition "Published classification systems in which an envelope constraint's analogy test may be evaluated. Open, and deliberately shallow: each concept identifies an external scheme and says where its terms live, rather than reproducing them."@en ;
+    skos:hasTopConcept focal-cls:eea-biogeographical-regions,
+        focal-cls:eppo,
+        focal-cls:eunis-habitats,
+        focal-cls:gbif-backbone,
+        focal-cls:koppen-geiger ;
+    skos:prefLabel "FOCAL Classification Schemes"@en .
+
+focal-trigger:scheme a skos:ConceptScheme ;
+    skos:definition "The condition, evaluated against a workflow's validity envelope, that triggers a transferability rule."@en ;
+    skos:hasTopConcept focal-trigger:different-climate-regime,
+        focal-trigger:different-dataset,
+        focal-trigger:different-ecological-range,
+        focal-trigger:different-geographic-coverage,
+        focal-trigger:service-unavailable ;
+    skos:prefLabel "FOCAL Transferability Triggers"@en .
 
 focal-koppen:D a skos:Concept ;
     skos:inScheme focal-koppen:scheme ;
@@ -889,10 +987,23 @@ focal-koppen:D a skos:Concept ;
     skos:prefLabel "Cold (continental)"@en ;
     skos:topConceptOf focal-koppen:scheme .
 
+focal-dim:scheme a skos:ConceptScheme ;
+    skos:definition "The axes along which a workflow's validity envelope is stated. Deliberately seeded small and open to growth — not a closed set."@en ;
+    skos:hasTopConcept focal-dim:climatic,
+        focal-dim:ecological,
+        focal-dim:grid-structure,
+        focal-dim:input-domain,
+        focal-dim:jurisdictional,
+        focal-dim:spatial,
+        focal-dim:temporal ;
+    skos:prefLabel "FOCAL Transferability Envelope Dimensions"@en .
+
 focal-qdim:scheme a skos:ConceptScheme ;
     skos:definition "Dimensions along which a qualityAnnotation statement expresses uncertainty or confidence about a workflow's results, independent of its maturityStatus. Deliberately seeded small from a single workflow (FP-WF1) and open to growth."@en ;
-    skos:hasTopConcept focal-qdim:decision-support-only,
+    skos:hasTopConcept focal-qdim:accuracy,
+        focal-qdim:decision-support-only,
         focal-qdim:intended-use-limit,
+        focal-qdim:method-limitation,
         focal-qdim:proxy-variable,
         focal-qdim:spatial-support-mismatch,
         focal-qdim:validation-incomplete ;

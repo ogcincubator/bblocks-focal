@@ -1,11 +1,13 @@
 {
   "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/context.jsonld",
-  "variable": {
-    "sameAsCurrent": true
-  },
-  "units": [
-    "MilliM",
-    "KiloGM-PER-M2-SEC"
+  "variables": [
+    {
+      "sameAsCurrent": true,
+      "units": [
+        "MilliM",
+        "KiloGM-PER-M2-SEC"
+      ]
+    }
   ],
   "axes": [
     "time"

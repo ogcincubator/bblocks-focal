@@ -1,9 +1,20 @@
 {
   "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/workflow/context.jsonld",
   "class": "Workflow",
-  "id": "",
   "cwlVersion": "v1.2",
-  "label": "FP-WF5 \u2014 Map of climatic zones",
+  "id": "",
+  "label": "FWF5 - Climate zones inspired by Quitt's classification (FOCAL Forest Pilot)",
+  "doc": [
+    "Assigns each location one of 23 climate units (coldest CH1 to warmest T5): the unit whose Quitt limits best match 11 multi-year mean climate characteristics. Reports trends of the characteristics and of the unit.",
+    "Transferability record of workflow FP-WF5 (FWF5), record date 2026-11-18. Record basis: FWF5 code package (API, scoring, trends, Rasdaman registry, source catalogue, Quitt limit table) and the published methodology; not the round-1 questionnaire. Methodology: https://github.com/JiriVales/info4forest-backend/blob/main/methodology_climate_zones_quitt_en_updated.md Converted from the delivered record on 2026-11-25. Descriptive CWL profile: no steps are declared and the input and output identifiers are not yet those of an executable Application Package."
+  ],
+  "$namespaces": {
+    "s": "https://schema.org/"
+  },
+  "s:identifier": "FP-WF5",
+  "s:alternateName": "FWF5",
+  "s:dateCreated": "2026-11-18",
+  "s:citation": "https://github.com/JiriVales/info4forest-backend/blob/main/methodology_climate_zones_quitt_en_updated.md",
   "requirements": {
     "SoftwareRequirement": {
       "packages": [
@@ -11,7 +22,13 @@
           "package": "python"
         },
         {
+          "package": "numpy"
+        },
+        {
           "package": "flask"
+        },
+        {
+          "package": "gunicorn"
         }
       ]
     },
@@ -20,123 +37,461 @@
     }
   },
   "inputs": {
-    "climate_zone_thresholds": {
-      "type": "File"
+    "latitude": {
+      "type": "double?",
+      "label": "Latitude of the point",
+      "doc": "Latitude in decimal degrees (WGS 84). Give latitude and longitude for a point, or bbox for an area."
     },
-    "climate_metadata": {
-      "type": "File"
+    "longitude": {
+      "type": "double?",
+      "label": "Longitude of the point",
+      "doc": "Longitude in decimal degrees (WGS 84). Give together with latitude."
+    },
+    "bbox": {
+      "type": "double[]?",
+      "label": "Area of interest (bounding box)",
+      "doc": "Area as [minimum longitude, minimum latitude, maximum longitude, maximum latitude] in decimal degrees (WGS 84). Alternative to latitude and longitude."
+    },
+    "start_year": {
+      "type": "int",
+      "label": "First year of the period",
+      "doc": "First year of the period over which the indicators are averaged; it must be within the years of the data."
+    },
+    "end_year": {
+      "type": "int",
+      "label": "Last year of the period",
+      "doc": "Last year of the period; it must be within the years of the data. Trends need at least 2 years."
+    },
+    "rasdaman_connection": {
+      "type": "string",
+      "label": "Data cube connection",
+      "doc": "How to reach the Rasdaman instance that holds the climate data (queried with rasql over SSH). The connection variables are not named in the delivered material, so one string stands for them; we assume credentials are supplied by the execution environment."
+    },
+    "rasdaman_registry": {
+      "type": "File",
+      "label": "Data cube registry",
+      "doc": "rasdaman_registry.json for that instance. The FOCAL registry is not transferable as is."
     },
     "climate_source_catalogue": {
-      "type": "string"
+      "type": "File",
+      "label": "Climate source catalogue",
+      "doc": "climate_source_catalog.json listing the sources and areas offered."
+    },
+    "readiness_collection": {
+      "type": "string?",
+      "label": "Readiness check collection",
+      "doc": "Value for READINESS_COLLECTION, which defaults to a Czech ERA5-Land collection. Outside that default it must be set, otherwise the readiness check fails."
+    },
+    "quitt_limit_table": {
+      "type": "File",
+      "label": "Climate unit limit table",
+      "doc": "Intervals of the 11 indicators for 23 climate units (Quitt 1971, Table 2). Ships with the workflow; replace it with a regional table for climates unlike Central Europe.",
+      "default": {
+        "class": "File",
+        "location": "FWF5_quitt_limits_11_rasdaman_index.json"
+      }
+    },
+    "unit_descriptions": {
+      "type": "File",
+      "label": "Climate unit descriptions",
+      "doc": "Names and descriptions of the units (Czech and English). Ships with the workflow.",
+      "default": {
+        "class": "File",
+        "location": "FWF5_climate_metadata.json"
+      }
     }
   },
+  "outputs": {
+    "climate_unit": {
+      "type": "File",
+      "label": "Climate unit",
+      "doc": "Unit map and point detail: unit, fit score best_score and indicator means."
+    },
+    "climate_unit_trend": {
+      "type": "File",
+      "label": "Climate unit trend",
+      "doc": "Trend of the climate unit (yearly expected fuzzy rank)."
+    },
+    "indicator_maps": {
+      "type": "File",
+      "label": "Climate characteristic maps",
+      "doc": "Maps of the 11 climate characteristics."
+    },
+    "indicator_trends": {
+      "type": "File",
+      "label": "Climate characteristic trends",
+      "doc": "Sen's slope and Mann-Kendall test (alpha = 0.05) per indicator."
+    },
+    "adverse_episode": {
+      "type": "File",
+      "label": "Adverse episode",
+      "doc": "Adverse episode derived from the trends."
+    }
+  },
+  "steps": {},
   "transferability": {
     "trainingRequired": false,
+    "transferabilityNotes": "Envelope entries and rules that only described which data FOCAL currently holds, or its platform, are not part of this statement; what they said is kept in the notes of the artifacts concerned. An area or period for which no data is at hand is a matter of providing data (as delivered, in the data cube) that meets the artifact's criteria. The delivered record also notes: temporal extent is the year range of each collection, read from Rasdaman at runtime. The 11 climate characteristics and their trends are valid everywhere; only the climate-unit outputs are bounded, by climate rather than geography.",
     "envelope": [
       {
-        "id": "czech-zone-scheme",
+        "id": "quitt-limits-origin",
         "role": "derived-from",
-        "dimension": "jurisdictional",
-        "value": {
-          "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"
-        }
-      },
-      {
-        "id": "rasdaman-collections",
-        "role": "can-run-on",
         "dimension": "spatial",
         "value": {
-          "asWKT": "POLYGON ((18.16 49.26, 17.76 48.89, 17.14 48.84, 16.95 48.6, 16.54 48.8, 16.06 48.75, 14.99 49, 14.69 48.6, 14.19 48.58, 12.68 49.41, 12.39 49.74, 12.51 49.9, 12.09 50.3, 12.28 50.18, 12.55 50.39, 14.37 50.9, 14.28 51.03, 14.72 50.81, 14.99 51.01, 16.01 50.61, 16.36 50.62, 16.21 50.42, 16.64 50.1, 16.99 50.24, 16.88 50.43, 17.7 50.31, 17.63 50.12, 18.56 49.88, 18.83 49.51, 18.16 49.26))"
-        }
+          "asWKT": "POLYGON((12.07 47.63, 22.76 47.63, 22.76 51.08, 12.07 51.08, 12.07 47.63))"
+        },
+        "transferabilityNotes": "Bounding box of the FOCAL Czechia and Slovakia areas, standing in for former Czechoslovakia, for which Quitt (1971) derived the limit table. The limits were taken over, not fitted by FOCAL."
       },
       {
-        "id": "quitt-meaningful",
+        "id": "quitt-climate-covered",
         "role": "valid-for",
         "dimension": "climatic",
-        "value": "the climatic conditions of the target area and period are adequately represented by the range of classes distinguished by the implemented Quitt classification \u2014 a classification-range judgement, not a match against K\u00f6ppen-Geiger or any other external scheme"
+        "value": {
+          "variables": [
+            {
+              "name": "SUM25",
+              "unit": "days",
+              "min": 0,
+              "max": 70
+            },
+            {
+              "name": "VEG10",
+              "unit": "days",
+              "min": 0
+            },
+            {
+              "name": "FROST0",
+              "unit": "days",
+              "min": 90,
+              "max": 180
+            },
+            {
+              "name": "ICE0",
+              "unit": "days",
+              "min": 0,
+              "max": 80
+            },
+            {
+              "name": "T_JAN",
+              "unit": "degC",
+              "min": -8,
+              "max": -1
+            },
+            {
+              "name": "T_APR",
+              "unit": "degC",
+              "min": 0,
+              "max": 10
+            },
+            {
+              "name": "T_JUL",
+              "unit": "degC",
+              "min": 10,
+              "max": 20
+            },
+            {
+              "name": "T_OCT",
+              "unit": "degC",
+              "min": 2,
+              "max": 10
+            },
+            {
+              "name": "RAIN1",
+              "unit": "days",
+              "min": 80,
+              "max": 160
+            },
+            {
+              "name": "P_APR_SEP",
+              "unit": "mm",
+              "min": 300,
+              "max": 1000
+            },
+            {
+              "name": "P_OCT_MAR",
+              "unit": "mm",
+              "min": 200,
+              "max": 700
+            }
+          ],
+          "statistic": "multi-year mean"
+        },
+        "inputRef": [
+          "/inputs/latitude",
+          "/inputs/longitude",
+          "/inputs/bbox",
+          "/inputs/start_year",
+          "/inputs/end_year"
+        ],
+        "transferabilityNotes": "'covered' ranges: every multi-year indicator mean inside them. Union of the 23 unit intervals in FWF5_quitt_limits_11_rasdaman_index.json; 'outer' adds the fuzzy tolerances used in the code (10 days, 1 degC, 50 mm). Applies to the climate-unit outputs only; the 11 characteristics and their trends are valid everywhere. Applies in time as well as space: future SSP3-7.0 values in Czech lowlands are expected to approach or exceed the warm edge. Delivered reading: every multi-year indicator mean lies inside 'covered'; between 'covered' and 'outer' = degraded fit; beyond 'outer' = outside."
+      },
+      {
+        "id": "quitt-climate-outer",
+        "role": "valid-for",
+        "dimension": "climatic",
+        "value": {
+          "variables": [
+            {
+              "name": "SUM25",
+              "unit": "days",
+              "max": 80
+            },
+            {
+              "name": "FROST0",
+              "unit": "days",
+              "min": 80,
+              "max": 190
+            },
+            {
+              "name": "ICE0",
+              "unit": "days",
+              "max": 90
+            },
+            {
+              "name": "T_JAN",
+              "unit": "degC",
+              "min": -9,
+              "max": 0
+            },
+            {
+              "name": "T_APR",
+              "unit": "degC",
+              "min": -1,
+              "max": 11
+            },
+            {
+              "name": "T_JUL",
+              "unit": "degC",
+              "min": 9,
+              "max": 21
+            },
+            {
+              "name": "T_OCT",
+              "unit": "degC",
+              "min": 1,
+              "max": 11
+            },
+            {
+              "name": "RAIN1",
+              "unit": "days",
+              "min": 70,
+              "max": 170
+            },
+            {
+              "name": "P_APR_SEP",
+              "unit": "mm",
+              "min": 250,
+              "max": 1050
+            },
+            {
+              "name": "P_OCT_MAR",
+              "unit": "mm",
+              "min": 150,
+              "max": 750
+            }
+          ],
+          "statistic": "multi-year mean"
+        },
+        "inputRef": [
+          "/inputs/latitude",
+          "/inputs/longitude",
+          "/inputs/bbox",
+          "/inputs/start_year",
+          "/inputs/end_year"
+        ],
+        "transferabilityNotes": "'outer' ranges: covered ranges plus the fuzzy tolerances; a mean beyond them gets zero membership for that indicator in every unit. VEG10 has no outer limit and is not listed. Union of the 23 unit intervals in FWF5_quitt_limits_11_rasdaman_index.json; 'outer' adds the fuzzy tolerances used in the code (10 days, 1 degC, 50 mm). Applies to the climate-unit outputs only; the 11 characteristics and their trends are valid everywhere. Applies in time as well as space: future SSP3-7.0 values in Czech lowlands are expected to approach or exceed the warm edge. Delivered reading: every multi-year indicator mean lies inside 'covered'; between 'covered' and 'outer' = degraded fit; beyond 'outer' = outside."
       }
     ],
     "artifacts": [
       {
-        "id": "quitt-limits",
-        "artifact": "Quitt-limit JSON climate-zone threshold definitions (thresholds, labels, zone descriptions)",
+        "id": "yearly-indicators",
+        "artifact": "Yearly climate indicators (11 characteristics) covering the requested period",
         "artifactRole": "workflow-input",
-        "artifactRef": "/inputs/climate_zone_thresholds"
+        "acceptanceCriteria": {
+          "variables": [
+            {
+              "name": "SUM25",
+              "units": [
+                "DAY"
+              ]
+            },
+            {
+              "name": "VEG10",
+              "units": [
+                "DAY"
+              ]
+            },
+            {
+              "name": "FROST0",
+              "units": [
+                "DAY"
+              ]
+            },
+            {
+              "name": "ICE0",
+              "units": [
+                "DAY"
+              ]
+            },
+            {
+              "name": "T_JAN",
+              "units": [
+                "DEG_C"
+              ]
+            },
+            {
+              "name": "T_APR",
+              "units": [
+                "DEG_C"
+              ]
+            },
+            {
+              "name": "T_JUL",
+              "units": [
+                "DEG_C"
+              ]
+            },
+            {
+              "name": "T_OCT",
+              "units": [
+                "DEG_C"
+              ]
+            },
+            {
+              "name": "RAIN1",
+              "units": [
+                "DAY"
+              ]
+            },
+            {
+              "name": "P_APR_SEP",
+              "units": [
+                "MilliM"
+              ]
+            },
+            {
+              "name": "P_OCT_MAR",
+              "units": [
+                "MilliM"
+              ]
+            }
+          ],
+          "temporal": {
+            "resolution": "P1Y"
+          },
+          "axes": [
+            "time"
+          ],
+          "gridTypes": [
+            "regular-latlon",
+            "rotated-pole"
+          ],
+          "transferabilityNotes": "Structure: 4D array [year, ind, y, x], float32, NaN as no-data, indicators in the fixed order SUM25, VEG10, FROST0, ICE0, T_JAN, T_APR, T_JUL, T_OCT, RAIN1, P_APR_SEP, P_OCT_MAR. Time axis: calendar year (integer); every year of a requested period present. 2D latitude/longitude of cell centres (lookup collections or separable 1D axes); EPSG:4326 for lookups. Definitions: SUM25 = count(Tmax >= 25 degC); VEG10 = count(Tavg >= 10 degC); FROST0 = count(Tmin < 0 degC); ICE0 = count(Tmax < 0 degC); T_JAN = mean(Tavg, Jan); T_APR = mean(Tavg, Apr); T_JUL = mean(Tavg, Jul); T_OCT = mean(Tavg, Oct); RAIN1 = count(P >= 1 mm); P_APR_SEP = sum(P, Apr-Sep); P_OCT_MAR = sum(P, Oct-Mar)."
+        },
+        "transferabilityNotes": "As delivered, the workflow does not take these data as a file: it reads them from the Rasdaman data cube (artifact rasdaman), for the requested area and the years it needs. The delivered material gives no specification of the layout the code expects. Delivered as two datasets with the same requirements. (1) Historical: ERA5-Land yearly climate indicators (Rasdaman collection era5l_cz_yindicators). Needed only for historical periods. Within FOCAL: ERA5-Land is held for Czechia, Spain and Finland (exact extents per collection); any other area is computed in a routine precompute run. Outside FOCAL: ERA5-Land from the Copernicus Climate Data Store, E-OBS, or national gridded observations. (2) Projections: CMIP6-CORDEX EUR-11 GERICS-REMO2020 (MPI-ESM1-2-HR, EC-Earth3-Veg, MIROC6), SSP3-7.0, r1i1p1f1 yearly climate indicators (Rasdaman collections *_eur11_yindicators_<area>); SSP3-7.0 only, no historical experiment. Within FOCAL: precomputed for these bounding boxes (data coverage, not administrative boundaries): Czechia 12.07-18.97 E, 48.48-51.08 N; Slovakia 16.8174-22.7629 E, 47.6296-49.705 N; Spain (Maestrazgo Mountains) -1.09395-0.297912 E, 39.8289-40.8966 N; Southern Finland 20.3719-32.7637 E, 58.9769-63.1035 N. Elsewhere in the EUR-11 domain, a routine precompute run from the daily EUR-11 collections already held (started manually, no code change), then add the new collections and area entries. If no indicators exist, derive them from daily minimum, average and maximum temperature and precipitation (see artifact daily-climate) with the definitions above; that step runs in FOCAL ingest tooling and is not part of the FWF5 package. Seasonal windows assume the Northern Hemisphere. Used by (delivered step names): indicator-means, idw, climate-unit-classification, characteristic-trends, climate-unit-trend."
       },
       {
-        "id": "climate-metadata",
-        "artifact": "climate metadata file (indicator definitions and descriptions)",
-        "artifactRole": "workflow-input",
-        "artifactRef": "/inputs/climate_metadata"
-      },
-      {
-        "id": "rasdaman-registry",
-        "artifact": "Rasdaman collection registry and climate source catalogue",
-        "artifactRole": "workflow-input",
-        "artifactRef": "/inputs/climate_source_catalogue"
-      },
-      {
-        "id": "validation-reference",
-        "artifact": "local meteorological observations or accepted climate maps, for validating the adapted classification",
+        "id": "daily-climate",
+        "artifact": "Daily Tmin, Tavg, Tmax and precipitation from which the yearly indicators are derived (ERA5-Land hourly t2m/tp aggregated to daily; CORDEX daily tasmin/tas/tasmax/pr)",
         "artifactRole": "external-resource",
-        "transferabilityNotes": "Not an input of the current workflow: it enters the model only on transfer, as the way to check an adapted classification."
+        "acceptanceCriteria": {
+          "variables": [
+            {
+              "name": "tasmin",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "tas",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "tasmax",
+              "units": [
+                "DEG_C"
+              ],
+              "standardName": "air_temperature"
+            },
+            {
+              "name": "pr",
+              "units": [
+                "MilliM-PER-DAY"
+              ]
+            }
+          ],
+          "temporal": {
+            "resolution": "P1D",
+            "calendar": [
+              "standard",
+              "proleptic_gregorian",
+              "noleap"
+            ]
+          },
+          "axes": [
+            "time"
+          ],
+          "gridTypes": [
+            "regular-latlon",
+            "rotated-pole"
+          ],
+          "transferabilityNotes": "360_day calendars bias the day-count indicators and need adjustment."
+        },
+        "transferabilityNotes": "Not read by the workflow: upstream source of the yearly indicators. The precompute step runs in FOCAL ingest tooling and is not part of the FWF5 package. Within FOCAL: daily tas, tasmin, tasmax and pr of the three REMO2020 simulations are held for the whole EUR-11 rotated grid, 412 x 424 cells (lon/lat bounding box 44.5939 W - 64.9644 E, 21.9878 - 72.585 N; the box overstates the rotated domain at its corners); FWF5 runs anywhere inside it after the yearly indicators are precomputed for the area. Outside that domain: another CORDEX domain or another daily climate dataset meeting these criteria. Used by (delivered step names): yearly-indicator-precompute."
+      },
+      {
+        "id": "quitt-limit-table",
+        "artifact": "FWF5_quitt_limits_11_rasdaman_index.json: intervals of 11 indicators for 23 units (Quitt 1971, Table 2)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/quitt_limit_table",
+        "transferabilityNotes": "A regional table needs: the same 11 indicator codes, units and axis mapping; [min, max] per unit and indicator, null allowed for an open end; and a full cold-to-warm ordering of units (used for tie-breaking and the unit trend). The limits were derived for former Czechoslovakia. Used by (delivered step names): climate-unit-classification, climate-unit-trend."
+      },
+      {
+        "id": "unit-descriptions",
+        "artifact": "FWF5_climate_metadata.json: unit names and descriptions (CZ/EN)",
+        "artifactRole": "workflow-input",
+        "artifactRef": "/inputs/unit_descriptions",
+        "transferabilityNotes": "Names and descriptions for every unit of the limit table in use. The wording reflects Central European seasons and mentions snow cover and cloudiness, which are not computed. Used by (delivered step names): output-labelling."
+      },
+      {
+        "id": "rasdaman",
+        "artifact": "FOCAL Rasdaman data cube (rasql over SSH), source catalogue and registry (climate_source_catalog.json, rasdaman_registry.json)",
+        "artifactRole": "infrastructure",
+        "transferabilityNotes": "The delivered workflow reads precomputed indicator collections from a Rasdaman instance queried with rasql over SSH. Another platform needs a Rasdaman instance with the same collection layout (set the connection variables and READINESS_COLLECTION) and its own registry, or replacement of the rasql data access by file-based reading; the scoring, IDW and trend modules use NumPy only. Within FOCAL: add the new collections and area entries. Outside FOCAL: the operator's own registry. Used by (delivered step names): data-access."
       }
     ],
     "rules": [
       {
         "appliesTo": [
-          "quitt-limits",
-          "climate-metadata"
+          "quitt-limit-table"
         ],
         "when": [
           {
-            "constraint": "czech-zone-scheme",
+            "constraint": "quitt-climate-outer",
             "test": "outside"
           }
         ],
-        "actions": [
-          "replace-with-local-equivalent"
-        ],
-        "mandatory": true
-      },
-      {
-        "appliesTo": [
-          "quitt-limits"
-        ],
-        "when": [
-          {
-            "constraint": "quitt-meaningful",
-            "test": "outside"
-          }
-        ],
-        "actions": [
-          "replace-with-local-equivalent"
-        ],
-        "mandatory": true
-      },
-      {
-        "appliesTo": [
-          "rasdaman-registry"
-        ],
-        "when": [
-          {
-            "constraint": "rasdaman-collections",
-            "test": "outside"
-          }
+        "affects": [
+          "/outputs/climate_unit",
+          "/outputs/climate_unit_trend"
         ],
         "actions": [
           "replace-with-local-equivalent"
         ],
         "mandatory": true,
-        "transferabilityNotes": "An equivalent datacube service satisfies this: what is replaced is the collections the catalogue points at, not necessarily Rasdaman itself."
+        "transferabilityNotes": "Without a regional table the steps still execute but return only the nearest Central European analogue with a low best_score. Characteristic outputs and trends are unaffected."
       },
       {
         "appliesTo": [
-          "validation-reference"
+          "unit-descriptions"
         ],
         "when": [
           {
-            "constraint": "czech-zone-scheme",
+            "constraint": "quitt-climate-outer",
             "test": "outside"
           }
         ],
@@ -144,10 +499,71 @@
           "replace-with-local-equivalent"
         ],
         "mandatory": false,
-        "transferabilityNotes": "Skipping it does not stop the workflow: the zone maps come from adapted thresholds never checked against anything in the target area, so the classification is indicative and its fuzzy match scores are not comparable with those of the Czech setup."
+        "transferabilityNotes": "Follows a replaced limit table. If not replaced, unit names and descriptions do not describe the climate of the target."
+      },
+      {
+        "appliesTo": [
+          "quitt-limit-table"
+        ],
+        "when": [
+          {
+            "constraint": "quitt-climate-covered",
+            "test": "outside"
+          }
+        ],
+        "affects": [
+          "/outputs/climate_unit",
+          "/outputs/climate_unit_trend"
+        ],
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": false,
+        "transferabilityNotes": "Degraded fit: an indicator mean outside 'covered' but within 'outer' still counts towards a unit with reduced membership, so the assigned unit can be trusted less. Characteristic outputs and trends are unaffected."
+      },
+      {
+        "appliesTo": [
+          "rasdaman"
+        ],
+        "triggeredBy": "service-unavailable",
+        "actions": [
+          "replace-with-local-equivalent"
+        ],
+        "mandatory": true,
+        "transferabilityNotes": "Applies where no Rasdaman instance is available to the workflow: set one up with the same layout and its own registry, or change the code that reads the data (see the rasdaman artifact). On the FOCAL instance, a missing area is instead added as new collections and entries."
       }
     ]
   },
   "computationType": "deterministic-rule-based",
-  "maturityStatus": "operational"
+  "maturityStatus": "operational",
+  "qualityAnnotation": [
+    {
+      "dimension": "method-limitation",
+      "note": "best_score (0-1) is a similarity to interval limits, not a probability."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "The classification always returns a unit, even outside the climate envelope; a low best_score is the only signal."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "11 of Quitt's 14 characteristics are used; snow cover, cloudiness and clear/overcast days are omitted."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "10 km (ERA5-Land) and 12.5 km (EUR-11) cells; IDW smooths but adds no detail or elevation information."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "Projections: one RCM (REMO2020) driven by three GCMs under one scenario (SSP3-7.0); not year-specific forecasts."
+    },
+    {
+      "dimension": "method-limitation",
+      "note": "Default adverse directions reflect a warming/drying stress view; overridable per request."
+    },
+    {
+      "dimension": "decision-support-only",
+      "note": "Not a substitute for local measurement, site assessment or operational forecasting."
+    }
+  ]
 }

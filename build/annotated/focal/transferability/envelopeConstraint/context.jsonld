@@ -16,6 +16,10 @@
       "@id": "focal-transf-prop:dimension",
       "@type": "@id"
     },
+    "inputRef": {
+      "@id": "focal-transf-prop:inputRef",
+      "@container": "@set"
+    },
     "value": {
       "@context": {
         "asWKT": {
@@ -39,6 +43,23 @@
           "@type": "@id",
           "@container": "@set"
         },
+        "variables": {
+          "@context": {
+            "name": "focal-transf-prop:variableName",
+            "unit": "focal-transf-prop:unitLabel",
+            "min": {
+              "@id": "focal-transf-prop:minimum",
+              "@type": "http://www.w3.org/2001/XMLSchema#double"
+            },
+            "max": {
+              "@id": "focal-transf-prop:maximum",
+              "@type": "http://www.w3.org/2001/XMLSchema#double"
+            }
+          },
+          "@id": "focal-transf-prop:variableRange",
+          "@container": "@set"
+        },
+        "statistic": "focal-transf-prop:statistic",
         "scheme": {
           "@context": {
             "@base": "https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/"

@@ -324,7 +324,7 @@ x-bblocks-metadata:
   itemIdentifier: ogc.focal.transferability.observingSystem
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
   version: '0.2'
-  dateOfLastChange: '2026-11-10'
+  dateOfLastChange: '2026-11-25'
 
 ```
 
@@ -360,6 +360,10 @@ Links to the schema:
               "@id": "focal-transf-prop:dimension",
               "@type": "@id"
             },
+            "inputRef": {
+              "@id": "focal-transf-prop:inputRef",
+              "@container": "@set"
+            },
             "value": {
               "@context": {
                 "asWKT": {
@@ -383,6 +387,23 @@ Links to the schema:
                   "@type": "@id",
                   "@container": "@set"
                 },
+                "variables": {
+                  "@context": {
+                    "name": "focal-transf-prop:variableName",
+                    "unit": "focal-transf-prop:unitLabel",
+                    "min": {
+                      "@id": "focal-transf-prop:minimum",
+                      "@type": "http://www.w3.org/2001/XMLSchema#double"
+                    },
+                    "max": {
+                      "@id": "focal-transf-prop:maximum",
+                      "@type": "http://www.w3.org/2001/XMLSchema#double"
+                    }
+                  },
+                  "@id": "focal-transf-prop:variableRange",
+                  "@container": "@set"
+                },
+                "statistic": "focal-transf-prop:statistic",
                 "scheme": {
                   "@context": {
                     "@base": "https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/"
@@ -419,18 +440,21 @@ Links to the schema:
             },
             "acceptanceCriteria": {
               "@context": {
-                "variable": {
+                "variables": {
                   "@context": {
-                    "sameAsCurrent": "focal-transf-prop:sameAsCurrent"
+                    "name": "focal-transf-prop:variableName",
+                    "sameAsCurrent": "focal-transf-prop:sameAsCurrent",
+                    "standardName": "focal-transf-prop:standardName",
+                    "units": {
+                      "@context": {
+                        "@base": "http://qudt.org/vocab/unit/"
+                      },
+                      "@id": "focal-transf-prop:unit",
+                      "@type": "@id",
+                      "@container": "@set"
+                    }
                   },
-                  "@id": "focal-transf-prop:variable"
-                },
-                "units": {
-                  "@context": {
-                    "@base": "http://qudt.org/vocab/unit/"
-                  },
-                  "@id": "focal-transf-prop:unit",
-                  "@type": "@id",
+                  "@id": "focal-transf-prop:variable",
                   "@container": "@set"
                 },
                 "axes": {
@@ -448,6 +472,23 @@ Links to the schema:
                   "@id": "focal-transf-prop:gridType",
                   "@type": "@id",
                   "@container": "@set"
+                },
+                "temporal": {
+                  "@context": {
+                    "resolution": {
+                      "@id": "dcat:temporalResolution",
+                      "@type": "http://www.w3.org/2001/XMLSchema#duration"
+                    },
+                    "calendar": {
+                      "@id": "focal-transf-prop:calendar",
+                      "@container": "@set"
+                    },
+                    "minimumPrecedingYears": {
+                      "@id": "focal-transf-prop:minimumPrecedingYears",
+                      "@type": "http://www.w3.org/2001/XMLSchema#integer"
+                    }
+                  },
+                  "@id": "focal-transf-prop:temporalRequirement"
                 },
                 "conformsTo": {
                   "@id": "dcterms:conformsTo",

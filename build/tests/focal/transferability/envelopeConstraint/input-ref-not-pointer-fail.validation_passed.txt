@@ -1,0 +1,52 @@
+Validation report for ogc.focal.transferability.envelopeConstraint - FOCAL Transferability Envelope Constraint
+Generated 2026-11-25T11:28:39.842464+00:00
+=== General ===
+Test was expected to fail and it did.
+=== End General ===
+
+=== Files ===
+Using input-ref-not-pointer-fail.json from test resources
+JSON-LD context is present - uplifting
+Output JSON-LD input-ref-not-pointer-fail.jsonld created
+Output Turtle input-ref-not-pointer-fail.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+
+** Validation error **
+ValidationError: 'species' does not match '^/'
+
+Failed validating 'pattern' in schema[0]:
+    {'type': 'string', 'format': 'json-pointer', 'pattern': '^/'}
+
+On instance:
+    'species'
+=== End JSON Schema ===
+
+=== SHACL ===
+Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):
+ - /github/workspace/_sources/transferability/vocab/ontology.ttl
+Validation result for _sources/transferability/envelopeConstraint/shapes.shacl: 1 violation
+
+** Validation error **
+Violation (sh:PatternConstraintComponent):
+  Source shape: focal-shape:EnvelopeConstraint/sh:property "inputRef" (path focal-prop:inputRef)
+  Focus node: <file:///github/workspace/s>
+  Result path: focal-transf-prop:inputRef
+  Value: "species"
+  Message: inputRef entries are JSON Pointers (RFC 6901) to inputs of the annotated document and therefore start with '/'.
+Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
+ - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/s>/focal-transf-prop:value
+ - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/s>
+ - Shape focal-shape:VariableRange: *none*
+ - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/s>
+ - Shape focal-shape:AnalogyNamesItsReference: <file:///github/workspace/s>/focal-transf-prop:value
+ - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/s>
+ - Shape focal-shape:VariableRange/sh:or/rdf:rest/rdf:first: *none*
+ - Shape focal-shape:GridStructureEnvelopeValue: <file:///github/workspace/s>
+ - Shape focal-shape:GridTypeIsAConcept: <file:///github/workspace/s>/focal-transf-prop:value
+ - Shape focal-shape:VariableRange/sh:or/rdf:first: *none*
+ - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/s>
+
+=== End SHACL ===
+

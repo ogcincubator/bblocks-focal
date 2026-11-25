@@ -1,7 +1,7 @@
 
 # FOCAL Artifact Acceptance Criteria (Schema)
 
-`ogc.focal.transferability.acceptanceCriteria` *v0.4*
+`ogc.focal.transferability.acceptanceCriteria` *v0.5*
 
 What a dataset must satisfy to serve as a given artifact - variable name, acceptable units (QUDT), required axes, acceptable grids, schemas it must conform to. What makes replace-with-local-equivalent actionable rather than merely stated.
 
@@ -15,10 +15,15 @@ What a dataset has to satisfy to serve as a given artifact.
 
 | Property | Combines as | Bound to |
 |---|---|---|
-| `variable` | single value | FOCAL (a local expectation, not a published fact) |
-| `units` | **OR** — any one is acceptable | QUDT unit IRIs |
+| `variables` | **AND** — every entry must be satisfied | see below |
+| `variables[].name` / `sameAsCurrent` | one of the two | FOCAL (a local expectation, not a published fact) |
+| `variables[].standardName` | single value | CF standard names |
+| `variables[].units` | **OR** — any one is acceptable | QUDT unit IRIs |
+| `temporal.resolution` | single value | `dcat:temporalResolution` |
+| `temporal.calendar` | **OR** — accepted as they are | CF `calendar` values |
+| `temporal.minimumPrecedingYears` | single value | FOCAL |
 | `axes` | **AND** — all must be present | FOCAL axes scheme (open) |
-| `gridTypes` | **OR** — any one is acceptable | FOCAL grid-types scheme, cross-walked to CF `grid_mapping_name` |
+| `gridTypes` | **OR** — any one is acceptable | FOCAL grid-types scheme, cross-walked to CF `grid_mapping_name` where one exists |
 | `conformsTo` | **AND** | `dcterms:conformsTo` |
 
 **Why this block exists.** `replace-with-local-equivalent` is the most common action in the FOCAL
@@ -41,12 +46,11 @@ and the rule fires when the target falls outside it. These criteria are a specif
 is *checked against*, after a rule has already fired and said to substitute something. Same
 vocabulary, two places in the decision.
 
-**Evidenced 2/8**: UP-WF3 (the fullest contract in the corpus) and UP-WF2 (the raster conventions its code assumes). No current record uses `conformsTo`.
-The questionnaires never asked the question, so silence elsewhere is not evidence of absence — this
-is the single most useful thing a workflow owner can add in review.
+**Used by** FP-WF1, FP-WF2, FP-WF5, UP-WF2 and UP-WF3. No current record uses `conformsTo`. The
+questionnaires never asked the question, so silence elsewhere is not evidence of absence.
 
-**Status: draft/WIP**, but exercised: the UP-WF3 and UP-WF2 workflow examples use it in full
-workflows. The examples here are drawn from the UP-WF3 questionnaire directly.
+**Status: draft/WIP**, but exercised: five workflow examples use it. The examples here
+are drawn from the UP-WF3 questionnaire and from a daily climate input.
 
 ## Examples
 
@@ -57,7 +61,7 @@ requirements, all checkable against a candidate NetCDF, and all of which the mod
 threw away — the workflow got a `replace-with-local-equivalent` action and nothing else, so a
 consumer knew a substitution was needed but not what would satisfy it.
 
-Note the three different logics in one object. `units` is an OR-set: millimetres and
+Note the different logics in one object. `variables` entries are all required, while a variable's `units` is an OR-set: millimetres and
 kg m⁻²s⁻¹ are the accumulated and flux forms of the same quantity, and either is fine.
 `gridTypes` is an OR-set for the same reason. `axes` is an AND: every axis listed must be
 present, and there is no useful reading of "either a time axis or something else" for a
@@ -71,8 +75,7 @@ not the spelling.
 #### json
 ```json
 {
-  "variable": { "sameAsCurrent": true },
-  "units": ["MilliM", "KiloGM-PER-M2-SEC"],
+  "variables": [{ "sameAsCurrent": true, "units": ["MilliM", "KiloGM-PER-M2-SEC"] }],
   "axes": ["time"],
   "gridTypes": ["regular-latlon", "rotated-pole"],
   "transferabilityNotes": "From UP-WF3's questionnaire, which specifies its replacement contract more fully than any other in the set. The variable requirement is a relation in the source — 'same precipitation variable name as current dataset' — and is recorded as one. Naming a literal here would assert a name the source never gives, and would be wrong for one of the two paths the workflow reads: the field is `rr` in E-OBS and `pr` in CORDEX-family data."
@@ -84,12 +87,14 @@ not the spelling.
 ```jsonld
 {
   "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/context.jsonld",
-  "variable": {
-    "sameAsCurrent": true
-  },
-  "units": [
-    "MilliM",
-    "KiloGM-PER-M2-SEC"
+  "variables": [
+    {
+      "sameAsCurrent": true,
+      "units": [
+        "MilliM",
+        "KiloGM-PER-M2-SEC"
+      ]
+    }
   ],
   "axes": [
     "time"
@@ -112,9 +117,9 @@ not the spelling.
     focal-transf-prop:axis <https://w3id.org/ogc/hosted/focal/transferability/axes/time> ;
     focal-transf-prop:gridType <https://w3id.org/ogc/hosted/focal/transferability/grid-types/regular-latlon>,
         <https://w3id.org/ogc/hosted/focal/transferability/grid-types/rotated-pole> ;
-    focal-transf-prop:unit <http://qudt.org/vocab/unit/KiloGM-PER-M2-SEC>,
-        <http://qudt.org/vocab/unit/MilliM> ;
-    focal-transf-prop:variable [ focal-transf-prop:sameAsCurrent true ] .
+    focal-transf-prop:variable [ focal-transf-prop:sameAsCurrent true ;
+            focal-transf-prop:unit <http://qudt.org/vocab/unit/KiloGM-PER-M2-SEC>,
+                <http://qudt.org/vocab/unit/MilliM> ] .
 
 
 ```
@@ -200,6 +205,93 @@ exists to solve, one level further down, while looking like it has been addresse
 
 ```
 
+
+### Several variables and a time axis requirement
+A daily climate input. Every variable is required. The CF standard name says what a variable
+name cannot: this radiation must be net, not downwelling. `temporal` states the time step,
+the calendars accepted as they are and the history needed before the requested period.
+
+#### json
+```json
+{
+  "variables": [
+    { "name": "tmax", "standardName": "air_temperature", "units": ["DEG_C"] },
+    { "name": "pr", "units": ["MilliM-PER-DAY"] },
+    { "name": "ssr", "standardName": "surface_net_downward_shortwave_flux", "units": ["W-PER-M2"] }
+  ],
+  "temporal": { "resolution": "P1D", "calendar": ["standard", "proleptic_gregorian"], "minimumPrecedingYears": 30 },
+  "gridTypes": ["regular-latlon", "rotated-pole", "curvilinear"]
+}
+
+```
+
+#### jsonld
+```jsonld
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/context.jsonld",
+  "variables": [
+    {
+      "name": "tmax",
+      "standardName": "air_temperature",
+      "units": [
+        "DEG_C"
+      ]
+    },
+    {
+      "name": "pr",
+      "units": [
+        "MilliM-PER-DAY"
+      ]
+    },
+    {
+      "name": "ssr",
+      "standardName": "surface_net_downward_shortwave_flux",
+      "units": [
+        "W-PER-M2"
+      ]
+    }
+  ],
+  "temporal": {
+    "resolution": "P1D",
+    "calendar": [
+      "standard",
+      "proleptic_gregorian"
+    ],
+    "minimumPrecedingYears": 30
+  },
+  "gridTypes": [
+    "regular-latlon",
+    "rotated-pole",
+    "curvilinear"
+  ]
+}
+```
+
+#### ttl
+```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] focal-transf-prop:gridType <https://w3id.org/ogc/hosted/focal/transferability/grid-types/curvilinear>,
+        <https://w3id.org/ogc/hosted/focal/transferability/grid-types/regular-latlon>,
+        <https://w3id.org/ogc/hosted/focal/transferability/grid-types/rotated-pole> ;
+    focal-transf-prop:temporalRequirement [ dcat:temporalResolution "P1D"^^xsd:duration ;
+            focal-transf-prop:calendar "proleptic_gregorian",
+                "standard" ;
+            focal-transf-prop:minimumPrecedingYears 30 ] ;
+    focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
+            focal-transf-prop:variableName "pr" ],
+        [ focal-transf-prop:standardName "air_temperature" ;
+            focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+            focal-transf-prop:variableName "tmax" ],
+        [ focal-transf-prop:standardName "surface_net_downward_shortwave_flux" ;
+            focal-transf-prop:unit <http://qudt.org/vocab/unit/W-PER-M2> ;
+            focal-transf-prop:variableName "ssr" ] .
+
+
+```
+
 ## Schema
 
 ```yaml
@@ -226,86 +318,106 @@ description: "What a dataset has to satisfy to serve as a given artifact: the va
   QUDT unit IRIs (`MilliM`, `KiloGM-PER-M2-SEC`, whose QUDT symbols are exactly the
   `mm` and `kg/(m\xB2\xB7s)` UP-WF3 states). A schema requirement is `dcterms:conformsTo`.
   Grid types are the same FOCAL scheme bblocks://ogc.focal.transferability.envelopeConstraint
-  uses, cross-walked to CF `grid_mapping_name`. Only `variable` and `axes` are FOCAL's
-  own, and only because a workflow's internal expectation of what an input is called
-  is not a published fact about anything.\n**Evidenced 2/8:** UP-WF3 states the fullest
-  contract in the corpus (variable name, either of two units, a time axis, one of
-  two grids); UP-WF2 states the raster conventions its code assumes (variable name,
-  packing, no-data). No current record uses `conformsTo`. Expect this to grow: the
-  question was never asked in the questionnaires, so absence here is not evidence
+  uses, cross-walked to CF `grid_mapping_name`. Only the variable entries and `axes`
+  are FOCAL's own, and only because a workflow's internal expectation of what an input
+  is called is not a published fact about anything.\n**Evidenced 2/8:** UP-WF3 states
+  the fullest contract in the corpus (variable name, either of two units, a time axis,
+  one of two grids); UP-WF2 states the raster conventions its code assumes (variable
+  name, packing, no-data). No current record uses `conformsTo`. Expect this to grow:
+  the question was never asked in the questionnaires, so absence here is not evidence
   that other workflows have no contract.\n"
 allOf:
 - $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml
 - type: object
   anyOf:
   - required:
-    - variable
-  - required:
-    - units
+    - variables
   - required:
     - axes
   - required:
     - gridTypes
   - required:
     - conformsTo
+  - required:
+    - temporal
   properties:
-    variable:
-      oneOf:
-      - type: string
-        examples:
-        - pr
-        - rr
-      - type: object
-        title: Same as the current artifact
-        required:
-        - sameAsCurrent
-        additionalProperties: false
-        properties:
-          sameAsCurrent:
-            const: true
-            x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/sameAsCurrent
-      description: 'The name the workflow expects the variable to be called, either
-        as a literal or as a relation to whatever the artifact currently in use carries.
-
-        **The relation form is not a fallback for not knowing.** UP-WF3''s source
-        says a replacement must have *"the same precipitation variable name as current
-        dataset"*, and that is a complete, precise requirement stated as a relation.
-        Recording a literal in its place (`rr`, say, guessed from the fact that one
-        of the two current sources is E-OBS) asserts something the source did not,
-        and is wrong outright if the workflow reads the CORDEX path where the same
-        field is called `pr`. `{"sameAsCurrent": true}` states exactly the requirement,
-        and a platform can evaluate it by reading the artifact in use. Use it when
-        sameness *is* the claim; where the source names a value, name the value.
-
-        A plain string rather than a term, deliberately. The obvious binding is a
-        CF standard name (`precipitation_amount`), and a CF standard name is not what
-        a NetCDF variable is called; the two coincide only by convention. Recording
-        the actual name keeps the check honest. If a workflow owner supplies a standard
-        name as well, that is a second fact and wants its own property, not a reinterpretation
-        of this one.
-
-        '
-      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/variable
-    units:
+    variables:
       type: array
       minItems: 1
       items:
-        type: string
-        examples:
-        - MilliM
-        - KiloGM-PER-M2-SEC
-      description: "The units the variable may be in, as QUDT unit IRIs (relative
-        names resolve against `http://qudt.org/vocab/unit/`). **An OR-set:** any one
-        is acceptable, which is UP-WF3's case exactly \u2014 millimetres or kg m\u207B\xB2s\u207B\xB9,
-        the accumulated and the flux form of the same quantity.\nQUDT rather than
-        a unit string, because `mm`, `millimetre` and `mm/day` are three incomparable
-        strings and one of them is a different quantity. QUDT carries the symbol and
-        the quantity kind, so a consumer can tell that a candidate in `kg/(m\xB2\xB7s)`
-        satisfies this and one in metres does not.\n"
-      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/unit
-      x-jsonld-type: '@id'
+        type: object
+        anyOf:
+        - required:
+          - name
+        - required:
+          - sameAsCurrent
+        - required:
+          - standardName
+        - required:
+          - units
+        not:
+          required:
+          - name
+          - sameAsCurrent
+        additionalProperties: false
+        properties:
+          name:
+            type: string
+            examples:
+            - pr
+            - rr
+            description: 'The name the workflow expects the variable to be called.
+              A plain string: a standard name says what a quantity is, this says what
+              the code looks for.
+
+              '
+            x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/variableName
+          sameAsCurrent:
+            const: true
+            description: 'Instead of `name`: the variable must be called what the
+              artifact currently in use calls it. For sources that state the requirement
+              as that relation and never give a name; guessing a literal would assert
+              something they did not say.
+
+              '
+            x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/sameAsCurrent
+          standardName:
+            type: string
+            examples:
+            - surface_net_downward_shortwave_flux
+            - air_temperature
+            description: 'CF standard name of the quantity. Says what a name cannot,
+              such as net against downwelling radiation. Give it only where the quantity
+              is certain.
+
+              '
+            x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/standardName
+          units:
+            type: array
+            minItems: 1
+            items:
+              type: string
+              examples:
+              - MilliM
+              - DEG_C
+            description: 'Units the variable may be in, as QUDT unit IRIs (relative
+              names resolve against `http://qudt.org/vocab/unit/`). **An OR-set:**
+              any one is acceptable.
+
+              '
+            x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/unit
+            x-jsonld-type: '@id'
+            x-jsonld-container: '@set'
+            x-jsonld-base: http://qudt.org/vocab/unit/
+      description: 'The variables the data must carry. **Conjunctive**: every entry
+        must be satisfied. A single threshold value is one entry with only `units`.
+
+        The STAC datacube extension describes what a dataset contains; this states
+        what a replacement must provide. The two correspond only partly.
+
+        '
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/variable
       x-jsonld-container: '@set'
-      x-jsonld-base: http://qudt.org/vocab/unit/
     axes:
       type: array
       minItems: 1
@@ -345,6 +457,50 @@ allOf:
       x-jsonld-type: '@id'
       x-jsonld-container: '@set'
       x-jsonld-base: https://w3id.org/ogc/hosted/focal/transferability/grid-types/
+    temporal:
+      type: object
+      title: Time axis requirements
+      minProperties: 1
+      additionalProperties: false
+      properties:
+        resolution:
+          type: string
+          format: duration
+          examples:
+          - P1D
+          description: Required time step, as an ISO 8601 duration (`dcat:temporalResolution`).
+          x-jsonld-id: http://www.w3.org/ns/dcat#temporalResolution
+          x-jsonld-type: http://www.w3.org/2001/XMLSchema#duration
+        calendar:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            examples:
+            - standard
+            - proleptic_gregorian
+            - noleap
+          description: 'CF `calendar` values accepted as they are. An OR-set. Say
+            in `transferabilityNotes` what happens to the others, where the source
+            does.
+
+            '
+          x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/calendar
+          x-jsonld-container: '@set'
+        minimumPrecedingYears:
+          type: integer
+          minimum: 1
+          description: 'Years of data needed **before** the requested period, e.g.
+            30 for a reference history.
+
+            '
+          x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/minimumPrecedingYears
+          x-jsonld-type: http://www.w3.org/2001/XMLSchema#integer
+      description: 'What the data''s time axis must look like. Not the envelope''s
+        `temporal` dimension, which says for which period results hold.
+
+        '
+      x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/temporalRequirement
     conformsTo:
       type: array
       minItems: 1
@@ -379,8 +535,8 @@ x-jsonld-prefixes:
 x-bblocks-metadata:
   itemIdentifier: ogc.focal.transferability.acceptanceCriteria
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
-  version: '0.4'
-  dateOfLastChange: '2026-11-10'
+  version: '0.5'
+  dateOfLastChange: '2026-11-25'
 
 ```
 
@@ -396,18 +552,21 @@ Links to the schema:
 {
   "@context": {
     "transferabilityNotes": "rdfs:comment",
-    "variable": {
+    "variables": {
       "@context": {
-        "sameAsCurrent": "focal-transf-prop:sameAsCurrent"
+        "name": "focal-transf-prop:variableName",
+        "sameAsCurrent": "focal-transf-prop:sameAsCurrent",
+        "standardName": "focal-transf-prop:standardName",
+        "units": {
+          "@context": {
+            "@base": "http://qudt.org/vocab/unit/"
+          },
+          "@id": "focal-transf-prop:unit",
+          "@type": "@id",
+          "@container": "@set"
+        }
       },
-      "@id": "focal-transf-prop:variable"
-    },
-    "units": {
-      "@context": {
-        "@base": "http://qudt.org/vocab/unit/"
-      },
-      "@id": "focal-transf-prop:unit",
-      "@type": "@id",
+      "@id": "focal-transf-prop:variable",
       "@container": "@set"
     },
     "axes": {
@@ -425,6 +584,23 @@ Links to the schema:
       "@id": "focal-transf-prop:gridType",
       "@type": "@id",
       "@container": "@set"
+    },
+    "temporal": {
+      "@context": {
+        "resolution": {
+          "@id": "http://www.w3.org/ns/dcat#temporalResolution",
+          "@type": "http://www.w3.org/2001/XMLSchema#duration"
+        },
+        "calendar": {
+          "@id": "focal-transf-prop:calendar",
+          "@container": "@set"
+        },
+        "minimumPrecedingYears": {
+          "@id": "focal-transf-prop:minimumPrecedingYears",
+          "@type": "http://www.w3.org/2001/XMLSchema#integer"
+        }
+      },
+      "@id": "focal-transf-prop:temporalRequirement"
     },
     "conformsTo": {
       "@id": "dcterms:conformsTo",

@@ -1,0 +1,23 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld",
+  "id": "training-domain",
+  "role": "valid-for",
+  "dimension": "input-domain",
+  "value": {
+    "variables": [
+      {
+        "name": "age",
+        "unit": "years",
+        "min": 24,
+        "max": 144
+      },
+      {
+        "name": "elevation",
+        "unit": "m",
+        "min": 175,
+        "max": 1150
+      }
+    ]
+  },
+  "transferabilityNotes": "1st to 99th percentile of the training data. Percentiles of single variables do not describe their joint domain."
+}

@@ -1,0 +1,9 @@
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/trained-species> focal-transf-prop:dimension <https://w3id.org/ogc/hosted/focal/transferability/dimensions/ecological> ;
+    focal-transf-prop:inputRef "/inputs/species" ;
+    focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
+    focal-transf-prop:value [ focal-transf-prop:class "Picea abies",
+                "Pinus sylvestris" ;
+            focal-transf-prop:classificationScheme <https://w3id.org/ogc/hosted/focal/transferability/classification-schemes/gbif-backbone> ] .
+

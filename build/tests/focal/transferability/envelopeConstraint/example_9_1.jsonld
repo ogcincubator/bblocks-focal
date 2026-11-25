@@ -1,0 +1,14 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/envelopeConstraint/context.jsonld",
+  "id": "trained-species",
+  "role": "valid-for",
+  "dimension": "ecological",
+  "inputRef": "/inputs/species",
+  "value": {
+    "scheme": "gbif-backbone",
+    "classes": [
+      "Picea abies",
+      "Pinus sylvestris"
+    ]
+  }
+}

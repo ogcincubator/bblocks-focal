@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Rule (Schema)
 
-`ogc.focal.transferability.rule` *v0.8*
+`ogc.focal.transferability.rule` *v0.9*
 
 What must happen, to which artifacts, under which envelope conditions. Conditions cite envelope constraints by id and are conjunctive; actions are an OR-set.
 
@@ -13,16 +13,15 @@ What must happen, to which artifacts, under which envelope conditions. Condition
 
 What must happen, to which artifacts, under which envelope conditions.
 
-- `appliesTo` — the artifacts this rule governs, by `id`. FP-WF2's SLT and species-code artifacts
-  share one rule rather than carrying two copies of the same condition; its tolerance thresholds
-  and T5, bounded by the same constraint but adjustable rather than required, sit in a separate
-  `mandatory: false` rule instead.
+- `appliesTo` — the artifacts this rule governs, by `id`. FP-WF2's forest-type service and
+  species composition table share one rule rather than carrying two copies of the same condition;
+  each of its two species trait tables has its own species coverage, and so its own rule.
 - `when` — the conditions, each citing an envelope constraint by `id` plus how the target is
   tested against it. **Conjunctive: all must hold.**
 - `triggeredBy` — a coarse alternative for cases where no constraint can be cited without
   inventing one. At least one of `when` or `triggeredBy` is required; prefer `when`.
 - `actions` — an **OR-set**: any one resolves the rule, never a sequence or a combination.
-- `affects` — JSON Pointers to what stops working, or works differently, if the terminal branch is
+- `affects` — JSON Pointers to what gives no usable result, or can be trusted less, if the terminal branch is
   taken. This is what gives `component-not-executable` an object: without it, "a component cannot
   run" and "the workflow cannot run" are one statement, and per-artifact answers cannot be rolled
   up into the per-workflow verdict a deployment platform has to produce. UP-WF2 loses one step in
@@ -31,6 +30,11 @@ What must happen, to which artifacts, under which envelope conditions.
   workflow still runs with degraded trust, and `transferabilityNotes` must then say what degrades;
   `shapes.shacl` enforces that, because a skippable rule with no stated consequence tells a
   consumer nothing they can act on.
+
+**"Cannot run" and "results not valid" are one outcome**, no usable result, and
+`component-not-executable` covers both. A condition that cannot be checked before running is
+unknown, never satisfied. A dependency on a service, such as a data cube, is stated as an
+`infrastructure` artifact with a rule `triggeredBy: service-unavailable`.
 
 **Rules are exceptions, not a decision table.** A statement lists what has to change; an artifact
 no rule fires for is reused unchanged. That default is what stops "no rule fires" from being
@@ -57,9 +61,9 @@ to record which was which.
 ## Examples
 
 ### Rule citing an envelope constraint
-FP-WF1's trained growth model outside the ecological range it was calibrated for. Two actions
-are offered and either resolves the rule: retrain against local data, or substitute a
-different already-published model. `actions` is an OR-set, never a sequence.
+A trained model outside the ecological range it was calibrated for. Two actions are offered
+and either resolves the rule: retrain against local data, or substitute a different
+already-published model. `actions` is an OR-set, never a sequence.
 
 `when` names the constraint this is evaluated against, by the `id` it carries in the
 enclosing statement's `envelope`. That is the difference between a rule a person reads and
@@ -115,26 +119,22 @@ value is a GeoSPARQL geometry.
 
 
 ### One rule over several artifacts
-FP-WF2's SLT and species-code artifacts share one boundary (`czechia`) and one action, so
-they share one rule, rather than the same condition copied twice with nothing recording that
-they were the same fact.
+FP-WF2's forest-type service and species composition table are bounded by the same map, so
+they share one rule rather than the same condition copied twice. Outside it either a national
+equivalent is connected or the two outputs named in `affects` are not available.
 
-Not every Czechia-specific artifact belongs in this rule, though. An earlier version put all
-four of FP-WF2's Czechia-specific artifacts here, including the species tolerance thresholds
-and T5. The owner's 2026-09-29 review distinguished them: SLT and the species codes are
-spatial/reference inputs that genuinely need replacing outside their coverage
-(`mandatory: true`, this rule); the tolerance thresholds and T5 are adjustable
-default/reference parameters a user can already override directly, so they sit in their own
-`mandatory: false` rule over the same `czechia` constraint instead — see
+Not every related artifact belongs in one rule: FP-WF2's two species trait tables cover
+different species, so each has its own constraint and rule. See
 bblocks://ogc.focal.transferability.workflow's FP-WF2 example.
 
 #### json
 ```json
 {
-  "appliesTo": ["slt", "species-codes"],
-  "when": [{ "constraint": "czechia", "test": "outside" }],
-  "actions": ["replace-with-local-equivalent"],
-  "mandatory": true
+  "appliesTo": ["nli-forest-type-service", "slt-species"],
+  "when": [{ "constraint": "czech-forest-type-map", "test": "outside" }],
+  "actions": ["replace-with-local-equivalent", "component-not-executable"],
+  "mandatory": true,
+  "affects": ["/outputs/species_at_location", "/outputs/forest_type_tolerance_ranking"]
 }
 
 ```
@@ -144,19 +144,24 @@ bblocks://ogc.focal.transferability.workflow's FP-WF2 example.
 {
   "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/rule/context.jsonld",
   "appliesTo": [
-    "slt",
-    "species-codes"
+    "nli-forest-type-service",
+    "slt-species"
   ],
   "when": [
     {
-      "constraint": "czechia",
+      "constraint": "czech-forest-type-map",
       "test": "outside"
     }
   ],
   "actions": [
-    "replace-with-local-equivalent"
+    "replace-with-local-equivalent",
+    "component-not-executable"
   ],
-  "mandatory": true
+  "mandatory": true,
+  "affects": [
+    "/outputs/species_at_location",
+    "/outputs/forest_type_tolerance_ranking"
+  ]
 }
 ```
 
@@ -165,11 +170,14 @@ bblocks://ogc.focal.transferability.workflow's FP-WF2 example.
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/slt>,
-        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/species-codes> ;
+[] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
+        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+    focal-transf-prop:affects "/outputs/forest_type_tolerance_ranking",
+        "/outputs/species_at_location" ;
+    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/nli-forest-type-service>,
+        <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/slt-species> ;
     focal-transf-prop:mandatory true ;
-    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/czechia> ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/czech-forest-type-map> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
 
 
@@ -233,9 +241,9 @@ the sentence it came from, which a nested boolean expression does not.
 [] focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/lst> ;
     focal-transf-prop:mandatory true ;
-    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-grid> ;
+    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-domain> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ],
-        [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-domain> ;
+        [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/rule/eur11-grid> ;
             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] .
 
 
@@ -411,14 +419,14 @@ description: "What must happen, to which artifacts, under which envelope conditi
   **Conjunctive: all of them must hold.** A disjunction\n  is written as two rules.\n-
   `actions` \u2014 an **OR-set**: any one resolves the rule. Never a sequence, never
   a combination to\n  apply together.\n- `affects` \u2014 which parts of the annotated
-  document stop working, or work differently, if this\n  rule's outcome is the terminal
-  one.\n- `mandatory` \u2014 whether applying one is required once the conditions
-  hold.\n**Rules are exceptions, not a complete decision table.** A statement's rules
-  say what has to change; anything they do not mention is reusable unchanged. So an
-  artifact with no rule firing for a given target is reused as-is, and a rule stating
-  `reuse-as-is` explicitly is documenting the default rather than adding to it (worth
-  doing where it makes a cascade legible, as UP-WF2's inside/outside pair does, and
-  redundant otherwise). See bblocks://ogc.focal.transferability.transferabilityStatement
+  document give no usable result if a mandatory rule is\n  not resolved, or can be
+  trusted less if an optional one fires.\n- `mandatory` \u2014 whether applying one
+  is required once the conditions hold.\n**Rules are exceptions, not a complete decision
+  table.** A statement's rules say what has to change; anything they do not mention
+  is reusable unchanged. So an artifact with no rule firing for a given target is
+  reused as-is, and a rule stating `reuse-as-is` explicitly is documenting the default
+  rather than adding to it (worth doing where it makes a cascade legible, as UP-WF2's
+  inside/outside pair does, and redundant otherwise). See bblocks://ogc.focal.transferability.transferabilityStatement
   for why that default is safe here: a statement cannot omit `rules`, so writing none
   is a deliberate act rather than an oversight.\n**`when` is what makes a rule evaluable
   rather than merely readable.** `triggeredBy: different-geographic-coverage` is a
@@ -431,7 +439,10 @@ description: "What must happen, to which artifacts, under which envelope conditi
   is kept, but optional: not every evidenced FOCAL case has a constraint precise enough
   to cite, and forcing one would mean inventing boundaries. At least one of `when`
   or `triggeredBy` is required, so no rule is left with no stated condition at all.
-  Prefer `when`.\n"
+  Prefer `when`.\n**\"Cannot run\" and \"results not valid\" are one outcome**: no
+  usable result. The model does not tell them apart, and `component-not-executable`
+  covers both. A condition that cannot be checked before running is unknown, never
+  satisfied.\n"
 allOf:
 - $ref: https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/notes/schema.yaml
 - type: object
@@ -450,12 +461,11 @@ allOf:
         $ref: https://opengeospatial.github.io/bblocks/annotated-schemas/ogc-utils/iri-or-curie/schema.yaml
       description: "Identifiers of the artifacts this rule governs, from the enclosing
         statement's `artifacts`. Several artifacts may share one rule \u2014 FP-WF2's
-        SLT and species-code artifacts do, both requiring an equivalent outside `czechia`.
-        Not every artifact bounded by the same constraint belongs in the same rule,
-        though: FP-WF2's tolerance thresholds and T5 are also bounded by `czechia`
-        but sit in a separate, `mandatory: false` rule, because unlike SLT and the
-        species codes they are adjustable defaults, not a required replacement. Omit
-        `appliesTo` for a rule that applies to the workflow as a whole.\n"
+        forest-type service and species composition table do, both bounded by the
+        same map. Not every artifact bounded by one subject belongs in the same rule,
+        though: FP-WF2's two species trait tables cover different species, so each
+        has its own constraint and rule. Omit `appliesTo` for a rule that applies
+        to the workflow as a whole.\n"
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/appliesTo
       x-jsonld-type: '@id'
       x-jsonld-container: '@set'
@@ -576,8 +586,8 @@ x-jsonld-prefixes:
 x-bblocks-metadata:
   itemIdentifier: ogc.focal.transferability.rule
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
-  version: '0.8'
-  dateOfLastChange: '2026-11-10'
+  version: '0.9'
+  dateOfLastChange: '2026-11-25'
 
 ```
 

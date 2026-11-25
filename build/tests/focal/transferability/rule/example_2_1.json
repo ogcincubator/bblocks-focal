@@ -1,16 +1,21 @@
 {
   "appliesTo": [
-    "slt",
-    "species-codes"
+    "nli-forest-type-service",
+    "slt-species"
   ],
   "when": [
     {
-      "constraint": "czechia",
+      "constraint": "czech-forest-type-map",
       "test": "outside"
     }
   ],
   "actions": [
-    "replace-with-local-equivalent"
+    "replace-with-local-equivalent",
+    "component-not-executable"
   ],
-  "mandatory": true
+  "mandatory": true,
+  "affects": [
+    "/outputs/species_at_location",
+    "/outputs/forest_type_tolerance_ranking"
+  ]
 }

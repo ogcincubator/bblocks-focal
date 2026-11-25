@@ -141,7 +141,11 @@
         "artifactRole": "workflow-input",
         "artifactRef": "/inputs/lst_datasets",
         "acceptanceCriteria": {
-          "variable": "band_data",
+          "variables": [
+            {
+              "name": "band_data"
+            }
+          ],
           "transferabilityNotes": "A georeferenced raster that xarray or rasterio can open, with one value per grid cell, read from index 0 of a `band` dimension. Packed values are unpacked with the `scale_factor` and `add_offset` attributes when present; no-data is NaN unless `rio.nodata` says otherwise. The unit does not matter to the classification. Any CRS: inputs are reprojected to EPSG:3857 on import."
         }
       },
@@ -151,7 +155,11 @@
         "artifactRole": "workflow-input",
         "artifactRef": "/inputs/clms_tcd_imd",
         "acceptanceCriteria": {
-          "variable": "band_data",
+          "variables": [
+            {
+              "name": "band_data"
+            }
+          ],
           "transferabilityNotes": "Replaceable by a newer version or another raster, since only zonal statistics are computed; other climates may call for other layers. The same raster conventions as the LST datasets; the unit does not matter. Recommended, but today the workflow fails at the zonal statistics step without it; skipping the step is planned."
         }
       },

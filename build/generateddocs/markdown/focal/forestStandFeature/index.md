@@ -284,7 +284,7 @@ x-bblocks-metadata:
   itemIdentifier: ogc.focal.forestStandFeature
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
   version: '1.0'
-  dateOfLastChange: '2026-11-10'
+  dateOfLastChange: '2026-11-25'
 
 ```
 

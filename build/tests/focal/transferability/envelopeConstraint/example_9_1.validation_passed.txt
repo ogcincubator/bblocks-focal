@@ -1,0 +1,32 @@
+Validation report for ogc.focal.transferability.envelopeConstraint - FOCAL Transferability Envelope Constraint
+Generated 2026-11-25T11:28:40.675321+00:00
+=== Files ===
+Using example_9_1.json from examples
+JSON-LD context is present - uplifting
+Output JSON-LD example_9_1.jsonld created
+Output Turtle example_9_1.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+Validation passed
+=== End JSON Schema ===
+
+=== SHACL ===
+Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):
+ - /github/workspace/_sources/transferability/vocab/ontology.ttl
+Validation result for _sources/transferability/envelopeConstraint/shapes.shacl: no results
+Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
+ - Shape focal-shape:ScenarioMarkerIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/trained-species>/focal-transf-prop:value
+ - Shape focal-shape:SpatialEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/trained-species>
+ - Shape focal-shape:VariableRange: *none*
+ - Shape focal-shape:NonGeometricEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/trained-species>
+ - Shape focal-shape:AnalogyNamesItsReference: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/trained-species>/focal-transf-prop:value
+ - Shape focal-shape:TemporalEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/trained-species>
+ - Shape focal-shape:VariableRange/sh:or/rdf:rest/rdf:first: *none*
+ - Shape focal-shape:GridStructureEnvelopeValue: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/trained-species>
+ - Shape focal-shape:GridTypeIsAConcept: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/trained-species>/focal-transf-prop:value
+ - Shape focal-shape:VariableRange/sh:or/rdf:first: *none*
+ - Shape focal-shape:EnvelopeConstraint: <https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/trained-species>
+
+=== End SHACL ===
+

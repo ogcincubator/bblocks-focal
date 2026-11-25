@@ -1,0 +1,20 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] focal-transf-prop:gridType <https://w3id.org/ogc/hosted/focal/transferability/grid-types/curvilinear>,
+        <https://w3id.org/ogc/hosted/focal/transferability/grid-types/regular-latlon>,
+        <https://w3id.org/ogc/hosted/focal/transferability/grid-types/rotated-pole> ;
+    focal-transf-prop:temporalRequirement [ dcat:temporalResolution "P1D"^^xsd:duration ;
+            focal-transf-prop:calendar "proleptic_gregorian",
+                "standard" ;
+            focal-transf-prop:minimumPrecedingYears 30 ] ;
+    focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
+            focal-transf-prop:variableName "pr" ],
+        [ focal-transf-prop:standardName "air_temperature" ;
+            focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+            focal-transf-prop:variableName "tmax" ],
+        [ focal-transf-prop:standardName "surface_net_downward_shortwave_flux" ;
+            focal-transf-prop:unit <http://qudt.org/vocab/unit/W-PER-M2> ;
+            focal-transf-prop:variableName "ssr" ] .
+

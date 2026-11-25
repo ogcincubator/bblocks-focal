@@ -1,0 +1,38 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/context.jsonld",
+  "variables": [
+    {
+      "name": "tmax",
+      "standardName": "air_temperature",
+      "units": [
+        "DEG_C"
+      ]
+    },
+    {
+      "name": "pr",
+      "units": [
+        "MilliM-PER-DAY"
+      ]
+    },
+    {
+      "name": "ssr",
+      "standardName": "surface_net_downward_shortwave_flux",
+      "units": [
+        "W-PER-M2"
+      ]
+    }
+  ],
+  "temporal": {
+    "resolution": "P1D",
+    "calendar": [
+      "standard",
+      "proleptic_gregorian"
+    ],
+    "minimumPrecedingYears": 30
+  },
+  "gridTypes": [
+    "regular-latlon",
+    "rotated-pole",
+    "curvilinear"
+  ]
+}

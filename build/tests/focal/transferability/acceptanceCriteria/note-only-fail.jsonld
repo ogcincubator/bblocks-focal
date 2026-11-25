@@ -1,0 +1,4 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/acceptanceCriteria/context.jsonld",
+  "transferabilityNotes": "must be compatible"
+}

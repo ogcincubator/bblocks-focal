@@ -6,7 +6,7 @@
     focal-transf-prop:axis <https://w3id.org/ogc/hosted/focal/transferability/axes/time> ;
     focal-transf-prop:gridType <https://w3id.org/ogc/hosted/focal/transferability/grid-types/regular-latlon>,
         <https://w3id.org/ogc/hosted/focal/transferability/grid-types/rotated-pole> ;
-    focal-transf-prop:unit <http://qudt.org/vocab/unit/KiloGM-PER-M2-SEC>,
-        <http://qudt.org/vocab/unit/MilliM> ;
-    focal-transf-prop:variable [ focal-transf-prop:sameAsCurrent true ] .
+    focal-transf-prop:variable [ focal-transf-prop:sameAsCurrent true ;
+            focal-transf-prop:unit <http://qudt.org/vocab/unit/KiloGM-PER-M2-SEC>,
+                <http://qudt.org/vocab/unit/MilliM> ] .
 

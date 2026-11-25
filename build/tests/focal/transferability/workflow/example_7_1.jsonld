@@ -170,12 +170,14 @@
         "artifactRole": "workflow-input",
         "artifactRef": "/inputs/precipitation",
         "acceptanceCriteria": {
-          "variable": {
-            "sameAsCurrent": true
-          },
-          "units": [
-            "MilliM",
-            "KiloGM-PER-M2-SEC"
+          "variables": [
+            {
+              "sameAsCurrent": true,
+              "units": [
+                "MilliM",
+                "KiloGM-PER-M2-SEC"
+              ]
+            }
           ],
           "axes": [
             "time"
@@ -193,8 +195,12 @@
         "artifactRole": "workflow-input",
         "artifactRef": "/inputs/threshold_subdaily",
         "acceptanceCriteria": {
-          "units": [
-            "MilliM"
+          "variables": [
+            {
+              "units": [
+                "MilliM"
+              ]
+            }
           ],
           "transferabilityNotes": "A custom threshold is a positive value in mm for an accumulation window, for either threshold set. It need not follow the percentile method; P99 is the default and P95 is also available."
         }
@@ -205,8 +211,12 @@
         "artifactRole": "workflow-input",
         "artifactRef": "/inputs/threshold_daily",
         "acceptanceCriteria": {
-          "units": [
-            "MilliM"
+          "variables": [
+            {
+              "units": [
+                "MilliM"
+              ]
+            }
           ]
         }
       },
