@@ -22,10 +22,16 @@ claim from a blank.
 Two optional booleans state absences outright. `noConstraintsStated` says the source named no
 boundary and no adaptation step (it records what was said, not an assessment). `trainingRequired` says whether training
 or calibration data is needed to re-create the thing elsewhere: `false` is the source's positive
-statement (five of the seven modeled workflows), `true` says a model is fitted to data. Neither is
+statement (most modeled workflows), `true` says a model is fitted to data. Neither is
 inferred; leave a property out when nobody has said. Shapes reject `noConstraintsStated: true`
 alongside any envelope entry or rule, and `trainingRequired: false` alongside a `trained-on`
 envelope entry.
+
+**What the user supplies is said by the workflow description**, not by the statement. CWL (or STAC)
+declares the inputs; artifacts and envelope entries point at them with `artifactRef` and
+`inputRef`. The model states the conditions under which results are usable, for a consumer such as
+a questionnaire UI. It does not implement a checker, and a missing or malformed input is the
+runner's error to report.
 
 **Rules are exceptions; silence means reuse.** An artifact no rule fires for, over a given target,
 is reused unchanged. Without that default, a consumer asking "can I run this over my area of

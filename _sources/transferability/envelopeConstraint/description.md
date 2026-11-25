@@ -4,13 +4,20 @@ One `{id, role, dimension, value}` statement bounding where a workflow's results
 
 `role` and `dimension` are independent axes, both open vocabularies (see
 [`transferability/vocab`](bblocks://ogc.focal.transferability.vocab)). A workflow's envelope is an
-array of these and more than one applies at once: FP-WF1's growth model needs three.
+array of these and more than one applies at once: FP-WF1's growth model needs four.
 
 | role | dimension | value |
 |---|---|---|
 | `trained-on` | `spatial` | a WKT geometry locating the Czech permanent sample plots |
 | `valid-for` | `ecological` | `"a comparable ecological range"` (a string, not a place) |
 | `valid-for` | `climatic` | `"the German and European climate regime the thresholds were derived from"` (a judgement, not a place) |
+
+Species coverage is an `ecological` entry whose value names a taxonomy and its classes
+(`{"scheme": "gbif-backbone", "classes": [...]}`). The taxonomy is pluggable; matching a user's
+codes to it is the consumer's job, as with a coordinate reference system.
+
+**`inputRef` says what is tested**: a pointer to the input the condition is checked against,
+which is often not the artifact a rule would replace.
 
 **`id` is what makes a constraint citable.** A rule's `when` names the constraint it is evaluated
 against, so a workflow with two different footprints can say which artifact each one governs.
@@ -33,6 +40,8 @@ GeoSPARQL or DCAT needs to learn nothing about FOCAL to evaluate them:
   `inside` means the candidate dataset's grid is one of them. UP-WF3 states this outright ("other
   projections are not handled"), and it is a hard interface requirement over a small, already
   standardised set, so it is terms rather than prose.
+- value ranges → `{"variables": [{"name", "unit", "min", "max"}]}`, for the training domain of a
+  model or the indicator limits of a classification.
 - anything else → a plain string. A phenological regime is not a place and does not become
   machine-checkable by being wrapped in coordinates it does not have. A rule may still cite such a
   constraint; the condition is then a judgement a person makes, recorded in the same structure as

@@ -56,6 +56,14 @@ focal-shape:EnvelopeConstraint
     sh:maxCount 1 ;
     sh:datatype xsd:string ;
   ] ;
+
+  sh:property [
+    sh:path focal-prop:inputRef ;
+    sh:name "inputRef" ;
+    sh:datatype xsd:string ;
+    sh:pattern "^/" ;
+    sh:message "inputRef entries are JSON Pointers (RFC 6901) to inputs of the annotated document and therefore start with '/'." ;
+  ] ;
 .
 
 #################################################################
@@ -144,7 +152,7 @@ focal-shape:NonGeometricEnvelopeValue
   sh:targetSubjectsOf focal-prop:dimension ;
   sh:sparql [
     a sh:SPARQLConstraint ;
-    sh:message "a constraint on any dimension the schema gives no structured shape to carries either a plain string value or a classification analogy. A phenological regime is not a place, and wrapping it in coordinates it does not have makes the data less honest, not more machine-readable; but where a published classification does capture the claim, naming it says the same thing and a machine can settle it." ;
+    sh:message "a constraint on any dimension the schema gives no structured shape to carries either a plain string value, a classification analogy or value ranges. A phenological regime is not a place, and wrapping it in coordinates it does not have makes the data less honest, not more machine-readable; but where a published classification does capture the claim, naming it says the same thing and a machine can settle it." ;
     sh:select """
       SELECT $this WHERE {
         $this <https://w3id.org/ogc/hosted/focal/transferability/properties/dimension> ?dim .
@@ -158,6 +166,9 @@ focal-shape:NonGeometricEnvelopeValue
         FILTER(!isLiteral(?v))
         FILTER NOT EXISTS {
           ?v <https://w3id.org/ogc/hosted/focal/transferability/properties/classificationScheme> ?scheme .
+        }
+        FILTER NOT EXISTS {
+          ?v <https://w3id.org/ogc/hosted/focal/transferability/properties/variableRange> ?range .
         }
       }
     """ ;
@@ -212,4 +223,23 @@ focal-shape:AnalogyNamesItsReference
       }
     """ ;
   ] ;
+.
+
+focal-shape:VariableRange
+  a sh:NodeShape ;
+  sh:targetObjectsOf focal-prop:variableRange ;
+  sh:property [
+    sh:path focal-prop:variableName ;
+    sh:name "name" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "every value range names exactly one variable." ;
+  ] ;
+  sh:property [ sh:path focal-prop:minimum ; sh:name "min" ; sh:maxCount 1 ; sh:datatype xsd:double ] ;
+  sh:property [ sh:path focal-prop:maximum ; sh:name "max" ; sh:maxCount 1 ; sh:datatype xsd:double ] ;
+  sh:or (
+    [ sh:property [ sh:path focal-prop:minimum ; sh:minCount 1 ] ]
+    [ sh:property [ sh:path focal-prop:maximum ; sh:minCount 1 ] ]
+  ) ;
 .

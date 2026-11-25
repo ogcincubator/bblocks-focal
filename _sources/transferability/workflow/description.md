@@ -23,15 +23,18 @@ portability boundary, so they stay outside that bundle and attach here directly 
 (FP-WF1, FP-WF2, FP-WF3, FP-WF5, UP-WF1, UP-WF2, UP-WF3). Between them they exercise every branch
 point in the model: multiple simultaneous envelope roles, OR-set actions, an optional/degrading
 rule (`mandatory: false`), the `component-not-executable` terminal outcome with `affects`, one rule
-shared across four artifacts, a two-rule cascade over a single constraint, an evidenced temporal
+shared across several artifacts, a two-rule cascade over a single constraint, an evidenced temporal
 envelope entry, the `grid-structure` dimension, an artifact-level `acceptanceCriteria` contract,
 a positive statement that
 no training or calibration data is needed (`trainingRequired: false`), and caveats about results
 that are neither maturity nor a boundary (`qualityAnnotation`).
 
+**FP-WF1, FP-WF2 and FP-WF5 are converted from the owners' own records** of 2026-11-18. They
+declare CWL inputs (user choices, supplied data, shipped defaults) that `artifactRef` and
+`inputRef` point at; those declarations await the owners' confirmation.
+
 **Extents the owners did not state are assumed, not left empty.** Where a questionnaire names a
-place without giving its boundary (the Czech plots, the Czech reference data, the Rasdaman
-collections, the downscaled climate data, the historical labels, the DWD stations), the example
+place without giving its boundary (for example the historical labels or the DWD stations), the example
 uses a coarse polygon, usually the country's simplified border, and treats it as a hard boundary.
 There is no fuzzy or confidence value on a geometry: a consumer that wants a wider margin widens the
 polygon. Each assumed polygon says what it stands in for in its note, and the workflow owners are

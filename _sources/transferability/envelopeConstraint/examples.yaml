@@ -163,3 +163,42 @@ examples:
             "value": { "asWKT": "POLYGON((-22 27,45 27,45 72,-22 72,-22 27))" },
             "transferabilityNotes": "The EUR-11 domain's published approximate rectangular extent. Shared across every FOCAL workflow driven by the EURO-CORDEX ensemble, which is why it carries a global identifier rather than a name local to one workflow."
           }
+
+  - title: Value ranges (a model's training domain)
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/
+    content: |
+      The values the model saw in training. `inside` means every variable is within its range. The
+      variables are derived from the inputs, so a consumer asks the user or reports the condition as
+      unknown before a run.
+    snippets:
+      - language: json
+        code: |
+          {
+            "id": "training-domain",
+            "role": "valid-for",
+            "dimension": "input-domain",
+            "value": {
+              "variables": [
+                { "name": "age", "unit": "years", "min": 24, "max": 144 },
+                { "name": "elevation", "unit": "m", "min": 175, "max": 1150 }
+              ]
+            },
+            "transferabilityNotes": "1st to 99th percentile of the training data. Percentiles of single variables do not describe their joint domain."
+          }
+
+  - title: Species coverage, tested against the species selection
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/envelope-constraint/
+    content: |
+      A classification analogy over a biological taxonomy. `scheme` names the taxonomy, so it is
+      pluggable; matching a user's own codes to it is the consumer's job, as with a CRS. `inputRef`
+      says what is tested: the species the user selects.
+    snippets:
+      - language: json
+        code: |
+          {
+            "id": "trained-species",
+            "role": "valid-for",
+            "dimension": "ecological",
+            "inputRef": "/inputs/species",
+            "value": { "scheme": "gbif-backbone", "classes": ["Picea abies", "Pinus sylvestris"] }
+          }

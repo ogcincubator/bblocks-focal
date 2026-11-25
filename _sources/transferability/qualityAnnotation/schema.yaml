@@ -3,17 +3,15 @@ title: Quality Annotation
 x-jsonld-context: context.jsonld
 description: >
   A single statement of uncertainty or confidence about a workflow's results — a separate axis
-  from `maturityStatus` (see bblocks://ogc.focal.transferability.maturityStatus): FP-WF1 is
+  from `maturityStatus` (see bblocks://ogc.focal.transferability.maturityStatus): a workflow can be
   `operational` *and* carries a caveat that its results are decision-support, not exact, and the
   two facts don't collapse into one. Repeatable at the workflow level, same discipline as
   `envelopeConstraint`.
 
-  Currently evidenced 5/8: FP-WF1 (`decision-support-only`), FP-WF3 (`validation-incomplete`),
-  UP-WF1 (`intended-use-limit`), UP-WF2 (`proxy-variable` and `intended-use-limit`) and UP-WF3
-  (`decision-support-only`, `spatial-support-mismatch` and `intended-use-limit`). FP-WF2 and FP-WF5 state that results "depend on" their inputs and
-  settings, which is not a caveat in this sense and is not recorded. Still thinner evidence than
-  most confirmed transferability gaps; expect this to grow once other workflow owners are
-  consulted.
+  Evidenced by FP-WF1, FP-WF2 and FP-WF5 (the owners' own records of 2026-11-18: accuracy figures,
+  method limitations, proxy variables and use limits), FP-WF3 (`validation-incomplete`) and the
+  three Urban Pilot workflows. These statements are about how far results can be trusted or used;
+  they do not by themselves limit where a workflow can be transferred.
 
   **Binds directly to the W3C Data Quality Vocabulary (DQV, `https://www.w3.org/ns/dqv#`)**,
   checked 2026-09-02 against the published spec rather than assumed: `dimension` maps to
@@ -48,5 +46,5 @@ properties:
   note:
     type: string
     description: >
-      The statement itself, in free text (e.g. FP-WF1's caveat verbatim: "AI model and validation
+      The statement itself, in free text (e.g. a questionnaire caveat quoted verbatim: "AI model and validation
       are still being finalised, results are decision-support not exact"). No DQV binding.

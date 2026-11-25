@@ -4,8 +4,8 @@
   "status": "under-development",
   "dateTimeAddition": "2026-09-02T00:00:00Z",
   "itemClass": "schema",
-  "version": "0.8",
-  "dateOfLastChange": "2026-09-06",
+  "version": "0.9",
+  "dateOfLastChange": "2026-11-25",
   "concept": [
     "https://w3id.org/ogc/hosted/focal/transferability/actions/scheme",
     "https://w3id.org/ogc/hosted/focal/transferability/triggers/scheme",

@@ -12,7 +12,7 @@ description: >
   operational maturity of the FOCAL workflow it describes — reusing those words here would put two
   unrelated axes on the same object graph under identical strings.
 
-  A caveat about result confidence (e.g. FP-WF1's "AI model and validation are still being
+  A caveat about result confidence (e.g. "AI model and validation are still being
   finalised, results are decision-support not exact") is a separate fact from maturity stage — see
   bblocks://ogc.focal.transferability.qualityAnnotation, not a `maturityStatus` value or note.
 type: object

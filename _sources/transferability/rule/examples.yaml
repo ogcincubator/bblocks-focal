@@ -2,9 +2,9 @@ examples:
   - title: Rule citing an envelope constraint
     base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/rule/
     content: |
-      FP-WF1's trained growth model outside the ecological range it was calibrated for. Two actions
-      are offered and either resolves the rule: retrain against local data, or substitute a
-      different already-published model. `actions` is an OR-set, never a sequence.
+      A trained model outside the ecological range it was calibrated for. Two actions are offered
+      and either resolves the rule: retrain against local data, or substitute a different
+      already-published model. `actions` is an OR-set, never a sequence.
 
       `when` names the constraint this is evaluated against, by the `id` it carries in the
       enclosing statement's `envelope`. That is the difference between a rule a person reads and
@@ -23,26 +23,22 @@ examples:
   - title: One rule over several artifacts
     base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/rule/
     content: |
-      FP-WF2's SLT and species-code artifacts share one boundary (`czechia`) and one action, so
-      they share one rule, rather than the same condition copied twice with nothing recording that
-      they were the same fact.
+      FP-WF2's forest-type service and species composition table are bounded by the same map, so
+      they share one rule rather than the same condition copied twice. Outside it either a national
+      equivalent is connected or the two outputs named in `affects` are not available.
 
-      Not every Czechia-specific artifact belongs in this rule, though. An earlier version put all
-      four of FP-WF2's Czechia-specific artifacts here, including the species tolerance thresholds
-      and T5. The owner's 2026-09-29 review distinguished them: SLT and the species codes are
-      spatial/reference inputs that genuinely need replacing outside their coverage
-      (`mandatory: true`, this rule); the tolerance thresholds and T5 are adjustable
-      default/reference parameters a user can already override directly, so they sit in their own
-      `mandatory: false` rule over the same `czechia` constraint instead — see
+      Not every related artifact belongs in one rule: FP-WF2's two species trait tables cover
+      different species, so each has its own constraint and rule. See
       bblocks://ogc.focal.transferability.workflow's FP-WF2 example.
     snippets:
       - language: json
         code: |
           {
-            "appliesTo": ["slt", "species-codes"],
-            "when": [{ "constraint": "czechia", "test": "outside" }],
-            "actions": ["replace-with-local-equivalent"],
-            "mandatory": true
+            "appliesTo": ["nli-forest-type-service", "slt-species"],
+            "when": [{ "constraint": "czech-forest-type-map", "test": "outside" }],
+            "actions": ["replace-with-local-equivalent", "component-not-executable"],
+            "mandatory": true,
+            "affects": ["/outputs/species_at_location", "/outputs/forest_type_tolerance_ranking"]
           }
 
   - title: Conjunctive conditions (AND)

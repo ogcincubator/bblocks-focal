@@ -11,8 +11,8 @@ description: >
     is written as two rules.
   - `actions` — an **OR-set**: any one resolves the rule. Never a sequence, never a combination to
     apply together.
-  - `affects` — which parts of the annotated document stop working, or work differently, if this
-    rule's outcome is the terminal one.
+  - `affects` — which parts of the annotated document give no usable result if a mandatory rule is
+    not resolved, or can be trusted less if an optional one fires.
   - `mandatory` — whether applying one is required once the conditions hold.
 
   **Rules are exceptions, not a complete decision table.** A statement's rules say what has to
@@ -34,6 +34,10 @@ description: >
   `triggeredBy` is kept, but optional: not every evidenced FOCAL case has a constraint precise
   enough to cite, and forcing one would mean inventing boundaries. At least one of `when` or
   `triggeredBy` is required, so no rule is left with no stated condition at all. Prefer `when`.
+
+  **"Cannot run" and "results not valid" are one outcome**: no usable result. The model does not
+  tell them apart, and `component-not-executable` covers both. A condition that cannot be checked
+  before running is unknown, never satisfied.
 allOf:
   - "$ref": "bblocks://ogc.focal.transferability.notes"
   - type: object
@@ -50,12 +54,10 @@ allOf:
           "$ref": "bblocks://ogc.ogc-utils.iri-or-curie"
         description: >
           Identifiers of the artifacts this rule governs, from the enclosing statement's
-          `artifacts`. Several artifacts may share one rule — FP-WF2's SLT and species-code
-          artifacts do, both requiring an equivalent outside `czechia`. Not every artifact bounded
-          by the same constraint belongs in the same rule, though: FP-WF2's tolerance thresholds
-          and T5 are also bounded by `czechia` but sit in a separate, `mandatory: false` rule,
-          because unlike SLT and the species codes they are adjustable defaults, not a required
-          replacement. Omit `appliesTo` for a rule that applies to the workflow as a whole.
+          `artifacts`. Several artifacts may share one rule — FP-WF2's forest-type service and species
+          composition table do, both bounded by the same map. Not every artifact bounded by one
+          subject belongs in the same rule, though: FP-WF2's two species trait tables cover different
+          species, so each has its own constraint and rule. Omit `appliesTo` for a rule that applies to the workflow as a whole.
       when:
         type: array
         minItems: 1

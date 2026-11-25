@@ -8,7 +8,7 @@ examples:
       threw away — the workflow got a `replace-with-local-equivalent` action and nothing else, so a
       consumer knew a substitution was needed but not what would satisfy it.
 
-      Note the three different logics in one object. `units` is an OR-set: millimetres and
+      Note the different logics in one object. `variables` entries are all required, while a variable's `units` is an OR-set: millimetres and
       kg m⁻²s⁻¹ are the accumulated and flux forms of the same quantity, and either is fine.
       `gridTypes` is an OR-set for the same reason. `axes` is an AND: every axis listed must be
       present, and there is no useful reading of "either a time axis or something else" for a
@@ -22,8 +22,7 @@ examples:
       - language: json
         code: |
           {
-            "variable": { "sameAsCurrent": true },
-            "units": ["MilliM", "KiloGM-PER-M2-SEC"],
+            "variables": [{ "sameAsCurrent": true, "units": ["MilliM", "KiloGM-PER-M2-SEC"] }],
             "axes": ["time"],
             "gridTypes": ["regular-latlon", "rotated-pole"],
             "transferabilityNotes": "From UP-WF3's questionnaire, which specifies its replacement contract more fully than any other in the set. The variable requirement is a relation in the source — 'same precipitation variable name as current dataset' — and is recorded as one. Naming a literal here would assert a name the source never gives, and would be wrong for one of the two paths the workflow reads: the field is `rr` in E-OBS and `pr` in CORDEX-family data."
@@ -65,4 +64,23 @@ examples:
         code: |
           {
             "axes": ["time"]
+          }
+
+  - title: Several variables and a time axis requirement
+    base-uri: https://w3id.org/ogc/hosted/focal/transferability/examples/acceptance-criteria/
+    content: |
+      A daily climate input. Every variable is required. The CF standard name says what a variable
+      name cannot: this radiation must be net, not downwelling. `temporal` states the time step,
+      the calendars accepted as they are and the history needed before the requested period.
+    snippets:
+      - language: json
+        code: |
+          {
+            "variables": [
+              { "name": "tmax", "standardName": "air_temperature", "units": ["DEG_C"] },
+              { "name": "pr", "units": ["MilliM-PER-DAY"] },
+              { "name": "ssr", "standardName": "surface_net_downward_shortwave_flux", "units": ["W-PER-M2"] }
+            ],
+            "temporal": { "resolution": "P1D", "calendar": ["standard", "proleptic_gregorian"], "minimumPrecedingYears": 30 },
+            "gridTypes": ["regular-latlon", "rotated-pole", "curvilinear"]
           }

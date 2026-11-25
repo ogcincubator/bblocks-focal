@@ -9,7 +9,7 @@ description: >
 
   Repeatable, and `id`-addressable: rules cite a constraint by `id` to say which boundary they are
   evaluated against, so a workflow with two different footprints can state which artifact each one
-  governs. FP-WF1 needs three constraints at once (trained-on/spatial, valid-for/ecological,
+  governs. FP-WF1 needs several constraints at once (trained-on/spatial, valid-for/ecological,
   can-run-on/climatic), which is why role and dimension are independent axes rather than a single
   enum choice.
 
@@ -79,6 +79,26 @@ allOf:
           Why this value is what it is, where that is not self-evident: an approximated geometry,
           a fact inferred rather than stated by the source, a granularity the source left open.
           Uplifts to `rdfs:comment`. Mixed in from bblocks://ogc.focal.transferability.notes.
+      inputRef:
+        oneOf:
+          - $ref: "#/$defs/jsonPointer"
+          - type: array
+            minItems: 1
+            items:
+              $ref: "#/$defs/jsonPointer"
+        description: >
+          JSON Pointer (RFC 6901), or several, to the input of the annotated document that this
+          condition is **tested against**: what the user gives, such as the area of interest or the
+          selected species (e.g. `/inputs/species`). Several pointers are for one fact spread over
+          several inputs, such as latitude and longitude.
+
+          Not the same as an artifact's `artifactRef`, although the mechanism is the same.
+          `artifactRef` says that an input *is* the thing a rule would replace; `inputRef` says that
+          the condition is checked against what is given there. The two often differ: a species
+          constraint is tested against the species selection and governs a trait table.
+
+          Optional. A consumer such as a questionnaire UI composes its wording from the referenced
+          input's own label and description and from the structured `value`.
       value:
         description: >
           The constraint value, shaped by `dimension`:
@@ -106,6 +126,12 @@ allOf:
             set — mechanically checkable, and *more* so than a bounding box, since the terms carry
             the CF-conventions `grid_mapping_name` as their `skos:notation` and the datasets in
             question declare exactly that.
+          - **value ranges** — `{"variables": [{"name", "unit", "min", "max"}], "statistic"}`:
+            the values of named variables within which the claim holds, such as the training domain
+            of a model (`input-domain`) or the indicator limits of a classification (`climatic`).
+            `inside` means every listed variable is within its range. Usually the variables are
+            derived from the inputs, so the condition cannot be settled before running; a consumer
+            reports it as unknown, never as satisfied.
           - **any dimension, as an analogy** — `{"scheme": ..., "sameClassAs": ...}`, saying the
             target must fall in the same class of a published classification as some reference
             does. This is the shape of every "comparable to where we calibrated" claim in the
@@ -155,6 +181,20 @@ oneOf:
     required:
       - dimension
       - value
+  - title: Value ranges of named variables
+    properties:
+      dimension:
+        not:
+          enum:
+            - spatial
+            - jurisdictional
+            - temporal
+            - grid-structure
+      value:
+        $ref: "#/$defs/ranges"
+    required:
+      - dimension
+      - value
   - title: Classification analogy (any dimension)
     description: >
       Available on every dimension, including spatial ones: "the same biogeographical region as the
@@ -180,6 +220,50 @@ oneOf:
       - dimension
       - value
 "$defs":
+  jsonPointer:
+    type: string
+    format: json-pointer
+    pattern: "^/"
+  ranges:
+    title: Value ranges
+    type: object
+    required:
+      - variables
+    additionalProperties: false
+    properties:
+      variables:
+        type: array
+        minItems: 1
+        items:
+          type: object
+          required:
+            - name
+          anyOf:
+            - required: [min]
+            - required: [max]
+          additionalProperties: false
+          properties:
+            name:
+              type: string
+              description: The variable, by the name the workflow uses.
+            unit:
+              type: string
+              description: >
+                Unit of `min` and `max`, as a plain string. Not a QUDT IRI, unlike acceptance
+                criteria: derived variables carry units such as `z-score` or a national coding that
+                have none.
+            min:
+              type: number
+              description: Lowest value inside the range. Omit for an open lower end.
+            max:
+              type: number
+              description: Highest value inside the range. Omit for an open upper end.
+      statistic:
+        type: string
+        description: >
+          How the target's values are aggregated before they are compared, e.g.
+          `multi-year mean`. Omit when each value is compared as it is. How the bounds themselves
+          were derived (percentiles of training data, say) belongs in `transferabilityNotes`.
   geometry:
     title: Geometry
     type: object

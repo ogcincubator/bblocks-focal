@@ -16,34 +16,10 @@ focal-shape:AcceptanceCriteria
   a sh:NodeShape ;
   sh:targetObjectsOf focal-prop:acceptanceCriteria ;
 
-  # `variable` is either a literal name or a relation to the artifact currently in use. UP-WF3's
-  # source states the relation ("same precipitation variable name as current dataset") and never
-  # the name, so requiring a literal here forced a guess -- and the guess was wrong for one of the
-  # two paths the workflow reads. Both forms are single-valued and at least one must be present.
   sh:property [
     sh:path focal-prop:variable ;
-    sh:name "variable" ;
-    sh:maxCount 1 ;
-    sh:or (
-      [ sh:datatype xsd:string ; sh:minLength 1 ]
-      [ sh:nodeKind sh:BlankNodeOrIRI ]
-    ) ;
-    sh:message "a variable requirement is either a single non-empty string, in the words the workflow's own code uses, or a relation saying it must match the artifact currently in use." ;
-  ] ;
-
-  sh:property [
-    sh:path ( focal-prop:variable focal-prop:sameAsCurrent ) ;
-    sh:name "variable.sameAsCurrent" ;
-    sh:maxCount 1 ;
-    sh:datatype xsd:boolean ;
-    sh:message "sameAsCurrent is a boolean: the requirement is that a replacement match whatever the current artifact carries." ;
-  ] ;
-
-  sh:property [
-    sh:path focal-prop:unit ;
-    sh:name "units" ;
-    sh:nodeKind sh:IRI ;
-    sh:message "units are QUDT unit IRIs, not unit strings: mm, millimetre and mm/day are three incomparable strings and one of them is a different quantity, whereas a QUDT unit carries its symbol and its quantity kind." ;
+    sh:name "variables" ;
+    sh:node focal-shape:VariableRequirement ;
   ] ;
 
   sh:property [
@@ -92,15 +68,32 @@ focal-shape:AcceptanceCriteriaStatesACriterion
   sh:targetObjectsOf focal-prop:acceptanceCriteria ;
   sh:sparql [
     a sh:SPARQLConstraint ;
-    sh:message "acceptance criteria must state at least one structured criterion (variable, units, axes, gridTypes or conformsTo). A note alone is not checkable against a candidate dataset, which is the only thing these criteria are for." ;
+    sh:message "acceptance criteria must state at least one structured criterion (variables, axes, gridTypes, temporal or conformsTo). A note alone is not checkable against a candidate dataset, which is the only thing these criteria are for." ;
     sh:select """
       SELECT $this WHERE {
         FILTER NOT EXISTS { $this <https://w3id.org/ogc/hosted/focal/transferability/properties/variable> ?v }
-        FILTER NOT EXISTS { $this <https://w3id.org/ogc/hosted/focal/transferability/properties/unit> ?u }
+        FILTER NOT EXISTS { $this <https://w3id.org/ogc/hosted/focal/transferability/properties/temporalRequirement> ?t }
         FILTER NOT EXISTS { $this <https://w3id.org/ogc/hosted/focal/transferability/properties/axis> ?a }
         FILTER NOT EXISTS { $this <https://w3id.org/ogc/hosted/focal/transferability/properties/gridType> ?g }
         FILTER NOT EXISTS { $this <http://purl.org/dc/terms/conformsTo> ?c }
       }
     """ ;
+  ] ;
+.
+
+#################################################################
+# One variable a candidate must carry.
+#################################################################
+
+focal-shape:VariableRequirement
+  a sh:NodeShape ;
+  sh:property [ sh:path focal-prop:variableName ; sh:name "name" ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:minLength 1 ] ;
+  sh:property [ sh:path focal-prop:sameAsCurrent ; sh:name "sameAsCurrent" ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
+  sh:property [ sh:path focal-prop:standardName ; sh:name "standardName" ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [
+    sh:path focal-prop:unit ;
+    sh:name "units" ;
+    sh:nodeKind sh:IRI ;
+    sh:message "units are QUDT unit IRIs, not unit strings: mm, millimetre and mm/day are three incomparable strings and one of them is a different quantity, whereas a QUDT unit carries its symbol and its quantity kind." ;
   ] ;
 .

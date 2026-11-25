@@ -4,10 +4,15 @@ What a dataset has to satisfy to serve as a given artifact.
 
 | Property | Combines as | Bound to |
 |---|---|---|
-| `variable` | single value | FOCAL (a local expectation, not a published fact) |
-| `units` | **OR** — any one is acceptable | QUDT unit IRIs |
+| `variables` | **AND** — every entry must be satisfied | see below |
+| `variables[].name` / `sameAsCurrent` | one of the two | FOCAL (a local expectation, not a published fact) |
+| `variables[].standardName` | single value | CF standard names |
+| `variables[].units` | **OR** — any one is acceptable | QUDT unit IRIs |
+| `temporal.resolution` | single value | `dcat:temporalResolution` |
+| `temporal.calendar` | **OR** — accepted as they are | CF `calendar` values |
+| `temporal.minimumPrecedingYears` | single value | FOCAL |
 | `axes` | **AND** — all must be present | FOCAL axes scheme (open) |
-| `gridTypes` | **OR** — any one is acceptable | FOCAL grid-types scheme, cross-walked to CF `grid_mapping_name` |
+| `gridTypes` | **OR** — any one is acceptable | FOCAL grid-types scheme, cross-walked to CF `grid_mapping_name` where one exists |
 | `conformsTo` | **AND** | `dcterms:conformsTo` |
 
 **Why this block exists.** `replace-with-local-equivalent` is the most common action in the FOCAL
@@ -30,9 +35,8 @@ and the rule fires when the target falls outside it. These criteria are a specif
 is *checked against*, after a rule has already fired and said to substitute something. Same
 vocabulary, two places in the decision.
 
-**Evidenced 2/8**: UP-WF3 (the fullest contract in the corpus) and UP-WF2 (the raster conventions its code assumes). No current record uses `conformsTo`.
-The questionnaires never asked the question, so silence elsewhere is not evidence of absence — this
-is the single most useful thing a workflow owner can add in review.
+**Used by** FP-WF1, FP-WF2, FP-WF5, UP-WF2 and UP-WF3. No current record uses `conformsTo`. The
+questionnaires never asked the question, so silence elsewhere is not evidence of absence.
 
-**Status: draft/WIP**, but exercised: the UP-WF3 and UP-WF2 workflow examples use it in full
-workflows. The examples here are drawn from the UP-WF3 questionnaire directly.
+**Status: draft/WIP**, but exercised: five workflow examples use it. The examples here
+are drawn from the UP-WF3 questionnaire and from a daily climate input.

@@ -1,0 +1,12 @@
+{
+  "id": "d",
+  "role": "valid-for",
+  "dimension": "input-domain",
+  "value": {
+    "variables": [
+      {
+        "name": "age"
+      }
+    ]
+  }
+}

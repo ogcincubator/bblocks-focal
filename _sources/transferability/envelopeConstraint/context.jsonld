@@ -20,6 +20,10 @@
         "@base": "https://w3id.org/ogc/hosted/focal/transferability/dimensions/"
       }
     },
+    "inputRef": {
+      "@id": "focal-transf-prop:inputRef",
+      "@container": "@set"
+    },
     "value": {
       "@id": "focal-transf-prop:value",
       "@context": {
@@ -55,6 +59,23 @@
           "@id": "focal-transf-prop:sameClassAs",
           "@type": "@id"
         },
+        "variables": {
+          "@id": "focal-transf-prop:variableRange",
+          "@container": "@set",
+          "@context": {
+            "name": "focal-transf-prop:variableName",
+            "unit": "focal-transf-prop:unitLabel",
+            "min": {
+              "@id": "focal-transf-prop:minimum",
+              "@type": "http://www.w3.org/2001/XMLSchema#double"
+            },
+            "max": {
+              "@id": "focal-transf-prop:maximum",
+              "@type": "http://www.w3.org/2001/XMLSchema#double"
+            }
+          }
+        },
+        "statistic": "focal-transf-prop:statistic",
         "classes": {
           "@id": "focal-transf-prop:class",
           "@container": "@set"

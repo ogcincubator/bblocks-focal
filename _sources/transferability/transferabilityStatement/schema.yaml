@@ -22,9 +22,15 @@ description: >
   could not tell which rule fires. Nesting rules under artifacts fixes that one case and fails the
   next: an artifact bounded on two axes at once needs a conjunction, which a tree cannot express.
   Citing ids costs one indirection and expresses both, plus the case that motivated neither —
-  FP-WF2's SLT and species-code artifacts sharing a single boundary and rule, stated once rather
-  than twice, while its tolerance-threshold and T5 artifacts share that same boundary but a
-  separate rule, because the two pairs need different things to happen outside it.
+  FP-WF2's forest-type service and species composition table sharing a single boundary and rule,
+  stated once rather than twice, while its two species trait tables have a boundary and a rule
+  each, because they cover different species.
+
+  **What the user supplies is said by the workflow description, not here.** CWL (or STAC) states
+  which inputs exist, which are optional and which have a default; statements refer to them by
+  `artifactRef` and `inputRef`. A missing or malformed input is the runner's error to report. This
+  model supplies the conditions under which results are usable, for a consumer such as a
+  questionnaire UI; it does not implement the check.
 
   **Rules are exceptions; silence means reuse.** A statement lists what has to change. An
   artifact no rule fires for, over a given target, is reused unchanged. That default is what makes

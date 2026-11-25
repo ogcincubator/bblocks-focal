@@ -2,16 +2,15 @@
 
 What must happen, to which artifacts, under which envelope conditions.
 
-- `appliesTo` — the artifacts this rule governs, by `id`. FP-WF2's SLT and species-code artifacts
-  share one rule rather than carrying two copies of the same condition; its tolerance thresholds
-  and T5, bounded by the same constraint but adjustable rather than required, sit in a separate
-  `mandatory: false` rule instead.
+- `appliesTo` — the artifacts this rule governs, by `id`. FP-WF2's forest-type service and
+  species composition table share one rule rather than carrying two copies of the same condition;
+  each of its two species trait tables has its own species coverage, and so its own rule.
 - `when` — the conditions, each citing an envelope constraint by `id` plus how the target is
   tested against it. **Conjunctive: all must hold.**
 - `triggeredBy` — a coarse alternative for cases where no constraint can be cited without
   inventing one. At least one of `when` or `triggeredBy` is required; prefer `when`.
 - `actions` — an **OR-set**: any one resolves the rule, never a sequence or a combination.
-- `affects` — JSON Pointers to what stops working, or works differently, if the terminal branch is
+- `affects` — JSON Pointers to what gives no usable result, or can be trusted less, if the terminal branch is
   taken. This is what gives `component-not-executable` an object: without it, "a component cannot
   run" and "the workflow cannot run" are one statement, and per-artifact answers cannot be rolled
   up into the per-workflow verdict a deployment platform has to produce. UP-WF2 loses one step in
@@ -20,6 +19,11 @@ What must happen, to which artifacts, under which envelope conditions.
   workflow still runs with degraded trust, and `transferabilityNotes` must then say what degrades;
   `shapes.shacl` enforces that, because a skippable rule with no stated consequence tells a
   consumer nothing they can act on.
+
+**"Cannot run" and "results not valid" are one outcome**, no usable result, and
+`component-not-executable` covers both. A condition that cannot be checked before running is
+unknown, never satisfied. A dependency on a service, such as a data cube, is stated as an
+`infrastructure` artifact with a rule `triggeredBy: service-unavailable`.
 
 **Rules are exceptions, not a decision table.** A statement lists what has to change; an artifact
 no rule fires for is reused unchanged. That default is what stops "no rule fires" from being

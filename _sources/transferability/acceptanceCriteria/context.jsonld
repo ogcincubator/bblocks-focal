@@ -3,18 +3,38 @@
     "focal-transf-prop": "https://w3id.org/ogc/hosted/focal/transferability/properties/",
     "dcterms": "http://purl.org/dc/terms/",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "variable": {
+    "variables": {
       "@id": "focal-transf-prop:variable",
-      "@context": {
-        "sameAsCurrent": "focal-transf-prop:sameAsCurrent"
-      }
-    },
-    "units": {
-      "@id": "focal-transf-prop:unit",
-      "@type": "@id",
       "@container": "@set",
       "@context": {
-        "@base": "http://qudt.org/vocab/unit/"
+        "name": "focal-transf-prop:variableName",
+        "sameAsCurrent": "focal-transf-prop:sameAsCurrent",
+        "standardName": "focal-transf-prop:standardName",
+        "units": {
+          "@id": "focal-transf-prop:unit",
+          "@type": "@id",
+          "@container": "@set",
+          "@context": {
+            "@base": "http://qudt.org/vocab/unit/"
+          }
+        }
+      }
+    },
+    "temporal": {
+      "@id": "focal-transf-prop:temporalRequirement",
+      "@context": {
+        "resolution": {
+          "@id": "http://www.w3.org/ns/dcat#temporalResolution",
+          "@type": "http://www.w3.org/2001/XMLSchema#duration"
+        },
+        "calendar": {
+          "@id": "focal-transf-prop:calendar",
+          "@container": "@set"
+        },
+        "minimumPrecedingYears": {
+          "@id": "focal-transf-prop:minimumPrecedingYears",
+          "@type": "http://www.w3.org/2001/XMLSchema#integer"
+        }
       }
     },
     "axes": {
