@@ -1,0 +1,26 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/context.jsonld",
+  "envelope": [],
+  "artifacts": [
+    {
+      "id": "data-cube",
+      "artifact": "data cube holding the climate data",
+      "artifactRole": "infrastructure",
+      "artifactRef": [
+        "/inputs/datacube_connection",
+        "/inputs/datacube_registry"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "appliesTo": [
+        "data-cube"
+      ],
+      "triggeredBy": "service-unavailable",
+      "actions": [
+        "replace-with-local-equivalent"
+      ]
+    }
+  ]
+}

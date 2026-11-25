@@ -1,0 +1,12 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<file:///github/workspace/cube> dcterms:title "data cube" ;
+    rdfs:comment "x" ;
+    focal-transf-prop:artifactRef "/inputs/connection",
+        "registry" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/infrastructure> .
+
+[] focal-transf-prop:artifacts <file:///github/workspace/cube> .
+

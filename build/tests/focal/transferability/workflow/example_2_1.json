@@ -439,7 +439,8 @@
               "proleptic_gregorian",
               "noleap"
             ],
-            "minimumPrecedingYears": 30
+            "minimumPrecedingYears": 30,
+            "complete": true
           },
           "axes": [
             "time"
@@ -484,7 +485,17 @@
         "artifact": "species_tolerances.json: drought and waterlogging tolerance 0-5 (Niinemets & Valladares 2006)",
         "artifactRole": "workflow-input",
         "artifactRef": "/inputs/species_tolerances",
-        "transferabilityNotes": "A replacement gives drought and waterlogging tolerance on an ordinal 0-5 scale, from the same synthesis or an equivalent ordinal scale. The source synthesis covers temperate Northern Hemisphere trees and shrubs. Species add-on only. Used by (delivered step names): species-tolerance, forest-type-tolerance-ranking."
+        "transferabilityNotes": "A replacement gives drought and waterlogging tolerance on an ordinal 0-5 scale, from the same synthesis or an equivalent ordinal scale. The source synthesis covers temperate Northern Hemisphere trees and shrubs. Species add-on only. Used by (delivered step names): species-tolerance, forest-type-tolerance-ranking.",
+        "acceptanceCriteria": {
+          "variables": [
+            {
+              "name": "drought"
+            },
+            {
+              "name": "waterlogging"
+            }
+          ]
+        }
       },
       {
         "id": "species-codes",
@@ -552,6 +563,12 @@
         "id": "rasdaman",
         "artifact": "FOCAL Rasdaman data cube (rasql over SSH), source catalogue and registry (climate_source_catalog.json, rasdaman_registry.json)",
         "artifactRole": "infrastructure",
+        "artifactRef": [
+          "/inputs/rasdaman_connection",
+          "/inputs/rasdaman_registry",
+          "/inputs/climate_source_catalogue",
+          "/inputs/readiness_collection"
+        ],
         "transferabilityNotes": "The delivered workflow reads data from a Rasdaman instance queried with rasql over SSH. Another platform needs Rasdaman with the same registry layout (set READINESS_COLLECTION, which defaults to a Czech ERA5-Land collection) and its own registry, or file-based data access instead; the computation uses NumPy and SciPy. Within FOCAL: add catalogue and registry entries for a new area (user interface listing, new ERA5-Land collections). The FOCAL registry is not transferable as is. Used by (delivered step names): data-access."
       }
     ],

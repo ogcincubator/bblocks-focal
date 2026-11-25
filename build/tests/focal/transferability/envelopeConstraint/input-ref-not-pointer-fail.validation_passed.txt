@@ -1,5 +1,5 @@
 Validation report for ogc.focal.transferability.envelopeConstraint - FOCAL Transferability Envelope Constraint
-Generated 2026-11-25T11:28:39.842464+00:00
+Generated 2026-11-25T12:45:57.497091+00:00
 === General ===
 Test was expected to fail and it did.
 === End General ===
@@ -36,17 +36,17 @@ Violation (sh:PatternConstraintComponent):
   Value: "species"
   Message: inputRef entries are JSON Pointers (RFC 6901) to inputs of the annotated document and therefore start with '/'.
 Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
- - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/s>/focal-transf-prop:value
- - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/s>
- - Shape focal-shape:VariableRange: *none*
- - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/s>
  - Shape focal-shape:AnalogyNamesItsReference: <file:///github/workspace/s>/focal-transf-prop:value
- - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/s>
- - Shape focal-shape:VariableRange/sh:or/rdf:rest/rdf:first: *none*
  - Shape focal-shape:GridStructureEnvelopeValue: <file:///github/workspace/s>
+ - Shape focal-shape:VariableRange: *none*
  - Shape focal-shape:GridTypeIsAConcept: <file:///github/workspace/s>/focal-transf-prop:value
- - Shape focal-shape:VariableRange/sh:or/rdf:first: *none*
  - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/s>
+ - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/s>
+ - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/s>/focal-transf-prop:value
+ - Shape focal-shape:VariableRange/sh:or/rdf:first: *none*
+ - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/s>
+ - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/s>
+ - Shape focal-shape:VariableRange/sh:or/rdf:rest/rdf:first: *none*
 
 === End SHACL ===
 

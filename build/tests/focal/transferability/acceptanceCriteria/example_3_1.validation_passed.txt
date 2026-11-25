@@ -1,5 +1,5 @@
 Validation report for ogc.focal.transferability.acceptanceCriteria - FOCAL Artifact Acceptance Criteria
-Generated 2026-11-25T11:28:39.719666+00:00
+Generated 2026-11-25T12:45:57.342756+00:00
 === Files ===
 Using example_3_1.json from examples
 JSON-LD context is present - uplifting
@@ -17,8 +17,9 @@ Using SHACL closure graph sources (declared closures, ontologies and RDF data re
 Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl: no results
 Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:
  - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*
- - Shape focal-shape:VariableRequirement: *none*
  - Shape focal-shape:AcceptanceCriteria: *none*
+ - Shape focal-shape:TemporalRequirement: *none*
+ - Shape focal-shape:VariableRequirement: *none*
 
 === End SHACL ===
 

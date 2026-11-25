@@ -11,4 +11,7 @@ path	@id	schema
 /temporal/resolution	http://www.w3.org/ns/dcat#temporalResolution	/github/workspace/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml
 /temporal/calendar	https://w3id.org/ogc/hosted/focal/transferability/properties/calendar	/github/workspace/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml
 /temporal/minimumPrecedingYears	https://w3id.org/ogc/hosted/focal/transferability/properties/minimumPrecedingYears	/github/workspace/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml
+/temporal/complete	https://w3id.org/ogc/hosted/focal/transferability/properties/temporalComplete	/github/workspace/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml
+/temporal/startDate	http://www.w3.org/ns/dcat#startDate	/github/workspace/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml
+/temporal/endDate	http://www.w3.org/ns/dcat#endDate	/github/workspace/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml
 /conformsTo	http://purl.org/dc/terms/conformsTo	/github/workspace/build/annotated/focal/transferability/acceptanceCriteria/schema.yaml

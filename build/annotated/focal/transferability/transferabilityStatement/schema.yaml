@@ -133,6 +133,10 @@ allOf:
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/rules
       x-jsonld-container: '@set'
 $defs:
+  jsonPointer:
+    type: string
+    format: json-pointer
+    pattern: ^/
   artifact:
     title: Artifact dependency
     type: object
@@ -197,21 +201,34 @@ $defs:
           '
         x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/acceptanceCriteria
       artifactRef:
-        type: string
-        format: json-pointer
-        pattern: ^/
+        oneOf:
+        - $ref: '#/$defs/jsonPointer'
+        - type: array
+          minItems: 1
+          items:
+            $ref: '#/$defs/jsonPointer'
         examples:
         - /inputs/climate_data
-        - /outputs/trained_growth_model
-        description: 'JSON Pointer (RFC 6901) locating the artifact inside the document
-          this statement annotates. For the CWL profile in bblocks://ogc.focal.transferability.workflow
+        - - /inputs/datacube_connection
+          - /inputs/datacube_registry
+        description: 'JSON Pointer (RFC 6901), or several, into the document this
+          statement annotates. For the CWL profile in bblocks://ogc.focal.transferability.workflow
           that means `/inputs/<id>` or `/outputs/<id>`, but the pointer carries no
-          CWL assumption. Optional: meaningful only for the `workflow-input` and `workflow-output`
-          roles, and only fillable once a real Application Package exists to point
-          into. Omit it rather than guess.
+          CWL assumption.
+
+          For a `workflow-input` or `workflow-output` artifact it locates the artifact
+          itself: what a rule would replace. For an `infrastructure` artifact, such
+          as a data cube, it locates the inputs **through which the service is given**
+          (connection, registry); replacing the service means pointing those inputs
+          at another one. An `external-resource` has nothing in the document to point
+          at.
+
+          Optional, and only fillable once the inputs are declared. Omit it rather
+          than guess.
 
           '
         x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRef
+        x-jsonld-container: '@set'
       transferabilityNotes:
         type: string
         description: Free-text note about the artifact. Uplifts to `rdfs:comment`.
@@ -225,5 +242,5 @@ x-jsonld-prefixes:
 x-bblocks-metadata:
   itemIdentifier: ogc.focal.transferability.transferabilityStatement
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
-  version: '0.12'
+  version: '0.13'
   dateOfLastChange: '2026-11-25'

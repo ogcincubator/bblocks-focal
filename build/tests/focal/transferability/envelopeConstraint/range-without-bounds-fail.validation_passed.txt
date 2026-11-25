@@ -1,5 +1,5 @@
 Validation report for ogc.focal.transferability.envelopeConstraint - FOCAL Transferability Envelope Constraint
-Generated 2026-11-25T11:28:39.903900+00:00
+Generated 2026-11-25T12:45:57.623382+00:00
 === General ===
 Test was expected to fail and it did.
 === End General ===
@@ -58,21 +58,21 @@ Validation result for _sources/transferability/envelopeConstraint/shapes.shacl: 
 ** Validation error **
 Violation (sh:OrConstraintComponent):
   Source shape: focal-shape:VariableRange
-  Focus node: _:N072cebbb92534a4abc7c3179647b0382
-  Value: _:N072cebbb92534a4abc7c3179647b0382
+  Focus node: _:Nba92285596e343469c085800bc6b96ba
+  Value: _:Nba92285596e343469c085800bc6b96ba
   Message: Node [ <https://w3id.org/ogc/hosted/focal/transferability/properties/variableName> Literal("age") ] must conform to one or more shapes in [ sh:property [ sh:minCount Literal("1", datatype=xsd:integer) ; sh:path focal-prop:minimum ] ] , [ sh:property [ sh:minCount Literal("1", datatype=xsd:integer) ; sh:path focal-prop:maximum ] ]
 Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:
- - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/d>/focal-transf-prop:value
- - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/d>
- - Shape focal-shape:VariableRange: <file:///github/workspace/d>/focal-transf-prop:value/focal-transf-prop:variableRange
- - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/d>
  - Shape focal-shape:AnalogyNamesItsReference: <file:///github/workspace/d>/focal-transf-prop:value
- - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/d>
- - Shape focal-shape:VariableRange/sh:or/rdf:rest/rdf:first: *none*
  - Shape focal-shape:GridStructureEnvelopeValue: <file:///github/workspace/d>
+ - Shape focal-shape:VariableRange: <file:///github/workspace/d>/focal-transf-prop:value/focal-transf-prop:variableRange
  - Shape focal-shape:GridTypeIsAConcept: <file:///github/workspace/d>/focal-transf-prop:value
- - Shape focal-shape:VariableRange/sh:or/rdf:first: *none*
  - Shape focal-shape:EnvelopeConstraint: <file:///github/workspace/d>
+ - Shape focal-shape:NonGeometricEnvelopeValue: <file:///github/workspace/d>
+ - Shape focal-shape:ScenarioMarkerIsAConcept: <file:///github/workspace/d>/focal-transf-prop:value
+ - Shape focal-shape:VariableRange/sh:or/rdf:first: *none*
+ - Shape focal-shape:TemporalEnvelopeValue: <file:///github/workspace/d>
+ - Shape focal-shape:SpatialEnvelopeValue: <file:///github/workspace/d>
+ - Shape focal-shape:VariableRange/sh:or/rdf:rest/rdf:first: *none*
 
 === End SHACL ===
 

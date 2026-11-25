@@ -1,5 +1,5 @@
 Validation report for ogc.focal.transferability.acceptanceCriteria - FOCAL Artifact Acceptance Criteria
-Generated 2026-11-25T11:28:39.461097+00:00
+Generated 2026-11-25T12:45:57.131678+00:00
 === General ===
 Test was expected to fail and it did.
 === End General ===
@@ -48,19 +48,32 @@ Failed validating 'not' in schema['allOf'][1]['properties']['variables']['items'
                                                      'something they did '
                                                      'not say.\n',
                                       'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/sameAsCurrent'},
-                    'standardName': {'type': 'string',
-                                     'examples': ['surface_net_downward_shortwave_flux',
-                                                  'air_temperature'],
+                    'standardName': {'oneOf': [{'type': 'string',
+                                                'minLength': 1},
+                                               {'type': 'array',
+                                                'minItems': 1,
+                                                'items': {'type': 'string',
+                                                          'minLength': 1}}],
+                                     'examples': ['air_temperature',
+                                                  ['surface_net_downward_shortwave_flux',
+                                                   'integral_wrt_time_of_surface_net_downward_shortwave_flux']],
                                      'description': 'CF standard name of '
                                                     'the quantity. Says '
                                                     'what a name cannot, '
                                                     'such as net against '
                                                     'downwelling '
-                                                    'radiation. Give it '
+                                                    'radiation. A list is '
+                                                    '**an OR-set**: any '
+                                                    'one is acceptable, '
+                                                    'e.g. a quantity '
+                                                    'accepted either as a '
+                                                    'flux or as an '
+                                                    'accumulation. Give it '
                                                     'only where the '
                                                     'quantity is '
                                                     'certain.\n',
-                                     'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/standardName'},
+                                     'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/transferability/properties/standardName',
+                                     'x-jsonld-container': '@set'},
                     'units': {'type': 'array',
                               'minItems': 1,
                               'items': {'type': 'string',
@@ -87,8 +100,9 @@ Using SHACL closure graph sources (declared closures, ontologies and RDF data re
 Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl: no results
 Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:
  - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*
- - Shape focal-shape:VariableRequirement: *none*
  - Shape focal-shape:AcceptanceCriteria: *none*
+ - Shape focal-shape:TemporalRequirement: *none*
+ - Shape focal-shape:VariableRequirement: *none*
 
 === End SHACL ===
 

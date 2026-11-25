@@ -234,7 +234,7 @@ raised with the owner.
                         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/station-metadata>,
                         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/target-climate-datasets> ;
                     focal-transf-prop:mandatory true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-dataset> ],
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ],
                 [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/calibration-rules>,
                         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/observed-properties>,
@@ -242,7 +242,7 @@ raised with the owner.
                         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/station-metadata>,
                         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/target-climate-datasets> ;
                     focal-transf-prop:mandatory true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ;
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-dataset> ] ;
             focal-transf-prop:trainingRequired false ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/senslog-model-and-api> dcterms:title "SensLog data model and API-based access" ;
@@ -444,7 +444,10 @@ Links to the schema:
                   "@context": {
                     "name": "focal-transf-prop:variableName",
                     "sameAsCurrent": "focal-transf-prop:sameAsCurrent",
-                    "standardName": "focal-transf-prop:standardName",
+                    "standardName": {
+                      "@id": "focal-transf-prop:standardName",
+                      "@container": "@set"
+                    },
                     "units": {
                       "@context": {
                         "@base": "http://qudt.org/vocab/unit/"
@@ -486,7 +489,10 @@ Links to the schema:
                     "minimumPrecedingYears": {
                       "@id": "focal-transf-prop:minimumPrecedingYears",
                       "@type": "http://www.w3.org/2001/XMLSchema#integer"
-                    }
+                    },
+                    "complete": "focal-transf-prop:temporalComplete",
+                    "startDate": "dcat:startDate",
+                    "endDate": "dcat:endDate"
                   },
                   "@id": "focal-transf-prop:temporalRequirement"
                 },
@@ -498,7 +504,10 @@ Links to the schema:
               },
               "@id": "focal-transf-prop:acceptanceCriteria"
             },
-            "artifactRef": "focal-transf-prop:artifactRef"
+            "artifactRef": {
+              "@id": "focal-transf-prop:artifactRef",
+              "@container": "@set"
+            }
           },
           "@id": "focal-transf-prop:artifacts",
           "@container": "@set"

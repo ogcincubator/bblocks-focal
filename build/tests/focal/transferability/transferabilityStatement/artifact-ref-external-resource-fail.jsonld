@@ -1,0 +1,14 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/context.jsonld",
+  "envelope": [],
+  "artifacts": [
+    {
+      "id": "ref-map",
+      "artifact": "validation map",
+      "artifactRole": "external-resource",
+      "artifactRef": "/inputs/map",
+      "transferabilityNotes": "x"
+    }
+  ],
+  "rules": []
+}

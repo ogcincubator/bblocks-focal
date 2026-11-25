@@ -1,7 +1,7 @@
 
 # FOCAL Artifact Acceptance Criteria (Schema)
 
-`ogc.focal.transferability.acceptanceCriteria` *v0.5*
+`ogc.focal.transferability.acceptanceCriteria` *v0.6*
 
 What a dataset must satisfy to serve as a given artifact - variable name, acceptable units (QUDT), required axes, acceptable grids, schemas it must conform to. What makes replace-with-local-equivalent actionable rather than merely stated.
 
@@ -17,11 +17,13 @@ What a dataset has to satisfy to serve as a given artifact.
 |---|---|---|
 | `variables` | **AND** — every entry must be satisfied | see below |
 | `variables[].name` / `sameAsCurrent` | one of the two | FOCAL (a local expectation, not a published fact) |
-| `variables[].standardName` | single value | CF standard names |
+| `variables[].standardName` | one value, or **OR** over a list | CF standard names |
 | `variables[].units` | **OR** — any one is acceptable | QUDT unit IRIs |
 | `temporal.resolution` | single value | `dcat:temporalResolution` |
 | `temporal.calendar` | **OR** — accepted as they are | CF `calendar` values |
 | `temporal.minimumPrecedingYears` | single value | FOCAL |
+| `temporal.complete` | `true` = no gaps allowed in the required data | FOCAL |
+| `temporal.startDate` / `endDate` | span the data must cover; `endDate` optional | `dcat:startDate` / `dcat:endDate` |
 | `axes` | **AND** — all must be present | FOCAL axes scheme (open) |
 | `gridTypes` | **OR** — any one is acceptable | FOCAL grid-types scheme, cross-walked to CF `grid_mapping_name` where one exists |
 | `conformsTo` | **AND** | `dcterms:conformsTo` |
@@ -210,6 +212,9 @@ exists to solve, one level further down, while looking like it has been addresse
 A daily climate input. Every variable is required. The CF standard name says what a variable
 name cannot: this radiation must be net, not downwelling. `temporal` states the time step,
 the calendars accepted as they are and the history needed before the requested period.
+`complete` forbids gaps in the required data, and `startDate` states from when the data must
+cover (`endDate` is optional). A list of standard names means any one is acceptable: here the
+net radiation may come as a flux or as an accumulation over time, matching the two units.
 
 #### json
 ```json
@@ -217,9 +222,9 @@ the calendars accepted as they are and the history needed before the requested p
   "variables": [
     { "name": "tmax", "standardName": "air_temperature", "units": ["DEG_C"] },
     { "name": "pr", "units": ["MilliM-PER-DAY"] },
-    { "name": "ssr", "standardName": "surface_net_downward_shortwave_flux", "units": ["W-PER-M2"] }
+    { "name": "ssr", "standardName": ["surface_net_downward_shortwave_flux", "integral_wrt_time_of_surface_net_downward_shortwave_flux"], "units": ["W-PER-M2", "J-PER-M2"] }
   ],
-  "temporal": { "resolution": "P1D", "calendar": ["standard", "proleptic_gregorian"], "minimumPrecedingYears": 30 },
+  "temporal": { "resolution": "P1D", "calendar": ["standard", "proleptic_gregorian"], "minimumPrecedingYears": 30, "complete": true, "startDate": "1991" },
   "gridTypes": ["regular-latlon", "rotated-pole", "curvilinear"]
 }
 
@@ -245,9 +250,13 @@ the calendars accepted as they are and the history needed before the requested p
     },
     {
       "name": "ssr",
-      "standardName": "surface_net_downward_shortwave_flux",
+      "standardName": [
+        "surface_net_downward_shortwave_flux",
+        "integral_wrt_time_of_surface_net_downward_shortwave_flux"
+      ],
       "units": [
-        "W-PER-M2"
+        "W-PER-M2",
+        "J-PER-M2"
       ]
     }
   ],
@@ -257,7 +266,9 @@ the calendars accepted as they are and the history needed before the requested p
       "standard",
       "proleptic_gregorian"
     ],
-    "minimumPrecedingYears": 30
+    "minimumPrecedingYears": 30,
+    "complete": true,
+    "startDate": "1991"
   },
   "gridTypes": [
     "regular-latlon",
@@ -276,17 +287,21 @@ the calendars accepted as they are and the history needed before the requested p
 [] focal-transf-prop:gridType <https://w3id.org/ogc/hosted/focal/transferability/grid-types/curvilinear>,
         <https://w3id.org/ogc/hosted/focal/transferability/grid-types/regular-latlon>,
         <https://w3id.org/ogc/hosted/focal/transferability/grid-types/rotated-pole> ;
-    focal-transf-prop:temporalRequirement [ dcat:temporalResolution "P1D"^^xsd:duration ;
+    focal-transf-prop:temporalRequirement [ dcat:startDate "1991" ;
+            dcat:temporalResolution "P1D"^^xsd:duration ;
             focal-transf-prop:calendar "proleptic_gregorian",
                 "standard" ;
-            focal-transf-prop:minimumPrecedingYears 30 ] ;
+            focal-transf-prop:minimumPrecedingYears 30 ;
+            focal-transf-prop:temporalComplete true ] ;
     focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
             focal-transf-prop:variableName "pr" ],
         [ focal-transf-prop:standardName "air_temperature" ;
             focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
             focal-transf-prop:variableName "tmax" ],
-        [ focal-transf-prop:standardName "surface_net_downward_shortwave_flux" ;
-            focal-transf-prop:unit <http://qudt.org/vocab/unit/W-PER-M2> ;
+        [ focal-transf-prop:standardName "integral_wrt_time_of_surface_net_downward_shortwave_flux",
+                "surface_net_downward_shortwave_flux" ;
+            focal-transf-prop:unit <http://qudt.org/vocab/unit/J-PER-M2>,
+                <http://qudt.org/vocab/unit/W-PER-M2> ;
             focal-transf-prop:variableName "ssr" ] .
 
 
@@ -382,16 +397,26 @@ allOf:
               '
             x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/sameAsCurrent
           standardName:
-            type: string
+            oneOf:
+            - type: string
+              minLength: 1
+            - type: array
+              minItems: 1
+              items:
+                type: string
+                minLength: 1
             examples:
-            - surface_net_downward_shortwave_flux
             - air_temperature
+            - - surface_net_downward_shortwave_flux
+              - integral_wrt_time_of_surface_net_downward_shortwave_flux
             description: 'CF standard name of the quantity. Says what a name cannot,
-              such as net against downwelling radiation. Give it only where the quantity
-              is certain.
+              such as net against downwelling radiation. A list is **an OR-set**:
+              any one is acceptable, e.g. a quantity accepted either as a flux or
+              as an accumulation. Give it only where the quantity is certain.
 
               '
             x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/standardName
+            x-jsonld-container: '@set'
           units:
             type: array
             minItems: 1
@@ -462,6 +487,9 @@ allOf:
       title: Time axis requirements
       minProperties: 1
       additionalProperties: false
+      dependentRequired:
+        endDate:
+        - startDate
       properties:
         resolution:
           type: string
@@ -496,6 +524,33 @@ allOf:
             '
           x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/minimumPrecedingYears
           x-jsonld-type: http://www.w3.org/2001/XMLSchema#integer
+        complete:
+          type: boolean
+          description: '`true`: no gaps are allowed in the required data.
+
+            '
+          x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/temporalComplete
+        startDate:
+          type: string
+          pattern: ^\d{4}(-\d{2}(-\d{2})?)?$
+          examples:
+          - '1991'
+          description: 'Start of the span the data must cover, as an ISO 8601 year,
+            year-month or date (`dcat:startDate`). A requirement on the data, not
+            the period for which results hold.
+
+            '
+          x-jsonld-id: http://www.w3.org/ns/dcat#startDate
+        endDate:
+          type: string
+          pattern: ^\d{4}(-\d{2}(-\d{2})?)?$
+          examples:
+          - '2020'
+          description: 'End of the span the data must cover (`dcat:endDate`). Optional;
+            omit it where the source states only a start.
+
+            '
+          x-jsonld-id: http://www.w3.org/ns/dcat#endDate
       description: 'What the data''s time axis must look like. Not the envelope''s
         `temporal` dimension, which says for which period results hold.
 
@@ -535,7 +590,7 @@ x-jsonld-prefixes:
 x-bblocks-metadata:
   itemIdentifier: ogc.focal.transferability.acceptanceCriteria
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
-  version: '0.5'
+  version: '0.6'
   dateOfLastChange: '2026-11-25'
 
 ```
@@ -556,7 +611,10 @@ Links to the schema:
       "@context": {
         "name": "focal-transf-prop:variableName",
         "sameAsCurrent": "focal-transf-prop:sameAsCurrent",
-        "standardName": "focal-transf-prop:standardName",
+        "standardName": {
+          "@id": "focal-transf-prop:standardName",
+          "@container": "@set"
+        },
         "units": {
           "@context": {
             "@base": "http://qudt.org/vocab/unit/"
@@ -598,7 +656,10 @@ Links to the schema:
         "minimumPrecedingYears": {
           "@id": "focal-transf-prop:minimumPrecedingYears",
           "@type": "http://www.w3.org/2001/XMLSchema#integer"
-        }
+        },
+        "complete": "focal-transf-prop:temporalComplete",
+        "startDate": "http://www.w3.org/ns/dcat#startDate",
+        "endDate": "http://www.w3.org/ns/dcat#endDate"
       },
       "@id": "focal-transf-prop:temporalRequirement"
     },

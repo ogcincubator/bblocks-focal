@@ -2,9 +2,501 @@
   "title": "Validation report for ogc.focal.transferability.transferabilityStatement - FOCAL Transferability Statement",
   "bblockName": "FOCAL Transferability Statement",
   "bblockId": "ogc.focal.transferability.transferabilityStatement",
-  "generated": "2026-11-25T11:28:41.508670+00:00",
+  "generated": "2026-11-25T12:45:59.689721+00:00",
   "result": true,
   "items": [
+    {
+      "source": {
+        "type": "TEST_RESOURCE",
+        "requireFail": true,
+        "filename": "_sources/transferability/transferabilityStatement/tests/artifact-ref-external-resource-fail.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/transferabilityStatement/tests/artifact-ref-external-resource-fail.json",
+        "language": "json"
+      },
+      "result": true,
+      "hasWarnings": false,
+      "sections": [
+        {
+          "name": "GENERAL",
+          "title": "General",
+          "entries": [
+            {
+              "op": "require-fail",
+              "isError": false,
+              "message": "Test was expected to fail and it did."
+            }
+          ]
+        },
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using artifact-ref-external-resource-fail.json from test resources"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "artifact-ref-external-resource-fail.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD artifact-ref-external-resource-fail.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "artifact-ref-external-resource-fail.ttl",
+              "size": 5,
+              "isError": false,
+              "message": "Output Turtle artifact-ref-external-resource-fail.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+              "graph": "@prefix focal-shape: <https://w3id.org/ogc/hosted/focal/transferability/shapes/> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode <file:///github/workspace/ref-map> ;\n            sh:resultMessage \"artifactRef is not meaningful for an external-resource artifact: it has nothing in the annotated document to point at.\" ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraint [ a sh:SPARQLConstraint ;\n                    sh:message \"artifactRef is not meaningful for an external-resource artifact: it has nothing in the annotated document to point at.\" ;\n                    sh:select \"\"\"\n      SELECT $this WHERE {\n        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRef> ?ref .\n        $this <https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRole> ?role .\n        FILTER(?role = <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/external-resource>)\n      }\n    \"\"\" ] ;\n            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;\n            sh:sourceShape focal-shape:ArtifactRefOnlyForInternalRoles ;\n            sh:value <file:///github/workspace/ref-map> ] .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl: 1 violation"
+            },
+            {
+              "op": "shacl-result",
+              "resultSeverity": "http://www.w3.org/ns/shacl#Violation",
+              "focusNode": "file:///github/workspace/ref-map",
+              "resultPath": null,
+              "sourceConstraintComponent": "http://www.w3.org/ns/shacl#SPARQLConstraintComponent",
+              "sourceShape": "https://w3id.org/ogc/hosted/focal/transferability/shapes/ArtifactRefOnlyForInternalRoles",
+              "sourceShapeDescription": "focal-shape:ArtifactRefOnlyForInternalRoles",
+              "value": "<file:///github/workspace/ref-map>",
+              "resultMessage": "artifactRef is not meaningful for an external-resource artifact: it has nothing in the annotated document to point at.",
+              "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+              "isError": true,
+              "severity": "error",
+              "message": "Violation (sh:SPARQLConstraintComponent):\n  Source shape: focal-shape:ArtifactRefOnlyForInternalRoles\n  Focus node: <file:///github/workspace/ref-map>\n  Value: <file:///github/workspace/ref-map>\n  Message: artifactRef is not meaningful for an external-resource artifact: it has nothing in the annotated document to point at."
+            },
+            {
+              "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:TransferabilityStatement": {
+                  "nodes": [
+                    "_:N619d387fcab94f359fe008ab182fe8d0"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredConstraint": {
+                  "nodes": [
+                    "_:N619d387fcab94f359fe008ab182fe8d0"
+                  ]
+                },
+                "focal-shape:ArtifactRefOnlyForInternalRoles": {
+                  "nodes": [
+                    "<file:///github/workspace/ref-map>"
+                  ]
+                },
+                "focal-shape:NoTrainingMeansNoTrainedOn": {
+                  "nodes": []
+                },
+                "focal-shape:ArtifactDependency": {
+                  "nodes": [
+                    "<file:///github/workspace/ref-map>"
+                  ]
+                },
+                "focal-shape:ArtifactIsGovernedByARule": {
+                  "nodes": [
+                    "_:N619d387fcab94f359fe008ab182fe8d0"
+                  ]
+                },
+                "focal-shape:NoConstraintsMeansNoConstraints": {
+                  "nodes": []
+                },
+                "focal-shape:RuleCitesDeclaredArtifact": {
+                  "nodes": [
+                    "_:N619d387fcab94f359fe008ab182fe8d0"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:TransferabilityStatement: _:N619d387fcab94f359fe008ab182fe8d0\n - Shape focal-shape:RuleCitesDeclaredConstraint: _:N619d387fcab94f359fe008ab182fe8d0\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <file:///github/workspace/ref-map>\n - Shape focal-shape:NoTrainingMeansNoTrainedOn: *none*\n - Shape focal-shape:ArtifactDependency: <file:///github/workspace/ref-map>\n - Shape focal-shape:ArtifactIsGovernedByARule: _:N619d387fcab94f359fe008ab182fe8d0\n - Shape focal-shape:NoConstraintsMeansNoConstraints: *none*\n - Shape focal-shape:RuleCitesDeclaredArtifact: _:N619d387fcab94f359fe008ab182fe8d0\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl: no results"
+            },
+            {
+              "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:AcceptanceCriteriaStatesACriterion": {
+                  "nodes": []
+                },
+                "focal-shape:AcceptanceCriteria": {
+                  "nodes": []
+                },
+                "focal-shape:TemporalRequirement": {
+                  "nodes": []
+                },
+                "focal-shape:VariableRequirement": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:VariableRequirement: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl: no results"
+            },
+            {
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:VariableRange/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "focal-shape:AnalogyNamesItsReference": {
+                  "nodes": []
+                },
+                "focal-shape:GridStructureEnvelopeValue": {
+                  "nodes": []
+                },
+                "focal-shape:VariableRange": {
+                  "nodes": []
+                },
+                "focal-shape:GridTypeIsAConcept": {
+                  "nodes": []
+                },
+                "focal-shape:EnvelopeConstraint": {
+                  "nodes": []
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": []
+                },
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": []
+                },
+                "focal-shape:VariableRange/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "focal-shape:TemporalEnvelopeValue": {
+                  "nodes": []
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:VariableRange/sh:or/rdf:first: *none*\n - Shape focal-shape:AnalogyNamesItsReference: *none*\n - Shape focal-shape:GridStructureEnvelopeValue: *none*\n - Shape focal-shape:VariableRange: *none*\n - Shape focal-shape:GridTypeIsAConcept: *none*\n - Shape focal-shape:EnvelopeConstraint: *none*\n - Shape focal-shape:NonGeometricEnvelopeValue: *none*\n - Shape focal-shape:ScenarioMarkerIsAConcept: *none*\n - Shape focal-shape:VariableRange/sh:or/rdf:rest/rdf:first: *none*\n - Shape focal-shape:TemporalEnvelopeValue: *none*\n - Shape focal-shape:SpatialEnvelopeValue: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/rule/shapes.shacl: no results"
+            },
+            {
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:TerminalActionNamesWhatItAffects": {
+                  "nodes": []
+                },
+                "focal-shape:TransferabilityRule": {
+                  "nodes": []
+                },
+                "focal-shape:OptionalRuleHasConsequence": {
+                  "nodes": []
+                },
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": []
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": []
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: *none*\n - Shape focal-shape:TransferabilityRule: *none*\n - Shape focal-shape:OptionalRuleHasConsequence: *none*\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:TerminalActionNotAlongsideReuse: *none*\n - Shape focal-shape:RuleHasACondition: *none*\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "type": "TEST_RESOURCE",
+        "requireFail": true,
+        "filename": "_sources/transferability/transferabilityStatement/tests/artifact-ref-not-pointer-fail.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/_sources/transferability/transferabilityStatement/tests/artifact-ref-not-pointer-fail.json",
+        "language": "json"
+      },
+      "result": true,
+      "hasWarnings": false,
+      "sections": [
+        {
+          "name": "GENERAL",
+          "title": "General",
+          "entries": [
+            {
+              "op": "require-fail",
+              "isError": false,
+              "message": "Test was expected to fail and it did."
+            }
+          ]
+        },
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using artifact-ref-not-pointer-fail.json from test resources"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "artifact-ref-not-pointer-fail.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD artifact-ref-not-pointer-fail.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "artifact-ref-not-pointer-fail.ttl",
+              "size": 6,
+              "isError": false,
+              "message": "Output Turtle artifact-ref-not-pointer-fail.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": false,
+              "exception": "ValidationError",
+              "errorMessage": "'registry' does not match '^/'",
+              "isError": true,
+              "message": "ValidationError: 'registry' does not match '^/'\n\nFailed validating 'pattern' in schema[1]['items']:\n    {'type': 'string', 'format': 'json-pointer', 'pattern': '^/'}\n\nOn instance[1]:\n    'registry'"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+              "graph": "@prefix focal-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode <file:///github/workspace/cube> ;\n            sh:resultMessage \"artifactRef entries are JSON Pointers (RFC 6901) and therefore start with '/'.\" ;\n            sh:resultPath focal-prop:artifactRef ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraintComponent sh:PatternConstraintComponent ;\n            sh:sourceShape [ sh:datatype xsd:string ;\n                    sh:message \"artifactRef entries are JSON Pointers (RFC 6901) and therefore start with '/'.\" ;\n                    sh:name \"artifactRef\" ;\n                    sh:path focal-prop:artifactRef ;\n                    sh:pattern \"^/\" ] ;\n            sh:value \"registry\" ] .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl: 1 violation"
+            },
+            {
+              "op": "shacl-result",
+              "resultSeverity": "http://www.w3.org/ns/shacl#Violation",
+              "focusNode": "file:///github/workspace/cube",
+              "resultPath": "focal-transf-prop:artifactRef",
+              "sourceConstraintComponent": "http://www.w3.org/ns/shacl#PatternConstraintComponent",
+              "sourceShape": null,
+              "sourceShapeDescription": "focal-shape:ArtifactDependency/sh:property \"artifactRef\" (path focal-prop:artifactRef)",
+              "value": "\"registry\"",
+              "resultMessage": "artifactRef entries are JSON Pointers (RFC 6901) and therefore start with '/'.",
+              "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+              "isError": true,
+              "severity": "error",
+              "message": "Violation (sh:PatternConstraintComponent):\n  Source shape: focal-shape:ArtifactDependency/sh:property \"artifactRef\" (path focal-prop:artifactRef)\n  Focus node: <file:///github/workspace/cube>\n  Result path: focal-transf-prop:artifactRef\n  Value: \"registry\"\n  Message: artifactRef entries are JSON Pointers (RFC 6901) and therefore start with '/'."
+            },
+            {
+              "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:TransferabilityStatement": {
+                  "nodes": [
+                    "_:Nc353aa5a0e3c448abaae74f3d98bf83b"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredConstraint": {
+                  "nodes": [
+                    "_:Nc353aa5a0e3c448abaae74f3d98bf83b"
+                  ]
+                },
+                "focal-shape:ArtifactRefOnlyForInternalRoles": {
+                  "nodes": [
+                    "<file:///github/workspace/cube>"
+                  ]
+                },
+                "focal-shape:NoTrainingMeansNoTrainedOn": {
+                  "nodes": []
+                },
+                "focal-shape:ArtifactDependency": {
+                  "nodes": [
+                    "<file:///github/workspace/cube>"
+                  ]
+                },
+                "focal-shape:ArtifactIsGovernedByARule": {
+                  "nodes": [
+                    "_:Nc353aa5a0e3c448abaae74f3d98bf83b"
+                  ]
+                },
+                "focal-shape:NoConstraintsMeansNoConstraints": {
+                  "nodes": []
+                },
+                "focal-shape:RuleCitesDeclaredArtifact": {
+                  "nodes": [
+                    "_:Nc353aa5a0e3c448abaae74f3d98bf83b"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:TransferabilityStatement: _:Nc353aa5a0e3c448abaae74f3d98bf83b\n - Shape focal-shape:RuleCitesDeclaredConstraint: _:Nc353aa5a0e3c448abaae74f3d98bf83b\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <file:///github/workspace/cube>\n - Shape focal-shape:NoTrainingMeansNoTrainedOn: *none*\n - Shape focal-shape:ArtifactDependency: <file:///github/workspace/cube>\n - Shape focal-shape:ArtifactIsGovernedByARule: _:Nc353aa5a0e3c448abaae74f3d98bf83b\n - Shape focal-shape:NoConstraintsMeansNoConstraints: *none*\n - Shape focal-shape:RuleCitesDeclaredArtifact: _:Nc353aa5a0e3c448abaae74f3d98bf83b\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl: no results"
+            },
+            {
+              "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:AcceptanceCriteriaStatesACriterion": {
+                  "nodes": []
+                },
+                "focal-shape:AcceptanceCriteria": {
+                  "nodes": []
+                },
+                "focal-shape:TemporalRequirement": {
+                  "nodes": []
+                },
+                "focal-shape:VariableRequirement": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:VariableRequirement: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl: no results"
+            },
+            {
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:VariableRange/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "focal-shape:AnalogyNamesItsReference": {
+                  "nodes": []
+                },
+                "focal-shape:GridStructureEnvelopeValue": {
+                  "nodes": []
+                },
+                "focal-shape:VariableRange": {
+                  "nodes": []
+                },
+                "focal-shape:GridTypeIsAConcept": {
+                  "nodes": []
+                },
+                "focal-shape:EnvelopeConstraint": {
+                  "nodes": []
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": []
+                },
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": []
+                },
+                "focal-shape:VariableRange/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "focal-shape:TemporalEnvelopeValue": {
+                  "nodes": []
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:VariableRange/sh:or/rdf:first: *none*\n - Shape focal-shape:AnalogyNamesItsReference: *none*\n - Shape focal-shape:GridStructureEnvelopeValue: *none*\n - Shape focal-shape:VariableRange: *none*\n - Shape focal-shape:GridTypeIsAConcept: *none*\n - Shape focal-shape:EnvelopeConstraint: *none*\n - Shape focal-shape:NonGeometricEnvelopeValue: *none*\n - Shape focal-shape:ScenarioMarkerIsAConcept: *none*\n - Shape focal-shape:VariableRange/sh:or/rdf:rest/rdf:first: *none*\n - Shape focal-shape:TemporalEnvelopeValue: *none*\n - Shape focal-shape:SpatialEnvelopeValue: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/rule/shapes.shacl: no results"
+            },
+            {
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:TerminalActionNamesWhatItAffects": {
+                  "nodes": []
+                },
+                "focal-shape:TransferabilityRule": {
+                  "nodes": []
+                },
+                "focal-shape:OptionalRuleHasConsequence": {
+                  "nodes": []
+                },
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": []
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": []
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: *none*\n - Shape focal-shape:TransferabilityRule: *none*\n - Shape focal-shape:OptionalRuleHasConsequence: *none*\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:TerminalActionNotAlongsideReuse: *none*\n - Shape focal-shape:RuleHasACondition: *none*\n"
+            }
+          ]
+        }
+      ]
+    },
     {
       "source": {
         "type": "EXAMPLE",
@@ -77,6 +569,12 @@
             {
               "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
               "focusNodes": {
+                "focal-shape:TransferabilityStatement": {
+                  "nodes": []
+                },
+                "focal-shape:RuleCitesDeclaredConstraint": {
+                  "nodes": []
+                },
                 "focal-shape:ArtifactRefOnlyForInternalRoles": {
                   "nodes": []
                 },
@@ -86,26 +584,20 @@
                 "focal-shape:ArtifactDependency": {
                   "nodes": []
                 },
-                "focal-shape:TransferabilityStatement": {
-                  "nodes": []
-                },
-                "focal-shape:RuleCitesDeclaredConstraint": {
+                "focal-shape:ArtifactIsGovernedByARule": {
                   "nodes": []
                 },
                 "focal-shape:NoConstraintsMeansNoConstraints": {
                   "nodes": [
-                    "_:N4ae8b19fb98b4d4c85e1865d1943fc05"
+                    "_:N9744245cb00e4e2a9e9347f4ac2cde42"
                   ]
-                },
-                "focal-shape:ArtifactIsGovernedByARule": {
-                  "nodes": []
                 },
                 "focal-shape:RuleCitesDeclaredArtifact": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: *none*\n - Shape focal-shape:NoTrainingMeansNoTrainedOn: *none*\n - Shape focal-shape:ArtifactDependency: *none*\n - Shape focal-shape:TransferabilityStatement: *none*\n - Shape focal-shape:RuleCitesDeclaredConstraint: *none*\n - Shape focal-shape:NoConstraintsMeansNoConstraints: _:N4ae8b19fb98b4d4c85e1865d1943fc05\n - Shape focal-shape:ArtifactIsGovernedByARule: *none*\n - Shape focal-shape:RuleCitesDeclaredArtifact: *none*\n"
+              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:TransferabilityStatement: *none*\n - Shape focal-shape:RuleCitesDeclaredConstraint: *none*\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: *none*\n - Shape focal-shape:NoTrainingMeansNoTrainedOn: *none*\n - Shape focal-shape:ArtifactDependency: *none*\n - Shape focal-shape:ArtifactIsGovernedByARule: *none*\n - Shape focal-shape:NoConstraintsMeansNoConstraints: _:N9744245cb00e4e2a9e9347f4ac2cde42\n - Shape focal-shape:RuleCitesDeclaredArtifact: *none*\n"
             },
             {
               "op": "shacl-report",
@@ -120,15 +612,18 @@
                 "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 },
-                "focal-shape:VariableRequirement": {
+                "focal-shape:AcceptanceCriteria": {
                   "nodes": []
                 },
-                "focal-shape:AcceptanceCriteria": {
+                "focal-shape:TemporalRequirement": {
+                  "nodes": []
+                },
+                "focal-shape:VariableRequirement": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:VariableRequirement: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:VariableRequirement: *none*\n"
             },
             {
               "op": "shacl-report",
@@ -140,31 +635,16 @@
             {
               "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
               "focusNodes": {
-                "focal-shape:ScenarioMarkerIsAConcept": {
-                  "nodes": []
-                },
-                "focal-shape:SpatialEnvelopeValue": {
-                  "nodes": []
-                },
-                "focal-shape:VariableRange": {
-                  "nodes": []
-                },
-                "focal-shape:NonGeometricEnvelopeValue": {
-                  "nodes": []
-                },
                 "focal-shape:VariableRange/sh:or/rdf:first": {
-                  "nodes": []
-                },
-                "focal-shape:VariableRange/sh:or/rdf:rest/rdf:first": {
                   "nodes": []
                 },
                 "focal-shape:AnalogyNamesItsReference": {
                   "nodes": []
                 },
-                "focal-shape:TemporalEnvelopeValue": {
+                "focal-shape:GridStructureEnvelopeValue": {
                   "nodes": []
                 },
-                "focal-shape:GridStructureEnvelopeValue": {
+                "focal-shape:VariableRange": {
                   "nodes": []
                 },
                 "focal-shape:GridTypeIsAConcept": {
@@ -172,10 +652,25 @@
                 },
                 "focal-shape:EnvelopeConstraint": {
                   "nodes": []
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": []
+                },
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": []
+                },
+                "focal-shape:VariableRange/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "focal-shape:TemporalEnvelopeValue": {
+                  "nodes": []
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:ScenarioMarkerIsAConcept: *none*\n - Shape focal-shape:SpatialEnvelopeValue: *none*\n - Shape focal-shape:VariableRange: *none*\n - Shape focal-shape:NonGeometricEnvelopeValue: *none*\n - Shape focal-shape:VariableRange/sh:or/rdf:first: *none*\n - Shape focal-shape:VariableRange/sh:or/rdf:rest/rdf:first: *none*\n - Shape focal-shape:AnalogyNamesItsReference: *none*\n - Shape focal-shape:TemporalEnvelopeValue: *none*\n - Shape focal-shape:GridStructureEnvelopeValue: *none*\n - Shape focal-shape:GridTypeIsAConcept: *none*\n - Shape focal-shape:EnvelopeConstraint: *none*\n"
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:VariableRange/sh:or/rdf:first: *none*\n - Shape focal-shape:AnalogyNamesItsReference: *none*\n - Shape focal-shape:GridStructureEnvelopeValue: *none*\n - Shape focal-shape:VariableRange: *none*\n - Shape focal-shape:GridTypeIsAConcept: *none*\n - Shape focal-shape:EnvelopeConstraint: *none*\n - Shape focal-shape:NonGeometricEnvelopeValue: *none*\n - Shape focal-shape:ScenarioMarkerIsAConcept: *none*\n - Shape focal-shape:VariableRange/sh:or/rdf:rest/rdf:first: *none*\n - Shape focal-shape:TemporalEnvelopeValue: *none*\n - Shape focal-shape:SpatialEnvelopeValue: *none*\n"
             },
             {
               "op": "shacl-report",
@@ -187,27 +682,256 @@
             {
               "shaclFile": "_sources/transferability/rule/shapes.shacl",
               "focusNodes": {
-                "focal-shape:TerminalActionNotAlongsideReuse": {
-                  "nodes": []
-                },
-                "focal-shape:EnvelopeCondition": {
-                  "nodes": []
-                },
-                "focal-shape:OptionalRuleHasConsequence": {
-                  "nodes": []
-                },
-                "focal-shape:RuleHasACondition": {
-                  "nodes": []
-                },
                 "focal-shape:TerminalActionNamesWhatItAffects": {
                   "nodes": []
                 },
                 "focal-shape:TransferabilityRule": {
                   "nodes": []
+                },
+                "focal-shape:OptionalRuleHasConsequence": {
+                  "nodes": []
+                },
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": []
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": []
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNotAlongsideReuse: *none*\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:OptionalRuleHasConsequence: *none*\n - Shape focal-shape:RuleHasACondition: *none*\n - Shape focal-shape:TerminalActionNamesWhatItAffects: *none*\n - Shape focal-shape:TransferabilityRule: *none*\n"
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: *none*\n - Shape focal-shape:TransferabilityRule: *none*\n - Shape focal-shape:OptionalRuleHasConsequence: *none*\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:TerminalActionNotAlongsideReuse: *none*\n - Shape focal-shape:RuleHasACondition: *none*\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/focal/transferability/transferabilityStatement/example_2_1.json",
+        "url": "https://ogcincubator.github.io/bblocks-focal/build/tests/focal/transferability/transferabilityStatement/example_2_1.json",
+        "exampleIndex": 2,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": true,
+      "hasWarnings": false,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using example_2_1.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_2_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_2_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_2_1.ttl",
+              "size": 9,
+              "isError": false,
+              "message": "Output Turtle example_2_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using SHACL closure graph sources (declared closures, ontologies and RDF data resources):\n - /github/workspace/_sources/transferability/vocab/ontology.ttl"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/transferabilityStatement/shapes.shacl: no results"
+            },
+            {
+              "shaclFile": "_sources/transferability/transferabilityStatement/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:TransferabilityStatement": {
+                  "nodes": [
+                    "_:N290708bc4da4471ba7af5d5697d28e25"
+                  ]
+                },
+                "focal-shape:RuleCitesDeclaredConstraint": {
+                  "nodes": [
+                    "_:N290708bc4da4471ba7af5d5697d28e25"
+                  ]
+                },
+                "focal-shape:ArtifactRefOnlyForInternalRoles": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/transferability-statement/data-cube>"
+                  ]
+                },
+                "focal-shape:NoTrainingMeansNoTrainedOn": {
+                  "nodes": []
+                },
+                "focal-shape:ArtifactDependency": {
+                  "nodes": [
+                    "<https://w3id.org/ogc/hosted/focal/transferability/examples/transferability-statement/data-cube>"
+                  ]
+                },
+                "focal-shape:ArtifactIsGovernedByARule": {
+                  "nodes": [
+                    "_:N290708bc4da4471ba7af5d5697d28e25"
+                  ]
+                },
+                "focal-shape:NoConstraintsMeansNoConstraints": {
+                  "nodes": []
+                },
+                "focal-shape:RuleCitesDeclaredArtifact": {
+                  "nodes": [
+                    "_:N290708bc4da4471ba7af5d5697d28e25"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/transferabilityStatement/shapes.shacl:\n - Shape focal-shape:TransferabilityStatement: _:N290708bc4da4471ba7af5d5697d28e25\n - Shape focal-shape:RuleCitesDeclaredConstraint: _:N290708bc4da4471ba7af5d5697d28e25\n - Shape focal-shape:ArtifactRefOnlyForInternalRoles: <https://w3id.org/ogc/hosted/focal/transferability/examples/transferability-statement/data-cube>\n - Shape focal-shape:NoTrainingMeansNoTrainedOn: *none*\n - Shape focal-shape:ArtifactDependency: <https://w3id.org/ogc/hosted/focal/transferability/examples/transferability-statement/data-cube>\n - Shape focal-shape:ArtifactIsGovernedByARule: _:N290708bc4da4471ba7af5d5697d28e25\n - Shape focal-shape:NoConstraintsMeansNoConstraints: *none*\n - Shape focal-shape:RuleCitesDeclaredArtifact: _:N290708bc4da4471ba7af5d5697d28e25\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/acceptanceCriteria/shapes.shacl: no results"
+            },
+            {
+              "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:AcceptanceCriteriaStatesACriterion": {
+                  "nodes": []
+                },
+                "focal-shape:AcceptanceCriteria": {
+                  "nodes": []
+                },
+                "focal-shape:TemporalRequirement": {
+                  "nodes": []
+                },
+                "focal-shape:VariableRequirement": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:VariableRequirement: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/envelopeConstraint/shapes.shacl: no results"
+            },
+            {
+              "shaclFile": "_sources/transferability/envelopeConstraint/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:VariableRange/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "focal-shape:AnalogyNamesItsReference": {
+                  "nodes": []
+                },
+                "focal-shape:GridStructureEnvelopeValue": {
+                  "nodes": []
+                },
+                "focal-shape:VariableRange": {
+                  "nodes": []
+                },
+                "focal-shape:GridTypeIsAConcept": {
+                  "nodes": []
+                },
+                "focal-shape:EnvelopeConstraint": {
+                  "nodes": []
+                },
+                "focal-shape:NonGeometricEnvelopeValue": {
+                  "nodes": []
+                },
+                "focal-shape:ScenarioMarkerIsAConcept": {
+                  "nodes": []
+                },
+                "focal-shape:VariableRange/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "focal-shape:TemporalEnvelopeValue": {
+                  "nodes": []
+                },
+                "focal-shape:SpatialEnvelopeValue": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/envelopeConstraint/shapes.shacl:\n - Shape focal-shape:VariableRange/sh:or/rdf:first: *none*\n - Shape focal-shape:AnalogyNamesItsReference: *none*\n - Shape focal-shape:GridStructureEnvelopeValue: *none*\n - Shape focal-shape:VariableRange: *none*\n - Shape focal-shape:GridTypeIsAConcept: *none*\n - Shape focal-shape:EnvelopeConstraint: *none*\n - Shape focal-shape:NonGeometricEnvelopeValue: *none*\n - Shape focal-shape:ScenarioMarkerIsAConcept: *none*\n - Shape focal-shape:VariableRange/sh:or/rdf:rest/rdf:first: *none*\n - Shape focal-shape:TemporalEnvelopeValue: *none*\n - Shape focal-shape:SpatialEnvelopeValue: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/transferability/rule/shapes.shacl: no results"
+            },
+            {
+              "shaclFile": "_sources/transferability/rule/shapes.shacl",
+              "focusNodes": {
+                "focal-shape:TerminalActionNamesWhatItAffects": {
+                  "nodes": [
+                    "_:N5bb1e1dca91b44e18527f4d7f4ea0816"
+                  ]
+                },
+                "focal-shape:TransferabilityRule": {
+                  "nodes": [
+                    "_:N5bb1e1dca91b44e18527f4d7f4ea0816"
+                  ]
+                },
+                "focal-shape:OptionalRuleHasConsequence": {
+                  "nodes": []
+                },
+                "focal-shape:EnvelopeCondition": {
+                  "nodes": []
+                },
+                "focal-shape:TerminalActionNotAlongsideReuse": {
+                  "nodes": [
+                    "_:N5bb1e1dca91b44e18527f4d7f4ea0816"
+                  ]
+                },
+                "focal-shape:RuleHasACondition": {
+                  "nodes": [
+                    "_:N5bb1e1dca91b44e18527f4d7f4ea0816"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/transferability/rule/shapes.shacl:\n - Shape focal-shape:TerminalActionNamesWhatItAffects: _:N5bb1e1dca91b44e18527f4d7f4ea0816\n - Shape focal-shape:TransferabilityRule: _:N5bb1e1dca91b44e18527f4d7f4ea0816\n - Shape focal-shape:OptionalRuleHasConsequence: *none*\n - Shape focal-shape:EnvelopeCondition: *none*\n - Shape focal-shape:TerminalActionNotAlongsideReuse: _:N5bb1e1dca91b44e18527f4d7f4ea0816\n - Shape focal-shape:RuleHasACondition: _:N5bb1e1dca91b44e18527f4d7f4ea0816\n"
             }
           ]
         }
@@ -217,8 +941,8 @@
   "globalErrors": {},
   "hasWarnings": false,
   "counts": {
-    "total": 1,
-    "passed": 1,
+    "total": 4,
+    "passed": 4,
     "failed": 0
   }
 }

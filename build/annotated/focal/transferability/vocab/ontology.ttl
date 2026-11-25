@@ -234,7 +234,7 @@ focal-prop:appliesTo a owl:ObjectProperty ;
 
 focal-prop:artifactRef a owl:DatatypeProperty ;
     rdfs:label "artifact reference"@en ;
-    rdfs:comment "JSON Pointer (RFC 6901) locating the artifact within the document this statement annotates."@en ;
+    rdfs:comment "JSON Pointer (RFC 6901) into the document this statement annotates, locating the artifact, or, for infrastructure, an input through which the service is given. Repeatable."@en ;
     rdfs:domain focal-transf:ArtifactDependency ;
     rdfs:range xsd:string .
 
@@ -403,13 +403,18 @@ focal-prop:scenarioMarker a owl:ObjectProperty ;
 
 focal-prop:standardName a owl:DatatypeProperty ;
     rdfs:label "standard name"@en ;
-    rdfs:comment "CF standard name of the quantity a required variable must carry."@en ;
+    rdfs:comment "CF standard name of the quantity a required variable must carry. Repeatable and disjunctive: any one listed is acceptable."@en ;
     rdfs:range xsd:string .
 
 focal-prop:statistic a owl:DatatypeProperty ;
     rdfs:label "statistic"@en ;
     rdfs:comment "How target values are aggregated before being compared with variable ranges."@en ;
     rdfs:range xsd:string .
+
+focal-prop:temporalComplete a owl:DatatypeProperty ;
+    rdfs:label "temporal completeness required"@en ;
+    rdfs:comment "True where no gaps are allowed in the required data."@en ;
+    rdfs:range xsd:boolean .
 
 focal-prop:temporalRequirement a owl:ObjectProperty ;
     rdfs:label "temporal requirement"@en ;

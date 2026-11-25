@@ -1,7 +1,7 @@
 
 # FOCAL Transferability Statement (Schema)
 
-`ogc.focal.transferability.transferabilityStatement` *v0.12*
+`ogc.focal.transferability.transferabilityStatement` *v0.13*
 
 Where something's results are valid (envelope), which reference/calibration artifacts it depends on (artifacts), and what must happen to each under which conditions (rules) - three id-addressable lists joined by reference rather than nesting.
 
@@ -40,7 +40,8 @@ envelope entry.
 
 **What the user supplies is said by the workflow description**, not by the statement. CWL (or STAC)
 declares the inputs; artifacts and envelope entries point at them with `artifactRef` and
-`inputRef`. The model states the conditions under which results are usable, for a consumer such as
+`inputRef`. For a service (`infrastructure`), `artifactRef` points at the inputs through which it
+is given, such as a connection and a registry. The model states the conditions under which results are usable, for a consumer such as
 a questionnaire UI. It does not implement a checker, and a missing or malformed input is the
 runner's error to report.
 
@@ -106,6 +107,79 @@ Illustrative only: no pilot workflow evidences this case today.
 
 [] rdfs:comment "The provider states that the results carry no validity boundary and need no adaptation. This is the provider's claim, not a verified one." ;
     focal-transf-prop:noConstraintsStated true .
+
+
+```
+
+
+### A service given through several inputs
+A workflow that reads from a data cube. The cube is `infrastructure`; `artifactRef` points at
+the two inputs through which it is given, so a consumer can ask about the service next to
+those fields. The rule fires where no such service is available.
+
+#### json
+```json
+{
+  "envelope": [],
+  "artifacts": [
+    {
+      "id": "data-cube",
+      "artifact": "data cube holding the climate data",
+      "artifactRole": "infrastructure",
+      "artifactRef": ["/inputs/datacube_connection", "/inputs/datacube_registry"]
+    }
+  ],
+  "rules": [
+    { "appliesTo": ["data-cube"], "triggeredBy": "service-unavailable", "actions": ["replace-with-local-equivalent"] }
+  ]
+}
+
+```
+
+#### jsonld
+```jsonld
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/context.jsonld",
+  "envelope": [],
+  "artifacts": [
+    {
+      "id": "data-cube",
+      "artifact": "data cube holding the climate data",
+      "artifactRole": "infrastructure",
+      "artifactRef": [
+        "/inputs/datacube_connection",
+        "/inputs/datacube_registry"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "appliesTo": [
+        "data-cube"
+      ],
+      "triggeredBy": "service-unavailable",
+      "actions": [
+        "replace-with-local-equivalent"
+      ]
+    }
+  ]
+}
+```
+
+#### ttl
+```ttl
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/transferability-statement/data-cube> dcterms:title "data cube holding the climate data" ;
+    focal-transf-prop:artifactRef "/inputs/datacube_connection",
+        "/inputs/datacube_registry" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/infrastructure> .
+
+[] focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/transferability-statement/data-cube> ;
+    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+            focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/transferability-statement/data-cube> ;
+            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/service-unavailable> ] .
 
 
 ```
@@ -248,6 +322,10 @@ allOf:
       x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/rules
       x-jsonld-container: '@set'
 $defs:
+  jsonPointer:
+    type: string
+    format: json-pointer
+    pattern: ^/
   artifact:
     title: Artifact dependency
     type: object
@@ -312,21 +390,34 @@ $defs:
           '
         x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/acceptanceCriteria
       artifactRef:
-        type: string
-        format: json-pointer
-        pattern: ^/
+        oneOf:
+        - $ref: '#/$defs/jsonPointer'
+        - type: array
+          minItems: 1
+          items:
+            $ref: '#/$defs/jsonPointer'
         examples:
         - /inputs/climate_data
-        - /outputs/trained_growth_model
-        description: 'JSON Pointer (RFC 6901) locating the artifact inside the document
-          this statement annotates. For the CWL profile in bblocks://ogc.focal.transferability.workflow
+        - - /inputs/datacube_connection
+          - /inputs/datacube_registry
+        description: 'JSON Pointer (RFC 6901), or several, into the document this
+          statement annotates. For the CWL profile in bblocks://ogc.focal.transferability.workflow
           that means `/inputs/<id>` or `/outputs/<id>`, but the pointer carries no
-          CWL assumption. Optional: meaningful only for the `workflow-input` and `workflow-output`
-          roles, and only fillable once a real Application Package exists to point
-          into. Omit it rather than guess.
+          CWL assumption.
+
+          For a `workflow-input` or `workflow-output` artifact it locates the artifact
+          itself: what a rule would replace. For an `infrastructure` artifact, such
+          as a data cube, it locates the inputs **through which the service is given**
+          (connection, registry); replacing the service means pointing those inputs
+          at another one. An `external-resource` has nothing in the document to point
+          at.
+
+          Optional, and only fillable once the inputs are declared. Omit it rather
+          than guess.
 
           '
         x-jsonld-id: https://w3id.org/ogc/hosted/focal/transferability/properties/artifactRef
+        x-jsonld-container: '@set'
       transferabilityNotes:
         type: string
         description: Free-text note about the artifact. Uplifts to `rdfs:comment`.
@@ -340,7 +431,7 @@ x-jsonld-prefixes:
 x-bblocks-metadata:
   itemIdentifier: ogc.focal.transferability.transferabilityStatement
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
-  version: '0.12'
+  version: '0.13'
   dateOfLastChange: '2026-11-25'
 
 ```
@@ -459,7 +550,10 @@ Links to the schema:
               "@context": {
                 "name": "focal-transf-prop:variableName",
                 "sameAsCurrent": "focal-transf-prop:sameAsCurrent",
-                "standardName": "focal-transf-prop:standardName",
+                "standardName": {
+                  "@id": "focal-transf-prop:standardName",
+                  "@container": "@set"
+                },
                 "units": {
                   "@context": {
                     "@base": "http://qudt.org/vocab/unit/"
@@ -501,7 +595,10 @@ Links to the schema:
                 "minimumPrecedingYears": {
                   "@id": "focal-transf-prop:minimumPrecedingYears",
                   "@type": "http://www.w3.org/2001/XMLSchema#integer"
-                }
+                },
+                "complete": "focal-transf-prop:temporalComplete",
+                "startDate": "dcat:startDate",
+                "endDate": "dcat:endDate"
               },
               "@id": "focal-transf-prop:temporalRequirement"
             },
@@ -513,7 +610,10 @@ Links to the schema:
           },
           "@id": "focal-transf-prop:acceptanceCriteria"
         },
-        "artifactRef": "focal-transf-prop:artifactRef"
+        "artifactRef": {
+          "@id": "focal-transf-prop:artifactRef",
+          "@container": "@set"
+        }
       },
       "@id": "focal-transf-prop:artifacts",
       "@container": "@set"

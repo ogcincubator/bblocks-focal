@@ -1,0 +1,11 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<file:///github/workspace/ref-map> dcterms:title "validation map" ;
+    rdfs:comment "x" ;
+    focal-transf-prop:artifactRef "/inputs/map" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/external-resource> .
+
+[] focal-transf-prop:artifacts <file:///github/workspace/ref-map> .
+

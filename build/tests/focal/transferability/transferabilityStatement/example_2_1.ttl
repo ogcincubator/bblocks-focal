@@ -1,0 +1,13 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
+
+<https://w3id.org/ogc/hosted/focal/transferability/examples/transferability-statement/data-cube> dcterms:title "data cube holding the climate data" ;
+    focal-transf-prop:artifactRef "/inputs/datacube_connection",
+        "/inputs/datacube_registry" ;
+    focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/infrastructure> .
+
+[] focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/transferability-statement/data-cube> ;
+    focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+            focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/transferability-statement/data-cube> ;
+            focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/service-unavailable> ] .
+

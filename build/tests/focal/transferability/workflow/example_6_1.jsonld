@@ -377,7 +377,8 @@
             }
           ],
           "temporal": {
-            "resolution": "P1Y"
+            "resolution": "P1Y",
+            "complete": true
           },
           "axes": [
             "time"
@@ -448,7 +449,77 @@
         "artifact": "FWF5_quitt_limits_11_rasdaman_index.json: intervals of 11 indicators for 23 units (Quitt 1971, Table 2)",
         "artifactRole": "workflow-input",
         "artifactRef": "/inputs/quitt_limit_table",
-        "transferabilityNotes": "A regional table needs: the same 11 indicator codes, units and axis mapping; [min, max] per unit and indicator, null allowed for an open end; and a full cold-to-warm ordering of units (used for tie-breaking and the unit trend). The limits were derived for former Czechoslovakia. Used by (delivered step names): climate-unit-classification, climate-unit-trend."
+        "transferabilityNotes": "A regional table needs: the same 11 indicator codes, units and axis mapping; [min, max] per unit and indicator, null allowed for an open end; and a full cold-to-warm ordering of units (used for tie-breaking and the unit trend). The limits were derived for former Czechoslovakia. Used by (delivered step names): climate-unit-classification, climate-unit-trend.",
+        "acceptanceCriteria": {
+          "variables": [
+            {
+              "name": "SUM25",
+              "units": [
+                "DAY"
+              ]
+            },
+            {
+              "name": "VEG10",
+              "units": [
+                "DAY"
+              ]
+            },
+            {
+              "name": "FROST0",
+              "units": [
+                "DAY"
+              ]
+            },
+            {
+              "name": "ICE0",
+              "units": [
+                "DAY"
+              ]
+            },
+            {
+              "name": "T_JAN",
+              "units": [
+                "DEG_C"
+              ]
+            },
+            {
+              "name": "T_APR",
+              "units": [
+                "DEG_C"
+              ]
+            },
+            {
+              "name": "T_JUL",
+              "units": [
+                "DEG_C"
+              ]
+            },
+            {
+              "name": "T_OCT",
+              "units": [
+                "DEG_C"
+              ]
+            },
+            {
+              "name": "RAIN1",
+              "units": [
+                "DAY"
+              ]
+            },
+            {
+              "name": "P_APR_SEP",
+              "units": [
+                "MilliM"
+              ]
+            },
+            {
+              "name": "P_OCT_MAR",
+              "units": [
+                "MilliM"
+              ]
+            }
+          ]
+        }
       },
       {
         "id": "unit-descriptions",
@@ -461,6 +532,12 @@
         "id": "rasdaman",
         "artifact": "FOCAL Rasdaman data cube (rasql over SSH), source catalogue and registry (climate_source_catalog.json, rasdaman_registry.json)",
         "artifactRole": "infrastructure",
+        "artifactRef": [
+          "/inputs/rasdaman_connection",
+          "/inputs/rasdaman_registry",
+          "/inputs/climate_source_catalogue",
+          "/inputs/readiness_collection"
+        ],
         "transferabilityNotes": "The delivered workflow reads precomputed indicator collections from a Rasdaman instance queried with rasql over SSH. Another platform needs a Rasdaman instance with the same collection layout (set the connection variables and READINESS_COLLECTION) and its own registry, or replacement of the rasql data access by file-based reading; the scoring, IDW and trend modules use NumPy only. Within FOCAL: add the new collections and area entries. Outside FOCAL: the operator's own registry. Used by (delivered step names): data-access."
       }
     ],

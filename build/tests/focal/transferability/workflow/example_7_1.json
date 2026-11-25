@@ -151,6 +151,22 @@
         }
       },
       {
+        "id": "gwl-2",
+        "role": "can-run-on",
+        "dimension": "temporal",
+        "value": {
+          "scenarioMarker": "gwl-2.0"
+        }
+      },
+      {
+        "id": "gwl-3",
+        "role": "can-run-on",
+        "dimension": "temporal",
+        "value": {
+          "scenarioMarker": "gwl-3.0"
+        }
+      },
+      {
         "id": "supported-grids",
         "role": "can-run-on",
         "dimension": "grid-structure",

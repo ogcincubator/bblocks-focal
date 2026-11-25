@@ -1,5 +1,5 @@
 Validation report for ogc.focal.forestStandFeature - FOCAL Forest Stand Feature
-Generated 2026-11-25T11:28:41.309991+00:00
+Generated 2026-11-25T12:45:58.979140+00:00
 === General ===
 Test was expected to fail and it did.
 === End General ===
@@ -79,19 +79,19 @@ Validation result for _sources/forestStandFeature/shapes.shacl: 1 violation
 ** Validation error **
 Violation (sh:MinCountConstraintComponent):
   Source shape: <https://example.com/focal/feature-lesniTyp>/sh:property "lesniTyp" (path focal-prop:lesniTyp)
-  Focus node: _:Nf10fdd49fcd04d8e92710db101a780c2
+  Focus node: _:Nf56204209b42465a8bccb433fdee06d7
   Result path: focal-prop:lesniTyp
   Message: Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource.
 Focus nodes for _sources/forestStandFeature/shapes.shacl:
- - Shape <https://example.com/focal/feature-lesniTyp>: _:Nf10fdd49fcd04d8e92710db101a780c2
+ - Shape <https://example.com/focal/feature-lesniTyp>: _:Nf56204209b42465a8bccb433fdee06d7
 
 Validation result for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl: no results
 Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:
  - Shape geojson:LinkShape: *none*
- - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
  - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*
  - Shape geojson:GeometryShape: *none*
- - Shape geojson:FeatureShape: _:Nf10fdd49fcd04d8e92710db101a780c2
+ - Shape geojson:FeatureShape: _:Nf56204209b42465a8bccb433fdee06d7
+ - Shape geojson:GeometryShape/sh:or/rdf:first: *none*
 
 === End SHACL ===
 

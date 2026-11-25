@@ -1,5 +1,5 @@
 Validation report for ogc.focal.forestStandProperties - FOCAL Forest Stand Properties
-Generated 2026-11-25T11:28:39.390936+00:00
+Generated 2026-11-25T12:45:57.044302+00:00
 === Files ===
 Using ../forestStandCollection/examples/feature.json from examples
 JSON-LD context is present - uplifting

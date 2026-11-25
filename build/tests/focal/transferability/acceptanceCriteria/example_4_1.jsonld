@@ -16,9 +16,13 @@
     },
     {
       "name": "ssr",
-      "standardName": "surface_net_downward_shortwave_flux",
+      "standardName": [
+        "surface_net_downward_shortwave_flux",
+        "integral_wrt_time_of_surface_net_downward_shortwave_flux"
+      ],
       "units": [
-        "W-PER-M2"
+        "W-PER-M2",
+        "J-PER-M2"
       ]
     }
   ],
@@ -28,7 +32,9 @@
       "standard",
       "proleptic_gregorian"
     ],
-    "minimumPrecedingYears": 30
+    "minimumPrecedingYears": 30,
+    "complete": true,
+    "startDate": "1991"
   },
   "gridTypes": [
     "regular-latlon",

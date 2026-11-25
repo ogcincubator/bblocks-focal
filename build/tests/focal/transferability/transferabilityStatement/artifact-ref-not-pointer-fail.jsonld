@@ -1,0 +1,17 @@
+{
+  "@context": "https://ogcincubator.github.io/bblocks-focal/build/annotated/focal/transferability/transferabilityStatement/context.jsonld",
+  "envelope": [],
+  "artifacts": [
+    {
+      "id": "cube",
+      "artifact": "data cube",
+      "artifactRole": "infrastructure",
+      "artifactRef": [
+        "/inputs/connection",
+        "registry"
+      ],
+      "transferabilityNotes": "x"
+    }
+  ],
+  "rules": []
+}

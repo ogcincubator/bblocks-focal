@@ -105,7 +105,10 @@
                   "@context": {
                     "name": "focal-transf-prop:variableName",
                     "sameAsCurrent": "focal-transf-prop:sameAsCurrent",
-                    "standardName": "focal-transf-prop:standardName",
+                    "standardName": {
+                      "@id": "focal-transf-prop:standardName",
+                      "@container": "@set"
+                    },
                     "units": {
                       "@context": {
                         "@base": "http://qudt.org/vocab/unit/"
@@ -147,7 +150,10 @@
                     "minimumPrecedingYears": {
                       "@id": "focal-transf-prop:minimumPrecedingYears",
                       "@type": "http://www.w3.org/2001/XMLSchema#integer"
-                    }
+                    },
+                    "complete": "focal-transf-prop:temporalComplete",
+                    "startDate": "dcat:startDate",
+                    "endDate": "dcat:endDate"
                   },
                   "@id": "focal-transf-prop:temporalRequirement"
                 },
@@ -159,7 +165,10 @@
               },
               "@id": "focal-transf-prop:acceptanceCriteria"
             },
-            "artifactRef": "focal-transf-prop:artifactRef"
+            "artifactRef": {
+              "@id": "focal-transf-prop:artifactRef",
+              "@container": "@set"
+            }
           },
           "@id": "focal-transf-prop:artifacts",
           "@container": "@set"
