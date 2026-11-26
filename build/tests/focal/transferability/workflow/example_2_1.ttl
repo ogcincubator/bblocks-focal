@@ -4,9 +4,9 @@
 @prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
-@prefix ns3: <https://w3id.org/cwl/cwl#NetworkAccess/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#NetworkAccess/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns3: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <https://schema.org/> .
 @prefix sld: <https://w3id.org/cwl/salad#> .
@@ -55,31 +55,31 @@
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/spei>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/trends> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns1:packages [ ns2:package "numpy" ],
-                [ ns2:package "flask" ],
-                [ ns2:package "gunicorn" ],
-                [ ns2:package "python" ],
-                [ ns2:package "scipy" ] ],
+            ns2:packages [ ns3:package "gunicorn" ],
+                [ ns3:package "numpy" ],
+                [ ns3:package "python" ],
+                [ ns3:package "flask" ],
+                [ ns3:package "scipy" ] ],
         [ a cwl:NetworkAccess ;
-            ns3:networkAccess true ] ;
+            ns1:networkAccess true ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
-    focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "One RCM, three GCMs, one scenario (SSP3-7.0)." ],
-        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/intended-use-limit> ;
+    focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/intended-use-limit> ;
             focal-transf-prop:note "Drought and waterlogging tolerance scores are ordinal rankings, not mortality or SPEI thresholds." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "Default thresholds (Tmax >= 30 degC, dry day < 1 mm, dry spell >= 10 days, heatwave >= 6 days, growing season Apr-Sep) suit Central Europe; they are request parameters and should be set per region." ],
+            focal-transf-prop:note "One RCM, three GCMs, one scenario (SSP3-7.0)." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
             focal-transf-prop:note "10 km (ERA5-Land) and 12.5 km (EUR-11); IDW adds no detail." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
             focal-transf-prop:note "Historical years taken from another source are quantile-mapped per calendar month; this aligns distributions, it is not a full bias adjustment." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
+            focal-transf-prop:note "Default thresholds (Tmax >= 30 degC, dry day < 1 mm, dry spell >= 10 days, heatwave >= 6 days, growing season Apr-Sep) suit Central Europe; they are request parameters and should be set per region." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/proxy-variable> ;
+            focal-transf-prop:note "T5 is a leaf-tissue threshold from short laboratory exposures, compared with daily maximum air temperature; species heat counts are indicative." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/proxy-variable> ;
             focal-transf-prop:note "Czech forest-type lookup returns potential natural and target composition, not the actual stand." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "Hargreaves PET is temperature-based; SPEI standardisation reduces but does not remove its bias." ],
-        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/proxy-variable> ;
-            focal-transf-prop:note "T5 is a leaf-tissue threshold from short laboratory exposures, compared with daily maximum air temperature; species heat counts are indicative." ] ;
+            focal-transf-prop:note "Hargreaves PET is temperature-based; SPEI standardisation reduces but does not remove its bias." ] ;
     focal-transf-prop:transferability [ rdfs:comment "Envelope entries and rules that only described which data FOCAL currently holds, or its platform, are not part of this statement; what they said is kept in the notes of the artifacts concerned. An area or period for which no data is at hand is a matter of providing data (as delivered, in the data cube) that meets the artifact's criteria. The delivered record also notes: temporal extent is the year range of each collection, read from Rasdaman at runtime. The general climate-stress part is bounded only by data, the latitude limit of PET and SPEI and the need for 30 years of reference history; the species add-on adds species coverage and the Czech forest-type lookup." ;
             focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/daily-climate>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/dry-day-threshold>,
@@ -99,7 +99,29 @@
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/pet-latitude-limit>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/t5-species-coverage>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerance-species-coverage> ;
-            focal-transf-prop:rules [ rdfs:comment "PET/SPEI undefined poleward of 66.56 deg; other indicators still run. Fix needs a code change (clipping of the sunset-angle term)." ;
+            focal-transf-prop:rules [ rdfs:comment "Add literature values for the species in question; general part unaffected. Without them there is no tolerance result for the species. Use values from the same synthesis." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-tolerances> ;
+                    focal-transf-prop:mandatory false ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerance-species-coverage> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/different-class-from> ] ],
+                [ rdfs:comment "The default thresholds and growing season suit Central Europe; they are request parameters and should be set per region. If kept, counts and classes based on them are less meaningful for the region." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/dry-day-threshold>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/dry-spell-length>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/growing-season-end>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/growing-season-start>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/heat-threshold>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/heatwave-length> ;
+                    focal-transf-prop:mandatory false ;
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-climate-regime> ],
+                [ rdfs:comment "Add literature values for the species in question; general part unaffected. Without them there is no T5-based heat result for the species. Literature T5 values must use the same endpoint." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/t5-values> ;
+                    focal-transf-prop:mandatory false ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/t5-species-coverage> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/different-class-from> ] ],
+                [ rdfs:comment "PET/SPEI undefined poleward of 66.56 deg; other indicators still run. Fix needs a code change (clipping of the sunset-angle term)." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable> ;
                     focal-transf-prop:affects "/outputs/forest_climate_summary",
                         "/outputs/spei" ;
@@ -118,33 +140,11 @@
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czech-forest-type-map> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Add literature values for the species in question; general part unaffected. Without them there is no T5-based heat result for the species. Literature T5 values must use the same endpoint." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/t5-values> ;
-                    focal-transf-prop:mandatory false ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/t5-species-coverage> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/different-class-from> ] ],
                 [ rdfs:comment "Applies where no Rasdaman instance is available to the workflow: set one up with the same layout and its own registry, or change the code that reads the data (see the rasdaman artifact). On the FOCAL instance, a missing area is instead added as new collections and entries." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman> ;
                     focal-transf-prop:mandatory true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/service-unavailable> ],
-                [ rdfs:comment "The default thresholds and growing season suit Central Europe; they are request parameters and should be set per region. If kept, counts and classes based on them are less meaningful for the region." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/dry-day-threshold>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/dry-spell-length>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/growing-season-end>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/growing-season-start>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/heat-threshold>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/heatwave-length> ;
-                    focal-transf-prop:mandatory false ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-climate-regime> ],
-                [ rdfs:comment "Add literature values for the species in question; general part unaffected. Without them there is no tolerance result for the species. Use values from the same synthesis." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-tolerances> ;
-                    focal-transf-prop:mandatory false ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerance-species-coverage> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/different-class-from> ] ] ;
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/service-unavailable> ] ;
             focal-transf-prop:trainingRequired false ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/bbox> rdfs:label "Area of interest (bounding box)" ;
@@ -330,17 +330,17 @@
                     focal-transf-prop:calendar "noleap",
                         "proleptic_gregorian",
                         "standard" ] ;
-            focal-transf-prop:variable [ focal-transf-prop:standardName "air_temperature" ;
-                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tasmin" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
+            focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
                     focal-transf-prop:variableName "pr" ],
                 [ focal-transf-prop:standardName "air_temperature" ;
                     focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tasmax" ],
+                    focal-transf-prop:variableName "tasmin" ],
                 [ focal-transf-prop:standardName "air_temperature" ;
                     focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tas" ] ] ;
+                    focal-transf-prop:variableName "tas" ],
+                [ focal-transf-prop:standardName "air_temperature" ;
+                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "tasmax" ] ] ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/dry-day-threshold> dcterms:title "Dry day threshold (< 1 mm)" ;
@@ -407,15 +407,15 @@
                     focal-transf-prop:temporalComplete true ] ;
             focal-transf-prop:variable [ focal-transf-prop:standardName "air_temperature" ;
                     focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "tasmin" ],
+                [ focal-transf-prop:standardName "air_temperature" ;
+                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
                     focal-transf-prop:variableName "tasmax" ],
                 [ focal-transf-prop:standardName "air_temperature" ;
                     focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tasmin" ],
+                    focal-transf-prop:variableName "tas" ],
                 [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
-                    focal-transf-prop:variableName "pr" ],
-                [ focal-transf-prop:standardName "air_temperature" ;
-                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tas" ] ] ;
+                    focal-transf-prop:variableName "pr" ] ] ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-species> dcterms:title "slt_species.json: Czech forest-type groups (SLT, 105) with natural and target species composition (%)" ;
@@ -425,8 +425,8 @@
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-tolerances> dcterms:title "species_tolerances.json: drought and waterlogging tolerance 0-5 (Niinemets & Valladares 2006)" ;
     rdfs:comment "A replacement gives drought and waterlogging tolerance on an ordinal 0-5 scale, from the same synthesis or an equivalent ordinal scale. The source synthesis covers temperate Northern Hemisphere trees and shrubs. Species add-on only. Used by (delivered step names): species-tolerance, forest-type-tolerance-ranking." ;
-    focal-transf-prop:acceptanceCriteria [ focal-transf-prop:variable [ focal-transf-prop:variableName "waterlogging" ],
-                [ focal-transf-prop:variableName "drought" ] ] ;
+    focal-transf-prop:acceptanceCriteria [ focal-transf-prop:variable [ focal-transf-prop:variableName "drought" ],
+                [ focal-transf-prop:variableName "waterlogging" ] ] ;
     focal-transf-prop:artifactRef "/inputs/species_tolerances" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
@@ -450,10 +450,10 @@
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/t5-values> dcterms:title "t5_values.json: leaf heat tolerance T5 (temperature at 5 % decline of Fv/Fm) per species, with measurements and sources (Kunert et al. 2022 and others)" ;
     rdfs:comment "Species traits from literature, independent of location. Species add-on only. Used by (delivered step names): species-heat-threshold." ;
     focal-transf-prop:acceptanceCriteria [ rdfs:comment "Endpoint T5: temperature at 5 % decline of Fv/Fm. Measurements carry their source. The key \"lat\" is the Latin species name, not a latitude." ;
-            focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+            focal-transf-prop:variable [ focal-transf-prop:variableName "code" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
                     focal-transf-prop:variableName "t5" ],
                 [ focal-transf-prop:variableName "lat" ],
-                [ focal-transf-prop:variableName "code" ],
                 [ focal-transf-prop:variableName "measurements" ] ] ;
     focal-transf-prop:artifactRef "/inputs/t5_values" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .

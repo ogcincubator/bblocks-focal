@@ -293,16 +293,16 @@ net radiation may come as a flux or as an accumulation over time, matching the t
                 "standard" ;
             focal-transf-prop:minimumPrecedingYears 30 ;
             focal-transf-prop:temporalComplete true ] ;
-    focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
-            focal-transf-prop:variableName "pr" ],
-        [ focal-transf-prop:standardName "air_temperature" ;
-            focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-            focal-transf-prop:variableName "tmax" ],
-        [ focal-transf-prop:standardName "integral_wrt_time_of_surface_net_downward_shortwave_flux",
+    focal-transf-prop:variable [ focal-transf-prop:standardName "integral_wrt_time_of_surface_net_downward_shortwave_flux",
                 "surface_net_downward_shortwave_flux" ;
             focal-transf-prop:unit <http://qudt.org/vocab/unit/J-PER-M2>,
                 <http://qudt.org/vocab/unit/W-PER-M2> ;
-            focal-transf-prop:variableName "ssr" ] .
+            focal-transf-prop:variableName "ssr" ],
+        [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
+            focal-transf-prop:variableName "pr" ],
+        [ focal-transf-prop:standardName "air_temperature" ;
+            focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+            focal-transf-prop:variableName "tmax" ] .
 
 
 ```
@@ -591,7 +591,7 @@ x-bblocks-metadata:
   itemIdentifier: ogc.focal.transferability.acceptanceCriteria
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
   version: '0.6'
-  dateOfLastChange: '2026-11-25'
+  dateOfLastChange: '2026-11-26'
 
 ```
 

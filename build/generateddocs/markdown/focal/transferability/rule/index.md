@@ -587,7 +587,7 @@ x-bblocks-metadata:
   itemIdentifier: ogc.focal.transferability.rule
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
   version: '0.9'
-  dateOfLastChange: '2026-11-25'
+  dateOfLastChange: '2026-11-26'
 
 ```
 

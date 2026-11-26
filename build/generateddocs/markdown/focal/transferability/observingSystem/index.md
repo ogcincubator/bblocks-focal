@@ -234,7 +234,7 @@ raised with the owner.
                         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/station-metadata>,
                         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/target-climate-datasets> ;
                     focal-transf-prop:mandatory true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ],
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-dataset> ],
                 [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/calibration-rules>,
                         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/observed-properties>,
@@ -242,7 +242,7 @@ raised with the owner.
                         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/station-metadata>,
                         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/target-climate-datasets> ;
                     focal-transf-prop:mandatory true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-dataset> ] ;
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-geographic-coverage> ] ;
             focal-transf-prop:trainingRequired false ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf4/senslog-model-and-api> dcterms:title "SensLog data model and API-based access" ;
@@ -324,7 +324,7 @@ x-bblocks-metadata:
   itemIdentifier: ogc.focal.transferability.observingSystem
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
   version: '0.2'
-  dateOfLastChange: '2026-11-25'
+  dateOfLastChange: '2026-11-26'
 
 ```
 

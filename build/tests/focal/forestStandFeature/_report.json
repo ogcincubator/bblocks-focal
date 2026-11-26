@@ -2,7 +2,7 @@
   "title": "Validation report for ogc.focal.forestStandFeature - FOCAL Forest Stand Feature",
   "bblockName": "FOCAL Forest Stand Feature",
   "bblockId": "ogc.focal.forestStandFeature",
-  "generated": "2026-11-25T12:45:59.015193+00:00",
+  "generated": "2026-11-26T15:51:59.434540+00:00",
   "result": true,
   "items": [
     {
@@ -66,7 +66,7 @@
               "exception": "ValidationError",
               "errorMessage": "'LT' is a required property",
               "isError": true,
-              "message": "ValidationError: 'LT' is a required property\n\nFailed validating 'required' in schema[0]['allOf'][1]['properties']['properties']:\n    {'$schema': 'https://json-schema.org/draft/2020-12/schema',\n     'description': 'My example schema',\n     'type': 'object',\n     'properties': {'LT': {'type': 'string',\n                           'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniTyp',\n                           'x-jsonld-type': '@id',\n                           'x-jsonld-base': 'https://w3id.org/ogc/hosted/focal/lt/'},\n                    'LES_OBL': {'type': 'number',\n                                'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniOblast'},\n                    'LO_CAST': {'type': 'string',\n                                'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniOblastCast'},\n                    'UDRZBA': {'type': 'number',\n                               'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniUDRZBA'},\n                    'ZMENA': {'type': 'string',\n                              'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniZMENA'},\n                    'ZADOST': {'type': 'string',\n                               'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniZADOST'},\n                    'CHS': {'type': 'number',\n                            'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniCHS'},\n                    'PCHS': {'type': 'string',\n                             'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniPCHS'},\n                    'OVER_T': {'type': 'string',\n                               'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniOVERT'},\n                    'ROK_MAP': {'type': 'number',\n                                'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniROKMAP'},\n                    'ID1': {'type': 'number',\n                            'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniID1'},\n                    'SLT': {'type': 'string',\n                            'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniSLT'},\n                    'PLOCHA': {'type': 'number',\n                               'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniPLOCHA'},\n                    'DS_OPRL': {'type': 'number',\n                                'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniDSOPRL'}},\n     'required': ['LT'],\n     'x-jsonld-prefixes': {'focal-prop': 'https://w3id.org/ogc/hosted/focal/properties/'},\n     'x-bblocks-metadata': {'itemIdentifier': 'ogc.focal.forestStandProperties',\n                            'register': 'https://ogcincubator.github.io/bblocks-focal/build/register.json',\n                            'version': '0.1',\n                            'dateOfLastChange': '2026-11-25'}}\n\nOn instance['properties']:\n    {'LES_OBL': 8,\n     'LO_CAST': 'a',\n     'UDRZBA': 2022,\n     'ZMENA': 'Uveden\u00ed do souladu s KN',\n     'ZADOST': '-',\n     'CHS': 25,\n     'PCHS': '25a',\n     'OVER_T': 'NE',\n     'ROK_MAP': 2015,\n     'ID1': 128301,\n     'SLT': '2S',\n     'PLOCHA': 1224.24963,\n     'DS_OPRL': 2025}"
+              "message": "ValidationError: 'LT' is a required property\n\nFailed validating 'required' in schema[0]['allOf'][1]['properties']['properties']:\n    {'$schema': 'https://json-schema.org/draft/2020-12/schema',\n     'description': 'My example schema',\n     'type': 'object',\n     'properties': {'LT': {'type': 'string',\n                           'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniTyp',\n                           'x-jsonld-type': '@id',\n                           'x-jsonld-base': 'https://w3id.org/ogc/hosted/focal/lt/'},\n                    'LES_OBL': {'type': 'number',\n                                'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniOblast'},\n                    'LO_CAST': {'type': 'string',\n                                'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniOblastCast'},\n                    'UDRZBA': {'type': 'number',\n                               'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniUDRZBA'},\n                    'ZMENA': {'type': 'string',\n                              'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniZMENA'},\n                    'ZADOST': {'type': 'string',\n                               'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniZADOST'},\n                    'CHS': {'type': 'number',\n                            'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniCHS'},\n                    'PCHS': {'type': 'string',\n                             'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniPCHS'},\n                    'OVER_T': {'type': 'string',\n                               'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniOVERT'},\n                    'ROK_MAP': {'type': 'number',\n                                'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniROKMAP'},\n                    'ID1': {'type': 'number',\n                            'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniID1'},\n                    'SLT': {'type': 'string',\n                            'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniSLT'},\n                    'PLOCHA': {'type': 'number',\n                               'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniPLOCHA'},\n                    'DS_OPRL': {'type': 'number',\n                                'x-jsonld-id': 'https://w3id.org/ogc/hosted/focal/properties/lesniDSOPRL'}},\n     'required': ['LT'],\n     'x-jsonld-prefixes': {'focal-prop': 'https://w3id.org/ogc/hosted/focal/properties/'},\n     'x-bblocks-metadata': {'itemIdentifier': 'ogc.focal.forestStandProperties',\n                            'register': 'https://ogcincubator.github.io/bblocks-focal/build/register.json',\n                            'version': '0.1',\n                            'dateOfLastChange': '2026-11-26'}}\n\nOn instance['properties']:\n    {'LES_OBL': 8,\n     'LO_CAST': 'a',\n     'UDRZBA': 2022,\n     'ZMENA': 'Uveden\u00ed do souladu s KN',\n     'ZADOST': '-',\n     'CHS': 25,\n     'PCHS': '25a',\n     'OVER_T': 'NE',\n     'ROK_MAP': 2015,\n     'ID1': 128301,\n     'SLT': '2S',\n     'PLOCHA': 1224.24963,\n     'DS_OPRL': 2025}"
             }
           ]
         },
@@ -84,7 +84,7 @@
             {
               "op": "shacl-result",
               "resultSeverity": "http://www.w3.org/ns/shacl#Violation",
-              "focusNode": "Nf56204209b42465a8bccb433fdee06d7",
+              "focusNode": "Ndfb3219671854e62862ef523632e3de0",
               "resultPath": "focal-prop:lesniTyp",
               "sourceConstraintComponent": "http://www.w3.org/ns/shacl#MinCountConstraintComponent",
               "sourceShape": null,
@@ -94,19 +94,19 @@
               "shaclFile": "_sources/forestStandFeature/shapes.shacl",
               "isError": true,
               "severity": "error",
-              "message": "Violation (sh:MinCountConstraintComponent):\n  Source shape: <https://example.com/focal/feature-lesniTyp>/sh:property \"lesniTyp\" (path focal-prop:lesniTyp)\n  Focus node: _:Nf56204209b42465a8bccb433fdee06d7\n  Result path: focal-prop:lesniTyp\n  Message: Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource."
+              "message": "Violation (sh:MinCountConstraintComponent):\n  Source shape: <https://example.com/focal/feature-lesniTyp>/sh:property \"lesniTyp\" (path focal-prop:lesniTyp)\n  Focus node: _:Ndfb3219671854e62862ef523632e3de0\n  Result path: focal-prop:lesniTyp\n  Message: Every geojson:Feature must have at least one focal-prop:lesniTyp whose value is an IRI resource."
             },
             {
               "shaclFile": "_sources/forestStandFeature/shapes.shacl",
               "focusNodes": {
                 "<https://example.com/focal/feature-lesniTyp>": {
                   "nodes": [
-                    "_:Nf56204209b42465a8bccb433fdee06d7"
+                    "_:Ndfb3219671854e62862ef523632e3de0"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/forestStandFeature/shapes.shacl:\n - Shape <https://example.com/focal/feature-lesniTyp>: _:Nf56204209b42465a8bccb433fdee06d7\n"
+              "message": "Focus nodes for _sources/forestStandFeature/shapes.shacl:\n - Shape <https://example.com/focal/feature-lesniTyp>: _:Ndfb3219671854e62862ef523632e3de0\n"
             },
             {
               "op": "shacl-report",
@@ -118,26 +118,26 @@
             {
               "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl",
               "focusNodes": {
-                "geojson:LinkShape": {
+                "geojson:GeometryShape/sh:or/rdf:first": {
                   "nodes": []
                 },
                 "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
                   "nodes": []
                 },
-                "geojson:GeometryShape": {
+                "geojson:LinkShape": {
                   "nodes": []
                 },
                 "geojson:FeatureShape": {
                   "nodes": [
-                    "_:Nf56204209b42465a8bccb433fdee06d7"
+                    "_:Ndfb3219671854e62862ef523632e3de0"
                   ]
                 },
-                "geojson:GeometryShape/sh:or/rdf:first": {
+                "geojson:GeometryShape": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:FeatureShape: _:Nf56204209b42465a8bccb433fdee06d7\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n"
+              "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:LinkShape: *none*\n - Shape geojson:FeatureShape: _:Ndfb3219671854e62862ef523632e3de0\n - Shape geojson:GeometryShape: *none*\n"
             }
           ]
         }
@@ -213,12 +213,12 @@
               "focusNodes": {
                 "<https://example.com/focal/feature-lesniTyp>": {
                   "nodes": [
-                    "_:N490c3f0f691b4061939c6633d7c9be8d"
+                    "_:N29e6e6842fb44a7ea7bc03db310496fb"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/forestStandFeature/shapes.shacl:\n - Shape <https://example.com/focal/feature-lesniTyp>: _:N490c3f0f691b4061939c6633d7c9be8d\n"
+              "message": "Focus nodes for _sources/forestStandFeature/shapes.shacl:\n - Shape <https://example.com/focal/feature-lesniTyp>: _:N29e6e6842fb44a7ea7bc03db310496fb\n"
             },
             {
               "op": "shacl-report",
@@ -230,26 +230,26 @@
             {
               "shaclFile": "https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl",
               "focusNodes": {
-                "geojson:LinkShape": {
+                "geojson:GeometryShape/sh:or/rdf:first": {
                   "nodes": []
                 },
                 "geojson:GeometryShape/sh:or/rdf:rest/rdf:first": {
                   "nodes": []
                 },
-                "geojson:GeometryShape": {
+                "geojson:LinkShape": {
                   "nodes": []
                 },
                 "geojson:FeatureShape": {
                   "nodes": [
-                    "_:N490c3f0f691b4061939c6633d7c9be8d"
+                    "_:N29e6e6842fb44a7ea7bc03db310496fb"
                   ]
                 },
-                "geojson:GeometryShape/sh:or/rdf:first": {
+                "geojson:GeometryShape": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n - Shape geojson:LinkShape: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:GeometryShape: *none*\n - Shape geojson:FeatureShape: _:N490c3f0f691b4061939c6633d7c9be8d\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n"
+              "message": "Focus nodes for https://opengeospatial.github.io/bblocks/registereditems/geo/features/feature/shapes.shacl:\n - Shape geojson:GeometryShape/sh:or/rdf:first: *none*\n - Shape geojson:GeometryShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape geojson:LinkShape: *none*\n - Shape geojson:FeatureShape: _:N29e6e6842fb44a7ea7bc03db310496fb\n - Shape geojson:GeometryShape: *none*\n"
             }
           ]
         }

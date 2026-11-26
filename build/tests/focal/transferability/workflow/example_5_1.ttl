@@ -14,15 +14,15 @@
     cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/nukleus_ensemble> ;
     cwl:outputs <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/climate_indices> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns2:packages [ ns1:package "s3fs" ],
-                [ ns1:package "dask" ],
-                [ ns1:package "xarray" ],
-                [ ns1:package "pandas" ],
-                [ ns1:package "h5netcdf" ],
-                [ ns1:package "xclim" ],
-                [ ns1:package "python" ],
+            ns2:packages [ ns1:package "numpy" ],
                 [ ns1:package "xESMF" ],
-                [ ns1:package "numpy" ] ] ;
+                [ ns1:package "h5netcdf" ],
+                [ ns1:package "s3fs" ],
+                [ ns1:package "python" ],
+                [ ns1:package "pandas" ],
+                [ ns1:package "xarray" ],
+                [ ns1:package "dask" ],
+                [ ns1:package "xclim" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/precomputed-delivery> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/pre-operational> ;
     focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/intended-use-limit> ;

@@ -1865,8 +1865,8 @@ A trained model with its training area, the value ranges it was trained on (`inp
 @prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix ns1: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
 @prefix ns3: <https://w3id.org/cwl/cwl#NetworkAccess/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <https://schema.org/> .
@@ -1899,31 +1899,31 @@ A trained model with its training area, the value ranges it was trained on (`inp
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/period_summary>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/stress_assessment>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/typical_growth> ;
-    cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns2:packages [ ns1:package "python" ],
-                [ ns1:package "flask" ],
-                [ ns1:package "scikit-learn" ;
-                    ns1:version "1.9.1" ],
-                [ ns1:package "lightgbm" ;
-                    ns1:version "4.7.0" ] ],
-        [ a cwl:NetworkAccess ;
-            ns3:networkAccess true ] ;
+    cwl:requirements [ a cwl:NetworkAccess ;
+            ns3:networkAccess true ],
+        [ a cwl:SoftwareRequirement ;
+            ns1:packages [ ns2:package "flask" ],
+                [ ns2:package "lightgbm" ;
+                    ns2:version "4.7.0" ],
+                [ ns2:package "scikit-learn" ;
+                    ns2:version "1.9.1" ],
+                [ ns2:package "python" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/statistical-ml> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
     focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "Slope, aspect and soil come from global maps, not field measurements (slope MAE 2.7 deg on 1,033 Czech plots)." ],
-        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "stress_probability is the share of bootstrap members flagging a stress year, not a calibrated probability." ],
-        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "Final model trained on FOCAL downscaled ERA5-Land (elevation correction fitted on Czech CHMI stations); inference collections must be on a consistent frame." ],
-        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/accuracy> ;
-            focal-transf-prop:note "Hold-out test (160 Czech stands, 2015-2025): total-height MAPE 3.15 % (2.7-3.6 % per species)." ],
+            focal-transf-prop:note "Disturbances, mortality and management are not modelled; projections describe undisturbed growth." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
             focal-transf-prop:note "Bands are bootstrap model uncertainty for one climate source; no climate-model spread, no initial-height or stand-specific variability." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
+            focal-transf-prop:note "stress_probability is the share of bootstrap members flagging a stress year, not a calibrated probability." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
+            focal-transf-prop:note "Slope, aspect and soil come from global maps, not field measurements (slope MAE 2.7 deg on 1,033 Czech plots)." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/accuracy> ;
+            focal-transf-prop:note "Hold-out test (160 Czech stands, 2015-2025): total-height MAPE 3.15 % (2.7-3.6 % per species)." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
             focal-transf-prop:note "Stands younger than about 16 years and late-century heat extremes lie outside the training data." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "Disturbances, mortality and management are not modelled; projections describe undisturbed growth." ] ;
+            focal-transf-prop:note "Final model trained on FOCAL downscaled ERA5-Land (elevation correction fitted on Czech CHMI stations); inference collections must be on a consistent frame." ] ;
     focal-transf-prop:transferability [ rdfs:comment "Envelope entries and rules that only described which data FOCAL currently holds, or its platform, are not part of this statement; what they said is kept in the notes of the artifacts concerned. An area or period for which no data is at hand is a matter of providing data (as delivered, in the data cube) that meets the artifact's criteria. The delivered record also notes: temporal extent is the year range of each collection, read from Rasdaman at runtime. Delivered coverage fact: SoilGrids and Copernicus DEM are global; the API runs wherever the climate collections cover the point and does not restrict to Czechia or to forest land." ;
             focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/copernicus-dem>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model>,
@@ -1944,18 +1944,13 @@ A trained model with its training area, the value ranges it was trained on (`inp
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/dem-coverage>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/trained-species>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/training-feature-domain> ;
-            focal-transf-prop:rules [ rdfs:comment "A manual threshold can be passed per request (input stress_threshold)." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/stress-thresholds> ;
+            focal-transf-prop:rules [ rdfs:comment "Retrain the pipeline on national stand data; regenerate reference curves, stress thresholds and species support." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/reference-increment> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-nfi-plots> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Applies where no Rasdaman instance is available to the workflow: set one up with the same layout and its own registry, or change the code that reads the data (see the rasdaman artifact). On the FOCAL instance, a missing area is instead added as new collections and entries." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/rasdaman> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/service-unavailable> ],
                 [ rdfs:comment "The defaults follow Czech forest management conventions. If they are not set for the country, projections end at an age, and accept stand ages, that may not match local practice." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/rotation-age-beech>,
@@ -1965,9 +1960,10 @@ A trained model with its training area, the value ranges it was trained on (`inp
                     focal-transf-prop:mandatory false ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-jurisdiction> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "National forest inventory with remeasured plots." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/nfi-training-data> ;
+                [ rdfs:comment "A manual threshold can be passed per request (input stress_threshold)." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/stress-thresholds> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-nfi-plots> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
@@ -1977,13 +1973,17 @@ A trained model with its training area, the value ranges it was trained on (`inp
                     focal-transf-prop:mandatory false ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/training-feature-domain> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Retrain the pipeline on national stand data; regenerate reference curves, stress thresholds and species support." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/reference-increment> ;
+                [ rdfs:comment "National forest inventory with remeasured plots." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/nfi-training-data> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/czech-nfi-plots> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ rdfs:comment "Applies where no Rasdaman instance is available to the workflow: set one up with the same layout and its own registry, or change the code that reads the data (see the rasdaman artifact). On the FOCAL instance, a missing area is instead added as new collections and entries." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/rasdaman> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/service-unavailable> ] ;
             focal-transf-prop:trainingRequired true ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/age> rdfs:label "Stand age (years)" ;
@@ -2033,15 +2033,15 @@ A trained model with its training area, the value ranges it was trained on (`inp
                     focal-transf-prop:variableName "ssr" ],
                 [ focal-transf-prop:standardName "air_temperature" ;
                     focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tmax" ],
-                [ focal-transf-prop:standardName "air_temperature" ;
-                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
                     focal-transf-prop:variableName "tmean" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
+                    focal-transf-prop:variableName "pr" ],
                 [ focal-transf-prop:standardName "air_temperature" ;
                     focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
                     focal-transf-prop:variableName "tmin" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
-                    focal-transf-prop:variableName "pr" ] ] ;
+                [ focal-transf-prop:standardName "air_temperature" ;
+                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "tmax" ] ] ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/latitude> rdfs:label "Latitude of the stand" ;
@@ -2068,22 +2068,22 @@ A trained model with its training area, the value ranges it was trained on (`inp
                         "proleptic_gregorian",
                         "standard" ;
                     focal-transf-prop:temporalComplete true ] ;
-            focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
+            focal-transf-prop:variable [ focal-transf-prop:standardName "air_temperature" ;
+                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "tmean" ],
+                [ focal-transf-prop:standardName "air_temperature" ;
+                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "tmin" ],
+                [ focal-transf-prop:standardName "air_temperature" ;
+                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "tmax" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
                     focal-transf-prop:variableName "pr" ],
                 [ focal-transf-prop:standardName "integral_wrt_time_of_surface_net_downward_shortwave_flux",
                         "surface_net_downward_shortwave_flux" ;
                     focal-transf-prop:unit <http://qudt.org/vocab/unit/J-PER-M2>,
                         <http://qudt.org/vocab/unit/W-PER-M2> ;
-                    focal-transf-prop:variableName "ssr" ],
-                [ focal-transf-prop:standardName "air_temperature" ;
-                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tmax" ],
-                [ focal-transf-prop:standardName "air_temperature" ;
-                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tmean" ],
-                [ focal-transf-prop:standardName "air_temperature" ;
-                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tmin" ] ] ;
+                    focal-transf-prop:variableName "ssr" ] ] ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/rasdaman_connection> rdfs:label "Data cube connection" ;
@@ -2124,10 +2124,10 @@ A trained model with its training area, the value ranges it was trained on (`inp
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/soilgrids> dcterms:title "ISRIC SoilGrids 2.0 (Q0.5), nitrogen 4 depths, SOC, pH, clay 0-60 cm, 250 m" ;
     rdfs:comment "Global; fetched live from ISRIC (WCS or WebDAV) with a local cache, so nothing has to be prepared or supplied. Used by (delivered step names): site-features." ;
     focal-transf-prop:acceptanceCriteria [ rdfs:comment "Same product required; raw SoilGrids units are part of the model contract: nitrogen in cg/kg, soc in dg/kg, phh2o as pH x 10, clay in g/kg. Depths: nitrogen at 0-5, 5-15, 15-30 and 30-60 cm; soc, pH and clay 0-60 cm." ;
-            focal-transf-prop:variable [ focal-transf-prop:variableName "phh2o" ],
-                [ focal-transf-prop:variableName "nitrogen" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/GM-PER-KiloGM> ;
+            focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/GM-PER-KiloGM> ;
                     focal-transf-prop:variableName "clay" ],
+                [ focal-transf-prop:variableName "phh2o" ],
+                [ focal-transf-prop:variableName "nitrogen" ],
                 [ focal-transf-prop:variableName "soc" ] ] ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/external-resource> .
 
@@ -2179,10 +2179,10 @@ A trained model with its training area, the value ranges it was trained on (`inp
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/nfi-training-data> dcterms:title "Czech NFI stand measurements (species, age, mean height, site), 1964-2025" ;
     rdfs:comment "Not read at inference; needed to retrain. A replacement must give, per stand: species (the species to be modelled), stand age, mean height, coordinates and measurement year, with at least two measurements per stand. The intervals between the Czech measurements were mostly five years. Used by (delivered step names): training." ;
-    focal-transf-prop:acceptanceCriteria [ focal-transf-prop:variable [ focal-transf-prop:variableName "species" ],
+    focal-transf-prop:acceptanceCriteria [ focal-transf-prop:variable [ focal-transf-prop:variableName "mean height" ],
                 [ focal-transf-prop:variableName "coordinates" ],
                 [ focal-transf-prop:variableName "measurement year" ],
-                [ focal-transf-prop:variableName "mean height" ],
+                [ focal-transf-prop:variableName "species" ],
                 [ focal-transf-prop:variableName "stand age" ] ] ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/external-resource> .
 
@@ -2230,50 +2230,146 @@ A trained model with its training area, the value ranges it was trained on (`inp
         "/inputs/latitude",
         "/inputs/longitude" ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
-    focal-transf-prop:value [ focal-transf-prop:variableRange [ focal-transf-prop:maximum 3.703e+02 ;
-                    focal-transf-prop:minimum 9.911e+01 ;
-                    focal-transf-prop:unitLabel "mm" ;
-                    focal-transf-prop:variableName "P_spring_lag_1" ],
-                [ focal-transf-prop:maximum 2.792e+01 ;
-                    focal-transf-prop:minimum 1.625e+01 ;
-                    focal-transf-prop:unitLabel "°C" ;
-                    focal-transf-prop:variableName "T_amplitude_lag_1" ],
-                [ focal-transf-prop:maximum 2.7e+01 ;
-                    focal-transf-prop:minimum 4.369e-01 ;
-                    focal-transf-prop:unitLabel "degrees" ;
-                    focal-transf-prop:variableName "slope" ],
-                [ focal-transf-prop:maximum 5.496e+02 ;
-                    focal-transf-prop:minimum 1.364e+02 ;
-                    focal-transf-prop:unitLabel "mm" ;
-                    focal-transf-prop:variableName "P_summer" ],
-                [ focal-transf-prop:maximum 1.017e+01 ;
+    focal-transf-prop:value [ focal-transf-prop:variableRange [ focal-transf-prop:maximum 1.017e+01 ;
                     focal-transf-prop:minimum 3.705e+00 ;
                     focal-transf-prop:unitLabel "°C" ;
                     focal-transf-prop:variableName "T_year" ],
-                [ focal-transf-prop:maximum 1.653e+01 ;
-                    focal-transf-prop:minimum 9.507e+00 ;
-                    focal-transf-prop:unitLabel "°C" ;
-                    focal-transf-prop:variableName "T_veg_lag_1" ],
-                [ focal-transf-prop:maximum 1.2e+01 ;
-                    focal-transf-prop:minimum 0e+00 ;
-                    focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "HD30_veg_lag_1" ],
-                [ focal-transf-prop:maximum 4.137e+02 ;
-                    focal-transf-prop:minimum 9.832e+01 ;
-                    focal-transf-prop:unitLabel "mm" ;
-                    focal-transf-prop:variableName "P_prev_late_lag_1" ],
-                [ focal-transf-prop:maximum 2.96e+02 ;
-                    focal-transf-prop:minimum 7.2e+01 ;
-                    focal-transf-prop:unitLabel "cg/kg" ;
-                    focal-transf-prop:variableName "N_30_60" ],
-                [ focal-transf-prop:maximum 3.712e+02 ;
-                    focal-transf-prop:minimum 9.733e+01 ;
-                    focal-transf-prop:unitLabel "mm" ;
-                    focal-transf-prop:variableName "P_spring" ],
                 [ focal-transf-prop:maximum 1.663e+02 ;
                     focal-transf-prop:minimum 1.125e+02 ;
                     focal-transf-prop:unitLabel "W/m²" ;
                     focal-transf-prop:variableName "SR_spring" ],
+                [ focal-transf-prop:maximum 9e+01 ;
+                    focal-transf-prop:minimum 4.4e+01 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "FD_winter_std_lag_1" ],
+                [ focal-transf-prop:maximum 2.7e+01 ;
+                    focal-transf-prop:minimum 4.369e-01 ;
+                    focal-transf-prop:unitLabel "degrees" ;
+                    focal-transf-prop:variableName "slope" ],
+                [ focal-transf-prop:maximum 1.815e+02 ;
+                    focal-transf-prop:minimum 1.368e+02 ;
+                    focal-transf-prop:unitLabel "W/m²" ;
+                    focal-transf-prop:variableName "SR_veg" ],
+                [ focal-transf-prop:maximum 2.483e+00 ;
+                    focal-transf-prop:minimum -2.008e+00 ;
+                    focal-transf-prop:unitLabel "z-score" ;
+                    focal-transf-prop:variableName "SPI_3_summer" ],
+                [ focal-transf-prop:maximum 1.653e+01 ;
+                    focal-transf-prop:minimum 9.507e+00 ;
+                    focal-transf-prop:unitLabel "°C" ;
+                    focal-transf-prop:variableName "T_veg_lag_1" ],
+                [ focal-transf-prop:maximum 1.106e+01 ;
+                    focal-transf-prop:minimum 4.207e+00 ;
+                    focal-transf-prop:unitLabel "°C" ;
+                    focal-transf-prop:variableName "T_autumn" ],
+                [ focal-transf-prop:maximum 2.667e+01 ;
+                    focal-transf-prop:minimum 1.563e+01 ;
+                    focal-transf-prop:unitLabel "°C" ;
+                    focal-transf-prop:variableName "Tmax_Jul_lag_1" ],
+                [ focal-transf-prop:maximum 2.673e+01 ;
+                    focal-transf-prop:minimum 1.588e+01 ;
+                    focal-transf-prop:unitLabel "°C" ;
+                    focal-transf-prop:variableName "Tmax_Aug" ],
+                [ focal-transf-prop:maximum 1.2e+01 ;
+                    focal-transf-prop:minimum 0e+00 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "HD30_veg_lag_1" ],
+                [ focal-transf-prop:maximum 3.712e+02 ;
+                    focal-transf-prop:minimum 9.733e+01 ;
+                    focal-transf-prop:unitLabel "mm" ;
+                    focal-transf-prop:variableName "P_spring" ],
+                [ focal-transf-prop:maximum 2.9e+01 ;
+                    focal-transf-prop:minimum 0e+00 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "FD_AprMay_lag_1" ],
+                [ focal-transf-prop:maximum 1.2e+01 ;
+                    focal-transf-prop:minimum 0e+00 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "HD30_veg" ],
+                [ focal-transf-prop:maximum 3.1e+01 ;
+                    focal-transf-prop:minimum 3e+00 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "R10mm_veg_lag_1" ],
+                [ focal-transf-prop:maximum 3.703e+02 ;
+                    focal-transf-prop:minimum 9.911e+01 ;
+                    focal-transf-prop:unitLabel "mm" ;
+                    focal-transf-prop:variableName "P_spring_lag_1" ],
+                [ focal-transf-prop:maximum 9e+01 ;
+                    focal-transf-prop:minimum 4.5e+01 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "FD_winter_std" ],
+                [ focal-transf-prop:maximum 1.249e+00 ;
+                    focal-transf-prop:minimum -1.054e+01 ;
+                    focal-transf-prop:unitLabel "°C" ;
+                    focal-transf-prop:variableName "T_min_month_lag_1" ],
+                [ focal-transf-prop:maximum 2.792e+01 ;
+                    focal-transf-prop:minimum 1.625e+01 ;
+                    focal-transf-prop:unitLabel "°C" ;
+                    focal-transf-prop:variableName "T_amplitude_lag_1" ],
+                [ focal-transf-prop:maximum 6.73e+02 ;
+                    focal-transf-prop:minimum 1.61e+02 ;
+                    focal-transf-prop:unitLabel "cg/kg" ;
+                    focal-transf-prop:variableName "N_5_15" ],
+                [ focal-transf-prop:maximum 5.496e+02 ;
+                    focal-transf-prop:minimum 1.364e+02 ;
+                    focal-transf-prop:unitLabel "mm" ;
+                    focal-transf-prop:variableName "P_summer" ],
+                [ focal-transf-prop:maximum 2.8e+01 ;
+                    focal-transf-prop:minimum 0e+00 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "FD_AprMay" ],
+                [ focal-transf-prop:maximum 2.96e+02 ;
+                    focal-transf-prop:minimum 7.2e+01 ;
+                    focal-transf-prop:unitLabel "cg/kg" ;
+                    focal-transf-prop:variableName "N_30_60" ],
+                [ focal-transf-prop:maximum 1.663e+02 ;
+                    focal-transf-prop:minimum 1.12e+02 ;
+                    focal-transf-prop:unitLabel "W/m²" ;
+                    focal-transf-prop:variableName "SR_spring_lag_1" ],
+                [ focal-transf-prop:maximum 3.767e+01 ;
+                    focal-transf-prop:minimum 9.99e+00 ;
+                    focal-transf-prop:unitLabel "m" ;
+                    focal-transf-prop:variableName "avg_h_lag" ],
+                [ focal-transf-prop:maximum 1.44e+02 ;
+                    focal-transf-prop:minimum 2.4e+01 ;
+                    focal-transf-prop:unitLabel "years" ;
+                    focal-transf-prop:variableName "age" ],
+                [ focal-transf-prop:maximum 1.092e+01 ;
+                    focal-transf-prop:minimum 4.183e+00 ;
+                    focal-transf-prop:unitLabel "°C" ;
+                    focal-transf-prop:variableName "T_autumn_lag_1" ],
+                [ focal-transf-prop:maximum 2.659e+01 ;
+                    focal-transf-prop:minimum 1.588e+01 ;
+                    focal-transf-prop:unitLabel "°C" ;
+                    focal-transf-prop:variableName "Tmax_Aug_lag_1" ],
+                [ focal-transf-prop:maximum 2.791e+01 ;
+                    focal-transf-prop:minimum 1.626e+01 ;
+                    focal-transf-prop:unitLabel "°C" ;
+                    focal-transf-prop:variableName "T_amplitude" ],
+                [ focal-transf-prop:maximum 3.1e+01 ;
+                    focal-transf-prop:minimum 3e+00 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "R10mm_veg" ],
+                [ focal-transf-prop:maximum 6.5e+01 ;
+                    focal-transf-prop:minimum 4.775e+01 ;
+                    focal-transf-prop:unitLabel "pH × 10" ;
+                    focal-transf-prop:variableName "pH" ],
+                [ focal-transf-prop:maximum 1.814e+02 ;
+                    focal-transf-prop:minimum 1.364e+02 ;
+                    focal-transf-prop:unitLabel "W/m²" ;
+                    focal-transf-prop:variableName "SR_veg_lag_1" ],
+                [ focal-transf-prop:maximum 4.12e+02 ;
+                    focal-transf-prop:minimum 9.756e+01 ;
+                    focal-transf-prop:unitLabel "mm" ;
+                    focal-transf-prop:variableName "P_prev_late" ],
+                [ focal-transf-prop:maximum 4.137e+02 ;
+                    focal-transf-prop:minimum 9.832e+01 ;
+                    focal-transf-prop:unitLabel "mm" ;
+                    focal-transf-prop:variableName "P_prev_late_lag_1" ],
+                [ focal-transf-prop:maximum 1.298e+00 ;
+                    focal-transf-prop:minimum -1.054e+01 ;
+                    focal-transf-prop:unitLabel "°C" ;
+                    focal-transf-prop:variableName "T_min_month" ],
                 [ focal-transf-prop:maximum 1.15e+03 ;
                     focal-transf-prop:minimum 1.75e+02 ;
                     focal-transf-prop:unitLabel "m a.s.l." ;
@@ -2282,126 +2378,30 @@ A trained model with its training area, the value ranges it was trained on (`inp
                     focal-transf-prop:minimum 1.374e+02 ;
                     focal-transf-prop:unitLabel "mm" ;
                     focal-transf-prop:variableName "P_summer_lag_1" ],
-                [ focal-transf-prop:maximum 6.73e+02 ;
-                    focal-transf-prop:minimum 1.61e+02 ;
-                    focal-transf-prop:unitLabel "cg/kg" ;
-                    focal-transf-prop:variableName "N_5_15" ],
-                [ focal-transf-prop:maximum 1.106e+01 ;
-                    focal-transf-prop:minimum 4.207e+00 ;
-                    focal-transf-prop:unitLabel "°C" ;
-                    focal-transf-prop:variableName "T_autumn" ],
-                [ focal-transf-prop:maximum 1.814e+02 ;
-                    focal-transf-prop:minimum 1.364e+02 ;
-                    focal-transf-prop:unitLabel "W/m²" ;
-                    focal-transf-prop:variableName "SR_veg_lag_1" ],
-                [ focal-transf-prop:maximum 1.815e+02 ;
-                    focal-transf-prop:minimum 1.368e+02 ;
-                    focal-transf-prop:unitLabel "W/m²" ;
-                    focal-transf-prop:variableName "SR_veg" ],
-                [ focal-transf-prop:maximum 8.255e+02 ;
-                    focal-transf-prop:minimum 1.932e+02 ;
-                    focal-transf-prop:unitLabel "dg/kg" ;
-                    focal-transf-prop:variableName "C" ],
-                [ focal-transf-prop:maximum 3.1e+01 ;
-                    focal-transf-prop:minimum 3e+00 ;
-                    focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "R10mm_veg" ],
-                [ focal-transf-prop:maximum 2.673e+01 ;
-                    focal-transf-prop:minimum 1.588e+01 ;
-                    focal-transf-prop:unitLabel "°C" ;
-                    focal-transf-prop:variableName "Tmax_Aug" ],
-                [ focal-transf-prop:maximum 2.9e+01 ;
-                    focal-transf-prop:minimum 0e+00 ;
-                    focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "FD_AprMay_lag_1" ],
-                [ focal-transf-prop:maximum 4.11e+02 ;
-                    focal-transf-prop:minimum 1.15e+02 ;
-                    focal-transf-prop:unitLabel "cg/kg" ;
-                    focal-transf-prop:variableName "N_15_30" ],
-                [ focal-transf-prop:maximum 2.515e+00 ;
-                    focal-transf-prop:minimum -2.009e+00 ;
-                    focal-transf-prop:unitLabel "z-score" ;
-                    focal-transf-prop:variableName "SPI_3_summer_lag_1" ],
-                [ focal-transf-prop:maximum 3.1e+01 ;
-                    focal-transf-prop:minimum 3e+00 ;
-                    focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "R10mm_veg_lag_1" ],
-                [ focal-transf-prop:maximum 2.8e+01 ;
-                    focal-transf-prop:minimum 0e+00 ;
-                    focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "FD_AprMay" ],
-                [ focal-transf-prop:maximum 9e+01 ;
-                    focal-transf-prop:minimum 4.5e+01 ;
-                    focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "FD_winter_std" ],
-                [ focal-transf-prop:maximum 1.096e+03 ;
-                    focal-transf-prop:minimum 5.18e+02 ;
-                    focal-transf-prop:unitLabel "cg/kg" ;
-                    focal-transf-prop:variableName "N_0_5" ],
-                [ focal-transf-prop:maximum 4.12e+02 ;
-                    focal-transf-prop:minimum 9.756e+01 ;
-                    focal-transf-prop:unitLabel "mm" ;
-                    focal-transf-prop:variableName "P_prev_late" ],
                 [ focal-transf-prop:maximum 3.392e+02 ;
                     focal-transf-prop:minimum 1.425e+02 ;
                     focal-transf-prop:unitLabel "g/kg" ;
                     focal-transf-prop:variableName "clay" ],
-                [ focal-transf-prop:maximum 1.663e+02 ;
-                    focal-transf-prop:minimum 1.12e+02 ;
-                    focal-transf-prop:unitLabel "W/m²" ;
-                    focal-transf-prop:variableName "SR_spring_lag_1" ],
-                [ focal-transf-prop:maximum 1.44e+02 ;
-                    focal-transf-prop:minimum 2.4e+01 ;
-                    focal-transf-prop:unitLabel "years" ;
-                    focal-transf-prop:variableName "age" ],
-                [ focal-transf-prop:maximum 2.659e+01 ;
-                    focal-transf-prop:minimum 1.588e+01 ;
-                    focal-transf-prop:unitLabel "°C" ;
-                    focal-transf-prop:variableName "Tmax_Aug_lag_1" ],
-                [ focal-transf-prop:maximum 1.298e+00 ;
-                    focal-transf-prop:minimum -1.054e+01 ;
-                    focal-transf-prop:unitLabel "°C" ;
-                    focal-transf-prop:variableName "T_min_month" ],
-                [ focal-transf-prop:maximum 1.2e+01 ;
-                    focal-transf-prop:minimum 0e+00 ;
-                    focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "HD30_veg" ],
-                [ focal-transf-prop:maximum 3.767e+01 ;
-                    focal-transf-prop:minimum 9.99e+00 ;
-                    focal-transf-prop:unitLabel "m" ;
-                    focal-transf-prop:variableName "avg_h_lag" ],
                 [ focal-transf-prop:maximum 2.67e+01 ;
                     focal-transf-prop:minimum 1.565e+01 ;
                     focal-transf-prop:unitLabel "°C" ;
                     focal-transf-prop:variableName "Tmax_Jul" ],
-                [ focal-transf-prop:maximum 2.791e+01 ;
-                    focal-transf-prop:minimum 1.626e+01 ;
-                    focal-transf-prop:unitLabel "°C" ;
-                    focal-transf-prop:variableName "T_amplitude" ],
-                [ focal-transf-prop:maximum 2.667e+01 ;
-                    focal-transf-prop:minimum 1.563e+01 ;
-                    focal-transf-prop:unitLabel "°C" ;
-                    focal-transf-prop:variableName "Tmax_Jul_lag_1" ],
-                [ focal-transf-prop:maximum 1.249e+00 ;
-                    focal-transf-prop:minimum -1.054e+01 ;
-                    focal-transf-prop:unitLabel "°C" ;
-                    focal-transf-prop:variableName "T_min_month_lag_1" ],
-                [ focal-transf-prop:maximum 1.092e+01 ;
-                    focal-transf-prop:minimum 4.183e+00 ;
-                    focal-transf-prop:unitLabel "°C" ;
-                    focal-transf-prop:variableName "T_autumn_lag_1" ],
-                [ focal-transf-prop:maximum 6.5e+01 ;
-                    focal-transf-prop:minimum 4.775e+01 ;
-                    focal-transf-prop:unitLabel "pH × 10" ;
-                    focal-transf-prop:variableName "pH" ],
-                [ focal-transf-prop:maximum 2.483e+00 ;
-                    focal-transf-prop:minimum -2.008e+00 ;
+                [ focal-transf-prop:maximum 1.096e+03 ;
+                    focal-transf-prop:minimum 5.18e+02 ;
+                    focal-transf-prop:unitLabel "cg/kg" ;
+                    focal-transf-prop:variableName "N_0_5" ],
+                [ focal-transf-prop:maximum 2.515e+00 ;
+                    focal-transf-prop:minimum -2.009e+00 ;
                     focal-transf-prop:unitLabel "z-score" ;
-                    focal-transf-prop:variableName "SPI_3_summer" ],
-                [ focal-transf-prop:maximum 9e+01 ;
-                    focal-transf-prop:minimum 4.4e+01 ;
-                    focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "FD_winter_std_lag_1" ] ] .
+                    focal-transf-prop:variableName "SPI_3_summer_lag_1" ],
+                [ focal-transf-prop:maximum 8.255e+02 ;
+                    focal-transf-prop:minimum 1.932e+02 ;
+                    focal-transf-prop:unitLabel "dg/kg" ;
+                    focal-transf-prop:variableName "C" ],
+                [ focal-transf-prop:maximum 4.11e+02 ;
+                    focal-transf-prop:minimum 1.15e+02 ;
+                    focal-transf-prop:unitLabel "cg/kg" ;
+                    focal-transf-prop:variableName "N_15_30" ] ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf1/growth-model> dcterms:title "LightGBM pipeline (central model + bootstrap ensemble), 45 inputs (training_feature_set_d.txt)" ;
     rdfs:comment "A replacement model takes 45 inputs in fixed order (training_feature_set_d.txt): age, elevation, aspect, slope, avg_h_lag, N_0_5, N_5_15, N_15_30, N_30_60, C, pH, clay, T_year, T_autumn, T_min_month, T_amplitude, T_veg_lag_1, T_autumn_lag_1, T_min_month_lag_1, T_amplitude_lag_1, SR_veg, SR_spring, SR_veg_lag_1, SR_spring_lag_1, P_spring, P_summer, P_prev_late, P_spring_lag_1, P_summer_lag_1, P_prev_late_lag_1, SPI_3_summer, SPI_3_summer_lag_1, Tmax_Jul, Tmax_Jul_lag_1, Tmax_Aug, Tmax_Aug_lag_1, HD30_veg, HD30_veg_lag_1, FD_AprMay, FD_AprMay_lag_1, FD_winter_std, FD_winter_std_lag_1, R10mm_veg, R10mm_veg_lag_1, species. Software: scikit-learn 1.9.1, LightGBM 4.7.0. Used by (delivered step names): growth-simulation, stress-index." ;
@@ -3872,9 +3872,9 @@ A deterministic workflow whose general indicators move anywhere the data does, w
 @prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
-@prefix ns3: <https://w3id.org/cwl/cwl#NetworkAccess/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#NetworkAccess/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns3: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <https://schema.org/> .
 @prefix sld: <https://w3id.org/cwl/salad#> .
@@ -3923,31 +3923,31 @@ A deterministic workflow whose general indicators move anywhere the data does, w
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/spei>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/trends> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns1:packages [ ns2:package "numpy" ],
-                [ ns2:package "flask" ],
-                [ ns2:package "gunicorn" ],
-                [ ns2:package "python" ],
-                [ ns2:package "scipy" ] ],
+            ns2:packages [ ns3:package "gunicorn" ],
+                [ ns3:package "numpy" ],
+                [ ns3:package "python" ],
+                [ ns3:package "flask" ],
+                [ ns3:package "scipy" ] ],
         [ a cwl:NetworkAccess ;
-            ns3:networkAccess true ] ;
+            ns1:networkAccess true ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
-    focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "One RCM, three GCMs, one scenario (SSP3-7.0)." ],
-        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/intended-use-limit> ;
+    focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/intended-use-limit> ;
             focal-transf-prop:note "Drought and waterlogging tolerance scores are ordinal rankings, not mortality or SPEI thresholds." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "Default thresholds (Tmax >= 30 degC, dry day < 1 mm, dry spell >= 10 days, heatwave >= 6 days, growing season Apr-Sep) suit Central Europe; they are request parameters and should be set per region." ],
+            focal-transf-prop:note "One RCM, three GCMs, one scenario (SSP3-7.0)." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
             focal-transf-prop:note "10 km (ERA5-Land) and 12.5 km (EUR-11); IDW adds no detail." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
             focal-transf-prop:note "Historical years taken from another source are quantile-mapped per calendar month; this aligns distributions, it is not a full bias adjustment." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
+            focal-transf-prop:note "Default thresholds (Tmax >= 30 degC, dry day < 1 mm, dry spell >= 10 days, heatwave >= 6 days, growing season Apr-Sep) suit Central Europe; they are request parameters and should be set per region." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/proxy-variable> ;
+            focal-transf-prop:note "T5 is a leaf-tissue threshold from short laboratory exposures, compared with daily maximum air temperature; species heat counts are indicative." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/proxy-variable> ;
             focal-transf-prop:note "Czech forest-type lookup returns potential natural and target composition, not the actual stand." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "Hargreaves PET is temperature-based; SPEI standardisation reduces but does not remove its bias." ],
-        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/proxy-variable> ;
-            focal-transf-prop:note "T5 is a leaf-tissue threshold from short laboratory exposures, compared with daily maximum air temperature; species heat counts are indicative." ] ;
+            focal-transf-prop:note "Hargreaves PET is temperature-based; SPEI standardisation reduces but does not remove its bias." ] ;
     focal-transf-prop:transferability [ rdfs:comment "Envelope entries and rules that only described which data FOCAL currently holds, or its platform, are not part of this statement; what they said is kept in the notes of the artifacts concerned. An area or period for which no data is at hand is a matter of providing data (as delivered, in the data cube) that meets the artifact's criteria. The delivered record also notes: temporal extent is the year range of each collection, read from Rasdaman at runtime. The general climate-stress part is bounded only by data, the latitude limit of PET and SPEI and the need for 30 years of reference history; the species add-on adds species coverage and the Czech forest-type lookup." ;
             focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/daily-climate>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/dry-day-threshold>,
@@ -3967,7 +3967,29 @@ A deterministic workflow whose general indicators move anywhere the data does, w
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/pet-latitude-limit>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/t5-species-coverage>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerance-species-coverage> ;
-            focal-transf-prop:rules [ rdfs:comment "PET/SPEI undefined poleward of 66.56 deg; other indicators still run. Fix needs a code change (clipping of the sunset-angle term)." ;
+            focal-transf-prop:rules [ rdfs:comment "Add literature values for the species in question; general part unaffected. Without them there is no tolerance result for the species. Use values from the same synthesis." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-tolerances> ;
+                    focal-transf-prop:mandatory false ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerance-species-coverage> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/different-class-from> ] ],
+                [ rdfs:comment "The default thresholds and growing season suit Central Europe; they are request parameters and should be set per region. If kept, counts and classes based on them are less meaningful for the region." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/dry-day-threshold>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/dry-spell-length>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/growing-season-end>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/growing-season-start>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/heat-threshold>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/heatwave-length> ;
+                    focal-transf-prop:mandatory false ;
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-climate-regime> ],
+                [ rdfs:comment "Add literature values for the species in question; general part unaffected. Without them there is no T5-based heat result for the species. Literature T5 values must use the same endpoint." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/t5-values> ;
+                    focal-transf-prop:mandatory false ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/t5-species-coverage> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/different-class-from> ] ],
+                [ rdfs:comment "PET/SPEI undefined poleward of 66.56 deg; other indicators still run. Fix needs a code change (clipping of the sunset-angle term)." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable> ;
                     focal-transf-prop:affects "/outputs/forest_climate_summary",
                         "/outputs/spei" ;
@@ -3986,33 +4008,11 @@ A deterministic workflow whose general indicators move anywhere the data does, w
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/czech-forest-type-map> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Add literature values for the species in question; general part unaffected. Without them there is no T5-based heat result for the species. Literature T5 values must use the same endpoint." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/t5-values> ;
-                    focal-transf-prop:mandatory false ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/t5-species-coverage> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/different-class-from> ] ],
                 [ rdfs:comment "Applies where no Rasdaman instance is available to the workflow: set one up with the same layout and its own registry, or change the code that reads the data (see the rasdaman artifact). On the FOCAL instance, a missing area is instead added as new collections and entries." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/rasdaman> ;
                     focal-transf-prop:mandatory true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/service-unavailable> ],
-                [ rdfs:comment "The default thresholds and growing season suit Central Europe; they are request parameters and should be set per region. If kept, counts and classes based on them are less meaningful for the region." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/dry-day-threshold>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/dry-spell-length>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/growing-season-end>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/growing-season-start>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/heat-threshold>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/heatwave-length> ;
-                    focal-transf-prop:mandatory false ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-climate-regime> ],
-                [ rdfs:comment "Add literature values for the species in question; general part unaffected. Without them there is no tolerance result for the species. Use values from the same synthesis." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-tolerances> ;
-                    focal-transf-prop:mandatory false ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/tolerance-species-coverage> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/different-class-from> ] ] ;
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/service-unavailable> ] ;
             focal-transf-prop:trainingRequired false ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/bbox> rdfs:label "Area of interest (bounding box)" ;
@@ -4198,17 +4198,17 @@ A deterministic workflow whose general indicators move anywhere the data does, w
                     focal-transf-prop:calendar "noleap",
                         "proleptic_gregorian",
                         "standard" ] ;
-            focal-transf-prop:variable [ focal-transf-prop:standardName "air_temperature" ;
-                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tasmin" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
+            focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
                     focal-transf-prop:variableName "pr" ],
                 [ focal-transf-prop:standardName "air_temperature" ;
                     focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tasmax" ],
+                    focal-transf-prop:variableName "tasmin" ],
                 [ focal-transf-prop:standardName "air_temperature" ;
                     focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tas" ] ] ;
+                    focal-transf-prop:variableName "tas" ],
+                [ focal-transf-prop:standardName "air_temperature" ;
+                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "tasmax" ] ] ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/dry-day-threshold> dcterms:title "Dry day threshold (< 1 mm)" ;
@@ -4275,15 +4275,15 @@ A deterministic workflow whose general indicators move anywhere the data does, w
                     focal-transf-prop:temporalComplete true ] ;
             focal-transf-prop:variable [ focal-transf-prop:standardName "air_temperature" ;
                     focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "tasmin" ],
+                [ focal-transf-prop:standardName "air_temperature" ;
+                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
                     focal-transf-prop:variableName "tasmax" ],
                 [ focal-transf-prop:standardName "air_temperature" ;
                     focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tasmin" ],
+                    focal-transf-prop:variableName "tas" ],
                 [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
-                    focal-transf-prop:variableName "pr" ],
-                [ focal-transf-prop:standardName "air_temperature" ;
-                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tas" ] ] ;
+                    focal-transf-prop:variableName "pr" ] ] ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/slt-species> dcterms:title "slt_species.json: Czech forest-type groups (SLT, 105) with natural and target species composition (%)" ;
@@ -4293,8 +4293,8 @@ A deterministic workflow whose general indicators move anywhere the data does, w
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/species-tolerances> dcterms:title "species_tolerances.json: drought and waterlogging tolerance 0-5 (Niinemets & Valladares 2006)" ;
     rdfs:comment "A replacement gives drought and waterlogging tolerance on an ordinal 0-5 scale, from the same synthesis or an equivalent ordinal scale. The source synthesis covers temperate Northern Hemisphere trees and shrubs. Species add-on only. Used by (delivered step names): species-tolerance, forest-type-tolerance-ranking." ;
-    focal-transf-prop:acceptanceCriteria [ focal-transf-prop:variable [ focal-transf-prop:variableName "waterlogging" ],
-                [ focal-transf-prop:variableName "drought" ] ] ;
+    focal-transf-prop:acceptanceCriteria [ focal-transf-prop:variable [ focal-transf-prop:variableName "drought" ],
+                [ focal-transf-prop:variableName "waterlogging" ] ] ;
     focal-transf-prop:artifactRef "/inputs/species_tolerances" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
@@ -4318,10 +4318,10 @@ A deterministic workflow whose general indicators move anywhere the data does, w
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf2/t5-values> dcterms:title "t5_values.json: leaf heat tolerance T5 (temperature at 5 % decline of Fv/Fm) per species, with measurements and sources (Kunert et al. 2022 and others)" ;
     rdfs:comment "Species traits from literature, independent of location. Species add-on only. Used by (delivered step names): species-heat-threshold." ;
     focal-transf-prop:acceptanceCriteria [ rdfs:comment "Endpoint T5: temperature at 5 % decline of Fv/Fm. Measurements carry their source. The key \"lat\" is the Latin species name, not a latitude." ;
-            focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+            focal-transf-prop:variable [ focal-transf-prop:variableName "code" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
                     focal-transf-prop:variableName "t5" ],
                 [ focal-transf-prop:variableName "lat" ],
-                [ focal-transf-prop:variableName "code" ],
                 [ focal-transf-prop:variableName "measurements" ] ] ;
     focal-transf-prop:artifactRef "/inputs/t5_values" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
@@ -4629,8 +4629,8 @@ an Application Package here than anywhere else. `inputs` ids are placeholders.
 @prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sld: <https://w3id.org/cwl/salad#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -4642,7 +4642,7 @@ an Application Package here than anywhere else. `inputs` ids are placeholders.
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/forest_masks>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology_normalization_assumptions> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns1:packages [ ns2:package "python" ] ] ;
+            ns2:packages [ ns1:package "python" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/statistical-ml> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/prototype> ;
     focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/validation-incomplete> ;
@@ -4653,26 +4653,26 @@ an Application Package here than anywhere else. `inputs` ids are placeholders.
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology> ;
             focal-transf-prop:envelope <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime> ;
-            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "The EO sensors, cloud masking and compositing strategy may need adjusting to local conditions; the consequence of leaving it unadjusted is not stated." ;
+            focal-transf-prop:rules [ rdfs:comment "The EO sensors, cloud masking and compositing strategy may need adjusting to local conditions; the consequence of leaving it unadjusted is not stated." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/eo-strategy> ;
-                    focal-transf-prop:mandatory false ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Without local training labels the results are produced but should be treated as exploratory." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels> ;
                     focal-transf-prop:mandatory false ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
                 [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/forest-masks> ;
                     focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenology> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/phenological-regime> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ rdfs:comment "Without local training labels the results are produced but should be treated as exploratory." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/retrain> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/labels> ;
+                    focal-transf-prop:mandatory false ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf3/label-extent> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ;
             focal-transf-prop:trainingRequired true ] .
@@ -5235,41 +5235,41 @@ later", so only the lower bound is recorded.
 @prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix ns1: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
-@prefix ns3: <https://w3id.org/cwl/cwl#NetworkAccess/> .
-@prefix ns4: <https://w3id.org/cwl/cwl#Workflow/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
+@prefix ns3: <https://w3id.org/cwl/cwl#Workflow/> .
+@prefix ns4: <https://w3id.org/cwl/cwl#NetworkAccess/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sld: <https://w3id.org/cwl/salad#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/> a cwl:Workflow ;
     rdfs:label "UP-WF2 — Urban hot/cool spot" ;
-    ns4:steps <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/hotspot_characterization>,
+    ns3:steps <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/hotspot_characterization>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/hotspot_detection> ;
     cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms_tcd_imd>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lcz_data>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst_datasets> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns2:packages [ ns1:package "shapely" ],
-                [ ns1:package "geopandas" ],
-                [ ns1:package "python" ;
-                    ns1:version "3.10" ],
-                [ ns1:package "rasterio" ],
-                [ ns1:package "matplotlib" ],
-                [ ns1:package "numpy" ],
-                [ ns1:package "pandas" ],
-                [ ns1:package "joblib" ],
-                [ ns1:package "xarray" ],
-                [ ns1:package "rioxarray" ] ],
+            ns1:packages [ ns2:package "joblib" ],
+                [ ns2:package "numpy" ],
+                [ ns2:package "rioxarray" ],
+                [ ns2:package "geopandas" ],
+                [ ns2:package "python" ;
+                    ns2:version "3.10" ],
+                [ ns2:package "rasterio" ],
+                [ ns2:package "pandas" ],
+                [ ns2:package "shapely" ],
+                [ ns2:package "xarray" ],
+                [ ns2:package "matplotlib" ] ],
         [ a cwl:NetworkAccess ;
-            ns3:networkAccess true ] ;
+            ns4:networkAccess true ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/pre-operational> ;
-    focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/intended-use-limit> ;
-            focal-transf-prop:note "Question 7: 'Results represent long-term thermal patterns for the selected epoch and are not intended for real-time heat monitoring.'" ],
-        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/proxy-variable> ;
-            focal-transf-prop:note "Question 7: 'Hot spot detection is based on median summer Land Surface Temperature, which represents surface temperatures rather than near-surface air temperatures.' What the workflow computes is a stand-in for the air temperature a reader might assume, in the source region as much as in any target." ] ;
+    focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/proxy-variable> ;
+            focal-transf-prop:note "Question 7: 'Hot spot detection is based on median summer Land Surface Temperature, which represents surface temperatures rather than near-surface air temperatures.' What the workflow computes is a stand-in for the air temperature a reader might assume, in the source region as much as in any target." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/intended-use-limit> ;
+            focal-transf-prop:note "Question 7: 'Results represent long-term thermal patterns for the selected epoch and are not intended for real-time heat monitoring.'" ] ;
     focal-transf-prop:transferability [ rdfs:comment "The hot and cool spot classification is data-agnostic: any georeferenced raster with one value per grid cell can be classified, so the algorithm is more portable than the LST input. The spots then describe high and low values of whatever quantity is supplied. A Heat Risk Indicator step and its census data are planned but not part of the workflow today; the census data becomes required when it is implemented." ;
             focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/focal-stac-loader>,
@@ -5281,7 +5281,19 @@ later", so only the lower bound is recorded.
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epoch-2011-2015>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/epoch-2022-2025>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain> ;
-            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
+            focal-transf-prop:rules [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/focal-stac-loader> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-dataset> ],
+                [ rdfs:comment "Today the workflow interrupts at the zonal-statistics step without CLMS data; hot and cool spot detection runs before it. Skipping the step is planned." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:affects "/steps/hotspot_characterization" ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
                         <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:affects "/steps/hotspot_characterization" ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms> ;
@@ -5296,18 +5308,6 @@ later", so only the lower bound is recorded.
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "Today the workflow interrupts at the zonal-statistics step without CLMS data; hot and cool spot detection runs before it. Skipping the step is planned." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:affects "/steps/hotspot_characterization" ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/clms-extent> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/focal-stac-loader> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-dataset> ],
                 [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/reuse-as-is> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/lst> ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf2/eur11-domain> ;
@@ -5614,15 +5614,15 @@ CWL steps.
     cwl:inputs <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/nukleus_ensemble> ;
     cwl:outputs <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf1/climate_indices> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns2:packages [ ns1:package "s3fs" ],
-                [ ns1:package "dask" ],
-                [ ns1:package "xarray" ],
-                [ ns1:package "pandas" ],
-                [ ns1:package "h5netcdf" ],
-                [ ns1:package "xclim" ],
-                [ ns1:package "python" ],
+            ns2:packages [ ns1:package "numpy" ],
                 [ ns1:package "xESMF" ],
-                [ ns1:package "numpy" ] ] ;
+                [ ns1:package "h5netcdf" ],
+                [ ns1:package "s3fs" ],
+                [ ns1:package "python" ],
+                [ ns1:package "pandas" ],
+                [ ns1:package "xarray" ],
+                [ ns1:package "dask" ],
+                [ ns1:package "xclim" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/precomputed-delivery> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/pre-operational> ;
     focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/intended-use-limit> ;
@@ -6974,8 +6974,8 @@ The limit of this classification is climatic, not geographic: two `climatic` val
 @prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix ns1: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
-@prefix ns2: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
+@prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
 @prefix ns3: <https://w3id.org/cwl/cwl#NetworkAccess/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <https://schema.org/> .
@@ -7006,29 +7006,29 @@ The limit of this classification is climatic, not geographic: two `climatic` val
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/climate_unit_trend>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/indicator_maps>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/indicator_trends> ;
-    cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns2:packages [ ns1:package "python" ],
-                [ ns1:package "gunicorn" ],
-                [ ns1:package "numpy" ],
-                [ ns1:package "flask" ] ],
-        [ a cwl:NetworkAccess ;
-            ns3:networkAccess true ] ;
+    cwl:requirements [ a cwl:NetworkAccess ;
+            ns3:networkAccess true ],
+        [ a cwl:SoftwareRequirement ;
+            ns1:packages [ ns2:package "numpy" ],
+                [ ns2:package "gunicorn" ],
+                [ ns2:package "python" ],
+                [ ns2:package "flask" ] ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/operational> ;
     focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "The classification always returns a unit, even outside the climate envelope; a low best_score is the only signal." ],
+            focal-transf-prop:note "Default adverse directions reflect a warming/drying stress view; overridable per request." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/decision-support-only> ;
             focal-transf-prop:note "Not a substitute for local measurement, site assessment or operational forecasting." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "11 of Quitt's 14 characteristics are used; snow cover, cloudiness and clear/overcast days are omitted." ],
+            focal-transf-prop:note "10 km (ERA5-Land) and 12.5 km (EUR-11) cells; IDW smooths but adds no detail or elevation information." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "Default adverse directions reflect a warming/drying stress view; overridable per request." ],
-        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "best_score (0-1) is a similarity to interval limits, not a probability." ],
+            focal-transf-prop:note "The classification always returns a unit, even outside the climate envelope; a low best_score is the only signal." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
             focal-transf-prop:note "Projections: one RCM (REMO2020) driven by three GCMs under one scenario (SSP3-7.0); not year-specific forecasts." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
-            focal-transf-prop:note "10 km (ERA5-Land) and 12.5 km (EUR-11) cells; IDW smooths but adds no detail or elevation information." ] ;
+            focal-transf-prop:note "11 of Quitt's 14 characteristics are used; snow cover, cloudiness and clear/overcast days are omitted." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/method-limitation> ;
+            focal-transf-prop:note "best_score (0-1) is a similarity to interval limits, not a probability." ] ;
     focal-transf-prop:transferability [ rdfs:comment "Envelope entries and rules that only described which data FOCAL currently holds, or its platform, are not part of this statement; what they said is kept in the notes of the artifacts concerned. An area or period for which no data is at hand is a matter of providing data (as delivered, in the data cube) that meets the artifact's criteria. The delivered record also notes: temporal extent is the year range of each collection, read from Rasdaman at runtime. The 11 climate characteristics and their trends are valid everywhere; only the climate-unit outputs are bounded, by climate rather than geography." ;
             focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/daily-climate>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limit-table>,
@@ -7043,14 +7043,6 @@ The limit of this classification is climatic, not geographic: two `climatic` val
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/service-unavailable> ],
-                [ rdfs:comment "Without a regional table the steps still execute but return only the nearest Central European analogue with a low best_score. Characteristic outputs and trends are unaffected." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:affects "/outputs/climate_unit",
-                        "/outputs/climate_unit_trend" ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limit-table> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-climate-outer> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
                 [ rdfs:comment "Follows a replaced limit table. If not replaced, unit names and descriptions do not describe the climate of the target." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/unit-descriptions> ;
@@ -7064,6 +7056,14 @@ The limit of this classification is climatic, not geographic: two `climatic` val
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limit-table> ;
                     focal-transf-prop:mandatory false ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-climate-covered> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ rdfs:comment "Without a regional table the steps still execute but return only the nearest Central European analogue with a low best_score. Characteristic outputs and trends are unaffected." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:affects "/outputs/climate_unit",
+                        "/outputs/climate_unit_trend" ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limit-table> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-climate-outer> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ;
             focal-transf-prop:trainingRequired false ] .
 
@@ -7103,15 +7103,15 @@ The limit of this classification is climatic, not geographic: two `climatic` val
                         "standard" ] ;
             focal-transf-prop:variable [ focal-transf-prop:standardName "air_temperature" ;
                     focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "tas" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
+                    focal-transf-prop:variableName "pr" ],
+                [ focal-transf-prop:standardName "air_temperature" ;
+                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
                     focal-transf-prop:variableName "tasmin" ],
                 [ focal-transf-prop:standardName "air_temperature" ;
                     focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tasmax" ],
-                [ focal-transf-prop:standardName "air_temperature" ;
-                    focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "tas" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM-PER-DAY> ;
-                    focal-transf-prop:variableName "pr" ] ] ;
+                    focal-transf-prop:variableName "tasmax" ] ] ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/external-resource> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/end_year> rdfs:label "Last year of the period" ;
@@ -7173,28 +7173,28 @@ The limit of this classification is climatic, not geographic: two `climatic` val
                 <https://w3id.org/ogc/hosted/focal/transferability/grid-types/rotated-pole> ;
             focal-transf-prop:temporalRequirement [ dcat:temporalResolution "P1Y"^^xsd:duration ;
                     focal-transf-prop:temporalComplete true ] ;
-            focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM> ;
-                    focal-transf-prop:variableName "P_OCT_MAR" ],
+            focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "T_JAN" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM> ;
+                    focal-transf-prop:variableName "P_APR_SEP" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "T_OCT" ],
                 [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
                     focal-transf-prop:variableName "T_JUL" ],
                 [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
                     focal-transf-prop:variableName "VEG10" ],
                 [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
                     focal-transf-prop:variableName "FROST0" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
-                    focal-transf-prop:variableName "ICE0" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM> ;
+                    focal-transf-prop:variableName "P_OCT_MAR" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "T_APR" ],
                 [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
                     focal-transf-prop:variableName "RAIN1" ],
                 [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
                     focal-transf-prop:variableName "SUM25" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "T_OCT" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "T_APR" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM> ;
-                    focal-transf-prop:variableName "P_APR_SEP" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "T_JAN" ] ] ;
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
+                    focal-transf-prop:variableName "ICE0" ] ] ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-climate-covered> rdfs:comment "'covered' ranges: every multi-year indicator mean inside them. Union of the 23 unit intervals in FWF5_quitt_limits_11_rasdaman_index.json; 'outer' adds the fuzzy tolerances used in the code (10 days, 1 degC, 50 mm). Applies to the climate-unit outputs only; the 11 characteristics and their trends are valid everywhere. Applies in time as well as space: future SSP3-7.0 values in Czech lowlands are expected to approach or exceed the warm edge. Delivered reading: every multi-year indicator mean lies inside 'covered'; between 'covered' and 'outer' = degraded fit; beyond 'outer' = outside." ;
@@ -7206,49 +7206,49 @@ The limit of this classification is climatic, not geographic: two `climatic` val
         "/inputs/start_year" ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
     focal-transf-prop:value [ focal-transf-prop:statistic "multi-year mean" ;
-            focal-transf-prop:variableRange [ focal-transf-prop:maximum 7e+01 ;
+            focal-transf-prop:variableRange [ focal-transf-prop:maximum 8e+01 ;
                     focal-transf-prop:minimum 0e+00 ;
                     focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "SUM25" ],
-                [ focal-transf-prop:maximum 1e+01 ;
-                    focal-transf-prop:minimum 0e+00 ;
-                    focal-transf-prop:unitLabel "degC" ;
-                    focal-transf-prop:variableName "T_APR" ],
-                [ focal-transf-prop:maximum -1e+00 ;
-                    focal-transf-prop:minimum -8e+00 ;
-                    focal-transf-prop:unitLabel "degC" ;
-                    focal-transf-prop:variableName "T_JAN" ],
-                [ focal-transf-prop:maximum 1e+01 ;
-                    focal-transf-prop:minimum 2e+00 ;
-                    focal-transf-prop:unitLabel "degC" ;
-                    focal-transf-prop:variableName "T_OCT" ],
-                [ focal-transf-prop:maximum 1e+03 ;
-                    focal-transf-prop:minimum 3e+02 ;
-                    focal-transf-prop:unitLabel "mm" ;
-                    focal-transf-prop:variableName "P_APR_SEP" ],
+                    focal-transf-prop:variableName "ICE0" ],
                 [ focal-transf-prop:maximum 1.8e+02 ;
                     focal-transf-prop:minimum 9e+01 ;
                     focal-transf-prop:unitLabel "days" ;
                     focal-transf-prop:variableName "FROST0" ],
-                [ focal-transf-prop:maximum 1.6e+02 ;
-                    focal-transf-prop:minimum 8e+01 ;
+                [ focal-transf-prop:maximum 7e+01 ;
+                    focal-transf-prop:minimum 0e+00 ;
                     focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "RAIN1" ],
+                    focal-transf-prop:variableName "SUM25" ],
+                [ focal-transf-prop:maximum 1e+03 ;
+                    focal-transf-prop:minimum 3e+02 ;
+                    focal-transf-prop:unitLabel "mm" ;
+                    focal-transf-prop:variableName "P_APR_SEP" ],
                 [ focal-transf-prop:maximum 2e+01 ;
                     focal-transf-prop:minimum 1e+01 ;
                     focal-transf-prop:unitLabel "degC" ;
                     focal-transf-prop:variableName "T_JUL" ],
-                [ focal-transf-prop:maximum 8e+01 ;
+                [ focal-transf-prop:maximum 1e+01 ;
                     focal-transf-prop:minimum 0e+00 ;
-                    focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "ICE0" ],
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_APR" ],
                 [ focal-transf-prop:maximum 7e+02 ;
                     focal-transf-prop:minimum 2e+02 ;
                     focal-transf-prop:unitLabel "mm" ;
                     focal-transf-prop:variableName "P_OCT_MAR" ],
+                [ focal-transf-prop:maximum 1.6e+02 ;
+                    focal-transf-prop:minimum 8e+01 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "RAIN1" ],
+                [ focal-transf-prop:maximum -1e+00 ;
+                    focal-transf-prop:minimum -8e+00 ;
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_JAN" ],
                 [ focal-transf-prop:minimum 0e+00 ;
                     focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "VEG10" ] ] .
+                    focal-transf-prop:variableName "VEG10" ],
+                [ focal-transf-prop:maximum 1e+01 ;
+                    focal-transf-prop:minimum 2e+00 ;
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_OCT" ] ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/rasdaman> dcterms:title "FOCAL Rasdaman data cube (rasql over SSH), source catalogue and registry (climate_source_catalog.json, rasdaman_registry.json)" ;
     rdfs:comment "The delivered workflow reads precomputed indicator collections from a Rasdaman instance queried with rasql over SSH. Another platform needs a Rasdaman instance with the same collection layout (set the connection variables and READINESS_COLLECTION) and its own registry, or replacement of the rasql data access by file-based reading; the scoring, IDW and trend modules use NumPy only. Within FOCAL: add the new collections and area entries. Outside FOCAL: the operator's own registry. Used by (delivered step names): data-access." ;
@@ -7272,69 +7272,69 @@ The limit of this classification is climatic, not geographic: two `climatic` val
         "/inputs/start_year" ;
     focal-transf-prop:role <https://w3id.org/ogc/hosted/focal/transferability/roles/valid-for> ;
     focal-transf-prop:value [ focal-transf-prop:statistic "multi-year mean" ;
-            focal-transf-prop:variableRange [ focal-transf-prop:maximum 8e+01 ;
-                    focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "SUM25" ],
-                [ focal-transf-prop:maximum 0e+00 ;
-                    focal-transf-prop:minimum -9e+00 ;
-                    focal-transf-prop:unitLabel "degC" ;
-                    focal-transf-prop:variableName "T_JAN" ],
-                [ focal-transf-prop:maximum 1.1e+01 ;
-                    focal-transf-prop:minimum 1e+00 ;
-                    focal-transf-prop:unitLabel "degC" ;
-                    focal-transf-prop:variableName "T_OCT" ],
-                [ focal-transf-prop:maximum 2.1e+01 ;
-                    focal-transf-prop:minimum 9e+00 ;
-                    focal-transf-prop:unitLabel "degC" ;
-                    focal-transf-prop:variableName "T_JUL" ],
+            focal-transf-prop:variableRange [ focal-transf-prop:maximum 7.5e+02 ;
+                    focal-transf-prop:minimum 1.5e+02 ;
+                    focal-transf-prop:unitLabel "mm" ;
+                    focal-transf-prop:variableName "P_OCT_MAR" ],
                 [ focal-transf-prop:maximum 1.7e+02 ;
                     focal-transf-prop:minimum 7e+01 ;
                     focal-transf-prop:unitLabel "days" ;
                     focal-transf-prop:variableName "RAIN1" ],
-                [ focal-transf-prop:maximum 9e+01 ;
-                    focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "ICE0" ],
-                [ focal-transf-prop:maximum 7.5e+02 ;
-                    focal-transf-prop:minimum 1.5e+02 ;
-                    focal-transf-prop:unitLabel "mm" ;
-                    focal-transf-prop:variableName "P_OCT_MAR" ],
-                [ focal-transf-prop:maximum 1.1e+01 ;
-                    focal-transf-prop:minimum -1e+00 ;
-                    focal-transf-prop:unitLabel "degC" ;
-                    focal-transf-prop:variableName "T_APR" ],
                 [ focal-transf-prop:maximum 1.05e+03 ;
                     focal-transf-prop:minimum 2.5e+02 ;
                     focal-transf-prop:unitLabel "mm" ;
                     focal-transf-prop:variableName "P_APR_SEP" ],
+                [ focal-transf-prop:maximum 2.1e+01 ;
+                    focal-transf-prop:minimum 9e+00 ;
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_JUL" ],
+                [ focal-transf-prop:maximum 0e+00 ;
+                    focal-transf-prop:minimum -9e+00 ;
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_JAN" ],
                 [ focal-transf-prop:maximum 1.9e+02 ;
                     focal-transf-prop:minimum 8e+01 ;
                     focal-transf-prop:unitLabel "days" ;
-                    focal-transf-prop:variableName "FROST0" ] ] .
+                    focal-transf-prop:variableName "FROST0" ],
+                [ focal-transf-prop:maximum 9e+01 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "ICE0" ],
+                [ focal-transf-prop:maximum 1.1e+01 ;
+                    focal-transf-prop:minimum -1e+00 ;
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_APR" ],
+                [ focal-transf-prop:maximum 1.1e+01 ;
+                    focal-transf-prop:minimum 1e+00 ;
+                    focal-transf-prop:unitLabel "degC" ;
+                    focal-transf-prop:variableName "T_OCT" ],
+                [ focal-transf-prop:maximum 8e+01 ;
+                    focal-transf-prop:unitLabel "days" ;
+                    focal-transf-prop:variableName "SUM25" ] ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/fp-wf5/quitt-limit-table> dcterms:title "FWF5_quitt_limits_11_rasdaman_index.json: intervals of 11 indicators for 23 units (Quitt 1971, Table 2)" ;
     rdfs:comment "A regional table needs: the same 11 indicator codes, units and axis mapping; [min, max] per unit and indicator, null allowed for an open end; and a full cold-to-warm ordering of units (used for tie-breaking and the unit trend). The limits were derived for former Czechoslovakia. Used by (delivered step names): climate-unit-classification, climate-unit-trend." ;
-    focal-transf-prop:acceptanceCriteria [ focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM> ;
-                    focal-transf-prop:variableName "P_OCT_MAR" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
-                    focal-transf-prop:variableName "ICE0" ],
+    focal-transf-prop:acceptanceCriteria [ focal-transf-prop:variable [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "T_JAN" ],
                 [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
                     focal-transf-prop:variableName "FROST0" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM> ;
-                    focal-transf-prop:variableName "P_APR_SEP" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
-                    focal-transf-prop:variableName "RAIN1" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "T_JUL" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "T_OCT" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "T_APR" ],
-                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
-                    focal-transf-prop:variableName "T_JAN" ],
                 [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
                     focal-transf-prop:variableName "SUM25" ],
                 [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
-                    focal-transf-prop:variableName "VEG10" ] ] ;
+                    focal-transf-prop:variableName "ICE0" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
+                    focal-transf-prop:variableName "VEG10" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "T_APR" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM> ;
+                    focal-transf-prop:variableName "P_APR_SEP" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "T_OCT" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DEG_C> ;
+                    focal-transf-prop:variableName "T_JUL" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/MilliM> ;
+                    focal-transf-prop:variableName "P_OCT_MAR" ],
+                [ focal-transf-prop:unit <http://qudt.org/vocab/unit/DAY> ;
+                    focal-transf-prop:variableName "RAIN1" ] ] ;
     focal-transf-prop:artifactRef "/inputs/quitt_limit_table" ;
     focal-transf-prop:artifactRole <https://w3id.org/ogc/hosted/focal/transferability/artifact-roles/workflow-input> .
 
@@ -8028,17 +8028,17 @@ later", so only the lower bound is recorded.
 @prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix focal-transf-prop: <https://w3id.org/ogc/hosted/focal/transferability/properties/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix ns1: <https://w3id.org/cwl/cwl#Workflow/> .
+@prefix ns1: <https://w3id.org/cwl/cwl#NetworkAccess/> .
 @prefix ns2: <https://w3id.org/cwl/cwl#SoftwarePackage/> .
-@prefix ns3: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
-@prefix ns4: <https://w3id.org/cwl/cwl#NetworkAccess/> .
+@prefix ns3: <https://w3id.org/cwl/cwl#Workflow/> .
+@prefix ns4: <https://w3id.org/cwl/cwl#SoftwareRequirement/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sld: <https://w3id.org/cwl/salad#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/> a cwl:Workflow ;
     rdfs:label "UP-WF3 — Urban blue-spot flood risk" ;
-    ns1:steps <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/accumulation>,
+    ns3:steps <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/accumulation>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/blue_spot_detection>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/exposure_overlay>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/vulnerability_overlay> ;
@@ -8049,26 +8049,26 @@ later", so only the lower bound is recorded.
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold_subdaily>,
         <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/vulnerability_index> ;
     cwl:requirements [ a cwl:SoftwareRequirement ;
-            ns3:packages [ ns2:package "xarray" ],
-                [ ns2:package "python" ;
+            ns4:packages [ ns2:package "python" ;
                     ns2:version "3.10" ],
-                [ ns2:package "pandas" ],
                 [ ns2:package "numpy" ],
-                [ ns2:package "rasterio" ] ],
+                [ ns2:package "rasterio" ],
+                [ ns2:package "xarray" ],
+                [ ns2:package "pandas" ] ],
         [ a cwl:NetworkAccess ;
-            ns4:networkAccess true ] ;
+            ns1:networkAccess true ] ;
     focal-transf-prop:computationType <https://w3id.org/ogc/hosted/focal/transferability/computation-types/deterministic-rule-based> ;
     focal-transf-prop:maturityStatus <https://w3id.org/ogc/hosted/focal/transferability/maturity-statuses/pre-operational> ;
-    focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/spatial-support-mismatch> ;
-            focal-transf-prop:note "Question 7: the vulnerability index is provided at NUTS3 level, 'coarser than the precipitation grid and does not align exactly with the AOI boundary'. The overlay can therefore be read no finer than a NUTS3 region, whatever resolution the blue-spot map itself carries, and NUTS3 units straddling the AOI edge are only partly covered. This holds in the source deployment as much as in any target: it bounds how far a result can be read, not whether the workflow moves." ],
-        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/intended-use-limit> ;
-            focal-transf-prop:note "NUKLEUS climate-state results describe a climate state: model years are realizations, not forecasts for calendar years, the GWL year windows are model-specific, and the historical state is a baseline, not present-day conditions." ],
-        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/intended-use-limit> ;
-            focal-transf-prop:note "Climate-state and uncertainty outputs depend on the number of model years and model combinations; smaller samples still run, but some statistics then have a more limited interpretation." ],
-        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/decision-support-only> ;
+    focal-transf-prop:qualityAnnotation [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/decision-support-only> ;
             focal-transf-prop:note "The Blue Spot is precipitation-hazard information shown with contextual exposure and vulnerability layers. It supports flood-risk interpretation but is not hydrological flood modelling or a quantitative flood risk, and the layers are not combined into a risk score. Spatial overlap should not by itself be read as where flood risk is highest." ],
         [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/intended-use-limit> ;
-            focal-transf-prop:note "The reference thresholds are benchmarks derived from specific observational datasets and regions (DWD stations for 6 h and 12 h, E-OBS 1991-2020 for 1 d and 7 d); they are not automatically locally calibrated thresholds for the target area." ] ;
+            focal-transf-prop:note "The reference thresholds are benchmarks derived from specific observational datasets and regions (DWD stations for 6 h and 12 h, E-OBS 1991-2020 for 1 d and 7 d); they are not automatically locally calibrated thresholds for the target area." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/intended-use-limit> ;
+            focal-transf-prop:note "Climate-state and uncertainty outputs depend on the number of model years and model combinations; smaller samples still run, but some statistics then have a more limited interpretation." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/spatial-support-mismatch> ;
+            focal-transf-prop:note "Question 7: the vulnerability index is provided at NUTS3 level, 'coarser than the precipitation grid and does not align exactly with the AOI boundary'. The overlay can therefore be read no finer than a NUTS3 region, whatever resolution the blue-spot map itself carries, and NUTS3 units straddling the AOI edge are only partly covered. This holds in the source deployment as much as in any target: it bounds how far a result can be read, not whether the workflow moves." ],
+        [ dqv:inDimension <https://w3id.org/ogc/hosted/focal/transferability/quality-dimensions/intended-use-limit> ;
+            focal-transf-prop:note "NUKLEUS climate-state results describe a climate state: model years are realizations, not forecasts for calendar years, the GWL year windows are model-specific, and the historical state is a baseline, not present-day conditions." ] ;
     focal-transf-prop:transferability [ rdfs:comment "Which accumulation windows a precipitation source supports (E-OBS: 1 d and 7 d; hourly NUKLEUS: also 6 h and 12 h) depends on the source. The AOI is a rectangular WGS84 bounding box; other geometries are still open. Climate-state mode (NUKLEUS ssp370-GWL2K and GWL3K experiments, nine GCM-RCM combinations of 30 model years) is bounded by predefined historical and GWL states, while calendar mode is bounded by the dataset's coverage; accumulation windows are processed independently." ;
             focal-transf-prop:artifacts <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/exposure>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/focal-stac-loader>,
@@ -8086,14 +8086,7 @@ later", so only the lower bound is recorded.
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/nukleus-domain>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/supported-grids>,
                 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold-climate-regime> ;
-            focal-transf-prop:rules [ rdfs:comment "Skipping this is allowed: the supplied reference thresholds still run, but they are benchmarks from German and European observations, not locally calibrated, so interpretation outside that regime is weaker. A custom value is a workflow parameter and needs no code change." ;
-                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold-daily>,
-                        <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold-subdaily> ;
-                    focal-transf-prop:mandatory false ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold-climate-regime> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ rdfs:comment "The calculation cannot proceed on an unsupported grid without regridding or support in the code." ;
+            focal-transf-prop:rules [ rdfs:comment "The calculation cannot proceed on an unsupported grid without regridding or support in the code." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable> ;
                     focal-transf-prop:affects "/steps/accumulation",
                         "/steps/blue_spot_detection",
@@ -8102,6 +8095,17 @@ later", so only the lower bound is recorded.
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/precipitation> ;
                     focal-transf-prop:mandatory true ;
                     focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/supported-grids> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
+                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/focal-stac-loader> ;
+                    focal-transf-prop:mandatory true ;
+                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-dataset> ],
+                [ rdfs:comment "Skipping this is allowed: the supplied reference thresholds still run, but they are benchmarks from German and European observations, not locally calibrated, so interpretation outside that regime is weaker. A custom value is a workflow parameter and needs no code change." ;
+                    focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
+                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold-daily>,
+                        <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold-subdaily> ;
+                    focal-transf-prop:mandatory false ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/threshold-climate-regime> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
                 [ rdfs:comment "When a contextual layer does not cover the selected area, that overlay cannot be shown with the built-in data; the precipitation calculation still runs." ;
                     focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/component-not-executable> ;
@@ -8115,14 +8119,10 @@ later", so only the lower bound is recorded.
                 [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
                     focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/precipitation> ;
                     focal-transf-prop:mandatory true ;
-                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/eobs-coverage> ;
+                    focal-transf-prop:when [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/nukleus-domain> ;
                             focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ],
-                        [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/nukleus-domain> ;
-                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ],
-                [ focal-transf-prop:actions <https://w3id.org/ogc/hosted/focal/transferability/actions/replace-with-local-equivalent> ;
-                    focal-transf-prop:appliesTo <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/focal-stac-loader> ;
-                    focal-transf-prop:mandatory true ;
-                    focal-transf-prop:triggeredBy <https://w3id.org/ogc/hosted/focal/transferability/triggers/different-dataset> ] ;
+                        [ focal-transf-prop:constraint <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/eobs-coverage> ;
+                            focal-transf-prop:test <https://w3id.org/ogc/hosted/focal/transferability/tests/outside> ] ] ;
             focal-transf-prop:trainingRequired false ] .
 
 <https://w3id.org/ogc/hosted/focal/transferability/examples/up-wf3/accumulation> cwl:in "precipitation" ;
@@ -8298,7 +8298,7 @@ x-bblocks-metadata:
   itemIdentifier: ogc.focal.transferability.workflow
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
   version: '0.18'
-  dateOfLastChange: '2026-11-25'
+  dateOfLastChange: '2026-11-26'
 
 ```
 

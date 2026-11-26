@@ -70,7 +70,7 @@ x-bblocks-metadata:
   itemIdentifier: ogc.focal.transferability.qualityAnnotation
   register: https://ogcincubator.github.io/bblocks-focal/build/register.json
   version: '0.6'
-  dateOfLastChange: '2026-11-25'
+  dateOfLastChange: '2026-11-26'
 
 ```
 

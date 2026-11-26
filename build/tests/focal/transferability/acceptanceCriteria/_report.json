@@ -2,7 +2,7 @@
   "title": "Validation report for ogc.focal.transferability.acceptanceCriteria - FOCAL Artifact Acceptance Criteria",
   "bblockName": "FOCAL Artifact Acceptance Criteria",
   "bblockId": "ogc.focal.transferability.acceptanceCriteria",
-  "generated": "2026-11-25T12:45:57.369769+00:00",
+  "generated": "2026-11-26T15:51:57.289752+00:00",
   "result": true,
   "items": [
     {
@@ -88,21 +88,21 @@
             {
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
               "focusNodes": {
-                "focal-shape:AcceptanceCriteriaStatesACriterion": {
+                "focal-shape:AcceptanceCriteria": {
                   "nodes": []
                 },
-                "focal-shape:AcceptanceCriteria": {
+                "focal-shape:VariableRequirement": {
                   "nodes": []
                 },
                 "focal-shape:TemporalRequirement": {
                   "nodes": []
                 },
-                "focal-shape:VariableRequirement": {
+                "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:VariableRequirement: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:VariableRequirement: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n"
             }
           ]
         }
@@ -191,21 +191,21 @@
             {
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
               "focusNodes": {
-                "focal-shape:AcceptanceCriteriaStatesACriterion": {
+                "focal-shape:AcceptanceCriteria": {
                   "nodes": []
                 },
-                "focal-shape:AcceptanceCriteria": {
+                "focal-shape:VariableRequirement": {
                   "nodes": []
                 },
                 "focal-shape:TemporalRequirement": {
                   "nodes": []
                 },
-                "focal-shape:VariableRequirement": {
+                "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:VariableRequirement: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:VariableRequirement: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n"
             }
           ]
         }
@@ -294,21 +294,21 @@
             {
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
               "focusNodes": {
-                "focal-shape:AcceptanceCriteriaStatesACriterion": {
+                "focal-shape:AcceptanceCriteria": {
                   "nodes": []
                 },
-                "focal-shape:AcceptanceCriteria": {
+                "focal-shape:VariableRequirement": {
                   "nodes": []
                 },
                 "focal-shape:TemporalRequirement": {
                   "nodes": []
                 },
-                "focal-shape:VariableRequirement": {
+                "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:VariableRequirement: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:VariableRequirement: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n"
             }
           ]
         }
@@ -386,21 +386,21 @@
             {
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
               "focusNodes": {
-                "focal-shape:AcceptanceCriteriaStatesACriterion": {
+                "focal-shape:AcceptanceCriteria": {
                   "nodes": []
                 },
-                "focal-shape:AcceptanceCriteria": {
+                "focal-shape:VariableRequirement": {
                   "nodes": []
                 },
                 "focal-shape:TemporalRequirement": {
                   "nodes": []
                 },
-                "focal-shape:VariableRequirement": {
+                "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:VariableRequirement: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:VariableRequirement: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n"
             }
           ]
         }
@@ -478,21 +478,21 @@
             {
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
               "focusNodes": {
-                "focal-shape:AcceptanceCriteriaStatesACriterion": {
+                "focal-shape:AcceptanceCriteria": {
                   "nodes": []
                 },
-                "focal-shape:AcceptanceCriteria": {
+                "focal-shape:VariableRequirement": {
                   "nodes": []
                 },
                 "focal-shape:TemporalRequirement": {
                   "nodes": []
                 },
-                "focal-shape:VariableRequirement": {
+                "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:VariableRequirement: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:VariableRequirement: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n"
             }
           ]
         }
@@ -570,21 +570,21 @@
             {
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
               "focusNodes": {
-                "focal-shape:AcceptanceCriteriaStatesACriterion": {
+                "focal-shape:AcceptanceCriteria": {
                   "nodes": []
                 },
-                "focal-shape:AcceptanceCriteria": {
+                "focal-shape:VariableRequirement": {
                   "nodes": []
                 },
                 "focal-shape:TemporalRequirement": {
                   "nodes": []
                 },
-                "focal-shape:VariableRequirement": {
+                "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:VariableRequirement: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:VariableRequirement: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n"
             }
           ]
         }
@@ -662,21 +662,21 @@
             {
               "shaclFile": "_sources/transferability/acceptanceCriteria/shapes.shacl",
               "focusNodes": {
-                "focal-shape:AcceptanceCriteriaStatesACriterion": {
+                "focal-shape:AcceptanceCriteria": {
                   "nodes": []
                 },
-                "focal-shape:AcceptanceCriteria": {
+                "focal-shape:VariableRequirement": {
                   "nodes": []
                 },
                 "focal-shape:TemporalRequirement": {
                   "nodes": []
                 },
-                "focal-shape:VariableRequirement": {
+                "focal-shape:AcceptanceCriteriaStatesACriterion": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:VariableRequirement: *none*\n"
+              "message": "Focus nodes for _sources/transferability/acceptanceCriteria/shapes.shacl:\n - Shape focal-shape:AcceptanceCriteria: *none*\n - Shape focal-shape:VariableRequirement: *none*\n - Shape focal-shape:TemporalRequirement: *none*\n - Shape focal-shape:AcceptanceCriteriaStatesACriterion: *none*\n"
             }
           ]
         }
