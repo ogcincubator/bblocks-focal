@@ -21,5 +21,6 @@
     "workflow",
     "cwl"
   ],
-  "group": "FOCAL Transferability"
+  "group": "Transferability",
+  "highlighted": true
 }
